@@ -1,32 +1,21 @@
+
+
 const taskInput = document.querySelector(".task-input");
 const addTaskButton = document.querySelector(".task-add-btn");
 const taskList = document.querySelector(".tasks-list");
-const emptyAlert = document.querySelector(".alert");
-const alertClose = document.querySelector(".alert-close-btn");
 
 addTaskButton.addEventListener("click", addTask);
-alertClose.addEventListener("click", toggleAlert);
-
-function toggleAlert() {
-  if (emptyAlert.classList.contains("show")) {
-    emptyAlert.classList.remove("show");
-    emptyAlert.classList.add("hide");
-  } else {
-    emptyAlert.classList.add("show");
-    emptyAlert.classList.remove("hide");
-  }
-}
 
 function addTask(e) {
-  const isAlertOff = emptyAlert.classList.contains("hide");
+  const isAlertOn = isAlertShown();
   if (taskInput.value === "") {
-    if (isAlertOff) {
+    if (!isAlertOn) {
       toggleAlert();
     }
     return;
   }
 
-  if (!isAlertOff) {
+  if (isAlertOn) {
     toggleAlert();
   }
   const taskDiv = document.createElement("div");
