@@ -1,12 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Exercise 1</title>
+    <title>Dynamo</title>
     <link rel="stylesheet" href="style.css" />
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" 
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" 
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer" />
 </head>
 <body>
+    <div class="alert hide">
+        <span class="fa-solid fa-circle-exclamation"></span>
+        <span class="alert-msg">Task input cannot be empty, please try again</span>
+        <span class="alert-close-btn">
+            <span class="fas fa-times"></span>
+        </span>
+    </div>
+    <header>
+    </header>
+<div class="container">
+    <h1>Todo list</h1>
+    <div class="addTask">
+        <input class="input task-input" type="text" placeholder="Add somthing to do">
+        <button  class="btn task-add-btn" type="button"><i class="fas fa-plus-square"></i></button>
+    </div>
+    <div class="tasksContainer">
+        <ul class="tasks-list">
 
-<h1>Todo list</h1>
+        </ul>
+    </div>
+
+</div>
 
 
 </body>
