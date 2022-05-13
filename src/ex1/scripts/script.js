@@ -1,20 +1,26 @@
-
-
 const taskInput = document.querySelector(".task-input");
 const addTaskButton = document.querySelector(".task-add-btn");
 const taskList = document.querySelector(".tasks-list");
 
-addTaskButton.addEventListener("click", addTask);
+addTaskButton.addEventListener("click", onAddTaskClick);
+taskList.addEventListener("click", onTaskButtonsClick);
 
-function addTask(e) {
+function handleAlert() {
   const isAlertOn = isAlertShown();
   if (taskInput.value === "") {
     if (!isAlertOn) {
       toggleAlert();
     }
+    return true;
+  } else return false;
+}
+
+function onAddTaskClick(e) {
+  if (handleAlert()) {
     return;
   }
 
+  const isAlertOn = isAlertShown();
   if (isAlertOn) {
     toggleAlert();
   }
@@ -38,4 +44,17 @@ function addTask(e) {
 
   taskList.appendChild(taskDiv);
   taskInput.value = "";
+}
+
+//targeting parents because of the child icon inside of button
+function onTaskButtonsClick(e) {
+  if (e.target.classList.contains("task-complete-btn")) {
+    e.target.classList.add("completed");
+  } else if (e.target.parentElement.classList.contains("task-complete-btn")) {
+    e.target.parentElement.classList.toggle("completed");
+  } else if (e.target.classList.contains("task-remove-btn")) {
+    e.target.parentElement.remove();
+  } else if (e.target.parentElement.classList.contains("task-remove-btn")) {
+    e.target.parentElement.parentElement.remove();
+  }
 }
