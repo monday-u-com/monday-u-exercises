@@ -49,7 +49,7 @@ function onAddTaskClick(e) {
 //targeting parents because of the child icon inside of button
 function onTaskButtonsClick(e) {
   if (e.target.classList.contains("task-complete-btn")) {
-    e.target.classList.add("completed");
+    e.target.classList.toggle("completed");
   } else if (e.target.parentElement.classList.contains("task-complete-btn")) {
     e.target.parentElement.classList.toggle("completed");
   } else if (e.target.classList.contains("task-remove-btn")) {
