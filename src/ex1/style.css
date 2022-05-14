@@ -42,6 +42,11 @@ body {
   border-radius: 3px;
 }
 
+.task-button:hover {
+  cursor: pointer;
+  background-color: cadetblue;
+}
+
 .task-list {
   display: flex;
   flex-direction: column;
