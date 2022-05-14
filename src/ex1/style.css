@@ -28,6 +28,7 @@ body {
   width: 65%;
   border: 1px solid rgb(197, 196, 196);
   border-radius: 3px;
+  outline: none;
 }
 
 .task-button {
