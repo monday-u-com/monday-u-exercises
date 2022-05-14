@@ -1,14 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>This is Exercise 1</title>
     <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+    <link rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/361581c500.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>Todo list</header>
+      <div class="inputField">
+        <input type="text" placeholder="Add your new todo" />
+        <button><i class="fas fa-plus"></i></button>
+      </div>
+      <ul class="todoList">
+  
+          <li>Buy a new laptop <span><i class="fas fa-trash"></i></span></li>
+          <li>Create Todo app <span><i class="fas fa-trash"></i></span></li>
+          <li>Create Todo app <span><i class="fas fa-trash"></i></span></li>
+          <li>Create Todo app <span><i class="fas fa-trash"></i></span></li>
 
-<h1>Todo list</h1>
-
-
-</body>
-<script src="script.js"></script>
+      </ul>
+      <div class="footer">
+        <span>You have <span class="pendingTasks"></span> pending tasks</span>
+        <button>Clear All</button>
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
 </html>
