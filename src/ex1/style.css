@@ -53,3 +53,8 @@ body {
   padding: 10px;
   background-color: rgb(209, 229, 229);
 }
+
+.task-item:hover {
+  cursor: pointer;
+  background-color: cadetblue;
+}
