@@ -9,8 +9,6 @@ body {
   height: 700px;
   background-color: white;
   border-radius: 1%;
-  display: flex;
-  flex-direction: column;
 }
 
 .main-header {
@@ -43,7 +41,14 @@ body {
   border-radius: 3px;
 }
 
-.task {
+.task-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+}
+
+.task-item {
   margin: 5px 25px;
   padding: 10px;
   background-color: rgb(209, 229, 229);
