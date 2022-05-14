@@ -66,6 +66,13 @@ body {
   background: #8e49e8;
   cursor: pointer;
   border-radius: 3px;
+  opacity: 0.6;
+  pointer-events: auto;
+  
+}
+.inputField button.active{
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .wrapper .todoList{
