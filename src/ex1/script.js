@@ -1,6 +1,5 @@
 const addTaskButton = document.querySelector(".task-button");
 const addTaskInput = document.querySelector(".task-input");
-const deleteButtons = document.querySelectorAll(".delete-button");
 
 addTaskButton.addEventListener("click", addTask);
 addTaskInput.addEventListener("keypress", (event) => {
@@ -26,8 +25,9 @@ function addTask() {
   deleteButton.appendChild(document.createTextNode("X"));
 
   //add ids
-  divElm.setAttribute("id", `${text}-div`);
-  deleteButton.setAttribute("id", `${text}-button`);
+  const idText = text.split(" ").join("-");
+  divElm.setAttribute("id", `${idText}`);
+  deleteButton.setAttribute("id", `${idText}-button`);
 
   //append <li> and <button> to <div>
   divElm.appendChild(liElm);
@@ -39,13 +39,16 @@ function addTask() {
 
   //add clickListener to button
   deleteButton.addEventListener("click", deleteTask);
+  liElm.addEventListener("click", () => alert(`Task: ${text}`));
 
   //clear input
   document.querySelector(".task-input").value = "";
 }
 
 function deleteTask({ target }) {
-  const divElementId = target.id.split("-")[0].concat("-div");
+  const buttonId = target.id.split("-");
+  buttonId.pop();
+  const divElementId = buttonId.join("-");
 
   document.querySelector(`#${divElementId}`).remove();
 }
