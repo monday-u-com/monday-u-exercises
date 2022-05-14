@@ -1,5 +1,5 @@
 const todoInput = document.querySelector(".todo-input");
-const todoButton = document.querySelector(".todoButton");
+const todoButton = document.querySelector(".todo-Button");
 const todoList = document.querySelector(".todo-List");
 
 todoButton.addEventListener("click", addTodo);
