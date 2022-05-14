@@ -1,5 +1,10 @@
+const addButton = document.querySelector("#add-task-button");
+const triangle = document.querySelector("#triangle");
+const box = document.querySelector("#box");
+const welcome = document.querySelector("#welcome-sentence");
 const addTaskButton = document.querySelector(".task-button");
 const addTaskInput = document.querySelector(".task-input");
+const listOfTasks = [];
 
 addTaskButton.addEventListener("click", addTask);
 addTaskInput.addEventListener("keypress", (event) => {
@@ -14,21 +19,26 @@ function addTask() {
   if (text === "") {
     alert("Input cannot be empty");
   } else {
-    hideWelcomePart();
+    if (listOfTasks.length === 0) {
+      hideWelcomePart();
+    }
+    listOfTasks.push(text);
     createTask(text);
   }
 }
 
 function hideWelcomePart() {
-  const addButton = document.querySelector("#add-task-button");
-  const triangle = document.querySelector("#triangle");
-  const box = document.querySelector("#box");
-  const welcome = document.querySelector("#welcome-sentence");
-
   addButton.classList.remove("hithere");
   triangle.classList.add("hidden");
   box.classList.add("hidden");
   welcome.classList.add("hidden");
+}
+
+function showWelcomePart() {
+  addButton.classList.add("hithere");
+  triangle.classList.remove("hidden");
+  box.classList.remove("hidden");
+  welcome.classList.remove("hidden");
 }
 
 function createTask(text) {
@@ -70,7 +80,20 @@ function createTask(text) {
 function deleteTask({ target }) {
   const buttonId = target.id.split("-");
   buttonId.pop();
-  const divElementId = buttonId.join("-");
 
+  //remove <div> with task
+  const divElementId = buttonId.join("-");
   document.querySelector(`#${divElementId}`).remove();
+
+  // remove task from list
+  const taskText = buttonId.join(" ");
+  const elementIndex = listOfTasks.findIndex((task) => {
+    return task === taskText;
+  });
+  listOfTasks.splice(elementIndex, 1);
+
+  //show weolcome if list is empty
+  if (listOfTasks.length === 0) {
+    showWelcomePart();
+  }
 }
