@@ -91,7 +91,7 @@ body {
 }
 
 .triangle {
-  margin: 0 auto;
+  margin: 30px auto 0 auto;
   width: 0;
   height: 0;
   border-left: 50px solid transparent;
@@ -106,4 +106,32 @@ body {
   height: 80px;
   background-color: cadetblue;
   border-radius: 0 0 5px 5px;
+}
+
+.welcome {
+  margin: 20px auto;
+  color: rgb(153, 90, 212);
+}
+
+.hithere {
+  animation: hithere 2s ease infinite;
+  animation-delay: 3s;
+}
+@keyframes hithere {
+  30% {
+    transform: scale(1.2);
+  }
+  40%,
+  60% {
+    transform: rotate(-20deg) scale(1.2);
+  }
+  50% {
+    transform: rotate(20deg) scale(1.2);
+  }
+  70% {
+    transform: rotate(0deg) scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
