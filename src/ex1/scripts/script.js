@@ -46,15 +46,14 @@ function onAddTaskClick(e) {
   taskInput.value = "";
 }
 
-//targeting parents because of the child icon inside of button
+
 function onTaskButtonsClick(e) {
+  console.log(e.target);
   if (e.target.classList.contains("task-complete-btn")) {
-    e.target.classList.toggle("completed");
-  } else if (e.target.parentElement.classList.contains("task-complete-btn")) {
-    e.target.parentElement.classList.toggle("completed");
+    e.target.parentElement.classList.toggle("task-completed");
+    e.target.classList.toggle("btn-completed");
   } else if (e.target.classList.contains("task-remove-btn")) {
     e.target.parentElement.remove();
-  } else if (e.target.parentElement.classList.contains("task-remove-btn")) {
-    e.target.parentElement.parentElement.remove();
   }
+
 }
