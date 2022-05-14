@@ -67,7 +67,7 @@ body {
   cursor: pointer;
   border-radius: 3px;
   opacity: 0.6;
-  pointer-events: auto;
+  pointer-events: none;
   
 }
 .inputField button.active{
@@ -131,6 +131,13 @@ body {
     cursor: pointer;
     border-radius: 3px;
     padding: 6px 10px;
+    opacity: 0.6;
+    pointer-events: none;
 
+  }
+
+  .footer button.active{
+      opacity: 1;
+      pointer-events: auto;
   }
 
