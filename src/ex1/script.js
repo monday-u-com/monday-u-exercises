@@ -9,6 +9,16 @@ addTaskInput.addEventListener("keypress", (event) => {
 });
 
 function addTask() {
+  const text = document.querySelector(".task-input").value;
+
+  if (text === "") {
+    alert("Input cannot be empty");
+  } else {
+    createTask();
+  }
+}
+
+function createTask() {
   //create elements
   const divElm = document.createElement("div");
   const liElm = document.createElement("li");
@@ -20,7 +30,6 @@ function addTask() {
   deleteButton.classList.add("delete-button");
 
   //add textNodes
-  const text = document.querySelector(".task-input").value;
   liElm.appendChild(document.createTextNode(text));
   deleteButton.appendChild(document.createTextNode("X"));
 
