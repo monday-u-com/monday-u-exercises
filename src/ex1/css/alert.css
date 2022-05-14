@@ -9,6 +9,7 @@
     border-radius: 5px;
     border-left: 8px solid #ffa502;
     overflow: hidden;
+    z-index: 2;
 }
 
 .alert.show
