@@ -16,7 +16,8 @@ body {
   height: 100vh;
   /* overflow: hidden; */
   padding: 10px;
-  background: linear-gradient(to bottom, #68eacc 0%, #497be8 100%);
+  /* background: linear-gradient(to bottom, #68eacc 0%, #497be8 100%); */
+  background-image: linear-gradient(120deg, #f6d365, #fda085);
 }
 .wrapper {
   background: #fff;
@@ -52,125 +53,141 @@ body {
 }
 
 .inputField input:focus {
-  border-color: #8e49e8;
+  border-color: #e29624;
 }
 
 .inputField button {
   width: 50px;
   height: 100%;
   border: none;
-  color: #fff;
+  color: white;
   margin-left: 5px;
   font-size: 21px;
   outline: none;
-  background: #8e49e8;
+  /* background: #8e49e8; */
+  background: #e29624;
   cursor: pointer;
   border-radius: 3px;
   opacity: 0.6;
   pointer-events: none;
-  
 }
-.inputField button.active{
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.wrapper .todoList{
-    max-height: 250px;
-    overflow-y: auto;
+.inputField button.active {
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.3s ease;
 }
 
-.todoList li{
-    position: relative;
-    list-style: none;
-    margin-bottom: 8px;
-    height: 45px;
-    line-height: 45px;
-    background: #f2f2f2;
-    border-radius: 3px;
-    padding: 0px 15px;
-    cursor: default;
-    overflow: hidden;
+
+.inputField button:hover{
+    filter: brightness(90%);
+} 
+
+.wrapper .todoList {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.todoList li {
+  position: relative;
+  list-style: none;
+  margin-bottom: 8px;
+  height: 45px;
+  line-height: 45px;
+  background: #f2f2f2;
+  border-radius: 3px;
+  padding: 0px 15px;
+  cursor: default;
+  overflow: hidden;
+}
+
+.todoList li span {
+  position: absolute;
+  right: -45px;
+  color: #fff;
+  width: 45px;
+  text-align: center;
+  background: #e74c3c;
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.todoList li:hover span {
+  right: 0px;
+}
+
+.wrapper .footer {
+  display: flex;
+  width: 100%;
+  margin-top: 25px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer .sortBtn {
+  border: none;
+  color: #fff;
+  margin-left: 5px;
+  font-size: 16px;
+  outline: none;
+  background: #e29624;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 6px 10px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.footer .sortBtn.active {
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+}
+.footer .sortBtn:hover{
+    filter: brightness(90%);
+} 
+
+.footer2 .clearAllBtn {
+  border: none;
+  color: #fff;
+  margin-left: 5px;
+  font-size: 16px;
+  outline: none;
+  background: #e29624;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 6px 10px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+
+
+.footer2 {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  margin-top: 25px;
+
+  align-items: center;
+}
+
+.footer2 .clearAllBtn.active {
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+
+}
+.footer2 .clearAllBtn:hover{
+    filter: brightness(90%);
+} 
+
+.fall  {
+    transform: translateY(8rem) rotateZ(20deg);
+    opacity: 0;
+    color: #fda085;
    
-   
-  }
+    transition: all 1s ease;
+}
 
-  .todoList li span{
-    position: absolute;
-    right: -45px;
-    color: #fff;
-    width: 45px;
-    text-align: center;
-    background: #e74c3c;
-    border-radius: 0 3px 3px 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    
-  }
-
-  .todoList li:hover span{
-      right: 0px;
-  }
-
-  .wrapper .footer{
-      display: flex;
-      width: 100%;
-      margin-top: 25px;
-      justify-content:space-between;
-      align-items: center;
-  }
-
-
-
-  .footer .sortBtn{
-  
-    border: none;
-    color: #fff;
-    margin-left: 5px;
-    font-size: 16px;
-    outline: none;
-    background: #8e49e8;
-    cursor: pointer;
-    border-radius: 3px;
-    padding: 6px 10px;
-    opacity: 0.6;
-    pointer-events: none;
-
-  }
-
-  .footer .sortBtn.active{
-      opacity: 1;
-      pointer-events: auto;
-  }
-
-  .footer2 .clearAllBtn{
-  
-    border: none;
-    color: #fff;
-    margin-left: 5px;
-    font-size: 16px;
-    outline: none;
-    background: #8e49e8;
-    cursor: pointer;
-    border-radius: 3px;
-    padding: 6px 10px;
-    opacity: 0.6;
-    pointer-events: none;
-   
-
-  }
-
-  .footer2{
-      display: flex;
-      justify-content: center;
-   
-      width: 100%;
-      margin-top: 25px;
-     
-      align-items: center;
-  }
-
-  .footer2 .clearAllBtn.active{
-      opacity: 1;
-      pointer-events: auto;
-  }

@@ -33,10 +33,19 @@ addBtn.onclick = () => {
     listArr = JSON.parse(getLocalStorage); //transforming json string into a js object
   }
   listArr.push(userData); //pushing or adding user data
+  
   localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming js object into a json string
   showTasks();
   addBtn.classList.remove("active");
 };
+
+sortBtn.onclick = () => {
+ 
+    listArr.sort();
+    localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming js object into a json string
+    showTasks();
+ 
+  };
 
 // function to add task list inside ul
 function showTasks() {
@@ -62,17 +71,28 @@ function showTasks() {
     newLiTag += `<li>${element} <span onclick="deleteTask(${index})";><i class="fas fa-trash"></i></span></li>`;
   });
   todoList.innerHTML = newLiTag; //adding new li tag inside ul tag
+
   inputBox.value = ""; //once task added leave the input field blank
 }
 
 //delete task function
 function deleteTask(index) {
+
   let getLocalStorage = localStorage.getItem("New Todo");
   listArr = JSON.parse(getLocalStorage);
+  todoList.childNodes[index].classList.add("fall");
+ 
+  console.log( todoList.childNodes[index]);
   //after remove the li update the local storage
   listArr.splice(index, 1); //delete or remove the particular indexed li
   localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming js object into a json string
-  showTasks();
+  setTimeout(function() {
+    //your code to be executed after 1 second
+    showTasks()
+  }, 500);
+  
+  
+ 
 }
 
 //delete all tasks function
@@ -80,5 +100,6 @@ clearAllBtn.onclick = () => {
   listArr = []; //empty an array
   // delete all tasks and update
   localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming js object into a json string
+  addBtn.classList.remove("active");
   showTasks();
 };
