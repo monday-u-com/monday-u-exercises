@@ -1,5 +1,6 @@
 const addTaskButton = document.querySelector(".task-button");
 const addTaskInput = document.querySelector(".task-input");
+const deleteButtons = document.querySelectorAll(".delete-button");
 
 addTaskButton.addEventListener("click", addTask);
 addTaskInput.addEventListener("keypress", (event) => {
@@ -41,4 +42,10 @@ function addTask() {
 
   //clear input
   document.querySelector(".task-input").value = "";
+}
+
+function deleteTask({ target }) {
+  const divElementId = target.id.split("-")[0].concat("-div");
+
+  document.querySelector(`#${divElementId}`).remove();
 }
