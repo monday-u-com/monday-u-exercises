@@ -22,4 +22,7 @@ function addTask() {
   //append this element to <ul>
   const taskList = document.querySelector(".task-list");
   taskList.appendChild(newListItem);
+
+  //clear input
+  document.querySelector(".task-input").value = "";
 }
