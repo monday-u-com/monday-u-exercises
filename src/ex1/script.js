@@ -10,29 +10,34 @@ addTaskInput.addEventListener("keypress", (event) => {
 
 function addTask() {
   //create new <div> element
-  const newDiv = document.createElement("div");
+  const divElm = document.createElement("div");
   //create new <li> element
-  const newListItem = document.createElement("li");
+  const liElm = document.createElement("li");
   //create new <button> element
   const deleteButton = document.createElement("button");
 
   // style all elements
-  newDiv.classList.add("task");
-  newListItem.classList.add("task-item");
+  divElm.classList.add("task");
+  liElm.classList.add("task-item");
   deleteButton.classList.add("delete-button");
 
   //add textNode to <li> and <button>
   const text = document.querySelector(".task-input").value;
-  newListItem.appendChild(document.createTextNode(text));
+  liElm.appendChild(document.createTextNode(text));
   deleteButton.appendChild(document.createTextNode("X"));
 
+  //add id to each element
+  divElm.setAttribute("id", `${text}-div`);
+  deleteButton.setAttribute("id", `${text}-button`);
+
   //append <li> and <button> to <div>
-  newDiv.appendChild(newListItem);
-  newDiv.appendChild(deleteButton);
+  divElm.appendChild(liElm);
+  divElm.appendChild(deleteButton);
+  deleteButton.addEventListener("click", deleteTask);
 
   //append <div>t to <ul>
   const taskList = document.querySelector(".task-list");
-  taskList.appendChild(newDiv);
+  taskList.appendChild(divElm);
 
   //clear input
   document.querySelector(".task-input").value = "";
