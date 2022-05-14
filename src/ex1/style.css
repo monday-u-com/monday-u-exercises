@@ -1,12 +1,33 @@
 body {
-    font-family: 'Dosis', sans-serif;
-    background-color: cadetblue;
+  font-family: "Dosis", sans-serif;
+  background-color: cadetblue;
 }
 
 .white-box {
-    margin: 0 auto;
-    width: 500px;
-    height: 700px;
-    background-color: white;
-    border-radius: 1%;
+  margin: 0 auto;
+  width: 500px;
+  height: 700px;
+  background-color: white;
+  border-radius: 1%;
+}
+
+.main-header {
+  margin-left: 25px;
+  padding-top: 15px;
+}
+
+.task-input {
+  margin-left: 25px;
+  padding: 10px;
+  border: 1px solid rgb(197, 196, 196);
+  border-radius: 3px;
+}
+
+.task-button {
+  font-size: medium;
+  padding: 9px 13px;
+  background-color: rgb(153, 90, 212);
+  color: white;
+  border: none;
+  border-radius: 3px;
 }
