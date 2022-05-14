@@ -1,0 +1,20 @@
+{
+  "name": "monday-u-exercises1",
+  "version": "1.0.0",
+  "description": "Welcome to monday-u official github repository! We are very excited to have you here!  \r This is going to be so much fun! Here are a few general details:",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kuper-S/monday-u-exercises1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kuper-S/monday-u-exercises1/issues"
+  },
+  "homepage": "https://github.com/Kuper-S/monday-u-exercises1#readme"
+}
