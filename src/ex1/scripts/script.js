@@ -1,9 +1,13 @@
 const taskInput = document.querySelector(".task-input");
 const addTaskButton = document.querySelector(".task-add-btn");
-const taskList = document.querySelector(".tasks-list");
+const tasksList = document.querySelector(".tasks-list");
+const filterOptiopn = document.querySelector(".filter-tasks");
+const searchInput = document.querySelector(".search-input");
 
 addTaskButton.addEventListener("click", onAddTaskClick);
-taskList.addEventListener("click", onTaskButtonsClick);
+tasksList.addEventListener("click", onTaskButtonsClick);
+filterOptiopn.addEventListener("click", onFilterOptionChange);
+searchInput.addEventListener("keyup", onSearchInputKeyUp);
 
 function handleAlert() {
   const isAlertOn = isAlertShown();
@@ -30,6 +34,7 @@ function onAddTaskClick(e) {
   const newTask = document.createElement("li");
   newTask.classList.add("task-item");
   newTask.innerText = taskInput.value;
+  newTask.addEventListener("click", onTaskClick);
   taskDiv.appendChild(newTask);
 
   const completeTaskButton = document.createElement("button");
@@ -42,7 +47,8 @@ function onAddTaskClick(e) {
   removeTaskButton.innerHTML = '<i class="fas fa-trash"></i>';
   taskDiv.appendChild(removeTaskButton);
 
-  taskList.appendChild(taskDiv);
+  tasksList.appendChild(taskDiv);
+  toggleEmptyMsg();
   taskInput.value = "";
 }
 
@@ -57,7 +63,51 @@ function onTaskButtonsClick(e) {
     task.classList.add("task-removed");
     function onRemoveTransitionEnd() {
       task.remove();
+      toggleEmptyMsg();
       task.removeEventListener("transitionend", onRemoveTransitionEnd, false);
     }
   }
+}
+
+function onFilterOptionChange(e) {
+  const tasks = tasksList.children;
+  for (let i = 0; i < tasks.length; i++) {
+    const task = tasks[i];
+    console.log("Debug: ", task.classList);
+    const isCompleted = task.classList.contains("task-completed");
+    if (e.target.value === "all") {
+      task.style.display = "flex";
+    } else if (e.target.value === "completed" && isCompleted) {
+      task.style.display = "flex";
+    } else if (e.target.value === "uncompleted" && !isCompleted) {
+      task.style.display = "flex";
+    } else {
+      task.style.display = "none";
+    }
+  }
+}
+
+function toggleEmptyMsg() {
+  const emptyMsg = document.querySelector(".empty-msg");
+  if (tasksList.children.length === 0) {
+    emptyMsg.classList.remove("hide");
+  } else {
+    emptyMsg.classList.add("hide");
+  }
+}
+
+function onSearchInputKeyUp(e) {
+  const tasks = tasksList.children;
+  for (let i = 0; i < tasks.length; i++) {
+    const task = tasks[i];
+    if (task.innerText.toLowerCase().includes(e.target.value.toLowerCase())) {
+      task.style.display = "flex";
+    } else {
+      task.style.display = "none";
+    }
+  }
+}
+
+function onTaskClick(e) {
+  alert(e.target.innerText);
 }
