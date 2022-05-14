@@ -10,35 +10,35 @@ addTaskInput.addEventListener("keypress", (event) => {
 });
 
 function addTask() {
-  //create new <div> element
+  //create elements
   const divElm = document.createElement("div");
-  //create new <li> element
   const liElm = document.createElement("li");
-  //create new <button> element
   const deleteButton = document.createElement("button");
 
-  // style all elements
+  // style  elements
   divElm.classList.add("task");
   liElm.classList.add("task-item");
   deleteButton.classList.add("delete-button");
 
-  //add textNode to <li> and <button>
+  //add textNodes
   const text = document.querySelector(".task-input").value;
   liElm.appendChild(document.createTextNode(text));
   deleteButton.appendChild(document.createTextNode("X"));
 
-  //add id to each element
+  //add ids
   divElm.setAttribute("id", `${text}-div`);
   deleteButton.setAttribute("id", `${text}-button`);
 
   //append <li> and <button> to <div>
   divElm.appendChild(liElm);
   divElm.appendChild(deleteButton);
-  deleteButton.addEventListener("click", deleteTask);
 
-  //append <div>t to <ul>
+  //append <div> to <ul>
   const taskList = document.querySelector(".task-list");
   taskList.appendChild(divElm);
+
+  //add clickListener to button
+  deleteButton.addEventListener("click", deleteTask);
 
   //clear input
   document.querySelector(".task-input").value = "";
