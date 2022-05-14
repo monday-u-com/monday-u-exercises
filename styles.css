@@ -119,3 +119,9 @@ form button:hover {
     background: #aa8e8d;
     color: #6d335c;
 }
+
+.todo-container {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
