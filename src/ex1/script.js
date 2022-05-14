@@ -1,22 +1,21 @@
 const inputBox = document.querySelector(".inputField input");
 const addBtn = document.querySelector(".inputField button");
 const todoList = document.querySelector(".todoList");
-const deleteAllBtn = document.querySelector(".footer button");
+const clearAllBtn = document.querySelector(".clearAllBtn");
+const sortBtn = document.querySelector(".sortBtn");
 
 inputBox.onkeyup = () => {
   let userData = inputBox.value; //getting user entered value
   if (userData.trim() != 0) {
     //if user values are not only spaces
     addBtn.classList.add("active"); //active the add button
-   
-   if (event.keyCode == 13){
-       addBtn.onclick();
-   }
+
+    if (event.keyCode == 13) {
+      addBtn.onclick();
+    }
   } else {
     addBtn.classList.remove("active"); //unactive the add button
   }
-
-
 };
 showTasks();
 
@@ -37,7 +36,7 @@ addBtn.onclick = () => {
   localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming js object into a json string
   showTasks();
   addBtn.classList.remove("active");
-}
+};
 
 // function to add task list inside ul
 function showTasks() {
@@ -51,9 +50,11 @@ function showTasks() {
   pendingTasksCount.textContent = listArr.length; //passing the length value in pendingTasksCount
 
   if (listArr.length > 0) {
-    deleteAllBtn.classList.add("active");
+    clearAllBtn.classList.add("active");
+    sortBtn.classList.add("active");
   } else {
-    deleteAllBtn.classList.remove("active");
+    clearAllBtn.classList.remove("active");
+    sortBtn.classList.remove("active");
   }
 
   let newLiTag = "";
@@ -75,7 +76,7 @@ function deleteTask(index) {
 }
 
 //delete all tasks function
-deleteAllBtn.onclick = () => {
+clearAllBtn.onclick = () => {
   listArr = []; //empty an array
   // delete all tasks and update
   localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming js object into a json string

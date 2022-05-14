@@ -120,7 +120,9 @@ body {
       align-items: center;
   }
 
-  .footer button{
+
+
+  .footer .sortBtn{
   
     border: none;
     color: #fff;
@@ -136,8 +138,39 @@ body {
 
   }
 
-  .footer button.active{
+  .footer .sortBtn.active{
       opacity: 1;
       pointer-events: auto;
   }
 
+  .footer2 .clearAllBtn{
+  
+    border: none;
+    color: #fff;
+    margin-left: 5px;
+    font-size: 16px;
+    outline: none;
+    background: #8e49e8;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 6px 10px;
+    opacity: 0.6;
+    pointer-events: none;
+   
+
+  }
+
+  .footer2{
+      display: flex;
+      justify-content: center;
+   
+      width: 100%;
+      margin-top: 25px;
+     
+      align-items: center;
+  }
+
+  .footer2 .clearAllBtn.active{
+      opacity: 1;
+      pointer-events: auto;
+  }
