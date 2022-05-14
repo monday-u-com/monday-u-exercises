@@ -46,14 +46,18 @@ function onAddTaskClick(e) {
   taskInput.value = "";
 }
 
-
 function onTaskButtonsClick(e) {
-  console.log(e.target);
-  if (e.target.classList.contains("task-complete-btn")) {
-    e.target.parentElement.classList.toggle("task-completed");
-    e.target.classList.toggle("btn-completed");
+  const button = e.target;
+  if (button.classList.contains("task-complete-btn")) {
+    button.parentElement.classList.toggle("task-completed");
+    button.classList.toggle("btn-completed");
   } else if (e.target.classList.contains("task-remove-btn")) {
-    e.target.parentElement.remove();
+    const task = e.target.parentElement;
+    task.addEventListener("transitionend", onRemoveTransitionEnd, false);
+    task.classList.add("task-removed");
+    function onRemoveTransitionEnd() {
+      task.remove();
+      task.removeEventListener("transitionend", onRemoveTransitionEnd, false);
+    }
   }
-
 }

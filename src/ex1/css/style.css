@@ -90,7 +90,7 @@ body
     padding: 0.15rem;
     border-radius: 5px;
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
-    transition: all 0.5s ease;
+    transition: all 1s ease-out;
     
 }
 
@@ -109,7 +109,6 @@ body
     border: none;
     border-radius: 5px;
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
-    transition: 0.3s;
 
 }
 
@@ -146,6 +145,14 @@ body
     color: #aaa;
     opacity: 0.5;
 }
+
+.task.task-removed
+{
+    transform: translateY(6rem) rotateZ(15deg);
+    opacity: 0;
+}
+
+
 
 
 
