@@ -1,6 +1,12 @@
 const addTaskButton = document.querySelector(".task-button");
+const addTaskInput = document.querySelector(".task-input");
 
 addTaskButton.addEventListener("click", addTask);
+addTaskInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    addTask();
+  }
+});
 
 function addTask() {
   //create new <li> element
