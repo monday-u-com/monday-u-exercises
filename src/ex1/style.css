@@ -1,3 +1,5 @@
+@import "button-hover.css";
+
 * {
   box-sizing: border-box;
 }
@@ -78,6 +80,11 @@ button {
   margin-top: 10px;
   border-radius: 4px;
   display: flex;
+}
+
+.todo-list li:hover {
+  background-color: rgba(128, 128, 128, 0.4);
+  cursor: pointer;
 }
 
 .todo-text {
