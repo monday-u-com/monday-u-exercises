@@ -1,0 +1,249 @@
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.main_container
+{
+    width: 100vw;
+    height: 100vh;
+    background-color: #FDB931;
+    background-image: linear-gradient(132deg, #FDB931 0%, #FEDB37 100%);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.container 
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.white_box
+{
+    background-color: #fff;
+    border: 1px dashed #fff;
+    border-radius: 5px;
+    padding: 25px;
+    box-shadow: #FEDB37 0px 14px 18px 5px;
+    transition: all 0.5s linear 0.2s;
+    font-size: 2em;
+}
+
+.white_box:hover
+{
+    transition: all 0.5s linear 0.2s;
+    box-shadow: #FDB931 0px 0px 18px 5px;
+    border-color: #FDB931;
+}
+
+.white_box > h1
+{
+    font-size: 3em;
+}
+
+
+.input_div
+{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.input_div > input[type="text"]
+{
+    font-size: 1em;
+    padding: 10px 25px;
+    border: 1px solid #FDB931;    
+    border-radius: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    transition: all 0.2s linear 0.2s;
+}
+
+.input_div > input[type="text"] + label
+{
+    position: absolute;
+    top: 10px;
+    left: 23px;
+    color: #a7a7a7;
+}
+
+.input_div > input[type="text"]:focus,
+.input_div > input[type="text"]:not(:placeholder-shown)
+{
+    padding-top: 50px;
+    transition: all 0.2s linear 0.2s;
+    box-shadow: #FDB931 -2px 0px 6px 0px;
+}
+
+.input_div > input[type="text"]:focus-within,
+.input_div > input[type="text"]:focus-visible
+{
+    border: 1px solid #FDB931;
+}
+
+.add_to_do_button
+{
+    padding: 11px 25px;
+    background-color: #66d300;
+    border-radius: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    color:#fff;
+    transition: all 0.2s linear 0.2s;
+    cursor: pointer;
+}
+
+.add_to_do_button:hover
+{
+    box-shadow: inset #ffffff 0px 0px 10px 0px;
+    transition: all 0.2s linear 0.2s;
+}
+
+.input_div > input[type="text"]:focus ~ .add_to_do_button,
+.input_div > input[type="text"]:not(:placeholder-shown) ~ .add_to_do_button
+{
+    padding-top: 31px;
+    padding-bottom: 31px;
+    transition: all 0.2s linear 0.2s;
+}
+
+.todo_tasks_container 
+{
+    margin: 15px 0px 15px 5px;
+}
+
+.todo_task
+{
+    display: flex;
+    justify-content: space-between;    
+    background-color: #f3f3f3;
+    margin: 5px 0;
+    border-radius: 5px;
+    transition: all 0.2s linear 0.2s;    
+}
+
+.todo_task:hover
+{
+    background-color: #fff;
+    cursor: pointer;
+    border-bottom: 2px solid #FDB931;
+    transition: all 0.2s linear 0.2s;
+}
+
+.todo_task > span
+{
+    padding: 5px 10px;
+}
+
+.todo_task > .delete_task_button
+{
+    background-color: #ff7a7a;
+    color:#fff;
+    padding: 10px 15px;
+    border-radius: 5px; 
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s ease-out 0.2s;
+}
+
+.todo_task:hover > .delete_task_button
+{
+    opacity: 1;
+    transition: all 0.2s ease-in 0.2s;
+}
+
+.delete_task_button:hover
+{
+    box-shadow: inset #ffffff 0px 0px 10px 0px;
+    transition: all 0.2s linear 0.2s;
+}
+
+.clear_todo_container
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+button 
+{
+    position: relative;
+    padding: 19px 36px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+button > span 
+{
+    position: relative;
+    color: #fff;    
+    z-index: 1;
+}
+
+button > .buttonColoring 
+{
+    position: absolute;
+    top: -80px;
+    left: 0;
+    width: 100%;
+    height: 200px;    
+    box-shadow: inset 0 0 0px rgba(0, 0, 0, .5);
+}
+
+button:hover > .buttonColoring
+{
+    background: #efa500;
+    top: -120px;
+}
+
+button:hover > span
+{
+    color: black;
+}
+
+button > .buttonColoring 
+{
+    background-size: 400% 400%;
+    -webkit-animation: ButtonAnimation 9s ease infinite;
+    -moz-animation: ButtonAnimation 9s ease infinite;
+    animation: ButtonAnimation 9s ease infinite;
+}
+
+button > .buttonColoring
+{
+    background: linear-gradient(37deg, #efa500, #fdb931);
+}
+
+@-webkit-keyframes ButtonAnimation {
+    0%{background-position:0% 84%}
+    50%{background-position:100% 17%}
+    100%{background-position:0% 84%}
+}
+@-moz-keyframes ButtonAnimation {
+    0%{background-position:0% 84%}
+    50%{background-position:100% 17%}
+    100%{background-position:0% 84%}
+}
+@keyframes ButtonAnimation {
+    0%{background-position:0% 84%}
+    50%{background-position:100% 17%}
+    100%{background-position:0% 84%}
+}
