@@ -100,3 +100,23 @@ body {
     cursor: pointer;
     background-color: rgb(115, 196, 234);
 }
+
+.task-container {
+    display: flex;
+}
+
+.delete {
+    background-color: red;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 3px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.3rem;
+}
+
+.delete:hover {
+    cursor: pointer;
+    background-color: rgb(221, 0, 0);
+}
