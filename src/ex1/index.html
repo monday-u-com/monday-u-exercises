@@ -1,12 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Todoops</title>
-    <link rel="stylesheet" href="style.css" />
+  <title>TODOOPS</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Indie+Flower&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+  <div class="app-window">
+    <h1 class="app-title">TODOOPS</h1>
+    <div class="todo-content">
+      <div class="add-todo">
+        <input type="text" id="new-todo" name="new-todo" placeholder="Add your new todo">
+        <button class="add-todo-button">+</button>
+      </div>
+      <ul class="todo-list">
+        <li><div class="todo-text">Buy a new laptop</div></li>
+        <li>
+          <div class="todo-text">Complete a previous task</div>
+          <button class="remove-todo-button"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        </li>
+        <li><div class="todo-text">Create a video for YouTube</div></li>
+        <li><div class="todo-text">Create a new portfolio site</div></li>
+      </ul>
+      <div class="summary">
+        <p>You have 4 pending tasks</p>
+        <button class="clear-all-button">clear all</button>
+      </div>
+    </div>
+  </div>
 
-<h1>Todoops</h1>
+
 
 
 </body>

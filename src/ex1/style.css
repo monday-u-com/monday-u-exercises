@@ -1,0 +1,117 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  /* https://colorscheme.ru/#2X11Tw0w0w0w0 */
+  --very-dark-green: #007143;
+  --dark-green: #21825B;
+  --middle-green: #00AE68;
+  --light-green: #36D695;
+  --very-light-green: #60D6A7;
+}
+
+body, html {
+  height: 100%;
+}
+
+html {
+  background: linear-gradient(var(--very-light-green), var(--dark-green));
+  padding: 50px;
+}
+
+.app-window {
+  color: var(--very-dark-green);
+  display: block;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: antiquewhite;
+  border-radius: 8px;
+  box-shadow: 5px 10px 18px gray;
+}
+
+.app-title {
+  font-family: 'Caveat', cursive;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.todo-content {
+  padding: 20px;
+  font-size: 24px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.add-todo {
+  font-family: 'Caveat', cursive;
+  display: flex;
+}
+
+.add-todo-button {
+  background-color: var(--dark-green);
+  border-radius: 4px;
+  border: 0px;
+  color: antiquewhite;
+  height: 45px;
+  width: 10%;
+  font-size: 32px;
+}
+
+#new-todo {
+  padding: 5px;
+  font-family: 'Indie Flower', cursive;
+  font-size: 24px;
+  width: 90%;
+}
+
+.todo-list {
+  font-family: 'Caveat', cursive;
+  padding-left: 0px;
+}
+.todo-list li {
+  list-style-type: none;
+  background-color: rgba(128, 128, 128, 0.2);
+  margin-top: 10px;
+  border-radius: 4px;
+  display: flex;
+}
+
+.todo-text {
+  padding: 5px;
+  width: 90%;
+}
+
+.remove-todo-button {
+  background-color: brown;
+  border: 0px;
+  border-radius: 4px;
+  color: antiquewhite;
+  height: 40px;
+  width: 10%;
+  font-size: 24px;
+}
+
+.summary {
+  font-family: 'Indie Flower', cursive;
+  display: flex;
+}
+
+.clear-all-button {
+  background-color: var(--light-green);
+  border-radius: 4px;
+  border: 0px;
+  font-size: 24px;
+  font-family: 'Indie Flower', cursive;
+  color: var(--very-dark-green);
+  width: 30%;
+}
+
+.summary p {
+  margin: 0;
+  width: 70%;
+  padding: auto;
+}
