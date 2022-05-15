@@ -11,23 +11,23 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
+<body onload="init()">
     <div class="container">
         <h1>My Todo list</h1>
         <div id="add-task">
             <input type="text" id="taskInput" placeholder="Add your new todo task">
-            <button id="addBtn">+</button>
+            <button class="btn" id="addBtn" disabled>+</button>
         </div>
-        <ul id="task-list">
-            <li>MondayU class<span><i class="fa fa-trash-o"></i></span></li>
-            <li>Coffe metting<span><i class="fa fa-trash-o"></i></span></li>
-            <li>Buy a new computer<span><i class="fa fa-trash-o"></i></span>
-            </li>
+        <ul id="taskList">
         </ul>
+        <div class="placeHolder hidden">
+            <i class="fa fa-plus"></i>
+            <p>Time to add your first task</p>
+        </div>
         <div id="info">
             <span id="peding-task-text">You have 0 pending tasks</span>
-            <button id="clearAllBtn">Clear All</button>
-            <button id="sortAllBtn">Sort All</button>
+            <button class="btn" id="clearAllBtn" disabled>Clear All</button>
+            <button class="btn" id="sortAllBtn" disabled>Sort All</button>
         </div>
     </div>
 

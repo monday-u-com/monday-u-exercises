@@ -14,6 +14,11 @@ body {
     background: linear-gradient(to top, rgb(47, 255, 102) 0%, rgb(0, 200, 255) 100%);
 }
 
+h1 {
+    font-size: 35px;
+}
+
+
 .container {
     background-color: white;
     border-radius: 10px;
@@ -22,8 +27,59 @@ body {
     padding: 25px;
 }
 
-h1 {
-    font-size: 35px;
+.btn[disabled] {
+    opacity: 0.3;
+    box-shadow: none;
+    border: none;
+}
+
+.btn[disabled]:hover {
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn {
+    height: 100%;
+    text-align: center;
+    color: white;
+    border: none;
+    margin-left: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: rgb(30, 75, 254);
+}
+
+.btn:hover {
+    background-color: rgb(0, 51, 255);
+    box-shadow: 0.5px 0.5px 10px 0.5px grey;
+}
+
+
+.placeHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: greenyellow;
+    font-size: 100px;
+    opacity: 0.3;
+    padding: 60px;
+    border: 1px solid rgb(99, 99, 99);
+    border-radius: 8px;
+}
+
+.hidden {
+    display: none;
+}
+
+.placeHolder p {
+    margin-top: 5px;
+    color: black;
+}
+
+#addBtn {
+    width: 60px;
+    font-size: 30px;
 }
 
 #add-task {
@@ -42,32 +98,14 @@ h1 {
     outline: none;
 }
 
-#addBtn {
-    height: 100%;
-    width: 60px;
-    font-size: 30px;
-    text-align: center;
-    color: white;
-    border: none;
-    margin-left: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    background-color: rgb(30, 75, 254);
-}
 
-#addBtn:hover {
-    background-color: rgb(0, 51, 255);
-    box-shadow: 0.5px 0.5px 10px 0.5px grey;
-}
-
-
-#task-list {
+#taskList {
     max-height: 260px;
     overflow-y: auto;
 }
 
 
-#task-list li {
+#taskList li {
     list-style: none;
     line-height: 45px;
     margin-bottom: 8px;
@@ -78,7 +116,7 @@ h1 {
     overflow: hidden;
 }
 
-#task-list li span {
+#taskList li span {
     position: absolute;
     right: -45px;
     background-color: red;
@@ -90,7 +128,7 @@ h1 {
     transition: all 0.3s ease;
 }
 
-#task-list li:hover span {
+#taskList li:hover span {
     right: 0;
 }
 
@@ -104,19 +142,5 @@ h1 {
 
 #clearAllBtn,
 #sortAllBtn {
-    height: 100%;
-    text-align: center;
-    color: white;
-    border: none;
-    border-radius: 8px;
     padding: 10px;
-    cursor: pointer;
-    background-color: rgb(30, 75, 254);
-}
-
-
-#clearAllBtn:hover,
-#sortAllBtn:hover {
-    background-color: rgb(0, 51, 255);
-    box-shadow: 1px 1px 10px 1px grey;
 }
