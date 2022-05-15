@@ -36,7 +36,7 @@ function handleAddItem() {
   updatePendingAmountLabel(++pendingAmount);
 }
 
-function handleItemPress(itemId) {
+function handleLabelPress(itemId) {
   const item = document.getElementById(itemId);
   alert(item.innerText);
 }
@@ -75,7 +75,7 @@ function createTodoItem() {
   // label
   const label = createElement("label", "todo__label");
   label.innerText = todoInput.value;
-  label.addEventListener("click", () => handleItemPress(item.id));
+  label.addEventListener("click", () => handleLabelPress(item.id));
   // delete
   const deleteBtn = createElement("button", "todo__delete");
   deleteBtn.addEventListener("click", () => handleRemoveItem(item.id));
