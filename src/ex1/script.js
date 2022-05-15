@@ -14,7 +14,10 @@ todoList.addEventListener("click" , deleteTask);
 //Functions
 
 function addTodo(event) {
-  event.preventDefault();
+    if (todoInput.value.trim() == 0){
+        return alert("Error!")
+    }
+    event.preventDefault();
   //Todo li
   const todoLi = document.createElement("li");
   todoLi.classList.add("todo");
