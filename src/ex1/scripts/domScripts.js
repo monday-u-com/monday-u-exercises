@@ -9,6 +9,13 @@ tasksList.addEventListener("click", onTaskButtonsClick);
 filterOptiopn.addEventListener("click", onFilterOptionChange);
 searchInput.addEventListener("keyup", onSearchInputKeyUp);
 
+taskInput.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    addTaskButton.click();
+  }
+});
+
 function onAddTaskClick(e) {
   const isOk = canProceed();
   if (isOk) {
