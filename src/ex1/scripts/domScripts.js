@@ -58,17 +58,24 @@ function createGridLines() {
   return gripLines;
 }
 
-function createTaskContent() {
+function createTaskContent(content = null) {
   const newTask = document.createElement("p");
   newTask.classList.add("task-item");
-  newTask.innerText = taskInput.value;
+  if (content) {
+    newTask.innerText = content;
+  } else {
+    newTask.innerText = taskInput.value;
+  }
   return newTask;
 }
 
-function createCompleteBtn() {
+function createCompleteBtn(isCompleted = false) {
   const completeTaskButton = document.createElement("button");
   completeTaskButton.classList.add("task-complete-btn");
   completeTaskButton.classList.add("hide");
+  if (isCompleted) {
+    completeTaskButton.classList.add("btn-completed");
+  }
   completeTaskButton.innerHTML = '<i class="fas fa-check"></i>';
   return completeTaskButton;
 }

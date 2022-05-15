@@ -87,7 +87,7 @@
 }
 
 
-.btn-completed
+.task-complete-btn.btn-completed
 {
     color: greenyellow;  
 }

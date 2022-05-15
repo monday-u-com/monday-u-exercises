@@ -20,6 +20,7 @@ function getTasksFromLocalStorage() {
 }
 
 function renderTasksFromLocalStorage() {
+  tasksList.innerHTML = "";
   const tasks = getTasksFromLocalStorage();
   tasks.forEach(function (task) {
     const taskDiv = createTaskDiv(task[0], task[1]);
@@ -30,13 +31,6 @@ function renderTasksFromLocalStorage() {
 }
 renderTasksFromLocalStorage();
 
-function LoadTaskContent(content) {
-  const newTask = document.createElement("p");
-  newTask.classList.add("task-item");
-  newTask.innerText = content;
-  return newTask;
-}
-
 function createTaskDiv(task, isCompleted) {
   console.log("DEBUG", isCompleted);
   const taskDiv = document.createElement("div");
@@ -45,8 +39,8 @@ function createTaskDiv(task, isCompleted) {
     taskDiv.classList.add("task-completed");
   }
   taskDiv.appendChild(createGridLines());
-  taskDiv.appendChild(LoadTaskContent(task));
-  taskDiv.appendChild(createCompleteBtn());
+  taskDiv.appendChild(createTaskContent(task));
+  taskDiv.appendChild(createCompleteBtn(isCompleted));
   taskDiv.appendChild(createRemoveBtn());
   return taskDiv;
 }
