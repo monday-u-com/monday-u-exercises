@@ -19,9 +19,13 @@ body {
   /* background: linear-gradient(to bottom, #68eacc 0%, #497be8 100%); */
   background-image: linear-gradient(120deg, #f6d365, #fda085);
 }
+
+header{
+    text-align: center;
+}
 .wrapper {
   background: #fff;
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
   margin: 120px auto;
   padding: 25px;
@@ -42,7 +46,7 @@ body {
 }
 
 .inputField input {
-  width: 85%;
+  width: 100%;
   height: 100%;
   outline: none;
   border-radius: 3px;
@@ -83,38 +87,66 @@ body {
 } 
 
 .wrapper .todoList {
-  max-height: 250px;
-  overflow-y: auto;
+  max-height: 500px;
+   /* overflow-y: auto;  */
 }
 
 .todoList li {
-  position: relative;
+  
+ position: relative;
   list-style: none;
   margin-bottom: 8px;
   height: 45px;
   line-height: 45px;
   background: #f2f2f2;
   border-radius: 3px;
-  padding: 0px 15px;
+  padding: 0px 0px;
   cursor: default;
   overflow: hidden;
 }
 
 .todoList li span {
   position: absolute;
-  right: -45px;
+  /* right: -45px; */
+  right: 0px;
   color: #fff;
   width: 45px;
   text-align: center;
   background: #e74c3c;
-  border-radius: 0 3px 3px 0;
+  border-radius: 3px 3px 3px 3px;
   cursor: pointer;
   transition: all 0.3s ease;
+  opacity: 0.6;
 }
 
-.todoList li:hover span {
+
+.todoList .fa-check {
+    
+    left: -100px; 
+    margin-bottom: 8px;
+    margin-right: 10px;;
+    height: 45px;
+    line-height: 45px;
+    color: #fff;
+    width: 45px;
+    text-align: center;
+    background: green;
+    border-radius: 0 3px 3px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+  }
+
+.todoList span:hover  {
   right: 0px;
+  opacity:1;
+  
 }
+
+.todoList .fa-check:hover  {
+    right: 0px;
+    opacity:1;
+  }
 
 .wrapper .footer {
   display: flex;
@@ -127,8 +159,8 @@ body {
 .footer .sortBtn {
   border: none;
   color: #fff;
-  margin-left: 5px;
-  font-size: 16px;
+  margin-right: -3px;
+  font-size: 15px;
   outline: none;
   background: #e29624;
   cursor: pointer;
@@ -153,7 +185,7 @@ body {
   margin-left: 5px;
   font-size: 16px;
   outline: none;
-  background: #e29624;
+  background: #e74c3c;
   cursor: pointer;
   border-radius: 3px;
   padding: 6px 10px;
@@ -190,4 +222,3 @@ body {
    
     transition: all 1s ease;
 }
-

@@ -5,36 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>This is Exercise 1</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" />
-    <script src="https://kit.fontawesome.com/361581c500.js" crossorigin="anonymous"></script>
+
+    <script
+      src="https://kit.fontawesome.com/361581c500.js"
+      crossorigin="anonymous"
+    ></script>
+   
+   
+    <link href="jquery.vnm.confettiButton.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+            crossorigin="anonymous">
+    </script>
+    <script src="jquery.vnm.confettiButton.js"></script>
+    
   </head>
   <body>
     <div class="wrapper">
-      <header>Todo list</header>
+      <header>Ori's Todo list</header>
       <div class="inputField">
-        <input type="text" placeholder="Add your new todo" />
-        <button><i class="fas fa-plus"></i></button>
+        <input id="input-txt" type="text" placeholder="Add your new todo task" />
+        <button id="add-btn" class="btn"><i class="fas fa-plus"></i></button>
       </div>
-      <ul class="todoList">
-  
-         <!--  <li>Buy a new laptop <span><i class="fas fa-trash"></i></span></li>
+      <ul id="list-element" class="todoList">
+        <!--  <li>Buy a new laptop <span><i class="fas fa-trash"></i></span></li>
           <li>Create Todo app <span><i class="fas fa-trash"></i></span></li>
           <li>Create Todo app <span><i class="fas fa-trash"></i></span></li>
           <li>Create Todo app <span><i class="fas fa-trash"></i></span></li> -->
-
       </ul>
+
       <div class="footer">
-        <span>You have <span class="pendingTasksCount"></span> pending tasks</span>
-      
-        <button class="sortBtn">Sort</button>
-        
+        <span
+          >You have <span class="pendingTasksCount"></span> pending tasks</span
+        >
+
+        <button id="sort-btn" class="sortBtn">Sort</button>
       </div>
       <div class="footer2">
-       
-        <button class="clearAllBtn">Clear All</button>
-        
+        <button id="clearAll-btn" class="clearAllBtn">Clear All</button>
       </div>
-    
     </div>
   </body>
   <script src="script.js"></script>

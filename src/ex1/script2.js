@@ -1,8 +1,8 @@
-const inputBox = document.getElementById("input-txt");
-const addBtn = document.getElementById("add-btn");
-const todoList = document.getElementById("list-element");
-const clearAllBtn = document.getElementById("clearAll-btn");
-const sortBtn = document.getElementById("sort-btn");
+const inputBox = document.querySelector(".inputField input");
+const addBtn = document.querySelector(".inputField button");
+const todoList = document.querySelector(".todoList");
+const clearAllBtn = document.querySelector(".clearAllBtn");
+const sortBtn = document.querySelector(".sortBtn");
 
 inputBox.onkeyup = () => {
   let userData = inputBox.value; //getting user entered value
