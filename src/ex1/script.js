@@ -12,6 +12,7 @@ function addTask() {
    const newTask = createNewTask(taskContainer);
    const deleteTask = createDeleteTaskButton(taskContainer);
    addHoverReveal(taskContainer, deleteTask, newTask);
+   taskInput.value = "";
 }
 
 // Creates container which holds task box and delete button
