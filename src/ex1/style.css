@@ -37,7 +37,7 @@ body {
     border-radius: 8px;
 }
 
-.tasks-container {
+.all-tasks-container {
     overflow: auto;
     max-height: 28rem;
 }
