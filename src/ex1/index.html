@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Exercise 1</title>
-    <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-
-<h1>Todo list</h1>
-
-
-</body>
-<script src="script.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./css/normalize.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Todo App</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="todo">
+        <header>
+          <h1>Todo App</h1>
+        </header>
+        <fieldset class="todo__field">
+          <input
+            class="todo__input"
+            placeholder="Add your new todo"
+            type="text"
+          />
+          <button class="todo__add">
+            <i class="fas fa-plus"></i>
+          </button>
+        </fieldset>
+        <ul class="todo__list"></ul>
+        <footer class="todo__pending">
+          <label
+            >You have <label id="todo__pending-amount">0</label> pending
+            tasks</label
+          >
+          <button class="todo__clear">Clear All</button>
+        </footer>
+      </div>
+    </div>
+    <script src="./js/script.js"></script>
+  </body>
 </html>
