@@ -15,9 +15,9 @@ The requirements:
 - [x] Import the relevant CSS (style.css) and JS (script.js) files - already done for you
 - [x] Choose a name for your app and update the title to your app name
 - [x] Add your app name in the top of the screen (see mock)
-- [ ] Build the layout according to the mock. (background, centered white box, etc...)
-- [ ] Add a textbox to be used for adding tasks
-- [ ] Add a button ("Add task")
+- [x] Build the layout according to the mock. (background, centered white box, etc...)
+- [x] Add a textbox to be used for adding tasks
+- [x] Add a button ("Add task")
 - [ ] When "Add task" button is clicked, add a task to the task list
 - [ ] Change the background and cursor type of an item when hovered on
 - [ ] When a list item is clicked, show 'alert' (**Hint**: check the [alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert) method) with the item name
