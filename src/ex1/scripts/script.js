@@ -39,14 +39,18 @@ function onAddTaskClick(e) {
 
   const completeTaskButton = document.createElement("button");
   completeTaskButton.classList.add("task-complete-btn");
+  completeTaskButton.classList.add("hide");
   completeTaskButton.innerHTML = '<i class="fas fa-check"></i>';
   taskDiv.appendChild(completeTaskButton);
 
   const removeTaskButton = document.createElement("button");
   removeTaskButton.classList.add("task-remove-btn");
+  removeTaskButton.classList.add("hide");
   removeTaskButton.innerHTML = '<i class="fas fa-trash"></i>';
   taskDiv.appendChild(removeTaskButton);
 
+  taskDiv.addEventListener("mouseover", onTaskMouseOver);
+  taskDiv.addEventListener("mouseleave", onTaskMouseOut);
   tasksList.appendChild(taskDiv);
   toggleEmptyMsg();
   taskInput.value = "";
@@ -110,4 +114,21 @@ function onSearchInputKeyUp(e) {
 
 function onTaskClick(e) {
   alert(e.target.innerText);
+}
+
+function onTaskMouseOver(e) {
+  const completeTaskButton = e.target.querySelector(".task-complete-btn");
+  completeTaskButton.classList.remove("hide");
+  const removeTaskButton = e.target.querySelector(".task-remove-btn");
+  removeTaskButton.classList.remove("hide");
+}
+
+function onTaskMouseOut(e) {
+  console.log(e.target);
+  const completeTaskButton = e.target.querySelector(".task-complete-btn");
+  console.log("completeTaskButton:", completeTaskButton);
+  completeTaskButton.classList.add("hide");
+  const removeTaskButton = e.target.querySelector(".task-remove-btn");
+  console.log("removeTaskButton:", removeTaskButton);
+  removeTaskButton.classList.add("hide");
 }
