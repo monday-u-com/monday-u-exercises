@@ -37,7 +37,7 @@ function onAddTaskClick(e) {
   gripLines.addEventListener("click", onTaskGripClick);
   taskDiv.appendChild(gripLines);
 
-  const newTask = document.createElement("li");
+  const newTask = document.createElement("p");
 
   newTask.classList.add("task-item");
   newTask.innerText = taskInput.value;
@@ -55,10 +55,9 @@ function onAddTaskClick(e) {
   removeTaskButton.classList.add("hide");
   removeTaskButton.innerHTML = '<i class="fas fa-trash"></i>';
   taskDiv.appendChild(removeTaskButton);
-  taskDiv.draggable = true;
-
   taskDiv.addEventListener("mouseover", onTaskMouseOver);
   taskDiv.addEventListener("mouseleave", onTaskMouseOut);
+  taskDiv.draggable = true;
   tasksList.appendChild(taskDiv);
   toggleEmptyMsg();
   taskInput.value = "";
@@ -144,3 +143,8 @@ function onTaskMouseOut(e) {
 function onTaskGripClick() {
   console.log("Test");
 }
+
+const dragArea = document.querySelector(".tasks-list");
+new Sortable(dragArea, {
+  animation: 350,
+});

@@ -111,7 +111,7 @@ body
 }
 
 
-.task li
+.task p
 {
     flex: 1;
     pointer-events: none;
@@ -383,4 +383,5 @@ select
   .task.over {
     border-top: 2px solid blue;
   } 
+
   
