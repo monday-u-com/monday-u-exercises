@@ -14,7 +14,7 @@ Almost as cool as our boards, but with a bit less functionality.
 The requirements:
 - [x] Import the relevant CSS (style.css) and JS (script.js) files - already done for you
 - [x] Choose a name for your app and update the title to your app name
-- [ ] Add your app name in the top of the screen (see mock)
+- [x] Add your app name in the top of the screen (see mock)
 - [ ] Build the layout according to the mock. (background, centered white box, etc...)
 - [ ] Add a textbox to be used for adding tasks
 - [ ] Add a button ("Add task")
