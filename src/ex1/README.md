@@ -23,7 +23,7 @@ The requirements:
 - [x] Add a button ("Add task")
 - [x] When "Add task" button is clicked, add a task to the task list
 - [x] Change the background and cursor type of an item when hovered on
-- [x] When a list item is clicked, show 'alert' (**Hint**: check the [alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert) method) with the item name
+- [x] When a list item is clicked, show 'alert' with the item name
 - [x] Delete an item when "Delete" button is clicked
 
 Bonus
@@ -34,8 +34,5 @@ Bonus
 - [ ] Add ability to sort the list by name
 - [x] Add task when enter key is pressed
 - [ ] Add animation when a new item is added
-- [ ] have another cool idea? Go wild!
 
-When you finish, it should look like this:
-
-![](https://res.cloudinary.com/practicaldev/image/fetch/s--pyyuGSZ9--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/o96lsrld21tk232kidu4.png)
+<img src="../assets/Screen Shot 2022-05-15 at 17.32.35.png" alt="" />
