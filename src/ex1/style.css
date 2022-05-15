@@ -115,6 +115,7 @@
     background-repeat: no-repeat;
     background-position: 5px 5px;
     border-bottom: 5px solid #d30000;
+    box-shadow: #d30000 -2px 0px 6px 0px;
 }
 
 .input_div > input[type="text"]:valid
@@ -122,8 +123,9 @@
     background: url('assets/check-icon.svg');
     background-size: 20px;
     background-repeat: no-repeat;
-    background-position: 0px 21px;
+    background-position: 5px 5px;
     border-bottom: 5px solid #66d300;
+    box-shadow: #66d300 -2px 0px 6px 0px;
 }
 
 .add_to_do_button
