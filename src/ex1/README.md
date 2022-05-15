@@ -1,19 +1,19 @@
 # Exercise 1 - HTML, CSS, JS
-Welcome to your first monday-u task! Hope you are excited as we are!  
+Welcome to your first monday-u task! Hope you are excited as we are!
 This is going to be an ongoing task, so don't worry, we are going to build this awesome project step by step, from zero to hero :)
 
 
 ## In this section you will practice
-**HTML** - Basic level, tags.  
-**CSS** - Simple positioning concepts, colors and shapes.  
-**JS** - Basic DOM manipulation  
+**HTML** - Basic level, tags.
+**CSS** - Simple positioning concepts, colors and shapes.
+**JS** - Basic DOM manipulation
 
 ## What you are going to build
-A todo app!  
-Almost as cool as our boards, but with a bit less functionality.  
+A todo app!
+Almost as cool as our boards, but with a bit less functionality.
 The requirements:
 - [x] Import the relevant CSS (style.css) and JS (script.js) files - already done for you
-- [ ] Choose a name for your app and update the title to your app name
+- [x] Choose a name for your app and update the title to your app name
 - [ ] Add your app name in the top of the screen (see mock)
 - [ ] Build the layout according to the mock. (background, centered white box, etc...)
 - [ ] Add a textbox to be used for adding tasks
@@ -31,7 +31,7 @@ Bonus
 - [ ] Add ability to sort the list by name
 - [ ] Add task when enter key is pressed
 - [ ] Add animation when a new item is added
-- [ ] have another cool idea? Go wild! 
+- [ ] have another cool idea? Go wild!
 
 When you finish, it should look like this:
 
