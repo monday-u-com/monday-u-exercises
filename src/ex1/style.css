@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+body {
+  background: linear-gradient(#81d5cf, #5e8fdc);
+  height: 100vh;
+}
+.container__field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 25vw;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: auto 1vw;
+  padding: 3vh 0;
+}
+
+form {
+  margin: auto 1.2vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.antd {
+  display: flex;
+  flex-direction: row;
+}
+input {
+  width: 20vw;
+  height: 5vh;
+}
+
+.addbtn {
+  width: 3vw;
+  margin: auto 10px;
+  overflow: hidden;
+  border: none;
+}
+
+.todolist {
+  margin: 1.2vw;
+}
