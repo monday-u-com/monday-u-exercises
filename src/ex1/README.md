@@ -32,6 +32,7 @@ Bonus
 - [x] Add task when enter key is pressed
 - [ ] Add animation when a new item is added
 - [ ] have another cool idea? Go wild! 
+- [x] show count of pending tasks
 
 When you finish, it should look like this:
 

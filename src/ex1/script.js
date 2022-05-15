@@ -4,6 +4,8 @@ const todoButton = document.getElementById("add-btn");
 const todoList = document.getElementById("list-element");
 const clearAllBtn = document.getElementById("clearAll-btn");
 const sortBtn = document.getElementById("sort-btn");
+const pendingTasksCount = document.querySelector(".pendingTasksCount");
+
 
 //Event Listeners
 document.addEventListener("DOMContentLoaded", getTodos);
@@ -34,6 +36,9 @@ function addTodo(event) {
   todoList.appendChild(todoLi);
   //Clear Todo Input value
   todoInput.value = "";
+
+ 
+  console.log(localStorage.length) 
 }
 
 function todoEnter(event){  
@@ -73,6 +78,8 @@ function saveLocalTodos(todo){
     }
     todos.push(todo);
     localStorage.setItem("todos",JSON.stringify(todos));
+    pendingTasksCount.textContent = todos.length;
+    
 }
 
 function getTodos() {
@@ -98,6 +105,7 @@ function getTodos() {
   //Clear Todo Input value
   todoInput.value = "";
      }    );
+     pendingTasksCount.textContent = todos.length;
 }
 
 function removeLocalTodos(todo){
@@ -110,5 +118,6 @@ function removeLocalTodos(todo){
     const todoIndex = todo.innerText;
     todos.splice(todos.indexOf(todoIndex), 1);
     localStorage.setItem("todos" , JSON.stringify(todos));
+    pendingTasksCount.textContent = todos.length;
    
 }
