@@ -12,3 +12,26 @@ body{
     align-items: center;
 }
 
+.todoList{
+    justify-content: center;
+    display:inline-table;
+    list-style: none;
+    align-items: center;
+    padding: 0;
+    margin: auto;
+    border: darkcyan 2px solid;
+    border: 5px outset #1C6EA4;
+    border-radius: 10px;
+    width: 100%;
+
+}
+
+.todoList li{
+    display: inline-block;
+    list-style: none;
+    margin-bottom: 10px;
+    border: lightcyan 2px solid;
+    border: 5px outset #1C6EA4;
+    width:50%;
+}
+
