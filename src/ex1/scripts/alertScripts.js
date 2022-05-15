@@ -3,6 +3,7 @@ const alertClose = document.querySelector(".alert-close-btn");
 
 alertClose.addEventListener("click", toggleAlert);
 
+
 function toggleAlert() {
   if (emptyAlert.classList.contains("show")) {
     emptyAlert.classList.remove("show");

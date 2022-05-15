@@ -9,58 +9,82 @@ tasksList.addEventListener("click", onTaskButtonsClick);
 filterOptiopn.addEventListener("click", onFilterOptionChange);
 searchInput.addEventListener("keyup", onSearchInputKeyUp);
 
-function handleAlert() {
+function onAddTaskClick(e) {
+  const isOk = canProceed();
+  if (isOk) {
+    const taskDiv = document.createElement("div");
+    taskDiv.classList.add("task");
+
+    const gripLines = createGridLines();
+    taskDiv.appendChild(gripLines);
+
+    const taskContent = createTaskContent();
+    taskDiv.appendChild(taskContent);
+
+    const completeTaskButton = createCompleteBtn();
+    taskDiv.appendChild(completeTaskButton);
+
+    const removeTaskButton = createRemoveBtn();
+    taskDiv.appendChild(removeTaskButton);
+
+    addTaskDivEventListeners(taskDiv);
+    tasksList.appendChild(taskDiv);
+    toggleEmptyMsg();
+    taskInput.value = "";
+  }
+}
+
+function canProceed() {
   const isAlertOn = isAlertShown();
   if (taskInput.value === "") {
     if (!isAlertOn) {
       toggleAlert();
     }
+    return false;
+  } else {
+    if (isAlertOn) {
+      toggleAlert();
+    }
     return true;
-  } else return false;
+  }
 }
 
-function onAddTaskClick(e) {
-  if (handleAlert()) {
-    return;
-  }
-
-  const isAlertOn = isAlertShown();
-  if (isAlertOn) {
-    toggleAlert();
-  }
-  const taskDiv = document.createElement("div");
-  taskDiv.classList.add("task");
-
+function createGridLines() {
   const gripLines = document.createElement("div");
   gripLines.classList.add("grip-lines-icon");
   gripLines.innerHTML = '<i class="fas fa-grip-lines"></i>';
   gripLines.addEventListener("click", onTaskGripClick);
-  taskDiv.appendChild(gripLines);
+  return gripLines;
+}
 
+function createTaskContent() {
   const newTask = document.createElement("p");
-
   newTask.classList.add("task-item");
   newTask.innerText = taskInput.value;
-  taskDiv.appendChild(newTask);
-  taskDiv.addEventListener("click", onTaskClick);
+  return newTask;
+}
 
+function createCompleteBtn() {
   const completeTaskButton = document.createElement("button");
   completeTaskButton.classList.add("task-complete-btn");
   completeTaskButton.classList.add("hide");
   completeTaskButton.innerHTML = '<i class="fas fa-check"></i>';
-  taskDiv.appendChild(completeTaskButton);
+  return completeTaskButton;
+}
 
+function createRemoveBtn() {
   const removeTaskButton = document.createElement("button");
   removeTaskButton.classList.add("task-remove-btn");
   removeTaskButton.classList.add("hide");
   removeTaskButton.innerHTML = '<i class="fas fa-trash"></i>';
-  taskDiv.appendChild(removeTaskButton);
+  return removeTaskButton;
+}
+
+function addTaskDivEventListeners(taskDiv) {
+  taskDiv.addEventListener("click", onTaskClick);
   taskDiv.addEventListener("mouseover", onTaskMouseOver);
   taskDiv.addEventListener("mouseleave", onTaskMouseOut);
   taskDiv.draggable = true;
-  tasksList.appendChild(taskDiv);
-  toggleEmptyMsg();
-  taskInput.value = "";
 }
 
 function onTaskButtonsClick(e) {
@@ -120,7 +144,7 @@ function onSearchInputKeyUp(e) {
 }
 
 function onTaskClick(e) {
-  console.log("DEBUG", e.target);
+  console.log(e.target);
   if (e.target.classList.contains("task")) {
     alert(e.target.innerText);
   }
