@@ -2,8 +2,15 @@ const addTaskButton = document.querySelector(".add-task");
 const taskInput = document.querySelector("#task-text");
 const allTasksContainer = document.querySelector(".all-tasks-container");
 
+// Event trigger when user clicks the add task button
 addTaskButton.addEventListener("click", () => {
-   addTask();
+   // Checks for blank spaces
+   if (taskInput.value.trim().length === 0) {
+      alert("Please fill in a task");
+      taskInput.value = "";
+   } else {
+      addTask();
+   }
 });
 
 // Adds the user task input to the tasks list
