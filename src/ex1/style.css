@@ -47,10 +47,36 @@ input {
 .addbtn {
   width: 3vw;
   margin: auto 10px;
-  overflow: hidden;
   border: none;
+  font-size: 1.5rem;
+  color: white;
+  background-color: rgb(131, 30, 207);
 }
-
+.ant-input {
+  padding-left: 10px;
+}
 .todolist {
   margin: 1.2vw;
 }
+
+li {
+  list-style: none;
+  margin: 2vh 0;
+  padding: 0;
+  background-color: rgb(211, 207, 207);
+  width: 22vw;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  padding-left: 1vw;
+}
+
+.dltbtn {
+  width: 3vw;
+  margin: auto 10px;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  background-color: red;
+}
+
