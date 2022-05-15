@@ -31,11 +31,18 @@ function onAddTaskClick(e) {
   const taskDiv = document.createElement("div");
   taskDiv.classList.add("task");
 
+  const gripLines = document.createElement("div");
+  gripLines.classList.add("grip-lines-icon");
+  gripLines.innerHTML = '<i class="fas fa-grip-lines"></i>';
+  gripLines.addEventListener("click", onTaskGripClick);
+  taskDiv.appendChild(gripLines);
+
   const newTask = document.createElement("li");
+
   newTask.classList.add("task-item");
   newTask.innerText = taskInput.value;
-  newTask.addEventListener("click", onTaskClick);
   taskDiv.appendChild(newTask);
+  taskDiv.addEventListener("click", onTaskClick);
 
   const completeTaskButton = document.createElement("button");
   completeTaskButton.classList.add("task-complete-btn");
@@ -48,6 +55,7 @@ function onAddTaskClick(e) {
   removeTaskButton.classList.add("hide");
   removeTaskButton.innerHTML = '<i class="fas fa-trash"></i>';
   taskDiv.appendChild(removeTaskButton);
+  taskDiv.draggable = true;
 
   taskDiv.addEventListener("mouseover", onTaskMouseOver);
   taskDiv.addEventListener("mouseleave", onTaskMouseOut);
@@ -113,7 +121,10 @@ function onSearchInputKeyUp(e) {
 }
 
 function onTaskClick(e) {
-  alert(e.target.innerText);
+  console.log("DEBUG", e.target);
+  if (e.target.classList.contains("task")) {
+    alert(e.target.innerText);
+  }
 }
 
 function onTaskMouseOver(e) {
@@ -124,11 +135,12 @@ function onTaskMouseOver(e) {
 }
 
 function onTaskMouseOut(e) {
-  console.log(e.target);
   const completeTaskButton = e.target.querySelector(".task-complete-btn");
-  console.log("completeTaskButton:", completeTaskButton);
   completeTaskButton.classList.add("hide");
   const removeTaskButton = e.target.querySelector(".task-remove-btn");
-  console.log("removeTaskButton:", removeTaskButton);
   removeTaskButton.classList.add("hide");
+}
+
+function onTaskGripClick() {
+  console.log("Test");
 }
