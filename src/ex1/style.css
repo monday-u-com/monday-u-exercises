@@ -117,6 +117,14 @@
     border-bottom: 5px solid #d30000;
 }
 
+.input_div > input[type="text"]:valid
+{
+    background: url('assets/check-icon.svg');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 0px 21px;
+    border-bottom: 5px solid #66d300;
+}
 
 .add_to_do_button
 {
