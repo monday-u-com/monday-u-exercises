@@ -157,6 +157,54 @@
 .todo_tasks_container 
 {
     margin: 15px 0px 15px 5px;
+    min-height: 250px;
+}
+
+.empty
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color:#a7a7a7;
+    animation: EmptyAnimation 9s ease infinite;
+
+}
+
+.empty::before
+{
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f0ae";
+}
+
+.empty::after
+{
+    content: "Start adding tasks, if you you want to accomplish something today.";
+    margin: 10px;
+}
+
+@keyframes EmptyAnimation {
+    0%
+    {
+        color: #66d300;
+    }
+    25%
+    {
+        color: #cc00c2;
+    }
+    50%
+    {
+        color: #efa500;
+    }
+    75%
+    {
+        color: #ff7a7a;
+    }
+    100%
+    {
+        color: #66d300;
+    }
 }
 
 .todo_task
@@ -284,6 +332,7 @@ button > .buttonColoring
     50%{background-position:100% 17%}
     100%{background-position:0% 84%}
 }
+
 
 .todo_status_text
 {
