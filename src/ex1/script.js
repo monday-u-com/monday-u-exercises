@@ -1,101 +1,111 @@
-const inputBox = document.getElementById("input-txt");
-const addBtn = document.getElementById("add-btn");
+//Selectors
+const todoInput = document.getElementById("input-txt");
+const todoButton = document.getElementById("add-btn");
 const todoList = document.getElementById("list-element");
 const clearAllBtn = document.getElementById("clearAll-btn");
 const sortBtn = document.getElementById("sort-btn");
 
-inputBox.onkeyup = () => {
-  let userData = inputBox.value; //getting user entered value
-  if (userData.trim() != 0) {
-    //if user values are not only spaces
-    addBtn.classList.add("active"); //active the add button
+//Event Listeners
+document.addEventListener("DOMContentLoaded", getTodos);
+todoButton.addEventListener("click", addTodo);
+todoInput.addEventListener("keyup" , todoEnter);
+todoList.addEventListener("click" , deleteTask);
 
+//Functions
+
+function addTodo(event) {
+  event.preventDefault();
+  //Todo li
+  const todoLi = document.createElement("li");
+  todoLi.classList.add("todo");
+  todoLi.innerText = todoInput.value;
+
+  //Add todo to local storage
+  saveLocalTodos(todoInput.value);
+  //trash button
+  const trashButton = document.createElement("button");
+  trashButton.innerHTML = '<i  class="fas fa-trash"></i>';
+  trashButton.classList.add("trash-btn");
+  todoLi.appendChild(trashButton);
+  //append to list
+  todoList.appendChild(todoLi);
+  //Clear Todo Input value
+  todoInput.value = "";
+}
+
+function todoEnter(event){  
     if (event.keyCode == 13) {
-      addBtn.onclick();
+       
+    if (todoInput.value.trim() == 0){
+        return alert("Error!")
     }
-  } else {
-    addBtn.classList.remove("active"); //deactivate the add button
-  }
-};
-showTasks();
-
-// if user clicked on the add button
-addBtn.onclick = () => {
-  let userData = inputBox.value; //getting user entered value
-  let getLocalStorage = localStorage.getItem("New Todo"); //getting local storage
-  if (getLocalStorage == null) {
-    listArr = [];
-  } else {
-    listArr = JSON.parse(getLocalStorage); //transforming json string into a js object
-  }
-  listArr.push(userData); //pushing or adding user data
-
-  localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming js object into a json string
-  showTasks();
-  addBtn.classList.remove("active");
-};
-
-sortBtn.onclick = () => {
-  listArr.sort();
-  localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming js object into a json string
-  showTasks();
-};
-
-// function to add task list inside ul
-function showTasks() {
-  let getLocalStorage = localStorage.getItem("New Todo"); //getting local storage
-  if (getLocalStorage == null) {
-    listArr = [];
-  } else {
-    listArr = JSON.parse(getLocalStorage); //transforming json string into a js object
-  }
-  const pendingTasksCount = document.querySelector(".pendingTasksCount");
-  pendingTasksCount.textContent = listArr.length; //passing the length value in pendingTasksCount
-
-  if (listArr.length > 0) {
-    clearAllBtn.classList.add("active");
-    sortBtn.classList.add("active");
-  } else {
-    clearAllBtn.classList.remove("active");
-    sortBtn.classList.remove("active");
-  }
-
-  let newLiTag = "";
-  listArr.forEach((element, index) => {
-    newLiTag += `<li ><i class="fas fa-check"></i>${element} <span onclick="deleteTask(${index});"><i  class="fas fa-trash"></i></span></li>`;
-  });
-  todoList.innerHTML = newLiTag; //adding new li tag inside ul tag
-
-  inputBox.value = ""; //once task added leave the input field blank
-}
-/* $("li").click(function (e) {
-  if (e.target !== this) return;
-  alert("inside a li");
-}); */
-
-
-
-//delete task function
-function deleteTask(index) {
-  let getLocalStorage = localStorage.getItem("New Todo");
-  listArr = JSON.parse(getLocalStorage);
-  todoList.childNodes[index].classList.add("fall");
-
-  console.log(todoList.childNodes[index]);
-  //after remove the li update the local storage
-  listArr.splice(index, 1); //delete or remove the particular indexed li
-  localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming js object into a json string
-  setTimeout(function () {
-    //your code to be executed after 1 second
-    showTasks();
-  }, 500);
+    addTodo(event);
+       
+      }
 }
 
-//delete all tasks function
-clearAllBtn.onclick = () => {
-  listArr = []; //empty an array
-  // delete all tasks and update
-  localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming js object into a json string
-  addBtn.classList.remove("active");
-  showTasks();
-};
+function deleteTask(e) {
+    const item = e.target;
+    if(item.classList[0] === "trash-btn"){
+       const todo = item.parentElement;
+       todo.classList.add("fall");
+       removeLocalTodos(todo);
+       setTimeout(function () {
+        //delay the remove animation
+        todo.remove();
+      }, 500);
+                
+    }
+
+}
+
+function saveLocalTodos(todo){
+    //Check if local storage is empty
+    let todos;
+    if(localStorage.getItem("todos") === null){
+        todos = [];
+
+    } else {
+        todos = JSON.parse(localStorage.getItem("todos"));
+    }
+    todos.push(todo);
+    localStorage.setItem("todos",JSON.stringify(todos));
+}
+
+function getTodos() {
+    //is the storage empty?
+    let todos;
+    if (localStorage.getItem("todos") === null){
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem("todos"));
+    }
+    todos.forEach(function(todo){
+    const todoLi = document.createElement("li");
+    todoLi.classList.add("todo");
+    todoLi.innerText = todo;
+
+  //trash button
+  const trashButton = document.createElement("button");
+  trashButton.innerHTML = '<i  class="fas fa-trash"></i>';
+  trashButton.classList.add("trash-btn");
+  todoLi.appendChild(trashButton);
+  //append to list
+  todoList.appendChild(todoLi);
+  //Clear Todo Input value
+  todoInput.value = "";
+     }    );
+}
+
+function removeLocalTodos(todo){
+    let todos;
+    if (localStorage.getItem("todos") === null){
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem("todos"));
+    }
+    const todoIndex = todo.innerText;
+    todos.splice(todos.indexOf(todoIndex), 1);
+    localStorage.setItem("todos" , JSON.stringify(todos));
+   
+}

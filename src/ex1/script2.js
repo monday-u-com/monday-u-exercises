@@ -68,10 +68,7 @@ function showTasks() {
 
   inputBox.value = ""; //once task added leave the input field blank
 }
-/* $("li").click(function (e) {
-  if (e.target !== this) return;
-  alert("inside a li");
-}); */
+
 
 
 

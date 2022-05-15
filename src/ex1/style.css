@@ -73,7 +73,7 @@ header{
   cursor: pointer;
   border-radius: 3px;
   opacity: 0.6;
-  pointer-events: none;
+ /*  pointer-events: none; */
 }
 .inputField button.active {
   opacity: 1;
@@ -105,9 +105,10 @@ header{
   overflow: hidden;
 }
 
-.todoList li span {
+.todoList li .trash-btn {
   position: absolute;
   /* right: -45px; */
+  height: 45px;
   right: 0px;
   color: #fff;
   width: 45px;
@@ -117,6 +118,7 @@ header{
   cursor: pointer;
   transition: all 0.3s ease;
   opacity: 0.6;
+  border-style: none;
 }
 
 
@@ -221,4 +223,8 @@ header{
     color: #fda085;
    
     transition: all 1s ease;
+}
+
+.fa-trash {
+    pointer-events: none;
 }
