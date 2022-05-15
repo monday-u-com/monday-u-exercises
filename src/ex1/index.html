@@ -6,13 +6,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Todo List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="../images/todo-icon.png">
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-
-    <h1>My Todo list</h1>
+    <div class="container">
+        <h1>My Todo list</h1>
+        <div id="add-task">
+            <input type="text" id="taskInput" placeholder="Add your new todo task">
+            <button id="addBtn">+</button>
+        </div>
+        <ul id="task-list">
+            <li>MondayU class<span><i class="fa fa-trash-o"></i></span></li>
+            <li>Coffe metting<span><i class="fa fa-trash-o"></i></span></li>
+            <li>Buy a new computer<span><i class="fa fa-trash-o"></i></span>
+            </li>
+        </ul>
+        <div id="info">
+            <span id="peding-task-text">You have 0 pending tasks</span>
+            <button id="clearAllBtn">Clear All</button>
+            <button id="sortAllBtn">Sort All</button>
+        </div>
+    </div>
 
 </body>
 <script src="script.js"></script>
