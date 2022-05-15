@@ -17,6 +17,7 @@ body {
 .container {
     background: #fff;
     width: 60%;
+    max-height: 80%;
     margin: 50px auto;
     padding: 20px;
     border-radius: 5px;
@@ -57,7 +58,7 @@ body {
     height: 100%;
     border: none;
     color: #fff;
-    cursor: pointer;
+    cursor: not-allowed;
     font-size: 20px;
     outline: none;
     background: #8E49E8;
@@ -66,13 +67,10 @@ body {
     transition: all 0.3s ease;
 }
 
-.add-button:hover, .clear-all-button:hover {
-    background: #3ad74f;
-}
-
-.add-button:active, .clear-all-button:active {
+.add-button.active, .clear-all-button.active {
     opacity: 1;
     transform: scale(0.98);
+    cursor: pointer;
 }
 
 .todo-list-container {
@@ -91,15 +89,12 @@ body {
     word-wrap: break-word;
     cursor: default;
 }
-.todo-list-container li:hover {
-    background: rgba(139, 90, 139, 0.3);
-}
 
 .todo-list-container li .delete{
     position: absolute;
     right: -40px;
     top: 50%;
-    transform: translateY(50%);
+    transform: translateY(-50%);
     background: #e74c3c;
     width: 40px;
     text-align: center;
@@ -114,6 +109,10 @@ body {
     right: 0px;
 }
 
+.todo-list-container li:hover {
+    background: rgba(139, 90, 139, 0.3);
+}
+
 .clear-and-pending-container {
     display: flex;
     align-items: center;
@@ -125,6 +124,7 @@ body {
 .clear-all-button {
     padding: 10px;
     border-radius: 5px;
+    max-width: 90px;
     border: none;
     outline: none;
     color: #fff;
@@ -134,4 +134,5 @@ body {
     cursor: pointer;
     opacity: 0.6;
     transition: all 0.3s ease;
+    word-wrap: break-word;
 }
