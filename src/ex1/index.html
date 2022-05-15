@@ -3,12 +3,23 @@
 <head>
     <title>2DoList</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
-
-<h1>Todo list</h1>
-
-
+    <div class="container">
+        <h1 class="title">2DoList</h1>
+        <div class="input-container">
+            <input class="todo-input" type="text" placeholder="Add your new todo">
+            <button class="add-button"><i class="fa fa-plus"></i></button>
+        </div>
+        <ul class="todo-list-container">
+            <li>hi</li>
+        </ul>
+        <div class="clear-and-pending-container">
+            <span>You have <span class="pending-tasks"></span> pending tasks</span>
+            <button class="clear-all-button"">Clear All</button>
+        </div>
+    </div>
 </body>
 <script src="script.js"></script>
 </html>
