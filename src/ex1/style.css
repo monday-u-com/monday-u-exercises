@@ -148,6 +148,7 @@
     margin: 5px 0;
     border-radius: 5px;
     transition: all 0.2s linear 0.2s;    
+    border-bottom: 2px solid #fff;
 }
 
 .todo_task:hover
