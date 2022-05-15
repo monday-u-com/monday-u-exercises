@@ -1,3 +1,8 @@
+@font-face {
+    font-family: title_font;
+    src: url(assets/fortquinsty.otf);
+}
+
 *
 {
     box-sizing: border-box;
@@ -16,6 +21,7 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .container 
@@ -49,6 +55,8 @@
 .white_box > h1
 {
     font-size: 3em;
+    font-family: title_font, 'Courier New', Courier, monospace;
+    font-weight: unset;
 }
 
 
@@ -76,16 +84,24 @@
 {
     position: absolute;
     top: 10px;
-    left: 23px;
+    left: 35px;
     color: #a7a7a7;
+    transition: all 0.2s linear 0.2s;
 }
 
 .input_div > input[type="text"]:focus,
 .input_div > input[type="text"]:not(:placeholder-shown)
 {
-    padding-top: 50px;
+    padding-top: 30px;
     transition: all 0.2s linear 0.2s;
     box-shadow: #FDB931 -2px 0px 6px 0px;
+}
+
+.input_div > input[type="text"]:focus + label,
+.input_div > input[type="text"]:not(:placeholder-shown)+ label
+{
+    top: 0px;
+    transition: all 0.2s linear 0.2s;
 }
 
 .input_div > input[type="text"]:focus-within,
@@ -115,8 +131,8 @@
 .input_div > input[type="text"]:focus ~ .add_to_do_button,
 .input_div > input[type="text"]:not(:placeholder-shown) ~ .add_to_do_button
 {
-    padding-top: 31px;
-    padding-bottom: 31px;
+    padding-top: 21px;
+    padding-bottom: 21px;
     transition: all 0.2s linear 0.2s;
 }
 
@@ -246,4 +262,10 @@ button > .buttonColoring
     0%{background-position:0% 84%}
     50%{background-position:100% 17%}
     100%{background-position:0% 84%}
+}
+
+.todo_status_text
+{
+    padding: 10px 0;
+    margin: 5px;
 }
