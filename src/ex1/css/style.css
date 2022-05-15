@@ -1,6 +1,6 @@
 :root {
-  --danger-color: #e74c3c;
-  --medium-gray: #c3c3c3;
+  --danger-red-color: #e74c3c;
+  --medium-gray-color: #c3c3c3;
 }
 
 * {
@@ -12,15 +12,17 @@ html {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+/* div */
 .container {
   align-items: center;
-  background-color: var(--medium-gray);
+  background-color: var(--medium-gray-color);
   display: flex;
   height: 100vh;
   justify-content: center;
   width: 100%;
 }
 
+/* div */
 .todo {
   background-color: white;
   border-radius: 5px;
@@ -31,6 +33,7 @@ html {
   width: 450px;
 }
 
+/* filedset */
 .todo__field {
   border: none;
   display: flex;
@@ -52,6 +55,7 @@ html {
   border-color: gray;
 }
 
+/* button */
 .todo__add {
   background-color: black;
   border-radius: 5px;
@@ -68,6 +72,7 @@ html {
   opacity: 1;
 }
 
+/* ul */
 .todo__list {
   flex: 1;
   list-style: none;
@@ -75,6 +80,7 @@ html {
   padding: 0;
 }
 
+/* li */
 .todo__item {
   align-items: center;
   background-color: lightgray;
@@ -89,7 +95,7 @@ html {
 
 .todo__item:hover {
   cursor: pointer;
-  background-color: var(--medium-gray);
+  background-color: var(--medium-gray-color);
 }
 
 .todo__label {
@@ -103,8 +109,9 @@ html {
   cursor: pointer;
 }
 
+/* button */
 .todo__delete {
-  background-color: var(--danger-color);
+  background-color: var(--danger-red-color);
   border: none;
   color: #fff;
   cursor: pointer;
@@ -121,14 +128,16 @@ html {
   right: 0px;
 }
 
+/* footer */
 .todo__pending {
   align-items: center;
   display: flex;
   justify-content: space-between;
 }
 
+/* button */
 .todo__clear {
-  background-color: var(--danger-color);
+  background-color: var(--danger-red-color);
   border-radius: 5px;
   border: none;
   color: white;
