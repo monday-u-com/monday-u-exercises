@@ -29,6 +29,7 @@ function onAddTaskClick(e) {
 
     addTaskDivEventListeners(taskDiv);
     tasksList.appendChild(taskDiv);
+    saveTaskToLocalStorage(taskContent.innerText, false);
     toggleEmptyMsg();
     taskInput.value = "";
   }
@@ -92,11 +93,15 @@ function onTaskButtonsClick(e) {
   if (button.classList.contains("task-complete-btn")) {
     button.parentElement.classList.toggle("task-completed");
     button.classList.toggle("btn-completed");
+    updateTaskInLocalStorage(
+      button.parentElement.querySelector(".task-item").innerText
+    );
   } else if (e.target.classList.contains("task-remove-btn")) {
     const task = e.target.parentElement;
     task.addEventListener("transitionend", onRemoveTransitionEnd, false);
     task.classList.add("task-removed");
     function onRemoveTransitionEnd() {
+      removeTaskFromLocalStorage(task.innerText);
       task.remove();
       toggleEmptyMsg();
       task.removeEventListener("transitionend", onRemoveTransitionEnd, false);
@@ -108,7 +113,6 @@ function onFilterOptionChange(e) {
   const tasks = tasksList.children;
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
-    console.log("Debug: ", task.classList);
     const isCompleted = task.classList.contains("task-completed");
     if (e.target.value === "all") {
       task.style.display = "flex";
@@ -171,4 +175,10 @@ function onTaskGripClick() {
 const dragArea = document.querySelector(".tasks-list");
 new Sortable(dragArea, {
   animation: 350,
+  draggable: ".task",
+  handle: ".grip-lines-icon",
+  onEnd: function (evt) {
+    const tasks = evt.item.parentElement;
+    updateTasksOrderInLocalStorage();
+  },
 });
