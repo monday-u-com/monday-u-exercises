@@ -181,6 +181,8 @@
 .todo_task > span
 {
     padding: 10px;
+    text-overflow: clip;
+    max-width: 75vw;
 }
 
 .todo_task > .delete_task_button
