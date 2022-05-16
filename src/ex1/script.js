@@ -14,7 +14,7 @@ todoButton.addEventListener("click", addTodo);
 todoInput.addEventListener("keyup" , todoEnter);
 todoList.addEventListener("click" , deleteTask);
 sortBtn.addEventListener("click" ,sortTasks);
-clearAllBtn = addEventListener("click" , clearAll); 
+clearAllBtn.addEventListener("click" , clearAll); 
 
 
 
@@ -149,13 +149,17 @@ function removeLocalTodos(todo){
 }
 
  function sortTasks() {
-     console.log(sortDirection)
+   
     let todos = checkLocalStorage();
-    if (!sortDirection){
-        todos.sort();
-        const sortDirection = true;
-        console.log(sortDirection)
-    } 
+   if (todoList.classList.contains("ascending")) {
+    todos.sort();
+    todoList.classList.remove("ascending")
+    todoList.classList.add("descending")
+   } else {
+    todos.reverse();
+    todoList.classList.add("descending")
+   }
+    
 
     todoList.innerHTML = '';
     localStorage.setItem("todos" , JSON.stringify(todos));
@@ -174,6 +178,6 @@ function removeLocalTodos(todo){
       //Clear Todo Input value
       todoInput.value = "";
          }    );
-    console.log(todos)
-    return sortDirection;
+    
+  
 } 
