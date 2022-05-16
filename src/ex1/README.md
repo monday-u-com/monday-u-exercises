@@ -1,5 +1,6 @@
 # My Solution
-
+Check out my solution: https://barakmaron.github.io/monday-u-exercises/src/ex1/
+![alt solution](https://github.com/barakmaron/monday-u-exercises/blob/develop/src/ex1/assets/ex1_solution.png)
 # Exercise 1 - HTML, CSS, JS
 Welcome to your first monday-u task! Hope you are excited as we are!  
 This is going to be an ongoing task, so don't worry, we are going to build this awesome project step by step, from zero to hero :)
