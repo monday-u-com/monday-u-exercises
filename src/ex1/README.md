@@ -1,3 +1,8 @@
+# Result
+<img src="../assets/Screen Shot 2022-05-16 at 22.25.41.png" alt="Screen Shot">
+
+#
+
 # Exercise 1 - HTML, CSS, JS
 Welcome to your first monday-u task! Hope you are excited as we are!
 This is going to be an ongoing task, so don't worry, we are going to build this awesome project step by step, from zero to hero :)
