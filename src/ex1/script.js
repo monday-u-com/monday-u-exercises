@@ -251,9 +251,9 @@ function SortByName(tasks_container, tasks_element)
     {
         for (let i = 0; i < temp_tasks.length;i++) 
         {
-            if(temp_tasks[j].children[Section_in_task.TEXT].innerHTML.toLowerCase() === task_name)
+            if(temp_tasks[i].children[Section_in_task.TEXT].innerHTML.toLowerCase() === task_name)
             {
-                tasks_container.appendChild(temp_tasks[j]);
+                tasks_container.appendChild(temp_tasks[i]);
             }
         }
     });
