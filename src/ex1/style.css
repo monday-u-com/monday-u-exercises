@@ -233,29 +233,57 @@
     max-width: 75vw;
 }
 
-.todo_task > .delete_task_button
+.task_buttons
+{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
+}
+
+.task_buttons > .delete_task_button, 
+.task_buttons > .complete_task_button
 {
     background-color: #ff7a7a;
     color:#fff;
-    padding: 10px 15px;
-    border-radius: 5px; 
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    padding: 10px 15px;    
     cursor: pointer;
     opacity: 0;
     transition: all 0.2s ease-out 0.2s;
 }
 
-.todo_task:hover > .delete_task_button
+.task_buttons > .complete_task_button
+{
+    background-color: #66d300;
+    border-radius: 5px; 
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.todo_task:hover > .task_buttons > .delete_task_button,
+.todo_task:hover > .task_buttons > .complete_task_button
 {
     opacity: 1;
     transition: all 0.2s ease-in 0.2s;
 }
 
-.delete_task_button:hover
+.delete_task_button:hover,
+.complete_task_button:hover
 {
     box-shadow: inset #ffffff 0px 0px 10px 0px;
     transition: all 0.2s linear 0.2s;
+}
+
+.completed_task
+{
+    background-color: #66d300;
+    color: #fff;
+    text-decoration: line-through;
+}
+
+.completed_task:hover
+{
+    color: #000;
 }
 
 .clear_todo_container
