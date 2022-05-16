@@ -7,13 +7,17 @@ const sortBtn = document.getElementById("sort-btn");
 const pendingTasksCount = document.querySelector(".pendingTasksCount");
 
 
+
 //Event Listeners
 document.addEventListener("DOMContentLoaded", getTodos);
 todoButton.addEventListener("click", addTodo);
 todoInput.addEventListener("keyup" , todoEnter);
 todoList.addEventListener("click" , deleteTask);
+sortBtn.addEventListener("click" ,sortTasks);
+clearAllBtn = addEventListener("click" , clearAll); 
 
-clearAllBtn = addEventListener("click" , clearAll);
+
+
 
 //Functions
 
@@ -75,9 +79,16 @@ function deleteTask(e) {
 function clearAll(e) {
     const item = e.target;
     if(item.classList[0] === "clearAllBtn"){
-       todoList.innerHTML = '';
-       localStorage.clear();
+      todoList.classList.add("fall");
+      
+       setTimeout(function () {
+        //delay the remove animation
+        todoList.innerHTML = '';
+        localStorage.clear();
+        todoList.classList.remove("fall");
+      }, 500);
        pendingTasksCount.textContent = 0;
+
     }
     
 }
@@ -137,9 +148,16 @@ function removeLocalTodos(todo){
    
 }
 
-/* function sortTasks() {
+ function sortTasks() {
+     console.log(sortDirection)
     let todos = checkLocalStorage();
-    todos.sort();
+    if (!sortDirection){
+        todos.sort();
+        const sortDirection = true;
+        console.log(sortDirection)
+    } 
+
+    todoList.innerHTML = '';
     localStorage.setItem("todos" , JSON.stringify(todos));
     todos.forEach(function(todo){
         const todoLi = document.createElement("li");
@@ -157,4 +175,5 @@ function removeLocalTodos(todo){
       todoInput.value = "";
          }    );
     console.log(todos)
-} */
+    return sortDirection;
+} 
