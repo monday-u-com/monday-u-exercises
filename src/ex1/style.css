@@ -69,14 +69,42 @@ li {
   display: flex;
   align-items: center;
   padding-left: 1vw;
+  justify-content: space-between;
+}
+
+li:hover {
+  background-color: rgb(131, 30, 207);
+  color: white;
+  cursor: pointer;
 }
 
 .dltbtn {
   width: 3vw;
-  margin: auto 10px;
+  height: 5vh;
   border: none;
   font-size: 1.5rem;
   color: white;
   background-color: red;
+  display: none;
 }
 
+.dltbtn:hover {
+  background-color: white;
+  color: rgb(131, 30, 207);
+  cursor: pointer;
+}
+
+.pendingTasks {
+  /* display: none; */
+  padding-left: 1vw;
+}
+.adjustment {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+}
+
+.clearAll {
+  margin-right: 1.8vw;
+}
