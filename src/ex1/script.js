@@ -1,6 +1,8 @@
 const addTaskButton = document.querySelector(".add-task");
 const taskInput = document.querySelector("#task-text");
 const allTasksContainer = document.querySelector(".all-tasks-container");
+const pendingTasksText = document.querySelector(".pending-tasks");
+let pendingTasks = 0;
 
 // Event trigger when user clicks the add task button
 addTaskButton.addEventListener("click", () => {
@@ -20,6 +22,7 @@ function addTask() {
    const deleteTask = createDeleteTaskButton(taskContainer);
    addHoverReveal(taskContainer, deleteTask, newTask);
    taskInput.value = "";
+   pendingTasksUpdate("+");
 }
 
 // Creates container which holds task box and delete button
@@ -54,6 +57,7 @@ function createDeleteTaskButton(taskContainer) {
 
    deleteTask.addEventListener("click", () => {
       taskContainer.remove();
+      pendingTasksUpdate("-");
    });
 
    return deleteTask;
@@ -70,4 +74,13 @@ function addHoverReveal(taskContainer, deleteTask, newTask) {
       deleteTask.style.display = "none";
       newTask.style.width = "29.5rem";
    });
+}
+
+function pendingTasksUpdate(action) {
+   if (action === "+") {
+      pendingTasks++;
+   } else if (action === "-") {
+      pendingTasks--;
+   }
+   pendingTasksText.textContent = `You have ${pendingTasks} pending tasks`;
 }
