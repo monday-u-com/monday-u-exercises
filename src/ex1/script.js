@@ -66,7 +66,7 @@ function onClearAllButtonClicked() {
 function addNewTodo(){
   const newTodoText = document.getElementById("new-todo").value;
   if (newTodoText.length < 4) {
-    alert('Please describe a todo in at least 4 letters')
+    alert('Please use at least 4 characters for each todo')
   } else {
     addTodoText(newTodoText);
     todosArray.push(newTodoText);
@@ -74,3 +74,11 @@ function addNewTodo(){
     document.getElementById("new-todo").value = "";
   }
 }
+
+const input = document.getElementById("new-todo");
+input.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    addNewTodo();
+  }
+});
