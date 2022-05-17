@@ -137,6 +137,18 @@ body {
   }
 }
 
+.grow {
+  animation: grow 2s ease;
+}
+@keyframes grow {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 .hidden {
   display: none;
 }

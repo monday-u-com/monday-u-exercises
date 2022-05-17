@@ -55,6 +55,7 @@ function createTask(text) {
 
   // style  elements
   divElm.classList.add("task");
+  divElm.classList.add("grow");
   liElm.classList.add("task-item");
   deleteButton.classList.add("delete-button");
 
