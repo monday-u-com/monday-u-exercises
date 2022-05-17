@@ -1,6 +1,6 @@
 # Result
-<img src="../assets/Screen Shot 2022-05-17 at 16.19.59.png" alt="Screen Shot">
-<img src="../assets/Screen Shot 2022-05-17 at 16.20.17.png" alt="Screen Shot" width=400px>
+<img src="../assets/app.png" alt="Screen Shot">
+<img src="../assets/no-tasks.png" alt="Screen Shot" width=400px>
 
 #
 
