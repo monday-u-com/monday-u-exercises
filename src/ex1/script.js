@@ -65,8 +65,12 @@ function onClearAllButtonClicked() {
 
 function addNewTodo(){
   const newTodoText = document.getElementById("new-todo").value;
-  addTodoText(newTodoText);
-  todosArray.push(newTodoText);
-  amountOfTasksMessage();
-  document.getElementById("new-todo").value = "";
+  if (newTodoText.length < 4) {
+    alert('Please describe a todo in at least 4 letters')
+  } else {
+    addTodoText(newTodoText);
+    todosArray.push(newTodoText);
+    amountOfTasksMessage();
+    document.getElementById("new-todo").value = "";
+  }
 }
