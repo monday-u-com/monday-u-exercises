@@ -14,13 +14,13 @@
     <div class="todo-content">
       <div class="add-todo">
         <input type="text" id="new-todo" name="new-todo" placeholder="Add your new todo">
-        <button class="add-todo-button">+</button>
+        <button id="add-todo-button" onclick="addNewTodo()">+</button>
       </div>
       <ul class="todo-list">
-        <li>
+        <!-- <li>
           <div class="todo-text">Buy a new laptop</div>
-          <button class="remove-todo-button"><i class="fa fa-trash" aria-hidden="true"></i></button>
-        </li>
+          <button class="remove-todo-button"><i class="fa fa-trash"></i></button>
+        </li> -->
       </ul>
       <div class="summary">
         <p id="amount-info"></p>
@@ -28,10 +28,6 @@
       </div>
     </div>
   </div>
-
-
-
-
 </body>
 <script src="script.js"></script>
 </html>

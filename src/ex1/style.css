@@ -53,7 +53,7 @@ button {
   display: flex;
 }
 
-.add-todo-button {
+#add-todo-button {
   background-color: var(--dark-green);
   border-radius: 4px;
   border: 0px;
