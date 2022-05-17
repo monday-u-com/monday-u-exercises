@@ -5,6 +5,16 @@ const todoList = document.getElementById("list-element");
 const clearAllBtn = document.getElementById("clearAll-btn");
 const sortBtn = document.getElementById("sort-btn");
 const inputBox = document.querySelector(".inputField input");
+const svgContainer = document.getElementById("svg");
+
+const animItem = bodymovin.loadAnimation({
+    wrapper:svgContainer,
+    animType: 'svg',
+    loop: false,
+    autoplay: false,
+    path: "https://assets4.lottiefiles.com/private_files/lf30_5aubt2fy.json"
+})
+
 const pendingTasksCount = document.querySelector(".pendingTasksCount");
 
 
@@ -24,16 +34,15 @@ clearAllBtn.addEventListener("click" , clearAll);
 
 //todo input styling
 todoInput.onkeydown = () => {
-    if (todoInput.value){
+    if (todoInput.value.length){
     inputBox.classList.add("inactive");
     todoButton.classList.add("inactive");
-    }
-    else {
-        if(todoList.innerHTML.length == 0){
+    } 
+
+    if (!todoInput.value.length && !todoList.childElementCount){
         inputBox.classList.remove("inactive");
         todoButton.classList.remove("inactive");
-       } 
-    }
+        } 
 }
 
 
@@ -46,6 +55,7 @@ function addTodo(event) {
     event.preventDefault();
   
   //Todo li
+  animItem.goToAndPlay(0,true);
   const todoLi = document.createElement("li");
   todoLi.classList.add("todo");
   todoLi.innerText = todoInput.value;
@@ -107,8 +117,10 @@ function clearAll(e) {
         todoList.classList.remove("fall");
       }, 500);
        pendingTasksCount.textContent = 0;
-       inputBox.classList.remove("inactive");
-       todoButton.classList.remove("inactive");
+       if (!todoInput.value.length){
+        inputBox.classList.remove("inactive");
+        todoButton.classList.remove("inactive");
+        } 
     }
     
 }
