@@ -107,7 +107,7 @@ button {
   display: block;
 }
 
-.summary {
+#summary {
   font-family: 'Indie Flower', cursive;
   display: flex;
 }
@@ -122,7 +122,7 @@ button {
   width: 30%;
 }
 
-.summary p {
+#summary p {
   margin: 0;
   padding-left: 5px;
   width: 70%;
