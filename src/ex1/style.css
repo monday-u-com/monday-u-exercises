@@ -159,3 +159,15 @@ body {
   left: 275px;
   top: 540px;
 }
+
+#sort-by-name-button {
+  position: absolute;
+  width: 35%;
+  left: 25px;
+  top: 540px;
+  background-color: cadetblue;
+}
+
+#sort-by-name-button:hover {
+  background-color: rgb(153, 90, 212);
+}

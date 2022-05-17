@@ -5,10 +5,13 @@ const welcome = document.querySelector("#welcome-sentence");
 const addTaskButton = document.querySelector(".task-button");
 const addTaskInput = document.querySelector(".task-input");
 const clearAllButton = document.querySelector("#clear-all-button");
+const sortByNameButton = document.querySelector("#sort-by-name-button");
 const listOfTasks = [];
 
 addTaskButton.addEventListener("click", addTask);
 clearAllButton.addEventListener("click", clearAll);
+sortByNameButton.addEventListener("click", sortByName);
+
 addTaskInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     addTask();
@@ -16,7 +19,8 @@ addTaskInput.addEventListener("keypress", (event) => {
 });
 
 function addTask() {
-  const text = document.querySelector(".task-input").value;
+  const task = document.querySelector(".task-input").value;
+  const text = capitalize(task);
 
   if (text === "") {
     alert("Input cannot be empty");
@@ -32,6 +36,7 @@ function addTask() {
 function hideWelcomePart() {
   addButton.classList.remove("hithere");
   clearAllButton.classList.remove("hidden");
+  sortByNameButton.classList.remove("hidden");
 
   triangle.classList.add("hidden");
   box.classList.add("hidden");
@@ -41,6 +46,7 @@ function hideWelcomePart() {
 function showWelcomePart() {
   addButton.classList.add("hithere");
   clearAllButton.classList.add("hidden");
+  sortByNameButton.classList.add("hidden");
 
   triangle.classList.remove("hidden");
   box.classList.remove("hidden");
@@ -113,4 +119,23 @@ function clearAll() {
   listOfTasks.splice(0);
 
   showWelcomePart();
+}
+
+function sortByName() {
+  listOfTasks.forEach((task) => {
+    const taskId = task.split(" ").join("-");
+    document.querySelector(`#${taskId}`).remove();
+  });
+
+  listOfTasks.sort();
+  console.log(listOfTasks);
+
+  listOfTasks.forEach((task) => {
+    createTask(task);
+  });
+}
+
+function capitalize(string) {
+  const updatedString = string.charAt(0).toUpperCase() + string.slice(1);
+  return updatedString;
 }
