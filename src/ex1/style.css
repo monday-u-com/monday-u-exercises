@@ -70,11 +70,11 @@ button {
   width: 90%;
 }
 
-.todo-list {
+#todo-list {
   font-family: 'Caveat', cursive;
   padding-left: 0px;
 }
-.todo-list li {
+#todo-list li {
   list-style-type: none;
   background-color: rgba(128, 128, 128, 0.2);
   margin-top: 10px;
@@ -82,7 +82,7 @@ button {
   display: flex;
 }
 
-.todo-list li:hover {
+#todo-list li:hover {
   background-color: rgba(128, 128, 128, 0.4);
   cursor: pointer;
 }
@@ -103,7 +103,7 @@ button {
   display: none;
 }
 
-.todo-list li:hover .remove-todo-button {
+#todo-list li:hover .remove-todo-button {
   display: block;
 }
 
