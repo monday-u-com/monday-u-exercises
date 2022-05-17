@@ -4,9 +4,11 @@ const box = document.querySelector("#box");
 const welcome = document.querySelector("#welcome-sentence");
 const addTaskButton = document.querySelector(".task-button");
 const addTaskInput = document.querySelector(".task-input");
+const clearAllButton = document.querySelector("#clear-all-button");
 const listOfTasks = [];
 
 addTaskButton.addEventListener("click", addTask);
+clearAllButton.addEventListener("click", clearAll);
 addTaskInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     addTask();
@@ -29,6 +31,8 @@ function addTask() {
 
 function hideWelcomePart() {
   addButton.classList.remove("hithere");
+  clearAllButton.classList.remove("hidden");
+
   triangle.classList.add("hidden");
   box.classList.add("hidden");
   welcome.classList.add("hidden");
@@ -36,6 +40,8 @@ function hideWelcomePart() {
 
 function showWelcomePart() {
   addButton.classList.add("hithere");
+  clearAllButton.classList.add("hidden");
+
   triangle.classList.remove("hidden");
   box.classList.remove("hidden");
   welcome.classList.remove("hidden");
@@ -96,4 +102,14 @@ function deleteTask({ target }) {
   if (listOfTasks.length === 0) {
     showWelcomePart();
   }
+}
+
+function clearAll() {
+  listOfTasks.forEach((task) => {
+    const taskId = task.split(" ").join("-");
+    document.querySelector(`#${taskId}`).remove();
+  });
+  listOfTasks.splice(0);
+
+  showWelcomePart();
 }
