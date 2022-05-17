@@ -1,4 +1,4 @@
-const todoList = document.getElementsByClassName("todo-list")[0];
+const todoList = document.getElementById("todo-list");
 const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
 
 function addTodoText(todoText) {
@@ -48,7 +48,7 @@ function onTodoClicked(clickedTodo) {
 }
 
 function onDeleteButtonClicked(clickedButton) {
-  const index = Array.prototype.indexOf.call(todoList.childNodes, clickedButton.parentElement);
+  const index = Array.prototype.indexOf.call(todoList.getElementsByTagName("li"), clickedButton.parentElement);
   todosArray.splice(index, 1);
   clickedButton.parentElement.remove();
   amountOfTasksMessage();
