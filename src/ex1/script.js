@@ -1,7 +1,13 @@
+// scope everything into the funcrions
 const todoList = document.getElementById("todo-list");
 const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
+const unsorted = 0;
+const sortedAsc = 1;
+const sortedDesc = 2;
+let sorted = unsorted;
 
 function addTodoText(todoText) {
+  // clone the existing li-element
   const listItem = document.createElement("li");
 
   const divTodo = document.createElement("div");
@@ -23,6 +29,8 @@ function addTodoText(todoText) {
   listItem.appendChild(deleteButton);
 
   todoList.appendChild(listItem);
+  sorted = unsorted;
+
 }
 
 todosArray.forEach(todoText => {
@@ -33,20 +41,27 @@ todosArray.forEach(todoText => {
 const amountInfo = document.getElementById("amount-info");
 
 function amountOfTasksMessage() {
+
   let tasks = "tasks";
   if (todosArray.length === 1) {
     tasks = "task";
+    document.getElementById('sort-list-button').style.display = "none";
+    document.getElementById('clear-all-button').style.display = "none";
+  } else {
+    document.getElementById('sort-list-button').style.display = "";
+    document.getElementById('clear-all-button').style.display = "";
   }
-  amountInfo.textContent = `You have ${todosArray.length} pending ${tasks}`;
+  amountInfo.textContent = `${todosArray.length} pending ${tasks}`;
   if (todosArray.length === 0) {
     document.getElementById('zero-todos-image').style.display = "block";
+    document.getElementById('summary').style.display = "none";
   } else {
     document.getElementById('zero-todos-image').style.display = "none";
+    document.getElementById('summary').style.display = "";
   }
 }
 
 amountOfTasksMessage();
-
 
 function onTodoClicked(clickedTodo) {
   alert(clickedTodo.textContent);
@@ -72,6 +87,7 @@ function addNewTodo(){
   const newTodoText = document.getElementById("new-todo").value;
   if (newTodoText.length < 4) {
     alert('Please use at least 4 characters for each todo')
+    // change to native validations
   } else {
     addTodoText(newTodoText);
     todosArray.push(newTodoText);
@@ -87,3 +103,43 @@ input.addEventListener("keypress", (event) => {
     addNewTodo();
   }
 });
+
+
+
+function sortList() {
+  if (sorted === unsorted || sorted === sortedDesc) {
+    sortListWithOrder(compareElementsAsc);
+    sorted = sortedAsc;
+  } else {
+    sortListWithOrder(compareElementsDesc);
+    sorted = sortedDesc;
+  }
+}
+
+function sortListWithOrder(comparator) {
+  let switching = true;
+  let shouldSwitch = false;
+  while (switching) {
+    switching = false;
+    const liElements = todoList.getElementsByTagName("li");
+    for (i = 0; i < (liElements.length - 1); i++) {
+      shouldSwitch = false;
+      if (comparator(liElements[i].innerHTML.toLowerCase(), liElements[i + 1].innerHTML.toLowerCase())) {
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      liElements[i].parentNode.insertBefore(liElements[i + 1], liElements[i]);
+      switching = true;
+    }
+  }
+}
+
+function compareElementsAsc(a, b) {
+  return a > b;
+}
+
+function compareElementsDesc(a, b) {
+  return a < b;
+}
