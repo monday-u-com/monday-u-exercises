@@ -83,6 +83,7 @@ button {
 #todo-list {
   font-family: 'Caveat', cursive;
   padding-left: 0px;
+  border-radius: 4px;
 }
 #todo-list li {
   list-style-type: none;
@@ -90,6 +91,32 @@ button {
   margin-top: 10px;
   border-radius: 4px;
   display: flex;
+}
+
+.add-item-animation {
+  animation: change-color 1s linear;
+}
+
+@keyframes change-color {
+  0% {
+    background: rgba(128, 128, 128, 0.8);
+  }
+  100% {
+    background: rgba(128, 128, 128, 0.2);
+  }
+}
+
+.delete-item-animation {
+  animation: deleting-color 1s ease-out;
+}
+
+@keyframes deleting-color {
+  0% {
+    background: rgba(128, 128, 128, 0.2);
+  }
+  100% {
+    background: brown;
+  }
 }
 
 #todo-list li:hover {
@@ -154,4 +181,9 @@ button {
   font-family: 'Indie Flower', cursive;
   color: var(--very-dark-green);
   width: 20%;
+}
+
+#zero-todos-image {
+  margin-top: 5px;
+  margin-left: 5px;
 }

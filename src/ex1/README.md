@@ -36,8 +36,8 @@ Bonus
 - [x] Add "empty state" - when there are no items on the list, show some nice and inviting UI to encourage the user to add items
 - [x] Add ability to sort the list by name
 - [x] Add task when enter key is pressed
-- [ ] Add animation when a new item is added
-- [ ] have another cool idea? Go wild!
+- [x] Add animation when a new item is added
+- [x] have another cool idea? Go wild! // button hover animatiom and animation when a new item is deleted
 
 When you finish, it should look like this:
 
