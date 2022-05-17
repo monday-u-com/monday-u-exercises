@@ -34,7 +34,7 @@ Bonus
 - [x] Add input validation. e.g when the text input is empty, show a message with an error
 - [ ] Add "empty state" - when there are no items on the list, show some nice and inviting UI to encourage the user to add items
 - [ ] Add ability to sort the list by name
-- [ ] Add task when enter key is pressed
+- [x] Add task when enter key is pressed
 - [ ] Add animation when a new item is added
 - [ ] have another cool idea? Go wild!
 
