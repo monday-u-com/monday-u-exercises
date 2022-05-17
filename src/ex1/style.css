@@ -17,9 +17,12 @@ body, html {
   height: 100%;
 }
 
-html {
+body {
+  margin: 0;
   background: linear-gradient(var(--very-light-green), var(--dark-green));
   padding: 50px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   /* vhw */
 }
 
