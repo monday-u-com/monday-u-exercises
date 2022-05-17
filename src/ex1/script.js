@@ -38,6 +38,11 @@ function amountOfTasksMessage() {
     tasks = "task";
   }
   amountInfo.textContent = `You have ${todosArray.length} pending ${tasks}`;
+  if (todosArray.length === 0) {
+    document.getElementById('zero-todos-image').style.display = "block";
+  } else {
+    document.getElementById('zero-todos-image').style.display = "none";
+  }
 }
 
 amountOfTasksMessage();
