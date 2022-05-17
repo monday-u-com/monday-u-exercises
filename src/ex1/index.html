@@ -3,19 +3,26 @@
 <head>
     <title>Exercise 1</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/1e5f8eb5bd.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
-        <h1>Todo list</h1>
-        <div class="task-container">
-            <input id="checkbox" type="checkbox">
-            <label for="checkbox">Pick up the dog from vet</label>
+        <header>
+            <h1>Todo list</h1>
+        </header>
+        <div class="new-task-container">
+            <form>
+                <input id="new-task" type="text" placeholder="Add your new todo" required>
+                <button type="submit"><i class="fas fa-plus-square"></i></button>
+            </form>
+            <div class="tasks-container">
+                <ul>
+                    <img src="http://gifgifs.com/animations/words/welcome-signs/hand_writing.gif" alt="welcome" style="display: flex;">
+                </ul>
+                <a class="clear-all" id="clear-all" >Clear All</a>
+            </div>
         </div>
     </div>
-
-
-
-
 </body>
 <script src="script.js"></script>
 </html>
