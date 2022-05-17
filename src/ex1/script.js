@@ -1,13 +1,15 @@
 const todoList = document.getElementsByClassName("todo-list")[0];
-const todosArray = ['one', 'two', 'three', 'four', 'five'];
+const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
 
-todoList.innerHTML = "";
-todosArray.forEach(todoText => {
+function addTodoText(todoText) {
   const listItem = document.createElement("li");
 
   const divTodo = document.createElement("div");
   divTodo.className = "todo-text";
   divTodo.appendChild(document.createTextNode(todoText));
+  divTodo.addEventListener('click', ({target}) => {
+    onTodoClicked(target);
+  });
   listItem.appendChild(divTodo);
 
   const deleteButton = document.createElement("button");
@@ -15,14 +17,19 @@ todosArray.forEach(todoText => {
   const deleteIcon = document.createElement("i");
   deleteIcon.className = "fa fa-trash";
   deleteButton.appendChild(deleteIcon);
+  deleteButton.addEventListener('click', ({currentTarget}) => {
+    onDeleteButtonClicked(currentTarget);
+  });
   listItem.appendChild(deleteButton);
 
   todoList.appendChild(listItem);
+}
+
+todosArray.forEach(todoText => {
+  addTodoText(todoText);
 });
 
-const todos = document.querySelectorAll(".todo-text");
-const deleteButtons = document.querySelectorAll(".todo-list .remove-todo-button");
-const clearAllButton = document.getElementById("clear-all-button");
+
 const amountInfo = document.getElementById("amount-info");
 
 function amountOfTasksMessage() {
@@ -35,34 +42,30 @@ function amountOfTasksMessage() {
 
 amountOfTasksMessage();
 
-todos.forEach (todo => {
-  todo.addEventListener('click', ({target}) => {
-    onTodoClicked(target);
-  });
-});
 
 function onTodoClicked(clickedTodo) {
   alert(clickedTodo.textContent);
 }
 
-deleteButtons.forEach (deleteButton => {
-  deleteButton.addEventListener('click', ({currentTarget}) => {
-    onDeleteButtonClicked(currentTarget);
-  });
-});
-
 function onDeleteButtonClicked(clickedButton) {
-  // alert(`Do you want to delete "${clickedButton.previousElementSibling.textContent}"?`);
   const index = Array.prototype.indexOf.call(todoList.childNodes, clickedButton.parentElement);
   todosArray.splice(index, 1);
   clickedButton.parentElement.remove();
   amountOfTasksMessage();
 }
 
+const clearAllButton = document.getElementById("clear-all-button");
 clearAllButton.addEventListener('click', onClearAllButtonClicked);
 
 function onClearAllButtonClicked() {
   todoList.innerHTML = "";
   todosArray.length = 0;
+  amountOfTasksMessage();
+}
+
+function addNewTodo(){
+  const newTodoText = document.getElementById("new-todo").value;
+  addTodoText(newTodoText);
+  todosArray.push(newTodoText);
   amountOfTasksMessage();
 }

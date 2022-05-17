@@ -23,7 +23,7 @@ The requirements:
 - [x] Build the layout according to the mock. (background, centered white box, etc...)
 - [x] Add a textbox to be used for adding tasks
 - [x] Add a button ("Add task")
-- [ ] When "Add task" button is clicked, add a task to the task list
+- [x] When "Add task" button is clicked, add a task to the task list
 - [x] Change the background and cursor type of an item when hovered on
 - [x] When a list item is clicked, show 'alert' (**Hint**: check the [alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert) method) with the item name
 - [x] Delete an item when "Delete" button is clicked
