@@ -19,7 +19,7 @@ The requirements:
 - [x] Add a textbox to be used for adding tasks
 - [x] Add a button ("Add task")
 - [x] When "Add task" button is clicked, add a task to the task list
-- [ ] Change the background and cursor type of an item when hovered on
+- [x] Change the background and cursor type of an item when hovered on
 - [ ] When a list item is clicked, show 'alert' (**Hint**: check the [alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert) method) with the item name
 - [x] Delete an item when "Delete" button is clicked
 
@@ -32,7 +32,7 @@ Bonus
 - [x] Add task when enter key is pressed
 - [x] Add animation when a new item is added
 - [x] Added animation when item / all items are removed removed
-- [ ] have another cool idea? Go wild! 
+- [x] have another cool idea? Go wild! 
 - [x] show count of pending tasks
 
 When you finish, it should look like this:

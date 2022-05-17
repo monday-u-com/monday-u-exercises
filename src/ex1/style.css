@@ -143,11 +143,12 @@ right:30vw;
  position: relative;
   list-style: none;
   margin-bottom: 8px;
+  
   height: 45px;
   line-height: 45px;
   background: #f2f2f2;
   border-radius: 3px;
-  padding: 0px 0px;
+  padding: 0px 10px;
   cursor: default;
   overflow: hidden;
 }
@@ -167,7 +168,10 @@ right:30vw;
   opacity: 0.6;
   border-style: none;
 }
-
+.todoList li .trash-btn:hover{
+    opacity: 1;
+    transition: all 0.3s ease;
+}
 
 .todoList .fa-check {
     
@@ -225,7 +229,8 @@ right:30vw;
   transition: all 0.3s ease;
 }
 .footer .sortBtn:hover{
-    filter: brightness(90%);
+    opacity: 1;
+    transition: all 0.3s ease;
 } 
 
 .footer2 .clearAllBtn {
@@ -240,6 +245,11 @@ right:30vw;
   padding: 6px 10px;
   opacity: 0.6;
   /* pointer-events: none; */
+}
+
+.footer2 .clearAllBtn:hover{
+    opacity: 1;
+    transition: all 0.3s ease;
 }
 
 
@@ -274,4 +284,70 @@ right:30vw;
 
 .fa-trash {
     pointer-events: none;
+}
+
+
+
+
+
+
+
+.inputField button {
+    width: 50px;
+    height: 45px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #e29624;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.inputField button:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00,/* #48ff00, #00ffd5,  #002bff, #7a00ff, #ff00c8 */ #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.inputField button :active {
+    color: #e29624
+}
+
+.inputField button:active:after {
+    background: transparent;
+}
+
+.inputField button:hover:before {
+    opacity: 1;
+}
+
+.inputField button:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #e29624;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
 }

@@ -50,7 +50,7 @@ todoInput.onkeydown = () => {
 function addTodo(event) {
    
     if (todoInput.value.trim() == 0){
-        return alert("Error!")
+        return alert("Task was not entered")
     }
     event.preventDefault();
   
@@ -80,7 +80,7 @@ function todoEnter(event){
     if (event.keyCode == 13) {
        
     if (todoInput.value.trim() == 0){
-        return alert("Error!")
+        return alert("Task was not entered")
     }
     addTodo(event);
        
@@ -120,7 +120,8 @@ function clearAll(e) {
        if (!todoInput.value.length){
         inputBox.classList.remove("inactive");
         todoButton.classList.remove("inactive");
-        } 
+        }
+        sortBtn.textContent= 'Sort' 
     }
     
 }
@@ -186,6 +187,7 @@ function removeLocalTodos(todo){
     if (todos.length == 0){
         inputBox.classList.remove("inactive");
         todoButton.classList.remove("inactive");
+        sortBtn.textContent= 'Sort' 
     }
    
 }
@@ -195,12 +197,18 @@ function removeLocalTodos(todo){
    
     let todos = checkLocalStorage();
    if (todoList.classList.contains("ascending")) {
-    todos.sort();
+    todos.sort()/* ((a, b) => a.localeCompare(b)) */
+    
+    sortBtn.textContent= 'Sort 🡱'
+
+
     todoList.classList.remove("ascending")
     todoList.classList.add("descending")
    } else {
     todos.reverse();
-    todoList.classList.add("descending")
+    todoList.classList.remove("descending")
+    todoList.classList.add("ascending")
+    sortBtn.textContent= 'Sort 🡳'
    }
     
 
