@@ -1,6 +1,6 @@
 # Result
 <img src="../assets/Screen Shot 2022-05-16 at 22.32.18.png" alt="Screen Shot">
-
+<img src="../assets/Screen Shot 2022-05-17 at 16.12.45.png" alt="Screen Shot">
 #
 
 # Exercise 1 - HTML, CSS, JS
@@ -32,7 +32,7 @@ The requirements:
 Bonus
 - [x] Clear the input when a new item is added
 - [x] Add input validation. e.g when the text input is empty, show a message with an error
-- [ ] Add "empty state" - when there are no items on the list, show some nice and inviting UI to encourage the user to add items
+- [x] Add "empty state" - when there are no items on the list, show some nice and inviting UI to encourage the user to add items
 - [ ] Add ability to sort the list by name
 - [x] Add task when enter key is pressed
 - [ ] Add animation when a new item is added
