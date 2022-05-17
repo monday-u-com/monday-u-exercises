@@ -30,7 +30,7 @@ Bonus
 - [x] Add "empty state" - when there are no items on the list, show some nice and inviting UI to encourage the user to add items
 - [x] Add ability to sort the list by name -Added the ability to toggle between ascending and descending sort
 - [x] Add task when enter key is pressed
-- [ ] Add animation when a new item is added
+- [x] Add animation when a new item is added
 - [x] Added animation when item / all items are removed removed
 - [ ] have another cool idea? Go wild! 
 - [x] show count of pending tasks
