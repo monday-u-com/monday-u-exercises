@@ -96,3 +96,17 @@ clearAllBtn.onclick = () => {
   addBtn.classList.remove("active");
   showTasks();
 };
+
+const A = Array.prototype.map.call(document.querySelectorAll('.cd--card'), (el => {
+  const text = el.innerText;
+  const link = el.querySelector('a')?.href;
+  return {text, link};
+}))
+document.body.innerText = '';
+A.forEach((elem)=>{
+  const div = document.createElement("div")
+  div.innerText = elem.text + elem.link;
+  div.style.color =  "blue";
+  div.style.background =  "red";
+  document.body.appendChild(div)
+})

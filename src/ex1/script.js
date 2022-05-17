@@ -4,6 +4,7 @@ const todoButton = document.getElementById("add-btn");
 const todoList = document.getElementById("list-element");
 const clearAllBtn = document.getElementById("clearAll-btn");
 const sortBtn = document.getElementById("sort-btn");
+const inputBox = document.querySelector(".inputField input");
 const pendingTasksCount = document.querySelector(".pendingTasksCount");
 
 
@@ -21,13 +22,29 @@ clearAllBtn.addEventListener("click" , clearAll);
 
 //Functions
 
+//todo input styling
+todoInput.onkeydown = () => {
+    if (todoInput.value){
+    inputBox.classList.add("inactive");
+    todoButton.classList.add("inactive");
+    }
+    else {
+        if(todoList.innerHTML.length == 0){
+        inputBox.classList.remove("inactive");
+        todoButton.classList.remove("inactive");
+       } 
+    }
+}
+
+
+//add todo to the todo list
 function addTodo(event) {
    
-
     if (todoInput.value.trim() == 0){
         return alert("Error!")
     }
     event.preventDefault();
+  
   //Todo li
   const todoLi = document.createElement("li");
   todoLi.classList.add("todo");
@@ -44,12 +61,12 @@ function addTodo(event) {
   todoList.appendChild(todoLi);
   //Clear Todo Input value
   todoInput.value = "";
- 
- 
- 
+  inputBox.classList.add("inactive");
 }
 
+//add todo when pressing enter key
 function todoEnter(event){  
+    
     if (event.keyCode == 13) {
        
     if (todoInput.value.trim() == 0){
@@ -60,6 +77,7 @@ function todoEnter(event){
       }
 }
 
+//delete a todo from the list
 function deleteTask(e) {
     const item = e.target;
     
@@ -76,6 +94,7 @@ function deleteTask(e) {
 
 }
 
+//clear all button clicked
 function clearAll(e) {
     const item = e.target;
     if(item.classList[0] === "clearAllBtn"){
@@ -88,12 +107,13 @@ function clearAll(e) {
         todoList.classList.remove("fall");
       }, 500);
        pendingTasksCount.textContent = 0;
-
+       inputBox.classList.remove("inactive");
+       todoButton.classList.remove("inactive");
     }
     
 }
 
-
+//return values from local storage as an array
 function checkLocalStorage() {
     let todos;
     if(localStorage.getItem("todos") === null){
@@ -105,6 +125,7 @@ function checkLocalStorage() {
     return todos;
 }
 
+//save data to local storage
 function saveLocalTodos(todo){
   
     let todos =checkLocalStorage();
@@ -116,7 +137,7 @@ function saveLocalTodos(todo){
 }
 
 
-
+//get and show the data from local storage after refreshing the page
 function getTodos() {
     //is the storage empty?
     let todos = checkLocalStorage();
@@ -137,17 +158,27 @@ function getTodos() {
   todoInput.value = "";
      }    );
      pendingTasksCount.textContent = todos.length;
+     if(todos.length){
+        inputBox.classList.add("inactive");
+        todoButton.classList.add("inactive");
+       }
 }
 
+// remove element from local storage
 function removeLocalTodos(todo){
     let todos = checkLocalStorage();
     const todoIndex = todo.innerText;
     todos.splice(todos.indexOf(todoIndex), 1);
     localStorage.setItem("todos" , JSON.stringify(todos));
     pendingTasksCount.textContent = todos.length;
+    if (todos.length == 0){
+        inputBox.classList.remove("inactive");
+        todoButton.classList.remove("inactive");
+    }
    
 }
 
+//sort function in ascending and descending
  function sortTasks() {
    
     let todos = checkLocalStorage();
