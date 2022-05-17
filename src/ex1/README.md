@@ -1,6 +1,6 @@
 # Result
-<img src="../assets/Screen Shot 2022-05-16 at 22.32.18.png" alt="Screen Shot" width=500px>
-<img src="../assets/Screen Shot 2022-05-17 at 16.12.45.png" alt="Screen Shot" width=500px>
+<img src="../assets/Screen Shot 2022-05-16 at 22.32.18.png" alt="Screen Shot" width=300px> <img src="../assets/Screen Shot 2022-05-17 at 16.12.45.png" alt="Screen Shot" width=300px>
+
 #
 
 # Exercise 1 - HTML, CSS, JS
