@@ -94,6 +94,21 @@ body {
     cursor: pointer;
 }
 
+.empty-todos-message {
+    position: relative;
+    background-image: url("https://www.itgovernance.eu/blog/de/wp-content/uploads/2017/04/list.jpg");
+    background-size: cover;
+    height: 40vh;
+}
+
+.empty-todos-message > h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 100;
+}
+
 .todo-list-container {
     max-height: 250px;
     overflow-y: auto;
