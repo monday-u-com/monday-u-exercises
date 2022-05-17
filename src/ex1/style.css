@@ -112,7 +112,7 @@ button {
   display: flex;
 }
 
-.clear-all-button {
+#clear-all-button {
   background-color: var(--light-green);
   border-radius: 4px;
   border: 0px;
