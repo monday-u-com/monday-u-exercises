@@ -7,7 +7,13 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="title">2DoList</h1>
+        <div class="top">
+            <h1 class="title">2DoList</h1>
+            <select id="order-select" class="filter-select">
+                <option value="A-Z">A-Z</option>
+                <option value="Z-A">Z-A</option>
+            </select>
+        </div>
         <div class="input-container">
             <input class="todo-input" id="todo-input" type="text" placeholder="Add your new todo">
             <button class="add-button" id="add-todo-button"><i class="fas fa-plus"></i></button>

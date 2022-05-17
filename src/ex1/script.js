@@ -3,6 +3,8 @@ const addTodoButton = document.getElementById("add-todo-button")
 const todoInput = document.getElementById("todo-input")
 const clearAllTodosButton = document.getElementById("clear-all-todos-button")
 const sumTodos = document.getElementById("sum-todos")
+const orderSelect = document.getElementById("order-select")
+
 
 let todoList = [] //array for storing data
 
@@ -11,8 +13,11 @@ showTodos()
 todoInput.onkeyup = (e) => {
     let enterValue = todoInput.value
     if (enterValue.trim() !== ""){
-        addTodoButton.classList.add("active")
 
+        addTodoButton.classList.add("active")
+        addTodoButton.style.cursor = "pointer"
+        addTodoButton.style.opacity = 1
+        
         if(e.keyCode === 13){
             addTodo()
         }
@@ -71,9 +76,11 @@ function showMatchUiByTodosNumber() {
     sumTodos.textContent = todoList.length
     if(todoList.length > 0){
         clearAllTodosButton.classList.add("active")
+        clearAllTodosButton.style.cursor = "pointer"
     }
     else{
         clearAllTodosButton.classList.remove("active")
+        clearAllTodosButton.style.cursor = "not-allowed"
     }
 }
 
@@ -81,7 +88,15 @@ function createTodoListItems() {
     let listItems = ""
 
     todoList.forEach((todo, index) => { 
-        listItems += `<li>${todo}<span class="delete" onclick="deleteTodo(${index})";><i class="fas fa-trash"></i></span></li>`
+        listItems += `<li>${todo}
+            <span class="delete" onclick="deleteTodo(${index})";>
+                <i class="fas fa-trash"></i>
+            </span>
+            </li>
+            `
+            {/* <span class="check" onclick="checkTodo(${index})";>
+                <i class="fas fa-check"></i>
+            </span> */}
     })
 
     todoListElement.innerHTML = listItems
@@ -89,14 +104,20 @@ function createTodoListItems() {
     todoInput.value = ""
 }
 
+function checkTodo(index) {
+
+}
+
 function deleteTodo(index) {
-    let dataFromLS = localStorage.getItem("new-todo")
-    todoList = JSON.parse(dataFromLS)
-    const removedTodo = todoList[index]
-    todoList.splice(index, 1) //remove one todo
-    alert(`removed new todo ${removedTodo}`)
-    localStorage.setItem("new-todo", JSON.stringify(todoList))
-    showTodos()
+    
+        let dataFromLS = localStorage.getItem("new-todo")
+        todoList = JSON.parse(dataFromLS)
+        const removedTodo = todoList[index]
+        todoList.splice(index, 1) //remove one todo
+        alert(`removed new todo ${removedTodo}`)
+        localStorage.setItem("new-todo", JSON.stringify(todoList))
+        showTodos()
+        
 }
 
 clearAllTodosButton.addEventListener("click", () => {
@@ -114,3 +135,20 @@ clearAllTodosButton.addEventListener("click", () => {
     localStorage.setItem("new-todo", JSON.stringify(todoList))
     showTodos()
 })
+
+orderSelect.addEventListener('change', (e) => {
+
+    let dataFromLS = localStorage.getItem("new-todo")
+    todoList = JSON.parse(dataFromLS)
+
+    if(e.target.value === "A-Z") {
+        todoList = todoList.sort()
+    }
+    else{
+        todoList = todoList.sort().reverse()
+    }
+
+    localStorage.setItem("new-todo", JSON.stringify(todoList))
+    showTodos()
+})
+
