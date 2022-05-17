@@ -1,3 +1,25 @@
+const todosArray = ['one', 'two', 'three'];
+
+const todoList = document.getElementsByClassName('todo-list')[0];
+
+todosArray.forEach(todoText => {
+  const listItem = document.createElement("li");
+
+  const divTodo = document.createElement("div");
+  divTodo.className = "todo-text";
+  divTodo.appendChild(document.createTextNode(todoText));
+  listItem.appendChild(divTodo);
+
+  const deleteButton = document.createElement("button");
+  deleteButton.className = "remove-todo-button";
+  const deleteIcon = document.createElement("i");
+  deleteIcon.className = "fa fa-trash";
+  deleteButton.appendChild(deleteIcon);
+  listItem.appendChild(deleteButton);
+
+  todoList.appendChild(listItem);
+});
+
 const todos = document.querySelectorAll('.todo-text');
 const deleteButtons = document.querySelectorAll('.todo-list .remove-todo-button');
 
