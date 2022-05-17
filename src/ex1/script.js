@@ -17,7 +17,7 @@ todoInput.onkeyup = (e) => {
         addTodoButton.classList.add("active")
         addTodoButton.style.cursor = "pointer"
         addTodoButton.style.opacity = 1
-        
+
         if(e.keyCode === 13){
             addTodo()
         }
@@ -86,17 +86,16 @@ function showMatchUiByTodosNumber() {
 
 function createTodoListItems() {
     let listItems = ""
-
     todoList.forEach((todo, index) => { 
         listItems += `<li>${todo}
             <span class="delete" onclick="deleteTodo(${index})";>
                 <i class="fas fa-trash"></i>
             </span>
+            <span class="edit" onclick="editTodo(${index})";>
+                <i class="fas fa-pen"></i>
+            </span>
             </li>
             `
-            {/* <span class="check" onclick="checkTodo(${index})";>
-                <i class="fas fa-check"></i>
-            </span> */}
     })
 
     todoListElement.innerHTML = listItems
@@ -104,8 +103,14 @@ function createTodoListItems() {
     todoInput.value = ""
 }
 
-function checkTodo(index) {
-
+function editTodo(index) {
+    let editedValue = prompt('Edit todo:', todoList[index])
+    let dataFromLS = localStorage.getItem("new-todo")
+    todoList = JSON.parse(dataFromLS)
+    todoList[index] = editedValue
+    alert(`edited todo ${editedValue}`)
+    localStorage.setItem("new-todo", JSON.stringify(todoList))
+    showTodos()
 }
 
 function deleteTodo(index) {

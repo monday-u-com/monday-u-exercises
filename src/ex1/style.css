@@ -126,17 +126,16 @@ body {
     transition: all 0.2s ease;
 }
 
-.todo-list-container li .check{
+.todo-list-container li .edit{
     position: absolute;
     right: -80px;
     top: 50%;
     transform: translateY(-50%);
-    background: #4de73c;
+    background: #563ce7;
     width: 40px;
     text-align: center;
     color: #fff;
     padding: 10px;
-    border-radius: 0 5px 5px 0;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -145,7 +144,7 @@ body {
     right: 0px;
 }
 
-.todo-list-container li:hover .check{
+.todo-list-container li:hover .edit{
     right: 40px;
 }
 
