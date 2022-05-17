@@ -68,4 +68,5 @@ function addNewTodo(){
   addTodoText(newTodoText);
   todosArray.push(newTodoText);
   amountOfTasksMessage();
+  document.getElementById("new-todo").value = "";
 }
