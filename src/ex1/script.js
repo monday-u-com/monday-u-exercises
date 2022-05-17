@@ -1,7 +1,7 @@
-const todosArray = ['one', 'two', 'three'];
-
 const todoList = document.getElementsByClassName('todo-list')[0];
+const todosArray = ['one', 'two', 'three', 'four', 'five'];
 
+todoList.innerHTML = "";
 todosArray.forEach(todoText => {
   const listItem = document.createElement("li");
 
@@ -40,5 +40,8 @@ deleteButtons.forEach (deleteButton => {
 });
 
 function onDeleteButtonClicked(clickedButton) {
-  alert(`Do you want to delete "${clickedButton.previousElementSibling.textContent}"?`);
+  // alert(`Do you want to delete "${clickedButton.previousElementSibling.textContent}"?`);
+  const index = Array.prototype.indexOf.call(todoList.childNodes, clickedButton.parentElement);
+  todosArray.splice(index, 1);
+  clickedButton.parentElement.remove();
 }
