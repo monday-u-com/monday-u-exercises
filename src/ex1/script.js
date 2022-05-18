@@ -7,7 +7,29 @@ let isListSorted = unsorted;
 
 const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
 const inputTitle = document.getElementById("new-todo-title");
-const amountInfo = document.getElementById("amount-info");
+const amountOfTodosInfo = document.getElementById("amount-info");
+
+const clearAllButton = document.getElementById("clear-all-button");
+const addTodoForm = document.getElementById("add-todo");
+const sortListButton = document.getElementById("sort-list-button");
+
+clearAllButton.addEventListener('click', onClearAllButtonClicked);
+addTodoForm.addEventListener('submit', onAddTodoFormSubmitted);
+sortListButton.addEventListener('click', onSortListButtonClicked);
+
+function addEventListenerForTodoTitle(listItem) {
+  const todoTitleDiv = listItem.getElementsByTagName("div")[0];
+  todoTitleDiv.addEventListener('click', ({target}) => {
+    onTodoTitleClicked(target);
+  });
+}
+
+function addEventListenerForDeleteButton(listItem) {
+  const deleteButton = listItem.getElementsByTagName("button")[0]
+  deleteButton.addEventListener('click', ({currentTarget}) => {
+    onDeleteButtonClicked(currentTarget);
+  });
+}
 
 todosArray.forEach(todoText => {
   addTodoItem(todoText, false);
@@ -31,20 +53,6 @@ function createListElement(todoText, animation) {
   return listItem;
 }
 
-function addEventListenerForTodoTitle(listItem) {
-  const todoTitleDiv = listItem.getElementsByTagName("div")[0];
-  todoTitleDiv.addEventListener('click', ({target}) => {
-    onTodoTitleClicked(target);
-  });
-}
-
-function addEventListenerForDeleteButton(listItem) {
-  const deleteButton = listItem.getElementsByTagName("button")[0]
-  deleteButton.addEventListener('click', ({currentTarget}) => {
-    onDeleteButtonClicked(currentTarget);
-  });
-}
-
 function displayFooter() {
   displayButtonsAndAmount();
   displayZeroImage();
@@ -60,7 +68,7 @@ function displayButtonsAndAmount() {
     displayElement('sort-list-button', true)
     displayElement('clear-all-button', true)
   }
-  amountInfo.textContent = `${todosArray.length} pending ${tasks}`;
+  amountOfTodosInfo.textContent = `${todosArray.length} pending ${tasks}`;
 }
 
 function displayZeroImage() {
@@ -74,7 +82,7 @@ function displayZeroImage() {
 }
 
 function displayElement(ElementId, toDisplay) {
-  displayStyle = toDisplay? "" : "none";
+  displayStyle = toDisplay ? "" : "none";
   document.getElementById(ElementId).style.display = displayStyle;
 }
 
@@ -93,8 +101,6 @@ function onDeleteButtonClicked(clickedButton) {
   }, 1000);
 }
 
-const clearAllButton = document.getElementById("clear-all-button");
-clearAllButton.addEventListener('click', onClearAllButtonClicked);
 
 function onClearAllButtonClicked() {
   const deleteButtons = Array.prototype.slice.call(document.querySelectorAll("div"));
@@ -102,9 +108,6 @@ function onClearAllButtonClicked() {
     onDeleteButtonClicked(button);
   });
 }
-
-const addTodoForm = document.getElementById("add-todo");
-addTodoForm.addEventListener('submit', onAddTodoFormSubmitted);
 
 function onAddTodoFormSubmitted(event){
   event.preventDefault();
@@ -121,9 +124,6 @@ inputTitle.addEventListener("keypress", (event) => {
     document.getElementById('add-todo-button').click();
   }
 });
-
-const sortListButton = document.getElementById("sort-list-button");
-sortListButton.addEventListener('click', onSortListButtonClicked);
 
 function onSortListButtonClicked() {
   if (isListSorted === unsorted || isListSorted === sortedDesc) {
