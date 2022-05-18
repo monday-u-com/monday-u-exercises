@@ -7,15 +7,17 @@ const clearButton = document.querySelector(".clear-all");
 
 // Event trigger when user clicks the add task button
 addTaskButton.addEventListener("click", () => {
-   // Checks for blank spaces
-   if (taskInput.value.trim().length === 0) {
-      alert("Please fill in a task");
-      taskInput.value = "";
-   } else {
+   addTask();
+});
+
+// Same as the button add task but only when user press "Enter"
+taskInput.addEventListener("keypress", (e) => {
+   if (e.key === "Enter") {
       addTask();
    }
 });
 
+// Clears all tasks when clear all button is clicked
 clearButton.onclick = () => {
    document
       .querySelectorAll(".task-container")
@@ -25,12 +27,18 @@ clearButton.onclick = () => {
 
 // Adds the user task input to the tasks list
 function addTask() {
-   const taskContainer = createTaskContainer();
-   const newTask = createNewTask(taskContainer);
-   const deleteTask = createDeleteTaskButton(taskContainer);
-   addHoverReveal(taskContainer, deleteTask, newTask);
-   taskInput.value = "";
-   pendingTasksUpdate("+");
+   // Checks for blank spaces
+   if (taskInput.value.trim().length === 0) {
+      alert("Please fill in a task");
+      taskInput.value = "";
+   } else {
+      const taskContainer = createTaskContainer();
+      const newTask = createNewTask(taskContainer);
+      const deleteTask = createDeleteTaskButton(taskContainer);
+      addHoverReveal(taskContainer, deleteTask, newTask);
+      taskInput.value = "";
+      pendingTasksUpdate("+");
+   }
 }
 
 // Creates container which holds task box and delete button
