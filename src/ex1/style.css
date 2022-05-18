@@ -147,7 +147,7 @@ button {
   display: none;
 }
 
-#todo-list li:hover .remove-todo-button {
+#todo-list .existing-todo:hover .remove-todo-button {
   display: block;
 }
 
