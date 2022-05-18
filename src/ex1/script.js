@@ -26,7 +26,7 @@ sortAllBtn.addEventListener("click", () => {
     localStorage.setItem("tasks", JSON.stringify(taskArr)); //add the updated task array to the localStorage
 })
 
-//sort the tasks list add them to html list element and save them to the LocalStorage
+//Clear the tasks list
 clearAllBtn.addEventListener("click", () => {
     taskArr.length = 0;
     taskList.innerHTML = ''; //Clear the list of tasks element
@@ -85,7 +85,7 @@ function createLi(taskValue) {
     span.appendChild(i);
     li.appendChild(span);
     span.onclick = (e) => {
-        e.stopPropagation(); //stop the parent elemnt to listen to the click
+        e.stopPropagation(); //stop the parent elemnt to listen to click event
         removeTask(li, taskValue);
     };
     li.onclick = () => alert(taskValue);
