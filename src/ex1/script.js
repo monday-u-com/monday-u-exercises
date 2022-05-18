@@ -85,10 +85,11 @@ function createLi(taskValue) {
     span.appendChild(i);
     li.appendChild(span);
     span.onclick = (e) => {
-        e.stopPropagation();
+        e.stopPropagation(); //stop the parent elemnt to listen to the click
         removeTask(li, taskValue);
     };
     li.onclick = () => alert(taskValue);
+    li.classList.add('new-li');
     return li;
 }
 

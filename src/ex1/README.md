@@ -20,7 +20,7 @@ The requirements:
 - [x] Add a button ("Add task")
 - [x] When "Add task" button is clicked, add a task to the task list
 - [x] Change the background and cursor type of an item when hovered on
-- [ ] When a list item is clicked, show 'alert' (**Hint**: check the [alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert) method) with the item name
+- [x] When a list item is clicked, show 'alert' (**Hint**: check the [alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert) method) with the item name
 - [x] Delete an item when "Delete" button is clicked
 
 
@@ -30,7 +30,7 @@ Bonus
 - [x] Add "empty state" - when there are no items on the list, show some nice and inviting UI to encourage the user to add items
 - [x] Add ability to sort the list by name
 - [x] Add task when enter key is pressed
-- [ ] Add animation when a new item is added
+- [x] Add animation when a new item is added
 - [ ] have another cool idea? Go wild! 
 
 When you finish, it should look like this:

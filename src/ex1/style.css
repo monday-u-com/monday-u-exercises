@@ -144,3 +144,20 @@ h1 {
 #sortAllBtn {
     padding: 10px;
 }
+
+@keyframes append-animate {
+    from {
+        transform: translateX(-100%);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+/* animate new box */
+.new-li {
+    animation: append-animate .4s linear;
+}
