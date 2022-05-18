@@ -1,12 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Exercise 1</title>
+    <title>Todo List</title>
     <link rel="stylesheet" href="style.css" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet"> 
+    <!-- Font Awsome -->
+    <script src="https://kit.fontawesome.com/27f05d0dc4.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="#">
 </head>
 <body>
 
-<h1>Todo list</h1>
+<div id="container">
+    <h1>Todo list</h1>
+    <div id="tabs">
+        <button class="tab" id="all-tasks">All Tasks</button>
+        <button class="tab" id="done">Done</button>
+        <button class="tab" id="not-done">Not Done</button>
+    </div>
+    <form>
+        <input type="text" class="new-task-text">
+        <button type="submit" class="add-task">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+    </form>
+
+    <div class="list-container">
+        <div class="todo-list"></div>
+    </div>
+
+    <div class="bottom-container">
+        <div id="pending"> </div>
+        <button id="clear-all">Clear all</button>
+    </div>
+</div>
 
 
 </body>
