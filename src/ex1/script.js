@@ -87,10 +87,10 @@ clearAllButton.addEventListener('click', onClearAllButtonClicked);
 
 function onClearAllButtonClicked() {
   const deleteButtons = todoList.querySelectorAll(".remove-todo-button");
-  console.log(deleteButtons);
   deleteButtons.forEach(button => {
     onDeleteButtonClicked(button);
   });
+  todosArray.length = 0;
 }
 
 const addTodoForm = document.getElementById("add-todo");
@@ -112,8 +112,6 @@ input.addEventListener("keypress", (event) => {
     document.getElementById('add-todo-button').click();
   }
 });
-
-
 
 function sortList() {
   if (sorted === unsorted || sorted === sortedDesc) {
