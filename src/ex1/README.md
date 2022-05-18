@@ -36,7 +36,7 @@ Bonus
 - [x] Add ability to sort the list by name
 - [x] Add task when enter key is pressed
 - [x] Add animation when a new item is added
-- [x] have another cool idea? Go wild! // button hover animation, animation when an item is deleted, sorting both the ways
+- [x] have another cool idea? Go wild! // button hover animation, animation when an item is deleted, sorting both ASC and DESC
 
 When you finish, it should look like this:
 
