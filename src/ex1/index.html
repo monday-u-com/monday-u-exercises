@@ -13,20 +13,16 @@
     <h1 class="app-title">TODOOPS</h1>
     <article class="todo-content">
       <form id="add-todo">
-        <input type="text" id="new-todo" autofocus required minlength="4" placeholder="Add your new todo" />
+        <input type="text" id="new-todo-title" autofocus required minlength="4" placeholder="Add your new todo" />
         <button type="submit" id="add-todo-button">+</button>
       </form>
       <img id="zero-todos-image" src="../assets/pointer.png" width="100px">
       <ul id="todo-list">
-        <!-- <li>
-          <div class="todo-text">Buy a new laptop</div>
-          <button class="remove-todo-button"><i class="fa fa-trash"></i></button>
-        </li> -->
       </ul>
       <footer id="summary">
-        <button id="sort-list-button" onclick="sortList()">sort</button>
+        <button id="sort-list-button">Sort</button>
         <p id="amount-info"></p>
-        <button id="clear-all-button">clear all</button>
+        <button id="clear-all-button">Clear all</button>
       </footer>
     </article>
   </main>

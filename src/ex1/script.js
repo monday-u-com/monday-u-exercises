@@ -5,9 +5,9 @@ const unsorted = 0;
 const sortedAsc = 1;
 const sortedDesc = 2;
 let sorted = unsorted;
+const inputTitle = document.getElementById("new-todo-title");
 
 function addTodoText(todoText) {
-  // clone the existing li-element
   const listItem = document.createElement("li");
   listItem.className = "add-item-animation";
   setTimeout (() => {
@@ -90,22 +90,24 @@ addTodoForm.addEventListener('submit', onAddTodoFormSubmitted);
 
 function onAddTodoFormSubmitted(event){
   event.preventDefault();
-  const newTodoText = document.getElementById("new-todo").value;
+  const newTodoText = inputTitle.value;
   addTodoText(newTodoText);
   todosArray.push(newTodoText);
   amountOfTasksMessage();
-  document.getElementById("new-todo").value = "";
+  inputTitle.value = "";
 }
 
-const input = document.getElementById("new-todo");
-input.addEventListener("keypress", (event) => {
+inputTitle.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
     document.getElementById('add-todo-button').click();
   }
 });
 
-function sortList() {
+const sortListButton = document.getElementById("sort-list-button");
+sortListButton.addEventListener('click', onSortListButtonClicked);
+
+function onSortListButtonClicked() {
   if (sorted === unsorted || sorted === sortedDesc) {
     sortListWithOrder(compareElementsAsc);
     sorted = sortedAsc;
