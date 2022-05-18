@@ -22,7 +22,7 @@
 }
 
 .add-item-animation {
-  animation: change-color 1s linear;
+  animation: change-color 0.7s linear;
 }
 
 @keyframes change-color {
@@ -36,7 +36,7 @@
 
 .delete-item-animation {
   color: antiquewhite;
-  animation: deleting-color 1s ease-out;
+  animation: deleting-color 0.7s ease-out;
 }
 
 @keyframes deleting-color {

@@ -17,6 +17,11 @@ clearAllButton.addEventListener('click', onClearAllButtonClicked);
 addTodoForm.addEventListener('submit', onAddTodoFormSubmitted);
 sortListButton.addEventListener('click', onSortListButtonClicked);
 
+todosArray.forEach(todoText => {
+  addTodoItem(todoText, false);
+  displayFooterAndImage();
+});
+
 function addEventListenerForTodoTitle(listItem) {
   const todoTitleDiv = listItem.getElementsByTagName("div")[0];
   todoTitleDiv.addEventListener('click', ({target}) => {
@@ -31,11 +36,6 @@ function addEventListenerForDeleteButton(listItem) {
   });
 }
 
-todosArray.forEach(todoText => {
-  addTodoItem(todoText, false);
-  displayFooter();
-});
-
 function addTodoItem(todoText, animation) {
   const listItem = createListElement(todoText, animation);
   addEventListenerForTodoTitle(listItem);
@@ -46,14 +46,16 @@ function addTodoItem(todoText, animation) {
 
 function createListElement(todoText, animation) {
   const listItem = document.createElement("li");
-  if (animation) listItem.className = "add-item-animation";
-  setTimeout (() => { listItem.className = "existing-item";}, 1000);
+  if (animation) {
+    listItem.className = "add-item-animation";
+  }
+  setTimeout (() => { listItem.className = "existing-item";}, 700);
   listItem.innerHTML = `<div class="todo-text">${todoText}</div>
                         <button class="remove-todo-button"><i class="fa fa-trash"></i></button>`;
   return listItem;
 }
 
-function displayFooter() {
+function displayFooterAndImage() {
   displayButtonsAndAmount();
   displayZeroImage();
 }
@@ -81,9 +83,9 @@ function displayZeroImage() {
   }
 }
 
-function displayElement(ElementId, toDisplay) {
+function displayElement(elementId, toDisplay) {
   displayStyle = toDisplay ? "" : "none";
-  document.getElementById(ElementId).style.display = displayStyle;
+  document.getElementById(elementId).style.display = displayStyle;
 }
 
 function onTodoTitleClicked(clickedTodo) {
@@ -97,8 +99,8 @@ function onDeleteButtonClicked(clickedButton) {
   clickedButton.parentElement.classList.add("delete-item-animation");
   setTimeout (() => {
     clickedButton.parentElement.remove();
-    displayFooter();
-  }, 1000);
+    displayFooterAndImage();
+  }, 700);
 }
 
 function onClearAllButtonClicked() {
@@ -113,7 +115,7 @@ function onAddTodoFormSubmitted(event){
   const newTodoText = inputTitle.value;
   addTodoItem(newTodoText, true);
   todosArray.push(newTodoText);
-  displayFooter();
+  displayFooterAndImage();
   inputTitle.value = "";
 }
 
