@@ -98,15 +98,15 @@ function onClearAllButtonClicked() {
 
 function addNewTodo(){
   const newTodoText = document.getElementById("new-todo").value;
-  if (newTodoText.length < 4) {
-    alert('Please use at least 4 characters for each todo')
-    // change to native validations
-  } else {
-    addTodoText(newTodoText);
-    todosArray.push(newTodoText);
-    amountOfTasksMessage();
-    document.getElementById("new-todo").value = "";
-  }
+  // if (newTodoText.length < 4) {
+  //   alert('Please use at least 4 characters for each todo')
+  //   // change to native validations
+  // } else {
+  addTodoText(newTodoText);
+  todosArray.push(newTodoText);
+  amountOfTasksMessage();
+  document.getElementById("new-todo").value = "";
+  // }
 }
 
 const input = document.getElementById("new-todo");
