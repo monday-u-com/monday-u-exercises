@@ -1,14 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Exercise 1</title>
+  <head>
+    <title>BusyDay</title>
     <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-
-<h1>Todo list</h1>
-
-
-</body>
-<script src="script.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      
+    />
+  </head>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <body>
+    <div class="wrapper">
+      <header>BusyDay</header>
+      <div class="inputField">
+        <input type="text" placeholder="What's your mission for today?" />
+        <button><i class="fas fa-plus"></i></button>
+      </div>
+      <div class="order-container" id="order-container">
+        <button id="arrow-up"><i class="fa fa-arrow-up"></i></button>
+        <button id="arrow-down"><i class="fa fa-arrow-down"></i></button>
+      </div>
+      <ul class="todoList"></ul>
+      <img src="../assets/empty.gif" id="gif" />
+      <div class="footer" id="footer">
+        <span
+          >You've got just <span class="pendingTasks"></span> things to
+          handle.</span
+        >
+        <button>Clear All</button>
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
 </html>

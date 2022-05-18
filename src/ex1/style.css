@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Coming+Soon&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Coming Soon', cursive;
+  font-size: 20px;
+}
+::selection {
+  color: #ffff;
+  background: rgb(192, 144, 255);
+}
+body {
+  width: 100%;
+  min-height: 100%;
+  padding: 10px;
+  background: linear-gradient(to bottom, #f3f6f5 0%, #d3d7de 100%);
+  background-attachment: fixed;
+}
+.wrapper {
+  background: rgb(209, 202, 224);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  margin: 55px auto;
+  padding: 25px;
+  border-radius: 5px;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+}
+.wrapper header {
+  font-size: 40px;
+  font-weight: 600;
+  padding-bottom: 5%;
+  text-align: center;
+  font-family: 'Abril Fatface', cursive;
+  color: #ffff;
+  letter-spacing: 4px;
+}
+.wrapper .inputField {
+  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  height: 45px;
+}
+.inputField input {
+  width: 85%;
+  height: 100%;
+  outline: none;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  font-size: 17px;
+  padding-left: 15px;
+  transition: all 0.3s ease;
+}
+.inputField input:focus {
+  border-color: #bb87ff;
+}
+.inputField button,
+.order-container button {
+  width: 50px;
+  height: 100%;
+  border: none;
+  color: #fff;
+  margin-left: 5px;
+  font-size: 21px;
+  outline: none;
+  background: #bb87ff;
+  cursor: pointer;
+  border-radius: 3px;
+  opacity: 0.6;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.inputField button:hover,
+.footer button:hover {
+  background: #721ce3;
+}
+.inputField button.active,
+.order-container button.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.order-container button {
+  background: transparent;
+  color: #bb87ff;
+}
+
+.order-container button:hover {
+  color: #721ce3;
+}
+.wrapper .todoList {
+  max-height: 250px;
+  overflow-y: auto;
+}
+.todoList li {
+  position: relative;
+  list-style: none;
+  margin-bottom: 8px;
+  background: rgba(255, 246, 143);
+  border-radius: 3px;
+  padding: 10px 15px;
+  font-size: 15px;
+  cursor: default;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+.todoList li:hover {
+  background: rgb(255, 224, 88);
+  cursor:auto;
+}
+.todoList li .icon {
+  position: absolute;
+  right: -45px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #e74c3c;
+  width: 45px;
+  text-align: center;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.todoList li:hover .icon {
+  right: 0px;
+}
+.wrapper .footer {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: space-between;
+  display: block;
+  text-align: center;
+}
+.footer button {
+  padding: 6px 10px;
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-weight: 400;
+  font-size: 16px;
+  margin-left: 5px;
+  background: #8e49e8;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.6;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.footer button.active {
+  opacity: 1;
+  pointer-events: auto;
+  margin-top: 8%;
+}
+
+.order-container button {
+  pointer-events: auto;
+}
+
+.todoList::-webkit-scrollbar {
+  width: 16px;
+}
+
+.todoList::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 100px;
+}
+
+.todoList::-webkit-scrollbar-thumb {
+  background-color: #bb87ff;
+  border-radius: 100px;
+}
+
+.order-container {
+  padding-bottom: 25px;
+  padding-top: 5px;
+  text-align: right;
+  font-size: 15px;
+}
+#arrow-up {
+  padding-left: 50px;
+}
+ 
+#gif {
+  width: 60%;
+  height: 60%;
+}
