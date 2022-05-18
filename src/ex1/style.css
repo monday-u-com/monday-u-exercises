@@ -63,8 +63,10 @@ button {
   display: flex;
 }
 
-#new-todo:invalid {
-  background-color: antiquewhite;
+#new-todo:focus {
+  border: 2px solid var(--very-dark-green);
+  border-radius: 4px;
+  outline: none;
 }
 
 #add-todo-button {

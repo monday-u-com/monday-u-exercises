@@ -14,11 +14,10 @@
     <h1 class="app-title">TODOOPS</h1>
 
     <div class="todo-content">
-      <div class="add-todo">
-        <input type="text" id="new-todo" name="new-todo" minlength="4" placeholder="Add your new todo">
-        <button id="add-todo-button">+</button>
-        <!-- in script -->
-      </div>
+      <form id="add-todo" class="add-todo">
+        <input type="text" id="new-todo" autofocus required minlength="4" placeholder="Add your new todo" />
+        <button type="submit" id="add-todo-button">+</button>
+      </form>
       <!-- main instead of div -->
       <img id="zero-todos-image" src="../assets/pointer.png" width="100px">
       <!-- different states, class -->
