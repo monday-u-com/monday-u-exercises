@@ -5,9 +5,13 @@ document.getElementById('clear-all').addEventListener('click', clearAllHandler)
 document.querySelector('ul').addEventListener('click', alertMessage)
 /*document.getElementById('new-task').addEventListener('keydown', preventSpace)*/
 const tasksCompleted = document.getElementById('completed-tasks')
+const listGif = document.getElementById('list-gif')
+
+let checkDoneTasks = []
+
 let doneTasksCounter = 0
 let tasksCounter = 0
-let listGif = document.getElementById('list-gif')
+
 
 /*** Submit Button Handler ***/
 function submitButtonHandler(event){
@@ -66,6 +70,7 @@ function checkTodo(event){
         item.style.textDecoration = 'line-through'
         item.style.color = 'lightgrey'
         doneTasksCounter++
+        //checkDoneTasks[tasksCounter].push(true)
         tasksCompleted.innerText = `You have completed ${doneTasksCounter} / ${tasksCounter} tasks`
     }
 }
@@ -82,12 +87,15 @@ function deleteTodo(event){
     let item = event.target.parentNode
     //Once the transition is completed, the task will be deleted 
     item.addEventListener('transitionend', function(){
-        item.remove()
-        
+        item.remove()    
     })
-    item.classList.add('task-list-item-fall')
     tasksCounter--
-    
+    if(tasksCounter === 0){
+        tasksCompleted.style.display = "none"
+        listGif.style.display= "block"
+        doneTasksCounter = 0
+    }
+    item.classList.add('task-list-item-fall')
 }
 
 

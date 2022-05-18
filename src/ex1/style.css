@@ -28,9 +28,10 @@ body{
 
 header{
     font-weight: bold;
-    font-size: 30px;
-    color: rgba(251,219,246,255);
+    font-size: 40px;
+    color: rgb(246, 194, 194);
     font-style: italic;
+    font-family: 'Dancing Script', sans-serif;
 }
 
 .new-task-container{
@@ -67,7 +68,7 @@ form{
     border: none;
     outline: none;
     border-width: 3px;
-    border-style: dotted;
+    border-style: dashed;
     border-radius: 5px;
 }
 
@@ -76,7 +77,7 @@ form{
    font-size: 30px;
    height: 50px;
    margin-left: 10px;
-   background-color: rgb(87, 179, 255);
+   background-color: rgb(232, 150, 150);
    padding: 10px;
    border-radius: 5px;
    border: none;
@@ -84,7 +85,7 @@ form{
 }
 
 #submitButton:hover{
-    background-color: rgb(185, 185, 185);
+    background-color: rgb(210, 210, 210);
     cursor: pointer;
 }
 
@@ -100,7 +101,7 @@ form{
 }
 
 #deleteButton:hover{
-    background-color: rgb(185, 185, 185);
+    background-color: rgb(210, 210, 210);
     cursor: pointer;
 }
 
@@ -120,6 +121,7 @@ ul{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 30px;
 }
 
 li{
@@ -135,30 +137,51 @@ li{
     font-family: 'Raleway', sans-serif;
     font-size: 30px;
     margin-bottom: 10px;
+    text-transform: capitalize;
 }
 
 li:hover{
     cursor: pointer;
+    box-shadow: 0 12px 22px 0 rgba(232, 150, 150, 0.302);
+    background: whitesmoke;
 }
 
 i{
     pointer-events: none;
 }
 
-.clear-all{
-    display: flex;
+h2{
+    color: grey;
+    font-style: italic;
+
+}
+
+.btn-holder{
     justify-content: flex-end;
-    padding: 10px 3px;
+    display: flex;
+}
+
+.clear-all{
+    padding: 10px;
+    font-size: 20px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    color: grey;
     cursor: pointer;
+    border: 2px solid lightgrey;
+    background-color: white;
+    border-style: outset;
+    border-radius: 5px;
 }
 
 .clear-all:hover{
     color: red;
+    background-color: whitesmoke;
 }
 
 
 .task-list-item{
-    transition: all 0.5s ease-in;
+    transition: all 0.3s ease-out;
 }
 
 .task-list-item-fall{
