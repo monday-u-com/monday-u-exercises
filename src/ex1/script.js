@@ -4,6 +4,7 @@ const allTasksContainer = document.querySelector(".all-tasks-container");
 const pendingTasksText = document.querySelector(".pending-tasks");
 let pendingTasks = 0;
 const clearButton = document.querySelector(".clear-all");
+const sortButton = document.querySelector(".name-sort");
 
 // Event trigger when user clicks the add task button
 addTaskButton.addEventListener("click", () => {
@@ -23,6 +24,16 @@ clearButton.onclick = () => {
       .querySelectorAll(".task-container")
       .forEach((task) => task.remove());
    pendingTasksUpdate(0);
+};
+
+// Sorts the tasks containers by name
+sortButton.onclick = () => {
+   const taskContainers = [...document.querySelectorAll(".task-container")];
+   taskContainers.sort((a, b) =>
+      a.children[0].innerText.localeCompare(b.children[0].innerText)
+   );
+   taskContainers.map((container) => container.remove());
+   taskContainers.map((container) => allTasksContainer.appendChild(container));
 };
 
 // Adds the user task input to the tasks list
