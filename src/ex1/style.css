@@ -10,6 +10,8 @@ body{
     margin-bottom: 20px;
     text-align: center;
     align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .todoList{
@@ -17,21 +19,22 @@ body{
     display:inline-table;
     list-style: none;
     align-items: center;
-    padding: 0;
+    padding: 16px;
     margin: auto;
     border: darkcyan 2px solid;
     border: 5px outset #1C6EA4;
     border-radius: 10px;
-    width: 100%;
+    width: 50%;
 
 }
 
 .todoList li{
     display: inline-block;
     list-style: none;
-    margin-bottom: 10px;
-    border: lightcyan 2px solid;
-    border: 5px outset #1C6EA4;
-    width:50%;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    width:100%;
 }
 
+.todoList li:not(:last-child){
+    margin-bottom: 10px;
+}
