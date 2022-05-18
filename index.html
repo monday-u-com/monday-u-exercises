@@ -12,13 +12,18 @@
     <h1>Ayelet's Todo List</h1>
     </header>
         <form>
-            <input type="text" class="todo-input" />
+            <input type="text" class="todo-input" required> 
             <button class="todo-button" type="submit">
                 <i class="fa fa-plus-square"></i>
             </button>
         </form>
         <div class="todo-container">
             <ul class="todo-list"></ul>
+            <select id="sortSelect">
+                <option value="1">home</option>
+                <option value="2">work</option>
+                <option value="3">madical</option>
+            </select>
         </div>
         <script src="app.js"></script>
     </body>
