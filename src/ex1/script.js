@@ -3,19 +3,24 @@ document.querySelector('ul').addEventListener('click', checkHandler)
 document.querySelector('ul').addEventListener('click', deleteHandler)
 document.getElementById('clear-all').addEventListener('click', clearAllHandler)
 document.querySelector('ul').addEventListener('click', alertMessage)
-document.getElementById('new-task').addEventListener('keydown', preventSpace)
+/*document.getElementById('new-task').addEventListener('keydown', preventSpace)*/
+const tasksCompleted = document.getElementById('completed-tasks')
+let doneTasksCounter = 0
+let tasksCounter = 0
+let listGif = document.getElementById('list-gif')
 
 /*** Submit Button Handler ***/
 function submitButtonHandler(event){
     event.preventDefault() //Preventing page refresh on form submission
     let newTaskInput = document.querySelector('#new-task')
+    listGif.style.display= "none"
     if (newTaskInput.value != ''){
-        document.querySelector('img').style.display = "none"
+        tasksCompleted.style.display = "flex"
         addTodo(newTaskInput.value)
+        tasksCompleted.innerText = `You have completed ${doneTasksCounter} / ${tasksCounter} tasks`
         newTaskInput.value = '' //After inserting a new task, the new task input area will be initialized to an empty string
     }
 }
-
 
 function addTodo(item){
     let ul = document.querySelector('ul')
@@ -25,17 +30,18 @@ function addTodo(item){
     li.innerHTML = `
         <input type="checkbox" name="task-complete"> 
         <span class="task-item">${item}</span> 
-        <button name="deleteButton"><i class="fas fa-trash"></i></button>
+        <button id="deleteButton" name="deleteButton"><i class="fas fa-trash"></i></button>
     `
     li.classList.add('task-list-item') //Adding the user's input into the list
     ul.appendChild(li)
+    tasksCounter++
 }
 
-function preventSpace(event){
+/*function preventSpace(event){
     if(event.code === 'Space') {
         event.preventDefault()
     }
-}
+}*/
 
 
 
@@ -52,11 +58,15 @@ function checkTodo(event){
     if(item.style.textDecoration === 'line-through'){
         item.style.textDecoration = 'none'
         item.style.color = 'grey'
+        doneTasksCounter--
+        tasksCompleted.innerText = `You have completed ${doneTasksCounter} / ${tasksCounter} tasks`
     }
     //When clicking on the check button in order to mark the task as done, the line through style will be implemented
     else{
         item.style.textDecoration = 'line-through'
         item.style.color = 'lightgrey'
+        doneTasksCounter++
+        tasksCompleted.innerText = `You have completed ${doneTasksCounter} / ${tasksCounter} tasks`
     }
 }
 
@@ -73,16 +83,24 @@ function deleteTodo(event){
     //Once the transition is completed, the task will be deleted 
     item.addEventListener('transitionend', function(){
         item.remove()
+        
     })
     item.classList.add('task-list-item-fall')
+    tasksCounter--
+    
 }
 
 
 /*** Clear All Button ***/
 function clearAllHandler(event){
-    document.querySelector('ul').innerHTML = ''
-    document.querySelector('img').style.display = "block"
+    if(tasksCounter != 0){
+        document.querySelector('ul').innerHTML = ''
+        tasksCompleted.style.display = "none"
+        tasksCounter = 0
+        doneTasksCounter = 0
+    }
 }
+
 
 /*** List Item Clicked ***/
 function alertMessage(event){

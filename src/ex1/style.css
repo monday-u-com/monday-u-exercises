@@ -12,7 +12,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 70rem;
+    max-width: 60rem;
     margin: 0 auto;
     padding: 30px;
     margin-top: 30px;
@@ -23,27 +23,18 @@ body{
     background-color: white;
     padding-bottom: 80px;
     font-family: 'Raleway', sans-serif;
+    box-shadow: 0 0.4rem 1.4rem 0 rgb(232, 150, 150);
 }
-
-input[type="checkbox"] {
-    appearance: none;
-    background-color: #fff;
-    margin: 0;
-    color: currentColor;
-    width: 1.15em;
-    height: 1.15em;
-    border: 0.15em solid currentColor;
-    border-radius: 20px;
-    transform: translateY(-0.075em);
-  }
 
 header{
     font-weight: bold;
     font-size: 30px;
+    color: rgba(251,219,246,255);
+    font-style: italic;
 }
 
 .new-task-container{
-    width: 50%;
+    width: 60%;
 }
 
 form{
@@ -54,32 +45,62 @@ form{
 
 #new-task{
     font-family: 'Raleway', sans-serif;
-    color: rgb(251,219,246);
+    color: rgb(232, 150, 150);
+    font-weight: bold;
     padding: 10px;
     font-size: 23px;
-    flex-grow: 1;
     text-transform: capitalize;
+    flex-grow: 1;
+    border-radius: 5px;
+    outline-color: rgb(215, 215, 215);
+    outline-style: double;
+    border: none;
 }
 
 #new-task::placeholder{
     text-align: center;
+    color: lightgrey;
 }
 
 #new-task:focus{
+    border-color:rgb(232, 150, 150);
+    border: none;
     outline: none;
-    border: 2px solid rgb(251,219,246);
+    border-width: 3px;
+    border-style: dotted;
+    border-radius: 5px;
 }
 
-button{
-   width: 60px;
+#submitButton{
+   width: 50px;
    font-size: 30px;
+   height: 50px;
    margin-left: 10px;
-   background-color: rgb(251,219,246);
-   color: grey;
+   background-color: rgb(87, 179, 255);
+   padding: 10px;
+   border-radius: 5px;
+   border: none;
+   color: white;
 }
 
-button:hover{
-    background-color: rgb(254,229,215);
+#submitButton:hover{
+    background-color: rgb(185, 185, 185);
+    cursor: pointer;
+}
+
+#deleteButton{
+    width: 50px;
+    font-size: 23px;
+    border: none;
+    background-color: rgba(255, 0, 0, 0.721);
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#deleteButton:hover{
+    background-color: rgb(185, 185, 185);
     cursor: pointer;
 }
 
@@ -104,14 +125,13 @@ ul{
 li{
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 95%;
     border-bottom: 1px solid lightgrey;
-    padding: 15px 0;
-    font-size: 20px;
+    font-size: 15px;
     color: grey;
     box-shadow: 2px 1px 5px 5px rgba(195, 195, 195, 0.3);
     border-radius: 10px;
-    padding: 15px;
+    padding: 10px;
     font-family: 'Raleway', sans-serif;
     font-size: 30px;
     margin-bottom: 10px;
@@ -148,20 +168,23 @@ i{
 
 input[type="checkbox"] {
     appearance: none;
-    background-color: #fff;
     margin-right: 10px;
-    color: currentColor;
-    width: 23px;
-    height: 23px;
+    color: grey;
+    width: 25px;
+    height: 25px;
     border: 2px solid grey;
     border-radius: 20px;
-    transform: translateY(-0.075em);
+    cursor: pointer;
   }
 
 input[type=checkbox]:checked{
+    cursor: pointer;
+    border: none;
+    width: 27px;
+    height: 27px;
     background-color: lightgreen;
-    /*transform: scale(1.2);
-    transition: 120ms transform ease-in-out;
+    transition: 200ms transform ease-in-out;
+    transform: scale(1.2);
     transform-origin: bottom left;
-    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);*/
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
