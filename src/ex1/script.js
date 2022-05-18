@@ -1,10 +1,10 @@
 
-const todoList = document.getElementById("todo-list");
+const AllTodosList = document.getElementById("todo-list");
 
 const unsorted = 0;
 const sortedAsc = 1;
 const sortedDesc = 2;
-let sorted = unsorted;
+let isListSorted = unsorted;
 
 const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
 
@@ -16,6 +16,14 @@ const inputTitle = document.getElementById("new-todo-title");
 
 function addTodoItem(todoText, animation) {
 
+  const listItem = createListElement(todoText, animation);
+  addEventListenerForTodoTitle(listItem);
+  addEventListenerForDeleteButton(listItem);
+  AllTodosList.appendChild(listItem);
+  isListSorted = unsorted;
+}
+
+function createListElement(todoText, animation) {
   const listItem = document.createElement("li");
   listItem.className = "existing-todo";
   if (animation) {
@@ -25,21 +33,23 @@ function addTodoItem(todoText, animation) {
     }, 1000);
   }
   listItem.innerHTML = `<div class="todo-text">${todoText}</div>
-                        <button class="remove-todo-button"><i class="fa fa-trash"></i></button>`
+                        <button class="remove-todo-button"><i class="fa fa-trash"></i></button>`;
+  return listItem;
+}
 
-  divElement = listItem.getElementsByTagName("div")[0];
-  divElement.addEventListener('click', ({target}) => {
-    onTodoClicked(target);
+function addEventListenerForTodoTitle(listItem) {
+  const todoTitleDiv = listItem.getElementsByTagName("div")[0];
+  todoTitleDiv.addEventListener('click', ({target}) => {
+    onTodoTitleClicked(target);
   });
-  deleteButton = listItem.getElementsByTagName("button")[0]
+}
+
+function addEventListenerForDeleteButton(listItem) {
+  const deleteButton = listItem.getElementsByTagName("button")[0]
   deleteButton.addEventListener('click', ({currentTarget}) => {
     onDeleteButtonClicked(currentTarget);
   });
-  todoList.appendChild(listItem);
-  sorted = unsorted;
 }
-
-
 
 
 const amountInfo = document.getElementById("amount-info");
@@ -67,12 +77,12 @@ function amountOfTasksMessage() {
 
 amountOfTasksMessage();
 
-function onTodoClicked(clickedTodo) {
+function onTodoTitleClicked(clickedTodo) {
   alert(clickedTodo.textContent);
 }
 
 function onDeleteButtonClicked(clickedButton) {
-  const index = Array.prototype.indexOf.call(todoList.getElementsByTagName("li"), clickedButton.parentElement);
+  const index = Array.prototype.indexOf.call(AllTodosList.getElementsByTagName("li"), clickedButton.parentElement);
   todosArray.splice(index, 1);
   clickedButton.parentElement.classList.remove("existing-todo");
   clickedButton.parentElement.classList.add("delete-item-animation");
@@ -115,12 +125,12 @@ const sortListButton = document.getElementById("sort-list-button");
 sortListButton.addEventListener('click', onSortListButtonClicked);
 
 function onSortListButtonClicked() {
-  if (sorted === unsorted || sorted === sortedDesc) {
+  if (isListSorted === unsorted || isListSorted === sortedDesc) {
     sortListWithOrder(compareElementsAsc);
-    sorted = sortedAsc;
+    isListSorted = sortedAsc;
   } else {
     sortListWithOrder(compareElementsDesc);
-    sorted = sortedDesc;
+    isListSorted = sortedDesc;
   }
 }
 
@@ -129,7 +139,7 @@ function sortListWithOrder(comparator) {
   let shouldSwitch = false;
   while (switching) {
     switching = false;
-    const liElements = todoList.getElementsByTagName("li");
+    const liElements = AllTodosList.getElementsByTagName("li");
     for (i = 0; i < (liElements.length - 1); i++) {
       shouldSwitch = false;
       if (comparator(liElements[i].innerHTML.toLowerCase(), liElements[i + 1].innerHTML.toLowerCase())) {
