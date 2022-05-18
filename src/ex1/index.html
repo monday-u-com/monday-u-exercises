@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Exercise 1</title>
-    <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-
-<h1>Todo list</h1>
-
-
-</body>
-<script src="script.js"></script>
+	<head>
+		<title>Sunday.com</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>Sunday.com</h1>
+			<div class="newTaskContainer">
+				<input type="text" id="NewToDo_txt" class="task-input" placeholder="Write your task here" />
+				<img id="NewToDo_btn" class="clickable pluse-icon" src="./pluse.png"></img>
+			</div>
+			<div id="taskList"></div>
+			<span id="emptyState">What is yous next task?</span>
+			<button id="clearAll" class="clear-all">Clear all</button>
+		</div>
+	</body>
+	<script src="script.js"></script>
 </html>
