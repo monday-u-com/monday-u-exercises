@@ -15,8 +15,10 @@ const animItem = bodymovin.loadAnimation({
   autoplay: false,
   path: "https://assets4.lottiefiles.com/private_files/lf30_5aubt2fy.json",
 });
+const TRASH_ANIMATION_TIMEOUT = 500
 
 const pendingTasksCount = document.querySelector(".pendingTasksCount");
+const ENTER_KEY = 13;
 
 //Event Listeners
 document.addEventListener("DOMContentLoaded", getTodos);
@@ -60,7 +62,7 @@ todoInput.onkeydown = () => {
 
 //add todo to the todo list
 function addTodo(event) {
-  if (todoInput.value.trim() == 0) {
+  if (!todoInput.value.trim()) {
     return launch_toast();
   }
   event.preventDefault();
@@ -72,8 +74,8 @@ function addTodo(event) {
   todoLi.innerText = todoInput.value;
 
   //Add todo to local storage
-  todos = saveLocalTodos(todoInput.value);
-  /* todoLi.setAttribute('id', "liNum" + todos.indexOf(todo)) */
+  saveLocalTodos(todoInput.value);
+ 
   //trash button
   const trashButton = document.createElement("button");
   trashButton.innerHTML = '<i  class="fas fa-trash"></i>';
@@ -90,8 +92,9 @@ function addTodo(event) {
 
 //add todo when pressing enter key
 function todoEnter(event) {
-  if (event.keyCode == 13) {
-    if (todoInput.value.trim() == 0) {
+  
+    if (event.keyCode == ENTER_KEY) {
+    if (!todoInput.value.trim()) {
       return launch_toast();
     }
     addTodo(event);
@@ -109,7 +112,7 @@ function deleteTask(e) {
     setTimeout(function () {
       //delay the remove animation
       todo.remove();
-    }, 500);
+    }, TRASH_ANIMATION_TIMEOUT);
   }
 }
 
@@ -124,7 +127,7 @@ function clearAll(e) {
       todoList.innerHTML = "";
       localStorage.clear();
       todoList.classList.remove("fall");
-    }, 500);
+    }, TRASH_ANIMATION_TIMEOUT);
     pendingTasksCount.textContent = 0;
     if (!todoInput.value.length) {
       inputBox.classList.remove("inactive");
