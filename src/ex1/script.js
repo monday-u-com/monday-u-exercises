@@ -1,21 +1,31 @@
-// scope everything into the funcrions
+
 const todoList = document.getElementById("todo-list");
-const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
+
 const unsorted = 0;
 const sortedAsc = 1;
 const sortedDesc = 2;
 let sorted = unsorted;
+
+const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
+
+todosArray.forEach(todoText => {
+  addTodoItem(todoText, false);
+});
+
 const inputTitle = document.getElementById("new-todo-title");
 
-function addTodoText(todoText) {
-  const listItem = document.createElement("li");
-  listItem.className = "add-item-animation";
-  setTimeout (() => {
-    listItem.className = "existing-todo";
-  }, 1000);
+function addTodoItem(todoText, animation) {
 
+  const listItem = document.createElement("li");
+  listItem.className = "existing-todo";
+  if (animation) {
+    listItem.className = "add-item-animation";
+    setTimeout (() => {
+      listItem.className = "existing-todo";
+    }, 1000);
+  }
   listItem.innerHTML = `<div class="todo-text">${todoText}</div>
-                  <button class="remove-todo-button"><i class="fa fa-trash"></i></button>`
+                        <button class="remove-todo-button"><i class="fa fa-trash"></i></button>`
 
   divElement = listItem.getElementsByTagName("div")[0];
   divElement.addEventListener('click', ({target}) => {
@@ -29,9 +39,7 @@ function addTodoText(todoText) {
   sorted = unsorted;
 }
 
-todosArray.forEach(todoText => {
-  addTodoText(todoText);
-});
+
 
 
 const amountInfo = document.getElementById("amount-info");
@@ -78,11 +86,10 @@ const clearAllButton = document.getElementById("clear-all-button");
 clearAllButton.addEventListener('click', onClearAllButtonClicked);
 
 function onClearAllButtonClicked() {
-  const deleteButtons = todoList.querySelectorAll(".remove-todo-button");
-  deleteButtons.forEach(button => {
+  const deleteButtons = Array.prototype.slice.call(document.querySelectorAll("div"));
+  deleteButtons.reverse().forEach(button => {
     onDeleteButtonClicked(button);
   });
-  todosArray.length = 0;
 }
 
 const addTodoForm = document.getElementById("add-todo");
@@ -91,7 +98,7 @@ addTodoForm.addEventListener('submit', onAddTodoFormSubmitted);
 function onAddTodoFormSubmitted(event){
   event.preventDefault();
   const newTodoText = inputTitle.value;
-  addTodoText(newTodoText);
+  addTodoItem(newTodoText, true);
   todosArray.push(newTodoText);
   amountOfTasksMessage();
   inputTitle.value = "";
