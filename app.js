@@ -10,7 +10,6 @@ function addTodo(event) {
 
 	const todoDiv = document.createElement("div");
 	todoDiv.classList.add("todo");
-
 	const newTodo = document.createElement("li");
 	newTodo.innerText = todoInput.value;
 	alert(todoInput.value);
