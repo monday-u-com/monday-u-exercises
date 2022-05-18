@@ -96,24 +96,27 @@ function onClearAllButtonClicked() {
   }, 1000);
 }
 
-function addNewTodo(){
+const addTodoButton = document.getElementById("add-todo-button");
+addTodoButton.addEventListener('click', onAddTodoButtonClicked);
+
+function onAddTodoButtonClicked(){
   const newTodoText = document.getElementById("new-todo").value;
-  // if (newTodoText.length < 4) {
-  //   alert('Please use at least 4 characters for each todo')
-  //   // change to native validations
-  // } else {
+  if (newTodoText.length < 4) {
+    alert('Please use at least 4 characters for each todo')
+    // change to native validations
+  } else {
   addTodoText(newTodoText);
   todosArray.push(newTodoText);
   amountOfTasksMessage();
   document.getElementById("new-todo").value = "";
-  // }
+  }
 }
 
 const input = document.getElementById("new-todo");
 input.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
-    addNewTodo();
+    onAddTodoButtonClicked();
   }
 });
 
