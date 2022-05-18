@@ -6,7 +6,7 @@
   font-family: "Poppins", sans-serif;
 }
 
-::selection  {
+::selection {
   color: #ffff;
   background: rgb(142, 73, 232);
 }
@@ -20,10 +20,10 @@ body {
   background-image: linear-gradient(120deg, #f6d365, #fda085);
 }
 
-header{
-    text-align: center;
+header {
+  text-align: center;
 }
-.wrapper  {
+.wrapper {
   background: #fff;
   max-width: 500px;
   width: 100%;
@@ -45,58 +45,55 @@ header{
   height: 45px;
 }
 
-.inputField input{
+.inputField input {
   width: 100%;
   height: 100%;
   outline: none;
-  
+
   border-radius: 3px;
-  border: 1px solid ;
+  border: 1px solid;
   font-size: 17px;
   padding-left: 15px;
   transition: all 0.3s ease;
-  
-  animation: ring 2s linear infinite; duration timing-function delay iteration-count direction fill-mode;
+
+  animation: ring 2s linear infinite;
 }
 
- .inputField input:focus {
-   border-color: #e29624;
-  
-   
-} 
-
-.inputField input.inactive{
-    animation: ring 0.2s ;
+.inputField input:focus {
+  border-color: #e29624;
 }
 
-.svg{
-    width: 200px;
-    position:absolute;
-    margin-left: auto;
-    margin-right: auto;
-right: 0px;
-left: 0px;
-
-top:10px;
-
-    pointer-events: none;
+.inputField input.inactive {
+  animation: ring 0.2s;
 }
 
+.svg {
+  width: 200px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  right: 0px;
+  left: 0px;
 
-@keyframes  ring{
-    0%{
-        transform: rotate(0deg);
-        box-shadow: 1px 5px 2px #e65c00;
-    }
-    50%{
-        transform: rotate(0deg);
-        box-shadow: 1px 5px 2px #18b201;
-    }
+  top: 10px;
 
-   100%{
-        transform: rotate(0deg);
-        box-shadow: 1px 5px 2px #0456c8;
-    }
+  pointer-events: none;
+}
+
+@keyframes ring {
+  0% {
+    transform: rotate(0deg);
+    box-shadow: 1px 5px 2px #e65c00;
+  }
+  50% {
+    transform: rotate(0deg);
+    box-shadow: 1px 5px 2px #18b201;
+  }
+
+  100% {
+    transform: rotate(0deg);
+    box-shadow: 1px 5px 2px #0456c8;
+  }
 }
 
 .inputField button {
@@ -112,9 +109,9 @@ top:10px;
   cursor: pointer;
   border-radius: 3px;
   opacity: 0.6;
- /*  pointer-events: none; */
- 
- animation: ring 2s linear infinite; 
+  /*  pointer-events: none; */
+
+  animation: ring 2s linear infinite;
 }
 .inputField button.active {
   opacity: 1;
@@ -123,39 +120,38 @@ top:10px;
 }
 
 .inputField button.active {
-    opacity: 1;
-    pointer-events: auto;
-    transition: all 0.3s ease;
-  }
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+}
 
-  .inputField button.inactive{
-    animation: none;
-  }
+.inputField button.inactive {
+  animation: none;
+}
 
-.inputField button:hover{
-  
-    animation: none;
-    opacity: 1;
-} 
+.inputField button:hover {
+  animation: none;
+  opacity: 1;
+}
 
 .wrapper .todoList {
   max-height: 500px;
-   /* overflow-y: auto;  */
+  /* overflow-y: auto;  */
 }
 
 .todoList li {
-  
- position: relative;
+  position: relative;
   list-style: none;
   margin-bottom: 8px;
-  
+
   height: 45px;
   line-height: 45px;
   background: #f2f2f2;
   border-radius: 3px;
   padding: 0px 10px;
-  cursor: default;
+  
   overflow: hidden;
+  cursor: pointer;
 }
 
 .todoList li .trash-btn {
@@ -173,38 +169,26 @@ top:10px;
   opacity: 0.6;
   border-style: none;
 }
-.todoList li .trash-btn:hover{
-    opacity: 1;
-    transition: all 0.3s ease;
+.todoList li .trash-btn:hover {
+  opacity: 1;
+  transition: all 0.3s ease;
 }
 
-.todoList .fa-check {
-    
-    left: -100px; 
-    margin-bottom: 8px;
-    margin-right: 10px;;
-    height: 45px;
-    line-height: 45px;
-    color: #fff;
-    width: 45px;
-    text-align: center;
-    background: green;
-    border-radius: 0 3px 3px 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    opacity: 0.6;
-  }
 
-.todoList span:hover  {
+.todoList span:hover {
   right: 0px;
-  opacity:1;
-  
+  opacity: 1;
 }
 
-.todoList .fa-check:hover  {
-    right: 0px;
-    opacity:1;
-  }
+.todoList .fa-check:hover {
+  right: 0px;
+  opacity: 1;
+}
+
+/* #list-element li{
+  cursor: pointer;
+  pointer-events: auto;
+} */
 
 .wrapper .footer {
   display: flex;
@@ -225,7 +209,7 @@ top:10px;
   border-radius: 3px;
   padding: 6px 10px;
   opacity: 0.6;
- /*  pointer-events: none; */
+  /*  pointer-events: none; */
 }
 
 .footer .sortBtn.active {
@@ -233,10 +217,10 @@ top:10px;
   pointer-events: auto;
   transition: all 0.3s ease;
 }
-.footer .sortBtn:hover{
-    opacity: 1;
-    transition: all 0.3s ease;
-} 
+.footer .sortBtn:hover {
+  opacity: 1;
+  transition: all 0.3s ease;
+}
 
 .footer2 .clearAllBtn {
   border: none;
@@ -252,12 +236,10 @@ top:10px;
   /* pointer-events: none; */
 }
 
-.footer2 .clearAllBtn:hover{
-    opacity: 1;
-    transition: all 0.3s ease;
+.footer2 .clearAllBtn:hover {
+  opacity: 1;
+  transition: all 0.3s ease;
 }
-
-
 
 .footer2 {
   display: flex;
@@ -273,172 +255,202 @@ top:10px;
   opacity: 1;
   pointer-events: auto;
   transition: all 0.3s ease;
-
 }
-.footer2 .clearAllBtn:hover{
-    filter: brightness(90%);
-} 
+.footer2 .clearAllBtn:hover {
+  filter: brightness(90%);
+}
 
-.fall  {
-    transform: translateY(8rem) rotateZ(20deg);
-    opacity: 0;
-    color: #fda085;
-   
-    transition: all 1s ease;
+.fall {
+  transform: translateY(8rem) rotateZ(20deg);
+  opacity: 0;
+  color: #fda085;
+
+  transition: all 1s ease;
 }
 
 .fa-trash {
-    pointer-events: none;
+  pointer-events: none;
 }
 
-
-
-
-
-
-
 .inputField button {
-    width: 50px;
-    height: 45px;
-    border: none;
-    outline: none;
-    color: #fff;
-    background: #e29624;
-    cursor: pointer;
-    position: relative;
-    z-index: 0;
-    border-radius: 10px;
+  width: 50px;
+  height: 45px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #e29624;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
 }
 
 .inputField button:before {
-    content: '';
-    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00,/* #48ff00, #00ffd5,  #002bff, #7a00ff, #ff00c8 */ #ff0000);
-    position: absolute;
-    top: -2px;
-    left:-2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing 20s linear infinite;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    border-radius: 10px;
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    /* #48ff00, #00ffd5,  #002bff, #7a00ff, #ff00c8 */ #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
 }
 
 .inputField button :active {
-    color: #e29624
+  color: #e29624;
 }
 
 .inputField button:active:after {
-    background: transparent;
+  background: transparent;
 }
 
 .inputField button:hover:before {
-    opacity: 1;
+  opacity: 1;
 }
 
 .inputField button:after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #e29624;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #e29624;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
 }
 
 @keyframes glowing {
-    0% { background-position: 0 0; }
-    50% { background-position: 400% 0; }
-    100% { background-position: 0 0; }
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
 
 #toast {
-    visibility: hidden;
-    max-width: 500px;
-    height: 50px;
-    /*margin-left: -125px;*/
-    margin: auto;
-    background-color:  #fda085;
-    color: #fff;
-    text-align: center;
-    
-    border-radius: 3px;
+  visibility: hidden;
+  max-width: 500px;
+  height: 50px;
+  /*margin-left: -125px;*/
+  margin: auto;
+  background-color: #fda085;
+  color: #fff;
+  text-align: center;
 
-    position: fixed;
-    z-index: 1;
-    left: 0;right:0;
-    top: 30px;
-    font-size: 17px;
-    white-space: nowrap;
-}
-#toast #img{
-	width: 50px;
-	height: 50px;
-    
-    float: left;
-    
-    padding-top: 16px;
-    padding-bottom: 16px;
-    
-    box-sizing: border-box;
-    border-radius: 3px;
-    
-    background-color: rgb(231, 33, 33);
- 
-}
-#toast #desc{
+  border-radius: 3px;
 
-    
-    color: #fff;
-   
-    padding: 16px;
-    
-    overflow: hidden; 
-	white-space: nowrap;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 30px;
+  font-size: 17px;
+  white-space: nowrap;
+}
+#toast #img {
+  width: 50px;
+  height: 50px;
+
+  float: left;
+
+  padding-top: 16px;
+  padding-bottom: 16px;
+
+  box-sizing: border-box;
+  border-radius: 3px;
+
+  background-color: rgb(231, 33, 33);
+}
+#toast #desc {
+  color: #fff;
+
+  padding: 16px;
+
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 #toast.show {
-    visibility: visible;
-   /*  -webkit-animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 2s, fadeout 0.5s 2.5s; */
-    animation: fadein 0.5s,  fadeout 0.5s 2s;
+  visibility: visible;
+  /*  -webkit-animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 2s, fadeout 0.5s 2.5s; */
+  animation: fadein 0.5s, fadeout 0.5s 2s;
 }
 
 @-webkit-keyframes fadein {
-    from {top: 15; opacity: 0;} 
-    to {top: 30px; opacity: 1;}
+  from {
+    top: 15;
+    opacity: 0;
+  }
+  to {
+    top: 30px;
+    opacity: 1;
+  }
 }
 
 @keyframes fadein {
-    from {top: 15; opacity: 0;}
-    to {top: 30px; opacity: 1;}
+  from {
+    top: 15;
+    opacity: 0;
+  }
+  to {
+    top: 30px;
+    opacity: 1;
+  }
 }
 
-
-
 @-webkit-keyframes stay {
-    from {min-width: 350px} 
-    to {min-width: 350px}
+  from {
+    min-width: 350px;
+  }
+  to {
+    min-width: 350px;
+  }
 }
 
 @keyframes stay {
-    from {min-width: 350px}
-    to {min-width: 350px}
+  from {
+    min-width: 350px;
+  }
+  to {
+    min-width: 350px;
+  }
 }
 
-
-
-
 @-webkit-keyframes fadeout {
-    from {top: 15px; opacity: 1;} 
-    to {top: 30px; opacity: 0;}
+  from {
+    top: 15px;
+    opacity: 1;
+  }
+  to {
+    top: 30px;
+    opacity: 0;
+  }
 }
 
 @keyframes fadeout {
-    from {top: 15px; opacity: 1;}
-    to {top: 30px; opacity: 0;}
+  from {
+    top: 15px;
+    opacity: 1;
+  }
+  to {
+    top: 30px;
+    opacity: 0;
+  }
 }
