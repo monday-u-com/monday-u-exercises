@@ -101,7 +101,6 @@ function onDeleteButtonClicked(clickedButton) {
   }, 1000);
 }
 
-
 function onClearAllButtonClicked() {
   const deleteButtons = Array.prototype.slice.call(document.querySelectorAll("div"));
   deleteButtons.reverse().forEach(button => {
