@@ -14,27 +14,19 @@ function addTodoText(todoText) {
     listItem.className = "existing-todo";
   }, 1000);
 
-  const divTodo = document.createElement("div");
-  divTodo.className = "todo-text";
-  divTodo.appendChild(document.createTextNode(todoText));
-  divTodo.addEventListener('click', ({target}) => {
+  listItem.innerHTML = `<div class="todo-text">${todoText}</div>
+                  <button class="remove-todo-button"><i class="fa fa-trash"></i></button>`
+
+  divElement = listItem.getElementsByTagName("div")[0];
+  divElement.addEventListener('click', ({target}) => {
     onTodoClicked(target);
   });
-  listItem.appendChild(divTodo);
-
-  const deleteButton = document.createElement("button");
-  deleteButton.className = "remove-todo-button";
-  const deleteIcon = document.createElement("i");
-  deleteIcon.className = "fa fa-trash";
-  deleteButton.appendChild(deleteIcon);
+  deleteButton = listItem.getElementsByTagName("button")[0]
   deleteButton.addEventListener('click', ({currentTarget}) => {
     onDeleteButtonClicked(currentTarget);
   });
-  listItem.appendChild(deleteButton);
-
   todoList.appendChild(listItem);
   sorted = unsorted;
-
 }
 
 todosArray.forEach(todoText => {
