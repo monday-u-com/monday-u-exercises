@@ -1,9 +1,11 @@
 const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
+// const sortSelect = document.querySelector(".sortSelect");
 
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
+// sortSelect.addEventListener("click", changePosition);
 
 function addTodo(event) {
 	event.preventDefault();
@@ -13,6 +15,27 @@ function addTodo(event) {
 	const newTodo = document.createElement("li");
 	newTodo.innerText = todoInput.value;
 	alert(todoInput.value);
+
+	// function changePosition() {
+	// const newTodo = {
+	// 	location: {
+	// 		x: 0,
+	// 		y: 0
+	// 	},
+	// 	if (value.sortSelect = 1) newTodo.moveTo(-100, 100);
+	// 	else if (sortSelect = 1) newTodo.moveTo(0, 100);
+	// 	else {
+	// 		newTodo.moveTo(100, 100);
+	// 	}
+	// }
+
+	// 	document.getElementByValue("sortSelect").style.left = "600px";
+	// 	var moveNewTodo = 10
+	// const newTodo {
+	//   if not == (obj==null) {
+	// atrr.x = x.newTodo //enter in the variable of your element inside "element"
+	//   atrr.x = x.newTodo + movenewTodo }
+	// }
 
 	// const newTodo = document.createElement("li").value;
 	// if (newTodo.document.createElement === "") {

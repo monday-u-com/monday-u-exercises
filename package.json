@@ -4,10 +4,7 @@
   "description": "Welcome to monday-u official github repository! We are very excited to have you here!  \r This is going to be so much fun! Here are a few general details:",
   "main": "app.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -18,8 +15,5 @@
   "bugs": {
     "url": "https://github.com/Shamgar1/monday-u-exercises/issues"
   },
-  "homepage": "https://github.com/Shamgar1/monday-u-exercises#readme",
-  "dependencies": {
-    "react-scripts": "^5.0.1"
-  }
+  "homepage": "https://github.com/Shamgar1/monday-u-exercises#readme"
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/solid.css"
         integrity="sha384-Tv5i09RULyHKMwX0E8wJUqSOaXlyu3SQxORObAI08iUwIalMmN5L6AvlPX2LMoSE" crossorigin="anonymous" />
@@ -7,25 +8,35 @@
         integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous" />
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <header >
-    <h1>Ayelet's Todo List</h1>
+    <div class="wrapper">
+    <header>
+        <h1>Ayelet's Todo List</h1>
     </header>
-        <form>
-            <input type="text" class="todo-input" required> 
-            <button class="todo-button" type="submit">
-                <i class="fa fa-plus-square"></i>
-            </button>
-        </form>
-        <div class="todo-container">
-            <ul class="todo-list"></ul>
-            <select id="sortSelect">
-                <option value="1">home</option>
-                <option value="2">work</option>
-                <option value="3">madical</option>
-            </select>
-        </div>
-        <script src="app.js"></script>
-    </body>
+    <form>
+        <input type="text" class="todo-input" required>
+        <button class="todo-button" type="submit">
+            <i class="fa fa-plus-square"></i>
+        </button>
+    </form>
+    <div class="todo-container">
+        <ul class="todo-list"></ul>
+        <select id="sortSelect" onselect="move()">
+            <option value="1">home</option>
+            <option value="2">work</option>
+            <option value="3">madical</option>
+        </select>
+    </div>
+    <script src="app.js">
+        function move(newtodo) {
+                document.getElementByValue("sortSelect").style.position = "relative";
+                document.getElementByValue("sortSelect").style.top = "500px";
+                document.getElementByValue("sortSelect").style.left = "500px";
+            }
+    </script>
+    </div>
+</body>
+
 </html>
 

@@ -97,3 +97,17 @@ label:before {
 #label-5:checked~label[for=label-5]:before {
     background: url("https://i.imgur.com/eoPQ05r.png") no-repeat center center;
 } */
+
+
+  <!-- <select id="sortSelect" onselect="move()">
+                <option value="1">home</option>
+                <option value="2">work</option>
+                <option value="3">madical</option>
+            </select> -->
+        </div>
+        <script>
+            // function move() {
+            //     document.getElementById("sortSelect").style.position = "relative";
+            //     document.getElementById("sortSelect").style.top = "500px";
+            //     document.getElementById("sortSelect").style.left = "500px";
+            // }

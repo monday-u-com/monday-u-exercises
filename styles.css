@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    list-style: none;
+    /* list-style: none; */
     font-family: "Poppins", sans-serif;
 }
 
@@ -11,6 +11,16 @@ body {
     background: #4d244e;
     border-top: 5px solid #aa8e8d;
     min-height: 100vh;
+}
+
+.wrapper {
+    margin: 120px auto;
+    max-width: 800px;
+    width: 800%;
+    background: rgb(230, 230, 230);
+    border-radius: 5px;
+    height: 700px;
+    border: inherit;
 }
 
 header {
@@ -38,6 +48,7 @@ form input, form button {
     border: none;
     background: #aa8e8d;
     color: white;
+    border-radius: 10px 10px;
 }
 
 form button {
@@ -65,12 +76,7 @@ form button:hover {
     display: flex;
     justify-self: center;
     align-items: center;
-}
-
-.todo-container {
-    display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 .todo-list {
@@ -86,11 +92,13 @@ form button:hover {
     align-items: center;
     transition: all 0.5s ease;
     color: aliceblue;
+    border-radius: 10px 10px;
 }
 
 .todo li{
     flex: 1;
     display: list-item;
+    border-radius: 10px 10px;
 }
 
 .trash-btn, 
@@ -105,6 +113,8 @@ form button:hover {
 
 .todo-item {
     padding: 0rem 0.5rem;
+    position: relative; 
+    border-radius: 10px 10px;
 }
 
 .fa-trash,
