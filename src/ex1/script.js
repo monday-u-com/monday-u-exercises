@@ -32,18 +32,16 @@ todoElement.addEventListener("click", alertTask) ;
 function alertTask(e) {
     const item = e.target;
     
-  
     if (item.classList[0] === "todo") {
       const todo = item.parentElement;
       console.log(item.innerText)
+      let message = "📝" + item.innerText
+      return launch_listElement(message);
     }
   }
 
 
-/* function alertTodo() {
-  console.log("hi");
-  alert("hi");
-} */
+
 
 //Functions
 
@@ -238,7 +236,7 @@ function sortTasks() {
 }
 
 function launch_toast() {
-  var x = document.getElementById("toast");
+  let x = document.getElementById("toast"); 
   x.className = "show";
   //clearInterval()
   clearTimeout();
@@ -246,3 +244,22 @@ function launch_toast() {
     x.className = x.className.replace("show", "");
   }, 1800);
 }
+
+
+function launch_listElement(message) {
+
+    if (typeof message==='undefined'){
+        return;
+    }
+    let x = document.getElementById("alertListElement"); 
+    x.innerText= message
+    console.log(message)
+    //clearInterval()
+    x.className = x.className.replace("show", "");
+    x.className = "show";
+     return setTimeout(function () {
+        x.className = x.className.replace("show", "");
+    }, 2000); 
+    
+  }
+  
