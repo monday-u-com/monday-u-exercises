@@ -3,6 +3,7 @@ const taskInput = document.querySelector("#task-text");
 const allTasksContainer = document.querySelector(".all-tasks-container");
 const pendingTasksText = document.querySelector(".pending-tasks");
 let pendingTasks = 0;
+const clearButton = document.querySelector(".clear-all");
 
 // Event trigger when user clicks the add task button
 addTaskButton.addEventListener("click", () => {
@@ -14,6 +15,13 @@ addTaskButton.addEventListener("click", () => {
       addTask();
    }
 });
+
+clearButton.onclick = () => {
+   document
+      .querySelectorAll(".task-container")
+      .forEach((task) => task.remove());
+   pendingTasksUpdate(0);
+};
 
 // Adds the user task input to the tasks list
 function addTask() {
@@ -81,6 +89,8 @@ function pendingTasksUpdate(action) {
       pendingTasks++;
    } else if (action === "-") {
       pendingTasks--;
+   } else {
+      pendingTasks = 0;
    }
    pendingTasksText.textContent = `You have ${pendingTasks} pending tasks`;
 }
