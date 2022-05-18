@@ -11,7 +11,7 @@ function addTodoText(todoText) {
   const listItem = document.createElement("li");
   listItem.className = "add-item-animation";
   setTimeout (() => {
-    listItem.className = "";
+    listItem.className = "existing-todo";
   }, 1000);
 
   const divTodo = document.createElement("div");
@@ -74,8 +74,7 @@ function onTodoClicked(clickedTodo) {
 function onDeleteButtonClicked(clickedButton) {
   const index = Array.prototype.indexOf.call(todoList.getElementsByTagName("li"), clickedButton.parentElement);
   todosArray.splice(index, 1);
-  console.log(clickedButton.parentElement);
-  clickedButton.parentElement.classList.remove("add-item-animation");
+  clickedButton.parentElement.classList.remove("existing-todo");
   clickedButton.parentElement.classList.add("delete-item-animation");
   setTimeout (() => {
     clickedButton.parentElement.remove();
@@ -87,13 +86,11 @@ const clearAllButton = document.getElementById("clear-all-button");
 clearAllButton.addEventListener('click', onClearAllButtonClicked);
 
 function onClearAllButtonClicked() {
-  todoList.classList.add("delete-item-animation");
-  setTimeout (() => {
-    todoList.innerHTML = "";
-    todosArray.length = 0;
-    amountOfTasksMessage();
-    todoList.classList.remove("delete-item-animation");
-  }, 1000);
+  const deleteButtons = todoList.querySelectorAll(".remove-todo-button");
+  console.log(deleteButtons);
+  deleteButtons.forEach(button => {
+    onDeleteButtonClicked(button);
+  });
 }
 
 const addTodoForm = document.getElementById("add-todo");
