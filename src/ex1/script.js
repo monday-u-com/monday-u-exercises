@@ -78,7 +78,9 @@ function createNewTask(taskContainer) {
 // Creates the delete button next to each task
 function createDeleteTaskButton(taskContainer) {
    const deleteTask = document.createElement("div");
-   deleteTask.textContent = "D";
+   const i = document.createElement("i");
+   i.classList.add("fa-solid", "fa-trash");
+   deleteTask.appendChild(i);
    deleteTask.classList.add("delete");
    taskContainer.append(deleteTask);
 

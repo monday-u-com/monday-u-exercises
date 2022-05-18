@@ -149,3 +149,11 @@ body {
    flex-direction: column;
    justify-content: space-between;
 }
+
+.fa-plus {
+   font-size: 2.3rem;
+}
+
+.fa-trash {
+   font-size: 1.6rem;
+}
