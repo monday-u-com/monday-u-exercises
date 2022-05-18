@@ -59,7 +59,7 @@ button {
   cursor: pointer;
 }
 
-.add-todo {
+#add-todo {
   display: flex;
 }
 
