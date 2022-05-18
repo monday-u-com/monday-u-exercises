@@ -86,12 +86,12 @@ button {
   width: 90%;
 }
 
-#todo-list {
+#all-todos-list {
   font-family: 'Caveat', cursive;
   padding-left: 0px;
   border-radius: 4px;
 }
-#todo-list li {
+#all-todos-list li {
   list-style-type: none;
   background-color: rgba(128, 128, 128, 0.2);
   margin-top: 10px;
@@ -126,7 +126,7 @@ button {
   }
 }
 
-#todo-list li:hover {
+#all-todos-list li:hover {
   background-color: rgba(128, 128, 128, 0.4);
   cursor: pointer;
 }
@@ -147,11 +147,11 @@ button {
   display: none;
 }
 
-#todo-list .existing-todo:hover .remove-todo-button {
+#all-todos-list .existing-item:hover .remove-todo-button {
   display: block;
 }
 
-#summary {
+#footer {
   font-family: 'Indie Flower', cursive;
   display: flex;
   /* justify-content: space-between; */
@@ -172,7 +172,7 @@ button {
   width: 30%;
 }
 
-#summary p {
+#footer p {
   margin: 0;
   padding-left: 5px;
   width: 80%;

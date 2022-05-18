@@ -1,5 +1,4 @@
-
-const AllTodosList = document.getElementById("todo-list");
+const allTodosList = document.getElementById("all-todos-list");
 
 const unsorted = 0;
 const sortedAsc = 1;
@@ -7,31 +6,26 @@ const sortedDesc = 2;
 let isListSorted = unsorted;
 
 const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
+const inputTitle = document.getElementById("new-todo-title");
+const amountInfo = document.getElementById("amount-info");
 
 todosArray.forEach(todoText => {
   addTodoItem(todoText, false);
+  displayFooter();
 });
 
-const inputTitle = document.getElementById("new-todo-title");
-
 function addTodoItem(todoText, animation) {
-
   const listItem = createListElement(todoText, animation);
   addEventListenerForTodoTitle(listItem);
   addEventListenerForDeleteButton(listItem);
-  AllTodosList.appendChild(listItem);
+  allTodosList.appendChild(listItem);
   isListSorted = unsorted;
 }
 
 function createListElement(todoText, animation) {
   const listItem = document.createElement("li");
-  listItem.className = "existing-todo";
-  if (animation) {
-    listItem.className = "add-item-animation";
-    setTimeout (() => {
-      listItem.className = "existing-todo";
-    }, 1000);
-  }
+  if (animation) listItem.className = "add-item-animation";
+  setTimeout (() => { listItem.className = "existing-item";}, 1000);
   listItem.innerHTML = `<div class="todo-text">${todoText}</div>
                         <button class="remove-todo-button"><i class="fa fa-trash"></i></button>`;
   return listItem;
@@ -51,44 +45,51 @@ function addEventListenerForDeleteButton(listItem) {
   });
 }
 
+function displayFooter() {
+  displayButtonsAndAmount();
+  displayZeroImage();
+}
 
-const amountInfo = document.getElementById("amount-info");
-
-function amountOfTasksMessage() {
-
+function displayButtonsAndAmount() {
   let tasks = "tasks";
   if (todosArray.length === 1) {
     tasks = "task";
-    document.getElementById('sort-list-button').style.display = "none";
-    document.getElementById('clear-all-button').style.display = "none";
+    displayElement('sort-list-button', false)
+    displayElement('clear-all-button', false)
   } else {
-    document.getElementById('sort-list-button').style.display = "";
-    document.getElementById('clear-all-button').style.display = "";
+    displayElement('sort-list-button', true)
+    displayElement('clear-all-button', true)
   }
   amountInfo.textContent = `${todosArray.length} pending ${tasks}`;
+}
+
+function displayZeroImage() {
   if (todosArray.length === 0) {
-    document.getElementById('zero-todos-image').style.display = "block";
-    document.getElementById('summary').style.display = "none";
+    displayElement('zero-todos-image', true)
+    displayElement('footer', false)
   } else {
-    document.getElementById('zero-todos-image').style.display = "none";
-    document.getElementById('summary').style.display = "";
+    displayElement('zero-todos-image', false)
+    displayElement('footer', true)
   }
 }
 
-amountOfTasksMessage();
+function displayElement(ElementId, toDisplay) {
+  displayStyle = toDisplay? "" : "none";
+  document.getElementById(ElementId).style.display = displayStyle;
+}
 
 function onTodoTitleClicked(clickedTodo) {
   alert(clickedTodo.textContent);
 }
 
 function onDeleteButtonClicked(clickedButton) {
-  const index = Array.prototype.indexOf.call(AllTodosList.getElementsByTagName("li"), clickedButton.parentElement);
+  const index = Array.prototype.indexOf.call(allTodosList.getElementsByTagName("li"), clickedButton.parentElement);
   todosArray.splice(index, 1);
-  clickedButton.parentElement.classList.remove("existing-todo");
+  clickedButton.parentElement.classList.remove("existing-item");
   clickedButton.parentElement.classList.add("delete-item-animation");
   setTimeout (() => {
     clickedButton.parentElement.remove();
-    amountOfTasksMessage();
+    displayFooter();
   }, 1000);
 }
 
@@ -110,7 +111,7 @@ function onAddTodoFormSubmitted(event){
   const newTodoText = inputTitle.value;
   addTodoItem(newTodoText, true);
   todosArray.push(newTodoText);
-  amountOfTasksMessage();
+  displayFooter();
   inputTitle.value = "";
 }
 
@@ -139,7 +140,7 @@ function sortListWithOrder(comparator) {
   let shouldSwitch = false;
   while (switching) {
     switching = false;
-    const liElements = AllTodosList.getElementsByTagName("li");
+    const liElements = allTodosList.getElementsByTagName("li");
     for (i = 0; i < (liElements.length - 1); i++) {
       shouldSwitch = false;
       if (comparator(liElements[i].innerHTML.toLowerCase(), liElements[i + 1].innerHTML.toLowerCase())) {
