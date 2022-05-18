@@ -50,7 +50,7 @@ todoInput.onkeydown = () => {
 function addTodo(event) {
    
     if (todoInput.value.trim() == 0){
-        return alert("Task was not entered")
+        return launch_toast()
     }
     event.preventDefault();
   
@@ -80,7 +80,7 @@ function todoEnter(event){
     if (event.keyCode == 13) {
        
     if (todoInput.value.trim() == 0){
-        return alert("Task was not entered")
+        return launch_toast()
     }
     addTodo(event);
        
@@ -196,6 +196,9 @@ function removeLocalTodos(todo){
  function sortTasks() {
    
     let todos = checkLocalStorage();
+    if (!todos.length){
+        return;
+    }
    if (todoList.classList.contains("ascending")) {
     todos.sort()/* ((a, b) => a.localeCompare(b)) */
     
@@ -232,3 +235,13 @@ function removeLocalTodos(todo){
     
   
 } 
+
+
+function launch_toast() {
+    
+    var x = document.getElementById("toast")
+    x.className = "show";
+    //clearInterval()
+    clearTimeout()
+    setTimeout(function(){ x.className = x.className.replace("show", ""); },1800);
+}
