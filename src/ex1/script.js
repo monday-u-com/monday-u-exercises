@@ -47,6 +47,7 @@ function addTask() {
       const newTask = createNewTask(taskContainer);
       const deleteTask = createDeleteTaskButton(taskContainer);
       addHoverReveal(taskContainer, deleteTask, newTask);
+      createTaskAnimation(newTask);
       taskInput.value = "";
       pendingTasksUpdate("+");
    }
@@ -114,4 +115,15 @@ function pendingTasksUpdate(action) {
       pendingTasks = 0;
    }
    pendingTasksText.textContent = `You have ${pendingTasks} pending tasks`;
+}
+
+// Adds animation to new tasks added
+function createTaskAnimation(newTask) {
+   const taskAnimation = [
+      { transform: "scale(0)" },
+      { transform: "scale(1.1)" },
+      { transform: "scale(1)" },
+   ];
+
+   newTask.animate(taskAnimation, 600);
 }
