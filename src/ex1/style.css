@@ -1,132 +1,252 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 *{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
 }
-::selection{
-  color: #ffff;
-  background: rgb(142, 73, 232);
-}
+
+
+
 body{
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   /* overflow: hidden; */
+  color: rgb(240, 240, 240);
+  border: 40px;
   padding: 10px;
-  background: linear-gradient(to bottom, #68EACC 0%, #497BE8 100%);
+  background: linear-gradient(to bottom, #cf57d1 0%, #cbcbcb 100%);
+  font-family: "Poppins", sans-serif;
+}
+header{
+    font-size: 1.8rem;
+
+
+}
+h1{
+    font-size: 3rem;
+    color: aliceblue;
 }
 .wrapper{
-  background: #fff;
-  max-width: 400px;
+  background: rgb(249, 155, 224);
+  max-width: 600px;
   width: 100%;
   margin: 120px auto;
-  padding: 25px;
-  border-radius: 5px;
+  padding: 5px 5px;
+  border-radius: 20px;
   box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
 }
 .wrapper header{
   font-size: 30px;
+  color: #cf57d1;
   font-weight: 600;
 }
-.wrapper .inputField{
-  margin: 20px 0;
-  width: 100%;
-  display: flex;
-  height: 45px;
+
+header , form {
+    min-height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.inputField input{
-  width: 85%;
-  height: 100%;
-  outline: none;
-  border-radius: 3px;
-  border: 1px solid #ccc;
-  font-size: 17px;
-  padding-left: 15px;
-  transition: all 0.3s ease;
+
+form input, form button {
+    padding: 0.5rem;
+    font-size: 2rem;
+    border :none;
+    background-color: white;
+    border-radius: 10px;
+    
 }
-.inputField input:focus{
-  border-color: #8E49E8;
+
+form button{
+    color:#fda085;
+    background:white ;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
 }
-.inputField button{
-  width: 50px;
-  height: 100%;
-  border: none;
-  color: #fff;
-  margin-left: 5px;
-  font-size: 21px;
-  outline: none;
-  background: #8E49E8;
-  cursor: pointer;
-  border-radius: 3px;
-  opacity: 0.6;
-  pointer-events: none;
-  transition: all 0.3s ease;
+
+form button:hover{
+    background:#fda085;
+    color: white;
 }
-.inputField button:hover,
-.footer button:hover{
-  background: #721ce3;
+
+.todo-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.inputField button.active{
-  opacity: 1;
-  pointer-events: auto;
+
+.todo-list {
+   min-width: 25%;
+   list-style:none;
+   
 }
-.wrapper .todoList{
-  max-height: 250px;
-  overflow-y: auto;
+
+.todo {
+    margin: 0.5rem;
+    background:white ;
+    color: black;
+    font-size: 1.5rem;
+    display: flex;
+    border-radius: 20px; 
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.6s ease;
 }
-.todoList li{
-  position: relative;
-  list-style: none;
-  margin-bottom: 8px;
-  background: #f2f2f2;
-  border-radius: 3px;
-  padding: 10px 15px;
-  cursor: default;
-  overflow: hidden;
-  word-wrap: break-word;
+/* PUSH BUTTONS TO THE END */
+.todo li{
+    flex: 1;
 }
-.todoList li .icon{
-  position: absolute;
-  right: -45px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #e74c3c;
-  width: 45px;
-  text-align: center;
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 0 3px 3px 0;
-  cursor: pointer;
-  transition: all 0.2s ease;
+
+.trash-btn , .complete-btn {
+    background: #ff6f47;
+    color: azure;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3 ease;
+    
 }
-.todoList li:hover .icon{
-  right: 0px;
+
+ 
+
+
+.complete-btn {
+    background:rgb(115, 224, 115) ;
+    
 }
-.wrapper .footer{
-  display: flex;
-  width: 100%;
-  margin-top: 20px;
-  align-items: center;
-  justify-content: space-between;
+
+.todo-item{
+    padding: 0rem , 0.5rem;
 }
-.footer button{
-  padding: 6px 10px;
-  border-radius: 3px;
-  border: none;
-  outline: none;
-  color: #fff;
-  font-weight: 400;
-  font-size: 16px;
-  margin-left: 5px;
-  background: #8E49E8;
-  cursor: pointer;
-  user-select: none;
-  opacity: 0.6;
-  pointer-events: none;
-  transition: all 0.3s ease;
+
+.fa-trash,.fa-check {
+    pointer-events: none;
 }
-.footer button.active{
-  opacity: 1;
-  pointer-events: auto;
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+    color: aquamarine;
 }
+
+.fall{
+    transform: translateY(8rem) rotateZ(30deg);
+    opacity: 0;
+}
+
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+    border-radius: 35px;
+}
+
+.select{
+    margin: 1rem;
+    color: #fda085;
+    position: relative;
+    overflow: hidden;
+}
+
+select {
+    color: #ff6f47;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+    width: 12rem;
+    padding: 1rem;
+    border-radius: 20px; 
+  }
+
+.select::after{
+    content: "\25BC";
+    position: absolute;
+    top: -5px;
+    right: 0;
+    padding: 1rem;
+    background: #ffffff;
+    cursor: pointer;
+    pointer-events: none;
+    transition:all 0.3s ease;
+  }
+
+  .select:hover::after{
+      background: white;
+      color: #ff6f47;
+  }
+
+  /*
+=============== 
+Nav
+===============
+*/
+nav {
+    background: var(--clr-white);
+    height: 3rem;
+    display: grid;
+    align-items: center;
+    box-shadow: var(--dark-shadow);
+  }
+  .nav-center {
+    width: 90vw;
+    max-width: var(--fixed-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-center h4 {
+    margin-bottom: 0;
+    color: var(--clr-primary-5);
+  }
+  .nav-links {
+    display: flex;
+    list-style-type: none;
+  }
+  nav a {
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: 1rem;
+    list-style-type: none;
+    color: var(--clr-primary-1);
+    letter-spacing: var(--spacing);
+    margin-right: 1rem;
+  }
+  nav a:hover {
+    color: var(--clr-primary-5);
+  }
+
+  h4 {
+    font-size: 2rem;
+  }
+
+  /* /////////////////// */
+  .wrapper .footer{
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+
+  .footer button{
+    padding: 6px 10px;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-weight: 400;
+    font-size: 16px;
+    margin-left: 5px;
+    background: #8E49E8;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.6;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+
