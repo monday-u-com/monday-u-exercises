@@ -76,31 +76,72 @@ window.addEventListener('load',()=> {
 
       list_el.appendChild(task_el);
       input.value="";
+      
+
 
       task_edit_el.addEventListener("click", ()=>{
-        if(task_edit_el.innerText.toLowerCase() == "edit"){
-            task_input_el.removeAttribute("readonly");
-            task_input_el.focus();
-            task_edit_el.innerText = "Save";
-        }else{
-            task_input_el.setAttribute("readonly","readonly");
-            task_edit_el.innerText = "Edit";
-        }
-    });
+          if(task_edit_el.innerText.toLowerCase() == "edit"){
+              task_input_el.removeAttribute("readonly");
+              task_input_el.focus();
+              task_edit_el.innerText = "Save";
+          }else{
+              task_input_el.setAttribute("readonly","readonly");
+              task_edit_el.innerText = "Edit";
+          }
+      });
 
-    task_delete_el.addEventListener('click', ()=> {
-       list_el.removeChild(task_el);
+      task_delete_el.addEventListener('click', ()=> {
+         list_el.removeChild(task_el);
 
-    });
-    task_check_el.addEventListener("click", ()=>{
-        task_content_el.classList.toggle("completed");
-    })
+      });
+      task_check_el.addEventListener("click", ()=>{
+          task_content_el.classList.toggle("completed");
+      })
 
-    task_input_el.addEventListener("click", ()=>{
-        
-        audio.play();
-    })
+      task_input_el.addEventListener("click", ()=>{
+          
+          audio.play();
+      })
+      
+      
+
   });
+  function saveLocalTodos(task) {
+      let tasks;
+      if (localStorage.getItem("task") === null) {
+          tasks = [];
+      } else {
+          tasks = JSON.parse(localStorage.getItem("tasks"));
+      }
+      tasks.push(task);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      console.log(task);
+    }
+
+    function filterTodo(e) {
+      const tasks = list_el.childNodes;
+      tasks.forEach(function(task) {
+        switch (e.target.value) {
+          case "all":
+            task.style.display = "flex";
+            break;
+          case "completed":
+            if (task.classList.contains("completed")) {
+              task.style.display = "flex";
+            } else {
+              task.style.display = "none";
+            }
+            break;
+          case "uncompleted":
+            if (!task.classList.contains("completed")) {
+              task.style.display = "flex";
+            } else {
+              task.style.display = "none";
+            }
+        }
+      });
+    }
     
 
 });
+
