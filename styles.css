@@ -2,8 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* list-style: none; */
     font-family: "Poppins", sans-serif;
+    list-style-type: none;
 }
 
 html,
@@ -55,6 +55,16 @@ form button {
     color: #aa8e8d;
     background: #6d335c;
     cursor: pointer;
+    border-radius: 10px 10px;
+}
+
+.clearButton {
+    color: #aa8e8d;
+    background: #6d335c;
+    cursor: pointer;
+    border-radius: 10px 10px;
+    left: 200px;
+    top: 300px;
 }
 
 .trash-btn:hover {
@@ -109,6 +119,7 @@ form button:hover {
     padding: 1rem;
     cursor: pointer;
     font-size: 1rem;
+    border-radius: 10px 10px;
 }
 
 .todo-item {
@@ -120,6 +131,7 @@ form button:hover {
 .fa-trash,
 .fa-check {
     pointer-events: none;
+    border-radius: 10px 10px;
 }
 
 .completed {
