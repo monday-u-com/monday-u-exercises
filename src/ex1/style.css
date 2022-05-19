@@ -211,6 +211,7 @@ header {
   border-radius: 3px;
   padding: 6px 10px;
   opacity: 0.6;
+ /*  display: none; */
   /*  pointer-events: none; */
 }
 
@@ -235,6 +236,7 @@ header {
   border-radius: 3px;
   padding: 6px 10px;
   opacity: 0.6;
+ /*  display: none; */
   /* pointer-events: none; */
 }
 
