@@ -237,7 +237,7 @@ body .card {
   }
   
   .card {
-    position:fixed;
+    position:absolute;
     top: 170px;
     right:380px;
     /* padding: 40px 32px; */
