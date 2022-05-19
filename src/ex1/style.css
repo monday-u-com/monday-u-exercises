@@ -48,7 +48,7 @@ body {
 
 .app-title {
   font-style: normal;
-  font-weight: 400;
+  font-weight: bold;
   font-size: 28px;
 }
 
@@ -73,7 +73,6 @@ body {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  /* gap: 20px; */
 }
 
 .add-task-btn {
@@ -131,10 +130,7 @@ body {
   margin-left: 37px;
 }
 
-/* .done-task-txt {
-  text-decoration: line-through;
-  color: rgba(10, 25, 48, 0.6);
-} */
+/* ------- done task animation ------- */
 
 @keyframes strike {
   0% {
@@ -249,6 +245,7 @@ input[type="checkbox"]:checked + label:before {
 }
 
 /* ------- finished all ------- */
+
 .finished-all-missions {
   height: 0px;
   visibility: hidden;
