@@ -43,7 +43,8 @@ function alertTask(e) {
       const todo = item.parentElement;
     
       let message = "📝" + item.innerText
-      return launch_listElement(message);
+      return alert(item.innerText)
+      /*will be used later in the project launch_listElement(message); */
     }
   }
 
@@ -252,18 +253,19 @@ function sortTasks() {
   }
   if (todoList.classList.contains("ascending")) {
     todos.sort(); /* ((a, b) => a.localeCompare(b)) */
-
+    
     sortBtn.textContent = "Sort 🡱";
 
     todoList.classList.remove("ascending");
     todoList.classList.add("descending");
   } else {
+    todos.sort();
     todos.reverse();
     todoList.classList.remove("descending");
     todoList.classList.add("ascending");
     sortBtn.textContent = "Sort 🡳";
   }
-
+  console.log( todoList.classList)
   todoList.innerHTML = "";
   localStorage.setItem("todos", JSON.stringify(todos));
   todos.forEach(function (todo) {
