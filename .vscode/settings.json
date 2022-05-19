@@ -1,9 +1,0 @@
-{
-	"editor.formatOnSave": true,
-	"typescript.format.insertSpaceAfterTypeAssertion": true,
-	"html.format.indentInnerHtml": true,
-	"javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
-	"prettier.arrowParens": "always",
-	"editor.formatOnPaste": true,
-	"editor.defaultFormatter": "esbenp.prettier-vscode"
-}
