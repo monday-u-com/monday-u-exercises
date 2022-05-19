@@ -16,6 +16,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(#00c6bd, #fff7d6);
 }
 
 .hide {
@@ -32,6 +33,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: white;
 }
 
 .title-container {
@@ -246,6 +248,38 @@ input[type="checkbox"]:checked + label:before {
   font-size: 16px;
 }
 
+/* ------- finished all ------- */
 .finished-all-missions {
   height: 0px;
+  visibility: hidden;
+}
+
+.finished-all-missions-active {
+  height: 50%;
+  width: 100%;
+  visibility: visible;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.emoji {
+  display: block;
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 5rem;
+  line-height: 5rem;
+  transform: scale(0.5);
+  animation: scaleCup 2s infinite alternate;
+}
+
+@keyframes scaleCup {
+  0% {
+    transform: scale(0.6);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }

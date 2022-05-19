@@ -62,7 +62,9 @@ const onAddTask = (event) => {
 
   if (tasksCnt === 1) {
     // Hide finished all
-    document.querySelector(".finished-all-missions").classList.toggle("hide");
+    document
+      .querySelector(".finished-all-missions")
+      .classList.toggle("finished-all-missions-active");
     // Show clear all and left tasks
     document.querySelector(".todo-footer-container").classList.toggle("hide");
   }
@@ -99,7 +101,7 @@ const onTaskDelete = (event) => {
 
   if (!tasksCnt) {
     // Show finished all
-    document.querySelector(".finished-all-missions").classList.toggle("hide");
+    document.querySelector(".finished-all-missions").classList.toggle("finished-all-missions-active");
     // Hide clear all and left tasks
     document.querySelector(".todo-footer-container").classList.toggle("hide");
   }
@@ -119,7 +121,7 @@ const onClearAll = (event) => {
 
   tasksCnt = 0;
   // Show finished all
-  document.querySelector(".finished-all-missions").classList.toggle("hide");
+  document.querySelector(".finished-all-missions").classList.toggle("finished-all-missions-active");
   // Hide clear all and left tasks
   document.querySelector(".todo-footer-container").classList.toggle("hide");
 };
