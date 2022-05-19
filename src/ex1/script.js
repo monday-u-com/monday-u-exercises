@@ -113,7 +113,7 @@ function ClearAllTasks(tasks_container, tasks_element)
  */
 function DeleteTask(task, tasks_element, tasks_container)
 {
-    task.classList.remove('animate__fadeOut');
+    task.classList.remove('animate__fadeIn');
     task.classList.add('animate__fadeOut');
     setTimeout(() => {
         task.remove();
