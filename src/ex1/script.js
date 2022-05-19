@@ -11,9 +11,15 @@ const pending = document.querySelector('#pending');
 
 //event listeners
 addTodoTask.addEventListener('click', addTask);
-todoList.addEventListener('click', (e) =>{
+todoList.addEventListener('click', (e) => {
     deleteTask(e);
-    checkTask(e)
+    checkTask(e);
+    const taskTextDiv = e.target.childNodes[0];
+    if(taskTextDiv != undefined){
+        window.alert( taskText.nodeValue + " was chosen");
+    } else{
+        window.alert( "Empty task was chosen");
+    }
 });
 tabs.addEventListener('click', handleTabs);
 clearAllButton.addEventListener('click', clearAll);
@@ -84,17 +90,17 @@ function handleTabs(e){
     const tasks = todoList.childNodes;
     switch(button){
         case 'all-tasks':
-            notDoneButton.style.backgroundColor = 'grey';
-            allTasksButton.style.backgroundColor ='#E2C2B9';
-            doneButton.style.backgroundColor = 'grey';
+            notDoneButton.style.opacity = '0.5';
+            allTasksButton.style.opacity ='1';
+            doneButton.style.opacity = '0.5';
             tasks.forEach(task => {
                 task.style.display = 'flex';
             });
             break;
         case 'done':
-            doneButton.style.backgroundColor = '#E2C2B9';
-            allTasksButton.style.backgroundColor ='grey';
-            notDoneButton.style.backgroundColor = 'grey';
+            notDoneButton.style.opacity = '0.5';
+            allTasksButton.style.opacity ='0.5';
+            doneButton.style.opacity = '1';
             tasks.forEach(task => {
                 if (task.getAttribute('done') === 'yes'){
                     task.style.display = 'flex';
@@ -104,9 +110,9 @@ function handleTabs(e){
             });
             break;
         case 'not-done':
-            notDoneButton.style.backgroundColor = '#E2C2B9';
-            allTasksButton.style.backgroundColor ='grey';
-            doneButton.style.backgroundColor = 'grey';
+            notDoneButton.style.opacity = '1';
+            allTasksButton.style.opacity ='0.5';
+            doneButton.style.opacity = '0.5';
             tasks.forEach(task => {
                 if (task.getAttribute('done') === 'no'){
                     task.style.display = 'flex';

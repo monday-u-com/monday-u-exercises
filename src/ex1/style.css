@@ -2,29 +2,34 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    border-radius: 5px;
+    font-family: 'Cabin', sans-serif;
 }
 
 body{
-    background-color: #D3E4CD;
+    background: #9796f0;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #fbc7d4, #9796f0);
+    background: linear-gradient(to right, #fbc7d4, #9796f0);
     color: #FFF;
-    font-family: 'Merriweather', serif;
 }
 
 #container{
     margin: auto;
     border-radius: 10px;
-    background-color: #fbf0e0;
+    background-color: #FFF;
     width: 50vw;
     height:70vh;
-    min-height: 400px;
-    min-width: 250px;
+    min-height: 420px;
+    min-width: 350px;
+    max-width: 500px;
     padding: 15px;
     margin-top: 5%;
 }
 
 h1{
-    color: #99A799;
-    margin-top: 0;
+    font-size: 2rem;
+    color: #8c7ae6;
+    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -35,49 +40,63 @@ form{
     margin-bottom: 5px;
 }
 
+
 input{
-    font-family: 'Merriweather', serif;
+    font-family: 'Cabin', sans-serif;
     width: 100%;
     border: none;
-    background-color: #B5CDA3;
-    color: #FFF;
+    background-color: #fff;
+    color: #8c7ae6;
+    border: 2px solid;
+    outline: none;
+    font-size: 1rem;
 }
 
 button{
     cursor: pointer;
     border: none;
     font-size: 1rem;
-    width: fit-content;
-    background-color: #E2C2B9;
-    color: #FFF;;
+    background-color: #fbc7d4;
+    color: #FFF;
+    padding: 5px;
+}
+
+button:active{
+    transform: translateY(2px);
 }
 
 #tabs{
-    display:flexbox;
-    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
     width: 100%;
 }
 
 .tab{
     width:32%;
+    background-image: linear-gradient(to right, #9796f0 0%, #D6A4A4  51%, #DAE2F8  100%);
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 20px #eee;
 }
+
+.tab:hover{
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+ 
 
 #done, #not-done{
-    background-color: gray;
-}
-
-#clear-all{
-    padding: 5px;
-    background-color: #99A799;
+    opacity: 0.5;
 }
 
 .add-task{
     border: 0;
     font-size:1rem;
-}
-
-.add-task:hover{
-
+    background-color: #8c7ae6;
 }
 
 .list-container{
@@ -88,17 +107,29 @@ button{
 .task{
     display: flex;
     flex: 0;
-    background-color: #E2C2B9;
+    font-size: 1rem;
+    background-color: #fbc7d4;
     color: #FFF;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    border: 1px solid #C1AC95;
     height: fit-content;
     padding: 3px;
     margin-bottom: 10px;
+    /* adding task animation */
+    animation: show 600ms 100ms cubic-bezier(0.38, 0.97, 0.56, 0.76) forwards;
+    opacity: 0;
+    transform: rotateX(-90deg);
+    transform-origin: top center;
 }
 
-.task:hover{
-    background-color: #e2b8ad;
+@keyframes show {
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+.task:hover, button:hover{
+    background-color: #f9bbcb;
     cursor: pointer;
 }
 
@@ -108,16 +139,26 @@ button{
 }
 
 .bottom-container{
-    display: inline;
-    width: 50%;
-    margin: 5px;
+    margin-top: 5px;
+    position: relative;
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
 }
 
 #pending{
-    background-color: #99A799;
+    background-color: #8c7ae6;
+    width: fit-content;
+    margin-right: 5px;
     padding: 5px;
-    margin: 3px;
 }
 
 #clear-all{
+    padding: 5px;
+    background-color: #8c7ae6;
 }
+
+#clear-all:hover{
+    background-color: red;
+}
+
