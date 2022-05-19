@@ -5,6 +5,14 @@ let tasksCnt = 0;
 // Add task
 const addTaskBtn = document.querySelector(".add-task-btn");
 addTaskBtn.addEventListener("click", (event) => onAddTask(event));
+document.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    const inputElem = document.querySelector(".add-task-input");
+    if (inputElem === document.activeElement) {
+      onAddTask(event);
+    }
+  }
+});
 
 const createTask = () => {
   const task = document.createElement("div");
