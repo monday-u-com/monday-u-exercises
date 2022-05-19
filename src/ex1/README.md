@@ -2,6 +2,9 @@
 Welcome to your first monday-u task! Hope you are excited as we are!  
 This is going to be an ongoing task, so don't worry, we are going to build this awesome project step by step, from zero to hero :)
 
+## Screenshot
+![](https://github.com/Stavush/monday-u-exercises/blob/exercise1/src/ex1/Screenshot.png?raw=true)
+
 
 ## In this section you will practice
 **HTML** - Basic level, tags.  
