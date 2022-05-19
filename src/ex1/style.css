@@ -18,13 +18,17 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    border: 1px solid black;
+    border-radius: 3px;
     width: 40%;
     height: 80%;
     background-color: white;
     padding: 0px 20px 0px 20px;
     position: relative;
 }
+
+    .main h1 {
+        margin: 0;
+    }
 
 .add-task {
     align-items: center;
@@ -33,7 +37,8 @@ html, body {
 }
 
     .add-task input {
-        margin: 5px;
+        padding: 0 0 0 3px;
+        margin: 0 5px 0 0;
         height: 2em;
         width: 100%;
     }
@@ -44,54 +49,114 @@ html, body {
     }
 
 .tasks {
-    border: 1px solid black;
-    margin-top: 10px;
     position: relative;
     display: flex;
     flex-direction: column;
     height: 60%;
     overflow: auto;
+    margin: 5px 0 5px 0;
 }
 
 .task {
-    border: 1px solid red;
-    background-color: lightgray;
-    margin: 0 0 5px 0;
-    padding: 1em;
+    background-color: whitesmoke;
+    margin: 5px;
+    padding: 0.5em;
+    border-radius: 3px;
+    /*transition: box-shadow .3s;*/
+    transition: all 0.2s linear 0s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
     .task i {
-        display: inline;
+        display: none;
         color: red;
         cursor: pointer;
-        border: 1px solid black;
         float: right;
         padding: 0.5em;
+        right: 50px;
+    }
+    .task:hover i {
+        display: inline;
+
     }
 
+
+
     .task h3 {
-        margin-top: auto;
+        margin: 5px;
         display: inline;
-        border: 1px solid black;
         overflow-wrap: break-word;
         width: 80%;
         float: left;
     }
 
+    .task:hover {
+        box-shadow: 0 4px 4px rgba(33,33,33,.2);
+    }
 
 .footer {
     position: relative;
     bottom: 0;
-    border: 1px solid blue;
     margin: 0 0 3px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.footer-text{
+.footer-text {
 }
 
-.clear-all {
-    margin: 0 0 0 1em;
+.clear-all-btn {
+    border: none;
+    padding: 5px 15px;
+    background-color: #fdcd3b;
+    border-radius: 4px;
 }
+
+/*
+.test {
+    text-align: left;
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    color: black;
+    text-transform: capitalize;
+    background-color: whitesmoke;
+    padding: 20px 0px 20px 10px;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.2s linear 0s;
+    margin: 5px;
+    padding: 0.5em;
+}
+
+    .test:before {
+        content: "\f2ed";
+        font-family: FontAwesome;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        right: -50px;
+        width: 50px;
+        height: 100%;
+        background-color: rgb(255, 106, 0);
+        border-radius: 0px 3px 3px 0px;
+        transition: all 0.2s linear 0s;
+        text-align: center;
+        cursor:pointer;
+    }
+
+    .test:hover {
+        text-indent: 0px;
+    }
+        .test:hover:before {
+            right: 0;
+            text-indent: 0px;
+        }
+
+*/

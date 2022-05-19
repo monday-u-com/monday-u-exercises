@@ -1,5 +1,5 @@
 const addBtn = document.querySelectorAll('.add-task-btn');
-const clearAllBtn = document.querySelectorAll('.clear-all');
+const clearAllBtn = document.querySelectorAll('.clear-all-btn');
 const addTaskField = document.querySelectorAll('.add-task-field');
 
 
@@ -87,11 +87,11 @@ function removeFromTaskList(text) {
 function updateFooter() {
     const taskLength = taskList.length;
     const text = taskLength ? `You have ${taskLength} pending tasks` :
-        `You have no tasks pending :)`;
+        `WooHoo!! You have no tasks pending!`;
     const footerElem = document.getElementsByClassName('footer-text')[0];
     console.log(footerElem.textContent);
     footerElem.textContent = text;
-    const clearAllBtn = document.getElementsByClassName('clear-all')[0];
+    const clearAllBtn = document.getElementsByClassName('clear-all-btn')[0];
     console.log(taskLength);
     clearAllBtn.disabled = taskLength ? false : true; 
 }
