@@ -45,5 +45,7 @@ const clearAllBtn = document.querySelector(".clear-all");
 clearAllBtn.addEventListener("click", (event) => onClearAll(event));
 
 const onClearAll = (event) => {
-  console.log("clear all");
+  for (let taskIdToRemove = 0; taskIdToRemove < taskId; taskIdToRemove++) {
+    document.querySelector(`#task-${taskIdToRemove}`).remove();
+  }
 };
