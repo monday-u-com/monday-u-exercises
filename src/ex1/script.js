@@ -1,9 +1,21 @@
-const addTaskInput = document.querySelector(".add-task-input");
 let taskId = 0;
 let tasksCnt = 0;
+let isAddTaskClickable = false;
+const addTaskInput = document.querySelector(".add-task-input");
+const addTaskBtn = document.querySelector(".add-task-btn");
+
+// Add task will be clickable only for a non empty task
+addTaskInput.addEventListener("input", () => {
+  if (addTaskInput.value && !isAddTaskClickable) {
+    addTaskBtn.classList.add("valid-task-btn");
+    isAddTaskClickable = true;
+  } else if (!addTaskInput.value) {
+    addTaskBtn.classList.remove("valid-task-btn");
+    isAddTaskClickable = false;
+  }
+});
 
 // Add task
-const addTaskBtn = document.querySelector(".add-task-btn");
 addTaskBtn.addEventListener("click", (event) => onAddTask(event));
 document.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {

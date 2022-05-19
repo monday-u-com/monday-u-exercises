@@ -77,9 +77,14 @@ body {
 .add-task-btn {
   border: none;
   font-size: 20px;
-  cursor: pointer;
   background-color: transparent;
   padding-right: 20px;
+  color: rgba(10, 25, 48, 0.6);
+}
+
+.valid-task-btn {
+  cursor: pointer;
+  color: rgba(10, 25, 48);
 }
 
 .add-task-input {
