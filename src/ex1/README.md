@@ -1,5 +1,9 @@
 
-Welcome to Ori's Todo list!
+## Welcome to Ori's Todo list!
+
+
+![image](https://user-images.githubusercontent.com/66553796/169328327-9dc38f82-476c-4356-9b3b-ddd2791ad229.png)
+
 
 ## What you are going to build
 A todo app!  
