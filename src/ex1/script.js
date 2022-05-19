@@ -8,7 +8,7 @@ const tasks_element = {
     id: 0,
     html: `<div class="todo_task animate__animated animate__fadeIn">
                 <span class="task_number"></span>
-                <span></span>
+                <span class="task_text"></span>
                 <div class="task_buttons">
                     <div class="delete_task_button">
                         <i class="fa-solid fa-trash-can"></i>
@@ -225,7 +225,7 @@ function SortTasksNumber(tasks_container, task_number)
     let tasks = tasks_container.children;
     for (let i = 0; i < tasks.length;i++)
     {
-        tasks[i].children[0].innerHTML = (i + 1).toString().concat(")");
+        tasks[i].children[Section_in_task.NUMBER].innerHTML = (i + 1).toString().concat(")");
     }
     task_number.id = tasks.length;
 };
@@ -237,8 +237,14 @@ function SortTasksNumber(tasks_container, task_number)
  */
 function SortByName(tasks_container, tasks_element)
 {
-    const tasks = tasks_container.children;
-    const tasks_name = []; // contains the names of the tasks for sorting
+    const tasks = [...tasks_container.children];
+    tasks.sort((item1, item2) =>
+    {
+        const task1_name = item1.querySelector(".task_text").innerHTML;
+        const task2_name = item2.querySelector(".task_text").innerHTML;
+        return task1_name.toLowerCase().localeCompare(task2_name.toLowerCase());
+    });
+    /*const tasks_name = []; // contains the names of the tasks for sorting
     const temp_tasks = []; // contains all tasks temporarily
     for (let i = 0; i < tasks.length;i++)// insert all names in to task_name array in lower case for sorting
     {
@@ -256,7 +262,8 @@ function SortByName(tasks_container, tasks_element)
                 tasks_container.appendChild(temp_tasks[i]);
             }
         }
-    });
+    });*/
+    tasks.forEach(task => { tasks_container.appendChild(task); });
     SortTasksNumber(tasks_container, tasks_element);
 };
 
