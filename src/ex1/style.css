@@ -73,11 +73,17 @@ body {
   background-color: transparent;
 }
 
-.add-task-txt {
+.add-task-input {
+  border: none;
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
   color: rgba(10, 25, 48, 0.6);
+}
+
+.add-task-input:focus {
+  outline: none;
+  color: rgba(10, 25, 48);
 }
 
 /* ------- task ------- */
@@ -88,22 +94,19 @@ body {
   width: 416px;
   height: 69px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  gap: 20px;
 }
 
-.task-checkbox {
-  /* background-color: yellow; */
-  border: none;
-  cursor: pointer;
-  background-color: transparent;
-  display: inherit;
+.task-container:hover {
+  background-color: lightgray;
 }
 
 .task-txt {
   font-size: 20px;
 }
+
+/* ------- task -> checkbox animation ------- */
 
 input[type="checkbox"] {
   display: none;
@@ -149,6 +152,19 @@ input[type="checkbox"]:checked + label:before {
   border-left-color: transparent;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+/* ------- task -> trash ------- */
+
+.trash {
+  padding-right: 5px;
+  visibility: hidden;
+  border: none;
+  background-color: transparent;
+}
+
+.task-container:hover .trash {
+  visibility: visible;
 }
 
 /* ------- todo footer ------- */
