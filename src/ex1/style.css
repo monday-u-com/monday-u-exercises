@@ -52,6 +52,7 @@ input {
   color: white;
   background-color: rgb(131, 30, 207);
 }
+
 .ant-input {
   padding-left: 10px;
 }
@@ -95,7 +96,6 @@ li:hover {
 }
 
 .pendingTasks {
-  /* display: none; */
   padding-left: 1vw;
 }
 .adjustment {
@@ -103,8 +103,14 @@ li:hover {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2vh;
+  align-items: center;
 }
 
 .clearAll {
   margin-right: 1.8vw;
+  color: white;
+  background-color: rgb(131, 30, 207);
+  border: none;
+  width: 5vw;
+  height: 5vh;
 }

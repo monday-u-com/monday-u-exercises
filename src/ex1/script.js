@@ -3,6 +3,7 @@ const textInput = document.getElementById("input")
 const counterLists = document.getElementById("counterLists")
 const deleteAllLists = document.getElementById("deleteAllTasks")
 const errorMessage = document.getElementById("error")
+const allLists = document.getElementById("todolist")
 
 addButton.addEventListener("click", function () {
   validationText()
@@ -29,7 +30,6 @@ function addNewList() {
     li.remove()
     countLiDeleted()
   })
-
   li.addEventListener("mouseover", function () {
     deleteButton.style.display = "block"
     deleteButton.style.transition = "all 0.5s ease-in-out"
@@ -42,6 +42,7 @@ function addNewList() {
   li.appendChild(deleteButton)
   list.appendChild(li)
   input.value = ""
+  sortingListByAscending()
 }
 
 function countLiAdded() {
@@ -81,4 +82,17 @@ function validationText() {
     errorMessage.style.display = "none"
     errorMessage.style.transition = "all 0.5s ease-in-out"
   }
+}
+
+function sortingListByAscending() {
+  const list = document.getElementById("todolist")
+  const listItems = list.getElementsByTagName("li")
+  const listArray = Array.from(listItems)
+  listArray.sort(function (a, b) {
+    return a.innerHTML.toLowerCase().localeCompare(b.innerHTML.toLowerCase())
+  })
+  list.innerHTML = ""
+  listArray.forEach(function (item) {
+    list.appendChild(item)
+  })
 }
