@@ -1,0 +1,120 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient( to bottom,  #f0fba6 0%, #fb5b2f 100%)
+}
+
+.container {
+    margin: 120px auto;
+    max-width: 50%;
+    background-color: aliceblue;
+    padding-inline: 25px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    border-radius: 5px;
+}
+
+.container h1 {
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    text-align: center;
+}
+
+
+.newTask input {
+    width: 100%;
+    min-width: 85%;
+    height: 100%;
+    border: 1px solid #ccc;
+    font-size: 17px;
+    border-radius: 3px;
+    padding-left: 15px;
+    outline: none;
+}
+
+.newTask button {
+    width: 50px;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: rgb(255, 162, 0);
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left: 5px;
+    
+}
+
+.container .newTask {
+    display: flex;
+    height: 45px;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.container .tasks {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.tasks li {
+    list-style: none;
+    height: 45px;
+    line-height: 45px;
+    position: relative;
+    background: #f2f2f2;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    padding: 0 15px;
+    overflow: hidden;
+}
+
+.tasks li:hover  {
+    background: #d9d9d9;
+    cursor: pointer;
+}
+
+.tasks li span {
+    position: absolute;
+    right: -45px;
+    color: #fff;
+    background-color: red;
+    width: 45px;
+    text-align: center;
+    border-radius: 0 3px 3px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tasks li:hover span {
+    right: 0px;
+}
+
+.container .bottom {
+    display: flex;
+    width: 100%;
+    margin-top: 15px;
+    padding-left: 15px;
+}
+
+.bottom button {
+    border: none;
+    outline: none;
+    background: gray;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 6px 10px;
+}
+
+.container .bottom .sort {
+    margin-left: auto;
+    margin-right: 5px;
+}

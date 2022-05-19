@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Exercise 1</title>
+    <title>TO-DO List</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<h1>Todo list</h1>
-
-
+    <div class="container">
+        <h1>TO-DO list</h1>
+        <div class="newTask">
+            <input type="text" placeholder="Add new TO-DO">
+            <button type="submit" class="add">+</button>
+        </div>
+        <div class="tasks">
+        </div>
+        <div class="bottom">
+            <span class="howMany"></span>
+            <button type="button" class="sort" style="display:none">sort</button>
+            <button type="reset" class="clear" style="display:none">clear all</button>
+        </div>
+    </div>
 </body>
 <script src="script.js"></script>
 </html>
