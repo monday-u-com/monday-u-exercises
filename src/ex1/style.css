@@ -218,6 +218,9 @@ header {
 .footer .sortBtn.deactive {
     display: none;
 }
+ .footer span.deactive {
+    display: none;
+} 
 
 
 .footer .sortBtn:hover {

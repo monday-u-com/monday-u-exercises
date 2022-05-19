@@ -8,6 +8,10 @@ const inputBox = document.querySelector(".inputField input");
 const svgContainer = document.getElementById("svg");
 const todoElement = document.getElementById("list-element");
 
+const footerSpan = document.querySelector(" .footer span ");
+
+
+
 const animItem = bodymovin.loadAnimation({
   wrapper: svgContainer,
   animType: "svg",
@@ -31,12 +35,13 @@ clearAllBtn.addEventListener("click", clearAll);
 
 todoElement.addEventListener("click", alertTask) ;
 
+
 function alertTask(e) {
     const item = e.target;
     
     if (item.classList[0] === "todo") {
       const todo = item.parentElement;
-      console.log(item.innerText)
+    
       let message = "📝" + item.innerText
       return launch_listElement(message);
     }
@@ -46,6 +51,27 @@ function alertTask(e) {
 
 
 //Functions
+
+
+function listStyling(todosCount){
+  
+    if (!todosCount){
+        clearAllBtn.classList.add("deactive")
+        sortBtn.classList.add("deactive")
+        footerSpan.classList.add("deactive")
+       /*  footerSpan.innerText = "You have aaa" + todosCount + "tasks"; */
+    
+    }
+    else {
+        clearAllBtn.classList.remove("deactive")
+        sortBtn.classList.remove("deactive")
+        footerSpan.classList.remove("deactive")
+    
+    }
+    console.log( footerSpan.innerText )
+}
+
+
 
 //todo input styling
 todoInput.onkeydown = () => {
@@ -83,11 +109,14 @@ function addTodo(event) {
   todoLi.appendChild(trashButton);
   //append to list
   todoList.appendChild(todoLi);
-  todoLi.setAttribute("id", "liNum" + todoList.childElementCount);
+
+  const listChildrenCount = todoList.childElementCount
+   listStyling(listChildrenCount) 
 
   //Clear Todo Input value
   todoInput.value = "";
   inputBox.classList.add("inactive");
+  
 }
 
 //add todo when pressing enter key
@@ -128,8 +157,7 @@ function clearAll(e) {
       todoList.innerHTML = "";
       localStorage.clear();
       todoList.classList.remove("fall");
-      clearAllBtn.classList.add("deactive")
-    sortBtn.classList.add("deactive")
+      listStyling(0)
 
     }, TRASH_ANIMATION_TIMEOUT);
     pendingTasksCount.textContent = 0;
@@ -146,12 +174,10 @@ function checkLocalStorage() {
   let todos;
   if (localStorage.getItem("todos") === null) {
     todos = [];
-    clearAllBtn.classList.add("deactive")
-    sortBtn.classList.add("deactive")
+   
   } else {
     todos = JSON.parse(localStorage.getItem("todos"));
-    clearAllBtn.classList.remove("deactive")
-    sortBtn.classList.remove("deactive")
+  
   }
   return todos;
 }
@@ -162,9 +188,9 @@ function saveLocalTodos(todo) {
   /* todoLi.setAttribute('id', "liNum" + todos.indexOf(todo)) */
   todos.push(todo);
   localStorage.setItem("todos", JSON.stringify(todos));
+
   pendingTasksCount.textContent = todos.length;
-  clearAllBtn.classList.remove("deactive")
-  sortBtn.classList.remove("deactive")
+ 
  
 }
 
@@ -177,7 +203,7 @@ function getTodos() {
     const todoLi = document.createElement("li");
     todoLi.classList.add("todo");
     todoLi.innerText = todo;
-    todoLi.setAttribute("id", "liNum" + todos.indexOf(todo));
+    
 
     //trash button
     const trashButton = document.createElement("button");
@@ -190,16 +216,15 @@ function getTodos() {
     todoInput.value = "";
   });
   pendingTasksCount.textContent = todos.length;
+  let todosCount = todoList.childElementCount;
+  listStyling(todosCount)
+
   if (todos.length) {
     inputBox.classList.add("inactive");
     todoButton.classList.add("inactive");
-    clearAllBtn.classList.remove("deactive")
-    sortBtn.classList.remove("deactive")
+   
   }
-  else {
-    clearAllBtn.classList.add("deactive")
-    sortBtn.classList.add("deactive")
-  }
+  
 }
 
 // remove element from local storage
@@ -213,9 +238,9 @@ function removeLocalTodos(todo) {
     inputBox.classList.remove("inactive");
     todoButton.classList.remove("inactive");
     sortBtn.textContent = "Sort";
-    clearAllBtn.classList.add("deactive")
-    sortBtn.classList.add("deactive")
+  
   }
+ 
 }
 
 //sort function in ascending and descending
@@ -275,7 +300,7 @@ function launch_listElement(message) {
     }
     let x = document.getElementById("alertListElement"); 
     x.innerText= message
-    console.log(message)
+   
     //clearInterval()
     x.className = x.className.replace("show", "");
     x.className = "show";
