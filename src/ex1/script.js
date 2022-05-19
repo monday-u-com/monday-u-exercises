@@ -5,7 +5,6 @@ const clear_all_button = document.querySelector('button[name="clear_all_todo"]')
 const sort_by_name_button = document.querySelector('button[name="sort_by_name_todo"]');
 const tasks_container = document.querySelector('.todo_tasks_container');
 const tasks_element = {
-    id: 0,
     html: `<div class="todo_task animate__animated animate__fadeIn">
                 <span class="task_number"></span>
                 <span class="task_text"></span>
@@ -38,9 +37,9 @@ SetOnEventListener("click", add_task_button, AddNewTask, task_input, tasks_conta
 SetOnEventListener("keypress", task_input, AddNewTaskByKeyPress, add_task_button);
 SetOnEventListener("input", task_input, ClearErrorEmptyTask, task_input);
 
-SetOnEventListener("click", clear_all_button, ClearAllTasks, tasks_container, tasks_element);
+SetOnEventListener("click", clear_all_button, ClearAllTasks, tasks_container);
 
-SetOnEventListener("click", sort_by_name_button, SortByName, tasks_container, tasks_element);
+SetOnEventListener("click", sort_by_name_button, SortByName, tasks_container);
 
 /**
  * Click call back function to add new task
@@ -64,16 +63,15 @@ function AddNewTask(task_input, tasks_container, tasks_element, observer, config
         }
 
         task = CreateElementFromHtml(tasks_element.html); // create element from html string in object tasks_element
-        task.setAttribute('id', tasks_element.id);
         SetOnEventListener("click", task.children[Section_in_task.TEXT], AlertTask, task); // set on click event for new task
         SetOnEventListener("click", task.children[Section_in_task.NUMBER], AlertTask, task); // set on click event for new task
-        task.children[0].innerHTML = tasks_element.id + ')';
+        //task.children[0].innerHTML = tasks_element.id + ')';
         task.children[1].innerHTML = todo_text; // set text from input to task
-        SetOnEventListener("click", task.children[Section_in_task.BUTTONS].children[Section_in_task.DELETE_BUTTON], DeleteTask, task, tasks_element, tasks_container); // set a delete on click event
+        SetOnEventListener("click", task.children[Section_in_task.BUTTONS].children[Section_in_task.DELETE_BUTTON], DeleteTask, task, tasks_container); // set a delete on click event
         SetOnEventListener("click", task.children[Section_in_task.BUTTONS].children[Section_in_task.COMPLETE_BUTTON], MarkAsComplete, task); // set a complete on click event        
         tasks_container.appendChild(task);
         task_input.value = '';
-        SortTasksNumber(tasks_container, tasks_element);
+        SortTasksNumber(tasks_container);
         return;
     }
     ShowErrorEmptyTaskInput(task_input);
@@ -94,11 +92,9 @@ function AddNewTaskByKeyPress(add_task_button)
 /**
  * Click call back function for deleting all tasks
  * @param {object} tasks_container 
- * @param {object} tasks_element 
  */
-function ClearAllTasks(tasks_container, tasks_element)
+function ClearAllTasks(tasks_container)
 {
-    tasks_element.id = 0;
     while(tasks_container.firstChild)
     {
         tasks_container.removeChild(tasks_container.firstChild);
@@ -108,17 +104,16 @@ function ClearAllTasks(tasks_container, tasks_element)
 /**
  * Click call back function for deleting task
  * @param {object} task 
- * @param {object} tasks_element 
  * @param {object} tasks_container 
  */
-function DeleteTask(task, tasks_element, tasks_container)
+function DeleteTask(task, tasks_container)
 {
     task.classList.remove('animate__fadeIn');
     task.classList.add('animate__fadeOut');
     setTimeout(() => {
         task.remove();
-        SortTasksNumber(tasks_container, tasks_element);
-        if(tasks_element.id === 0)
+        SortTasksNumber(tasks_container);
+        if(tasks_container.children.length === 0)
             tasks_container.classList.add('empty');
     }, 500);
 };
@@ -218,24 +213,21 @@ function CreateElementFromHtml(html)
 /**
  * Sorts the tasks by number and updates the numbers 
  * @param {object} tasks_container 
- * @param {object} task_number 
  */
-function SortTasksNumber(tasks_container, task_number)
+function SortTasksNumber(tasks_container)
 {
     let tasks = tasks_container.children;
     for (let i = 0; i < tasks.length;i++)
     {
         tasks[i].children[Section_in_task.NUMBER].innerHTML = (i + 1).toString().concat(")");
     }
-    task_number.id = tasks.length;
 };
 
 /**
  * Sorts the tasks by names
  * @param {object} tasks_container 
- * @param {object} tasks_element 
  */
-function SortByName(tasks_container, tasks_element)
+function SortByName(tasks_container)
 {
     const tasks = [...tasks_container.children];
     tasks.sort((item1, item2) =>
@@ -244,26 +236,7 @@ function SortByName(tasks_container, tasks_element)
         const task2_name = item2.querySelector(".task_text").innerHTML;
         return task1_name.toLowerCase().localeCompare(task2_name.toLowerCase());
     });
-    /*const tasks_name = []; // contains the names of the tasks for sorting
-    const temp_tasks = []; // contains all tasks temporarily
-    for (let i = 0; i < tasks.length;i++)// insert all names in to task_name array in lower case for sorting
-    {
-        tasks_name.push(tasks[i].children[Section_in_task.TEXT].innerHTML.toLowerCase());  
-        temp_tasks.push(tasks[i]);// push task to temporarily save
-    }
-    tasks_name.sort((a, b) => {return b < a ? 1 : b > a ? -1 : 0}); // sort function
-    tasks_container.innerHTML = ''; // clear tasks
-    tasks_name.forEach((task_name) =>
-    {
-        for (let i = 0; i < temp_tasks.length;i++) 
-        {
-            if(temp_tasks[i].children[Section_in_task.TEXT].innerHTML.toLowerCase() === task_name)
-            {
-                tasks_container.appendChild(temp_tasks[i]);
-            }
-        }
-    });*/
     tasks.forEach(task => { tasks_container.appendChild(task); });
-    SortTasksNumber(tasks_container, tasks_element);
+    SortTasksNumber(tasks_container);
 };
 
