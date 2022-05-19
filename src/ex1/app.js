@@ -91,6 +91,7 @@ window.addEventListener('load',()=> {
       });
 
       task_delete_el.addEventListener('click', ()=> {
+        audio.play();
          list_el.removeChild(task_el);
 
       });
