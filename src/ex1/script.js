@@ -7,16 +7,15 @@ document.querySelector('ul').addEventListener('click', alertMessage)
 const tasksCompleted = document.getElementById('completed-tasks')
 const listGif = document.getElementById('list-gif')
 
-let checkDoneTasks = []
-
-let doneTasksCounter = 0
-let tasksCounter = 0
+let doneTasksFlag = false //Checks whether the list item was checked as done or not
+let doneTasksCounter = 0 //Counts the amount of the list items that are checked as done
+let tasksCounter = 0 //Counts the amount of list items in general 
 
 
 /*** Submit Button Handler ***/
 function submitButtonHandler(event){
     event.preventDefault() //Preventing page refresh on form submission
-    let newTaskInput = document.querySelector('#new-task')
+    const newTaskInput = document.querySelector('#new-task')
     listGif.style.display= "none"
     if (newTaskInput.value != ''){
         tasksCompleted.style.display = "flex"
@@ -27,8 +26,8 @@ function submitButtonHandler(event){
 }
 
 function addTodo(item){
-    let ul = document.querySelector('ul')
-    let li = document.createElement('li') //Creating a new 'li' element which refers to a new task that has been submitted
+    const ul = document.querySelector('ul')
+    const li = document.createElement('li') //Creating a new 'li' element which refers to a new task that has been submitted
 
     //Inserting text content to the 'li' element
     li.innerHTML = `
@@ -41,6 +40,7 @@ function addTodo(item){
     tasksCounter++
 }
 
+//Prevents "space" click on keyboard  
 /*function preventSpace(event){
     if(event.code === 'Space') {
         event.preventDefault()
@@ -48,8 +48,7 @@ function addTodo(item){
 }*/
 
 
-
-/*** Task Done Button */
+/*** Task Done Checkbox */
 function checkHandler(event){
     if(event.target.name === 'task-complete'){
         checkTodo(event)
@@ -63,6 +62,7 @@ function checkTodo(event){
         item.style.textDecoration = 'none'
         item.style.color = 'grey'
         doneTasksCounter--
+        item.doneTasksFlag = false
         tasksCompleted.innerText = `You have completed ${doneTasksCounter} / ${tasksCounter} tasks`
     }
     //When clicking on the check button in order to mark the task as done, the line through style will be implemented
@@ -70,7 +70,7 @@ function checkTodo(event){
         item.style.textDecoration = 'line-through'
         item.style.color = 'lightgrey'
         doneTasksCounter++
-        //checkDoneTasks[tasksCounter].push(true)
+        item.doneTasksFlag = true
         tasksCompleted.innerText = `You have completed ${doneTasksCounter} / ${tasksCounter} tasks`
     }
 }
@@ -87,15 +87,20 @@ function deleteTodo(event){
     let item = event.target.parentNode
     //Once the transition is completed, the task will be deleted 
     item.addEventListener('transitionend', function(){
-        item.remove()    
-    })
+        item.remove()
+    })  
     tasksCounter--
+    //If the list item was marked as done, then remove the counter by one
+    if(item.doneTasksFlag === true){
+        doneTasksCounter--
+    }
     if(tasksCounter === 0){
         tasksCompleted.style.display = "none"
         listGif.style.display= "block"
         doneTasksCounter = 0
     }
     item.classList.add('task-list-item-fall')
+    tasksCompleted.innerText = `You have completed ${doneTasksCounter} / ${tasksCounter} tasks`
 }
 
 
@@ -104,6 +109,7 @@ function clearAllHandler(event){
     if(tasksCounter != 0){
         document.querySelector('ul').innerHTML = ''
         tasksCompleted.style.display = "none"
+        listGif.style.display= "block"
         tasksCounter = 0
         doneTasksCounter = 0
     }
