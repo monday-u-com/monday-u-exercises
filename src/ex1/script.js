@@ -7,10 +7,7 @@ const sortBtn = document.getElementById("sort-btn");
 const inputBox = document.querySelector(".inputField input");
 const svgContainer = document.getElementById("svg");
 const todoElement = document.getElementById("list-element");
-
 const footerSpan = document.querySelector(" .footer span ");
-
-
 
 const animItem = bodymovin.loadAnimation({
   wrapper: svgContainer,
@@ -19,61 +16,47 @@ const animItem = bodymovin.loadAnimation({
   autoplay: false,
   path: "https://assets4.lottiefiles.com/private_files/lf30_5aubt2fy.json",
 });
-const TRASH_ANIMATION_TIMEOUT = 500
 
 const pendingTasksCount = document.querySelector(".pendingTasksCount");
 const ENTER_KEY = 13;
+const TRASH_ANIMATION_TIMEOUT = 500;
 
 //Event Listeners
 document.addEventListener("DOMContentLoaded", getTodos);
 todoButton.addEventListener("click", addTodo);
 todoInput.addEventListener("keyup", todoEnter);
-
 todoList.addEventListener("click", deleteTask);
 sortBtn.addEventListener("click", sortTasks);
 clearAllBtn.addEventListener("click", clearAll);
-
-todoElement.addEventListener("click", alertTask) ;
-
-
-
-
-
+todoElement.addEventListener("click", alertTask);
 
 //Functions
 
-
+//add alert feature when task is clicked
 function alertTask(e) {
-    const item = e.target;
-    
-    if (item.classList[0] === "todo") {
-      const todo = item.parentElement;
-    
-      let message = "📝" + item.innerText
-      return alert(item.innerText)
-      /*will be used later in the project launch_listElement(message); */
-    }
-  }
+  const item = e.target;
 
-function listStyling(todosCount){
-  
-    if (!todosCount){
-        clearAllBtn.classList.add("deactive")
-        sortBtn.classList.add("deactive")
-        footerSpan.classList.add("deactive")
-     
-    
-    }
-    else {
-        clearAllBtn.classList.remove("deactive")
-        sortBtn.classList.remove("deactive")
-        footerSpan.classList.remove("deactive")
-    
-    }
-    console.log( footerSpan.innerText )
+  if (item.classList[0] === "todo") {
+    const todo = item.parentElement;
+
+    let message = "📝" + item.innerText;
+    return alert(item.innerText);
+    /*will be used later in the project launch_listElement(message); */
+  }
 }
 
-
+//deactive / active buttons when todos are added / cleared
+function listStyling(todosCount) {
+  if (!todosCount) {
+    clearAllBtn.classList.add("deactive");
+    sortBtn.classList.add("deactive");
+    footerSpan.classList.add("deactive");
+  } else {
+    clearAllBtn.classList.remove("deactive");
+    sortBtn.classList.remove("deactive");
+    footerSpan.classList.remove("deactive");
+  }
+}
 
 //todo input styling
 todoInput.onkeydown = () => {
@@ -103,7 +86,7 @@ function addTodo(event) {
 
   //Add todo to local storage
   saveLocalTodos(todoInput.value);
- 
+
   //trash button
   const trashButton = document.createElement("button");
   trashButton.innerHTML = '<i  class="fas fa-trash"></i>';
@@ -112,19 +95,17 @@ function addTodo(event) {
   //append to list
   todoList.appendChild(todoLi);
 
-  const listChildrenCount = todoList.childElementCount
-   listStyling(listChildrenCount) 
+  const listChildrenCount = todoList.childElementCount;
+  listStyling(listChildrenCount);
 
   //Clear Todo Input value
   todoInput.value = "";
   inputBox.classList.add("inactive");
-  
 }
 
 //add todo when pressing enter key
 function todoEnter(event) {
-  
-    if (event.keyCode == ENTER_KEY) {
+  if (event.keyCode == ENTER_KEY) {
     if (!todoInput.value.trim()) {
       return launch_toast();
     }
@@ -140,8 +121,8 @@ function deleteTask(e) {
     const todo = item.parentElement;
     todo.classList.add("fall");
     removeLocalTodos(todo);
+    //delay the remove for animation
     setTimeout(function () {
-      //delay the remove animation
       todo.remove();
     }, TRASH_ANIMATION_TIMEOUT);
   }
@@ -153,14 +134,12 @@ function clearAll(e) {
   if (item.classList[0] === "clearAllBtn") {
     todoList.classList.add("fall");
 
-
+     //delay the remove for animation
     setTimeout(function () {
-      //delay the remove animation
       todoList.innerHTML = "";
       localStorage.clear();
       todoList.classList.remove("fall");
-      listStyling(0)
-
+      listStyling(0);
     }, TRASH_ANIMATION_TIMEOUT);
     pendingTasksCount.textContent = 0;
     if (!todoInput.value.length) {
@@ -176,10 +155,8 @@ function checkLocalStorage() {
   let todos;
   if (localStorage.getItem("todos") === null) {
     todos = [];
-   
   } else {
     todos = JSON.parse(localStorage.getItem("todos"));
-  
   }
   return todos;
 }
@@ -187,13 +164,10 @@ function checkLocalStorage() {
 //save data to local storage
 function saveLocalTodos(todo) {
   let todos = checkLocalStorage();
-  /* todoLi.setAttribute('id', "liNum" + todos.indexOf(todo)) */
   todos.push(todo);
   localStorage.setItem("todos", JSON.stringify(todos));
 
   pendingTasksCount.textContent = todos.length;
- 
- 
 }
 
 //get and show the data from local storage after refreshing the page
@@ -205,7 +179,6 @@ function getTodos() {
     const todoLi = document.createElement("li");
     todoLi.classList.add("todo");
     todoLi.innerText = todo;
-    
 
     //trash button
     const trashButton = document.createElement("button");
@@ -219,14 +192,12 @@ function getTodos() {
   });
   pendingTasksCount.textContent = todos.length;
   let todosCount = todoList.childElementCount;
-  listStyling(todosCount)
+  listStyling(todosCount);
 
   if (todos.length) {
     inputBox.classList.add("inactive");
     todoButton.classList.add("inactive");
-   
   }
-  
 }
 
 // remove element from local storage
@@ -236,14 +207,12 @@ function removeLocalTodos(todo) {
   todos.splice(todos.indexOf(todoIndex), 1);
   localStorage.setItem("todos", JSON.stringify(todos));
   pendingTasksCount.textContent = todos.length;
- listStyling(todos.length)
+  listStyling(todos.length);
   if (!todos.length) {
     inputBox.classList.remove("inactive");
     todoButton.classList.remove("inactive");
     sortBtn.textContent = "Sort";
-  
   }
- 
 }
 
 //sort function in ascending and descending
@@ -254,7 +223,7 @@ function sortTasks() {
   }
   if (todoList.classList.contains("ascending")) {
     todos.sort(); /* ((a, b) => a.localeCompare(b)) */
-    
+
     sortBtn.textContent = "Sort 🡱";
 
     todoList.classList.remove("ascending");
@@ -266,7 +235,7 @@ function sortTasks() {
     todoList.classList.add("ascending");
     sortBtn.textContent = "Sort 🡳";
   }
-  console.log( todoList.classList)
+  console.log(todoList.classList);
   todoList.innerHTML = "";
   localStorage.setItem("todos", JSON.stringify(todos));
   todos.forEach(function (todo) {
@@ -286,8 +255,9 @@ function sortTasks() {
   });
 }
 
+//toast of error message
 function launch_toast() {
-  let x = document.getElementById("toast"); 
+  let x = document.getElementById("toast");
   x.className = "show";
   //clearInterval()
   clearTimeout();
@@ -296,21 +266,19 @@ function launch_toast() {
   }, 1800);
 }
 
-
+//function to be used in later projects
+//currently this function is not used
 function launch_listElement(message) {
-
-    if (typeof message==='undefined'){
-        return;
-    }
-    let x = document.getElementById("alertListElement"); 
-    x.innerText= message
-   
-    //clearInterval()
-    x.className = x.className.replace("show", "");
-    x.className = "show";
-     return setTimeout(function () {
-        x.className = x.className.replace("show", "");
-    }, 2000); 
-    
+  if (typeof message === "undefined") {
+    return;
   }
-  
+  let x = document.getElementById("alertListElement");
+  x.innerText = message;
+
+  //clearInterval()
+  x.className = x.className.replace("show", "");
+  x.className = "show";
+  return setTimeout(function () {
+    x.className = x.className.replace("show", "");
+  }, 2000);
+}
