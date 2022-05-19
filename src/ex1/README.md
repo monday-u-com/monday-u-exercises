@@ -1,12 +1,5 @@
-# Exercise 1 - HTML, CSS, JS
-Welcome to your first monday-u task! Hope you are excited as we are!  
-This is going to be an ongoing task, so don't worry, we are going to build this awesome project step by step, from zero to hero :)
 
-
-## In this section you will practice
-**HTML** - Basic level, tags.  
-**CSS** - Simple positioning concepts, colors and shapes.  
-**JS** - Basic DOM manipulation  
+Welcome to Ori's Todo list!
 
 ## What you are going to build
 A todo app!  
@@ -34,7 +27,3 @@ Bonus
 - [x] Added animation when item / all items are removed removed
 - [x] have another cool idea? Go wild! 
 - [x] show count of pending tasks
-
-When you finish, it should look like this:
-
-![x]](https://res.cloudinary.com/practicaldev/image/fetch/s--pyyuGSZ9--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/o96lsrld21tk232kidu4.png)

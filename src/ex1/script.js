@@ -60,7 +60,7 @@ function listStyling(todosCount){
         clearAllBtn.classList.add("deactive")
         sortBtn.classList.add("deactive")
         footerSpan.classList.add("deactive")
-       /*  footerSpan.innerText = "You have aaa" + todosCount + "tasks"; */
+     
     
     }
     else {
