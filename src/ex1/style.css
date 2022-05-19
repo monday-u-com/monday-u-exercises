@@ -251,15 +251,13 @@ header {
 
   width: 100%;
   margin-top: 25px;
-
+  
   align-items: center;
 }
 
-.footer2 .clearAllBtn.active {
-  opacity: 1;
-  pointer-events: auto;
-  transition: all 0.3s ease;
-}
+.footer2 .clearAllBtn.deactive {
+ display: none;
+} 
 .footer2 .clearAllBtn:hover {
   filter: brightness(90%);
 }
