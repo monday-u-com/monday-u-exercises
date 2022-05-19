@@ -151,12 +151,4 @@ html, body {
         cursor:pointer;
     }
 
-    .test:hover {
-        text-indent: 0px;
-    }
-        .test:hover:before {
-            right: 0;
-            text-indent: 0px;
-        }
-
 */
