@@ -234,6 +234,7 @@ function removeLocalTodos(todo) {
   todos.splice(todos.indexOf(todoIndex), 1);
   localStorage.setItem("todos", JSON.stringify(todos));
   pendingTasksCount.textContent = todos.length;
+ listStyling(todos.length)
   if (!todos.length) {
     inputBox.classList.remove("inactive");
     todoButton.classList.remove("inactive");
