@@ -1,5 +1,6 @@
 const addTaskInput = document.querySelector(".add-task-input");
 let taskId = 0;
+let tasksCnt = 0;
 
 // Add task
 const addTaskBtn = document.querySelector(".add-task-btn");
@@ -28,6 +29,13 @@ const onAddTask = (event) => {
   document.querySelector(".tasks-container").appendChild(createTask());
   addTaskInput.value = "";
 
+  tasksCnt++;
+  updateTasksLeft();
+  if (tasksCnt === 1) {
+    document.querySelector(".todo-footer-container").classList.toggle("hide");
+    document.querySelector(".finished-all-missions").classList.toggle("hide");
+  }
+
   const trashBtn = document.querySelector(`#trash-button-${taskId - 1}`);
   trashBtn.addEventListener("click", (event) => onTaskDelete(event));
 };
@@ -36,8 +44,15 @@ const onAddTask = (event) => {
 const onTaskDelete = (event) => {
   const clickedId = event.target.id;
   const taskIdToRemove = clickedId.slice(clickedId.lastIndexOf("-") + 1);
-  console.log(taskIdToRemove);
   document.querySelector(`#task-${taskIdToRemove}`).remove();
+
+  tasksCnt--;
+  updateTasksLeft();
+
+  if (!tasksCnt) {
+    document.querySelector(".todo-footer-container").classList.toggle("hide");
+    document.querySelector(".finished-all-missions").classList.toggle("hide");
+  }
 };
 
 // Clear all
@@ -48,4 +63,10 @@ const onClearAll = (event) => {
   for (let taskIdToRemove = 0; taskIdToRemove < taskId; taskIdToRemove++) {
     document.querySelector(`#task-${taskIdToRemove}`).remove();
   }
+};
+
+// Tasks left
+const updateTasksLeft = () => {
+  const tasksLeft = document.querySelector(".tasks-left");
+  tasksLeft.innerText = `Keep Grinding! You got ${tasksCnt} to go`;
 };

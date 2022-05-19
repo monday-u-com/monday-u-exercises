@@ -18,6 +18,10 @@ body {
   align-items: center;
 }
 
+.hide {
+  visibility: hidden;
+}
+
 .todo-container {
   height: 596px;
   width: 497px;
@@ -74,6 +78,8 @@ body {
 }
 
 .add-task-input {
+  /* background-color: aqua; */
+  width: 100%;
   border: none;
   font-style: normal;
   font-weight: 400;
