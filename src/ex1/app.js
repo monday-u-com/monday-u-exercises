@@ -1,3 +1,5 @@
+
+
 window.addEventListener('load',()=> {
   const form = document.querySelector('#new-task-form');
   const input = document.querySelector('#new-task-input');
@@ -7,9 +9,10 @@ window.addEventListener('load',()=> {
   var today = new Date();
   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   document.getElementById("current_date").innerHTML = date;
+  
 
   filterOption.addEventListener("click", filterTodo);
-
+  
 
   form.addEventListener('submit',(e)=>{
       // stop refreshing page
@@ -97,14 +100,14 @@ window.addEventListener('load',()=> {
       });
       task_check_el.addEventListener("click", ()=>{
           task_content_el.classList.toggle("completed");
+          animItem.goToAndPlay(0,true);
       })
 
       task_input_el.addEventListener("click", ()=>{
-          
+        animItem.goToAndPlay(0,true);
           audio.play();
       })
-      
-      
+     
 
   });
   function saveLocalTodos(task) {
@@ -143,6 +146,7 @@ window.addEventListener('load',()=> {
       });
     }
     
-
+    
 });
+
 
