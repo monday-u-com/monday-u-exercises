@@ -19,13 +19,8 @@ const tasks_element = {
             </div>`
 };
 
-// set observer to trigger only on dom tree change
-const config_observer = { childList: true };
-// create observer and assign call back function
-const observer = new MutationObserver(OnDomChange); 
-
 // set event to objects
-SetOnEventListener("click", add_task_button, AddNewTask, task_input, tasks_container, tasks_element, observer, config_observer);
+SetOnEventListener("click", add_task_button, AddNewTask, task_input, tasks_container, tasks_element);
 
 SetOnEventListener("keypress", task_input, AddNewTaskByKeyPress, add_task_button);
 SetOnEventListener("input", task_input, ClearErrorEmptyTask, task_input);
@@ -43,18 +38,13 @@ SetOnEventListener("click", sort_by_name_button, SortByName, tasks_container);
  * @param {object} config_observer 
  * @returns 
  */
-function AddNewTask(task_input, tasks_container, tasks_element, observer, config_observer)
+function AddNewTask(task_input, tasks_container, tasks_element)
 {
     const todo_text = task_input.value;   
     let task;
     if(todo_text.length)
     {
-        if(tasks_container.classList.contains('empty'))
-        {
-            tasks_container.classList.remove('empty');
-            SetObserver(tasks_container, observer, config_observer);
-        }
-
+        tasks_container.classList.remove('empty');
         task = CreateElementFromHtml(tasks_element.html); // create element from html string in object tasks_element
         tasks_container.appendChild(task);
         SetOnEventListener("click", task.querySelector(".task_text"), AlertTask, task); // set on click event for new task
@@ -65,6 +55,7 @@ function AddNewTask(task_input, tasks_container, tasks_element, observer, config
         SetOnEventListener("click", task.querySelector(".complete_task_button"), MarkAsComplete, task); // set a complete on click event                
         task_input.value = '';
         SortTasksNumber(tasks_container);
+        SetTaskCounter(tasks_container);
         return;
     }
     ShowErrorEmptyTaskInput(task_input);
@@ -81,7 +72,8 @@ function AddNewTaskByKeyPress(add_task_button)
         this.event.preventDefault();
         add_task_button.click();
     }
-}
+};
+
 /**
  * Click call back function for deleting all tasks
  * @param {object} tasks_container 
@@ -93,7 +85,9 @@ function ClearAllTasks(tasks_container)
         tasks_container.removeChild(tasks_container.firstChild);
     }
     tasks_container.classList.add('empty');
+    SetTaskCounter(tasks_container);
 };
+
 /**
  * Click call back function for deleting task
  * @param {object} task 
@@ -106,6 +100,7 @@ function DeleteTask(task, tasks_container)
     setTimeout(() => {
         task.remove();
         SortTasksNumber(tasks_container);
+        SetTaskCounter(tasks_container);
         if(tasks_container.children.length === 0)
             tasks_container.classList.add('empty');
     }, 500);
@@ -136,7 +131,8 @@ function ShowErrorEmptyTaskInput(task_input)
 {
     task_input.reportValidity();
     task_input.setCustomValidity("Please supply a task name.");
-}
+};
+
 /**
  * Clear invalid state on add new task text input
  * @param {object} task_input 
@@ -144,35 +140,17 @@ function ShowErrorEmptyTaskInput(task_input)
 function ClearErrorEmptyTask(task_input)
 {
    task_input.setCustomValidity("");
-}
-
-/**
- * On dom tree change update counter
- * @param {object} mutation_list 
- * @param {MutationObserver} observer 
- */
-function OnDomChange(mutation_list, observer)
-{
-    const count_tasks = document.querySelector('.task_counter');// select counter element
-    const tasks = document.querySelector('.todo_tasks_container');
-    mutation_list.forEach( (mutation) => {
-        if(!tasks.classList.contains('empty'))
-            count_tasks.innerHTML = tasks.children.length;
-        else
-            count_tasks.innerHTML = 0;
-        console.log("debug: dom changed");
-    });
 };
 
 /**
- * Start an observer to task_container to check if the dom tree is changed
- * @param {object} tasks_container 
- * @param {MutationObserver} observer 
- * @param {object} config_observer 
+ * updates task counter
+ * @param {object} task_container 
  */
-function SetObserver(tasks_container, observer, config_observer)
+function SetTaskCounter(task_container)
 {
-   observer.observe(tasks_container, config_observer);
+    const task_counter = document.querySelector(".task_counter");
+    const tasks_number = task_container.children.length;
+    task_counter.innerHTML = tasks_number;
 };
 
 /**
