@@ -1,0 +1,141 @@
+body {
+    background: linear-gradient(skyblue,rgb(79, 79, 255));
+    background-attachment: fixed;
+}
+* {
+    box-sizing: border-box;
+}
+.container {
+    width: 30%;
+    background-color:white;
+    margin: auto;
+    padding: 16px;
+    box-shadow: 20px 20px 20px 0px rgba(0, 0,0, 0.3);
+    font-family: cursive;
+    display: grid;
+    border-radius: 10px;
+}
+.title {
+    margin-top: auto;
+    margin-bottom: 5px;
+}
+.subTitle {
+    opacity: 0.7;
+}
+
+input {
+    padding: 12px;
+    width: 80%;
+    font-family: cursive;
+}
+.addBtn {
+    border-radius: 4px;
+    background-color: #981dc5;
+    color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 0.975rem;
+    border: 0px;
+    box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+    opacity: 0.9;
+    height: 43px;
+    width: 15%;
+}
+.addBtn:hover{
+    opacity: 1;
+}
+
+.addTask {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.taskSection {
+    display: flex;
+    margin-bottom: 5px;
+    transition: opacity 1s;
+    animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 0.5s;
+}
+
+.removed {
+    opacity: 0;
+}
+
+.tasks{
+    padding: 12px;
+    background-color: rgb(225, 225, 225);
+    border-radius: 5px;
+    opacity: 0.9;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.tasks:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+
+.deleteBtn {
+    border-radius: 4px;
+    background-color: rgb(202, 23, 23);
+    color: white;
+    font-size: 24px;
+    border: 0px;
+    opacity: 0.9;
+    cursor: pointer;
+    width: 15%;
+    display: none;
+    animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 0.5s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0.9;
+	}
+}
+
+.tasks:hover + .deleteBtn {
+    display: inline-block;
+}
+.deleteBtn:hover {
+    opacity: 1;
+    display: inline-block;
+}
+
+.bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+.functionBtn {
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #981dc5;
+    color: white;
+    border: 0px;
+    opacity: 0.9;
+    font-family: cursive;
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+}
+.functionBtn:hover {
+    opacity: 1;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+}

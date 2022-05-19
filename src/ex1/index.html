@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Odot</title>
+    <title>DoDo App</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 <body>
+    <div class="container">
+        <h1 class="title">DoDo App</h1>
+        <sub class="subTitle">The app that will help you do</sub>
 
-<h1>Todo list</h1>
+        <div class="addTask">
+            <input type="text" id="newTask" maxlength="25" placeholder="Add your new task!">
+            <button id="addBtn" class="addBtn" onclick="addTask()"><i class="fa fa-plus"></i></button>
+        </div>
+        <hr>
+        <div class="taskList"></div>
+        <div class="bottom">
+            <button class="functionBtn" onclick="sortAZ()">Sort A-Z</button>
+            <button class="functionBtn" onclick="sortTime()">Sort By Date</button>
+            <button class="functionBtn" onclick="clearAll()">Clear All</button>
+        </div>
+    </div>
+
 
 
 </body>
