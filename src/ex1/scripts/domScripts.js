@@ -61,7 +61,6 @@ function createGridLines() {
   const gripLines = document.createElement("div");
   gripLines.classList.add("grip-lines-icon");
   gripLines.innerHTML = '<i class="fas fa-grip-lines"></i>';
-  gripLines.addEventListener("click", onTaskGripClick);
   return gripLines;
 }
 
@@ -162,7 +161,6 @@ function onSearchInputKeyUp(e) {
 }
 
 function onTaskClick(e) {
-  console.log(e.target);
   if (e.target.classList.contains("task")) {
     alert(e.target.innerText);
   }
@@ -170,9 +168,12 @@ function onTaskClick(e) {
 
 function onTaskMouseOver(e) {
   const completeTaskButton = e.target.querySelector(".task-complete-btn");
-  completeTaskButton.classList.remove("hide");
-  const removeTaskButton = e.target.querySelector(".task-remove-btn");
-  removeTaskButton.classList.remove("hide");
+  //because sometime the hover is on p and button is not the event
+  if (completeTaskButton != null) {
+    completeTaskButton.classList.remove("hide");
+    const removeTaskButton = e.target.querySelector(".task-remove-btn");
+    removeTaskButton.classList.remove("hide");
+  }
 }
 
 function onTaskMouseOut(e) {
@@ -180,10 +181,6 @@ function onTaskMouseOut(e) {
   completeTaskButton.classList.add("hide");
   const removeTaskButton = e.target.querySelector(".task-remove-btn");
   removeTaskButton.classList.add("hide");
-}
-
-function onTaskGripClick() {
-  console.log("Test");
 }
 
 const dragArea = document.querySelector(".tasks-list");

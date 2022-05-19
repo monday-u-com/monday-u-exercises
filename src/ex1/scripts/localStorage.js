@@ -32,7 +32,6 @@ function renderTasksFromLocalStorage() {
 renderTasksFromLocalStorage();
 
 function createTaskDiv(task, isCompleted) {
-  console.log("DEBUG", isCompleted);
   const taskDiv = document.createElement("div");
   taskDiv.classList.add("task");
   if (isCompleted) {
@@ -74,6 +73,5 @@ function updateTasksOrderInLocalStorage() {
       tasks[i].classList.contains("task-completed"),
     ]);
   }
-  console.log(tasksArray);
   localStorage.setItem("tasks", JSON.stringify(tasksArray));
 }
