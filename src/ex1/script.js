@@ -4,7 +4,9 @@ const addTaskField = document.querySelectorAll('.add-task-field');
 
 
 const taskList = [];
+addChillMsg();
 updateFooter();
+
 
 
 addBtn[0].addEventListener('click', () => {
@@ -21,13 +23,14 @@ clearAllBtn[0].addEventListener('click', () => {
     const tasks = document.querySelectorAll('.tasks');
     tasks[0].replaceChildren();
     while (taskList.length) taskList.pop();
+    tasks[0].append(ChillMsg());
     updateFooter();
 });
 
 function addTaskFunc() {
     const newTaskField = document.querySelectorAll('.add-task-field');
     const taskText = newTaskField[0].value;
-    const tasksDiv = document.querySelectorAll('.tasks');
+    const tasks = document.querySelectorAll('.tasks');
     console.log(taskText);
     if (taskText == "")
         alert("Enter new task!");
@@ -35,9 +38,8 @@ function addTaskFunc() {
         alert("Task already exist!\nEnter new task!")
     }
     else {
-        //addNewTask(taskText);
-        tasksDiv[0].append(newTaskElement(taskText));
-
+        if (taskList.length === 0) tasks[0].replaceChildren();
+        tasks[0].append(newTaskElement(taskText));
     }
     resetInputField(newTaskField);
     updateFooter();
@@ -58,7 +60,6 @@ function newTaskElement(text) {
     h3.textContent = text;
     taskDiv.append(h3);
     const span = document.createElement('span');
-
     const delBtn = document.createElement('i');
     delBtn.classList.add('fa-solid');
     delBtn.classList.add('fa-trash');
@@ -81,6 +82,7 @@ function removeFromTaskList(text) {
         console.log('Item removed from list');
     }
     else console.log('removeFromTaskList ERROR!');
+    addChillMsg();
     updateFooter();
 }
 
@@ -96,3 +98,25 @@ function updateFooter() {
     clearAllBtn.disabled = taskLength ? false : true; 
 }
 
+function ChillMsg() {
+    const div = document.createElement('div');
+    div.classList.add('chill');
+    const i1 = document.createElement('i');
+    i1.classList.add('fa');
+    i1.classList.add('fa-solid');
+    i1.classList.add('fa-martini-glass-citrus');
+    i1.classList.add('fa-4x');
+    const i2 = document.createElement('i');
+    i2.textContent = 'Chill out! Nothing to do';
+    div.append(i1);
+    div.append(i2);
+    return div;
+
+}
+
+function addChillMsg() {
+    if (taskList.length === 0) {
+        const tasks = document.querySelectorAll('.tasks');
+        tasks[0].append(ChillMsg());
+    }
+}

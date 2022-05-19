@@ -1,3 +1,4 @@
+
 html, body {
     margin: 0;
     height: 100%;
@@ -95,6 +96,18 @@ html, body {
     .task:hover {
         box-shadow: 0 4px 4px rgba(33,33,33,.2);
     }
+
+.chill {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    padding: 3em;
+}
+
+.chill i {
+    margin: 10px;
+}
 
 .footer {
     position: relative;
