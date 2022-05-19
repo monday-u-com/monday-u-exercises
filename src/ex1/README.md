@@ -21,15 +21,15 @@ The requirements:
 - [x] When "Add task" button is clicked, add a task to the task list
 - [x] Change the background and cursor type of an item when hovered on
 - [x] When a list item is clicked, show 'alert' (**Hint**: check the [alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert) method) with the item name
-- [ ] Delete an item when "Delete" button is clicked
+- [x] Delete an item when "Delete" button is clicked
 
 
 Bonus
-- [ ] Clear the input when a new item is added
-- [ ] Add input validation. e.g when the text input is empty, show a message with an error
-- [ ] Add "empty state" - when there are no items on the list, show some nice and inviting UI to encourage the user to add items
+- [x] Clear the input when a new item is added
+- [x] Add input validation. e.g when the text input is empty, show a message with an error
+- [x] Add "empty state" - when there are no items on the list, show some nice and inviting UI to encourage the user to add items
 - [ ] Add ability to sort the list by name
-- [ ] Add task when enter key is pressed
+- [x] Add task when enter key is pressed
 - [ ] Add animation when a new item is added
 - [ ] have another cool idea? Go wild! 
 
