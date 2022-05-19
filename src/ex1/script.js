@@ -18,13 +18,6 @@ const tasks_element = {
                 </div>
             </div>`
 };
-const Section_in_task = {
-    NUMBER: 0,
-    TEXT: 1,
-    BUTTONS: 2,
-    DELETE_BUTTON: 0,
-    COMPLETE_BUTTON: 1
-}
 
 // set observer to trigger only on dom tree change
 const config_observer = { childList: true };
@@ -52,7 +45,7 @@ SetOnEventListener("click", sort_by_name_button, SortByName, tasks_container);
  */
 function AddNewTask(task_input, tasks_container, tasks_element, observer, config_observer)
 {
-    const todo_text = task_input.value;      
+    const todo_text = task_input.value;   
     let task;
     if(todo_text.length)
     {
@@ -63,13 +56,13 @@ function AddNewTask(task_input, tasks_container, tasks_element, observer, config
         }
 
         task = CreateElementFromHtml(tasks_element.html); // create element from html string in object tasks_element
-        SetOnEventListener("click", task.children[Section_in_task.TEXT], AlertTask, task); // set on click event for new task
-        SetOnEventListener("click", task.children[Section_in_task.NUMBER], AlertTask, task); // set on click event for new task
-        task.children[0].innerHTML = (tasks_container.children.length + 1).toString().concat(')');
-        task.children[1].innerHTML = todo_text; // set text from input to task
-        SetOnEventListener("click", task.children[Section_in_task.BUTTONS].children[Section_in_task.DELETE_BUTTON], DeleteTask, task, tasks_container); // set a delete on click event
-        SetOnEventListener("click", task.children[Section_in_task.BUTTONS].children[Section_in_task.COMPLETE_BUTTON], MarkAsComplete, task); // set a complete on click event        
         tasks_container.appendChild(task);
+        SetOnEventListener("click", task.querySelector(".task_text"), AlertTask, task); // set on click event for new task
+        SetOnEventListener("click", task.querySelector(".task_number"), AlertTask, task); // set on click event for new task
+        task.querySelector(".task_number").innerHTML = (tasks_container.children.length + 1).toString().concat(')');
+        task.querySelector(".task_text").innerHTML = todo_text; // set text from input to task
+        SetOnEventListener("click", task.querySelector(".delete_task_button"), DeleteTask, task, tasks_container); // set a delete on click event
+        SetOnEventListener("click", task.querySelector(".complete_task_button"), MarkAsComplete, task); // set a complete on click event                
         task_input.value = '';
         SortTasksNumber(tasks_container);
         return;
@@ -160,7 +153,7 @@ function ClearErrorEmptyTask(task_input)
  */
 function OnDomChange(mutation_list, observer)
 {
-    const count_tasks = document.querySelector('div[class="todo_status_text"]').children[1];// select counter element
+    const count_tasks = document.querySelector('.task_counter');// select counter element
     const tasks = document.querySelector('.todo_tasks_container');
     mutation_list.forEach( (mutation) => {
         if(!tasks.classList.contains('empty'))
