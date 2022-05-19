@@ -67,11 +67,19 @@ const onAddTask = (event) => {
     document.querySelector(".todo-footer-container").classList.toggle("hide");
   }
 
+  const checkboxBtn = document.querySelector(`#input-${taskId - 1}`);
+  const taskTxt = document.querySelector(`#task-txt-${taskId - 1}`);
+  checkboxBtn.addEventListener("click", (event) => onChecked(event, taskTxt));
+
   const input = document.querySelector(`#task-${taskId - 1}`);
   input.addEventListener("click", (event) => onTaskPress(event));
 
   const trashBtn = document.querySelector(`#trash-button-${taskId - 1}`);
   trashBtn.addEventListener("click", (event) => onTaskDelete(event));
+};
+
+const onChecked = (event, taskTxt) => {
+  taskTxt.classList.toggle("done-task-txt");
 };
 
 const onTaskPress = (event) => {
