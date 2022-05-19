@@ -55,6 +55,10 @@ body {
   border: 1px solid black; */
   height: 70%;
   width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 /* ------- add task ------- */
@@ -62,12 +66,12 @@ body {
 .add-task-container {
   /* background-color: blueviolet; */
   border-bottom: 1px solid black;
-  width: 416px;
+  width: 100%;
   height: 69px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 20px;
+  /* gap: 20px; */
 }
 
 .add-task-btn {
@@ -75,6 +79,7 @@ body {
   font-size: 20px;
   cursor: pointer;
   background-color: transparent;
+  padding-right: 20px;
 }
 
 .add-task-input {
@@ -97,7 +102,7 @@ body {
 .task-container {
   /* background-color: blueviolet; */
   border-bottom: 1px solid black;
-  width: 416px;
+  width: 100%;
   height: 69px;
   display: flex;
   justify-content: space-between;
@@ -108,8 +113,27 @@ body {
   background-color: lightgray;
 }
 
+.task-checkbox {
+  background-color: blue;
+  position: absolute;
+}
+
 .task-txt {
+  /* background-color: red; */
   font-size: 20px;
+  margin-left: 37px;
+}
+
+.trash {
+  padding-right: 5px;
+  visibility: hidden;
+  border: none;
+  background-color: transparent;
+  justify-self: flex-end;
+}
+
+.task-container:hover .trash {
+  visibility: visible;
 }
 
 /* ------- task -> checkbox animation ------- */
@@ -142,7 +166,7 @@ input[type="checkbox"] + label:before {
   border: 1.5px solid #0a1930;
   position: absolute;
   left: 0;
-  top: 0;
+  top: -10px;
   opacity: 0.6;
   -webkit-transition: all 0.12s, border-color 0.08s;
   transition: all 0.12s, border-color 0.08s;
@@ -150,7 +174,7 @@ input[type="checkbox"] + label:before {
 
 input[type="checkbox"]:checked + label:before {
   width: 10px;
-  top: -5px;
+  top: -15px;
   left: 5px;
   border-radius: 0;
   opacity: 1;
@@ -158,19 +182,6 @@ input[type="checkbox"]:checked + label:before {
   border-left-color: transparent;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-}
-
-/* ------- task -> trash ------- */
-
-.trash {
-  padding-right: 5px;
-  visibility: hidden;
-  border: none;
-  background-color: transparent;
-}
-
-.task-container:hover .trash {
-  visibility: visible;
 }
 
 /* ------- todo footer ------- */
@@ -196,4 +207,8 @@ input[type="checkbox"]:checked + label:before {
   background-color: #0a1930;
   color: white;
   font-size: 16px;
+}
+
+.finished-all-missions {
+  height: 0px;
 }
