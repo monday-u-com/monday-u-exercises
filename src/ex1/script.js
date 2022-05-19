@@ -36,6 +36,13 @@ clearAllBtn.addEventListener("click", clearAll);
 todoElement.addEventListener("click", alertTask) ;
 
 
+
+
+
+
+//Functions
+
+
 function alertTask(e) {
     const item = e.target;
     
@@ -47,12 +54,6 @@ function alertTask(e) {
       /*will be used later in the project launch_listElement(message); */
     }
   }
-
-
-
-
-//Functions
-
 
 function listStyling(todosCount){
   
