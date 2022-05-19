@@ -36,5 +36,5 @@ https://user-images.githubusercontent.com/66553796/169341884-979c3c2d-01b9-4d04-
 - [x] Add animation when a new item is added
 - [x] Added animation when item / all items are removed removed
 - [x] Show count of pending tasks
-## **Feel free to explore the app by yourself
-## **Enjoy!! 
+## **Feel free to explore the app by yourself**
+## **Enjoy!! 📝😎**
