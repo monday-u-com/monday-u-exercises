@@ -106,7 +106,6 @@ form{
 }
 
 .tasks-container{
-    height: 100%;
     margin-left: 20px;
 }
 
@@ -150,10 +149,15 @@ i{
     pointer-events: none;
 }
 
+img{
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
 h2{
     color: grey;
     font-style: italic;
-
+    margin-top: 20px;
 }
 
 .btn-holder{
@@ -184,7 +188,7 @@ h2{
     transition: all 0.3s ease-out;
 }
 
-.task-list-item-fall{
+.task-delete-animation{
     transform: translateX(-30rem) rotateX(180deg);
     opacity: 0;
 }

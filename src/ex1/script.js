@@ -99,15 +99,16 @@ function deleteTodo(event){
         listGif.style.display= "block"
         doneTasksCounter = 0
     }
-    item.classList.add('task-list-item-fall')
+    item.classList.add('task-delete-animation')
     tasksCompleted.innerText = `You have completed ${doneTasksCounter} / ${tasksCounter} tasks`
 }
 
 
 /*** Clear All Button ***/
 function clearAllHandler(event){
-    if(tasksCounter != 0){
-        document.querySelector('ul').innerHTML = ''
+    const itemList = document.querySelector('ul')
+    while (itemList.hasChildNodes()){
+        itemList.removeChild(itemList.firstChild)
         tasksCompleted.style.display = "none"
         listGif.style.display= "block"
         tasksCounter = 0
