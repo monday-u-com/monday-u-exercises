@@ -61,6 +61,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  overflow-y: auto;
 }
 
 /* ------- add task ------- */
@@ -69,7 +70,7 @@ body {
   /* background-color: blueviolet; */
   border-bottom: 1px solid black;
   width: 100%;
-  height: 69px;
+  min-height: 69px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -109,9 +110,9 @@ body {
   /* background-color: blueviolet; */
   border-bottom: 1px solid black;
   width: 100%;
-  height: 69px;
+  min-height: 69px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -119,15 +120,15 @@ body {
   background-color: lightgray;
 }
 
-.task-checkbox {
-  background-color: blue;
-  position: absolute;
+.task-txt-container {
+  /* background-color: red; */
+  font-size: 20px;
+  margin-left: 16px;
+  width: 90%;
 }
 
 .task-txt {
-  /* background-color: red; */
-  font-size: 20px;
-  margin-left: 37px;
+  width: max-content;
 }
 
 /* ------- done task animation ------- */
@@ -140,9 +141,11 @@ body {
     width: 100%;
   }
 }
+
 .done-task-txt {
   position: relative;
 }
+
 .done-task-txt::after {
   color: rgba(10, 25, 48, 0.6);
   content: " ";
@@ -164,7 +167,7 @@ body {
   visibility: hidden;
   border: none;
   background-color: transparent;
-  justify-self: flex-end;
+  width: 5%;
 }
 
 .task-container:hover .trash {
@@ -172,6 +175,11 @@ body {
 }
 
 /* ------- task -> checkbox animation ------- */
+
+.task-checkbox {
+  position: relative;
+  width: 5%;
+}
 
 input[type="checkbox"] {
   display: none;
@@ -279,4 +287,8 @@ input[type="checkbox"]:checked + label:before {
   100% {
     transform: scale(1);
   }
+}
+
+.finished-all-missions h1 {
+  font-size: 28px;
 }
