@@ -1,0 +1,126 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-container {
+  height: 596px;
+  width: 497px;
+  border: 4px solid #0a1930;
+  border-radius: 10px;
+  color: #0a1930;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-container {
+  /* background-color: yellow;
+  border: 1px solid pink; */
+  height: 15%;
+  width: 90%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.app-title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+}
+
+.tasks-container {
+  /* background-color: red;
+  border: 1px solid black; */
+  height: 70%;
+  width: 90%;
+}
+
+.add-task-container {
+  /* background-color: blueviolet; */
+  border-bottom: 1px solid black;
+  width: 416px;
+  height: 69px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.add-task-btn {
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.add-task-txt {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: rgba(10, 25, 48, 0.6);
+}
+
+.task-container {
+  /* background-color: blueviolet; */
+  border-bottom: 1px solid black;
+  width: 416px;
+  height: 69px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.task-btn {
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.task-txt {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: rgba(10, 25, 48);
+}
+
+.todo-footer-container {
+  height: 15%;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tasks-left {
+  color: rgba(10, 25, 48, 0.6);
+  font-size: 18px;
+}
+
+.clear-all {
+  width: 98px;
+  height: 39px;
+  border-radius: 10px;
+  background-color: #0a1930;
+  color: white;
+  font-size: 16px;
+}

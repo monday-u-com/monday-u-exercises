@@ -1,14 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Exercise 1</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time To Grind</title>
     <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="todo-container">
+      <div class="title-container">
+        <h1 class="app-title">Time To Grind</h1>
+      </div>
+      <div class="tasks-container">
+        
+        <div class="add-task-container">
+          <button class="add-task-btn"><i class="fa-solid fa-plus"></i></button>
+          <p class="add-task-txt">Add task</p>
+        </div>
 
-<h1>Todo list</h1>
+        <div class="task-container">
+          <button class="task-btn"><i class="fa-solid fa-plus"></i></button>
+          <p class="task-txt">Summarize lecture 10</p>
+        </div>
 
-
-</body>
-<script src="script.js"></script>
+       
+      </div>
+      <div class="todo-footer-container">
+        <p class="tasks-left">Keep Grinding! You got 4 to go</p>
+        <button class="clear-all" type="button">Clear All</button>
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
 </html>
