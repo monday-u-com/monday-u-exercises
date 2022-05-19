@@ -56,6 +56,8 @@ const onAddTask = (event) => {
 
   // Clear 'Add task' input
   addTaskInput.value = "";
+  addTaskBtn.classList.remove("valid-task-btn");
+  isAddTaskClickable = false;
 
   tasksCnt++;
   updateTasksLeft();
@@ -101,7 +103,9 @@ const onTaskDelete = (event) => {
 
   if (!tasksCnt) {
     // Show finished all
-    document.querySelector(".finished-all-missions").classList.toggle("finished-all-missions-active");
+    document
+      .querySelector(".finished-all-missions")
+      .classList.toggle("finished-all-missions-active");
     // Hide clear all and left tasks
     document.querySelector(".todo-footer-container").classList.toggle("hide");
   }
@@ -121,7 +125,9 @@ const onClearAll = (event) => {
 
   tasksCnt = 0;
   // Show finished all
-  document.querySelector(".finished-all-missions").classList.toggle("finished-all-missions-active");
+  document
+    .querySelector(".finished-all-missions")
+    .classList.toggle("finished-all-missions-active");
   // Hide clear all and left tasks
   document.querySelector(".todo-footer-container").classList.toggle("hide");
 };
