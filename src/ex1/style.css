@@ -215,11 +215,11 @@ header {
   /*  pointer-events: none; */
 }
 
-.footer .sortBtn.active {
-  opacity: 1;
-  pointer-events: auto;
-  transition: all 0.3s ease;
+.footer .sortBtn.deactive {
+    display: none;
 }
+
+
 .footer .sortBtn:hover {
   opacity: 1;
   transition: all 0.3s ease;
@@ -240,6 +240,10 @@ header {
   /* pointer-events: none; */
 }
 
+.footer2 .clearAllBtn.deactive {
+    display: none;
+   } 
+
 .footer2 .clearAllBtn:hover {
   opacity: 1;
   transition: all 0.3s ease;
@@ -255,9 +259,7 @@ header {
   align-items: center;
 }
 
-.footer2 .clearAllBtn.deactive {
- display: none;
-} 
+
 .footer2 .clearAllBtn:hover {
   filter: brightness(90%);
 }
@@ -310,9 +312,9 @@ header {
   border-radius: 10px;
 }
 
-.inputField button :active {
+/* .inputField button :active {
   color: #e29624;
-}
+} */
 
 .inputField button:active:after {
   background: transparent;
@@ -334,7 +336,7 @@ header {
   border-radius: 10px;
 }
 
-@keyframes glowing {
+/* @keyframes glowing {
   0% {
     background-position: 0 0;
   }
@@ -344,7 +346,7 @@ header {
   100% {
     background-position: 0 0;
   }
-}
+} */
 
 #toast {
   visibility: hidden;

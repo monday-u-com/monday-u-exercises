@@ -122,11 +122,15 @@ function clearAll(e) {
   if (item.classList[0] === "clearAllBtn") {
     todoList.classList.add("fall");
 
+
     setTimeout(function () {
       //delay the remove animation
       todoList.innerHTML = "";
       localStorage.clear();
       todoList.classList.remove("fall");
+      clearAllBtn.classList.add("deactive")
+    sortBtn.classList.add("deactive")
+
     }, TRASH_ANIMATION_TIMEOUT);
     pendingTasksCount.textContent = 0;
     if (!todoInput.value.length) {
@@ -142,8 +146,12 @@ function checkLocalStorage() {
   let todos;
   if (localStorage.getItem("todos") === null) {
     todos = [];
+    clearAllBtn.classList.add("deactive")
+    sortBtn.classList.add("deactive")
   } else {
     todos = JSON.parse(localStorage.getItem("todos"));
+    clearAllBtn.classList.remove("deactive")
+    sortBtn.classList.remove("deactive")
   }
   return todos;
 }
@@ -155,6 +163,9 @@ function saveLocalTodos(todo) {
   todos.push(todo);
   localStorage.setItem("todos", JSON.stringify(todos));
   pendingTasksCount.textContent = todos.length;
+  clearAllBtn.classList.remove("deactive")
+  sortBtn.classList.remove("deactive")
+ 
 }
 
 //get and show the data from local storage after refreshing the page
@@ -182,6 +193,12 @@ function getTodos() {
   if (todos.length) {
     inputBox.classList.add("inactive");
     todoButton.classList.add("inactive");
+    clearAllBtn.classList.remove("deactive")
+    sortBtn.classList.remove("deactive")
+  }
+  else {
+    clearAllBtn.classList.add("deactive")
+    sortBtn.classList.add("deactive")
   }
 }
 
@@ -192,10 +209,12 @@ function removeLocalTodos(todo) {
   todos.splice(todos.indexOf(todoIndex), 1);
   localStorage.setItem("todos", JSON.stringify(todos));
   pendingTasksCount.textContent = todos.length;
-  if (todos.length == 0) {
+  if (!todos.length) {
     inputBox.classList.remove("inactive");
     todoButton.classList.remove("inactive");
     sortBtn.textContent = "Sort";
+    clearAllBtn.classList.add("deactive")
+    sortBtn.classList.add("deactive")
   }
 }
 
