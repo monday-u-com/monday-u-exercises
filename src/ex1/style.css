@@ -1,3 +1,4 @@
+
 html, body {
     margin: 0;
     height: 100%;
@@ -96,6 +97,18 @@ html, body {
         box-shadow: 0 4px 4px rgba(33,33,33,.2);
     }
 
+.chill {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    padding: 3em;
+}
+
+.chill i {
+    margin: 10px;
+}
+
 .footer {
     position: relative;
     bottom: 0;
@@ -115,40 +128,3 @@ html, body {
     border-radius: 4px;
 }
 
-/*
-.test {
-    text-align: left;
-    display: inline-block;
-    position: relative;
-    text-decoration: none;
-    color: black;
-    text-transform: capitalize;
-    background-color: whitesmoke;
-    padding: 20px 0px 20px 10px;
-    border-radius: 6px;
-    overflow: hidden;
-    transition: all 0.2s linear 0s;
-    margin: 5px;
-    padding: 0.5em;
-}
-
-    .test:before {
-        content: "\f2ed";
-        font-family: FontAwesome;
-        font-size: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 0;
-        right: -50px;
-        width: 50px;
-        height: 100%;
-        background-color: rgb(255, 106, 0);
-        border-radius: 0px 3px 3px 0px;
-        transition: all 0.2s linear 0s;
-        text-align: center;
-        cursor:pointer;
-    }
-
-*/
