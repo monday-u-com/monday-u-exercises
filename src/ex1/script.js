@@ -65,7 +65,7 @@ function AddNewTask(task_input, tasks_container, tasks_element, observer, config
         task = CreateElementFromHtml(tasks_element.html); // create element from html string in object tasks_element
         SetOnEventListener("click", task.children[Section_in_task.TEXT], AlertTask, task); // set on click event for new task
         SetOnEventListener("click", task.children[Section_in_task.NUMBER], AlertTask, task); // set on click event for new task
-        //task.children[0].innerHTML = tasks_element.id + ')';
+        task.children[0].innerHTML = (tasks_container.children.length + 1).toString().concat(')');
         task.children[1].innerHTML = todo_text; // set text from input to task
         SetOnEventListener("click", task.children[Section_in_task.BUTTONS].children[Section_in_task.DELETE_BUTTON], DeleteTask, task, tasks_container); // set a delete on click event
         SetOnEventListener("click", task.children[Section_in_task.BUTTONS].children[Section_in_task.COMPLETE_BUTTON], MarkAsComplete, task); // set a complete on click event        
@@ -216,11 +216,13 @@ function CreateElementFromHtml(html)
  */
 function SortTasksNumber(tasks_container)
 {
-    let tasks = tasks_container.children;
-    for (let i = 0; i < tasks.length;i++)
-    {
-        tasks[i].children[Section_in_task.NUMBER].innerHTML = (i + 1).toString().concat(")");
-    }
+    const tasks = [...tasks_container.children];
+    tasks.sort( (task1, task2) => {
+        const task1_number = parseInt(task1.querySelector(".task_number"));
+        const task2_number = parseInt(task2.querySelector(".task_number"));
+        return task1_number - task2_number;
+    });
+    tasks.forEach((task, key) => {task.querySelector(".task_number").innerHTML = (key + 1).toString().concat(")");});
 };
 
 /**
