@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="style">
 <head>
     <title>Exercise 1</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<h1>Todo list</h1>
-
-
+<div class="card">
+    <h1>Todo list</h1>
+    <div id="newToDo">
+        <input type="text" name="newToInput" id="newToInput" value="" placeholder="Add your new todo">
+        <button type="button" id="buttonAdd" class="buttonAdd" >+</button> 
+    </div>
+    <div id="listToDo" class="listToDo"></div>
+    <div id="footer" class="footer">
+        <h3 class="footer" >You have <span class="count"></span> pending tasks</h3>
+        <button type="button" id="buttonClearAll" class="buttonClearAll" >Clear All</button> 
+    </div>
+</div> 
 </body>
 <script src="script.js"></script>
+</div> 
 </html>
