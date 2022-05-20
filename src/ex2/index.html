@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Listy</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time To Grind</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
-    <div class="app-container">
-      <div class="list-container">
-        <h1 class="app-name">Todo App</h1>
-        <div class="list-controls">
-          <input
-            type="text"
-            id="list-item-input"
-            placeholder="Add your new todo"
-          />
-          <button type="button" id="list-item-submit">+</button>
+    <div class="todo-container">
+
+      <div class="title-container">
+        <h1 class="app-title">Time To Grind</h1>
+      </div>
+
+      <div class="tasks-container">
+        <div class="add-task-container">
+          <button class="add-task-btn"><i class="fa-solid fa-plus"></i></button>
+          <input class="add-task-input" placeholder="Add task" /></input>
         </div>
-        <ul id="list"></ul>
+
+        <div class="finished-all-missions finished-all-missions-active">
+          <span class="emoji round">🏆</span>
+          <h1>Done and Done </h1></div>
+        </div>
+
+      <div class="todo-footer-container hide">
+        <p class="tasks-left"></p>
+        <button class="clear-all" type="button">Clear All</button>
       </div>
     </div>
   </body>

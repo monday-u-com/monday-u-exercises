@@ -1,117 +1,294 @@
-html {
-  height: 100%;
-}
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  height: 100%;
 }
 
-.app-container {
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(#00c6bd, #fff7d6);
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.todo-container {
+  height: 596px;
+  width: 497px;
+  border: 4px solid #0a1930;
+  border-radius: 10px;
+  color: #0a1930;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.title-container {
+  /* background-color: yellow;
+  border: 1px solid pink; */
+  height: 15%;
+  width: 90%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.app-title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+}
+
+.tasks-container {
+  /* background-color: red;
+  border: 1px solid black; */
+  height: 70%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow-y: auto;
+}
+
+/* ------- add task ------- */
+
+.add-task-container {
+  /* background-color: blueviolet; */
+  border-bottom: 1px solid black;
   width: 100%;
-  height: 100%;
-  font-family: Georgia, serif;
-  font-weight: lighter;
-  background-image: linear-gradient(
-    to top right,
-    white,
-    #d4dff3,
-    rgba(138, 144, 224, 0.76),
-    rgba(106, 117, 231, 0.76),
-    rgba(85, 97, 229, 0.76)
-  );
-
+  min-height: 69px;
   display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
 }
 
-.app-name {
-  padding-left: 32px;
-  font-weight: lighter;
+.add-task-btn {
+  border: none;
+  font-size: 20px;
+  background-color: transparent;
+  padding-right: 20px;
+  color: rgba(10, 25, 48, 0.6);
 }
 
-.list-container {
+.valid-task-btn {
+  cursor: pointer;
+  color: rgba(10, 25, 48);
+}
+
+.add-task-input {
+  /* background-color: aqua; */
+  width: 100%;
+  border: none;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: rgba(10, 25, 48, 0.6);
+}
+
+.add-task-input:focus {
+  outline: none;
+  color: rgba(10, 25, 48);
+}
+
+/* ------- task ------- */
+
+.task-container {
+  /* background-color: blueviolet; */
+  border-bottom: 1px solid black;
+  width: 100%;
+  min-height: 69px;
   display: flex;
-  flex-direction: column;
-  width: 30%;
-  height: 50%;
-  background-color: white;
-  border: 1px silver solid;
-  border-radius: 8px;
-  -webkit-box-shadow: 12px 12px 38px -13px #000000;
-  box-shadow: 12px 12px 38px -13px #000000;
-}
-
-.list-controls {
-  padding: 0px 32px;
-  background-color: white;
-  display: flex;
+  justify-content: flex-start;
   align-items: center;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
 }
 
-.list-controls #list-item-input {
-  width: 85%;
-  height: 30px;
-  font-size: 16px;
-  padding-left: 8px;
+.task-container:hover {
+  background-color: lightgray;
 }
 
-.list-controls #list-item-submit {
+.task-txt-container {
+  /* background-color: red; */
+  font-size: 20px;
+  margin-left: 16px;
+  width: 90%;
+}
+
+.task-txt {
+  width: max-content;
+}
+
+/* ------- done task animation ------- */
+
+@keyframes strike {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.done-task-txt {
+  position: relative;
+}
+
+.done-task-txt::after {
+  color: rgba(10, 25, 48, 0.6);
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: black;
+  animation-name: strike;
+  animation-duration: 0.15s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.trash {
+  padding-right: 5px;
+  visibility: hidden;
+  border: none;
+  background-color: transparent;
+  width: 5%;
+}
+
+.task-container:hover .trash {
+  visibility: visible;
+}
+
+/* ------- task: checkbox animation ------- */
+
+.task-checkbox {
+  position: relative;
+  width: 5%;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 20px;
+  color: #0a1930;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input[type="checkbox"] + label:last-child {
+  margin-bottom: 0;
+}
+
+input[type="checkbox"] + label:before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid #0a1930;
+  position: absolute;
+  left: 0;
+  top: -10px;
+  opacity: 0.6;
+  -webkit-transition: all 0.12s, border-color 0.08s;
+  transition: all 0.12s, border-color 0.08s;
+}
+
+input[type="checkbox"]:checked + label:before {
+  width: 10px;
+  top: -15px;
+  left: 5px;
+  border-radius: 0;
+  opacity: 1;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* ------- todo footer ------- */
+
+.todo-footer-container {
+  height: 15%;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tasks-left {
+  color: rgba(10, 25, 48, 0.6);
+  font-size: 18px;
+}
+
+.clear-all {
+  width: 98px;
+  height: 39px;
+  border: none;
+  border-radius: 10px;
+  background-color: #0a1930;
   color: white;
-  background-color: #6c6cff;
-  border-style: solid;
-  border-color: transparent;
-  border-radius: 4px;
-  height: 35px;
-  width: 35px;
-  font-size: 32px;
+  font-size: 16px;
+}
+
+/* ------- finished all ------- */
+
+.finished-all-missions {
+  height: 0px;
+  visibility: hidden;
+}
+
+.finished-all-missions-active {
+  height: 50%;
+  width: 100%;
+  visibility: visible;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  cursor: pointer;
-  margin-left: auto;
-}
-
-.list-controls #list-item-submit:hover {
-  background-color: #3c3cff;
-  transition: background-color 0.2s ease-in-out;
-}
-
-#list {
-  list-style-type: none;
-  padding: 0px 30px;
-  height: 310px;
-  overflow-y: scroll;
-}
-
-.list-item {
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
   align-items: center;
 }
 
-.list-item:hover {
-  color: blueviolet;
-  transition: color 0.2s ease-in-out;
+.emoji {
+  display: block;
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 5rem;
+  line-height: 5rem;
+  transform: scale(0.5);
+  animation: scaleCup 2s infinite alternate;
 }
 
-.list-item:not(:last-of-type) {
-  border-bottom: 1px #bbb5b5 solid;
+@keyframes scaleCup {
+  0% {
+    transform: scale(0.6);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
-.list-item-delete-button {
-  margin-left: auto;
-  padding: 8px;
-  cursor: pointer;
-  border-radius: 8px;
-}
-
-.list-item-delete-button:hover {
-  background-color: #f0f0f5;
-  transition: background-color 0.2s ease-in-out;
+.finished-all-missions h1 {
+  font-size: 28px;
 }
