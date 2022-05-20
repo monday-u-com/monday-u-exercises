@@ -45,7 +45,7 @@ function onAddTask() {
   addTaskBtn.classList.remove("valid-task-btn");
   isAddTaskClickable = false;
 
-  //   updateTasksLeft();
+  updateTasksLeft();
 
   if (this.todos.length === 1) {
     // Hide finished all
@@ -70,7 +70,7 @@ function onAddTask() {
 // Tasks left
 const updateTasksLeft = () => {
   const tasksLeft = document.querySelector(".tasks-left");
-  tasksLeft.innerText = `Keep Grinding! You got ${tasksCnt} to go`;
+  tasksLeft.innerText = `Keep Grinding! You got ${todoList.todos.length} to go`;
 };
 
 createTask = ({ id: taskId, value }) => {
