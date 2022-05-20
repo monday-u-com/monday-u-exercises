@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Exercise 1</title>
+    <title>Todo do do</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-
-<h1>Todo list</h1>
-
-
+<div id="card" class="card">
+<h1>Todo do do</h1>
+<section id="add-task">
+    <input id='add-input' type="text"></input>
+    <button id="add-btn">+</button>
+</section>
+<section id="sort">
+    <button id="sort-btn">sort</button>
+</section>
+<section id="list">
+    <div id="empty-list" class="empty-list">
+        <i class="fa fa-hand-pointer-o" aria-hidden="true"></i>
+        <h3>Add a new task!</h3>
+    </div>
+    <ul id="list-tasks"></ul>
+</section>
+<section id="footer">
+    <p id="message"></p>
+    <button id="clear-btn">Clear All</button>
+</section>
+</div>
 </body>
 <script src="script.js"></script>
 </html>
