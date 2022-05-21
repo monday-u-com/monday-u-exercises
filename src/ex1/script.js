@@ -96,13 +96,11 @@ function createDeleteTaskButton(taskContainer) {
 // Adds mouseover events to reveal the delete button only when user hovers
 function addHoverReveal(taskContainer, deleteTask, newTask) {
    taskContainer.addEventListener("mouseover", () => {
-      deleteTask.style.display = "flex";
-      newTask.style.width = "26rem";
+      deleteTask.style.visibility = "visible";
    });
 
    taskContainer.addEventListener("mouseout", () => {
-      deleteTask.style.display = "none";
-      newTask.style.width = "29.5rem";
+      deleteTask.style.visibility = "hidden";
    });
 }
 
