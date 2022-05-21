@@ -1,24 +1,21 @@
 const addTaskButton = document.querySelector(".add-task");
 const taskInput = document.querySelector("#task-text");
 const allTasksContainer = document.querySelector(".all-tasks-container");
-const pendingTasksText = document.querySelector(".pending-tasks");
+const pendingTasksCounter = document.querySelector("#tasks-counter");
 let pendingTasks = 0;
 const clearButton = document.querySelector(".clear-all");
 const sortButton = document.querySelector(".name-sort");
 
-// Event trigger when user clicks the add task button
 addTaskButton.addEventListener("click", () => {
    addTask();
 });
 
-// Same as the button add task but only when user press "Enter"
 taskInput.addEventListener("keypress", (e) => {
    if (e.key === "Enter") {
       addTask();
    }
 });
 
-// Clears all tasks when clear all button is clicked
 clearButton.onclick = () => {
    document
       .querySelectorAll(".task-container")
@@ -26,7 +23,6 @@ clearButton.onclick = () => {
    pendingTasksUpdate(0);
 };
 
-// Sorts the tasks containers by name
 sortButton.onclick = () => {
    const taskContainers = [...document.querySelectorAll(".task-container")];
    taskContainers.sort((a, b) =>
@@ -36,9 +32,7 @@ sortButton.onclick = () => {
    taskContainers.map((container) => allTasksContainer.appendChild(container));
 };
 
-// Adds the user task input to the tasks list
 function addTask() {
-   // Checks for blank spaces
    if (taskInput.value.trim().length === 0) {
       alert("Please fill in a task");
       taskInput.value = "";
@@ -53,7 +47,6 @@ function addTask() {
    }
 }
 
-// Creates container which holds task box and delete button
 function createTaskContainer() {
    const taskContainer = document.createElement("div");
    taskContainer.classList.add("task-container");
@@ -62,7 +55,6 @@ function createTaskContainer() {
    return taskContainer;
 }
 
-// Creates task box and click alert event to it
 function createNewTask(taskContainer) {
    const newTask = document.createElement("div");
    newTask.textContent = taskInput.value;
@@ -76,7 +68,6 @@ function createNewTask(taskContainer) {
    return newTask;
 }
 
-// Creates the delete button next to each task
 function createDeleteTaskButton(taskContainer) {
    const deleteTask = document.createElement("div");
    const i = document.createElement("i");
@@ -93,7 +84,6 @@ function createDeleteTaskButton(taskContainer) {
    return deleteTask;
 }
 
-// Adds mouseover events to reveal the delete button only when user hovers
 function addHoverReveal(taskContainer, deleteTask, newTask) {
    taskContainer.addEventListener("mouseover", () => {
       deleteTask.style.visibility = "visible";
@@ -112,10 +102,9 @@ function pendingTasksUpdate(action) {
    } else {
       pendingTasks = 0;
    }
-   pendingTasksText.textContent = `You have ${pendingTasks} pending tasks`;
+   pendingTasksCounter.textContent = pendingTasks;
 }
 
-// Adds animation to new tasks added
 function createTaskAnimation(newTask) {
    const taskAnimation = [
       { transform: "scale(0)" },
