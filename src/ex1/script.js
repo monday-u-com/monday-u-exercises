@@ -1,10 +1,10 @@
-const addTaskButton = document.querySelector(".add-task");
-const taskInput = document.querySelector("#task-text");
-const allTasksContainer = document.querySelector(".all-tasks-container");
-const pendingTasksCounter = document.querySelector("#tasks-counter");
+const addTaskButton = document.querySelector(ADD_TASK_BUTTON_SELECTOR);
+const taskInput = document.querySelector(TASK_INPUT_SELECTOR);
+const allTasksContainer = document.querySelector(ALL_TASKS_CONTAINER_SELECTOR);
+const pendingTasksCounter = document.querySelector(TASKS_COUNTER_SELECTOR);
 let pendingTasks = 0;
-const clearButton = document.querySelector(".clear-all");
-const sortButton = document.querySelector(".name-sort");
+const clearButton = document.querySelector(CLEAR_BUTTON_SELECTOR);
+const sortButton = document.querySelector(SORT_BUTTON_SELECTOR);
 
 addTaskButton.addEventListener("click", () => {
    addTask();
@@ -18,13 +18,15 @@ taskInput.addEventListener("keypress", (e) => {
 
 clearButton.onclick = () => {
    document
-      .querySelectorAll(".task-container")
+      .querySelectorAll(TASKS_CONTAINER_SELECTOR)
       .forEach((task) => task.remove());
    pendingTasksUpdate(0);
 };
 
 sortButton.onclick = () => {
-   const taskContainers = [...document.querySelectorAll(".task-container")];
+   const taskContainers = [
+      ...document.querySelectorAll(TASKS_CONTAINER_SELECTOR),
+   ];
    taskContainers.sort((a, b) =>
       a.children[0].innerText.localeCompare(b.children[0].innerText)
    );
@@ -49,7 +51,7 @@ function addTask() {
 
 function createTaskContainer() {
    const taskContainer = document.createElement("div");
-   taskContainer.classList.add("task-container");
+   taskContainer.classList.add(TASKS_CONTAINER_SELECTOR.slice(1));
    allTasksContainer.append(taskContainer);
 
    return taskContainer;
