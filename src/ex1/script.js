@@ -41,14 +41,18 @@ function addTask() {
       alert("Please fill in a task");
       taskInput.value = "";
    } else {
-      const taskContainer = createTaskContainer();
-      const newTask = createNewTask(taskContainer);
-      const deleteTask = createDeleteTaskButton(taskContainer);
-      addHoverReveal(taskContainer, deleteTask, newTask);
-      createTaskAnimation(newTask);
+      createTaskProcedure();
       taskInput.value = "";
       pendingTasksUpdate("+");
    }
+}
+
+function createTaskProcedure() {
+   const taskContainer = createTaskContainer();
+   const newTask = createNewTask(taskContainer);
+   const deleteTask = createDeleteTaskButton(taskContainer);
+   addHoverReveal(taskContainer, deleteTask, newTask);
+   createTaskAnimation(newTask);
 }
 
 function createTaskContainer() {
