@@ -1,16 +1,27 @@
+import { pokemonClient } from "./PokemonClient.js";
+
 class ItemManager {
   constructor() {
     this.itemList = [];
+    this.pokemonName = "";
     this.addItem = this.addItem.bind(this);
     this.renderItems = this.renderItems.bind(this);
     this.createItem = this.createItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
   }
 
-  addItem() {
+  async addItem() {
     const item = document.querySelector("#list-item-input").value;
 
-    this.itemList.push(item);
+    if (!isNaN(+item)) {
+      const name = await pokemonClient.fetchPokemon(item);
+      this.pokemonName = name;
+
+      this.itemList.push(`Catch ${this.pokemonName}`);
+    } else {
+      this.itemList.push(item);
+    }
+
     this.renderItems();
   }
 
