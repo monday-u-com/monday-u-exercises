@@ -43,7 +43,7 @@ class ItemManager {
     //create elements
     const divElm = document.createElement("div");
     const liElm = document.createElement("li");
-    const deleteButton = document.createElement("button");
+    const deleteButton = document.createElement("img");
 
     // style  elements
     divElm.classList.add("div-item");
@@ -53,7 +53,7 @@ class ItemManager {
 
     //add textNodes
     liElm.appendChild(document.createTextNode(item));
-    deleteButton.appendChild(document.createTextNode("X"));
+    deleteButton.src = "../images/delete_icon.svg";
 
     //add ids
     const itemId = item.split(" ").join("-");
