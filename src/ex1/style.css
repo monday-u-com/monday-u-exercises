@@ -1,0 +1,173 @@
+body {
+  font-family: "Dosis", sans-serif;
+  background-color: rgb(153, 203, 205);
+}
+
+.white-box {
+  position: relative;
+  margin: 0 auto;
+  width: 400px;
+  height: 600px;
+  background-color: white;
+  border-radius: 1%;
+}
+
+.main-header {
+  margin-left: 25px;
+  padding-top: 15px;
+}
+
+.task-input-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.task-input {
+  margin-left: 25px;
+  padding: 10px;
+  width: 60%;
+  border: 1px solid rgb(197, 196, 196);
+  border-radius: 3px;
+  outline: none;
+}
+
+.task-button {
+  margin-right: 25px;
+  font-size: medium;
+  padding: 9px 13px;
+  width: 20%;
+  background-color: rgb(153, 90, 212);
+  color: white;
+  border: none;
+  border-radius: 3px;
+}
+
+.task-button:hover {
+  cursor: pointer;
+  background-color: cadetblue;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+}
+
+.task {
+  display: flex;
+}
+
+.task-item {
+  margin: 5px;
+  margin-left: 25px;
+  margin-right: 0;
+  padding: 10px;
+  width: 85%;
+  border-radius: 3px;
+  background-color: rgb(240, 239, 239);
+}
+
+.task-item:hover {
+  cursor: pointer;
+  background-color: cadetblue;
+}
+
+.delete-button {
+  margin: 5px;
+  margin-right: 25px;
+  margin-left: 0;
+  font-size: medium;
+  padding: 5px 13px;
+  background-color: rgb(216, 87, 113);
+  color: white;
+  border: none;
+  border-radius: 3px;
+}
+
+.delete-button:hover {
+  cursor: pointer;
+  background-color: rgb(175, 34, 62);
+}
+
+.triangle {
+  margin: 30px auto 0 auto;
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 100px solid rgb(205, 223, 223);
+  border-radius: 5px;
+}
+
+.box {
+  margin: 0 auto;
+  width: 100px;
+  height: 200px;
+  background-color: rgb(205, 223, 223);
+  border-radius: 0 0 5px 5px;
+}
+
+.welcome {
+  margin: 40px auto;
+  color: rgb(153, 90, 212);
+}
+
+.hithere {
+  animation: hithere 2s ease infinite;
+  animation-delay: 3s;
+}
+@keyframes hithere {
+  30% {
+    transform: scale(1.2);
+  }
+  40%,
+  60% {
+    transform: rotate(-20deg) scale(1.2);
+  }
+  50% {
+    transform: rotate(20deg) scale(1.2);
+  }
+  70% {
+    transform: rotate(0deg) scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.grow {
+  animation: grow 2s ease;
+}
+@keyframes grow {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+#clear-all-button {
+  position: absolute;
+  width: 25%;
+  left: 275px;
+  top: 540px;
+}
+
+#sort-by-name-button {
+  position: absolute;
+  width: 35%;
+  left: 25px;
+  top: 540px;
+  background-color: cadetblue;
+}
+
+#sort-by-name-button:hover {
+  background-color: rgb(153, 90, 212);
+}

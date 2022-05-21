@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Exercise 1</title>
+  <head>
+    <title>Task Manager</title>
     <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-
-<h1>Todo list</h1>
-
-
-</body>
-<script src="script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="white-box">
+      <h1 class="main-header">Task Manager</h1>
+      <div class="task-input-wrapper">
+        <input class="task-input" type="text" placeholder="Add your new task" />
+        <button id="add-task-button" class="task-button hithere">
+          Add task
+        </button>
+      </div>
+      <ul class="task-list">
+        <div id="triangle" class="triangle"></div>
+        <div id="box" class="box"></div>
+        <h2 id="welcome-sentence" class="welcome">
+          Can't wait when you add your first task!
+        </h2>
+      </ul>
+      <button id="sort-by-name-button" class="task-button hidden">
+        Sort by name
+      </button>
+      <button id="clear-all-button" class="task-button hidden">
+        Clear All
+      </button>
+    </div>
+  </body>
+  <script src="script.js"></script>
 </html>
