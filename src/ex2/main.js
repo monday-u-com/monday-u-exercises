@@ -1,11 +1,15 @@
 class Main {
-  constructor(addTaskBtn, addTaskInput, clearAllBtn) {
-    this.isAddTaskClickable = false;
-    this.diplayedTasksSet = new Set();
-
+  constructor(addTaskBtn, addTaskInput) {
     this.addTaskBtn = addTaskBtn;
     this.addTaskInput = addTaskInput;
-    this.clearAllBtn = clearAllBtn;
+
+    this.diplayedTasksSet = new Set();
+
+    /* After adding a new task and clearing addTaskInput.value 
+       we get true for addTaskInput.value (though we cleared it)
+       Thus, we use the following flag to identify the above state
+    */
+    this.isAddTaskClickable = false;
   }
 
   init = () => {
@@ -15,7 +19,7 @@ class Main {
       this.addTaskBtn,
       this.addTaskInput,
       [],
-      this.clearAllBtn,
+      document.querySelector(".clear-all"),
       this.onAddTask,
       this.onTaskDelete,
       this.onCheckUncheckTask,
