@@ -30,8 +30,10 @@ sortButton.onclick = () => {
    taskContainers.sort((a, b) =>
       a.children[0].innerText.localeCompare(b.children[0].innerText)
    );
-   taskContainers.map((container) => container.remove());
-   taskContainers.map((container) => allTasksContainer.appendChild(container));
+   taskContainers.forEach((container) => container.remove());
+   taskContainers.forEach((container) =>
+      allTasksContainer.appendChild(container)
+   );
 };
 
 function addTask() {
