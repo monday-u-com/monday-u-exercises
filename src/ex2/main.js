@@ -30,6 +30,7 @@ function onTaskInput() {
 const todoList = new ItemManager(addTaskBtn, addTaskInput, [], clearAllBtn, {
   onAddTask,
   onTaskDelete,
+  onCompleteTask,
 });
 
 function onAddTask() {
@@ -58,19 +59,36 @@ function onAddTask() {
 
   const checkboxBtn = document.querySelector(`#input-${this.taskId - 1}`);
   const taskTxt = document.querySelector(`#task-txt-${this.taskId - 1}`);
-  checkboxBtn.addEventListener("click", (event) => onChecked(event, taskTxt));
 
   const input = document.querySelector(`#task-${this.taskId - 1}`);
   input.addEventListener("click", (event) => onTaskPress(event));
 
   const trashBtn = document.querySelector(`#trash-button-${this.taskId - 1}`);
-  trashBtn.addEventListener("click", (event) => onTaskDelete(event));
+  //   trashBtn.addEventListener("click", (event) => onTaskDelete(event));
+
+  return { checkboxBtn, taskTxt, trashBtn };
 }
+
+function onCompleteTask(taskTxt) {
+  updateTasksLeft();
+  taskTxt.classList.toggle("done-task-txt");
+}
+
+const onTaskPress = (event) => {
+  if (event.target.classList.length) {
+    alert(document.querySelector(`#task-txt-${taskId - 1}`).innerText);
+  }
+};
 
 // Tasks left
 const updateTasksLeft = () => {
-  const tasksLeft = document.querySelector(".tasks-left");
-  tasksLeft.innerText = `Keep Grinding! You got ${todoList.todos.length} to go`;
+  const tasksLeft = todoList.todos.reduce(
+    (currTasksLeft, todo) =>
+      todo.toBeDone ? currTasksLeft + 1 : currTasksLeft,
+    0
+  );
+  const tasksLeftElem = document.querySelector(".tasks-left");
+  tasksLeftElem.innerText = `Keep Grinding! You got ${tasksLeft} to go`;
 };
 
 createTask = ({ id: taskId, value }) => {
@@ -95,10 +113,9 @@ createTask = ({ id: taskId, value }) => {
 };
 
 // Delete task
-function onTaskDelete(event) {
-  const clickedId = event.target.id;
-  const taskIdToRemove = clickedId.slice(clickedId.lastIndexOf("-") + 1);
-  document.querySelector(`#task-${taskIdToRemove}`).remove();
+function onTaskDelete(todoToDelete) {
+  document.querySelector(`#task-${todoToDelete.id}`).remove();
+  diplayedTasksSet.delete(todoToDelete.id);
 
   updateTasksLeft();
 }
