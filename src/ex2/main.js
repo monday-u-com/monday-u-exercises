@@ -5,9 +5,16 @@ class Main {
   constructor() {}
 
   addButton = document.querySelector("#list-item-submit");
+  addItemInput = document.querySelector("#list-item-input");
 
   init() {
     this.addButton.addEventListener("click", itemManager.addItem);
+
+    this.addItemInput.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
+        itemManager.addItem();
+      }
+    });
   }
 }
 
