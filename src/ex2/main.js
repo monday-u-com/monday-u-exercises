@@ -2,14 +2,7 @@ class Main {
   constructor(addTaskBtn, addTaskInput) {
     this.addTaskBtn = addTaskBtn;
     this.addTaskInput = addTaskInput;
-
     this.diplayedTasksSet = new Set();
-
-    /* After adding a new task and clearing addTaskInput.value 
-       we get true for addTaskInput.value (though we cleared it)
-       Thus, we use the following flag to identify the above state
-    */
-    this.isAddTaskClickable = false;
   }
 
   init = () => {
@@ -20,26 +13,27 @@ class Main {
       this.addTaskInput,
       [],
       document.querySelector(".clear-all"),
-      this.onAddTask,
-      this.onTaskDelete,
-      this.onCheckUncheckTask,
-      this.onFinishedAll,
-      this.onClearAll
+      {
+        onAddTask: this.onAddTask,
+        onTaskDelete: this.onTaskDelete,
+        onCheckUncheckTask: this.onCheckUncheckTask,
+        onFinishedAll: this.onFinishedAll,
+        onClearAll: this.onClearAll,
+      }
     );
   };
 
   // Add task will be clickable only for a non empty task
   onTaskInput = () => {
-    if (this.addTaskInput.value && !this.isAddTaskClickable) {
+    if (this.addTaskInput.value !== "") {
       this.addTaskBtn.classList.add("valid-task-btn");
-      this.isAddTaskClickable = true;
-    } else if (!this.addTaskInput.value) {
+    } else if (this.addTaskInput.value === "") {
       this.addTaskBtn.classList.remove("valid-task-btn");
-      this.isAddTaskClickable = false;
     }
   };
 
   onAddTask = (taskId) => {
+    // Render tasks
     this.todoList.todos.forEach((todo) => {
       if (!this.diplayedTasksSet.has(todo.id)) {
         document
@@ -52,27 +46,15 @@ class Main {
     // Clear 'Add task' input
     this.addTaskInput.value = "";
     this.addTaskBtn.classList.remove("valid-task-btn");
-    this.isAddTaskClickable = false;
 
     this.updateTasksLeft();
 
     if (this.todoList.todos.length === 1) {
-      // Hide finished all
-      document
-        .querySelector(".finished-all-missions")
-        .classList.toggle("finished-all-missions-active");
-      // Show clear all and left tasks
-      document.querySelector(".todo-footer-container").classList.toggle("hide");
+      this.toggleFinishedAllAndFooter();
     }
-
-    const checkboxBtn = document.querySelector(`#input-${taskId}`);
-    const taskTxt = document.querySelector(`#task-txt-${taskId}`);
-    const trashBtn = document.querySelector(`#trash-button-${taskId}`);
 
     const input = document.querySelector(`#task-${taskId}`);
     input.addEventListener("click", (event) => this.onTaskPress(event, taskId));
-
-    return { checkboxBtn, taskTxt, trashBtn };
   };
 
   onCheckUncheckTask = (taskTxt) => {
@@ -110,12 +92,7 @@ class Main {
       nodes[i].remove();
     }
 
-    // Show finished all
-    document
-      .querySelector(".finished-all-missions")
-      .classList.toggle("finished-all-missions-active");
-    // Hide clear all and left tasks
-    document.querySelector(".todo-footer-container").classList.toggle("hide");
+    this.toggleFinishedAllAndFooter();
   };
 
   // Tasks left
@@ -151,11 +128,15 @@ class Main {
   };
 
   onFinishedAll = () => {
-    // Show finished all
+    this.toggleFinishedAllAndFooter();
+  };
+
+  toggleFinishedAllAndFooter = () => {
+    // Show/hide finished all
     document
       .querySelector(".finished-all-missions")
       .classList.toggle("finished-all-missions-active");
-    // Hide clear all and left tasks
+    // Hide/show clear all and left tasks
     document.querySelector(".todo-footer-container").classList.toggle("hide");
   };
 }

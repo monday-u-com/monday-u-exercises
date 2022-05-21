@@ -1,26 +1,18 @@
 class ItemManager {
-  constructor(
-    addTaskBtn,
-    addTaskInput,
-    todos,
-    clearAllBtn,
-    onAddTask,
-    onTaskDelete,
-    onCheckUncheckTask,
-    onFinishedAll,
-    onClearAll
-  ) {
+  constructor(addTaskBtn, addTaskInput, todos, clearAllBtn, callbacks) {
     this.addTaskBtn = addTaskBtn;
     this.addTaskInput = addTaskInput;
     this.todos = todos;
     this.clearAllBtn = clearAllBtn;
     this.taskId = 0;
 
-    this.onAddTask = onAddTask;
-    this.onTaskDelete = onTaskDelete;
-    this.onFinishedAll = onFinishedAll;
-    this.onCheckUncheckTask = onCheckUncheckTask;
-    this.onClearAll = onClearAll;
+    if (callbacks) {
+      this.onAddTask = callbacks.onAddTask;
+      this.onTaskDelete = callbacks.onTaskDelete;
+      this.onFinishedAll = callbacks.onFinishedAll;
+      this.onCheckUncheckTask = callbacks.onCheckUncheckTask;
+      this.onClearAll = callbacks.onClearAll;
+    }
 
     this.addTaskBtn.addEventListener("click", this.addTask);
     document.addEventListener("keypress", (event) => this.onKeyPress(event));
@@ -35,8 +27,11 @@ class ItemManager {
 
     const todo = new Todo(this.addTaskInput.value, this.taskId++);
     this.todos.push(todo);
-    const { checkboxBtn, taskTxt, trashBtn } = this.onAddTask(todo.id);
+    this.onAddTask(todo.id);
 
+    const checkboxBtn = document.querySelector(`#input-${todo.id}`);
+    const taskTxt = document.querySelector(`#task-txt-${todo.id}`);
+    const trashBtn = document.querySelector(`#trash-button-${todo.id}`);
     checkboxBtn.addEventListener("click", () =>
       this.checkUncheckTask(todo.id, taskTxt)
     );
