@@ -103,13 +103,18 @@ function addHoverReveal(taskContainer, deleteTask, newTask) {
 }
 
 function pendingTasksUpdate(action) {
-   if (action === "+") {
-      pendingTasks++;
-   } else if (action === "-") {
-      pendingTasks--;
-   } else {
-      pendingTasks = 0;
+   switch (action) {
+      case "+":
+         pendingTasks++;
+         break;
+      case "-":
+         pendingTasks--;
+         break;
+      case 0:
+         pendingTasks = 0;
+         break;
    }
+
    pendingTasksCounter.textContent = pendingTasks;
 }
 
