@@ -27,9 +27,9 @@ class ItemManager {
     }
 
     let todoValues;
-    if (/^(\d*,)*\d*$/.test(this.addTaskInput.value.replace(" ", ""))) {
+    if (/^(\d*\s*,\s*)*\s*\d*\s*$/.test(this.addTaskInput.value)) {
       todoValues = await this.pokemonClient.getPokemon(
-        this.addTaskInput.value.replace(" ", "").split(",")
+        this.addTaskInput.value.replaceAll(" ", "").split(",")
       );
     } else {
       todoValues = [this.addTaskInput.value];

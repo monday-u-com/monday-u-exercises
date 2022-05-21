@@ -4,6 +4,7 @@ class PokemonClient {
   }
 
   async getPokemon(pokemonIds) {
+      console.log(pokemonIds)
     const promises = pokemonIds.map((pokemonId) =>
       axios.get(`${this.endPoint}${pokemonId}`)
     );
