@@ -14,13 +14,18 @@ class ItemManager {
     this.renderItems();
   }
 
-  removeItem(item) {
+  removeItem({ target }) {
+    const buttonId = target.id.split("-");
+    buttonId.pop();
+    const item = buttonId.join(" ");
+
     const itemIndex = this.itemList.findIndex((listItem) => {
       return listItem === item;
     });
 
     this.itemList.splice(itemIndex, 1);
-    renderItems();
+
+    this.renderItems();
   }
 
   renderItems() {
