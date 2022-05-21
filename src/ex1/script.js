@@ -1,9 +1,7 @@
 let addTaskBtn = document.querySelector(".submitBtn")
 let inputText = document.querySelector(".taskText")
 
-
-addImg()
-
+//Handle Image
 function addImg() {
     const img = document.createElement("img");
     img.id = "noTaskImg"
@@ -16,16 +14,15 @@ function removeImg() {
     const img = document.getElementById('noTaskImg');
     img.parentNode.removeChild(img);
 }
+////
 
 
-//Check which btn was pressed, if delete, check if there are any more tasks to do
+// Handle Add Task
 
-
-
-
-addTaskBtn.addEventListener('click', () => {
+addTaskBtn.addEventListener('click', (event) => {
     let taskContent = inputText.value
     if (taskContent != "") {
+        event.preventDefault()
         if (document.querySelector('#noTaskImg')) {
             removeImg()
         }
@@ -37,7 +34,7 @@ addTaskBtn.addEventListener('click', () => {
 function createTaskDiv(taskContent) {
     const task = addTaskContent(taskContent)
     addDeleteBtn(task)
-
+    addDoneBtn(task)
 }
 
 function addTaskContent(taskContent) {
@@ -45,8 +42,9 @@ function addTaskContent(taskContent) {
     task.className = "task"
 
     task.onclick = function (event) {
-        event.stopPropagation()
-        alert(task.outerText)
+        event.cancelBubble = true;
+        event.preventDefault()
+        alert(taskContent)
         console.log(task.textContent)
     }
 
@@ -61,9 +59,10 @@ function addTaskContent(taskContent) {
 function addDeleteBtn(task) {
     const btn = document.createElement("button");
     btn.className = "removeTask-btn"
-    btn.appendChild(document.createTextNode("X"));
+    btn.textContent = 'X';
 
     btn.onclick = function (event) {
+        event.preventDefault()
         event.stopPropagation()
         this.parentNode.parentNode.removeChild(this.parentNode);
         if (!document.querySelector('.task')) {
@@ -75,25 +74,18 @@ function addDeleteBtn(task) {
 }
 
 
-// function addDoneBtn(task) {
-//     const input = document.createElement("input");
-//     input.className = "taskDone-btn"
-//     input.type = "checkbox"
+function addDoneBtn(task) {
+    const input = document.createElement("input");
+    input.className = "taskDone-btn"
+    input.type = "checkbox"
 
-//     input.onclick = function (event) {
-//         event.stopPropagation()
-//         input.parentNode.className = "taskDone-btn-pressed"
-//         console.log(input.parentNode.className)
-//         if (input.parentNode.className == "taskDone-btn-pressed") {
-//             input.parentNode.className = "task"
-//         } else input.parentNode.style.back == "taskDone-btn-pressed"
-//     }
-
-//     task.appendChild(input)
-// }
-
-
-
-function onTaskDone(even) {
-
+    input.onclick = function (event) {
+        event.stopPropagation()
+        if (input.checked) {
+            input.parentNode.className = "taskDone-btn-pressed"
+        } else {
+            input.parentNode.className = "task"
+        }
+    }
+    task.appendChild(input)
 }

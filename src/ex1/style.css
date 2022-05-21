@@ -1,3 +1,12 @@
+.container {
+    padding: 15px;
+    border-radius: 7px;
+    max-width: 50%;
+    margin: auto;
+    background-color: aliceblue;
+    width: 500px;
+}
+
 body {
     background-color: darkslategray;
 }
@@ -10,33 +19,26 @@ h1 {
 
 img {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     width: 50%;
 }
 
-.container {
-    padding: 15px;
-    border-radius: 7px;
-    max-width: 50%;
-    margin: auto;
-    background-color: aliceblue;
-}
+
 
 .removeTask-btn {
     background-color: azure;
     cursor: pointer;
-    appearance: auto;
     float: right;
     height: auto;
     width: auto;
-
 }
+
+
 
 .taskDone-btn {
     background-color: azure;
     float: right;
-    height: auto;
+    height: 2p0;
     width: auto;
 }
 
@@ -61,6 +63,7 @@ img {
 .task {
     padding: 7px;
     border: 1px solid black;
+    
 }
 
 .task:hover {
