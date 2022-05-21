@@ -3,10 +3,11 @@ class Main {
     this.addTaskBtn = addTaskBtn;
     this.addTaskInput = addTaskInput;
     this.diplayedTasksSet = new Set();
+    this.todoList;
   }
 
-  init = () => {
-    this.addTaskInput.addEventListener("input", this.onTaskInput);
+  init() {
+    this.addTaskInput.addEventListener("input", () => this.onTaskInput());
 
     this.todoList = new ItemManager(
       this.addTaskBtn,
@@ -14,25 +15,25 @@ class Main {
       [],
       document.querySelector(".clear-all"),
       {
-        onAddTask: this.onAddTask,
-        onTaskDelete: this.onTaskDelete,
-        onCheckUncheckTask: this.onCheckUncheckTask,
-        onFinishedAll: this.onFinishedAll,
-        onClearAll: this.onClearAll,
+        onAddTask: (taskId) => this.onAddTask(taskId),
+        onTaskDelete: (todoToDelete) => this.onTaskDelete(todoToDelete),
+        onCheckUncheckTask: (taskTxt) => this.onCheckUncheckTask(taskTxt),
+        onFinishedAll: () => this.onFinishedAll(),
+        onClearAll: () => this.onClearAll(),
       }
     );
-  };
+  }
 
   // Add task will be clickable only for a non empty task
-  onTaskInput = () => {
+  onTaskInput() {
     if (this.addTaskInput.value !== "") {
       this.addTaskBtn.classList.add("valid-task-btn");
     } else if (this.addTaskInput.value === "") {
       this.addTaskBtn.classList.remove("valid-task-btn");
     }
-  };
+  }
 
-  onAddTask = (taskId) => {
+  onAddTask(taskId) {
     // Render tasks
     this.todoList.todos.forEach((todo) => {
       if (!this.diplayedTasksSet.has(todo.id)) {
@@ -55,14 +56,14 @@ class Main {
 
     const input = document.querySelector(`#task-${taskId}`);
     input.addEventListener("click", (event) => this.onTaskPress(event, taskId));
-  };
+  }
 
-  onCheckUncheckTask = (taskTxt) => {
+  onCheckUncheckTask(taskTxt) {
     this.updateTasksLeft();
     taskTxt.classList.toggle("done-task-txt");
-  };
+  }
 
-  onTaskPress = (event, taskId) => {
+  onTaskPress(event, taskId) {
     const isTaskExist = document.querySelector(`#task-${taskId}`);
     if (isTaskExist) {
       const wasClickedOnTaskValue =
@@ -76,16 +77,16 @@ class Main {
         alert(document.querySelector(`#task-txt-${taskId}`).innerText);
       }
     }
-  };
+  }
 
-  onTaskDelete = (todoToDelete) => {
+  onTaskDelete(todoToDelete) {
     document.querySelector(`#task-${todoToDelete.id}`).remove();
     this.diplayedTasksSet.delete(todoToDelete.id);
 
     this.updateTasksLeft();
-  };
+  }
 
-  onClearAll = () => {
+  onClearAll() {
     const nodes = document.querySelector(".tasks-container").childNodes;
     // The first 5 aren't tasks
     for (let i = nodes.length - 1; i >= 5; i--) {
@@ -93,10 +94,10 @@ class Main {
     }
 
     this.toggleFinishedAllAndFooter();
-  };
+  }
 
   // Tasks left
-  updateTasksLeft = () => {
+  updateTasksLeft() {
     const tasksLeft = this.todoList.todos.reduce(
       (currTasksLeft, todo) =>
         todo.toBeDone ? currTasksLeft + 1 : currTasksLeft,
@@ -104,9 +105,9 @@ class Main {
     );
     const tasksLeftElem = document.querySelector(".tasks-left");
     tasksLeftElem.innerText = `Keep Grinding! You got ${tasksLeft} to go`;
-  };
+  }
 
-  createTask = ({ id: taskId, value }) => {
+  createTask({ id: taskId, value }) {
     const task = document.createElement("div");
     task.classList.add("task-container");
     task.id = `task-${taskId}`;
@@ -125,18 +126,18 @@ class Main {
         </button>
         `;
     return task;
-  };
+  }
 
-  onFinishedAll = () => {
+  onFinishedAll() {
     this.toggleFinishedAllAndFooter();
-  };
+  }
 
-  toggleFinishedAllAndFooter = () => {
+  toggleFinishedAllAndFooter() {
     // Show/hide finished all
     document
       .querySelector(".finished-all-missions")
       .classList.toggle("finished-all-missions-active");
     // Hide/show clear all and left tasks
     document.querySelector(".todo-footer-container").classList.toggle("hide");
-  };
+  }
 }
