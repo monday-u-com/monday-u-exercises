@@ -100,10 +100,6 @@ body {
   transition: color 0.2s ease-in-out;
 }
 
-.list-item:not(:last-of-type) {
-  border-bottom: 1px #bbb5b5 solid;
-}
-
 .list-item-delete-button {
   margin-left: auto;
   padding: 8px;
@@ -114,4 +110,12 @@ body {
 .list-item-delete-button:hover {
   background-color: #f0f0f5;
   transition: background-color 0.2s ease-in-out;
+}
+
+.div-item {
+  display: flex;
+}
+
+.div-item:not(:last-of-type) {
+  border-bottom: 1px #bbb5b5 solid;
 }
