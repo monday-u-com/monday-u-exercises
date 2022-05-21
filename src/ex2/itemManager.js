@@ -5,6 +5,7 @@ class ItemManager {
     this.todos = todos;
     this.clearAllBtn = clearAllBtn;
     this.taskId = 0;
+    this.pokemonClient = new PokemonClient();
 
     if (callbacks) {
       this.onAddTask = callbacks.onAddTask;
@@ -19,13 +20,23 @@ class ItemManager {
     clearAllBtn.addEventListener("click", () => this.clearAll());
   }
 
-  addTask = () => {
+  addTask() {
     // Validate the input isn't empty before adding the task
     if (!addTaskInput.value) {
       return;
     }
 
-    const todo = new Todo(this.addTaskInput.value, this.taskId++);
+    let todoValue;
+    if (!isNaN(this.addTaskInput.value)) {
+      this.pokemonClient
+        .getPokemon(this.addTaskInput.value)
+        .then((pokemonName) => {
+          todoValue = pokemonName;
+        });
+    } else {
+      todoValue = this.addTaskInput.value;
+    }
+    const todo = new Todo(todoValue, this.taskId++);
     this.todos.push(todo);
     this.onAddTask(todo.id);
 
@@ -38,7 +49,7 @@ class ItemManager {
     trashBtn.addEventListener("click", () => this.deleteTask(todo));
   };
 
-  onKeyPress = (event) => {
+  onKeyPress(event) {
     if (event.key === "Enter") {
       const inputElem = document.querySelector(".add-task-input");
       if (inputElem === document.activeElement) {
@@ -47,7 +58,7 @@ class ItemManager {
     }
   };
 
-  deleteTask = (todoToDelete) => {
+  deleteTask(todoToDelete) {
     this.todos = this.todos.filter((todo) => todo.id !== todoToDelete.id);
     this.onTaskDelete(todoToDelete);
 
@@ -56,13 +67,13 @@ class ItemManager {
     }
   };
 
-  checkUncheckTask = (taskId, taskTxt) => {
+  checkUncheckTask(taskId, taskTxt) {
     const todoInd = this.todos.findIndex((todo) => todo.id == taskId);
     this.todos[todoInd].toBeDone = !this.todos[todoInd].toBeDone;
     this.onCheckUncheckTask(taskTxt);
   };
 
-  clearAll = () => {
+  clearAll() {
     this.todos = [];
     this.onClearAll();
   };
