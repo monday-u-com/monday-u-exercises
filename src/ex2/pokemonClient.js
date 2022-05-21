@@ -1,6 +1,6 @@
 class PokemonClient {
   constructor() {
-    this.endPoint = "https://pokeapi.co/api/v2/pokemon22/";
+    this.endPoint = "https://pokeapi.co/api/v2/pokemon/";
   }
 
   async getPokemon(pokemonIds) {
