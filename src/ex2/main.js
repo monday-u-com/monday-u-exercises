@@ -31,6 +31,7 @@ const todoList = new ItemManager(addTaskBtn, addTaskInput, [], clearAllBtn, {
   onAddTask,
   onTaskDelete,
   onCompleteTask,
+  onFinishedAll,
 });
 
 function onAddTask() {
@@ -120,7 +121,7 @@ function onTaskDelete(todoToDelete) {
   updateTasksLeft();
 }
 
-const onFinishedAll = () => {
+function onFinishedAll() {
   // Show finished all
   document
     .querySelector(".finished-all-missions")

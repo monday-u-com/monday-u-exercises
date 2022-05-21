@@ -47,9 +47,7 @@ class ItemManager {
 
   deleteTask = (todoToDelete) => {
     console.log("deleteTask");
-    this.todos = this.todos.filter(
-      (todo) => todo.id !== todoToDelete.id
-    );
+    this.todos = this.todos.filter((todo) => todo.id !== todoToDelete.id);
     this.onTaskDelete(todoToDelete);
 
     if (!this.todos.length) {
