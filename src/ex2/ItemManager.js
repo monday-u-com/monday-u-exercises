@@ -12,12 +12,23 @@ class ItemManager {
 
   async addItem() {
     const item = document.querySelector("#list-item-input").value;
+    const array = item.split(",");
 
     if (!isNaN(+item)) {
       const name = await pokemonClient.fetchPokemon(item);
       this.pokemonName = name;
 
       this.itemList.push(`Catch ${this.pokemonName}`);
+    } else if (!isNaN(+array[0])) {
+      let allPromises = [];
+      array.forEach((elm) => {
+        allPromises.push(pokemonClient.fetchPokemon(elm));
+      });
+      const names = await Promise.all(allPromises);
+
+      names.forEach((name) => {
+        this.itemList.push(`Catch ${name}`);
+      });
     } else {
       this.itemList.push(item);
     }
