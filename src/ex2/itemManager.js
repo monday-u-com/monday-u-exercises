@@ -11,10 +11,12 @@ class ItemManager {
       this.onTaskDelete = callbacks.onTaskDelete;
       this.onFinishedAll = callbacks.onFinishedAll;
       this.onCheckUncheckTask = callbacks.onCheckUncheckTask;
+      this.onClearAll = callbacks.onClearAll;
     }
 
     this.addTaskBtn.addEventListener("click", this.addTask);
     document.addEventListener("keypress", (event) => this.onKeyPress(event));
+    clearAllBtn.addEventListener("click", () => this.clearAll());
   }
 
   addTask = () => {
@@ -55,5 +57,10 @@ class ItemManager {
     const todoInd = this.todos.findIndex((todo) => todo.id == taskId);
     this.todos[todoInd].toBeDone = !this.todos[todoInd].toBeDone;
     this.onCheckUncheckTask(taskTxt);
+  };
+
+  clearAll = () => {
+    this.todos = [];
+    onClearAll();
   };
 }

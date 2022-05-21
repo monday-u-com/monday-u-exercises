@@ -32,7 +32,23 @@ const todoList = new ItemManager(addTaskBtn, addTaskInput, [], clearAllBtn, {
   onTaskDelete,
   onCheckUncheckTask,
   onFinishedAll,
+  onClearAll,
 });
+
+function onClearAll() {
+  const nodes = document.querySelector(".tasks-container").childNodes;
+  // The first 5 aren't tasks
+  for (let i = nodes.length - 1; i >= 5; i--) {
+    nodes[i].remove();
+  }
+
+  // Show finished all
+  document
+    .querySelector(".finished-all-missions")
+    .classList.toggle("finished-all-missions-active");
+  // Hide clear all and left tasks
+  document.querySelector(".todo-footer-container").classList.toggle("hide");
+}
 
 function onAddTask(taskId) {
   todoList.todos.forEach((todo) => {
