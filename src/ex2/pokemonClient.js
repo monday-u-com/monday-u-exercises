@@ -3,9 +3,12 @@ class PokemonClient {
     this.endPoint = "https://pokeapi.co/api/v2/pokemon/";
   }
 
-  async getPokemon(pokemonId) {
-    const res = await axios.get(`${this.endPoint}${pokemonId}`);
-    console.log(res.data.name);
-    return res.data.name;
+  async getPokemon(pokemonIds) {
+    const promises = pokemonIds.map((pokemonId) =>
+      axios.get(`${this.endPoint}${pokemonId}`)
+    );
+    const results = await Promise.all(promises);
+    console.log(results);
+    return results.map((res) => res.data.name);
   }
 }

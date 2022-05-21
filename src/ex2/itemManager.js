@@ -20,34 +20,35 @@ class ItemManager {
     clearAllBtn.addEventListener("click", () => this.clearAll());
   }
 
-  addTask() {
+  async addTask() {
     // Validate the input isn't empty before adding the task
     if (!addTaskInput.value) {
       return;
     }
 
-    let todoValue;
-    if (!isNaN(this.addTaskInput.value)) {
-      this.pokemonClient
-        .getPokemon(this.addTaskInput.value)
-        .then((pokemonName) => {
-          todoValue = pokemonName;
-        });
+    let todoValues;
+    if (/^(\d*,)*\d*$/.test(this.addTaskInput.value.replace(" ", ""))) {
+      todoValues = await this.pokemonClient.getPokemon(
+        this.addTaskInput.value.replace(" ", "").split(",")
+      );
     } else {
-      todoValue = this.addTaskInput.value;
+      todoValues = [this.addTaskInput.value];
     }
-    const todo = new Todo(todoValue, this.taskId++);
-    this.todos.push(todo);
-    this.onAddTask(todo.id);
 
-    const checkboxBtn = document.querySelector(`#input-${todo.id}`);
-    const taskTxt = document.querySelector(`#task-txt-${todo.id}`);
-    const trashBtn = document.querySelector(`#trash-button-${todo.id}`);
-    checkboxBtn.addEventListener("click", () =>
-      this.checkUncheckTask(todo.id, taskTxt)
-    );
-    trashBtn.addEventListener("click", () => this.deleteTask(todo));
-  };
+    todoValues.forEach((todoValue) => {
+      const todo = new Todo(todoValue, this.taskId++);
+      this.todos.push(todo);
+      this.onAddTask(todo.id);
+
+      const checkboxBtn = document.querySelector(`#input-${todo.id}`);
+      const taskTxt = document.querySelector(`#task-txt-${todo.id}`);
+      const trashBtn = document.querySelector(`#trash-button-${todo.id}`);
+      checkboxBtn.addEventListener("click", () =>
+        this.checkUncheckTask(todo.id, taskTxt)
+      );
+      trashBtn.addEventListener("click", () => this.deleteTask(todo));
+    });
+  }
 
   onKeyPress(event) {
     if (event.key === "Enter") {
@@ -56,7 +57,7 @@ class ItemManager {
         this.addTask();
       }
     }
-  };
+  }
 
   deleteTask(todoToDelete) {
     this.todos = this.todos.filter((todo) => todo.id !== todoToDelete.id);
@@ -65,16 +66,16 @@ class ItemManager {
     if (!this.todos.length) {
       this.onFinishedAll();
     }
-  };
+  }
 
   checkUncheckTask(taskId, taskTxt) {
     const todoInd = this.todos.findIndex((todo) => todo.id == taskId);
     this.todos[todoInd].toBeDone = !this.todos[todoInd].toBeDone;
     this.onCheckUncheckTask(taskTxt);
-  };
+  }
 
   clearAll() {
     this.todos = [];
     this.onClearAll();
-  };
+  }
 }
