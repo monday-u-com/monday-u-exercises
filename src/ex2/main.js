@@ -1,4 +1,15 @@
+import { itemManager } from "./ItemManager.js";
+
 // Implement the `Main` class here
+class Main {
+  constructor() {}
+
+  addButton = document.querySelector("#list-item-submit");
+
+  init() {
+    this.addButton.addEventListener("click", itemManager.addItem);
+  }
+}
 
 const main = new Main();
 
