@@ -95,7 +95,7 @@ function updateFooter() {
     footerElem.textContent = text;
     const clearAllBtn = document.getElementsByClassName('clear-all-btn')[0];
     console.log(taskLength);
-    clearAllBtn.disabled = taskLength ? false : true; 
+    clearAllBtn.disabled = taskLength ? false : true;
 }
 
 function ChillMsg() {

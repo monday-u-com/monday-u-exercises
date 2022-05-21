@@ -1,5 +1,5 @@
-
-html, body {
+html,
+body {
     margin: 0;
     height: 100%;
 }
@@ -27,9 +27,9 @@ html, body {
     position: relative;
 }
 
-    .main h1 {
-        margin: 0;
-    }
+.main h1 {
+    margin: 0;
+}
 
 .add-task {
     align-items: center;
@@ -37,17 +37,18 @@ html, body {
     display: flex;
 }
 
-    .add-task input {
-        padding: 0 0 0 3px;
-        margin: 0 5px 0 0;
-        height: 2em;
-        width: 100%;
-    }
+.add-task input {
+    padding: 0 0 0 3px;
+    margin: 0 5px 0 0;
+    height: 2em;
+    width: 100%;
+    caret-color: #fdcd3b;
+}
 
-    .add-task i {
-        color: #fdcd3b;
-        cursor: pointer;
-    }
+.add-task i {
+    color: #fdcd3b;
+    cursor: pointer;
+}
 
 .tasks {
     position: relative;
@@ -70,32 +71,33 @@ html, body {
     align-items: center;
 }
 
-    .task i {
-        display: none;
-        color: red;
-        cursor: pointer;
-        float: right;
-        padding: 0.5em;
-        right: 50px;
-    }
-    .task:hover i {
-        display: inline;
+.task i {
+    display: none;
+    color: red;
+    cursor: pointer;
+    float: right;
+    padding: 0.5em;
+    right: 50px;
+}
 
-    }
+.task:hover i {
+    display: inline;
+
+}
 
 
 
-    .task h3 {
-        margin: 5px;
-        display: inline;
-        overflow-wrap: break-word;
-        width: 80%;
-        float: left;
-    }
+.task h3 {
+    margin: 5px;
+    display: inline;
+    overflow-wrap: break-word;
+    width: 80%;
+    float: left;
+}
 
-    .task:hover {
-        box-shadow: 0 4px 4px rgba(33,33,33,.2);
-    }
+.task:hover {
+    box-shadow: 0 4px 4px rgba(33, 33, 33, .2);
+}
 
 .chill {
     display: flex;
@@ -118,13 +120,15 @@ html, body {
     justify-content: space-between;
 }
 
-.footer-text {
-}
 
 .clear-all-btn {
     border: none;
     padding: 5px 15px;
     background-color: #fdcd3b;
     border-radius: 4px;
+    cursor: pointer;
 }
 
+.clear-all-btn[disabled]{
+    cursor: default;
+}
