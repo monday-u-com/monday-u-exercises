@@ -1,18 +1,26 @@
 class ItemManager {
-  constructor(addTaskBtn, addTaskInput, todos, clearAllBtn, callbacks) {
+  constructor(
+    addTaskBtn,
+    addTaskInput,
+    todos,
+    clearAllBtn,
+    onAddTask,
+    onTaskDelete,
+    onCheckUncheckTask,
+    onFinishedAll,
+    onClearAll
+  ) {
     this.addTaskBtn = addTaskBtn;
     this.addTaskInput = addTaskInput;
     this.todos = todos;
     this.clearAllBtn = clearAllBtn;
     this.taskId = 0;
 
-    if (callbacks) {
-      this.onAddTask = callbacks.onAddTask;
-      this.onTaskDelete = callbacks.onTaskDelete;
-      this.onFinishedAll = callbacks.onFinishedAll;
-      this.onCheckUncheckTask = callbacks.onCheckUncheckTask;
-      this.onClearAll = callbacks.onClearAll;
-    }
+    this.onAddTask = onAddTask;
+    this.onTaskDelete = onTaskDelete;
+    this.onFinishedAll = onFinishedAll;
+    this.onCheckUncheckTask = onCheckUncheckTask;
+    this.onClearAll = onClearAll;
 
     this.addTaskBtn.addEventListener("click", this.addTask);
     document.addEventListener("keypress", (event) => this.onKeyPress(event));
@@ -61,6 +69,6 @@ class ItemManager {
 
   clearAll = () => {
     this.todos = [];
-    onClearAll();
+    this.onClearAll();
   };
 }
