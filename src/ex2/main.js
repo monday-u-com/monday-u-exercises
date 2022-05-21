@@ -30,11 +30,11 @@ function onTaskInput() {
 const todoList = new ItemManager(addTaskBtn, addTaskInput, [], clearAllBtn, {
   onAddTask,
   onTaskDelete,
-  onCompleteTask,
+  onCheckUncheckTask,
   onFinishedAll,
 });
 
-function onAddTask() {
+function onAddTask(taskId) {
   todoList.todos.forEach((todo) => {
     if (!diplayedTasksSet.has(todo.id)) {
       document.querySelector(".tasks-container").appendChild(createTask(todo));
@@ -49,7 +49,7 @@ function onAddTask() {
 
   updateTasksLeft();
 
-  if (this.todos.length === 1) {
+  if (todoList.todos.length === 1) {
     // Hide finished all
     document
       .querySelector(".finished-all-missions")
@@ -58,26 +58,32 @@ function onAddTask() {
     document.querySelector(".todo-footer-container").classList.toggle("hide");
   }
 
-  const checkboxBtn = document.querySelector(`#input-${this.taskId - 1}`);
-  const taskTxt = document.querySelector(`#task-txt-${this.taskId - 1}`);
+  const checkboxBtn = document.querySelector(`#input-${taskId}`);
+  const taskTxt = document.querySelector(`#task-txt-${taskId}`);
+  const trashBtn = document.querySelector(`#trash-button-${taskId}`);
 
-  const input = document.querySelector(`#task-${this.taskId - 1}`);
-  input.addEventListener("click", (event) => onTaskPress(event));
-
-  const trashBtn = document.querySelector(`#trash-button-${this.taskId - 1}`);
-  //   trashBtn.addEventListener("click", (event) => onTaskDelete(event));
+  const input = document.querySelector(`#task-${taskId}`);
+  input.addEventListener("click", (event) => onTaskPress(event, taskId));
 
   return { checkboxBtn, taskTxt, trashBtn };
 }
 
-function onCompleteTask(taskTxt) {
+function onCheckUncheckTask(taskTxt) {
   updateTasksLeft();
   taskTxt.classList.toggle("done-task-txt");
 }
 
-const onTaskPress = (event) => {
-  if (event.target.classList.length) {
-    alert(document.querySelector(`#task-txt-${taskId - 1}`).innerText);
+const onTaskPress = (event, taskId) => {
+  const isTaskExist = document.querySelector(`#task-${taskId}`);
+  if (isTaskExist) {
+    const wasClickedOnTaskValue =
+      !document
+        .querySelector(`#task-checkbox-${taskId}`)
+        .contains(event.target) &&
+      !document.querySelector(`#trash-button-${taskId}`).contains(event.target);
+    if (wasClickedOnTaskValue) {
+      alert(document.querySelector(`#task-txt-${taskId}`).innerText);
+    }
   }
 };
 
@@ -97,7 +103,7 @@ createTask = ({ id: taskId, value }) => {
   task.classList.add("task-container");
   task.id = `task-${taskId}`;
   task.innerHTML = `
-      <div class="task-checkbox">
+      <div class="task-checkbox" id="task-checkbox-${taskId}">
           <input type="checkbox" id="input-${taskId}" />
           <label for="input-${taskId}" />
       </div>
@@ -128,4 +134,4 @@ function onFinishedAll() {
     .classList.toggle("finished-all-missions-active");
   // Hide clear all and left tasks
   document.querySelector(".todo-footer-container").classList.toggle("hide");
-};
+}

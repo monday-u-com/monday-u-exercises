@@ -5,11 +5,12 @@ class ItemManager {
     this.todos = todos;
     this.clearAllBtn = clearAllBtn;
     this.taskId = 0;
+
     if (callbacks) {
       this.onAddTask = callbacks.onAddTask;
       this.onTaskDelete = callbacks.onTaskDelete;
       this.onFinishedAll = callbacks.onFinishedAll;
-      this.onCompleteTask = callbacks.onCompleteTask;
+      this.onCheckUncheckTask = callbacks.onCheckUncheckTask;
     }
 
     this.addTaskBtn.addEventListener("click", this.addTask);
@@ -24,15 +25,11 @@ class ItemManager {
 
     const todo = new Todo(this.addTaskInput.value, this.taskId++);
     this.todos.push(todo);
-    const { checkboxBtn, taskTxt, trashBtn } = this.onAddTask();
+    const { checkboxBtn, taskTxt, trashBtn } = this.onAddTask(todo.id);
 
     checkboxBtn.addEventListener("click", () =>
-      this.completeTask(todo.id, taskTxt)
+      this.checkUncheckTask(todo.id, taskTxt)
     );
-
-    // const input = document.querySelector(`#task-${this.taskId - 1}`);
-    // input.addEventListener("click", (event) => onTaskPress(event));
-
     trashBtn.addEventListener("click", () => this.deleteTask(todo));
   };
 
@@ -46,7 +43,6 @@ class ItemManager {
   };
 
   deleteTask = (todoToDelete) => {
-    console.log("deleteTask");
     this.todos = this.todos.filter((todo) => todo.id !== todoToDelete.id);
     this.onTaskDelete(todoToDelete);
 
@@ -55,13 +51,9 @@ class ItemManager {
     }
   };
 
-  completeTask = (taskId, taskTxt) => {
-    this.todos = this.todos.map((todo) => {
-      if (todo.id === taskId) {
-        todo.toBeDone = false;
-      }
-      return todo;
-    });
-    this.onCompleteTask(taskTxt);
+  checkUncheckTask = (taskId, taskTxt) => {
+    const todoInd = this.todos.findIndex((todo) => todo.id == taskId);
+    this.todos[todoInd].toBeDone = !this.todos[todoInd].toBeDone;
+    this.onCheckUncheckTask(taskTxt);
   };
 }
