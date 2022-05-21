@@ -1,10 +1,10 @@
-const addTaskButton = document.querySelector(ADD_TASK_BUTTON_SELECTOR);
+const addTaskButton = document.querySelector(ADD_TASK_BTN_SELECTOR);
 const taskInput = document.querySelector(TASK_INPUT_SELECTOR);
 const allTasksContainer = document.querySelector(ALL_TASKS_CONTAINER_SELECTOR);
 const pendingTasksCounter = document.querySelector(TASKS_COUNTER_SELECTOR);
 let pendingTasks = 0;
-const clearButton = document.querySelector(CLEAR_BUTTON_SELECTOR);
-const sortButton = document.querySelector(SORT_BUTTON_SELECTOR);
+const clearButton = document.querySelector(CLEAR_BTN_SELECTOR);
+const sortButton = document.querySelector(SORT_BTN_SELECTOR);
 
 addTaskButton.addEventListener("click", () => {
    addTask();
@@ -81,7 +81,7 @@ function createDeleteTaskButton(taskContainer) {
    const i = document.createElement("i");
    i.classList.add("fa-solid", "fa-trash");
    deleteTask.appendChild(i);
-   deleteTask.classList.add("delete");
+   deleteTask.classList.add(DEL_BTN_CLASS);
    taskContainer.append(deleteTask);
 
    deleteTask.addEventListener("click", () => {
@@ -94,11 +94,11 @@ function createDeleteTaskButton(taskContainer) {
 
 function addHoverReveal(taskContainer, deleteTask, newTask) {
    taskContainer.addEventListener("mouseover", () => {
-      deleteTask.style.visibility = "visible";
+      deleteTask.classList.add(TASK_CONTAINER_VISIBLE_CLASS);
    });
 
    taskContainer.addEventListener("mouseout", () => {
-      deleteTask.style.visibility = "hidden";
+      deleteTask.classList.remove(TASK_CONTAINER_VISIBLE_CLASS);
    });
 }
 

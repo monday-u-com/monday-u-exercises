@@ -145,6 +145,10 @@ body {
    background-color: rgb(221, 0, 0);
 }
 
+.task-container-visible {
+   visibility: visible;
+}
+
 .footer-container {
    display: flex;
    align-items: center;
