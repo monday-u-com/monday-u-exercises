@@ -99,7 +99,6 @@ class Main {
         const text = taskLength ? `You have ${taskLength} pending tasks` :
             `WooHoo!! You have no tasks pending!`;
         const footerElem = document.getElementsByClassName('footer-text')[0];
-        console.log(footerElem.textContent);
         footerElem.textContent = text;
         const clearAllBtn = document.getElementsByClassName('clear-all-btn')[0];
         clearAllBtn.disabled = taskLength ? false : true;
