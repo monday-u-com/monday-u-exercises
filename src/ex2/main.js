@@ -1,5 +1,7 @@
 // Implement the `Main` class here
+class Main {
 
+}
 
 const main = new Main();
 

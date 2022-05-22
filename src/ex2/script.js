@@ -1,3 +1,11 @@
+/*
+class DomManipulations
+  add-todo
+  remove-todo
+  show-all
+  remove-all
+*/
+
 const allTodosList = document.getElementById("all-todos-list");
 
 const unsorted = Symbol("unsorted");

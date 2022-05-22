@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Listy</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="app-container">
-      <div class="list-container">
-        <h1 class="app-name">Todo App</h1>
-        <div class="list-controls">
-          <input
-            type="text"
-            id="list-item-input"
-            placeholder="Add your new todo"
-          />
-          <button type="button" id="list-item-submit">+</button>
-        </div>
-        <ul id="list"></ul>
-      </div>
-    </div>
-  </body>
-  <script src="main.js"></script>
+<head>
+  <title>TODOOPS</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Indie+Flower&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <main class="app-window">
+    <h1 class="app-title">TODOOPS</h1>
+    <article class="todo-content">
+      <form id="add-todo">
+        <input type="text" id="new-todo-title" autofocus required minlength="4" placeholder="Add your new todo" />
+        <button type="submit" id="add-todo-button">+</button>
+      </form>
+      <img id="zero-todos-image" src="../assets/pointer.png" width="100px">
+      <ul id="all-todos-list">
+      </ul>
+      <footer id="footer">
+        <button id="sort-list-button">Sort</button>
+        <p id="amount-info"></p>
+        <button id="clear-all-button">Clear all</button>
+      </footer>
+    </article>
+  </main>
+</body>
+<script src="main.js"></script>
 </html>
