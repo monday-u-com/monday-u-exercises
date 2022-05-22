@@ -2,13 +2,18 @@ class PokemonClient {
   constructor() {}
 
   async fetchPokemon(pokemonId) {
-    const response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
-    );
+    try {
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
+      );
 
-    const data = await response.json();
+      const data = await response.json();
 
-    return data.name;
+      return data.name;
+    } catch (error) {
+      console.log(error);
+      return `${pokemonId} Not found`;
+    }
   }
 }
 

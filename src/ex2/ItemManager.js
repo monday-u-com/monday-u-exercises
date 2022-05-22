@@ -3,7 +3,7 @@ import { pokemonClient } from "./PokemonClient.js";
 class ItemManager {
   constructor() {
     this.itemList = [];
-    this.pokemonName = "";
+
     this.addItem = this.addItem.bind(this);
     this.renderItems = this.renderItems.bind(this);
     this.createItem = this.createItem.bind(this);
@@ -14,20 +14,21 @@ class ItemManager {
     const item = document.querySelector("#list-item-input").value;
     const array = item.split(",");
 
-    if (!isNaN(+item)) {
-      const name = await pokemonClient.fetchPokemon(item);
-      this.pokemonName = name;
-
-      this.itemList.push(`Catch ${this.pokemonName}`);
-    } else if (!isNaN(+array[0])) {
+    if (!isNaN(+array[0])) {
       let allPromises = [];
+
       array.forEach((elm) => {
-        allPromises.push(pokemonClient.fetchPokemon(elm));
+        allPromises.push(pokemonClient.fetchPokemon(elm.trim()));
       });
+
       const names = await Promise.all(allPromises);
 
       names.forEach((name) => {
-        this.itemList.push(`Catch ${name}`);
+        const id = name.split(" ")[0];
+
+        !isNaN(+id)
+          ? this.itemList.push(`Pokemon with ID ${id} was not found`)
+          : this.itemList.push(`Catch ${name}`);
       });
     } else {
       this.itemList.push(item);
