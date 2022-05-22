@@ -44,7 +44,7 @@ class Main {
 
     isValidInput(taskText) {
         const taskList = this.itemManager.getTaskList();
-        if (taskText.trim() == "") {
+        if (taskText.trim() == "") {//handling empty string or string of spaces
             alert("Enter new task!");
             return false;
         }
