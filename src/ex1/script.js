@@ -48,10 +48,9 @@ document.addEventListener('keydown', function (key) {
 })
 
 function clearAll() {
-    const tasks = document.getElementById("task-container").children
-    console.log(tasks.length)
-    for (let i = 0; i < tasks.length; i++) {
-        tasks.removeChild(tasks[0])
+    const tasks = document.getElementById("task-container")
+    while (tasks.children.length) {
+        tasks.children[0].remove()
     }
-    // tasks.classList.add("empty-list")
+    tasks.classList.add("empty-list")
 }
