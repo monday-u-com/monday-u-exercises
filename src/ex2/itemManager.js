@@ -20,14 +20,14 @@ class ItemManager {
     clearAllBtn.addEventListener("click", () => this.clearAll());
   }
 
-  addTodoEventListeners(todo) {
-    const checkboxBtn = document.querySelector(`#input-${todo.id}`);
-    const taskTxt = document.querySelector(`#task-txt-${todo.id}`);
-    const trashBtn = document.querySelector(`#trash-button-${todo.id}`);
+  bindNewTaskEvents(task) {
+    const checkboxBtn = document.querySelector(`#input-${task.id}`);
+    const taskTxt = document.querySelector(`#task-txt-${task.id}`);
+    const trashBtn = document.querySelector(`#trash-button-${task.id}`);
     checkboxBtn.addEventListener("click", () =>
-      this.checkUncheckTask(todo.id, taskTxt)
+      this.checkUncheckTask(task.id, taskTxt)
     );
-    trashBtn.addEventListener("click", () => this.deleteTask(todo));
+    trashBtn.addEventListener("click", () => this.deleteTask(task));
   }
 
   async addTask() {
@@ -57,7 +57,7 @@ class ItemManager {
       const todo = new Todo(todoValue, this.taskId++);
       this.todos.push(todo);
       this.onAddTask(todo.id);
-      this.addTodoEventListeners(todo);
+      this.bindNewTaskEvents(todo);
     });
   }
 
