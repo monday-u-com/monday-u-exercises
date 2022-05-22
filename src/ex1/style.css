@@ -34,13 +34,13 @@ body {
    background-color: aliceblue;
    width: 52rem;
    min-width: 45rem;
-   height: 56rem;
+   height: 62rem;
    border-radius: 8px;
 }
 
 .all-tasks-container {
    overflow: auto;
-   height: 28rem;
+   height: 29rem;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -62,7 +62,7 @@ body {
    display: flex;
    align-items: center;
    gap: 1rem;
-   margin-bottom: 1rem;
+   margin-bottom: 1.2rem;
 }
 
 #task-text {
@@ -73,18 +73,23 @@ body {
 }
 
 .clear-all,
-.name-sort,
+.name-sort-up,
+.name-sort-down,
 .add-task {
    border: none;
    background-color: rgb(253, 154, 41);
    border-radius: 3px;
 }
 
+.sort-btns-container {
+   visibility: hidden;
+}
+
 .clear-all,
-.name-sort {
-   font-size: 2rem;
-   padding: 0.8rem 1.5rem 0.8rem 1.5rem;
-   margin: 0.25rem;
+.name-sort-up,
+.name-sort-down {
+   font-size: 2.1rem;
+   padding: 0.7rem 2.5rem 0.7rem 2.5rem;
 }
 
 .add-task {
@@ -98,7 +103,8 @@ body {
 
 .add-task:hover,
 .clear-all:hover,
-.name-sort:hover {
+.name-sort-up:hover,
+.name-sort-down:hover {
    cursor: pointer;
    background-color: rgb(255, 191, 0);
 }
@@ -146,14 +152,14 @@ body {
    background-color: rgb(221, 0, 0);
 }
 
-.task-container-visible {
+.visible {
    visibility: visible;
 }
 
 .footer-container {
    display: flex;
    align-items: center;
-   margin-bottom: 3.5rem;
+   margin-bottom: 2rem;
 }
 
 .pending-tasks {
@@ -180,6 +186,7 @@ body {
    font-size: 1.6rem;
 }
 
-.fa-arrow-down-a-z {
+.fa-arrow-down-a-z,
+.fa-arrow-up-a-z {
    font-size: 2.2rem;
 }

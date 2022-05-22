@@ -4,7 +4,9 @@ const allTasksContainer = document.querySelector(ALL_TASKS_CONTAINER_SELECTOR);
 const pendingTasksCounter = document.querySelector(TASKS_COUNTER_SELECTOR);
 let pendingTasks = 0;
 const clearButton = document.querySelector(CLEAR_BTN_SELECTOR);
-const sortButton = document.querySelector(SORT_BTN_SELECTOR);
+const sortDownButton = document.querySelector(SORT_DOWN_BTN_SELECTOR);
+const sortUpButton = document.querySelector(SORT_UP_BTN_SELECTOR);
+const sortButtonsContainer = document.querySelector(SORT_BTNS_SELECTOR);
 
 addTaskButton.addEventListener("click", () => {
    addTask();
@@ -23,18 +25,32 @@ clearButton.onclick = () => {
    pendingTasksUpdate(0);
 };
 
-sortButton.onclick = () => {
+sortDownButton.onclick = () => {
+   sortTasks("down");
+};
+
+sortUpButton.onclick = () => {
+   sortTasks("up");
+};
+
+function sortTasks(direction) {
    const taskContainers = [
       ...document.querySelectorAll(TASKS_CONTAINER_SELECTOR),
    ];
-   taskContainers.sort((a, b) =>
-      a.children[0].innerText.localeCompare(b.children[0].innerText)
-   );
+   if (direction === "up") {
+      taskContainers.sort((a, b) =>
+         b.children[0].innerText.localeCompare(a.children[0].innerText)
+      );
+   } else if (direction === "down") {
+      taskContainers.sort((a, b) =>
+         a.children[0].innerText.localeCompare(b.children[0].innerText)
+      );
+   }
    taskContainers.forEach((container) => container.remove());
    taskContainers.forEach((container) =>
       allTasksContainer.appendChild(container)
    );
-};
+}
 
 function addTask() {
    if (taskInput.value.trim().length === 0) {
@@ -94,11 +110,11 @@ function createDeleteTaskButton(taskContainer) {
 
 function addHoverReveal(taskContainer, deleteTask, newTask) {
    taskContainer.addEventListener("mouseover", () => {
-      deleteTask.classList.add(TASK_CONTAINER_VISIBLE_CLASS);
+      deleteTask.classList.add(VISIBLE_CLASS);
    });
 
    taskContainer.addEventListener("mouseout", () => {
-      deleteTask.classList.remove(TASK_CONTAINER_VISIBLE_CLASS);
+      deleteTask.classList.remove(VISIBLE_CLASS);
    });
 }
 
@@ -116,6 +132,11 @@ function pendingTasksUpdate(action) {
    }
 
    pendingTasksCounter.textContent = pendingTasks;
+   if (pendingTasks === 1) {
+      sortButtonsContainer.classList.add(VISIBLE_CLASS);
+   } else if (pendingTasks === 0) {
+      sortButtonsContainer.classList.remove(VISIBLE_CLASS);
+   }
 }
 
 function createTaskAnimation(newTask) {
