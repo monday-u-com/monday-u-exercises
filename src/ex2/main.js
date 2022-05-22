@@ -1,4 +1,14 @@
 // Implement the `Main` class here
+class Main {
+    constructor() {
+        this.addBtn = document.querySelector("#list-item-submit");
+        this.inputText = document.querySelector("#list-item-input")
+    }
+    init() {
+        this.addBtn.addEventListener("click",)
+    }
+
+}
 
 
 const main = new Main();
