@@ -50,6 +50,7 @@ class Main {
 
     this.updateTasksLeft();
 
+    // Empty list that its first element was added
     if (this.todoList.todos.length === 1) {
       this.toggleFinishedAllAndFooter();
     }
