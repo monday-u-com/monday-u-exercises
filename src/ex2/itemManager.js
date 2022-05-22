@@ -20,6 +20,16 @@ class ItemManager {
     clearAllBtn.addEventListener("click", () => this.clearAll());
   }
 
+  addTodoEventListeners(todo) {
+    const checkboxBtn = document.querySelector(`#input-${todo.id}`);
+    const taskTxt = document.querySelector(`#task-txt-${todo.id}`);
+    const trashBtn = document.querySelector(`#trash-button-${todo.id}`);
+    checkboxBtn.addEventListener("click", () =>
+      this.checkUncheckTask(todo.id, taskTxt)
+    );
+    trashBtn.addEventListener("click", () => this.deleteTask(todo));
+  }
+
   async addTask() {
     // Validate the input isn't empty before adding the task
     if (!addTaskInput.value) {
@@ -27,6 +37,7 @@ class ItemManager {
     }
 
     let todoValues;
+    // Pokemon related task: comma separated numbers with potential spaces before/after numbers
     if (/^(\d*\s*,\s*)*\s*\d*\s*$/.test(this.addTaskInput.value)) {
       try {
         todoValues = await this.pokemonClient.getPokemon(
@@ -36,7 +47,9 @@ class ItemManager {
         console.error(`An error occured: ${err}`);
         return;
       }
-    } else {
+    }
+    // Regular task
+    else {
       todoValues = [this.addTaskInput.value];
     }
 
@@ -44,14 +57,7 @@ class ItemManager {
       const todo = new Todo(todoValue, this.taskId++);
       this.todos.push(todo);
       this.onAddTask(todo.id);
-
-      const checkboxBtn = document.querySelector(`#input-${todo.id}`);
-      const taskTxt = document.querySelector(`#task-txt-${todo.id}`);
-      const trashBtn = document.querySelector(`#trash-button-${todo.id}`);
-      checkboxBtn.addEventListener("click", () =>
-        this.checkUncheckTask(todo.id, taskTxt)
-      );
-      trashBtn.addEventListener("click", () => this.deleteTask(todo));
+      this.addTodoEventListeners(todo);
     });
   }
 
