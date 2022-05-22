@@ -1,13 +1,14 @@
 // Implement the `Main` class here
 class Main {
     constructor() {
-        this.taskList = [];
+        this.itemManager = new ItemManager();
     }
 
     init = () => {
         const addBtn = document.querySelectorAll('.add-task-btn');
         const addTaskField = document.querySelectorAll('.add-task-field');
         const clearAllBtn = document.querySelectorAll('.clear-all-btn');
+
 
         addBtn[0].addEventListener('click', () => {
             this.addTaskFunc();
@@ -21,36 +22,33 @@ class Main {
 
         clearAllBtn[0].addEventListener('click', () => {
             const tasks = document.querySelectorAll('.tasks');
-            tasks[0].replaceChildren();
-            while (this.taskList.length) this.taskList.pop();
-            tasks[0].append(this.ChillMsg());
-            this.updateFooter();
+            this.itemManager.removeAllTasks();
+            this.renderTaskList(this.itemManager.getTaskList());
         });
-
-        this.addChillMsg();
-        this.updateFooter();
+        const taskList = this.itemManager.getTaskList();
+        this.renderTaskList(taskList);
     }
 
-    addTaskFunc() {
+    async addTaskFunc() {
         const newTaskField = document.querySelectorAll('.add-task-field');
         const taskText = newTaskField[0].value;
         const tasks = document.querySelectorAll('.tasks');
-        console.log(typeof (taskText));
         const validInput = this.isValidInput(taskText);
+
         if (validInput) {
-            if (this.taskList.length === 0) tasks[0].replaceChildren();
-            tasks[0].append(this.newTaskElement(taskText));
+            await this.itemManager.addTask(taskText);
+            this.renderTaskList(this.itemManager.getTaskList());
         }
         this.resetInputField(newTaskField);
-        this.updateFooter();
     }
 
     isValidInput(taskText) {
-        if (taskText == "") {
+        const taskList = this.itemManager.getTaskList();
+        if (taskText.trim() == "") {
             alert("Enter new task!");
             return false;
         }
-        else if (this.taskList.indexOf(taskText) !== -1) {
+        else if (taskList.indexOf(taskText) !== -1) {
             alert("Task already exist!\nEnter new task!")
             return false;
         }
@@ -58,7 +56,6 @@ class Main {
     }
 
     newTaskElement(text) {
-        this.taskList.push(text);
         const div = document.createElement('div');
         div.classList.add('task');
         const h3 = document.createElement('h3');
@@ -74,8 +71,8 @@ class Main {
 
         delBtn.onclick = () => {
             const getTaskContent = delBtn.parentNode.parentNode.getElementsByTagName('h3')[0].textContent;
-            this.removeFromTaskList(getTaskContent);
-            delBtn.parentNode.parentNode.remove();
+            this.itemManager.removeTask(getTaskContent);
+            this.renderTaskList(this.itemManager.getTaskList());
         }
 
         span.append(delBtn)
@@ -91,11 +88,10 @@ class Main {
         }
         else console.log('removeFromTaskList ERROR!');
         this.addChillMsg();
-        this.updateFooter();
+        this.updateFooter(this.taskList.length);
     }
 
-    updateFooter() {
-        const taskLength = this.taskList.length;
+    updateFooter(taskLength) {
         const text = taskLength ? `You have ${taskLength} pending tasks` :
             `WooHoo!! You have no tasks pending!`;
         const footerElem = document.getElementsByClassName('footer-text')[0];
@@ -103,14 +99,6 @@ class Main {
         const clearAllBtn = document.getElementsByClassName('clear-all-btn')[0];
         clearAllBtn.disabled = taskLength ? false : true;
     }
-
-    addChillMsg() {
-        if (this.taskList.length === 0) {
-            const tasks = document.querySelectorAll('.tasks');
-            tasks[0].append(this.ChillMsg());
-        }
-    }
-
 
     ChillMsg() {
         const div = document.createElement('div');
@@ -131,6 +119,27 @@ class Main {
     resetInputField(newTaskField) {
         newTaskField[0].value = "";
         newTaskField[0].focus();
+    }
+
+    renderTaskList(newTaskList) {
+        const tasks = document.querySelectorAll('.tasks');
+        const taskList = this.itemManager.getTaskList();
+        const divList = [];
+        if (newTaskList.length > 0) {
+            newTaskList.forEach((task) => {
+                const divTask = this.newTaskElement(task);
+                divList.push(divTask);
+            })
+        }
+        else {
+            divList.push(this.ChillMsg());
+        }
+        console.log(divList);
+        tasks[0].replaceChildren();
+        divList.forEach((divTask) => {
+            tasks[0].append(divTask);
+        })
+        this.updateFooter(taskList.length);
     }
 }
 

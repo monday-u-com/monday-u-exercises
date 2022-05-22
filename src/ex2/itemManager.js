@@ -7,27 +7,47 @@ class ItemManager {
         //check if is int (pokemon)
         const newTaskList = [...this.getTaskList()];
         const arr = text.split(',');
-        if (this.isNumbers(arr)) {
+
+        if (this.isNumbers(arr)) {//check if input is array of number(s)
             let pokemonArray = [];
             arr.forEach((num) => pokemonArray.push(parseInt(num)));
-            console.log('pokemonArray: ', pokemonArray);
             const pokemonsNames = await this.catchPokemons(pokemonArray);
-            if (pokemonsNames !== false){
-                text = 'Catch: ' + pokemonsNames.toString();
+
+            if (pokemonsNames !== false) {//GET request success
+                pokemonsNames.forEach((pokemon) => {
+                    const newText = 'Catch: ' + pokemon;
+                    if (!this.isTaskExist(newText))//task already exist
+                        newTaskList.push(newText);
+                })
             }
-            else{
-                text = 'Pokemons with ID '+arr+' not found';
+            else {//GET request failed
+                const newText = 'Failed to catch pokemon with this input: ' + arr;
+                if (!this.isTaskExist(newText))
+                    newTaskList.push(newText);
             }
         }
-        console.log(text);
-        newTaskList.push(text);
+        else {//plain text task
+            if (!this.isTaskExist(text))
+                newTaskList.push(text);
+        }
+        console.log('addTask: '+newTaskList);
         this.setTaskList(newTaskList);
+    }
+
+    isTaskExist(text) {
+        const taskList = this.getTaskList();
+        if (taskList.indexOf(text) !== -1) {
+            alert("Task already exist!\nEnter new task!");
+            return true;
+        }
+        return false;
     }
 
     removeTask(text) {
         const newTaskList = [...this.getTaskList()];
         const index = newTaskList.indexOf(text);
-        if (index !== -1) {
+
+        if (index !== -1) {//text found and index number returned
             newTaskList.splice(index, 1);
             this.setTaskList(newTaskList);
             console.log('Item removed from list');
@@ -35,22 +55,11 @@ class ItemManager {
         else console.log('removeFromTaskList ERROR!');
     }
 
-    // async catchPokemon(number) {
-    //     const URL = `https://pokeapi.co/api/v2/pokemon/${number}/`;
-    //     try {
-    //         const response = await fetch(URL);
-    //         const result = await response.json();
-    //         console.log('result: ', result);
-    //         return result.name;
-    //     }
-    //     catch (e) {
-    //         console.log(number + ' not found');
-    //         return false;
-    //     }
+    removeAllTasks() {
+        this.setTaskList([]);
+    }
 
-    //     //API GET request
-    //     //return {isPokemon:bool,names:[]} array of names
-    // }
+
 
     async catchPokemons(numbers) { // numbers -> array of numbers
         const URL = `https://pokeapi.co/api/v2/pokemon/`;
@@ -61,28 +70,26 @@ class ItemManager {
         })
         try {
             const response = await Promise.all(promises);
-            for (const item of response) {
+            for (const item of response) {//resolve each promise
                 res.push(await item.json());
             }
             res.forEach((el, index) => res[index] = el.name);
-            console.log('pokemons: ', res);
+            console.log('fetched pokemons: ', res);
             return res;
         }
-        catch (e) {
-            console.log('catch promises', e);
+        catch (e) {//Promise.all failed
+            console.log('Catch Error: ', e);
             return false;
         }
 
-        //API GET request
-        //return {isPokemon:bool,names:[]} array of names
     }
 
-    async pokemonType(name) {
-        const URL = `https://pokeapi.co/api/v2/type/12/`;
+    async pokemonType(number) {
+        const URL = `https://pokeapi.co/api/v2/type/${number}/`;
         try {
             const response = await fetch(URL);
             const result = await response.json();
-            console.log(result);
+            return result.name;
         }
         catch (e) {
             console.log(number + ' not found');
@@ -105,6 +112,28 @@ class ItemManager {
     }
 }
 
-const itemManager = new ItemManager();
+// const itemManager = new ItemManager();
+
+
 // itemManager.catchPokemons([1, 3]);
-itemManager.addTask('1,23242');
+
+// itemManager.addTask('asdf');
+
+// setTimeout(() => {
+//     itemManager.addTask('1,24, 65');
+// }, 1000)
+
+// // itemManager.addTask('1,24, 652342');
+// setTimeout(() => {
+//     itemManager.addTask('1,24, 652342');
+// }, 2000)
+
+// setTimeout(() => {
+//     itemManager.addTask('3,24');
+// }, 2500)
+
+// setTimeout(() => {
+//     console.log(itemManager.getTaskList());
+// }, 3000)
+
+
