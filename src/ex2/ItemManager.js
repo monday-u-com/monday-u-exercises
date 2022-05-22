@@ -3,6 +3,7 @@ import { pokemonClient } from "./PokemonClient.js";
 class ItemManager {
   constructor() {
     this.itemList = [];
+    this.pokemonIds = new Set();
 
     this.addItem = this.addItem.bind(this);
     this.renderItems = this.renderItems.bind(this);
@@ -18,7 +19,15 @@ class ItemManager {
       let allPromises = [];
 
       array.forEach((elm) => {
-        allPromises.push(pokemonClient.fetchPokemon(elm.trim()));
+        const id = elm.trim();
+        const pokemonAlreadyAdded = this.pokemonIds.has(id);
+
+        if (pokemonAlreadyAdded) {
+          alert(`Pokemon with ID ${id} was alrady added!`);
+        } else {
+          this.pokemonIds.add(id);
+          allPromises.push(pokemonClient.fetchPokemon(id));
+        }
       });
 
       const names = await Promise.all(allPromises);
@@ -26,9 +35,13 @@ class ItemManager {
       names.forEach((name) => {
         const id = name.split(" ")[0];
 
-        !isNaN(+id)
-          ? this.itemList.push(`Pokemon with ID ${id} was not found`)
-          : this.itemList.push(`Catch ${name}`);
+        if (!isNaN(+id)) {
+          this.itemList.push(`Pokemon with ID ${id} was not found`);
+        } else {
+          this.itemList.push(`Catch ${name}`);
+        }
+
+        console.log(this.pokemonIds);
       });
     } else {
       this.itemList.push(item);
