@@ -59,9 +59,10 @@ class Main {
     input.addEventListener("click", (event) => this.onTaskPress(event, taskId));
   }
 
-  onCheckUncheckTask(taskTxt) {
+  onCheckUncheckTask(taskTxtElem) {
     this.updateTasksLeft();
-    taskTxt.classList.toggle("done-task-txt");
+    // Crossing/uncrossing a done task's text
+    taskTxtElem.classList.toggle("done-task-txt");
   }
 
   onTaskPress(event, taskId) {
