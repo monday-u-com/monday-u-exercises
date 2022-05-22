@@ -11,21 +11,39 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+#header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#sort-button {
+    width: 70px;
+    height: 35px;
+    background-color: #FFC482;
+    border-radius: 3px;
+    border: solid 1px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    font-weight: bold;
+}
+
 #card-container {
     width: 25%;
     height: 60%;
     display: flex;
     flex-direction: column;
     padding: 30px;
-    background-color: antiquewhite;
+    background-color: white;
     border-radius: 5px;
     box-shadow: 1px 1px 100px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 #new-task-container {
     display: flex;
     flex-direction: row;
-    gap: 10px
+    gap: 10px;
+    max-height: 100px
 }
 
 #new-task-input {
@@ -44,13 +62,18 @@ body {
     border-radius: 3px;
     border: solid 1px rgba(0, 0, 0, 0.3);
     cursor: pointer;
+    font-weight: bold;
 }
 
 #task-container {
     margin-top: 10px;
     display: flex;
     flex-direction: column;
-    gap: 3px
+    gap: 3px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-bottom: 30px;
+    margin-top: 10px;
 }
 
 .task {
@@ -88,4 +111,33 @@ body {
     padding: 10px;
     border: none;
     cursor: pointer;
+}
+
+.empty-list {
+    background-image: url("/data.png");
+    background-position: center;
+    background-size: 100%;
+    width: 100%;
+    height: 700px;
+    opacity: 0.5;
+    margin-bottom: 30px
+}
+
+#bottom-text {
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+    font-weight: bold;
+}
+
+#clear-all-button {
+    position: absolute;
+    bottom: 16px;
+    right: 30px;
+    font-weight: bold;
+    background-color: #FFC482;
+    border-radius: 3px;
+    border: solid 1px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    padding: 5px
 }
