@@ -13,8 +13,11 @@ class Main
     {
         this.dom_manager.add_task_button.addEventListener("click", () => {
             this.item_manager.AddTodo(this.dom_manager.task_input.value);
-            this.dom_manager.AddNewTask();
-        });        
+            this.dom_manager.RenderDomFromArray(this.item_manager.todos, (event) => {
+                this.RemoveTodo(event);
+            });
+        });
+
         this.dom_manager.add_task_button.addEventListener("keypress", (event)=> {
             this.dom_manager.AddNewTaskByKeyPress(event);
         });
@@ -26,6 +29,15 @@ class Main
         this.dom_manager.sort_by_name_button.addEventListener("click", () =>
         {
             this.dom_manager.SortByName();
+        });
+    }
+
+    RemoveTodo(event)
+    {
+        const task_id = event.currentTarget.id;
+        this.item_manager.RemoveTodo(task_id);
+        this.dom_manager.RenderDomFromArray(this.item_manager.todos, (event) => {
+                this.RemoveTodo(event);
         });
     }
 

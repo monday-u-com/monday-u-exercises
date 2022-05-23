@@ -11,12 +11,9 @@ class ItemManager
         this.todos.push(todo_text);
     }
 
-    RemoveTodo(todo_text)
+    RemoveTodo(task_to_remove_id)
     {
-        const todo = this.todos.filter( (item) => 
-        {
-            return item === todo_text;
-        });
+        const todo = this.todos.splice( task_to_remove_id,1);
     }
 
 }

@@ -18,7 +18,7 @@ class DomManager
     /**
     * Click call back function to add new task
     */
-    AddNewTask()
+    AddNewTask(id, text, delete_call_back)
     {
         // creates new task elements
         const new_task = document.createElement("li");
@@ -31,11 +31,12 @@ class DomManager
         // adds class to elements
         new_task.classList.add("todo_task");
         new_task.classList.add("animate__animated");
-        new_task.classList.add("animate__fadeIn");
+        new_task.classList.add("animate__fadeIn");        
         task_text.classList.add("task_text");
         task_number.classList.add("task_number");
         task_buttons_container.classList.add("task_buttons");
         task_delete_button.classList.add("delete_task_button");
+        task_delete_button.id = id;
         task_complete_button.classList.add("complete_task_button");
 
         // Delete empty state from task container
@@ -53,7 +54,7 @@ class DomManager
         task_number.innerText = (this.task_container.children.length).toString().concat(")");
 
         // adds text to task
-        task_text.innerHTML = this.task_input.value;
+        task_text.innerHTML = text;
         this.clearInput();
         
         // adds icons to buttons
@@ -62,7 +63,8 @@ class DomManager
 
         // adds event listeners to elements
         task_delete_button.addEventListener("click", (event) => {
-            this.DeleteTask(event);
+            delete_call_back(event);
+            //this.DeleteTask(event);
         });
         task_complete_button.addEventListener("click", this.MarkAsCompleteTask);
         task_text.addEventListener("click", this.TaskClick);        
@@ -159,5 +161,15 @@ class DomManager
             this.task_container.classList.add("empty");
             this.UpdateTaskCounter();            
         }, 500);
+    }
+
+    RenderDomFromArray(todos, delete_call_back)
+    {
+        const todos_copy = [...todos];
+        // clear task container for rendering
+        this.task_container.innerHTML = "";
+        todos_copy.map( (todo, key) => {
+            this.AddNewTask(key, todo, delete_call_back);
+        });
     }
 }
