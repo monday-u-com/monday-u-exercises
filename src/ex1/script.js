@@ -10,21 +10,29 @@ const sortButtonsContainer = document.querySelector(SORT_BTNS_SELECTOR);
 
 const tasks = new ItemManager();
 
+const pokemonNames = new PokemonClient();
+
+async function catchPokemon(ID) {
+   let pokemonData = await pokemonNames.getPokemon(ID);
+   return pokemonData;
+}
+
 addTaskButton.addEventListener("click", () => {
-   if (addTask()) {
-      const newTask = renderTasks();
-      createTaskAnimation(newTask);
-   }
+   renderAndAnimate();
 });
 
 taskInput.addEventListener("keypress", (e) => {
    if (e.key === "Enter") {
-      if (addTask()) {
-         const newTask = renderTasks();
-         createTaskAnimation(newTask);
-      }
+      renderAndAnimate();
    }
 });
+
+async function renderAndAnimate() {
+   if (await addTask()) {
+      const newTask = renderTasks();
+      createTaskAnimation(newTask);
+   }
+}
 
 clearButton.onclick = () => {
    tasks.clear();
@@ -58,12 +66,19 @@ function renderTasks() {
    return lastTaskAdded;
 }
 
-function addTask() {
+async function addTask() {
    if (taskInput.value.trim().length === 0) {
       alert("Please fill in a task");
       taskInput.value = "";
 
       return false;
+   } else if (!isNaN(taskInput.value)) {
+      let pokemonData = await catchPokemon(taskInput.value);
+      tasks.add(pokemonData.name);
+      taskInput.value = "";
+      pendingTasksUpdate("+");
+
+      return true;
    } else {
       tasks.add(taskInput.value);
       taskInput.value = "";
