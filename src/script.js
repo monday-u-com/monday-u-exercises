@@ -81,6 +81,30 @@ async function addTask() {
       pendingTasksUpdate("+");
 
       return true;
+   } else if (
+      taskInput.value
+         .replace(/\s/g, "")
+         .split(",")
+         .every((elem) => !isNaN(elem))
+   ) {
+      let pokemonIDS = taskInput.value.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
+      const pokemonData = await Promise.all(
+         pokemonIDS.map((id) => pokemonNames.getPokemon(id))
+      );
+
+      pokemonData.forEach((pokemon, i) => {
+         if (pokemon) {
+            let pokemonName =
+               pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+            tasks.add(`Catch ${pokemonName}`);
+         } else {
+            tasks.add(`Pokemon ID ${pokemonIDS[i]} does not exist`);
+         }
+         pendingTasksUpdate("+");
+      });
+
+      taskInput.value = "";
+      return true;
    } else {
       tasks.add(taskInput.value);
       taskInput.value = "";
