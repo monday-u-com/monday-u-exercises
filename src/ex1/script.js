@@ -8,67 +8,69 @@ const sortDownButton = document.querySelector(SORT_DOWN_BTN_SELECTOR);
 const sortUpButton = document.querySelector(SORT_UP_BTN_SELECTOR);
 const sortButtonsContainer = document.querySelector(SORT_BTNS_SELECTOR);
 
+const tasks = new ItemManager();
+
 addTaskButton.addEventListener("click", () => {
-   addTask();
+   if (addTask()) {
+      const newTask = renderTasks();
+      createTaskAnimation(newTask);
+   }
 });
 
 taskInput.addEventListener("keypress", (e) => {
    if (e.key === "Enter") {
-      addTask();
+      if (addTask()) {
+         const newTask = renderTasks();
+         createTaskAnimation(newTask);
+      }
    }
 });
 
 clearButton.onclick = () => {
-   document
-      .querySelectorAll(TASKS_CONTAINER_SELECTOR)
-      .forEach((task) => task.remove());
+   tasks.clear();
+   renderTasks();
    pendingTasksUpdate(0);
 };
 
 sortDownButton.onclick = () => {
-   sortTasks("down");
+   tasks.sortDown();
+   renderTasks();
 };
 
 sortUpButton.onclick = () => {
-   sortTasks("up");
+   tasks.sortUp();
+   renderTasks();
 };
 
-function sortTasks(direction) {
-   const taskContainers = [
-      ...document.querySelectorAll(TASKS_CONTAINER_SELECTOR),
-   ];
-   if (direction === "up") {
-      taskContainers.sort((a, b) =>
-         b.children[0].innerText.localeCompare(a.children[0].innerText)
-      );
-   } else if (direction === "down") {
-      taskContainers.sort((a, b) =>
-         a.children[0].innerText.localeCompare(b.children[0].innerText)
-      );
+function renderTasks() {
+   let lastTaskAdded;
+   while (allTasksContainer.firstChild) {
+      allTasksContainer.removeChild(allTasksContainer.lastChild);
    }
-   taskContainers.forEach((container) => container.remove());
-   taskContainers.forEach((container) =>
-      allTasksContainer.appendChild(container)
-   );
+   tasks.items.forEach((item) => {
+      const taskContainer = createTaskContainer();
+      const newTask = createNewTask(taskContainer, item);
+      const deleteTask = createDeleteTaskButton(taskContainer);
+      addHoverReveal(taskContainer, deleteTask, newTask);
+      lastTaskAdded = newTask;
+   });
+
+   return lastTaskAdded;
 }
 
 function addTask() {
    if (taskInput.value.trim().length === 0) {
       alert("Please fill in a task");
       taskInput.value = "";
+
+      return false;
    } else {
-      createTaskProcedure();
+      tasks.add(taskInput.value);
       taskInput.value = "";
       pendingTasksUpdate("+");
-   }
-}
 
-function createTaskProcedure() {
-   const taskContainer = createTaskContainer();
-   const newTask = createNewTask(taskContainer);
-   const deleteTask = createDeleteTaskButton(taskContainer);
-   addHoverReveal(taskContainer, deleteTask, newTask);
-   createTaskAnimation(newTask);
+      return true;
+   }
 }
 
 function createTaskContainer() {
@@ -79,9 +81,9 @@ function createTaskContainer() {
    return taskContainer;
 }
 
-function createNewTask(taskContainer) {
+function createNewTask(taskContainer, item) {
    const newTask = document.createElement("div");
-   newTask.textContent = taskInput.value;
+   newTask.textContent = item;
    newTask.classList.add("task");
    taskContainer.append(newTask);
 
@@ -101,7 +103,11 @@ function createDeleteTaskButton(taskContainer) {
    taskContainer.append(deleteTask);
 
    deleteTask.addEventListener("click", () => {
-      taskContainer.remove();
+      const index = Array.from(taskContainer.parentNode.children).indexOf(
+         taskContainer
+      );
+      tasks.remove(index);
+      renderTasks();
       pendingTasksUpdate("-");
    });
 
