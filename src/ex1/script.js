@@ -74,9 +74,14 @@ async function addTask() {
       return false;
    } else if (!isNaN(taskInput.value)) {
       let pokemonData = await catchPokemon(taskInput.value);
-      let pokemonName =
-         pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1);
-      tasks.add(`Catch ${pokemonName}`);
+      if (pokemonData) {
+         let pokemonName =
+            pokemonData.name.charAt(0).toUpperCase() +
+            pokemonData.name.slice(1);
+         tasks.add(`Catch ${pokemonName}`);
+      } else {
+         tasks.add(`Pokemon ID ${taskInput.value} does not exist`);
+      }
       taskInput.value = "";
       pendingTasksUpdate("+");
 

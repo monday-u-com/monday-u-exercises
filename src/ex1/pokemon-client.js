@@ -4,8 +4,13 @@ class PokemonClient {
    }
 
    async getPokemon(pokemonID) {
-      const response = await fetch(this.API_URL + pokemonID);
-      const data = await response.json();
-      return data;
+      try {
+         const response = await fetch(this.API_URL + pokemonID);
+         const data = await response.json();
+
+         return data;
+      } catch (error) {
+         return false;
+      }
    }
 }
