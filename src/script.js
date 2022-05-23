@@ -12,11 +12,6 @@ const tasks = new ItemManager();
 
 const pokemonNames = new PokemonClient();
 
-async function catchPokemon(ID) {
-   let pokemonData = await pokemonNames.getPokemon(ID);
-   return pokemonData;
-}
-
 addTaskButton.addEventListener("click", () => {
    renderAndAnimate();
 });
@@ -73,7 +68,7 @@ async function addTask() {
 
       return false;
    } else if (!isNaN(taskInput.value)) {
-      let pokemonData = await catchPokemon(taskInput.value);
+      let pokemonData = await pokemonNames.getPokemon(taskInput.value);
       if (pokemonData) {
          let pokemonName =
             pokemonData.name.charAt(0).toUpperCase() +
