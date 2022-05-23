@@ -74,7 +74,9 @@ async function addTask() {
       return false;
    } else if (!isNaN(taskInput.value)) {
       let pokemonData = await catchPokemon(taskInput.value);
-      tasks.add(pokemonData.name);
+      let pokemonName =
+         pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1);
+      tasks.add(`Catch ${pokemonName}`);
       taskInput.value = "";
       pendingTasksUpdate("+");
 
