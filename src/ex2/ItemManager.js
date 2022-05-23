@@ -1,37 +1,27 @@
-const todoListElement = document.getElementById("todo-list")
-const addTodoButton = document.getElementById("add-todo-button")
-const todoInput = document.getElementById("todo-input")
-const clearAllTodosButton = document.getElementById("clear-all-todos-button")
-const sumTodos = document.getElementById("sum-todos")
-const orderSelect = document.getElementById("order-select")
-const enterTodos = document.getElementById("enter-todos")
-
-class ItemManager {
+export default class ItemManager {
     constructor(){
         this.API_BASE = 'https://pokeapi.co/api/v2/pokemon/'
         this.todolist = []
-        //this.deleteTodo = this.deleteTodo.bind(this)
+        this.checkIfExistDataFromLS()//logic
     }
 
-    showTodos() {
-        this.checkIfExistDataFromLS()
-        this.showMatchUiByTodosNumber()
-        this.createTodoListItems()
-    }
+    /* showTodos() {
+        this.showMatchUiByTodosNumber() //ui
+        this.createTodoListItems() //ui
+    } */
 
-    addTodo(){
-        let enterValue = todoInput.value
-    
+    addTodo(enterValue){
+        
         if(enterValue.trim() === ""){
             alert("todo cannot be empty")
             return
         }
     
-        this.checkIfExistDataFromLS()
-        this.pushEnteredDataToLS(enterValue)
-        this.showTodos()
+        //this.checkIfExistDataFromLS()
+        this.pushEnteredDataToLS(enterValue)//logic
+        //this.showTodos()//ui
     
-        addTodoButton.classList.remove("active")
+        //addTodoButton.classList.remove("active")//ui
     }
 
     checkIfExistDataFromLS(){
@@ -51,7 +41,7 @@ class ItemManager {
         alert(`added new todo ${enterValue}`)
     }
 
-    showMatchUiByTodosNumber() {
+    /* showMatchUiByTodosNumber() {
         sumTodos.textContent = this.todoList.length
         
         if(this.todoList.length > 0){
@@ -64,20 +54,20 @@ class ItemManager {
             clearAllTodosButton.style.cursor = "not-allowed"
             enterTodos.style.display = "block"
         }
-    }
+    } */
 
-    createTodoListItems() {
+    /* createTodoListItems() {
         let listItems = ""
 
         this.todoList.forEach((todo, index) => { 
-            /* listItems += `<li>${todo}
-                <span class="delete" onclick="deleteTodo(${index})";>
-                    <i class="fas fa-trash"></i>
-                </span>
-                </li>
-            `  */
+            //  listItems += `<li>${todo}
+            //     <span class="delete" onclick="deleteTodo(${index})";>
+            //         <i class="fas fa-trash"></i>
+            //     </span>
+            //     </li>
+            // `  
             listItems += `<li>${todo}
-                <span class="delete"";>
+                <span class="delete";>
                     <i class="fas fa-trash"></i>
                 </span>
                 </li>
@@ -93,7 +83,7 @@ class ItemManager {
         
 
         todoInput.value = ""
-    }
+    } */
 
     deleteTodo(index) {
     
@@ -103,33 +93,6 @@ class ItemManager {
         this.todoList.splice(index, 1) //remove one todo
         alert(`removed new todo ${removedTodo}`)
         localStorage.setItem("new-todo", JSON.stringify(this.todoList))
-        this.showTodos()       
+        //this.showTodos()       
     }
 }
-
-const itemManager = new ItemManager();
-
-itemManager.showTodos()
-
-
-todoInput.onkeyup = (e) => {
-    let enterValue = todoInput.value
-    if (enterValue.trim() !== ""){
-        addTodoButton.classList.add("active")
-        addTodoButton.style.cursor = "pointer"
-        addTodoButton.style.opacity = 1
-
-        if(e.keyCode === 13){
-            itemManager.addTodo()
-        }
-    }
-    else{
-        addTodoButton.classList.remove("active")
-        addTodoButton.style.opacity = 0.2
-        addTodoButton.style.cursor = "not-allowed"
-    }
-}
-
-addTodoButton.addEventListener("click", () => {
-    itemManager.addTodo()
-})
