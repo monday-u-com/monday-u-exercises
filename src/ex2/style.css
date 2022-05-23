@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    padding: 10px;
+    background: linear-gradient(to bottom, #68EACC 0%, #497BE8 100%);
+}
+
+.container {
+    background: #fff;
+    width: 60%;
+    max-height: 80%;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-select {
+    width: 80px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: rgba(182, 128, 191, 0.3);
+    text-align: center;
+}
+
+.filter-select:focus{
+    outline: none;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.input-container {
+    display: flex;
+    margin: 20px 0;
+    height: 45px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.todo-input {
+    width: 85%;
+    height: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.todo-input:focus {
+    border: 2px solid #5f56c4;
+}
+
+.add-button {
+    width: 10%;
+    min-width: 35px;
+    height: 100%;
+    border: none;
+    color: #fff;
+    cursor: not-allowed;
+    font-size: 20px;
+    outline: none;
+    background: #8E49E8;
+    border-radius: 5px;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.add-button.active, .clear-all-button.active {
+    opacity: 1;
+    transform: scale(0.98);
+    cursor: pointer;
+}
+
+.empty-todos-message {
+    position: relative;
+    background-image: url("https://www.itgovernance.eu/blog/de/wp-content/uploads/2017/04/list.jpg");
+    background-size: cover;
+    height: 40vh;
+}
+
+.empty-todos-message > h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 100;
+}
+
+.todo-list-container {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.todo-list-container li {
+    position: relative;
+    list-style: none;
+    margin-bottom: 8px;
+    background: #f2f2f2;
+    border-radius: 5px;
+    padding: 10px;
+    overflow: hidden;
+    word-wrap: break-word;
+    cursor: default;
+}
+
+.todo-list-container li .delete{
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #e74c3c;
+    width: 40px;
+    text-align: center;
+    color: #fff;
+    padding: 10px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.todo-list-container li .edit{
+    position: absolute;
+    right: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #563ce7;
+    width: 40px;
+    text-align: center;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.todo-list-container li:hover .delete{
+    right: 0px;
+}
+
+.todo-list-container li:hover .edit{
+    right: 40px;
+}
+
+.todo-list-container li:hover {
+    background: rgba(139, 90, 139, 0.3);
+}
+
+.clear-and-pending-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.clear-all-button {
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 90px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    background: #8E49E8;
+    cursor: not-allowed;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    word-wrap: break-word;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>2DoList</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <h1 class="title">2DoList</h1>
+            <select id="order-select" class="filter-select">
+                <option value="A-Z">A-Z</option>
+                <option value="Z-A">Z-A</option>
+            </select>
+        </div>
+        <div class="input-container">
+            <input class="todo-input" id="todo-input" type="text" placeholder="Add your new todo">
+            <button class="add-button" id="add-todo-button"><i class="fas fa-plus"></i></button>
+        </div>
+        <div class="empty-todos-message" id="enter-todos"><h1>Enter Todos</h1></div>
+        <ul class="todo-list-container" id="todo-list"></ul>
+        <div class="clear-and-pending-container">
+            <span>You have <span id="sum-todos"></span> pending tasks</span>
+            <button class="clear-all-button" id="clear-all-todos-button">Clear All</button>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
