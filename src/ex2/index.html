@@ -1,24 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Listy</title>
+<head>
+    <title>From To By Do</title>
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="app-container">
-      <div class="list-container">
-        <h1 class="app-name">Todo App</h1>
-        <div class="list-controls">
-          <input
-            type="text"
-            id="list-item-input"
-            placeholder="Add your new todo"
-          />
-          <button type="button" id="list-item-submit">+</button>
+    <script src="https://kit.fontawesome.com/f1fe3009bc.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+    <div id="main_container">
+        <div id="container" class="white_box">
+            <h1>Todo list</h1>
+            <div id="todo_form_container">
+                <form>
+                    <div class="input_div">
+                        <input name="todo" id="todo_input" type="text" placeholder=" " required/>
+                        <label for="todo_input">
+                            Add your new todo
+                        </label>
+                        <div id="add_to_do_button">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <ul id="todo_tasks_container" class="empty"></ul>        
+            <div class="clear_todo_container">
+                <div class="todo_status_text">
+                    <span>You have </span>
+                    <span id="task_counter">0</span>
+                    <span> pending tasks</span>
+                </div>
+                <button id="clear_all_tasks_button" name="clear_all_todo" class="clear_all_button">
+                    <span>Clear All</span>
+                    <div class="buttonColoring"></div>
+                </button>
+                <button id="sort_by_name" name="sort_by_name_todo" class="sort_by_name_button">
+                    <span>Sort by name</span>
+                    <div class="buttonColoring"></div>
+                </button>
+            </div>
         </div>
-        <ul id="list"></ul>
-      </div>
     </div>
-  </body>
-  <script src="main.js"></script>
+
+</body>
+<script src="main.js"></script>
 </html>
+ 
