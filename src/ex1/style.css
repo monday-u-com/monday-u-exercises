@@ -17,8 +17,14 @@ h1 {
     padding: auto;
 }
 
-img {
+.NoTasksImg-visible {
     display: block;
+    margin: auto;
+    width: 50%;
+}
+
+.noTasks-img-hidden {
+    display: none;
     margin: auto;
     width: 50%;
 }
@@ -38,7 +44,7 @@ img {
 .taskDone-btn {
     background-color: azure;
     float: right;
-    height: 2p0;
+    height: auto;
     width: auto;
 }
 
@@ -63,7 +69,6 @@ img {
 .task {
     padding: 7px;
     border: 1px solid black;
-    
 }
 
 .task:hover {
