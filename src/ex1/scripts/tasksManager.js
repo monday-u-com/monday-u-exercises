@@ -27,7 +27,6 @@ export class TasksManeger {
   }
 
   async addTask(taskInput, isCompleted) {
-    console.log("add task in TaskManeger");
     const isPokemon = await this.tryFetchAndAddPokemons(taskInput);
     if (isPokemon) {
       return true;
@@ -38,10 +37,12 @@ export class TasksManeger {
   }
 
   async tryFetchAndAddPokemons(input) {
-    console.log("tryFetchAndAddPokemons");
     const response = await this.pokedex.getPokemonsNamesAndTypes(input);
-    if (response === -1) {
+    if (response === "Not a pokemon") {
       return false;
+    } else if (response.includes("Pokemon with id")) {
+      this.pushingTaskAndSave(response, false);
+      return true;
     } else {
       response.forEach((res) => {
         this.pushingTaskAndSave(res, false);

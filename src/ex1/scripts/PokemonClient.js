@@ -12,8 +12,20 @@ export class PokemonClient {
       return this.createResponse(data);
     });
     return Promise.all(promises).catch((err) => {
-      return -1;
+      if (
+        namesList.length === 1 &&
+        this.checkIfInputIsOnlyNumbers(namesList[0])
+      ) {
+        return this.createNotFoundResponse(namesList[0]);
+      } else {
+        return "Not a pokemon";
+      }
     });
+  }
+
+  checkIfInputIsOnlyNumbers(input) {
+    const regex = /^[0-9]+$/;
+    return regex.test(input);
   }
 
   parseInputToList(input) {
@@ -32,6 +44,11 @@ export class PokemonClient {
   createResponse(data) {
     const typesList = this.constructTypesList(data.types);
     const resString = `Catch ${data.name} the ${typesList.join("/")} pokemon`;
+    return resString;
+  }
+
+  createNotFoundResponse(input) {
+    const resString = `Pokemon with id ${input} was not found`;
     return resString;
   }
 }
