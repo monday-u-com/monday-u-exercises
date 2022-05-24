@@ -68,13 +68,14 @@ class AppDom {
         false
       );
       if (isTaskAdded) {
-        this.taskInput.value = "";
         if (isAlertShown) {
-          this.emprtyInputAlert.toggleAlert(EMPTY_INPUT_MSG);
-        } //else do nothing for now, but later we can add some error alert handling
+          this.emprtyInputAlert.toggleAlert(EMPTY_INPUT_MSG); //if added and alert shown - close it
+        }
         this.renderTasks();
       }
+      //else - alert exists, or other error do nothing for now, but later we can add some error alert handling
     }
+    this.taskInput.value = "";
   }
 
   canProceed() {
