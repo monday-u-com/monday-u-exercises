@@ -69,18 +69,31 @@ async function addTask() {
       return false;
    } else if (!isNaN(taskInput.value)) {
       let pokemonData = await pokemonNames.getPokemon(taskInput.value);
+      let pokemonID = taskInput.value;
+      taskInput.value = "";
       if (pokemonData) {
          let pokemonName =
             pokemonData.name.charAt(0).toUpperCase() +
             pokemonData.name.slice(1);
-         tasks.add(`Catch ${pokemonName}`);
-      } else {
-         tasks.add(`Pokemon ID ${taskInput.value} does not exist`);
-      }
-      taskInput.value = "";
-      pendingTasksUpdate("+");
+         const taskToAdd = `Catch ${pokemonName}`;
+         if (tasks.items.includes(taskToAdd)) {
+            alert(
+               `${pokemonName} already exists in your tasks. Please try another Pokemon.`
+            );
 
-      return true;
+            return false;
+         } else {
+            tasks.add(taskToAdd);
+            pendingTasksUpdate("+");
+
+            return true;
+         }
+      } else {
+         tasks.add(`Pokemon ID ${pokemonID} does not exist`);
+         pendingTasksUpdate("+");
+
+         return true;
+      }
    } else if (
       taskInput.value
          .replace(/\s/g, "")
@@ -91,19 +104,26 @@ async function addTask() {
       const pokemonData = await Promise.all(
          pokemonIDS.map((id) => pokemonNames.getPokemon(id))
       );
-
+      taskInput.value = "";
       pokemonData.forEach((pokemon, i) => {
          if (pokemon) {
             let pokemonName =
                pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-            tasks.add(`Catch ${pokemonName}`);
+            const taskToAdd = `Catch ${pokemonName}`;
+            if (tasks.items.includes(taskToAdd)) {
+               alert(
+                  `${pokemonName} already exists in your tasks. Please try another Pokemon.`
+               );
+            } else {
+               tasks.add(taskToAdd);
+               pendingTasksUpdate("+");
+            }
          } else {
             tasks.add(`Pokemon ID ${pokemonIDS[i]} does not exist`);
+            pendingTasksUpdate("+");
          }
-         pendingTasksUpdate("+");
       });
 
-      taskInput.value = "";
       return true;
    } else {
       tasks.add(taskInput.value);
