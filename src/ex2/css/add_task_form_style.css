@@ -50,7 +50,7 @@
 
 .input_div > input[type="text"]:invalid:focus
 {
-    background: url('assets/xicon.svg');
+    background: url('../assets/xicon.svg');
     background-size: 20px;
     background-repeat: no-repeat;
     background-position: 5px 5px;
@@ -60,7 +60,7 @@
 
 .input_div > input[type="text"]:valid
 {
-    background: url('assets/check-icon.svg');
+    background: url('../assets/check-icon.svg');
     background-size: 20px;
     background-repeat: no-repeat;
     background-position: 5px 5px;
