@@ -1,14 +1,21 @@
 export class TasksManeger {
   constructor() {
     this.tasks = [];
+    this.counterID = 0;
     if (localStorage.getItem("tasks") !== null) {
       this.tasks = JSON.parse(localStorage.getItem("tasks"));
+    }
+    if (localStorage.getItem("counterID" != null)) {
+      this.counterID = JSON.parse(localStorage.getItem("counterID"));
     }
   }
 
   addTask(task, isCompleted) {
-    this.tasks.push([task, isCompleted]);
+    this.tasks.push([this.counterID, task, isCompleted]);
+    this.counterID++;
+    localStorage.setItem("counterID", JSON.stringify(this.counterID));
     this.saveTasksToLocalStorage();
+    return this.counterID;
   }
 
   removeTask(taskContent) {
@@ -19,12 +26,9 @@ export class TasksManeger {
     this.saveTasksToLocalStorage();
   }
 
-  toggleCompleted(taskContent) {
-    this.tasks.forEach((task) => {
-      if (task[0] === taskContent) {
-        task[1] = !task[1];
-      }
-    });
+  toggleCompleted(taskID) {
+    const task = this.tasks.find((task) => task[0] == taskID);
+    task[2] = !task[2];
     this.saveTasksToLocalStorage();
   }
 

@@ -6,12 +6,12 @@ class AppDom {
     this.tasksManager = new TasksManeger();
     this.emprtyInputAlert = new Alert(htmlElement);
     this.taskInput = htmlElement.querySelector(".task-input");
-    this.addTaskButton = htmlElement.querySelector(".task-add-btn");
+    this.addTaskButton = htmlElement.getElementById("task-add-btn");
     this.tasksList = htmlElement.querySelector(".tasks-list");
-    this.filterOptiopn = htmlElement.querySelector(".filter-tasks");
-    this.searchInput = htmlElement.querySelector(".search-input");
+    this.filterOption = htmlElement.getElementById("filter-dropdown");
+    this.searchInput = htmlElement.getElementById("search-input");
     this.dragArea = htmlElement.querySelector(".tasks-list");
-    this.emptyListMsg = htmlElement.querySelector(".empty-msg");
+    this.emptyListMsg = htmlElement.getElementById("empty-tasks");
     this.chosenFilter = "all";
 
     this.activateSortable(this.tasksManager);
@@ -35,9 +35,8 @@ class AppDom {
 
   addFieldsEventListeners() {
     this.addTaskButton.onclick = this.onAddTaskClick.bind(this);
-    this.filterOptiopn.onchange = this.onFilterOptionChange.bind(this);
+    this.filterOption.onchange = this.onFilterOptionChange.bind(this);
     this.searchInput.onkeyup = this.onSearchInputKeyUp.bind(this);
-    this.tasksList.onclick = this.onTaskButtonsClick.bind(this);
 
     this.taskInput.onkeypress = (e) => {
       if (e.key === "Enter") {
@@ -49,32 +48,35 @@ class AppDom {
 
   onAddTaskClick(e) {
     const isOk = this.canProceed();
+
+    const isAlertShown = this.emprtyInputAlert.isAlertShown();
+    if (!isOk && !isAlertShown) {
+      this.emprtyInputAlert.toggleAlert();
+    }
+
     if (isOk) {
       this.tasksManager.addTask(this.taskInput.value, false);
       this.taskInput.value = "";
+      if (isAlertShown) {
+        this.emprtyInputAlert.toggleAlert();
+      }
       this.renderTasks();
     }
   }
 
   canProceed() {
-    const isAlertOn = this.emprtyInputAlert.isAlertShown();
-    if (this.taskInput.value === "") {
-      if (!isAlertOn) {
-        this.emprtyInputAlert.toggleAlert();
-      }
-      return false;
-    } else {
-      if (isAlertOn) {
-        this.emprtyInputAlert.toggleAlert();
-      }
-      return true;
-    }
+    console.log(this.taskInput.value);
+    console.log(this.taskInput.value.trim() !== "");
+    return this.taskInput.value.trim() !== "";
   }
 
   createGridLines() {
     const gripLines = document.createElement("div");
     gripLines.classList.add("grip-lines-icon");
-    gripLines.innerHTML = '<i class="fas fa-grip-lines"></i>';
+    const gripLinesIcon = document.createElement("i");
+    gripLinesIcon.classList.add("fas");
+    gripLinesIcon.classList.add("fa-grip-lines");
+    gripLines.appendChild(gripLinesIcon);
     return gripLines;
   }
 
@@ -96,39 +98,51 @@ class AppDom {
     if (isCompleted) {
       completeTaskButton.classList.add("btn-completed");
     }
-    completeTaskButton.innerHTML = '<i class="fas fa-check"></i>';
+    const icon = document.createElement("i");
+    icon.classList.add("fas");
+    icon.classList.add("fa-check");
+    completeTaskButton.appendChild(icon);
+    completeTaskButton.setAttribute("id", "complete-task-btn");
+    completeTaskButton.onclick = this.onCompleteBtnClick.bind(this);
     return completeTaskButton;
+  }
+
+  onCompleteBtnClick(e) {
+    e.target.classList.toggle("btn-completed");
+    const taskItem = e.target.parentElement;
+    taskItem.classList.toggle("task-completed"); //Wht transition is not working
+    const taskId = taskItem.getAttribute("id");
+    this.tasksManager.toggleCompleted(parseInt(taskId));
+    this.renderTasks();
   }
 
   createRemoveBtn() {
     const removeTaskButton = document.createElement("button");
     removeTaskButton.classList.add("task-remove-btn");
     removeTaskButton.classList.add("hide");
-    removeTaskButton.innerHTML = '<i class="fas fa-trash"></i>';
+    const icon = document.createElement("i");
+    icon.classList.add("fas");
+    icon.classList.add("fa-trash-alt");
+    removeTaskButton.appendChild(icon);
+    removeTaskButton.setAttribute("id", "remove-task-btn");
+    removeTaskButton.onclick = this.onRemoveBtnClick.bind(this);
     return removeTaskButton;
   }
 
-  addTaskDivEventListeners(taskDiv) {
-    taskDiv.addEventListener("click", this.onTaskClick);
-    taskDiv.addEventListener("mouseover", this.onTaskMouseOver);
-    taskDiv.addEventListener("mouseleave", this.onTaskMouseOut);
-    taskDiv.draggable = true;
+  onRemoveBtnClick(e) {
+    const taskItem = e.target.parentElement.parentElement;
+    //taskItem.ontransitionend = this.onRemoveTransitionEnd.bind(this);
+    //taskItem.classList.add("remove-task");
+    const taskId = taskItem.getAttribute("id");
+    this.tasksManager.removeTask(parseInt(taskId));
+    this.renderTasks();
   }
 
-  onTaskButtonsClick(e) {
-    console.log("HERE");
-    const button = e.target;
-    if (button.classList.contains("task-complete-btn")) {
-      button.parentElement.classList.toggle("task-completed");
-      button.classList.toggle("btn-completed");
-      this.tasksManager.toggleCompleted(
-        button.parentElement.querySelector(".task-item").innerText
-      );
-    } else if (e.target.classList.contains("task-remove-btn")) {
-      const task = e.target.parentElement;
-      task.ontransitionend = this.onRemoveTransitionEnd.bind(this);
-      task.classList.add("task-removed");
-    }
+  addTaskDivEventListeners(taskDiv) {
+    taskDiv.onmouseover = this.onTaskMouseOver.bind(this);
+    taskDiv.onmouseleave = this.onTaskMouseOut.bind(this);
+    taskDiv.addEventListener("click", this.onTaskClick);
+    taskDiv.draggable = true;
   }
 
   onRemoveTransitionEnd(e) {
@@ -191,19 +205,18 @@ class AppDom {
     return taskDiv;
   }
 
-  filterCompleteTasks(tasks) {
-    console.log("filter", tasks);
+  filterCompleteTasks(tasksToBeFiltered) {
     switch (this.chosenFilter) {
       case "all":
-        return tasks;
+        return tasksToBeFiltered;
       case "completed":
-        return tasks.filter((task) => {
-          task[1] === true;
+        return tasksToBeFiltered.filter((task) => {
+          task[2] === true;
         });
       case "uncompleted":
-        return tasks.filter((task) => task[1] === false);
+        return tasksToBeFiltered.filter((task) => task[2] === false);
       default:
-        return tasks;
+        return tasksToBeFiltered;
     }
   }
 
@@ -213,7 +226,7 @@ class AppDom {
       return tasks;
     } else {
       return tasks.filter((task) => {
-        return task[0].toLowerCase().includes(searchInput.toLowerCase());
+        return task[1].toLowerCase().includes(searchInput.toLowerCase());
       });
     }
   }
@@ -222,11 +235,13 @@ class AppDom {
     this.tasksList.innerHTML = "";
     const tasks = [...this.tasksManager.getTasks()];
     const completeFilter = this.filterCompleteTasks(tasks);
+    console.log("Complete filter", completeFilter);
     const filteredTasks = this.filterSearchedTasks(completeFilter);
     const self = this;
     this.toggleEmptyMsg();
     filteredTasks.forEach(function (task) {
-      const taskDiv = self.createTaskDiv(task[0], task[1]);
+      const taskDiv = self.createTaskDiv(task[1], task[2]);
+      taskDiv.setAttribute("id", task[0]);
       self.tasksList.appendChild(taskDiv);
       self.addTaskDivEventListeners(taskDiv);
     });
