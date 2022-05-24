@@ -132,7 +132,9 @@ class Main {
 
   onAddTodoFormSubmitted(event) {
     event.preventDefault();
-    const newTodoText = this.inputTitle.value;
+    const todoRequest = this.inputTitle.value;
+    const pokemon = this.itemManager.catchPokemon(todoRequest);
+    const newTodoText = pokemon ? pokemon : todoRequest;
     this.addTodoItem(newTodoText, true);
     this.todosArray = itemManager.addItem(newTodoText);
     this.displayFooterAndImage();
@@ -186,6 +188,5 @@ const itemManager = new ItemManager();
 document.addEventListener("DOMContentLoaded", function () {
     // you should create an `init` method in your class
     // the method should add the event listener to your "add" button
-    // const todosArray = itemManager.init();
     main.init(itemManager);
 });
