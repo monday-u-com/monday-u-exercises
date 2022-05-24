@@ -115,3 +115,10 @@ body {
   background-color: #f0f0f5;
   transition: background-color 0.2s ease-in-out;
 }
+.adjustment {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  align-items: center;
+  margin-left:3vw;
+}
