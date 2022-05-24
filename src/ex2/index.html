@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Listy</title>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Todo List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="../images/todo-icon.png">
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="app-container">
-      <div class="list-container">
-        <h1 class="app-name">Todo App</h1>
-        <div class="list-controls">
-          <input
-            type="text"
-            id="list-item-input"
-            placeholder="Add your new todo"
-          />
-          <button type="button" id="list-item-submit">+</button>
+</head>
+
+<body>
+    <div class="container">
+        <h1>My Todo list</h1>
+        <div id="add-task">
+            <input type="text" id="taskInput" placeholder="Add your new todo task">
+            <button class="btn" id="addBtn" disabled>+</button>
         </div>
-        <ul id="list"></ul>
-      </div>
+        <ul id="taskList">
+        </ul>
+        <div class="placeHolder hidden">
+            <i class="fa fa-plus"></i>
+            <p>Time to add your first task</p>
+        </div>
+        <div id="info">
+            <span id="peding-task-text">You have 0 pending tasks</span>
+            <button class="btn" id="clearAllBtn" disabled>Clear All</button>
+            <button class="btn" id="sortAllBtn" disabled>Sort All</button>
+        </div>
     </div>
-  </body>
-  <script src="main.js"></script>
+
+</body>
+<script src="ItemManager.js"></script>
+<script src="script.js"></script>
+
 </html>
