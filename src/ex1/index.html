@@ -11,23 +11,28 @@
 </head>
 
 <body>
+    <script type="module">
+        import { Tasks } from './classScript.js';
+        let myTasks = new Tasks();
+        window.myTasks = myTasks
+    </script>
+    <script type="module" src="PokemonClient.js"></script>
     <div id="card-container">
         <div id="header-container">
             <h1 id="header-text">Tasker</h1>
-            <button id="sort-button" onclick="sort()">Sort</button>
+            <button id="sort-button" onclick="myTasks.sort()">Sort</button>
         </div>
         <div id="new-task-container">
             <input id="new-task-input" placeholder="Add a new task">
-            <button id="new-task-button" onclick="addTask()">+</button>
+            <button id="new-task-button" onclick="myTasks.addTask()">+</button>
         </div>
         <div class="empty-list" id="task-container">
 
         </div>
-            <span id="bottom-text">You have no pending tasks</span>
-            <button id="clear-all-button" onclick="clearAll()">Clear all</button>
+        <span id="bottom-text">You have no pending tasks</span>
+        <button id="clear-all-button" onclick="myTasks.clearAll()">Clear all</button>
     </div>
 </body>
 
-<script src="script.js"></script>
 
 </html>
