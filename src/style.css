@@ -55,8 +55,9 @@ body {
 }
 
 .info {
-   font-size: 1.8rem;
+   font-size: 1.7rem;
    margin-bottom: 2rem;
+   text-align: center;
 }
 
 .container {
