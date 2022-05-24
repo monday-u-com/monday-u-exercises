@@ -1,0 +1,116 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+body {
+  background: linear-gradient(#81d5cf, #5e8fdc);
+  height: 100vh;
+}
+.container__field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 25vw;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: auto 1vw;
+  padding: 3vh 0;
+}
+
+form {
+  margin: auto 1.2vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.antd {
+  display: flex;
+  flex-direction: row;
+}
+input {
+  width: 20vw;
+  height: 5vh;
+}
+
+.addbtn {
+  width: 3vw;
+  margin: auto 10px;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  background-color: rgb(131, 30, 207);
+}
+
+.ant-input {
+  padding-left: 10px;
+}
+.todolist {
+  margin: 1.2vw;
+}
+
+li {
+  list-style: none;
+  margin: 2vh 0;
+  padding: 0;
+  background-color: rgb(211, 207, 207);
+  width: 22vw;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  padding-left: 1vw;
+  justify-content: space-between;
+}
+
+li:hover {
+  background-color: rgb(131, 30, 207);
+  color: white;
+  cursor: pointer;
+}
+
+.dltbtn {
+  width: 3vw;
+  height: 5vh;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  background-color: red;
+  display: none;
+}
+
+.dltbtn:hover {
+  background-color: white;
+  color: rgb(131, 30, 207);
+  cursor: pointer;
+}
+
+.pendingTasks {
+  padding-left: 1vw;
+}
+.adjustment {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  align-items: center;
+}
+
+.clearAll {
+  margin-right: 1.8vw;
+  color: white;
+  background-color: rgb(131, 30, 207);
+  border: none;
+  width: 5vw;
+  height: 5vh;
+}

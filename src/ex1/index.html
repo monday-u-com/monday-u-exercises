@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Exercise 1</title>
+  <head>
+    <title>Cool Todo List</title>
     <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-
-<h1>Todo list</h1>
-
-
-</body>
-<script src="script.js"></script>
+  </head>
+  <body>
+    <fieldset class="container__field">
+      <div class="container">
+        <h1>Todo App</h1>
+        <form action="">
+          <div class="antd">
+            <input
+              class="ant-input"
+              id="input"
+              type="text"
+              name="todo"
+              placeholder="Add your new todo"
+            />
+            <input id="addButton" class="addbtn" type="button" value="+" />
+          </div>
+        </form>
+        <ul id="todolist" class="todolist">
+          <!-- adding todo lists -->
+        </ul>
+        <div id="error"></div>
+        <div class="adjustment">
+          <span id="counterLists" class="pendingTasks"
+            >You have pending
+            <span id="counter">0</span>
+            tasks</span
+          >
+          <button id="deleteAllTasks" class="clearAll">Clear All</button>
+        </div>
+      </div>
+    </fieldset>
+  </body>
+  <script src="script.js"></script>
 </html>
