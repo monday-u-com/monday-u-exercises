@@ -17,7 +17,7 @@
 <body>
     <div class="alert hide">
         <span class="fa-solid fa-circle-exclamation"></span>
-        <span class="alert-msg">Task input cannot be empty, please try again</span>
+        <span id="alert-message" class="alert-msg"></span>
         <span class="alert-close-btn">
             <span class="fas fa-times"></span>
         </span>
@@ -44,15 +44,17 @@
     <div class="tasksContainer">
         <div class="tasks-list">
             
-        </div>
+        </div>  
+       
+    </div>
+    <div class="remove-all-btn">
+        <button id="remove-all-btn" class="btn" type="button">Remove all</button>
     </div>
     <div id="empty-tasks" class="empty-msg">
         <i class="fa-regular fa-keyboard"></i>
         <span>Waiting for you to add your tasks</span>
-
     </div>
 </div>
-
 </div>
 <div class="footer">
     <span>Made With

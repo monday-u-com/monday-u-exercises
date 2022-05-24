@@ -1,6 +1,11 @@
 import { TasksManeger } from "./tasksManager.js";
 import { Alert } from "./alertScripts.js";
-import { TASK_ID, TASK_CONTENT, TASK_COMPLETED } from "./globalConsts.js";
+import {
+  TASK_ID,
+  TASK_CONTENT,
+  TASK_COMPLETED,
+  EMPTY_INPUT_MSG,
+} from "./globalConsts.js";
 
 class AppDom {
   constructor(htmlElement) {
@@ -52,7 +57,7 @@ class AppDom {
 
     const isAlertShown = this.emprtyInputAlert.isAlertShown();
     if (!isOk && !isAlertShown) {
-      this.emprtyInputAlert.toggleAlert();
+      this.emprtyInputAlert.toggleAlert(EMPTY_INPUT_MSG);
     }
 
     if (isOk) {
@@ -63,7 +68,7 @@ class AppDom {
       if (isTaskAdded) {
         this.taskInput.value = "";
         if (isAlertShown) {
-          this.emprtyInputAlert.toggleAlert();
+          this.emprtyInputAlert.toggleAlert(EMPTY_INPUT_MSG);
         } //else do nothing for now, but later we can add some error alert handling
         this.renderTasks();
       }
