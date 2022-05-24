@@ -48,7 +48,7 @@ h1 {
     border-color: #8E49E8;
     }
 
-.inputField button.todo-button{
+.inputField button.todobutton{
     width: 50px;
     height: 100%;
     border: none;
@@ -71,11 +71,11 @@ h1 {
     pointer-events: auto;
 }
 
-.frame .todo-list{
+.frame .userlist{
     max-height: 250px;
     overflow-y: auto;
     }
-    .todo-list li{
+    .userlist li{
     position: relative;
     list-style: none;
     margin-bottom: 8px;
@@ -87,7 +87,7 @@ h1 {
     word-wrap: break-word;
     }
 
-button.todo-button {
+button.todobutton {
     background: #8E49E8;
     color: white;
     width: 50px;
@@ -101,13 +101,13 @@ form button:hover {
   background: #ff6f47;
   color: white;
 }
-.todo-container {
+.todocontainer {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.todo-list {
+.userlist {
   width: 100%;
   list-style: none;
 }
@@ -154,8 +154,7 @@ li.todo-item {
   flex: 1;
 }
 
-.trash-btn,
-.complete-btn {
+.trash-btn {
   background: #ff6f47;
   color: white;
   border: none;
@@ -164,26 +163,18 @@ li.todo-item {
   font-size: 1rem;
   border-radius: 3px 3px 3px 3px;
 }
-.complete-btn {
-  background: rgb(11, 212, 162);
-}
+
 .todo-item {
   padding: 0rem 0.5rem;
 }
 
-.fa-trash,
-.fa-check {
+.fa-trash {
   pointer-events: none;
 }
 
 .fall {
   transform: translateY(10rem) rotateZ(20deg);
   opacity: 0;
-}
-
-.completed {
-  text-decoration: line-through;
-  opacity: 0.5;
 }
 
 span {
