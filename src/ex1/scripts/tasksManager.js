@@ -1,6 +1,9 @@
+import { PokemonClient } from "./PokemonClient.js";
+
 export class TasksManeger {
   constructor() {
     this.tasks = [];
+    this.pokedex = new PokemonClient();
     this.counterID = 0;
     if (localStorage.getItem("tasks") !== null) {
       this.tasks = JSON.parse(localStorage.getItem("tasks"));
@@ -10,24 +13,46 @@ export class TasksManeger {
     }
   }
 
-  addTask(taskInput, isCompleted) {
+  pushingTaskAndSave(taskInput, isCompleted) {
     const isTaskExist = this.tasks.find((task) => task[0] === taskInput);
     if (!isTaskExist) {
-      this.tasks.push([this.counterID, task, isCompleted]);
+      this.tasks.push([this.counterID, taskInput, isCompleted]);
       this.counterID++;
       localStorage.setItem("counterID", JSON.stringify(this.counterID));
       this.saveTasksToLocalStorage();
-      return this.counterID;
+      return true;
     } else {
-      return -1;
+      return false;
+    }
+  }
+
+  async addTask(taskInput, isCompleted) {
+    console.log("add task in TaskManeger");
+    const isPokemon = await this.tryFetchAndAddPokemons(taskInput);
+    if (isPokemon) {
+      return true;
+    } else {
+      const isAdded = this.pushingTaskAndSave(taskInput, isCompleted);
+      return isAdded;
+    }
+  }
+
+  async tryFetchAndAddPokemons(input) {
+    console.log("tryFetchAndAddPokemons");
+    const response = await this.pokedex.getPokemonsNamesAndTypes(input);
+    if (response === -1) {
+      return false;
+    } else {
+      response.forEach((res) => {
+        this.pushingTaskAndSave(res, false);
+      });
+      return true;
     }
   }
 
   removeTask(taskContent) {
-    console.log(taskContent);
     const index = this.tasks.find((task) => task[0] === taskContent);
     this.tasks.splice(index, 1);
-    console.log(this.tasks);
     this.saveTasksToLocalStorage();
   }
 

@@ -38,7 +38,7 @@ class AppDom {
     this.filterOption.onchange = this.onFilterOptionChange.bind(this);
     this.searchInput.onkeyup = this.onSearchInputKeyUp.bind(this);
 
-    this.taskInput.onkeypress = (e) => {
+    this.taskInput.onkeyup = (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
         this.onAddTaskClick();
@@ -46,7 +46,8 @@ class AppDom {
     };
   }
 
-  onAddTaskClick(e) {
+  async onAddTaskClick(e) {
+    console.log("add task 1");
     const isOk = this.canProceed();
 
     const isAlertShown = this.emprtyInputAlert.isAlertShown();
@@ -55,21 +56,21 @@ class AppDom {
     }
 
     if (isOk) {
-      const newTaskID = this.tasksManager.addTask(this.taskInput.value, false);
-      if (newTaskID !== -1) {
-        //else do nothing for now, but later we can add some error alert handling
+      const isTaskAdded = await this.tasksManager.addTask(
+        this.taskInput.value,
+        false
+      );
+      if (isTaskAdded) {
         this.taskInput.value = "";
         if (isAlertShown) {
           this.emprtyInputAlert.toggleAlert();
-        }
+        } //else do nothing for now, but later we can add some error alert handling
         this.renderTasks();
       }
     }
   }
 
   canProceed() {
-    console.log(this.taskInput.value);
-    console.log(this.taskInput.value.trim() !== "");
     return this.taskInput.value.trim() !== "";
   }
 
@@ -113,7 +114,7 @@ class AppDom {
   onCompleteBtnClick(e) {
     e.target.classList.toggle("btn-completed");
     const taskItem = e.target.parentElement;
-    taskItem.classList.toggle("task-completed"); //Wht transition is not working
+    taskItem.classList.toggle("task-completed");
     const taskId = taskItem.getAttribute("id");
     this.tasksManager.toggleCompleted(parseInt(taskId));
     this.renderTasks();
@@ -149,9 +150,6 @@ class AppDom {
   }
 
   onRemoveTransitionEnd(e) {
-    this.tasksManager.removeTask(
-      e.target.querySelector(".task-item").innerText
-    );
     this.renderTasks();
   }
 
@@ -213,9 +211,7 @@ class AppDom {
       case "all":
         return tasksToBeFiltered;
       case "completed":
-        return tasksToBeFiltered.filter((task) => {
-          task[2] === true;
-        });
+        return tasksToBeFiltered.filter((task) => task[2] === true);
       case "uncompleted":
         return tasksToBeFiltered.filter((task) => task[2] === false);
       default:
@@ -238,7 +234,6 @@ class AppDom {
     this.tasksList.innerHTML = "";
     const tasks = [...this.tasksManager.getTasks()];
     const completeFilter = this.filterCompleteTasks(tasks);
-    console.log("Complete filter", completeFilter);
     const filteredTasks = this.filterSearchedTasks(completeFilter);
     const self = this;
     this.toggleEmptyMsg();
