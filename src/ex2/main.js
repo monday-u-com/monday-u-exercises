@@ -1,10 +1,11 @@
 /*
 Install http-server by typing npm install -g http-server
-Change into your working directory, where yoursome.html lives
+Change into your working directory, where your some.html lives
 Start your http server by issuing http-server -c-1
 */
 
-// import { ItemManager } from "item-manager";
+import { ItemManager } from "/item-manager.js";
+
 
 const unsorted = Symbol("unsorted");
 const sortedAsc = Symbol("sortedAsc");
@@ -178,11 +179,12 @@ function compareElementsDesc(a, b) {
 }
 
 const main = new Main();
-// const ItemManager = new ItemManager();
+const itemManager = new ItemManager();
 
 
 document.addEventListener("DOMContentLoaded", function () {
     // you should create an `init` method in your class
     // the method should add the event listener to your "add" button
+    itemManager.init();
     main.init();
 });
