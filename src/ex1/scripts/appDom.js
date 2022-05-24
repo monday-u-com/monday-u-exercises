@@ -102,14 +102,14 @@ class AppDom {
   }
 
   toggleEmptyMsg() {
-    if (this.tasksManager.isEmpty() === true) {
+    if (this.tasksManager.getTasks().length === 0) {
       this.emptyListMsg.classList.remove("hide");
     } else {
       this.emptyListMsg.classList.add("hide");
     }
   }
-  toggleRemoveAllBtn() {
-    if (this.tasksManager.isEmpty() === true) {
+  toggleRemoveAllBtn(filteredTasks) {
+    if (filteredTasks.length < this.tasksManager.getTasks().length) {
       this.removeAllTasksButton.classList.add("hide");
     } else {
       this.removeAllTasksButton.classList.remove("hide");
@@ -282,7 +282,7 @@ class AppDom {
     const filteredTasks = this.filterSearchedTasks(completeFilter);
     const self = this;
     this.toggleEmptyMsg();
-    this.toggleRemoveAllBtn();
+    this.toggleRemoveAllBtn(filteredTasks);
     filteredTasks.forEach(function (task) {
       const taskDiv = self.createTaskDiv(
         task[TASK_CONTENT],
