@@ -1,9 +1,9 @@
 export class PokemonClient {
   constructor() {
-    this.API_BASE = 'https://pokeapi.co/api/v2/pokemon'
+    this.API_BASE = 'https://pokeapi.co/api/v2/pokemon';
   }
-  failureHandler(error, idOrName) {
-    console.log(`Failed to find ${idOrName}. ${error}`);
+  failureHandler(idOrName) {
+    console.log(`Failed to find ${idOrName}.`);
   }
   async catchPokemon(idOrName) {
       try {
@@ -11,7 +11,8 @@ export class PokemonClient {
         const data = await response.json();
         return data.forms[0].name;
       } catch (error) {
-        this.failureHandler(error, idOrName);
+        this.failureHandler(idOrName);
+        throw error;
       }
   }
 }
