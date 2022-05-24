@@ -9,16 +9,26 @@ class ItemManager
 
     async AddTodo(todo_text)
     {
-       
-        const result = Promise.resolve(this.pokemon_client.GetPokemonById(todo_text));   
-        await result;
-        result.then((res) => {
-            if(res.name !== "Error")
-                this.todos.push(`Catch ${res.name}`);
-            else
-                this.todos.push(res.message);
-            return;
-        });        
+        // parse text to int
+        const todo_id = parseInt(todo_text);
+        // check if its number
+        if(Number.isInteger(todo_id))
+        {
+            // send the id to pokemon client
+            const result = Promise.resolve(this.pokemon_client.GetPokemonById(todo_text));   
+            // wait for response
+            await result;
+            result.then((res) => {
+                // check if found pokemon
+                if(res.name !== "Error")
+                    this.todos.push(`Catch ${res.name}`);// found pokemon add the name of pokemon
+                else
+                    this.todos.push(res.message);// did not find pokemon 
+                return;
+            }); 
+        }
+        else
+            this.todos.push(todo_text);
     }
 
     RemoveTodo(task_to_remove_id)

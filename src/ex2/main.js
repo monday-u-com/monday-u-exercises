@@ -39,8 +39,8 @@ class Main
             this.dom_manager.ClearErrorEmptyTask();
             // send the todo to item manager
             const add_promise = Promise.resolve(this.item_manager.AddTodo(this.dom_manager.task_input.value));
+            // wait to get response before re-rendering
             await add_promise;
-            alert("done");
             this.dom_manager.RenderDomFromArray(this.item_manager.todos, (event) => {
                 this.RemoveTodo(event);
             });
