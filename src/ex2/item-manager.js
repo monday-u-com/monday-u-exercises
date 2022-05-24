@@ -11,11 +11,4 @@ export class ItemManager {
     this.todosArray.push(newTodoText);
     return this.todosArray;
   }
-  catchPokemon(request) {
-    if (request === 'pkm') {
-      return `Catch ${request}`
-    } else {
-      return false;
-    }
-  }
 }

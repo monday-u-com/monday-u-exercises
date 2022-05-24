@@ -5,6 +5,7 @@ Start your http server by issuing http-server -c-1
 */
 
 import { ItemManager } from "/item-manager.js";
+import { PokemonClient } from "/pokemon-client.js";
 
 
 const unsorted = Symbol("unsorted");
@@ -13,8 +14,9 @@ const sortedDesc = Symbol("sortedDesc");
 
 // Implement the `Main` class here
 class Main {
-  init(itemManager) {
+  init(itemManager, pokemonClient) {
     this.itemManager = itemManager;
+    this.pokemonClient = pokemonClient;
     this.allTodosList = document.getElementById("all-todos-list");
     this.isListSorted = unsorted;
     this.todosArray = itemManager.init();
@@ -133,12 +135,13 @@ class Main {
   onAddTodoFormSubmitted(event) {
     event.preventDefault();
     const todoRequest = this.inputTitle.value;
-    const pokemon = this.itemManager.catchPokemon(todoRequest);
-    const newTodoText = pokemon ? pokemon : todoRequest;
-    this.addTodoItem(newTodoText, true);
-    this.todosArray = itemManager.addItem(newTodoText);
-    this.displayFooterAndImage();
-    this.inputTitle.value = "";
+    this.pokemonClient.catchPokemon(todoRequest).then(pokemon => {
+      const newTodoText = pokemon ? pokemon : todoRequest;
+      this.addTodoItem(newTodoText, true);
+      this.todosArray = itemManager.addItem(newTodoText);
+      this.displayFooterAndImage();
+      this.inputTitle.value = "";
+    })
   }
 
   onSortListButtonClicked() {
@@ -183,10 +186,11 @@ function compareElementsDesc(a, b) {
 
 const main = new Main();
 const itemManager = new ItemManager();
+const pokemonClient = new PokemonClient();
 
 
 document.addEventListener("DOMContentLoaded", function () {
     // you should create an `init` method in your class
     // the method should add the event listener to your "add" button
-    main.init(itemManager);
+    main.init(itemManager, pokemonClient);
 });
