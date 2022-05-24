@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+*{
+  box-sizing: border-box;
+}
+
 html {
   height: 100%;
 }
@@ -10,15 +16,15 @@ body {
 .app-container {
   width: 100%;
   height: 100%;
-  font-family: Georgia, serif;
+  font-family: 'Roboto', serif;
   font-weight: lighter;
   background-image: linear-gradient(
     to top right,
     white,
-    #d4dff3,
-    rgba(138, 144, 224, 0.76),
-    rgba(106, 117, 231, 0.76),
-    rgba(85, 97, 229, 0.76)
+    #b4eeb9,
+    #7FB685,
+    #62b86b,
+    #488b4f
   );
 
   display: flex;
@@ -29,14 +35,12 @@ body {
 
 .app-name {
   padding-left: 32px;
-  font-weight: lighter;
 }
 
 .list-container {
   display: flex;
   flex-direction: column;
   width: 30%;
-  height: 50%;
   background-color: white;
   border: 1px silver solid;
   border-radius: 8px;
@@ -45,24 +49,34 @@ body {
 }
 
 .list-controls {
-  padding: 0px 32px;
   background-color: white;
   display: flex;
   align-items: center;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
+  width:90%;
+  justify-content: space-between;
+  padding-left: 32px;
 }
 
 .list-controls #list-item-input {
-  width: 85%;
+  width: 80%;
   height: 30px;
   font-size: 16px;
   padding-left: 8px;
 }
 
+
+.list-controls #list-item-input:focus{
+background-color: #f2c57c98;
+outline: 0 none;
+border:1px solid #f2c57c ;
+}
+
+
 .list-controls #list-item-submit {
   color: white;
-  background-color: #6c6cff;
+  background-color: #f2c57c;
   border-style: solid;
   border-color: transparent;
   border-radius: 4px;
@@ -77,15 +91,19 @@ body {
 }
 
 .list-controls #list-item-submit:hover {
-  background-color: #3c3cff;
+  background-color: white;
+  color: #f2c57c;
+  border: 1px solid #f2c57c;
   transition: background-color 0.2s ease-in-out;
 }
 
 #list {
   list-style-type: none;
   padding: 0px 30px;
-  height: 310px;
-  overflow-y: scroll;
+  min-height:300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .list-item {
@@ -95,8 +113,15 @@ body {
   align-items: center;
 }
 
+.list-item h4{
+  margin: 0px;
+  width:200px;
+  font-weight: 300;
+  overflow: hidden;
+}
+
 .list-item:hover {
-  color: blueviolet;
+  color: #EF6F6C;
   transition: color 0.2s ease-in-out;
 }
 
@@ -106,12 +131,13 @@ body {
 
 .list-item-delete-button {
   margin-left: auto;
-  padding: 8px;
+  padding: 4px 8px;
   cursor: pointer;
-  border-radius: 8px;
+  background-color: transparent;
+  border: none;
 }
 
 .list-item-delete-button:hover {
-  background-color: #f0f0f5;
+  background-color: #ddae7e7a;
   transition: background-color 0.2s ease-in-out;
 }
