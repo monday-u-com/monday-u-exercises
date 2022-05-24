@@ -92,7 +92,7 @@ async function addTask() {
       );
       let render = false;
       pokemonData.forEach((pokemon, i) => {
-         render = pokemonTasksHandle(pokemon, pokemonIDS, 1, i);
+         render = pokemonTasksHandle(pokemon, pokemonIDS, 1, i) || render;
       });
 
       return render;
@@ -106,6 +106,7 @@ async function addTask() {
 }
 
 function pokemonTasksHandle(pokemon, pokemonIDS, isMultiplePokemons, i) {
+   let render = false;
    if (pokemon) {
       let pokemonName =
          pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
