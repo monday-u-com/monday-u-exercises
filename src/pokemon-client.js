@@ -28,4 +28,9 @@ class PokemonClient {
          return false;
       }
    }
+
+   getPokemonTypes(pokemon) {
+      const pokemonTypes = pokemon.types.map((item) => item.type.name);
+      return pokemonTypes.join();
+   }
 }
