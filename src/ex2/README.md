@@ -5,7 +5,7 @@ Here we'll get your code to look a little more professional + modern, _and_ you'
 
 ## In this section you will practice
 
-**JS** - More in depth, using classes, methods, iterators  
+**JS** - More in depth, using classes, methods, iterators
 **Async JS** - Working with async code to retrieve data from a public API
 **MVC** - Basic design pattern for separating concerns
 
@@ -18,7 +18,7 @@ But this kind of work requires a bit more code organization, so...
 
 ### The requirements:
 
-- [ ] Refactor your current code to use classes with methods (you can copy+paste the code to a new file and refactor there - just make sure to update the `scripts` tag in your `index.html`)
+- [x] Refactor your current code to use classes with methods (you can copy+paste the code to a new file and refactor there - just make sure to update the `scripts` tag in your `index.html`)
 - [ ] Create an ItemManager class (in a new file) to manage the item adding/removing + pokemon fetching - this class does _not_ deal with the DOM
 - [ ] Store todos in an array (class attribute) - this should be in the ItemManager class
 - [ ] Render todos from the array using a separate render method

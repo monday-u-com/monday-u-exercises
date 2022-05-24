@@ -5,3 +5,9 @@ class ItemManager
   delete all-todos
   sort todo
 */
+
+export class ItemManager {
+  init() {
+
+  }
+}
