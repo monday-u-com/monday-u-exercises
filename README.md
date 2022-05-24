@@ -5,6 +5,15 @@ This is going to be so much fun! Here are a few general details:
 
 ![](https://i.ytimg.com/vi/6_zFLsW7z2E/maxresdefault.jpg)
 
+# 👋 Welcome to: Let's Work!
+
+# Instructions:
+Entering a task is done by pressing the plus button, when a task is added a "success" sound will be heard.
+
+Each task can be marked as completed or it can be deleted. If you choose to delete a task, you will hear a sound announcing the deletion.
+
+If there's an attempt to enter an empty task, a pop up message will appear. The same will happen when clicking on an existing task
+
 ## Exercises list
 
 **Exercise 1** - [HTML, CSS, JS.](https://github.com/monday-u-com/monday-u-exercises/tree/master/src/ex1)
