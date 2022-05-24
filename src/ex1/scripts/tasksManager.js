@@ -10,12 +10,17 @@ export class TasksManeger {
     }
   }
 
-  addTask(task, isCompleted) {
-    this.tasks.push([this.counterID, task, isCompleted]);
-    this.counterID++;
-    localStorage.setItem("counterID", JSON.stringify(this.counterID));
-    this.saveTasksToLocalStorage();
-    return this.counterID;
+  addTask(taskInput, isCompleted) {
+    const isTaskExist = this.tasks.find((task) => task[0] === taskInput);
+    if (!isTaskExist) {
+      this.tasks.push([this.counterID, task, isCompleted]);
+      this.counterID++;
+      localStorage.setItem("counterID", JSON.stringify(this.counterID));
+      this.saveTasksToLocalStorage();
+      return this.counterID;
+    } else {
+      return -1;
+    }
   }
 
   removeTask(taskContent) {

@@ -55,12 +55,15 @@ class AppDom {
     }
 
     if (isOk) {
-      this.tasksManager.addTask(this.taskInput.value, false);
-      this.taskInput.value = "";
-      if (isAlertShown) {
-        this.emprtyInputAlert.toggleAlert();
+      const newTaskID = this.tasksManager.addTask(this.taskInput.value, false);
+      if (newTaskID !== -1) {
+        //else do nothing for now, but later we can add some error alert handling
+        this.taskInput.value = "";
+        if (isAlertShown) {
+          this.emprtyInputAlert.toggleAlert();
+        }
+        this.renderTasks();
       }
-      this.renderTasks();
     }
   }
 
