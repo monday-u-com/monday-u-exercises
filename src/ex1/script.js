@@ -15,7 +15,7 @@ todoList.addEventListener('click', (e) => {
     deleteTask(e);
     checkTask(e);
     const taskTextDiv = e.target.childNodes[0];
-    if(taskTextDiv != undefined){
+    if(taskTextDiv){
         window.alert( taskText.nodeValue + " was chosen");
     } else{
         window.alert( "Empty task was chosen");
