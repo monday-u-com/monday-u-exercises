@@ -19,9 +19,9 @@ export default class PokemonClient{
     }
 
     showMatchUiByTodosNumber() {
-        sumTodos.textContent = this.itemManager.todoList.length
+        sumTodos.textContent = this.itemManager.todoListSize()
         
-        if(this.itemManager.todoList.length > 0){
+        if(this.itemManager.todoListSize() > 0){
             clearAllTodosButton.classList.add("active")
             clearAllTodosButton.style.cursor = "pointer"
             enterTodos.style.display = "none"
@@ -36,7 +36,7 @@ export default class PokemonClient{
     createTodoListItems() {
         let listItems = ""
 
-        this.itemManager.todoList.forEach((todo, index) => { 
+        this.itemManager.getTodoList().forEach((todo) => { 
             listItems += `<li>${todo}
                 <span class="delete";>
                     <i class="fas fa-trash"></i>
@@ -57,14 +57,16 @@ export default class PokemonClient{
     }
 
     deleteTodo(index){
-        this.itemManager.deleteTodo(index)
+        const removedTodo = this.itemManager.deleteTodo(index)
         this.showTodos()
+        alert(`removed new todo ${removedTodo}`) 
     }
 
     addTodo(){
         let enterValue = todoInput.value
         this.itemManager.addTodo(enterValue)
         addTodoButton.classList.remove("active")
+        alert(`added new todo ${enterValue}`)
     }
 }
 
