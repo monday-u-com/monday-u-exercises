@@ -1,9 +1,9 @@
-export class EmptyAlert {
-  constructor() {
-    this.alert = document.querySelector(".alert");
-    this.alertClose = document.querySelector(".alert-close-btn");
+export class Alert {
+  constructor(htmlElement) {
+    this.alert = htmlElement.querySelector(".alert");
+    this.alertClose = htmlElement.querySelector(".alert-close-btn");
 
-    this.alertClose.onClick = this.toggleAlert.bind(this);
+    this.alertClose.onclick = this.toggleAlert.bind(this);
   }
 
   toggleAlert() {

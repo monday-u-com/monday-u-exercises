@@ -1,37 +1,43 @@
 import { TasksManeger } from "./tasksManager.js";
-import { EmptyAlert } from "./alertScripts.js";
+import { Alert } from "./alertScripts.js";
 
 class AppDom {
-  constructor() {
+  constructor(htmlElement) {
     this.tasksManager = new TasksManeger();
-    this.emptyAlert = new EmptyAlert();
-    this.taskInput = document.querySelector(".task-input");
-    this.addTaskButton = document.querySelector(".task-add-btn");
-    this.tasksList = document.querySelector(".tasks-list");
-    this.filterOptiopn = document.querySelector(".filter-tasks");
-    this.searchInput = document.querySelector(".search-input");
-    this.dragArea = document.querySelector(".tasks-list");
+    this.emprtyInputAlert = new Alert(htmlElement);
+    this.taskInput = htmlElement.querySelector(".task-input");
+    this.addTaskButton = htmlElement.querySelector(".task-add-btn");
+    this.tasksList = htmlElement.querySelector(".tasks-list");
+    this.filterOptiopn = htmlElement.querySelector(".filter-tasks");
+    this.searchInput = htmlElement.querySelector(".search-input");
+    this.dragArea = htmlElement.querySelector(".tasks-list");
+    this.emptyListMsg = htmlElement.querySelector(".empty-msg");
     this.chosenFilter = "all";
 
-    new Sortable(this.dragArea, {
-      animation: 350,
-      draggable: ".task",
-      handle: ".grip-lines-icon",
-      onEnd: function (evt) {
-        const tasks = evt.item.parentElement;
-        this.tasksManager.updateTaskOrder(tasks);
-      },
-    });
+    this.activateSortable(this.tasksManager);
     this.addFieldsEventListeners();
 
     this.renderTasks();
   }
 
+  activateSortable(tasksManeger) {
+    new Sortable(this.dragArea, {
+      animation: 350,
+      draggable: ".task",
+      handle: ".grip-lines-icon",
+
+      onEnd: function (evt) {
+        const tasksList = evt.item.parentElement.querySelectorAll(".task");
+        tasksManeger.reSortTasks(tasksList);
+      },
+    });
+  }
+
   addFieldsEventListeners() {
-    this.addTaskButton.onClick = this.onAddTaskClick.bind(this);
-    this.filterOptiopn.onChange = this.onFilterOptionChange.bind(this);
-    this.searchInput.onKeyUp = this.onSearchInputKeyUp.bind(this);
-    this.tasksList.onClick = this.onTaskButtonsClick.bind(this);
+    this.addTaskButton.onclick = this.onAddTaskClick.bind(this);
+    this.filterOptiopn.onchange = this.onFilterOptionChange.bind(this);
+    this.searchInput.onkeyup = this.onSearchInputKeyUp.bind(this);
+    this.tasksList.onclick = this.onTaskButtonsClick.bind(this);
 
     this.taskInput.onkeypress = (e) => {
       if (e.key === "Enter") {
@@ -39,33 +45,27 @@ class AppDom {
         this.onAddTaskClick();
       }
     };
-    /*
-    this.taskInput.addEventListener("keypress", function (event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        this.addTaskButton.click();
-      }
-    })*/
   }
 
   onAddTaskClick(e) {
     const isOk = this.canProceed();
     if (isOk) {
       this.tasksManager.addTask(this.taskInput.value, false);
+      this.taskInput.value = "";
       this.renderTasks();
     }
   }
 
   canProceed() {
-    const isAlertOn = this.emptyAlert.isAlertShown();
+    const isAlertOn = this.emprtyInputAlert.isAlertShown();
     if (this.taskInput.value === "") {
       if (!isAlertOn) {
-        this.emptyAlert.toggleAlert();
+        this.emprtyInputAlert.toggleAlert();
       }
       return false;
     } else {
       if (isAlertOn) {
-        this.emptyAlert.toggleAlert();
+        this.emprtyInputAlert.toggleAlert();
       }
       return true;
     }
@@ -116,16 +116,17 @@ class AppDom {
   }
 
   onTaskButtonsClick(e) {
+    console.log("HERE");
     const button = e.target;
     if (button.classList.contains("task-complete-btn")) {
       button.parentElement.classList.toggle("task-completed");
       button.classList.toggle("btn-completed");
-      updateTaskInLocalStorage(
+      this.tasksManager.toggleCompleted(
         button.parentElement.querySelector(".task-item").innerText
       );
     } else if (e.target.classList.contains("task-remove-btn")) {
       const task = e.target.parentElement;
-      task.addEventListener("transitionend", this.onRemoveTransitionEnd, false);
+      task.ontransitionend = this.onRemoveTransitionEnd.bind(this);
       task.classList.add("task-removed");
     }
   }
@@ -138,17 +139,15 @@ class AppDom {
   }
 
   onFilterOptionChange(e) {
-    console.log("filter changed");
     this.chosenFilter = e.target.value;
     this.renderTasks();
   }
 
   toggleEmptyMsg() {
-    const emptyMsg = document.querySelector(".empty-msg");
-    if (this.tasksList.children.length === 0) {
-      emptyMsg.classList.remove("hide");
+    if (this.tasksManager.isEmpty() === true) {
+      this.emptyListMsg.classList.remove("hide");
     } else {
-      emptyMsg.classList.add("hide");
+      this.emptyListMsg.classList.add("hide");
     }
   }
 
@@ -192,33 +191,46 @@ class AppDom {
     return taskDiv;
   }
 
-  filterTasks(tasks) {
+  filterCompleteTasks(tasks) {
+    console.log("filter", tasks);
     switch (this.chosenFilter) {
       case "all":
         return tasks;
       case "completed":
-        return tasks.filter((task) => task.isCompleted);
+        return tasks.filter((task) => {
+          task[1] === true;
+        });
       case "uncompleted":
-        return tasks.filter((task) => !task.isCompleted);
+        return tasks.filter((task) => task[1] === false);
       default:
         return tasks;
+    }
+  }
+
+  filterSearchedTasks(tasks) {
+    const searchInput = this.searchInput.value;
+    if (searchInput === "") {
+      return tasks;
+    } else {
+      return tasks.filter((task) => {
+        return task[0].toLowerCase().includes(searchInput.toLowerCase());
+      });
     }
   }
 
   renderTasks() {
     this.tasksList.innerHTML = "";
     const tasks = [...this.tasksManager.getTasks()];
-    const filteredTask = this.filterTasks(tasks);
+    const completeFilter = this.filterCompleteTasks(tasks);
+    const filteredTasks = this.filterSearchedTasks(completeFilter);
     const self = this;
-    if (filteredTask.length === 0) {
-      this.toggleEmptyMsg();
-    } else {
-      filteredTask.forEach(function (task) {
-        const taskDiv = self.createTaskDiv(task[0], task[1]);
-        self.tasksList.appendChild(taskDiv);
-        self.addTaskDivEventListeners(taskDiv);
-      });
-    }
+    this.toggleEmptyMsg();
+    filteredTasks.forEach(function (task) {
+      const taskDiv = self.createTaskDiv(task[0], task[1]);
+      self.tasksList.appendChild(taskDiv);
+      self.addTaskDivEventListeners(taskDiv);
+    });
   }
 }
-  
+
+const app = new AppDom(document);
