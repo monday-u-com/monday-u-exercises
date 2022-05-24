@@ -120,5 +120,13 @@ body {
   justify-content: space-between;
   margin-bottom: 2vh;
   align-items: center;
-  margin-left:3vw;
+  margin-left: 3vw;
+}
+.clearAll {
+  margin-right: 1.8vw;
+  color: white;
+  background-color: #6c6cff;
+  border: none;
+  width: 5vw;
+  height: 5vh;
 }

@@ -4,6 +4,9 @@ const allLists = document.getElementById("list")
 const counterLists = document.getElementById("counterLists")
 const deleteAllLists = document.getElementById("deleteAllTasks")
 const errorMessage = document.getElementById("error")
+
+const pokemonApi = "https://pokeapi.co/api/v2/pokemon/"
+
 class Main {
   constructor() {
     this.name = "Main"
@@ -18,9 +21,9 @@ class Main {
         validationText()
       }
     })
-    // deleteAllLists.addEventListener("click", function () {
-    //   deleteAllTasks()
-    // })
+    deleteAllLists.addEventListener("click", function () {
+      deleteAllTasks()
+    })
   }
 }
 
@@ -34,9 +37,9 @@ textInput.addEventListener("keypress", function (e) {
     validationText()
   }
 })
-// deleteAllLists.addEventListener("click", function () {
-//   deleteAllTasks()
-// })
+deleteAllLists.addEventListener("click", function () {
+  deleteAllTasks()
+})
 function addNewList() {
   countLiAdded()
   const input = document.getElementById("input")
@@ -78,12 +81,12 @@ function countLiDeleted() {
   counter.innerHTML -= 1
 }
 
-// function deleteAllTasks() {
-//   const list = document.getElementById("todolist")
-//   const counter = document.getElementById("counter")
-//   counter.innerHTML = 0
-//   list.innerHTML = ""
-// }
+function deleteAllTasks() {
+  const list = document.getElementById("todolist")
+  const counter = document.getElementById("counter")
+  counter.innerHTML = 0
+  list.innerHTML = ""
+}
 
 function validationText() {
   const input = document.getElementById("list-item-input")
