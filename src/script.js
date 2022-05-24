@@ -141,7 +141,7 @@ function getPokemonTypes(pokemon) {
 }
 
 function createTaskContainer() {
-   const taskContainer = document.createElement("div");
+   const taskContainer = document.createElement("li");
    taskContainer.classList.add(TASKS_CONTAINER_SELECTOR.slice(1));
    allTasksContainer.append(taskContainer);
 
