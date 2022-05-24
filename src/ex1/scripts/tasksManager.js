@@ -4,28 +4,18 @@ import { TASK_ID, TASK_CONTENT, TASK_COMPLETED } from "./globalConsts.js";
 export class TasksManeger {
   constructor() {
     this.tasks = [];
-    this.pokedex = new PokemonClient();
     this.counterID = 0;
+
+    this.pokedex = new PokemonClient();
+    this.initFromLocalStorage();
+  }
+
+  initFromLocalStorage() {
     if (localStorage.getItem("tasks") !== null) {
       this.tasks = JSON.parse(localStorage.getItem("tasks"));
     }
     if (localStorage.getItem("counterID" != null)) {
       this.counterID = JSON.parse(localStorage.getItem("counterID"));
-    }
-  }
-
-  pushingTaskAndSave(taskInput, isCompleted) {
-    const isTaskExist = this.tasks.find(
-      (task) => task[TASK_CONTENT] === taskInput
-    );
-    if (!isTaskExist) {
-      this.tasks.push([this.counterID, taskInput, isCompleted]);
-      this.counterID++;
-      localStorage.setItem("counterID", JSON.stringify(this.counterID));
-      this.saveTasksToLocalStorage();
-      return true;
-    } else {
-      return false;
     }
   }
 
@@ -54,15 +44,24 @@ export class TasksManeger {
     }
   }
 
+  pushingTaskAndSave(taskInput, isCompleted) {
+    const isTaskExist = this.tasks.find(
+      (task) => task[TASK_CONTENT] === taskInput
+    );
+    if (!isTaskExist) {
+      this.tasks.push([this.counterID, taskInput, isCompleted]);
+      this.counterID++;
+      localStorage.setItem("counterID", JSON.stringify(this.counterID));
+      this.saveTasksToLocalStorage();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   removeTask(taskContent) {
     const index = this.tasks.find((task) => task[TASK_ID] === taskContent);
     this.tasks.splice(index, 1);
-    this.saveTasksToLocalStorage();
-  }
-
-  toggleCompleted(taskID) {
-    const task = this.tasks.find((task) => task[TASK_ID] == taskID);
-    task[TASK_COMPLETED] = !task[TASK_COMPLETED];
     this.saveTasksToLocalStorage();
   }
 
@@ -73,6 +72,16 @@ export class TasksManeger {
 
   getTasks() {
     return this.tasks;
+  }
+
+  toggleCompleted(taskID) {
+    const task = this.tasks.find((task) => task[TASK_ID] == taskID);
+    task[TASK_COMPLETED] = !task[TASK_COMPLETED];
+    this.saveTasksToLocalStorage();
+  }
+
+  isEmpty() {
+    return this.tasks.length === 0;
   }
 
   saveTasksToLocalStorage() {
@@ -87,9 +96,5 @@ export class TasksManeger {
       this.addTask(taskContent, isCompleted);
     });
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
-  }
-
-  isEmpty() {
-    return this.tasks.length === 0;
   }
 }

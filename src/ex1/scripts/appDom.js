@@ -11,21 +11,33 @@ class AppDom {
   constructor(htmlElement) {
     this.tasksManager = new TasksManeger();
     this.emprtyInputAlert = new Alert(htmlElement);
+
+    // Action Elements //
+
     this.taskInput = htmlElement.querySelector(".task-input");
     this.addTaskButton = htmlElement.getElementById("task-add-btn");
-    this.tasksList = htmlElement.querySelector(".tasks-list");
     this.filterOption = htmlElement.getElementById("filter-dropdown");
     this.searchInput = htmlElement.getElementById("search-input");
+    this.chosenFilter = "all";
+
+    // Task List Elements //
+
+    this.tasksList = htmlElement.querySelector(".tasks-list");
     this.dragArea = htmlElement.querySelector(".tasks-list");
     this.emptyListMsg = htmlElement.getElementById("empty-tasks");
     this.removeAllTasksButton = htmlElement.getElementById("remove-all-btn");
-    this.chosenFilter = "all";
+
+    // Events init //
 
     this.activateSortable(this.tasksManager);
     this.addFieldsEventListeners();
 
+    // Init Render from localStorage //
+
     this.renderTasks();
   }
+
+  // Init Methods //
 
   activateSortable(tasksManeger) {
     new Sortable(this.dragArea, {
@@ -53,6 +65,8 @@ class AppDom {
       }
     };
   }
+
+  // Action Methods //
 
   async onAddTaskClick(e) {
     const isOk = this.canProceed();
@@ -82,92 +96,8 @@ class AppDom {
     return this.taskInput.value.trim() !== "";
   }
 
-  createGridLines() {
-    const gripLines = document.createElement("div");
-    gripLines.classList.add("grip-lines-icon");
-    const gripLinesIcon = document.createElement("i");
-    gripLinesIcon.classList.add("fas");
-    gripLinesIcon.classList.add("fa-grip-lines");
-    gripLines.appendChild(gripLinesIcon);
-    return gripLines;
-  }
-
-  createTaskContent(content = null) {
-    const newTask = document.createElement("p");
-    newTask.classList.add("task-item");
-    if (content) {
-      newTask.innerText = content;
-    } else {
-      newTask.innerText = this.taskInput.value;
-    }
-    return newTask;
-  }
-
-  createCompleteBtn(isCompleted = false) {
-    const completeTaskButton = document.createElement("button");
-    completeTaskButton.classList.add("task-complete-btn");
-    completeTaskButton.classList.add("hide");
-    if (isCompleted) {
-      completeTaskButton.classList.add("btn-completed");
-    }
-    const icon = document.createElement("i");
-    icon.classList.add("fas");
-    icon.classList.add("fa-check");
-    completeTaskButton.appendChild(icon);
-    completeTaskButton.setAttribute("id", "complete-task-btn");
-    completeTaskButton.onclick = this.onCompleteBtnClick.bind(this);
-    return completeTaskButton;
-  }
-
-  onCompleteBtnClick(e) {
-    e.target.classList.toggle("btn-completed");
-    const taskItem = e.target.parentElement;
-    taskItem.classList.toggle("task-completed");
-    const taskId = taskItem.getAttribute("id");
-    this.tasksManager.toggleCompleted(parseInt(taskId));
-    this.renderTasks();
-  }
-
-  createRemoveBtn() {
-    const removeTaskButton = document.createElement("button");
-    removeTaskButton.classList.add("task-remove-btn");
-    removeTaskButton.classList.add("hide");
-    const icon = document.createElement("i");
-    icon.classList.add("fas");
-    icon.classList.add("fa-trash-alt");
-    removeTaskButton.appendChild(icon);
-    removeTaskButton.setAttribute("id", "remove-task-btn");
-    removeTaskButton.onclick = this.onRemoveBtnClick.bind(this);
-    return removeTaskButton;
-  }
-
-  onRemoveBtnClick(e) {
-    const taskItem = e.target.parentElement.parentElement;
-    //taskItem.ontransitionend = this.onRemoveTransitionEnd.bind(this);
-    //taskItem.classList.add("remove-task");
-    const taskId = taskItem.getAttribute("id");
-    this.tasksManager.removeTask(parseInt(taskId));
-    this.renderTasks();
-  }
-
   onRemoveAllTasksClick(e) {
     this.tasksManager.removeAllTasks();
-    this.renderTasks();
-  }
-
-  addTaskDivEventListeners(taskDiv) {
-    taskDiv.onmouseover = this.onTaskMouseOver.bind(this);
-    taskDiv.onmouseleave = this.onTaskMouseOut.bind(this);
-    taskDiv.addEventListener("click", this.onTaskClick);
-    taskDiv.draggable = true;
-  }
-
-  onRemoveTransitionEnd(e) {
-    this.renderTasks();
-  }
-
-  onFilterOptionChange(e) {
-    this.chosenFilter = e.target.value;
     this.renderTasks();
   }
 
@@ -187,6 +117,34 @@ class AppDom {
   }
 
   onSearchInputKeyUp(e) {
+    this.renderTasks();
+  }
+
+  onFilterOptionChange(e) {
+    this.chosenFilter = e.target.value;
+    this.renderTasks();
+  }
+
+  // List Events //
+  onCompleteBtnClick(e) {
+    e.target.classList.toggle("btn-completed");
+    const taskItem = e.target.parentElement;
+    taskItem.classList.toggle("task-completed");
+    const taskId = taskItem.getAttribute("id");
+    this.tasksManager.toggleCompleted(parseInt(taskId));
+    this.renderTasks();
+  }
+
+  onRemoveBtnClick(e) {
+    const taskItem = e.target.parentElement.parentElement;
+    //taskItem.ontransitionend = this.onRemoveTransitionEnd.bind(this);
+    //taskItem.classList.add("remove-task");
+    const taskId = taskItem.getAttribute("id");
+    this.tasksManager.removeTask(parseInt(taskId));
+    this.renderTasks();
+  }
+
+  onRemoveTransitionEnd(e) {
     this.renderTasks();
   }
 
@@ -213,6 +171,8 @@ class AppDom {
     removeTaskButton.classList.add("hide");
   }
 
+  // Task Creation Methods //
+
   createTaskDiv(task, isCompleted) {
     const taskDiv = document.createElement("div");
     taskDiv.classList.add("task");
@@ -225,6 +185,65 @@ class AppDom {
     taskDiv.appendChild(this.createRemoveBtn());
     return taskDiv;
   }
+
+  addTaskDivEventListeners(taskDiv) {
+    taskDiv.onmouseover = this.onTaskMouseOver.bind(this);
+    taskDiv.onmouseleave = this.onTaskMouseOut.bind(this);
+    taskDiv.addEventListener("click", this.onTaskClick);
+    taskDiv.draggable = true;
+  }
+
+  createRemoveBtn() {
+    const removeTaskButton = document.createElement("button");
+    removeTaskButton.classList.add("task-remove-btn");
+    removeTaskButton.classList.add("hide");
+    const icon = document.createElement("i");
+    icon.classList.add("fas");
+    icon.classList.add("fa-trash-alt");
+    removeTaskButton.appendChild(icon);
+    removeTaskButton.setAttribute("id", "remove-task-btn");
+    removeTaskButton.onclick = this.onRemoveBtnClick.bind(this);
+    return removeTaskButton;
+  }
+
+  createCompleteBtn(isCompleted = false) {
+    const completeTaskButton = document.createElement("button");
+    completeTaskButton.classList.add("task-complete-btn");
+    completeTaskButton.classList.add("hide");
+    if (isCompleted) {
+      completeTaskButton.classList.add("btn-completed");
+    }
+    const icon = document.createElement("i");
+    icon.classList.add("fas");
+    icon.classList.add("fa-check");
+    completeTaskButton.appendChild(icon);
+    completeTaskButton.setAttribute("id", "complete-task-btn");
+    completeTaskButton.onclick = this.onCompleteBtnClick.bind(this);
+    return completeTaskButton;
+  }
+
+  createGridLines() {
+    const gripLines = document.createElement("div");
+    gripLines.classList.add("grip-lines-icon");
+    const gripLinesIcon = document.createElement("i");
+    gripLinesIcon.classList.add("fas");
+    gripLinesIcon.classList.add("fa-grip-lines");
+    gripLines.appendChild(gripLinesIcon);
+    return gripLines;
+  }
+
+  createTaskContent(content = null) {
+    const newTask = document.createElement("p");
+    newTask.classList.add("task-item");
+    if (content) {
+      newTask.innerText = content;
+    } else {
+      newTask.innerText = this.taskInput.value;
+    }
+    return newTask;
+  }
+
+  // Render Methods //
 
   filterCompleteTasks(tasksToBeFiltered) {
     switch (this.chosenFilter) {
