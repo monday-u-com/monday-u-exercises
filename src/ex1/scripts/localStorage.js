@@ -1,3 +1,4 @@
+/*
 function saveTaskToLocalStorage(task, isCompleted) {
   let tasks;
   if (localStorage.getItem("tasks") === null) {
@@ -31,18 +32,7 @@ function renderTasksFromLocalStorage() {
 }
 renderTasksFromLocalStorage();
 
-function createTaskDiv(task, isCompleted) {
-  const taskDiv = document.createElement("div");
-  taskDiv.classList.add("task");
-  if (isCompleted) {
-    taskDiv.classList.add("task-completed");
-  }
-  taskDiv.appendChild(createGridLines());
-  taskDiv.appendChild(createTaskContent(task));
-  taskDiv.appendChild(createCompleteBtn(isCompleted));
-  taskDiv.appendChild(createRemoveBtn());
-  return taskDiv;
-}
+
 
 function removeTaskFromLocalStorage(taskContent) {
   let tasks = getTasksFromLocalStorage();
@@ -75,3 +65,4 @@ function updateTasksOrderInLocalStorage() {
   }
   localStorage.setItem("tasks", JSON.stringify(tasksArray));
 }
+*/

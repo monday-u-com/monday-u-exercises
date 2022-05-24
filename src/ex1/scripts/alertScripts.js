@@ -1,19 +1,22 @@
-const emptyAlert = document.querySelector(".alert");
-const alertClose = document.querySelector(".alert-close-btn");
+export class EmptyAlert {
+  constructor() {
+    this.alert = document.querySelector(".alert");
+    this.alertClose = document.querySelector(".alert-close-btn");
 
-alertClose.addEventListener("click", toggleAlert);
-
-
-function toggleAlert() {
-  if (emptyAlert.classList.contains("show")) {
-    emptyAlert.classList.remove("show");
-    emptyAlert.classList.add("hide");
-  } else {
-    emptyAlert.classList.add("show");
-    emptyAlert.classList.remove("hide");
+    this.alertClose.onClick = this.toggleAlert.bind(this);
   }
-}
 
-function isAlertShown() {
-  return emptyAlert.classList.contains("show");
+  toggleAlert() {
+    if (this.alert.classList.contains("show")) {
+      this.alert.classList.remove("show");
+      this.alert.classList.add("hide");
+    } else {
+      this.alert.classList.add("show");
+      this.alert.classList.remove("hide");
+    }
+  }
+
+  isAlertShown() {
+    return this.alert.classList.contains("show");
+  }
 }
