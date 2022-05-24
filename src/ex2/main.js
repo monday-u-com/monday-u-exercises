@@ -37,7 +37,7 @@ class Main {
         if (this.dom_manager.task_input.value) {
             // clear error message
             this.dom_manager.ClearErrorEmptyTask();
-            // send the todo to item manager
+            // send the task to item manager
             const add_promise = Promise.resolve(this.item_manager.AddTask(this.dom_manager.task_input.value));
             // wait to get response before re-rendering
             await add_promise;

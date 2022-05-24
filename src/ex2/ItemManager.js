@@ -63,13 +63,19 @@ class ItemManager {
     /**
      * inserts result to 
      * @param {string} result 
+     * @param {int} id 
      */
     InsertResultToArray(result) {
         // check if found pokemon
         if (result.name !== "Error")
-            this.tasks.push(`Catch ${result.name}`);// found pokemon add the name of pokemon
+        {
+            if(!this.CheckIfPokemonExists(result.id))
+                this.tasks.push({data: `Catch ${result.name}`, id: result.id});// found pokemon add the name and id of pokemon 
+            /*else
+                throw new Error(`Already exists`);*/
+        }
         else
-            this.tasks.push(result.message);// did not find pokemon 
+            this.tasks.push({data: result.message, id: "Error"});// did not find pokemon 
     }
 
     /**
@@ -87,5 +93,14 @@ class ItemManager {
             return a.toLowerCase().localeCompare(b.toLowerCase());
         });
     }
-
+    
+    /**
+     * check if pokemon is in tasks
+     * @param {int} id id of pokemon to find
+     * @returns true if found false if not found
+     */
+    CheckIfPokemonExists(id)
+    {
+        return this.tasks.find(task => task.id === id);
+    }
 }

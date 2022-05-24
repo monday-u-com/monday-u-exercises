@@ -127,7 +127,7 @@ class DomManager {
         // clear task container for rendering
         this.task_container.innerHTML = "";
         todos_copy.map((todo, key) => {
-            this.AddNewTask(key, todo, delete_call_back);
+            this.AddNewTask(key, todo.data, delete_call_back);
         });
         this.UpdateTaskCounter();
     }
