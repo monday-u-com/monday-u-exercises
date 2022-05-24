@@ -105,7 +105,8 @@ function pokemonTasksHandle(pokemon, pokemonIDS, isMultiplePokemons, i) {
    if (pokemon) {
       let pokemonName =
          pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-      const taskToAdd = `Catch ${pokemonName}`;
+      const pokemonTypes = getPokemonTypes(pokemon);
+      const taskToAdd = `Catch ${pokemonName} of type ${pokemonTypes}`;
       if (tasks.items.includes(taskToAdd)) {
          alert(
             `${pokemonName} already exists in your tasks. Please try another Pokemon.`
@@ -128,6 +129,11 @@ function pokemonTasksHandle(pokemon, pokemonIDS, isMultiplePokemons, i) {
    }
 
    return render;
+}
+
+function getPokemonTypes(pokemon) {
+   const pokemonTypes = pokemon.types.map((item) => item.type.name);
+   return pokemonTypes.join();
 }
 
 function createTaskContainer() {
