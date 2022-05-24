@@ -14,6 +14,7 @@ const sortedDesc = Symbol("sortedDesc");
 // Implement the `Main` class here
 class Main {
   init(itemManager) {
+    this.itemManager = itemManager;
     this.allTodosList = document.getElementById("all-todos-list");
     this.isListSorted = unsorted;
     this.todosArray = itemManager.init();
@@ -113,7 +114,7 @@ class Main {
 
   onDeleteButtonClicked(clickedButton) {
     const index = Array.prototype.indexOf.call(this.allTodosList.getElementsByTagName("li"), clickedButton.parentElement);
-    this.todosArray.splice(index, 1);
+    this.todosArray = this.itemManager.deleteItem(index);
     clickedButton.parentElement.classList.remove("existing-item");
     clickedButton.parentElement.classList.add("delete-item-animation");
     setTimeout (() => {
@@ -133,7 +134,7 @@ class Main {
     event.preventDefault();
     const newTodoText = this.inputTitle.value;
     this.addTodoItem(newTodoText, true);
-    this.todosArray.push(newTodoText);
+    this.todosArray = itemManager.addItem(newTodoText);
     this.displayFooterAndImage();
     this.inputTitle.value = "";
   }
