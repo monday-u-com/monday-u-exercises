@@ -14,42 +14,60 @@ addTodoTask.addEventListener('click', addTask);
 todoList.addEventListener('click', (e) => {
     deleteTask(e);
     checkTask(e);
-    const taskTextDiv = e.target.childNodes[0];
-    if(taskTextDiv != undefined){
-        window.alert( taskText.nodeValue + " was chosen");
-    } else{
-        window.alert( "Empty task was chosen");
+    if(e.target.classList[0] === 'todo-text'){
+        const taskText = e.target.childNodes[0].nodeValue;
+        if(taskText){
+            window.alert( taskText + " was chosen");
+        } else{
+            window.alert( "Empty task was chosen");
+        }
     }
+    
 });
 tabs.addEventListener('click', handleTabs);
 clearAllButton.addEventListener('click', clearAll);
 
 calculatePending();
 
-function addTask (e){
-    // prevents refreshing of the page
-    e.preventDefault(); 
-    // create task div
+function createTaskDiv(){
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('task');
-    taskDiv.setAttribute('done', 'no');
+    taskDiv.setAttribute('done', 'false');
     // add checkbox to task
+    taskDiv.appendChild(addCheckbox());
+    // add task's text
+    taskDiv.appendChild(addDivText());
+    // add delete button
+    taskDiv.appendChild(addDeleteButton());
+    return taskDiv;
+}
+
+function addCheckbox (){
     const check = document.createElement('button');
     check.classList.add('checkbox');
     check.innerHTML = '<i class="fa-solid fa-square"></i>';
-    taskDiv.appendChild(check);
-    // add task's text
+    return check;
+}
+
+function addDivText (){
     const todoTask = document.createElement('div');
     todoTask.classList.add('todo-text');
     todoTask.innerText = newTaskText.value;
-    taskDiv.appendChild(todoTask);
-    // add delete button
+    return todoTask;
+}
+
+function addDeleteButton(){
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('delete-btn');
     deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
-    taskDiv.appendChild(deleteButton);
-    // add the todo div to the list
-    todoList.appendChild(taskDiv);
+    return deleteButton;
+}
+
+function addTask (e){
+    // prevents refreshing of the page
+    e.preventDefault(); 
+    // create task div and add the todo div to the list
+    todoList.appendChild(createTaskDiv());
     // erases text input
     newTaskText.value = "";
     calculatePending();
@@ -61,16 +79,16 @@ function checkTask(e){
     const task = checkbox.parentElement.parentElement;
     
     if (checkbox.classList[1] === 'fa-square' || checkbox.classList[1] === 'fa-square-check'){
-        if (task.getAttribute('done') === 'no'){
+        if (task.getAttribute('done') === 'false'){
             checkbox.parentElement.innerHTML = '<i class="fa-solid fa-square-check"></i>';
             task.style.color = "grey";
             task.style.textDecoration = "line-through";
-            task.setAttribute("done", "yes");
-        } else if (task.getAttribute('done') === 'yes'){
-            checkbox.parentElement.innerHTML = '<i class="fa-solid fa-square"></i>';;
+            task.setAttribute("done", "true");
+        } else if (task.getAttribute('done') === 'true'){
+            checkbox.parentElement.innerHTML = '<i class="fa-solid fa-square"></i>';
             task.style.color = "#FFF";
             task.style.textDecoration = "none";
-            task.setAttribute("done", "no");
+            task.setAttribute("done", "false");
         }
         calculatePending();
     }
@@ -102,7 +120,7 @@ function handleTabs(e){
             allTasksButton.style.opacity ='0.5';
             doneButton.style.opacity = '1';
             tasks.forEach(task => {
-                if (task.getAttribute('done') === 'yes'){
+                if (task.getAttribute('done') === 'true'){
                     task.style.display = 'flex';
                 } else {
                     task.style.display = 'none';
@@ -114,7 +132,7 @@ function handleTabs(e){
             allTasksButton.style.opacity ='0.5';
             doneButton.style.opacity = '0.5';
             tasks.forEach(task => {
-                if (task.getAttribute('done') === 'no'){
+                if (task.getAttribute('done') === 'false'){
                     task.style.display = 'flex';
                 } else {
                     task.style.display = 'none';
@@ -130,18 +148,16 @@ function calculatePending (){
     const total = tasks.length;
     let numberOfPending = 0;
     tasks.forEach( task => {
-        if(task.getAttribute('done') === 'no'){
+        if(task.getAttribute('done') === 'false'){
             numberOfPending++;
         }
     })
-    pending.innerText = "There are " + numberOfPending + "/" + total + " pending tasks";
+    pending.innerText = `There are ${numberOfPending} / ${total} pending tasks`;
 
 }
 
 function clearAll (){
     // function that clears all the tasks
-    while (todoList.hasChildNodes()){
-        todoList.removeChild(todoList.lastChild);
-    }
+    todoList.innerHTML="";
     calculatePending();
 }

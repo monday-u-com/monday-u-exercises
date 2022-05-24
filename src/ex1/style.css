@@ -99,7 +99,7 @@ button:active{
     background-color: #8c7ae6;
 }
 
-.list-container{
+.todo-list{
     overflow: auto;
     height: 70%;
 }
