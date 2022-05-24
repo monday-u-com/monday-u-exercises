@@ -32,7 +32,7 @@ body {
    flex-direction: column;
    align-items: center;
    background-color: aliceblue;
-   width: 52rem;
+   width: 54rem;
    min-width: 45rem;
    height: 62rem;
    border-radius: 8px;
@@ -41,7 +41,7 @@ body {
 .all-tasks-container {
    overflow: auto;
    height: 29rem;
-   width: 42rem;
+   width: 48rem;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -111,7 +111,7 @@ body {
 }
 
 .task {
-   width: 34rem;
+   width: 39rem;
    height: 3.5rem;
    background-color: rgb(139, 218, 255);
    font-size: 2rem;
