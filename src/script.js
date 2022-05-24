@@ -63,12 +63,15 @@ function renderTasks() {
 async function addTask() {
    const taskUserInput = taskInput.value;
    taskInput.value = "";
-
+   const allPokemonNames = await pokemonNames.getAllPokemonNames();
    if (taskUserInput.trim().length === 0) {
       alert("Please fill in a task");
 
       return false;
-   } else if (!isNaN(taskUserInput)) {
+   } else if (
+      !isNaN(taskUserInput) ||
+      allPokemonNames.includes(taskUserInput)
+   ) {
       // For single Pokemon entry
       let pokemonData = await pokemonNames.getPokemon(taskUserInput);
       let pokemonID = taskUserInput;
@@ -80,7 +83,7 @@ async function addTask() {
       taskUserInput
          .replace(/\s/g, "")
          .split(",")
-         .every((elem) => !isNaN(elem))
+         .every((elem) => !isNaN(elem) || allPokemonNames.includes(elem))
    ) {
       // For multiple Pokemons entry
       let pokemonIDS = taskUserInput.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
@@ -94,6 +97,7 @@ async function addTask() {
 
       return render;
    } else {
+      // For regular boring non-pokemon tasks
       tasks.add(taskUserInput);
       pendingTasksUpdate("+");
 
