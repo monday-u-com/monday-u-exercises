@@ -7,6 +7,8 @@ const clearButton = document.querySelector(CLEAR_BTN_SELECTOR);
 const sortDownButton = document.querySelector(SORT_DOWN_BTN_SELECTOR);
 const sortUpButton = document.querySelector(SORT_UP_BTN_SELECTOR);
 const sortButtonsContainer = document.querySelector(SORT_BTNS_SELECTOR);
+const pokemonImagesContainer = document.querySelector(POKEMON_IMAGES_SELECTOR);
+const pokemonCatchText = document.querySelector(POKEMON_TEXT_SELECTOR);
 
 const tasks = new ItemManager();
 const pokemonNames = new PokemonClient();
@@ -118,6 +120,7 @@ function pokemonTasksHandle(pokemon, pokemonIDS, isMultiplePokemons, i) {
          );
          render = false;
       } else {
+         addToPokedex(pokemon);
          tasks.add(taskToAdd);
          pendingTasksUpdate("+");
          render = true;
@@ -139,6 +142,14 @@ function pokemonTasksHandle(pokemon, pokemonIDS, isMultiplePokemons, i) {
 function getPokemonTypes(pokemon) {
    const pokemonTypes = pokemon.types.map((item) => item.type.name);
    return pokemonTypes.join();
+}
+
+function addToPokedex(pokemon) {
+   const pokemonImage = document.createElement("img");
+   pokemonImage.src = pokemon.sprites.front_default;
+   pokemonImage.classList.add("pokemon-image");
+   pokemonImagesContainer.append(pokemonImage);
+   pokemonCatchText.classList.add(VISIBLE_CLASS);
 }
 
 function createTaskContainer() {

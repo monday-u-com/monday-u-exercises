@@ -34,7 +34,7 @@ body {
    background-color: aliceblue;
    width: 54rem;
    min-width: 45rem;
-   height: 62rem;
+   height: 67rem;
    border-radius: 8px;
 }
 
@@ -153,10 +153,6 @@ body {
    background-color: rgb(221, 0, 0);
 }
 
-.visible {
-   visibility: visible;
-}
-
 .footer-container {
    display: flex;
    align-items: center;
@@ -180,6 +176,26 @@ body {
    justify-content: space-between;
 }
 
+.pokemon-image {
+   object-fit: cover;
+   width: 5.5rem;
+}
+
+.pokedex {
+   display: flex;
+   justify-content: center;
+   margin-bottom: 1.5rem;
+   max-width: 46rem;
+   overflow: auto;
+}
+
+.pokemons-catch-text {
+   align-self: center;
+   font-size: 1.6rem;
+   margin-top: -1rem;
+   visibility: hidden;
+}
+
 .fa-plus {
    font-size: 2.3rem;
 }
@@ -191,4 +207,8 @@ body {
 .fa-arrow-down-a-z,
 .fa-arrow-up-a-z {
    font-size: 2.2rem;
+}
+
+.visible {
+   visibility: visible;
 }
