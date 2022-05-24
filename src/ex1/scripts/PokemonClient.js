@@ -4,13 +4,13 @@ export class PokemonClient {
   }
 
   async getPokemonsNamesAndTypes(input) {
-    console.log("getPokemonsNamesAndTypes");
     const namesList = this.parseInputToList(input);
     const promises = namesList.map(async (name) => {
       const response = await fetch(`${this.URL}${name}`);
       const data = await response.json();
       return this.createResponse(data);
     });
+    
     return Promise.all(promises).catch((err) => {
       if (
         namesList.length === 1 &&

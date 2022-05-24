@@ -1,5 +1,6 @@
 import { TasksManeger } from "./tasksManager.js";
 import { Alert } from "./alertScripts.js";
+import { TASK_ID, TASK_CONTENT, TASK_COMPLETED } from "./globalConsts.js";
 
 class AppDom {
   constructor(htmlElement) {
@@ -47,7 +48,6 @@ class AppDom {
   }
 
   async onAddTaskClick(e) {
-    console.log("add task 1");
     const isOk = this.canProceed();
 
     const isAlertShown = this.emprtyInputAlert.isAlertShown();
@@ -211,9 +211,13 @@ class AppDom {
       case "all":
         return tasksToBeFiltered;
       case "completed":
-        return tasksToBeFiltered.filter((task) => task[2] === true);
+        return tasksToBeFiltered.filter(
+          (task) => task[TASK_COMPLETED] === true
+        );
       case "uncompleted":
-        return tasksToBeFiltered.filter((task) => task[2] === false);
+        return tasksToBeFiltered.filter(
+          (task) => task[TASK_COMPLETED] === false
+        );
       default:
         return tasksToBeFiltered;
     }
@@ -225,7 +229,9 @@ class AppDom {
       return tasks;
     } else {
       return tasks.filter((task) => {
-        return task[1].toLowerCase().includes(searchInput.toLowerCase());
+        return task[TASK_CONTENT].toLowerCase().includes(
+          searchInput.toLowerCase()
+        );
       });
     }
   }
@@ -238,8 +244,11 @@ class AppDom {
     const self = this;
     this.toggleEmptyMsg();
     filteredTasks.forEach(function (task) {
-      const taskDiv = self.createTaskDiv(task[1], task[2]);
-      taskDiv.setAttribute("id", task[0]);
+      const taskDiv = self.createTaskDiv(
+        task[TASK_CONTENT],
+        task[TASK_COMPLETED]
+      );
+      taskDiv.setAttribute("id", task[TASK_ID]);
       self.tasksList.appendChild(taskDiv);
       self.addTaskDivEventListeners(taskDiv);
     });
