@@ -135,12 +135,12 @@ class Main {
   onAddTodoFormSubmitted(event) {
     event.preventDefault();
     const todoRequest = this.inputTitle.value;
+    this.inputTitle.value = "";
     this.pokemonClient.catchPokemon(todoRequest).then(pokemon => {
-      const newTodoText = pokemon ? pokemon : todoRequest;
+      const newTodoText = pokemon ? `Catch ${pokemon}` : todoRequest;
       this.addTodoItem(newTodoText, true);
       this.todosArray = itemManager.addItem(newTodoText);
       this.displayFooterAndImage();
-      this.inputTitle.value = "";
     })
   }
 
