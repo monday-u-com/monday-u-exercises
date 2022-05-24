@@ -18,6 +18,7 @@ class AppDom {
     this.searchInput = htmlElement.getElementById("search-input");
     this.dragArea = htmlElement.querySelector(".tasks-list");
     this.emptyListMsg = htmlElement.getElementById("empty-tasks");
+    this.removeAllTasksButton = htmlElement.getElementById("remove-all-btn");
     this.chosenFilter = "all";
 
     this.activateSortable(this.tasksManager);
@@ -43,6 +44,7 @@ class AppDom {
     this.addTaskButton.onclick = this.onAddTaskClick.bind(this);
     this.filterOption.onchange = this.onFilterOptionChange.bind(this);
     this.searchInput.onkeyup = this.onSearchInputKeyUp.bind(this);
+    this.removeAllTasksButton.onclick = this.onRemoveAllTasksClick.bind(this);
 
     this.taskInput.onkeyup = (e) => {
       if (e.key === "Enter") {
@@ -147,6 +149,11 @@ class AppDom {
     this.renderTasks();
   }
 
+  onRemoveAllTasksClick(e) {
+    this.tasksManager.removeAllTasks();
+    this.renderTasks();
+  }
+
   addTaskDivEventListeners(taskDiv) {
     taskDiv.onmouseover = this.onTaskMouseOver.bind(this);
     taskDiv.onmouseleave = this.onTaskMouseOut.bind(this);
@@ -168,6 +175,13 @@ class AppDom {
       this.emptyListMsg.classList.remove("hide");
     } else {
       this.emptyListMsg.classList.add("hide");
+    }
+  }
+  toggleRemoveAllBtn() {
+    if (this.tasksManager.isEmpty() === true) {
+      this.removeAllTasksButton.classList.add("hide");
+    } else {
+      this.removeAllTasksButton.classList.remove("hide");
     }
   }
 
@@ -248,6 +262,7 @@ class AppDom {
     const filteredTasks = this.filterSearchedTasks(completeFilter);
     const self = this;
     this.toggleEmptyMsg();
+    this.toggleRemoveAllBtn();
     filteredTasks.forEach(function (task) {
       const taskDiv = self.createTaskDiv(
         task[TASK_CONTENT],

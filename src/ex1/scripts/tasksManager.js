@@ -1,7 +1,6 @@
 import { PokemonClient } from "./PokemonClient.js";
 import { TASK_ID, TASK_CONTENT, TASK_COMPLETED } from "./globalConsts.js";
 
-
 export class TasksManeger {
   constructor() {
     this.tasks = [];
@@ -16,7 +15,9 @@ export class TasksManeger {
   }
 
   pushingTaskAndSave(taskInput, isCompleted) {
-    const isTaskExist = this.tasks.find((task) => task[TASK_ID] === taskInput);
+    const isTaskExist = this.tasks.find(
+      (task) => task[TASK_CONTENT] === taskInput
+    );
     if (!isTaskExist) {
       this.tasks.push([this.counterID, taskInput, isCompleted]);
       this.counterID++;
@@ -62,6 +63,11 @@ export class TasksManeger {
   toggleCompleted(taskID) {
     const task = this.tasks.find((task) => task[TASK_ID] == taskID);
     task[TASK_COMPLETED] = !task[TASK_COMPLETED];
+    this.saveTasksToLocalStorage();
+  }
+
+  removeAllTasks() {
+    this.tasks = [];
     this.saveTasksToLocalStorage();
   }
 
