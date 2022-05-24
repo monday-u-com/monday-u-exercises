@@ -3,7 +3,7 @@ class Main {
 
     init() {
         //add click event listener to add button
-        addBtn.addEventListener("click", this.addTodoAndRender)
+        addBtn.addEventListener("click", () => { this.addTodoAndRender() })
 
         // add a task when user press Enter key
         taskInput.addEventListener("keypress", (e) => { if (e.key === 'Enter' && taskInput.value) this.addTodoAndRender() });
