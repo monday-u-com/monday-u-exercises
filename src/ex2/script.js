@@ -2,6 +2,12 @@ class Main {
     constructor() { }
 
     init() {
+        //add click event listener to add button
+        addBtn.addEventListener("click", this.addTodoAndRender)
+
+        // add a task when user press Enter key
+        taskInput.addEventListener("keypress", (e) => { if (e.key === 'Enter' && taskInput.value) this.addTodoAndRender() });
+
         //Clear the tasks list
         clearAllBtn.addEventListener("click", () => {
             itemManager.clearArr();
@@ -18,20 +24,6 @@ class Main {
 
         //waiting for user input before enable the add button
         taskInput.addEventListener('keyup', () => addBtn.disabled = !taskInput.value)
-
-        //add click event listener to add button
-        addBtn.addEventListener("click", () => {
-            itemManager.addNewTask(taskInput.value);
-            this.addLiTask(taskInput.value);
-        })
-
-        // add a task when user press Enter key
-        taskInput.addEventListener("keypress", (e) => {
-            if (e.key === 'Enter' && taskInput.value) {
-                itemManager.addNewTask(taskInput.value);
-                this.addLiTask(taskInput.value);
-            }
-        });
 
         if (itemManager.taskArr.length != 0) this.renderAllTasks();
         else placeHolder.classList.remove("hidden");
@@ -93,8 +85,44 @@ class Main {
         return li;
     }
 
+    addTodoAndRender() {
+        //input a number
+        if (/^\d*$/.test(taskInput.value)) {
+            pokemonClient.getPokemon(taskInput.value).then((pokemon) => {
+                if (pokemon) {
+                    itemManager.addNewTask(`Catch ${pokemon}`);
+                    this.addLiTask(`Catch ${pokemon}`);
+                } else {
+                    itemManager.addNewTask(`Pokemon with ${taskInput.value} was not found`);
+                    this.addLiTask(`Pokemon with ${taskInput.value} was not found`);
+                }
+            })
+        }
+        //inputs a comma separated list of IDs 
+        else if (/^\d+(\,\d+)+$/.test(taskInput.value)) {
+            pokemonClient.getPokemons(taskInput.value).then((pokemons) => {
+                if (pokemons) {
+                    pokemons.forEach((pokemon) => {
+                        itemManager.addNewTask(`Catch ${pokemon}`);
+                        this.addLiTask(`Catch ${pokemon}`);
+                    })
+                } else {
+                    itemManager.addNewTask(`faild to fetch pokemon with this input: ${taskInput.value}`);
+                    this.addLiTask(`faild to fetch pokemon with this input: ${taskInput.value}`);
+                }
+            })
+        }
+
+        //input a task
+        else {
+            itemManager.addNewTask(taskInput.value);
+            this.addLiTask(taskInput.value);
+        }
+    }
+
 };
 
+const pokemonClient = new PokemonClient();
 const itemManager = new ItemManager();
 const taskInput = document.querySelector(" #taskInput ");
 const addBtn = document.querySelector(" #addBtn ");
