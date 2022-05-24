@@ -1,5 +1,5 @@
-import ItemManager from "./ItemManager.js"
 
+import ItemManager from "./ItemManager.js"
 const todoListElement = document.getElementById("todo-list")
 const addTodoButton = document.getElementById("add-todo-button")
 const todoInput = document.getElementById("todo-input")
@@ -8,9 +8,9 @@ const sumTodos = document.getElementById("sum-todos")
 const orderSelect = document.getElementById("order-select")
 const enterTodos = document.getElementById("enter-todos")
 
-class PokemonClient{
+export default class PokemonClient{
     constructor(){
-        this.itemManager = new ItemManager();
+        this.itemManager = new ItemManager(this);
     }
 
     showTodos() {
@@ -64,7 +64,6 @@ class PokemonClient{
     addTodo(){
         let enterValue = todoInput.value
         this.itemManager.addTodo(enterValue)
-        this.showTodos()
         addTodoButton.classList.remove("active")
     }
 }

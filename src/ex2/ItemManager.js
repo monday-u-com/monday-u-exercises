@@ -1,27 +1,11 @@
+
+
 export default class ItemManager {
-    constructor(){
+    constructor(pokemonClient){
         this.API_BASE = 'https://pokeapi.co/api/v2/pokemon/'
         this.todolist = []
-        this.checkIfExistDataFromLS()//logic
-    }
-
-    /* showTodos() {
-        this.showMatchUiByTodosNumber() //ui
-        this.createTodoListItems() //ui
-    } */
-
-    addTodo(enterValue){
-        
-        if(enterValue.trim() === ""){
-            alert("todo cannot be empty")
-            return
-        }
-    
-        //this.checkIfExistDataFromLS()
-        this.pushEnteredDataToLS(enterValue)//logic
-        //this.showTodos()//ui
-    
-        //addTodoButton.classList.remove("active")//ui
+        this.checkIfExistDataFromLS()
+        this.pokemonClient = pokemonClient;
     }
 
     checkIfExistDataFromLS(){
@@ -35,55 +19,73 @@ export default class ItemManager {
         }
     }
 
+    async addTodo(enterValue){
+        
+        if(enterValue.trim() === ""){
+            alert("todo cannot be empty")
+            return
+        }
+
+        if(enterValue.includes(",")){
+            const split = enterValue.split(",")
+            const pokemonArr = []
+            for(let i = 0; i < split.length; i++){
+                pokemonArr.push(this.fetchMulti(split[i]))
+            }
+            Promise.all(pokemonArr).then(response => {
+                response.forEach(res => {
+                    this.pushEnteredDataToLS("catch " +res.name)
+                })
+                this.pokemonClient.showTodos()
+            }).catch(error => {
+                this.pushEnteredDataToLS("failed to fetch pokemon with this input: " +enterValue)
+                this.pokemonClient.showTodos()
+            })
+        }
+        else {
+            const dataRetrieved = await this.fetchSingle(enterValue)
+            this.pushEnteredDataToLS(dataRetrieved)
+            this.pokemonClient.showTodos()
+        }
+    }
+
+    fetchMulti(pokemonName){
+        return new Promise((resolve, reject) => {
+            return fetch(this.API_BASE+pokemonName)
+                .then(response => {
+                    if(response.status === 200){
+                        resolve(response.json())
+                    }
+                    else{
+                        reject(response)
+                    }
+                })
+                .catch(error => {
+                    reject(error)
+                })
+        })
+    }
+
+    async fetchSingle(dataEntered){ 
+        try{
+            const response = await fetch(this.API_BASE+dataEntered)
+            if(response.status === 404){
+                return `pokemon id ${dataEntered} not found` 
+            }
+            const data = await response.json()
+            console.log(data)
+            return "catch " + data.name;
+        }catch(error){
+            console.dir(error)
+            
+        }
+    }
+
     pushEnteredDataToLS(enterValue){
         this.todoList.push(enterValue)
         localStorage.setItem("new-todo", JSON.stringify(this.todoList))
         alert(`added new todo ${enterValue}`)
     }
-
-    /* showMatchUiByTodosNumber() {
-        sumTodos.textContent = this.todoList.length
-        
-        if(this.todoList.length > 0){
-            clearAllTodosButton.classList.add("active")
-            clearAllTodosButton.style.cursor = "pointer"
-            enterTodos.style.display = "none"
-        }
-        else{
-            clearAllTodosButton.classList.remove("active")
-            clearAllTodosButton.style.cursor = "not-allowed"
-            enterTodos.style.display = "block"
-        }
-    } */
-
-    /* createTodoListItems() {
-        let listItems = ""
-
-        this.todoList.forEach((todo, index) => { 
-            //  listItems += `<li>${todo}
-            //     <span class="delete" onclick="deleteTodo(${index})";>
-            //         <i class="fas fa-trash"></i>
-            //     </span>
-            //     </li>
-            // `  
-            listItems += `<li>${todo}
-                <span class="delete";>
-                    <i class="fas fa-trash"></i>
-                </span>
-                </li>
-            `
-        })
-    
-        todoListElement.innerHTML = listItems
-        
-        const func = document.querySelectorAll(".delete")
-        for (let i = 0; i < func.length; i++) {
-            func[i].addEventListener("click", () => this.deleteTodo(i))
-        }
-        
-
-        todoInput.value = ""
-    } */
 
     deleteTodo(index) {
     
@@ -92,7 +94,6 @@ export default class ItemManager {
         const removedTodo = this.todoList[index]
         this.todoList.splice(index, 1) //remove one todo
         alert(`removed new todo ${removedTodo}`)
-        localStorage.setItem("new-todo", JSON.stringify(this.todoList))
-        //this.showTodos()       
+        localStorage.setItem("new-todo", JSON.stringify(this.todoList))     
     }
 }
