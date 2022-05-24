@@ -1,3 +1,5 @@
+import { ItemManager } from "./itemManager.js"
+
 const addButton = document.getElementById("list-item-submit")
 const textInput = document.getElementById("list-item-input")
 const allLists = document.getElementById("list")
@@ -6,7 +8,7 @@ const deleteAllLists = document.getElementById("deleteAllTasks")
 const errorMessage = document.getElementById("error")
 
 const pokemonApi = "https://pokeapi.co/api/v2/pokemon/"
-
+const itemManager = new ItemManager()
 class Main {
   constructor() {
     this.name = "Main"
@@ -15,42 +17,19 @@ class Main {
     addButton.addEventListener("click", function () {
       validationText()
     })
-    textInput.addEventListener("keypress", function (e) {
-      if (e.key === "Enter") {
-        e.preventDefault()
-        validationText()
-      }
-    })
-    deleteAllLists.addEventListener("click", function () {
-      deleteAllTasks()
-    })
   }
 }
 
-addButton.addEventListener("click", function () {
-  validationText()
-})
-
-textInput.addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
-    e.preventDefault()
-    validationText()
-  }
-})
-deleteAllLists.addEventListener("click", function () {
-  deleteAllTasks()
-})
 function addNewList() {
-  countLiAdded()
-  const input = document.getElementById("input")
-  const list = document.getElementById("todolist")
+  itemManager.addItem(textInput.value)
+  const list = document.getElementById("list")
   const li = document.createElement("li")
   const deleteButton = document.createElement("button")
   deleteButton.setAttribute("class", "dltbtn")
   deleteButton.innerHTML = "X"
   deleteButton.addEventListener("click", function () {
     li.remove()
-    countLiDeleted()
+    itemManager.removeItem(textInput.value)
   })
   li.addEventListener("mouseover", function () {
     deleteButton.style.display = "block"
@@ -60,32 +39,11 @@ function addNewList() {
     deleteButton.style.display = "none"
     deleteButton.style.transition = "all 0.5s ease-in-out"
   })
-  li.appendChild(document.createTextNode(input.value))
+  li.appendChild(document.createTextNode(textInput.value))
   li.appendChild(deleteButton)
   list.appendChild(li)
-  input.value = ""
-  sortingListByAscending()
-}
-
-function countLiAdded() {
-  const list = document.getElementById("todolist")
-  const count = list.getElementsByTagName("li").length
-  const counter = document.getElementById("counter")
-  counter.innerHTML = count + 1
-}
-
-function countLiDeleted() {
-  const list = document.getElementById("todolist")
-  const count = list.getElementsByTagName("li").length
-  const counter = document.getElementById("counter")
-  counter.innerHTML -= 1
-}
-
-function deleteAllTasks() {
-  const list = document.getElementById("todolist")
-  const counter = document.getElementById("counter")
-  counter.innerHTML = 0
-  list.innerHTML = ""
+  textInput.value = ""
+  console.log(itemManager.getItems())
 }
 
 function validationText() {
@@ -106,18 +64,6 @@ function validationText() {
   }
 }
 
-function sortingListByAscending() {
-  const list = document.getElementById("todolist")
-  const listItems = list.getElementsByTagName("li")
-  const listArray = Array.from(listItems)
-  listArray.sort(function (a, b) {
-    return a.innerHTML.toLowerCase().localeCompare(b.innerHTML.toLowerCase())
-  })
-  list.innerHTML = ""
-  listArray.forEach(function (item) {
-    list.appendChild(item)
-  })
-}
 const main = new Main()
 document.addEventListener("DOMContentLoaded", function () {
   // you should create an `init` method in your class
