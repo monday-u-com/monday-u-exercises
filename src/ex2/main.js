@@ -12,12 +12,10 @@ class Main
     init()
     {
         this.dom_manager.add_task_button.addEventListener("click", () => {
-            this.item_manager.AddTodo(this.dom_manager.task_input.value);
-            this.dom_manager.RenderDomFromArray(this.item_manager.todos, (event) => {
-                this.RemoveTodo(event);
-            });
+            this.AddButtonCallBack();
         });
 
+        // on enter key press event
         this.dom_manager.add_task_button.addEventListener("keypress", (event)=> {
             this.dom_manager.AddNewTaskByKeyPress(event);
         });
@@ -30,6 +28,25 @@ class Main
         {
             this.dom_manager.SortByName();
         });
+    }
+
+    async AddButtonCallBack()
+    {
+        // check if input is not empty
+        if(this.dom_manager.task_input.value)
+        {
+            // clear error message
+            this.dom_manager.ClearErrorEmptyTask();
+            // send the todo to item manager
+            const add_promise = Promise.resolve(this.item_manager.AddTodo(this.dom_manager.task_input.value));
+            await add_promise;
+            alert("done");
+            this.dom_manager.RenderDomFromArray(this.item_manager.todos, (event) => {
+                this.RemoveTodo(event);
+            });
+        }
+        else
+            this.dom_manager.ShowErrorEmptyTaskInput(); // set empty error message
     }
 
     RemoveTodo(event)

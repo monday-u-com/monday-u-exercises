@@ -163,6 +163,17 @@ class DomManager
         }, 500);
     }
 
+    ShowErrorEmptyTaskInput()
+    {
+        this.task_input.reportValidity();
+        this.task_input.setCustomValidity("Please supply a task name.");
+    }
+    
+    ClearErrorEmptyTask()
+    {
+        this.task_input.setCustomValidity("");
+    }
+
     RenderDomFromArray(todos, delete_call_back)
     {
         const todos_copy = [...todos];
@@ -171,5 +182,6 @@ class DomManager
         todos_copy.map( (todo, key) => {
             this.AddNewTask(key, todo, delete_call_back);
         });
+        this.UpdateTaskCounter();
     }
 }
