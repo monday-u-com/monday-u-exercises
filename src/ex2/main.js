@@ -13,10 +13,10 @@ const sortedDesc = Symbol("sortedDesc");
 
 // Implement the `Main` class here
 class Main {
-  init() {
+  init(todosArray) {
     this.allTodosList = document.getElementById("all-todos-list");
     this.isListSorted = unsorted;
-    this.todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
+    this.todosArray = todosArray;
     this.inputTitle = document.getElementById("new-todo-title");
     this.amountOfTodosInfo = document.getElementById("amount-info");
 
@@ -185,6 +185,6 @@ const itemManager = new ItemManager();
 document.addEventListener("DOMContentLoaded", function () {
     // you should create an `init` method in your class
     // the method should add the event listener to your "add" button
-    itemManager.init();
-    main.init();
+    const todosArray = itemManager.init();
+    main.init(todosArray);
 });
