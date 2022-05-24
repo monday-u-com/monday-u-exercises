@@ -3,7 +3,7 @@ export class PokemonClient {
     this.API_BASE = 'https://pokeapi.co/api/v2/pokemon'
   }
   failureHandler(error, idOrName) {
-    console.log(`Failed to find ${idOrName}: ${JSON.stringify(error)}`);
+    console.log(`Failed to find ${idOrName}. ${error}`);
   }
   async catchPokemon(idOrName) {
       try {

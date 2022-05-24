@@ -19,15 +19,15 @@ But this kind of work requires a bit more code organization, so...
 ### The requirements:
 
 - [x] Refactor your current code to use classes with methods (you can copy+paste the code to a new file and refactor there - just make sure to update the `scripts` tag in your `index.html`)
-- [ ] Create an ItemManager class (in a new file) to manage the item adding/removing + pokemon fetching - this class does _not_ deal with the DOM
-- [ ] Store todos in an array (class attribute) - this should be in the ItemManager class
+- [x] Create an ItemManager class (in a new file) to manage the item adding/removing + pokemon fetching - this class does _not_ deal with the DOM
+- [x] Store todos in an array (class attribute) - this should be in the ItemManager class
 - [ ] Render todos from the array using a separate render method
 - [ ] Remove todos by updating the list and re-rendering
-- [ ] Create a PokemonClient class (in a new file) to get data from the Pokemon API - remember the HTML has to be aware of this file...
-- [ ] If the user only inputs a number, add a `Catch ${pokemon}` todo to your array of todos (and render it, of course)
+- [x] Create a PokemonClient class (in a new file) to get data from the Pokemon API - remember the HTML has to be aware of this file...
+- [x] If the user only inputs a number, add a `Catch ${pokemon}` todo to your array of todos (and render it, of course)
 - [ ] If the user inputs a comma separated list of IDs, retrieve multiple pokemon in parallel using `Promise.all` and render them all
 - [ ] Handle any errors in retrieving the pokemon (i.e. when a user inputs an invalid ID like 44124. See below gif for an example)
-- [ ] Add a normal todo item if the input is not a pokemon
+- [x] Add a normal todo item if the input is not a pokemon
 
 When you finish it should look like this:
 
