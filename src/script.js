@@ -9,18 +9,17 @@ const sortUpButton = document.querySelector(SORT_UP_BTN_SELECTOR);
 const sortButtonsContainer = document.querySelector(SORT_BTNS_SELECTOR);
 
 const tasks = new ItemManager();
-
 const pokemonNames = new PokemonClient();
 
-addTaskButton.addEventListener("click", () => {
+addTaskButton.onclick = () => {
    renderAndAnimate();
-});
+};
 
-taskInput.addEventListener("keypress", (e) => {
+taskInput.onkeypress = (e) => {
    if (e.key === "Enter") {
       renderAndAnimate();
    }
-});
+};
 
 async function renderAndAnimate() {
    if (await addTask()) {
@@ -62,76 +61,73 @@ function renderTasks() {
 }
 
 async function addTask() {
-   if (taskInput.value.trim().length === 0) {
+   const taskUserInput = taskInput.value;
+   taskInput.value = "";
+
+   if (taskUserInput.trim().length === 0) {
       alert("Please fill in a task");
-      taskInput.value = "";
 
       return false;
-   } else if (!isNaN(taskInput.value)) {
-      let pokemonData = await pokemonNames.getPokemon(taskInput.value);
-      let pokemonID = taskInput.value;
-      taskInput.value = "";
-      if (pokemonData) {
-         let pokemonName =
-            pokemonData.name.charAt(0).toUpperCase() +
-            pokemonData.name.slice(1);
-         const taskToAdd = `Catch ${pokemonName}`;
-         if (tasks.items.includes(taskToAdd)) {
-            alert(
-               `${pokemonName} already exists in your tasks. Please try another Pokemon.`
-            );
+   } else if (!isNaN(taskUserInput)) {
+      // For single Pokemon entry
+      let pokemonData = await pokemonNames.getPokemon(taskUserInput);
+      let pokemonID = taskUserInput;
+      let render = false;
+      render = pokemonTasksHandle(pokemonData, pokemonID, 0);
 
-            return false;
-         } else {
-            tasks.add(taskToAdd);
-            pendingTasksUpdate("+");
-
-            return true;
-         }
-      } else {
-         tasks.add(`Pokemon ID ${pokemonID} does not exist`);
-         pendingTasksUpdate("+");
-
-         return true;
-      }
+      return render;
    } else if (
-      taskInput.value
+      taskUserInput
          .replace(/\s/g, "")
          .split(",")
          .every((elem) => !isNaN(elem))
    ) {
-      let pokemonIDS = taskInput.value.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
+      // For multiple Pokemons entry
+      let pokemonIDS = taskUserInput.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
       const pokemonData = await Promise.all(
          pokemonIDS.map((id) => pokemonNames.getPokemon(id))
       );
-      taskInput.value = "";
+      let render = false;
       pokemonData.forEach((pokemon, i) => {
-         if (pokemon) {
-            let pokemonName =
-               pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-            const taskToAdd = `Catch ${pokemonName}`;
-            if (tasks.items.includes(taskToAdd)) {
-               alert(
-                  `${pokemonName} already exists in your tasks. Please try another Pokemon.`
-               );
-            } else {
-               tasks.add(taskToAdd);
-               pendingTasksUpdate("+");
-            }
-         } else {
-            tasks.add(`Pokemon ID ${pokemonIDS[i]} does not exist`);
-            pendingTasksUpdate("+");
-         }
+         render = pokemonTasksHandle(pokemon, pokemonIDS, 1, i);
       });
 
-      return true;
+      return render;
    } else {
-      tasks.add(taskInput.value);
-      taskInput.value = "";
+      tasks.add(taskUserInput);
       pendingTasksUpdate("+");
 
       return true;
    }
+}
+
+function pokemonTasksHandle(pokemon, pokemonIDS, isMultiplePokemons, i) {
+   if (pokemon) {
+      let pokemonName =
+         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+      const taskToAdd = `Catch ${pokemonName}`;
+      if (tasks.items.includes(taskToAdd)) {
+         alert(
+            `${pokemonName} already exists in your tasks. Please try another Pokemon.`
+         );
+         render = false;
+      } else {
+         tasks.add(taskToAdd);
+         pendingTasksUpdate("+");
+         render = true;
+      }
+   } else {
+      if (isMultiplePokemons) {
+         tasks.add(`Pokemon ID ${pokemonIDS[i]} does not exist`);
+      } else {
+         tasks.add(`Pokemon ID ${pokemonIDS} does not exist`);
+      }
+
+      pendingTasksUpdate("+");
+      render = true;
+   }
+
+   return render;
 }
 
 function createTaskContainer() {
@@ -148,9 +144,9 @@ function createNewTask(taskContainer, item) {
    newTask.classList.add("task");
    taskContainer.append(newTask);
 
-   newTask.addEventListener("click", () => {
+   newTask.onclick = () => {
       alert(newTask.textContent);
-   });
+   };
 
    return newTask;
 }
@@ -163,26 +159,26 @@ function createDeleteTaskButton(taskContainer) {
    deleteTask.classList.add(DEL_BTN_CLASS);
    taskContainer.append(deleteTask);
 
-   deleteTask.addEventListener("click", () => {
+   deleteTask.onclick = () => {
       const index = Array.from(taskContainer.parentNode.children).indexOf(
          taskContainer
       );
       tasks.remove(index);
       renderTasks();
       pendingTasksUpdate("-");
-   });
+   };
 
    return deleteTask;
 }
 
 function addHoverReveal(taskContainer, deleteTask, newTask) {
-   taskContainer.addEventListener("mouseover", () => {
+   taskContainer.onmouseover = () => {
       deleteTask.classList.add(VISIBLE_CLASS);
-   });
+   };
 
-   taskContainer.addEventListener("mouseout", () => {
+   taskContainer.onmouseout = () => {
       deleteTask.classList.remove(VISIBLE_CLASS);
-   });
+   };
 }
 
 function pendingTasksUpdate(action) {
