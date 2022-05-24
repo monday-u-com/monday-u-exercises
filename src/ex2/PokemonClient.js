@@ -1,60 +1,51 @@
 
-class PokemonClient
-{
-    constructor()
-    {
+class PokemonClient {
+    constructor() {
         this.base_url = "https://pokeapi.co/api/v2/pokemon/"
     }
-
-    check()
-    {
-        (async () => {
-            const golduck = await this.Pokedex.getPokemonByName("golduck")
-            console.log(golduck)
-          })()
+    /**
+     * send one request to pokemon api
+     * @param {int} id pokemon id 
+     * @returns response from pokemon api
+     */
+    async GetPokemonById(id) {
+        const req = this.FetchRequestById(id);
+        return Promise.resolve(req);
     }
-
-    async GetPokemonById(id)
-    {
-        try
-        {
-            const response = await fetch(this.base_url.concat(id));
-            if (!response.ok) 
-            {
-                throw new Error(`Pokemon with ID ${id} was not found`);
-            }
-            const res_obj = await response.json();
-            return res_obj;
-        }
-        catch (error)
-        {
-            return error;
-        }        
-    }
-
-    async GetPokemonsByList(ids)
-    {
-        const ret_obj = [];
+    /**
+     * sends parallel requests to pokemon api
+     * @param {array[string]} ids array of ids
+     * @returns list of responses from pokemon api
+     */
+    async GetPokemonsByList(ids) {
         const requests = [];
         ids.forEach(async (id) => {
-            const req = fetch(this.base_url.concat(id)).then(async (response) => {
-                try
-                {
-                    if (!response.ok) 
-                    {
-                        throw new Error(`Pokemon with ID ${id} was not found`);
-                    }
-                    const res_obj = await response.json();
-                    return res_obj;
-                }
-                catch (error)
-                {
-                    return error;
-                }     
-            });
+            const req = this.FetchRequestById(id);
             requests.push(req);
         });
-        const all_requests = Promise.all(requests).then((all_data) => { return all_data; });  
-        return all_requests;
+        return Promise.all(requests);
+    }
+    /**
+     * send a get request to pokemon api with id parse result
+     * @param {string} id id to 
+     * @returns {string} parsed result from api
+     */
+    async FetchRequestById(id)
+    {
+        return fetch(this.base_url.concat(id)).then(async (response) => {
+            try {
+                // check if response is valid
+                if (!response.ok) {
+                    throw new Error(`Pokemon with ID ${id} was not found`);
+                }
+                // parse response to json object
+                const res_obj = await response.json();
+                return res_obj;
+            }
+            catch (error) {
+                return error;
+            }
+        });
     }
 }
+

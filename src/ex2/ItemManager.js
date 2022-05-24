@@ -1,55 +1,91 @@
-class ItemManager
-{
-    constructor()
-    {
-        this.todos = [];
+class ItemManager {
+    constructor() {
+        this.tasks = [];
         this.pokemon_client = new PokemonClient();
     }
 
-
-    async AddTodo(todo_text)
-    {
+    /**
+     * gets string and checks what case it is 
+     * @param {string} task_text string from input
+     */
+    async AddTask(task_text) {
         // parse text to int
-        const todo_id = parseInt(todo_text);
-        if(todo_text.indexOf(',') > -1)
+        const pokemon_id = parseInt(task_text);
+        if (task_text.indexOf(',') > -1) // check if text has commas
         {
-            const pokemon_ids = todo_text.split(',');
-            const result = Promise.resolve(this.pokemon_client.GetPokemonsByList(pokemon_ids));
-            await result;
-            result.then((all_data) => {
-                all_data.forEach(res => {
-                    // check if found pokemon
-                    if(res.name !== "Error")
-                        this.todos.push(`Catch ${res.name}`);// found pokemon add the name of pokemon
-                    else
-                        this.todos.push(res.message);// did not find pokemon                 
-                });
-                return;
-            }); 
+            await this.GetMultiplePokemons(task_text);
         }
-        else if(Number.isInteger(todo_id)) // check if its number
+        else if (Number.isInteger(pokemon_id)) // check if its number
         {
-            // send the id to pokemon client
-            const result = Promise.resolve(this.pokemon_client.GetPokemonById(todo_text));   
-            // wait for response
-            await result;
-            result.then((res) => {
-                // check if found pokemon
-                if(res.name !== "Error")
-                    this.todos.push(`Catch ${res.name}`);// found pokemon add the name of pokemon
-
-                else
-                    this.todos.push(res.message);// did not find pokemon 
-                return;
-            }); 
-        } 
-        else
-            this.todos.push(todo_text);
+            await this.GetOnePokemon(pokemon_id);
+        }
+        else // regular task 
+            this.tasks.push(task_text);
+    }
+    /**
+     * removes a task from array
+     * @param {int} task_to_remove_id task location in array
+     */
+    RemoveTask(task_to_remove_id) {
+        this.tasks.splice(task_to_remove_id, 1);
     }
 
-    RemoveTodo(task_to_remove_id)
-    {
-        const todo = this.todos.splice(task_to_remove_id, 1);
+    /**
+     * send id to pokemon client and insert it to tasks array
+     * @param {int} id 
+     */
+    async GetOnePokemon(id) {
+        // send the id to pokemon client
+        const result = Promise.resolve(this.pokemon_client.GetPokemonById(id));
+        // wait for response
+        await result;
+        result.then((res) => {
+            this.InsertResultToArray(res);
+        });
+    }
+
+    /**
+     * parse string from input send it to pokemon client and insert it to tasks array
+     * @param {string} ids string from input 
+     */
+    async GetMultiplePokemons(ids) {
+        const pokemon_ids = ids.split(',');
+        const result = Promise.resolve(this.pokemon_client.GetPokemonsByList(pokemon_ids));
+        await result;
+        result.then((all_data) => {
+            // run on all fetch results
+            all_data.forEach(res => {
+                this.InsertResultToArray(res);
+            });
+        });
+    }
+
+    /**
+     * inserts result to 
+     * @param {string} result 
+     */
+    InsertResultToArray(result) {
+        // check if found pokemon
+        if (result.name !== "Error")
+            this.tasks.push(`Catch ${result.name}`);// found pokemon add the name of pokemon
+        else
+            this.tasks.push(result.message);// did not find pokemon 
+    }
+
+    /**
+     * clear all tasks
+     */
+    ClearArray() {
+        this.tasks = [];
+    }
+
+    /**
+     * sort tasks array 
+     */
+    SortArrayByName() {
+        this.tasks.sort((a, b) => {
+            return a.toLowerCase().localeCompare(b.toLowerCase());
+        });
     }
 
 }
