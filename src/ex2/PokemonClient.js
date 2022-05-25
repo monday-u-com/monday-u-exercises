@@ -1,4 +1,5 @@
 import ItemManager from "./ItemManager.js"
+
 const todoListElement = document.getElementById("todo-list")
 const addTodoButton = document.getElementById("add-todo-button")
 const todoInput = document.getElementById("todo-input")
@@ -41,7 +42,6 @@ export default class PokemonClient{
     }
 
     createTodoListItems() {
-
         this.createItemsByCurrentData()
         this.createItemsDeleteFuctionality()
         
@@ -65,6 +65,7 @@ export default class PokemonClient{
 
     createItemsDeleteFuctionality(){
         const deleteItems = document.querySelectorAll(".delete")
+
         for (let i = 0; i < deleteItems.length; i++) {
             deleteItems[i].addEventListener("click", () => this.deleteTodo(i))
         }
@@ -78,23 +79,30 @@ export default class PokemonClient{
 
     addTodo(){
         let enterValue = todoInput.value
+
         if(enterValue.trim() === ""){
             alert("todo cannot be empty")
         }
         else{
             alert(`added new todo ${enterValue}`)
         }
+
         this.itemManager.addTodo(enterValue)
         addTodoButton.classList.remove("active")
+    }
+
+    clearAllTodos(){
+        this.itemManager.clearAllTodos()
+        alert("all todos cleared")
     }
 }
 
 const pokemonClient = new PokemonClient();
-
 pokemonClient.showTodos()
 
 todoInput.onkeyup = (e) => {
     let enterValue = todoInput.value
+
     if (enterValue.trim() !== ""){
         addTodoButton.classList.add("active")
         addTodoButton.style.cursor = "pointer"
@@ -115,18 +123,6 @@ addTodoButton.addEventListener("click", () => {
     pokemonClient.addTodo()
 })
 
-/* clearAllTodosButton.addEventListener("click", () => {
-    let dataFromLS = localStorage.getItem("new-todo")
-
-    if(dataFromLS === null){
-        todoList = []
-    }
-    else{
-        todoList = JSON.parse(dataFromLS)
-        todoList = [] //initialize array again
-    }
-
-    alert('removed all todos')
-    localStorage.setItem("new-todo", JSON.stringify(todoList))
-    showTodos()
-}) */
+clearAllTodosButton.addEventListener("click", () => {
+    pokemonClient.clearAllTodos()
+}) 

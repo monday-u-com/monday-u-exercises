@@ -95,6 +95,11 @@ export default class ItemManager {
         return removedTodo
     }
 
+    clearAllTodos() {
+        this.model.clearAllData()
+        this.updateTodo()
+    }
+
     updateTodo(){
         this.model.saveDataToLS()
         this.pokemonClient.showTodos()

@@ -22,7 +22,11 @@ export default class Model {
         this.todoList.splice(index, 1)
     }
 
-    saveDataToLS(enterValue){ 
+    saveDataToLS(){ 
         localStorage.setItem("new-todo", JSON.stringify(this.todoList))
+    }
+
+    clearAllData(){
+        this.todoList = []
     }
 }
