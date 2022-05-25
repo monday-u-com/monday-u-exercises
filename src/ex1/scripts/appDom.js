@@ -109,7 +109,9 @@ class AppDom {
     }
   }
   toggleRemoveAllBtn(filteredTasks) {
-    if (filteredTasks.length <= this.tasksManager.getTasks().length) {
+    const filteredTasksSize = filteredTasks.length;
+    const allTAsksSize = this.tasksManager.getTasks().length;
+    if (filteredTasks.length < this.tasksManager.getTasks().length || filteredTasksSize === 0) {
       this.removeAllTasksButton.classList.add("hide");
     } else {
       this.removeAllTasksButton.classList.remove("hide");
