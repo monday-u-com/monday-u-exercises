@@ -101,6 +101,7 @@ function onDeleteButtonClicked(clickedButton) {
     clickedButton.parentElement.remove();
     displayFooterAndImage();
   }, 700);
+  console.log(todosArray);
 }
 
 function onClearAllButtonClicked() {
@@ -134,6 +135,7 @@ function onSortListButtonClicked() {
     sortListWithOrder(compareElementsDesc);
     isListSorted = sortedDesc;
   }
+  console.log(todosArray);
 }
 
 function sortListWithOrder(comparator) {

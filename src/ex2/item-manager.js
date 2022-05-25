@@ -12,8 +12,12 @@ export class ItemManager {
     this.todosArray.splice(index, 1);
     return this.todosArray;
   }
-  addItem(newTodoText) {
-    this.todosArray.push(newTodoText);
+  addItem(newItem) {
+    if (this.todosArray.includes(newItem)) {
+      this.todosArray.push(`${newItem} again`);
+    } else {
+      this.todosArray.push(newItem);
+    }
     this.isSorted = unsorted;
     return this.todosArray;
   }
