@@ -1,0 +1,95 @@
+
+.input_div
+{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.input_div > input[type="text"]
+{
+    font-size: 1em;
+    padding: 10px 25px;
+    border: 1px solid #FDB931;    
+    border-radius: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    transition: all 0.2s linear 0.2s;
+}
+
+.input_div > input[type="text"] + label
+{
+    position: absolute;
+    top: 10px;
+    left: 35px;
+    color: #a7a7a7;
+    transition: all 0.2s linear 0.2s;
+}
+
+.input_div > input[type="text"]:focus,
+.input_div > input[type="text"]:not(:placeholder-shown)
+{
+    padding-top: 30px;
+    transition: all 0.2s linear 0.2s;
+    box-shadow: #FDB931 -2px 0px 6px 0px;
+}
+
+.input_div > input[type="text"]:focus + label,
+.input_div > input[type="text"]:not(:placeholder-shown)+ label
+{
+    top: 0px;
+    transition: all 0.2s linear 0.2s;
+}
+
+.input_div > input[type="text"]:focus-within,
+.input_div > input[type="text"]:focus-visible
+{
+    border: 1px solid #FDB931;
+}
+
+.input_div > input[type="text"]:invalid:focus
+{
+    background: url('../assets/xicon.svg');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 5px 5px;
+    border-bottom: 5px solid #d30000;
+    box-shadow: #d30000 -2px 0px 6px 0px;
+}
+
+.input_div > input[type="text"]:valid
+{
+    background: url('../assets/check-icon.svg');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 5px 5px;
+    border-bottom: 5px solid #66d300;
+    box-shadow: #66d300 -2px 0px 6px 0px;
+}
+
+#add_to_do_button
+{
+    padding: 11px 25px;
+    background-color: #66d300;
+    border-radius: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    color:#fff;
+    transition: all 0.2s linear 0.2s;
+    cursor: pointer;
+}
+
+#add_to_do_button:hover
+{
+    box-shadow: inset #ffffff 0px 0px 10px 0px;
+    transition: all 0.2s linear 0.2s;
+}
+
+.input_div > input[type="text"]:focus ~ #add_to_do_button,
+.input_div > input[type="text"]:not(:placeholder-shown) ~ #add_to_do_button
+{
+    padding-top: 21px;
+    padding-bottom: 21px;
+    transition: all 0.2s linear 0.2s;
+}

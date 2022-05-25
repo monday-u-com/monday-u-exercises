@@ -1,0 +1,54 @@
+
+button 
+{
+    position: relative;
+    padding: 19px 36px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+button > span 
+{
+    position: relative;
+    color: #fff;    
+    z-index: 1;
+}
+
+button > .buttonColoring 
+{
+    position: absolute;
+    top: -80px;
+    left: 0;
+    width: 100%;
+    height: 200px;    
+    box-shadow: inset 0 0 0px rgba(0, 0, 0, .5);
+}
+
+button:hover > .buttonColoring
+{
+    background: #efa500;
+    top: -120px;
+}
+
+button:hover > span
+{
+    color: black;
+}
+
+button > .buttonColoring 
+{
+    background-size: 400% 400%;
+    -webkit-animation: ButtonAnimation 9s ease infinite;
+    -moz-animation: ButtonAnimation 9s ease infinite;
+    animation: ButtonAnimation 9s ease infinite;
+}
+
+button > .buttonColoring
+{
+    background: linear-gradient(37deg, #efa500, #fdb931);
+}
