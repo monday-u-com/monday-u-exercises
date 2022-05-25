@@ -128,12 +128,11 @@ class Main {
 
   onDeleteButtonClicked(clickedButton) {
     const index = Array.prototype.indexOf.call(this.allTodosList.getElementsByTagName("li"), clickedButton.parentElement);
-    this.todosArray = this.itemManager.deleteItem(index);
     clickedButton.parentElement.classList.remove("existing-item");
     clickedButton.parentElement.classList.add("delete-item-animation");
     setTimeout (() => {
-      clickedButton.parentElement.remove();
-      this.displayFooterAndImage();
+      this.todosArray = this.itemManager.deleteItem(index);
+      this.renderTodos(false);
     }, 700);
   }
 
