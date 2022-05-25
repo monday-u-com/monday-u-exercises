@@ -7,6 +7,7 @@ const allLists = document.getElementById("list")
 // const counterLists = document.getElementById("counterLists")
 // const deleteAllLists = document.getElementById("deleteAllTasks")
 const errorMessage = document.getElementById("error")
+const regex = /^[0-9]*$/
 
 const itemManager = new ItemManager()
 const pokemonClient = new PokemonClient()
@@ -57,24 +58,30 @@ function validation(item) {
     errorMessage.style.display = "block"
   } else {
     if (item.includes(",")) {
-      console.log("im in the promises")
       Promise.all(
         item.split(",").map(async (name) => {
           const pokemon = await pokemonClient.getPokemon(name) // promise
           console.log("pokemon", pokemon)
           addNewList(`Catch ${pokemon.name}`)
         })
-      )
+      ).catch((error) => {
+        console.log("error", error)
+        addNewList(`Faild to fetch pokemon with the input: ${item}`)
+      })
     } else {
-      pokemonClient
-        .getPokemon(textInput.value)
-        .then((data) => {
-          addNewList(`Catch ${data.name}`)
-        })
-        .catch((error) => {
-          console.log(error)
-          addNewList(`Pokemon with ID ${input.value} was not found`)
-        })
+      if (regex.test(item)) {
+        pokemonClient
+          .getPokemon(textInput.value)
+          .then((data) => {
+            addNewList(`Catch ${data.name}`)
+          })
+          .catch((error) => {
+            console.log(error)
+            addNewList(`Pokemon with ID ${input.value} was not found`)
+          })
+      } else {
+        addNewList(item)
+      }
       errorMessage.style.display = "none"
       errorMessage.style.transition = "all 0.5s ease-in-out"
     }
