@@ -25,7 +25,7 @@ class Main {
     this.addTodoForm.addEventListener('submit', (event) => this.onAddTodoFormSubmitted(event));
     this.sortListButton.addEventListener('click', () => this.onSortListButtonClicked());
 
-    this.updateArrayAndRender(itemManager.init(), 0);
+    this.updateArrayAndRender(itemManager.init());
 
     this.inputTitle.addEventListener("keypress", (event) => {
       if (event.key === "Enter") {
@@ -119,7 +119,7 @@ class Main {
     clickedButton.parentElement.classList.remove("existing-item");
     clickedButton.parentElement.classList.add("delete-item-animation");
     setTimeout (() => {
-      this.updateArrayAndRender(this.itemManager.deleteItem(index), 0);
+      this.updateArrayAndRender(this.itemManager.deleteItem(index));
     }, 700);
   }
 
@@ -139,7 +139,7 @@ class Main {
     } else {
       const isNaNArray = newTodoText.split(',').map( el => isNaN(el));
       if (isNaNArray.includes(true)) {
-        this.updateArrayAndRender(itemManager.addItem(newTodoText), 1)
+        this.updateArrayAndRender(itemManager.addItem(newTodoText))
       } else {
         this.addPokemon(newTodoText);
       }
@@ -148,26 +148,23 @@ class Main {
 
   addPokemon(newTodoText) {
     this.pokemonClient.catchPokemon(newTodoText).then(pokemons => {
-      let newItemsAmount;
       let updatedArray;
       try {
         pokemons.forEach(pokemon => {
           updatedArray = itemManager.addItem(`Catch ${pokemon}`);
         })
-        newItemsAmount = pokemons.length;
       } catch (error) {
         updatedArray = itemManager.addItem(`Failed to fetch ${newTodoText}`);
-        newItemsAmount = 1;
       }
-      this.updateArrayAndRender(updatedArray, newItemsAmount)
+      this.updateArrayAndRender(updatedArray);
     })
   }
 
   onSortListButtonClicked() {
-    this.updateArrayAndRender(this.itemManager.sortItems(), 0);
+    this.updateArrayAndRender(this.itemManager.sortItems());
   }
 
-  updateArrayAndRender(updatedArray, newItemsAmount) {
+  updateArrayAndRender(updatedArray) {
     this.todosArray = updatedArray;
     this.renderTodos();
   }
