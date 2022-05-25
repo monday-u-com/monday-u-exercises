@@ -7,7 +7,6 @@ Start your http server by issuing http-server -c-1
 import { ItemManager } from "/item-manager.js";
 import { PokemonClient } from "/pokemon-client.js";
 
-// Implement the `Main` class here
 class Main {
   constructor(itemManager, pokemonClient) {
     this.itemManager = itemManager;
@@ -36,14 +35,10 @@ class Main {
     });
   }
 
-  renderTodos(newItemsAmount) {
+  renderTodos() {
     this.allTodosList.innerHTML = "";
-    this.todosArray.forEach((item, key, arr) => {
-      if (newItemsAmount > 0 && key >= arr.length - newItemsAmount) {
-        this.addTodoItem(item, true);
-      } else {
-        this.addTodoItem(item, false);
-      }
+    this.todosArray.forEach(item => {
+      this.addTodoItem(item);
     });
     this.displayFooterAndImage();
   }
@@ -62,21 +57,22 @@ class Main {
     });
   }
 
-  addTodoItem(todoText, animation) {
-    const listItem = this.createListElement(todoText, animation);
+  addTodoItem(todoItem) {
+    const listItem = this.createListElement(todoItem);
     this.addEventListenerForTodoTitle(listItem);
     this.addEventListenerForDeleteButton(listItem);
     this.allTodosList.appendChild(listItem);
   }
 
-  createListElement(todoText, animation) {
+  createListElement(todoItem) {
     const listItem = document.createElement("li");
     listItem.className = "existing-item";
-    if (animation) {
+    if (todoItem.isNew) {
       listItem.className = "add-item-animation";
       setTimeout (() => { listItem.className = "existing-item";}, 700);
+      this.itemManager.markItemAsOld(todoItem);
     }
-    listItem.innerHTML = `<div class="todo-text">${todoText}</div>
+    listItem.innerHTML = `<div class="todo-text">${todoItem.text}</div>
                           <button class="remove-todo-button"><i class="fa fa-trash"></i></button>`;
     return listItem;
   }
@@ -169,7 +165,7 @@ class Main {
 
   updateArrayAndRender(updatedArray, newItemsAmount) {
     this.todosArray = updatedArray;
-    this.renderTodos(newItemsAmount);
+    this.renderTodos();
   }
 }
 

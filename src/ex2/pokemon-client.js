@@ -16,7 +16,7 @@ export class PokemonClient {
       });
       const allPokemons = await Promise.all(allPromises);
       const data = await Promise.all(allPokemons.map(response => response.json()));
-      return await Promise.all(data.map(el => el.forms[0].name));
+      return await Promise.all(data.map(el => `${el.forms[0].name} (${el.types[0].type.name} pokemon)`));
     } catch (error) {
       this.failureHandler(ids);
     }
