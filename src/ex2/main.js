@@ -33,16 +33,26 @@ class Main {
     this.addTodoForm.addEventListener('submit', (event) => this.onAddTodoFormSubmitted(event));
     this.sortListButton.addEventListener('click', () => this.onSortListButtonClicked());
 
-    this.todosArray.forEach(todoText => {
-      this.addTodoItem(todoText, false);
-      this.displayFooterAndImage();
-    });
+    this.renderTodos(false);
 
     this.inputTitle.addEventListener("keypress", (event) => {
       if (event.key === "Enter") {
         event.preventDefault();
         document.getElementById('add-todo-button').click();
       }
+    });
+  }
+
+  renderTodos(newItemAdded) {
+    this.allTodosList.innerHTML = "";
+    this.todosArray.forEach((item, key, arr) => {
+      if (newItemAdded && Object.is(arr.length - 1, key)) {
+        // execute last item logic
+        this.addTodoItem(item, true);
+      } else {
+        this.addTodoItem(item, false);
+      }
+      this.displayFooterAndImage();
     });
   }
 
@@ -140,8 +150,8 @@ class Main {
     this.inputTitle.value = "";
     this.pokemonClient.catchPokemon(todoRequest).then(pokemon => {
       const newTodoText = pokemon ? `Catch ${pokemon}` : todoRequest;
-      this.addTodoItem(newTodoText, true);
       this.todosArray = itemManager.addItem(newTodoText);
+      this.renderTodos(true);
       this.displayFooterAndImage();
     })
   }
