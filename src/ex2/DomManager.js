@@ -18,7 +18,7 @@ class DomManager {
     /**
     * Click call back function to add new task
     */
-    AddNewTask(id, text, delete_call_back) {
+    AddNewTask(id, task_object, delete_call_back) {
         // creates new task elements
         const new_task = document.createElement("li");
         const task_text = document.createElement("span");
@@ -45,6 +45,17 @@ class DomManager {
         this.task_container.appendChild(new_task);
         new_task.appendChild(task_number);
         new_task.appendChild(task_text);
+        // image
+        if (Number.isInteger(task_object.id)) {
+            new_task.appendChild(this.PokemonImageElement(task_object));
+            // adds text to task
+            task_text.innerHTML = `Catch ${task_object.name}`;
+        }
+        else if(task_object.id === "Error")
+            task_text.innerHTML = task_object.data;
+        else
+            task_text.innerHTML = task_object;// adds text to task
+
         task_buttons_container.appendChild(task_delete_button);
         task_buttons_container.appendChild(task_complete_button);
         new_task.appendChild(task_buttons_container);
@@ -52,8 +63,7 @@ class DomManager {
         // adds numbers to tasks
         task_number.innerText = (this.task_container.children.length).toString().concat(")");
 
-        // adds text to task
-        task_text.innerHTML = text;
+
         this.clearInput();
 
         // adds icons to buttons
@@ -70,6 +80,31 @@ class DomManager {
         // updates task counter
         this.UpdateTaskCounter();
     }
+    /**
+     * add div if images of pokemon
+     * @param {object} task_object pokemon object
+     * @returns 
+     */
+    PokemonImageElement(task_object) {
+        const pokemon_image_sprites_container = document.createElement("div");
+        pokemon_image_sprites_container.classList.add("image_sprites");
+        Object.entries(task_object.images).forEach((image_attribute, index) => {// adds all images from api
+            if (image_attribute[1] && image_attribute[1] !== Object(image_attribute[1])) {// check if there is an image 
+                const pokemon_image = document.createElement("img");
+                pokemon_image.id = index;
+                // adds class for animation
+                if (index === 0)
+                    pokemon_image.classList.add("show");
+                else
+                    pokemon_image.classList.add("hide");
+                pokemon_image.classList.add("pokemon_image");
+                pokemon_image.src = image_attribute[1];
+                pokemon_image_sprites_container.appendChild(pokemon_image);
+            }
+        });
+        return pokemon_image_sprites_container;
+    }
+
 
     /**
     * On key press call back function for adding new task by enter key
@@ -127,8 +162,23 @@ class DomManager {
         // clear task container for rendering
         this.task_container.innerHTML = "";
         todos_copy.map((todo, key) => {
-            this.AddNewTask(key, todo.data, delete_call_back);
+            this.AddNewTask(key, todo, delete_call_back);
         });
         this.UpdateTaskCounter();
+    }
+    /**
+     * animate pokemon image
+     */
+    PokemonImageAnimation() {
+        const image_showing = document.querySelectorAll(".show");// select all images that are showing
+        image_showing.forEach((image) => {
+            let next_image = image.nextSibling;// next image in animation
+            if (next_image === null)// check if end of images
+                next_image = image.parentNode.firstChild;
+            image.classList.add("hide");
+            image.classList.remove("show");
+            next_image.classList.remove("hide");
+            next_image.classList.add("show");
+        });
     }
 }

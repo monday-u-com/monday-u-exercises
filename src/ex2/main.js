@@ -7,7 +7,7 @@ class Main {
         this.item_manager = new ItemManager();
     }
     /**
-     * init all event listeners
+     * init all event listeners and image animation
      */
     init() {
         this.dom_manager.add_task_button.addEventListener("click", () => {
@@ -28,6 +28,8 @@ class Main {
             this.item_manager.SortArrayByName();
             this.RerenderFunctionWrapper();
         });
+
+        setInterval(this.dom_manager.PokemonImageAnimation, 500);
     }
     /**
      * add button call back function

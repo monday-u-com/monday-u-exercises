@@ -70,9 +70,7 @@ class ItemManager {
         if (result.name !== "Error")
         {
             if(!this.CheckIfPokemonExists(result.id))
-                this.tasks.push({data: `Catch ${result.name}`, id: result.id});// found pokemon add the name and id of pokemon 
-            /*else
-                throw new Error(`Already exists`);*/
+                this.tasks.push({name: result.name, images: result.sprites, id: result.id});// found pokemon add the name and id of pokemon 
         }
         else
             this.tasks.push({data: result.message, id: "Error"});// did not find pokemon 
@@ -90,7 +88,10 @@ class ItemManager {
      */
     SortArrayByName() {
         this.tasks.sort((a, b) => {
-            return a.toLowerCase().localeCompare(b.toLowerCase());
+            // tasks object has name or data for error
+            const item1 = a.name || a.data;
+            const item2 = b.name || b.data;
+            return item1.toLowerCase().localeCompare(item2.toLowerCase());
         });
     }
     
