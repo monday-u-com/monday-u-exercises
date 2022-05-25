@@ -95,6 +95,14 @@ export default class PokemonClient{
         this.itemManager.clearAllTodos()
         alert("all todos cleared")
     }
+
+    filterDataAToZ() {
+        this.itemManager.filterDataAToZ()
+    }
+
+    filterDataZToA() {
+        this.itemManager.filterDataZToA()
+    }
 }
 
 const pokemonClient = new PokemonClient();
@@ -126,3 +134,13 @@ addTodoButton.addEventListener("click", () => {
 clearAllTodosButton.addEventListener("click", () => {
     pokemonClient.clearAllTodos()
 }) 
+
+orderSelect.addEventListener('change', (e) => {
+    console.log("first")
+    if(e.target.value === "A-Z") {
+        pokemonClient.filterDataAToZ()
+    }
+    else{
+        pokemonClient.filterDataZToA()
+    }
+})

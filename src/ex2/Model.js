@@ -29,4 +29,12 @@ export default class Model {
     clearAllData(){
         this.todoList = []
     }
+
+    filterDataAToZ(){
+        this.todoList.sort()
+    }
+
+    filterDataZToA(){
+        this.todoList.sort().reverse()
+    }
 }

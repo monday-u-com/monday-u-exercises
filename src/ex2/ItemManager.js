@@ -41,11 +41,11 @@ export default class ItemManager {
                 response.forEach(res => {
                     this.model.addData("catch " +res.name)
             })
-            this.updateTodo()
+            this.updateTodos()
         }).catch(error => {
             console.log(error)
             this.model.addData("failed to fetch pokemon with this input: " +enterValue)
-            this.updateTodo()
+            this.updateTodos()
         })
     }
 
@@ -69,7 +69,7 @@ export default class ItemManager {
     async handleAddSinglePokemonTodo(enterValue){
         const dataRetrieved = await this.fetchSingle(enterValue)
         this.model.addData(dataRetrieved)
-        this.updateTodo()
+        this.updateTodos()
     }
 
     async fetchSingle(dataEntered){ 
@@ -95,14 +95,24 @@ export default class ItemManager {
         return removedTodo
     }
 
-    clearAllTodos() {
-        this.model.clearAllData()
-        this.updateTodo()
-    }
-
-    updateTodo(){
+    updateTodos(){
         this.model.saveDataToLS()
         this.pokemonClient.showTodos()
+    }
+
+    clearAllTodos() {
+        this.model.clearAllData()
+        this.updateTodos()
+    }
+
+    filterDataAToZ() {
+        this.model.filterDataAToZ()
+        this.updateTodos()
+    }
+
+    filterDataZToA() {
+        this.model.filterDataZToA()
+        this.updateTodos()
     }
 
     todoListSize() {
