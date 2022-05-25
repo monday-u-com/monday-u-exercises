@@ -39,7 +39,8 @@ export default class ItemManager {
         Promise.all(pokemonArr)
             .then(response => {
                 response.forEach(res => {
-                    this.model.addData("catch " +res.name)
+                    const types = this.getTypes(res)
+                    this.model.addData(this.returnPokemonData(res, types))
             })
             this.updateTodos()
         }).catch(error => {
@@ -75,15 +76,33 @@ export default class ItemManager {
     async fetchSingle(dataEntered){ 
         try{
             const response = await fetch(this.API_BASE+dataEntered)
+
             if(response.status === 404){
                 return `pokemon id ${dataEntered} not found` 
             }
-            const data = await response.json()
 
-            return "catch " + data.name;
+            const res = await response.json()
+            const types = this.getTypes(res)
+
+            return this.returnPokemonData(res, types)
         }catch(error){
             console.log(error)
         }
+    }
+
+    getTypes(data){
+        const typeNo = data.types
+        let types = ""
+
+        typeNo.forEach(type => {
+            types += type.type.name + ", "    
+        })
+
+        return types
+    }
+
+    returnPokemonData(res, types){
+        return "catch " +res.name + " with type " + types
     }
 
     deleteTodo(index) {

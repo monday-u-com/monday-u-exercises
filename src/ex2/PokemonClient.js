@@ -136,7 +136,6 @@ clearAllTodosButton.addEventListener("click", () => {
 }) 
 
 orderSelect.addEventListener('change', (e) => {
-    console.log("first")
     if(e.target.value === "A-Z") {
         pokemonClient.filterDataAToZ()
     }
