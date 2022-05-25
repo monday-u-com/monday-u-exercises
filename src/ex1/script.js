@@ -59,7 +59,6 @@ function AddNewTask(task_input, tasks_element)
     {
         tasks_container.classList.remove('empty');
         task = CreateElementFromHtml(tasks_element.html); // create element from html string in object tasks_element
-        tasks_container.appendChild(task);
         SetOnEventListener("click", task.querySelector(".task_text"), AlertTask, task); // set on click event for new task
         SetOnEventListener("click", task.querySelector(".task_number"), AlertTask, task); // set on click event for new task
         task.querySelector(".task_number").innerHTML = (tasks_container.children.length + 1).toString().concat(')');
