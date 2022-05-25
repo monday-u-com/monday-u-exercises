@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
     <title>From To By Do</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/add_task_form_style.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/button_style.css" />
+    <link rel="stylesheet" href="css/task_container_style.css" />
+    <link rel="stylesheet" href="css/task_style.css" />
     <script src="https://kit.fontawesome.com/f1fe3009bc.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
@@ -23,7 +28,7 @@
                     </div>
                 </form>
             </div>
-            <div class="todo_tasks_container empty">               
+            <div id="todo_tasks_container" class="empty">               
             </div>        
             <div class="clear_todo_container">
                 <div class="todo_status_text">
@@ -31,11 +36,11 @@
                     <span class="task_counter">0</span>
                     <span> pending tasks</span>
                 </div>
-                <button name="clear_all_todo" class="clear_all_button">
+                <button id="clear_all_todo" class="clear_all_button">
                     <span>Clear All</span>
                     <div class="buttonColoring"></div>
                 </button>
-                <button name="sort_by_name_todo" class="sort_by_name_button">
+                <button id="sort_by_name_todo" class="sort_by_name_button">
                     <span>Sort by name</span>
                     <div class="buttonColoring"></div>
                 </button>

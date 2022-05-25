@@ -1,9 +1,10 @@
 // get buttons, input, containers elements
 const task_input = document.querySelector('input[name="todo"]');
-const add_task_button = document.querySelector('div[class="add_to_do_button"]');
-const clear_all_button = document.querySelector('button[name="clear_all_todo"]');
-const sort_by_name_button = document.querySelector('button[name="sort_by_name_todo"]');
-const tasks_container = document.querySelector('.todo_tasks_container');
+const add_task_button = document.querySelector('.add_to_do_button');
+const clear_all_button = document.querySelector('#clear_all_todo');
+const sort_by_name_button = document.querySelector('#sort_by_name_todo');
+const tasks_container = document.querySelector('#todo_tasks_container');
+const tasks_list = [];
 const tasks_element = {
     html: `<div class="todo_task animate__animated animate__fadeIn">
                 <span class="task_number"></span>
@@ -19,26 +20,38 @@ const tasks_element = {
             </div>`
 };
 
+/**
+ * Sets an event listener to object with parameters
+ * @param {string} event 
+ * @param {object} element 
+ * @param {function} call_back_func 
+ * @param  {...object} param 
+ */
+ function SetOnEventListener(event, element, call_back_func, ...param)
+ {
+     if(param === undefined)
+         element.addEventListener(event, () => call_back_func);
+     else
+         element.addEventListener(event, () => call_back_func(...param));
+ };
+
 // set event to objects
-SetOnEventListener("click", add_task_button, AddNewTask, task_input, tasks_container, tasks_element);
+SetOnEventListener("click", add_task_button, AddNewTask, task_input, tasks_element);
 
 SetOnEventListener("keypress", task_input, AddNewTaskByKeyPress, add_task_button);
 SetOnEventListener("input", task_input, ClearErrorEmptyTask, task_input);
 
-SetOnEventListener("click", clear_all_button, ClearAllTasks, tasks_container);
+SetOnEventListener("click", clear_all_button, ClearAllTasks);
 
-SetOnEventListener("click", sort_by_name_button, SortByName, tasks_container);
+SetOnEventListener("click", sort_by_name_button, SortByName);
 
 /**
  * Click call back function to add new task
  * @param {object} task_input 
- * @param {object} tasks_container 
  * @param {object} tasks_element 
- * @param {object} observer 
- * @param {object} config_observer 
  * @returns 
  */
-function AddNewTask(task_input, tasks_container, tasks_element)
+function AddNewTask(task_input, tasks_element)
 {
     const todo_text = task_input.value;   
     let task;
@@ -51,11 +64,12 @@ function AddNewTask(task_input, tasks_container, tasks_element)
         SetOnEventListener("click", task.querySelector(".task_number"), AlertTask, task); // set on click event for new task
         task.querySelector(".task_number").innerHTML = (tasks_container.children.length + 1).toString().concat(')');
         task.querySelector(".task_text").innerHTML = todo_text; // set text from input to task
-        SetOnEventListener("click", task.querySelector(".delete_task_button"), DeleteTask, task, tasks_container); // set a delete on click event
-        SetOnEventListener("click", task.querySelector(".complete_task_button"), MarkAsComplete, task); // set a complete on click event                
+        SetOnEventListener("click", task.querySelector(".delete_task_button"), DeleteTask, task); // set a delete on click event
+        SetOnEventListener("click", task.querySelector(".complete_task_button"), MarkTaskAsComplete, task); // set a complete on click event                
         task_input.value = '';
-        SortTasksNumber(tasks_container);
-        SetTaskCounter(tasks_container);
+        tasks_list.push(task);
+        SortTasksNumber();
+        SetTasksCounter();
         return;
     }
     ShowErrorEmptyTaskInput(task_input);
@@ -76,31 +90,29 @@ function AddNewTaskByKeyPress(add_task_button)
 
 /**
  * Click call back function for deleting all tasks
- * @param {object} tasks_container 
  */
-function ClearAllTasks(tasks_container)
+function ClearAllTasks()
 {
     while(tasks_container.firstChild)
     {
         tasks_container.removeChild(tasks_container.firstChild);
     }
     tasks_container.classList.add('empty');
-    SetTaskCounter(tasks_container);
+    SetTasksCounter(tasks_container);
 };
 
 /**
  * Click call back function for deleting task
- * @param {object} task 
- * @param {object} tasks_container 
+ * @param {object} task  
  */
-function DeleteTask(task, tasks_container)
+function DeleteTask(task)
 {
     task.classList.remove('animate__fadeIn');
     task.classList.add('animate__fadeOut');
     setTimeout(() => {
-        task.remove();
-        SortTasksNumber(tasks_container);
-        SetTaskCounter(tasks_container);
+        tasks_list.splice(tasks_list.indexOf(task), 1);
+        SortTasksNumber();
+        SetTasksCounter();
         if(tasks_container.children.length === 0)
             tasks_container.classList.add('empty');
     }, 500);
@@ -110,7 +122,7 @@ function DeleteTask(task, tasks_container)
  * Click call back function to set the task as completed
  * @param {object} task 
  */
-function MarkAsComplete(task)
+function MarkTaskAsComplete(task)
 {
     task.classList.toggle('completed_task');
 };
@@ -144,28 +156,12 @@ function ClearErrorEmptyTask(task_input)
 
 /**
  * updates task counter
- * @param {object} task_container 
  */
-function SetTaskCounter(task_container)
+function SetTasksCounter()
 {
     const task_counter = document.querySelector(".task_counter");
-    const tasks_number = task_container.children.length;
+    const tasks_number = tasks_container.children.length;
     task_counter.innerHTML = tasks_number;
-};
-
-/**
- * Sets an event listener to object with parameters
- * @param {string} event 
- * @param {object} element 
- * @param {function} call_back_func 
- * @param  {...object} param 
- */
-function SetOnEventListener(event, element, call_back_func, ...param)
-{
-    if(param === undefined)
-        element.addEventListener(event, () => call_back_func);
-    else
-        element.addEventListener(event, () => call_back_func(...param));
 };
 
 /**
@@ -183,33 +179,40 @@ function CreateElementFromHtml(html)
 
 /**
  * Sorts the tasks by number and updates the numbers 
- * @param {object} tasks_container 
  */
-function SortTasksNumber(tasks_container)
+function SortTasksNumber()
 {
-    const tasks = [...tasks_container.children];
-    tasks.sort( (task1, task2) => {
-        const task1_number = parseInt(task1.querySelector(".task_number"));
-        const task2_number = parseInt(task2.querySelector(".task_number"));
-        return task1_number - task2_number;
+    tasks_container.innerHTML = "";
+    tasks_list.forEach((task, key) => {
+        FindChildInTasksArray(task.children, "task_number").innerText = `${key + 1})`;
+        tasks_container.appendChild(task); 
     });
-    tasks.forEach((task, key) => {task.querySelector(".task_number").innerHTML = (key + 1).toString().concat(")");});
 };
 
 /**
- * Sorts the tasks by names
- * @param {object} tasks_container 
+ * Sorts the tasks by names 
  */
-function SortByName(tasks_container)
-{
-    const tasks = [...tasks_container.children];
-    tasks.sort((item1, item2) =>
-    {
-        const task1_name = item1.querySelector(".task_text").innerHTML;
-        const task2_name = item2.querySelector(".task_text").innerHTML;
+ function SortByName()
+ {
+    tasks_list.sort( (task1, task2) => {
+        const task1_name = FindChildInTasksArray(task1.children, "task_text").innerHTML;
+        const task2_name = FindChildInTasksArray(task2.children, "task_text").innerHTML;
         return task1_name.toLowerCase().localeCompare(task2_name.toLowerCase());
     });
-    tasks.forEach(task => { tasks_container.appendChild(task); });
-    SortTasksNumber(tasks_container);
-};
+    tasks_container.innerHTML = "";
+    tasks_list.forEach(task => { tasks_container.appendChild(task);  });
+    SortTasksNumber();
+ };
 
+/**
+ * finds element in array with class
+ * @param {Array} array array to search in 
+ * @param {string} class_name class name of element to find
+ * @returns element
+ */
+function FindChildInTasksArray(array, class_name)
+{
+    return Array.prototype.find.call(array, (child) => {
+        return child.classList.contains(class_name);
+    });
+};

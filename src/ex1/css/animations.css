@@ -1,0 +1,38 @@
+@keyframes EmptyAnimation {
+    0%
+    {
+        color: #66d300;
+    }
+    25%
+    {
+        color: #cc00c2;
+    }
+    50%
+    {
+        color: #efa500;
+    }
+    75%
+    {
+        color: #ff7a7a;
+    }
+    100%
+    {
+        color: #66d300;
+    }
+}
+
+@-webkit-keyframes ButtonAnimation {
+    0%{background-position:0% 84%}
+    50%{background-position:100% 17%}
+    100%{background-position:0% 84%}
+}
+@-moz-keyframes ButtonAnimation {
+    0%{background-position:0% 84%}
+    50%{background-position:100% 17%}
+    100%{background-position:0% 84%}
+}
+@keyframes ButtonAnimation {
+    0%{background-position:0% 84%}
+    50%{background-position:100% 17%}
+    100%{background-position:0% 84%}
+}
