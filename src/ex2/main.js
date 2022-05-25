@@ -145,27 +145,29 @@ class Main {
 
   onAddTodoFormSubmitted(event) {
     event.preventDefault();
-    let newTodoText = this.inputTitle.value;
+    const newTodoText = this.inputTitle.value;
     this.inputTitle.value = "";
     const isNaNArray = newTodoText.split(',').map( el => isNaN(el));
-
     if (isNaNArray.includes(true)) {
       this.todosArray = itemManager.addItem(newTodoText);
       this.renderTodos(1);
     } else {
-      this.pokemonClient.catchPokemon(newTodoText).then(pokemons => {
-        try {
-          pokemons.forEach(pokemon => {
-            this.todosArray = itemManager.addItem(`Catch ${pokemon}`);
-          })
-          this.renderTodos(pokemons.length);
-        } catch (error) {
-          newTodoText = `Failed to fetch ${newTodoText}`;
-          this.todosArray = itemManager.addItem(newTodoText);
-          this.renderTodos(1);
-        }
-      })
+      this.addPokemon(newTodoText);
     }
+  }
+
+  addPokemon(newTodoText) {
+    this.pokemonClient.catchPokemon(newTodoText).then(pokemons => {
+      try {
+        pokemons.forEach(pokemon => {
+          this.todosArray = itemManager.addItem(`Catch ${pokemon}`);
+        })
+        this.renderTodos(pokemons.length);
+      } catch (error) {
+        this.todosArray = itemManager.addItem(`Failed to fetch ${newTodoText}`);
+        this.renderTodos(1);
+      }
+    })
   }
 
   onSortListButtonClicked() {
