@@ -66,8 +66,8 @@ function addDoneCheckBox(task) {
 
 function imageState() {
     const img = document.querySelector('#imageOnNoTasks')
-    if (document.querySelectorAll('#task')) {
-        console.log(document.querySelectorAll('.task'))
+    if (document.querySelectorAll('#task').length != 0) {
+        console.log(document.querySelectorAll('#task'))
         img.className = 'noTasks-img-hidden'
     } else img.className = 'NoTasksImg-visible'
 }
