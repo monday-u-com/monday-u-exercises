@@ -3,17 +3,22 @@ export class PokemonClient {
     this.API_BASE = 'https://pokeapi.co/api/v2/pokemon';
   }
 
-  failureHandler(id) {
-    console.log(`Failed to find ${id}.`);
+  failureHandler(ids) {
+    console.log(`Failed to fetch ${ids}`);
   }
 
-  async catchPokemon(id) {
-      try {
-        const response = await fetch (`${this.API_BASE}/${id}/`);
-        const data = await response.json();
-        return data.forms[0].name;
-      } catch (error) {
-        this.failureHandler(id);
-      }
+  async catchPokemon(ids) {
+    try {
+      const idsArray = ids.split(',').map( el => el.trim() );
+      let allPromises = [];
+      idsArray.forEach(id => {
+        allPromises.push(fetch(`${this.API_BASE}/${id}/`));
+      });
+      const allPokemons = await Promise.all(allPromises);
+      const data = await Promise.all(allPokemons.map(response => response.json()));
+      return await Promise.all(data.map(el => el.forms[0].name));
+    } catch (error) {
+      this.failureHandler(ids);
+    }
   }
 }

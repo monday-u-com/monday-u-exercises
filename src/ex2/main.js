@@ -33,7 +33,7 @@ class Main {
     this.addTodoForm.addEventListener('submit', (event) => this.onAddTodoFormSubmitted(event));
     this.sortListButton.addEventListener('click', () => this.onSortListButtonClicked());
 
-    this.renderTodos(false);
+    this.renderTodos(0);
 
     this.inputTitle.addEventListener("keypress", (event) => {
       if (event.key === "Enter") {
@@ -43,11 +43,10 @@ class Main {
     });
   }
 
-  renderTodos(newItemAdded) {
+  renderTodos(newItemsAmount) {
     this.allTodosList.innerHTML = "";
     this.todosArray.forEach((item, key, arr) => {
-      if (newItemAdded && Object.is(arr.length - 1, key)) {
-        // execute last item logic
+      if (newItemsAmount > 0 && key >= arr.length - newItemsAmount) {
         this.addTodoItem(item, true);
       } else {
         this.addTodoItem(item, false);
@@ -133,7 +132,7 @@ class Main {
     clickedButton.parentElement.classList.add("delete-item-animation");
     setTimeout (() => {
       this.todosArray = this.itemManager.deleteItem(index);
-      this.renderTodos(false);
+      this.renderTodos(0);
     }, 700);
   }
 
@@ -148,14 +147,23 @@ class Main {
     event.preventDefault();
     let newTodoText = this.inputTitle.value;
     this.inputTitle.value = "";
-    if (isNaN(newTodoText)) {
+    const isNaNArray = newTodoText.split(',').map( el => isNaN(el));
+
+    if (isNaNArray.includes(true)) {
       this.todosArray = itemManager.addItem(newTodoText);
-      this.renderTodos(true);
+      this.renderTodos(1);
     } else {
-      this.pokemonClient.catchPokemon(newTodoText).then(pokemon => {
-        newTodoText = pokemon ? `Catch ${pokemon}` : `There is no pokemon with id ${newTodoText}`;
-        this.todosArray = itemManager.addItem(newTodoText);
-        this.renderTodos(true);
+      this.pokemonClient.catchPokemon(newTodoText).then(pokemons => {
+        try {
+          pokemons.forEach(pokemon => {
+            this.todosArray = itemManager.addItem(`Catch ${pokemon}`);
+          })
+          this.renderTodos(pokemons.length);
+        } catch (error) {
+          newTodoText = `Failed to fetch ${newTodoText}`;
+          this.todosArray = itemManager.addItem(newTodoText);
+          this.renderTodos(1);
+        }
       })
     }
   }

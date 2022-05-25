@@ -25,7 +25,7 @@ But this kind of work requires a bit more code organization, so...
 - [x] Remove todos by updating the list and re-rendering
 - [x] Create a PokemonClient class (in a new file) to get data from the Pokemon API - remember the HTML has to be aware of this file...
 - [x] If the user only inputs a number, add a `Catch ${pokemon}` todo to your array of todos (and render it, of course)
-- [ ] If the user inputs a comma separated list of IDs, retrieve multiple pokemon in parallel using `Promise.all` and render them all
+- [x] If the user inputs a comma separated list of IDs, retrieve multiple pokemon in parallel using `Promise.all` and render them all
 - [x] Handle any errors in retrieving the pokemon (i.e. when a user inputs an invalid ID like 44124. See below gif for an example)
 - [x] Add a normal todo item if the input is not a pokemon
 
@@ -43,4 +43,4 @@ When you finish it should look like this:
 - [ ] In the solution file you'll see this piece of code: `pokemons.forEach(this.addPokemonItem);`
   - The `addPokemonItem` method adds the pokemon to the array of todos and renders the todos list again
   - Can you figure out why this line of code is inefficient? Can you improve it?
-- [ ] Have another cool idea? Go wild!
+- [x] Have another cool idea? Go wild! // Animation for all new items
