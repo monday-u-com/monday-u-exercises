@@ -3,27 +3,14 @@ import Model from "./Model.js";
 export default class ItemManager {
     constructor(pokemonClient){
         this.API_BASE = 'https://pokeapi.co/api/v2/pokemon/'
-        //this.todolist = []
         this.model = new Model()
         this.model.LoadDataFromLS()
         this.pokemonClient = pokemonClient;
     }
 
-    /* checkIfExistDataFromLS(){
-        let dataFromLS = localStorage.getItem("new-todo")
-    
-        if(dataFromLS === null){
-            this.todoList = []
-        }
-        else{
-            this.todoList = JSON.parse(dataFromLS)
-        }
-    } */
-
     async addTodo(enterValue){
         
         if(enterValue.trim() === ""){
-            alert("todo cannot be empty")
             return
         }
 
@@ -77,23 +64,16 @@ export default class ItemManager {
                 return `pokemon id ${dataEntered} not found` 
             }
             const data = await response.json()
-            console.log(data)
+
             return "catch " + data.name;
         }catch(error){
-            console.dir(error)
+            console.log(error)
         }
     }
-
-    /* pushEnteredDataToLS(enterValue){
-        this.todoList.push(enterValue)
-        localStorage.setItem("new-todo", JSON.stringify(this.todoList))
-        alert(`added new todo ${enterValue}`)
-    } */
 
     deleteTodo(index) {
     
         const removedTodo = this.model.todoList[index]
-        //this.model.todoList.splice(index, 1)//remove one todo
         this.model.removeData(index)
         this.model.saveDataToLS()   
 

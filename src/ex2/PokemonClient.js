@@ -14,8 +14,8 @@ export default class PokemonClient{
     }
 
     showTodos() {
-        this.showMatchUiByTodosNumber() //ui
-        this.createTodoListItems() //ui
+        this.showMatchUiByTodosNumber() 
+        this.createTodoListItems() 
     }
 
     showMatchUiByTodosNumber() {
@@ -52,7 +52,6 @@ export default class PokemonClient{
             func[i].addEventListener("click", () => this.deleteTodo(i))
         }
         
-
         todoInput.value = ""
     }
 
@@ -64,9 +63,14 @@ export default class PokemonClient{
 
     addTodo(){
         let enterValue = todoInput.value
+        if(enterValue.trim() === ""){
+            alert("todo cannot be empty")
+        }
+        else{
+            alert(`added new todo ${enterValue}`)
+        }
         this.itemManager.addTodo(enterValue)
         addTodoButton.classList.remove("active")
-        alert(`added new todo ${enterValue}`)
     }
 }
 
