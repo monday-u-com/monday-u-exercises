@@ -1,14 +1,15 @@
 import { ItemManager } from "./itemManager.js"
-import { PokemonClient } from "./PokemonClient.js"
+import { PokemonClient } from "./pokemonClient.js"
 
 const addButton = document.getElementById("list-item-submit")
 const textInput = document.getElementById("list-item-input")
 const allLists = document.getElementById("list")
-const counterLists = document.getElementById("counterLists")
-const deleteAllLists = document.getElementById("deleteAllTasks")
+// const counterLists = document.getElementById("counterLists")
+// const deleteAllLists = document.getElementById("deleteAllTasks")
 const errorMessage = document.getElementById("error")
 
 const itemManager = new ItemManager()
+const pokemonClient = new PokemonClient()
 class Main {
   constructor() {
     this.name = "Main"
@@ -20,7 +21,7 @@ class Main {
   }
 }
 
-function addNewList() {
+function addNewList(name) {
   itemManager.addItem(textInput.value)
   const li = document.createElement("li")
   const hr = document.createElement("hr")
@@ -41,7 +42,7 @@ function addNewList() {
     deleteButton.style.display = "none"
     deleteButton.style.transition = "all 0.5s ease-in-out"
   })
-  li.appendChild(document.createTextNode(textInput.value))
+  li.appendChild(document.createTextNode(name))
   li.appendChild(deleteButton)
   allLists.appendChild(li)
   allLists.appendChild(hr)
@@ -55,7 +56,15 @@ function validation() {
     errorMessage.innerHTML = "Please enter a task"
     errorMessage.style.display = "block"
   } else {
-    addNewList()
+    pokemonClient
+      .getPokemon(textInput.value)
+      .then((data) => {
+        addNewList(`Catch ${data.name}`)
+      })
+      .catch((error) => {
+        console.log(error)
+        addNewList(`Pokemon with ID ${input.value} was not found`)
+      })
     errorMessage.style.display = "none"
     errorMessage.style.transition = "all 0.5s ease-in-out"
   }

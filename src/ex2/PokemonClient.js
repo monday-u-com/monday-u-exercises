@@ -1,13 +1,11 @@
 export class PokemonClient {
-  constructor(name) {
+  constructor() {
     this.api = "https://pokeapi.co/api/v2/pokemon/"
-    this.name = name
   }
-  getPokemon() {
-    return fetch(this.api + this.name)
-      .then((response) => response.json())
-      .then((data) => {
-        return data
-      })
+
+  async getPokemon(name) {
+    const response = await fetch(`${this.api}${name}`)
+    const json = await response.json()
+    return json
   }
 }
