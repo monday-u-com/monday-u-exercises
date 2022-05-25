@@ -7,11 +7,6 @@ Start your http server by issuing http-server -c-1
 import { ItemManager } from "/item-manager.js";
 import { PokemonClient } from "/pokemon-client.js";
 
-
-const unsorted = Symbol("unsorted");
-const sortedAsc = Symbol("sortedAsc");
-const sortedDesc = Symbol("sortedDesc");
-
 // Implement the `Main` class here
 class Main {
   constructor(itemManager, pokemonClient) {
@@ -20,7 +15,6 @@ class Main {
   }
   init() {
     this.allTodosList = document.getElementById("all-todos-list");
-    this.isListSorted = unsorted;
     this.todosArray = itemManager.init();
     this.inputTitle = document.getElementById("new-todo-title");
     this.amountOfTodosInfo = document.getElementById("amount-info");
@@ -74,7 +68,6 @@ class Main {
     this.addEventListenerForTodoTitle(listItem);
     this.addEventListenerForDeleteButton(listItem);
     this.allTodosList.appendChild(listItem);
-    this.isListSorted = unsorted;
   }
 
   createListElement(todoText, animation) {
@@ -171,44 +164,18 @@ class Main {
   }
 
   onSortListButtonClicked() {
-    if (this.isListSorted === unsorted || this.isListSorted === sortedDesc) {
-      this.sortListWithOrder(compareElementsAsc);
-      this.isListSorted = sortedAsc;
-    } else {
-      this.sortListWithOrder(compareElementsDesc);
-      this.isListSorted = sortedDesc;
-    }
-  }
-
-  sortListWithOrder(comparator) {
-    let switching = true;
-    let shouldSwitch = false;
-    while (switching) {
-      switching = false;
-      const liElements = this.allTodosList.getElementsByTagName("li");
-      let i;
-      for (i = 0; i < (liElements.length - 1); i++) {
-        shouldSwitch = false;
-        if (comparator(liElements[i].innerHTML.toLowerCase(), liElements[i + 1].innerHTML.toLowerCase())) {
-          shouldSwitch = true;
-          break;
-        }
-      }
-      if (shouldSwitch) {
-        liElements[i].parentNode.insertBefore(liElements[i + 1], liElements[i]);
-        switching = true;
-      }
-    }
+    this.todosArray = this.itemManager.sortItems();
+    this.renderTodos(0);
   }
 }
 
-function compareElementsAsc(a, b) {
-  return a > b;
-}
+// function compareElementsAsc(a, b) {
+//   return a > b;
+// }
 
-function compareElementsDesc(a, b) {
-  return a < b;
-}
+// function compareElementsDesc(a, b) {
+//   return a < b;
+// }
 
 const itemManager = new ItemManager();
 const pokemonClient = new PokemonClient();
