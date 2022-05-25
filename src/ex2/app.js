@@ -57,18 +57,14 @@ function validation(item) {
     errorMessage.style.display = "block"
   } else {
     if (item.includes(",")) {
-      const items = item.split(",")
-      items.forEach(function (item) {
-        pokemonClient
-          .getPokemon(item)
-          .then(function (data) {
-            addNewList(`Catch ${data.name}`)
-          })
-          .catch(function (error) {
-            console.log(error)
-            addNewList(`Pokemon with ID ${input.value} was not found`)
-          })
-      })
+      console.log("im in the promises")
+      Promise.all(
+        item.split(",").map(async (name) => {
+          const pokemon = await pokemonClient.getPokemon(name) // promise
+          console.log("pokemon", pokemon)
+          addNewList(`Catch ${pokemon.name}`)
+        })
+      )
     } else {
       pokemonClient
         .getPokemon(textInput.value)
