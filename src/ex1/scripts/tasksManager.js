@@ -19,28 +19,42 @@ export class TasksManeger {
     }
   }
 
+  isInputIsSetOfPokemonsIDs(input) {
+    const regex = /^[0-9,]+$/;
+    return regex.test(input);
+  }
+
   async addTask(taskInput, isCompleted) {
-    const isPokemon = await this.tryFetchAndAddPokemons(taskInput);
-    if (isPokemon) {
-      return true;
+    if (this.isInputIsSetOfPokemonsIDs(taskInput)) {
+      return await this.addCatchPokemonTask(taskInput);
+    } else if (this.pokedex.isPokemonNamesOnly(taskInput)) {
+      return await this.addCatchPokemonTask(taskInput);
     } else {
       const isAdded = this.pushingTaskAndSave(taskInput, isCompleted);
       return isAdded;
     }
   }
 
-  async tryFetchAndAddPokemons(input) {
+  async addCatchPokemonTask(input) {
+    const response = await this.getPokemonsToAdd(input);
+    if (response === false) {
+      return false;
+    } else if (response.includes("Pokemon with id")) {
+      return response;
+    } else {
+      const isAdded = this.pushingTaskAndSave(response, false);
+      return isAdded;
+    }
+  }
+
+  async getPokemonsToAdd(input) {
     const response = await this.pokedex.getPokemonsNamesAndTypes(input);
     if (response === "Not a pokemon") {
       return false;
     } else if (response.includes("Pokemon with id")) {
-      this.pushingTaskAndSave(response, false);
-      return true;
+      return response;
     } else {
-      response.forEach((res) => {
-        this.pushingTaskAndSave(res, false);
-      });
-      return true;
+      return response;
     }
   }
 

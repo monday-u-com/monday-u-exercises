@@ -8,6 +8,7 @@ import {
 } from "./globalConsts.js";
 
 class AppDom {
+  
   constructor(htmlElement) {
     this.tasksManager = new TasksManeger();
     this.emprtyInputAlert = new Alert(htmlElement);
