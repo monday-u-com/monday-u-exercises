@@ -165,3 +165,11 @@ li:hover {
   color: rgb(131, 30, 207);
   cursor: pointer;
 }
+
+#error {
+  color: red;
+  font-size: 1.5rem;
+  text-align: center;
+  transition: all 0.5s ease-in-out;
+  margin-top: 10px;
+}

@@ -15,20 +15,22 @@ class Main {
   }
   init() {
     addButton.addEventListener("click", function () {
-      validationText()
+      validation()
     })
   }
 }
 
 function addNewList() {
   itemManager.addItem(textInput.value)
-  const list = document.getElementById("list")
   const li = document.createElement("li")
+  const hr = document.createElement("hr")
   const deleteButton = document.createElement("button")
   deleteButton.setAttribute("class", "dltbtn")
   deleteButton.innerHTML = "X"
+
   deleteButton.addEventListener("click", function () {
     li.remove()
+    hr.remove()
     itemManager.removeItem(textInput.value)
   })
   li.addEventListener("mouseover", function () {
@@ -41,22 +43,17 @@ function addNewList() {
   })
   li.appendChild(document.createTextNode(textInput.value))
   li.appendChild(deleteButton)
-  list.appendChild(li)
+  allLists.appendChild(li)
+  allLists.appendChild(hr)
   textInput.value = ""
   console.log(itemManager.getItems())
 }
 
-function validationText() {
+function validation() {
   const input = document.getElementById("list-item-input")
   if (input.value === "") {
     errorMessage.innerHTML = "Please enter a task"
     errorMessage.style.display = "block"
-    errorMessage.style.transition = "all 0.5s ease-in-out"
-    errorMessage.style.color = "red"
-    errorMessage.style.fontSize = "20px"
-    errorMessage.style.fontWeight = "bold"
-    errorMessage.style.textAlign = "center"
-    errorMessage.style.marginTop = "10px"
   } else {
     addNewList()
     errorMessage.style.display = "none"
@@ -65,8 +62,7 @@ function validationText() {
 }
 
 const main = new Main()
+
 document.addEventListener("DOMContentLoaded", function () {
-  // you should create an `init` method in your class
-  // the method should add the event listener to your "add" button
   main.init()
 })
