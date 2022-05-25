@@ -36,10 +36,10 @@ When you finish it should look like this:
 ### Bonus
 
 - [x] Add a delete all option - make sure you're actually deleting the data, not just removing from the DOM
-- [x] Validate that the user isn't adding the same pokemon todo more than once // add 'again' to the duplicate
+- [x] Validate that the user isn't adding the same pokemon todo more than once // do not add the duplicate and highlight the existing todo
 - [x] Get more nested data from the pokemon API and display it as part of the todo item (e.g. “catch bulbasaur the grass/leaf type pokemon”) - you'll have to explore the API to understand where to extract that data from =]
 - [ ] Modify the API request to use a pokemon’s name instead of its ID if you find a pokemon name (from a closed list of values) in the user’s input. For example, if the user inputs "charmender", you should get the data about charmender from the API by this pokemon's name - you'll have to read the docs for this too to see how that works ;)
 - [ ] In the solution file you'll see this piece of code: `pokemons.forEach(this.addPokemonItem);`
   - The `addPokemonItem` method adds the pokemon to the array of todos and renders the todos list again
   - Can you figure out why this line of code is inefficient? Can you improve it?
-- [x] Have another cool idea? Go wild! // Animation for all new items, sorting in ItemManager (both ASC and DESC)
+- [x] Have another cool idea? Go wild! // Animation for all new items, sorting in ItemManager (both ASC and DESC), animation for duplicates (both pokemons and regular todos).
