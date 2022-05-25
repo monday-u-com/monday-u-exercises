@@ -1,4 +1,4 @@
-import { ALL_POKEMONS_NAMES_LIST } from "./pokemonNamesList.js";
+import { ALL_POKEMONS_NAMES_LIST } from "./PokemonNamesList.js";
 export class PokemonClient {
   constructor() {
     this.pokemonNames = ALL_POKEMONS_NAMES_LIST;
@@ -54,18 +54,6 @@ export class PokemonClient {
     return resString;
   }
 
-  /* for future use - tried making async creator with static creator - and initilize wiyh list first. didt work well
-  async getistAllPokemonsNames() {
-    const url = "https://pokeapi.co/api/v2/pokemon/?limit=898";
-    const response = await fetch(url);
-    const data = await response.json();
-    const pokemonsNames = data.results.map((pokemon) => {
-      return pokemon.name;
-    });
-    return pokemonsNames;
-  }
-  */
-
   isPokemonNamesOnly(input) {
     const regex = /^[A-Za-z, ]+$/;
     if (regex.test(input)) {
@@ -78,4 +66,16 @@ export class PokemonClient {
       return false;
     }
   }
+
+  /* for future use - tried making async creator with static creator - and initilize wiyh list first. didt work well
+  async getistAllPokemonsNames() {
+    const url = "https://pokeapi.co/api/v2/pokemon/?limit=898";
+    const response = await fetch(url);
+    const data = await response.json();
+    const pokemonsNames = data.results.map((pokemon) => {
+      return pokemon.name;
+    });
+    return pokemonsNames;
+  }
+  */
 }

@@ -1,5 +1,5 @@
 import { PokemonClient } from "./PokemonClient.js";
-import { TASK_ID, TASK_CONTENT, TASK_COMPLETED } from "./globalConsts.js";
+import { TASK_ID, TASK_CONTENT, TASK_COMPLETED } from "./GlobalConstants.js";
 
 export class TasksManeger {
   constructor() {
@@ -42,8 +42,10 @@ export class TasksManeger {
     } else if (response.includes("Pokemon with id")) {
       return response;
     } else {
-      const isAdded = this.pushingTaskAndSave(response, false);
-      return isAdded;
+      response.forEach((pokemon) => {
+        this.pushingTaskAndSave(pokemon, false);
+      });
+      return true;
     }
   }
 

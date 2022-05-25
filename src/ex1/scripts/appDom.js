@@ -1,14 +1,13 @@
-import { TasksManeger } from "./tasksManager.js";
-import { Alert } from "./alertScripts.js";
+import { TasksManeger } from "./TaskManager.js";
+import { Alert } from "./Alert.js";
 import {
   TASK_ID,
   TASK_CONTENT,
   TASK_COMPLETED,
   EMPTY_INPUT_MSG,
-} from "./globalConsts.js";
+} from "./GlobalConstants.js";
 
 class AppDom {
-  
   constructor(htmlElement) {
     this.tasksManager = new TasksManeger();
     this.emprtyInputAlert = new Alert(htmlElement);
@@ -112,7 +111,10 @@ class AppDom {
   toggleRemoveAllBtn(filteredTasks) {
     const filteredTasksSize = filteredTasks.length;
     const allTAsksSize = this.tasksManager.getTasks().length;
-    if (filteredTasks.length < this.tasksManager.getTasks().length || filteredTasksSize === 0) {
+    if (
+      filteredTasks.length < this.tasksManager.getTasks().length ||
+      filteredTasksSize === 0
+    ) {
       this.removeAllTasksButton.classList.add("hide");
     } else {
       this.removeAllTasksButton.classList.remove("hide");
