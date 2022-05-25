@@ -134,11 +134,15 @@ class Main {
     event.preventDefault();
     const newTodoText = this.inputTitle.value;
     this.inputTitle.value = "";
-    const isNaNArray = newTodoText.split(',').map( el => isNaN(el));
-    if (isNaNArray.includes(true)) {
-      this.updateArrayAndRender(itemManager.addItem(newTodoText), 1)
+    if (this.pokemonClient.isPokemon(newTodoText)) {
+      this.addPokemon(newTodoText.toLowerCase());
     } else {
-      this.addPokemon(newTodoText);
+      const isNaNArray = newTodoText.split(',').map( el => isNaN(el));
+      if (isNaNArray.includes(true)) {
+        this.updateArrayAndRender(itemManager.addItem(newTodoText), 1)
+      } else {
+        this.addPokemon(newTodoText);
+      }
     }
   }
 
