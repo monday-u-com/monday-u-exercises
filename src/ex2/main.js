@@ -15,7 +15,6 @@ class Main {
   }
   init() {
     this.allTodosList = document.getElementById("all-todos-list");
-    this.todosArray = itemManager.init();
     this.inputTitle = document.getElementById("new-todo-title");
     this.amountOfTodosInfo = document.getElementById("amount-info");
 
@@ -27,7 +26,7 @@ class Main {
     this.addTodoForm.addEventListener('submit', (event) => this.onAddTodoFormSubmitted(event));
     this.sortListButton.addEventListener('click', () => this.onSortListButtonClicked());
 
-    this.renderTodos(0);
+    this.updateArrayAndRender(itemManager.init(), 0);
 
     this.inputTitle.addEventListener("keypress", (event) => {
       if (event.key === "Enter") {
@@ -124,8 +123,7 @@ class Main {
     clickedButton.parentElement.classList.remove("existing-item");
     clickedButton.parentElement.classList.add("delete-item-animation");
     setTimeout (() => {
-      this.todosArray = this.itemManager.deleteItem(index);
-      this.renderTodos(0);
+      this.updateArrayAndRender(this.itemManager.deleteItem(index), 0);
     }, 700);
   }
 
@@ -142,8 +140,7 @@ class Main {
     this.inputTitle.value = "";
     const isNaNArray = newTodoText.split(',').map( el => isNaN(el));
     if (isNaNArray.includes(true)) {
-      this.todosArray = itemManager.addItem(newTodoText);
-      this.renderTodos(1);
+      this.updateArrayAndRender(itemManager.addItem(newTodoText), 1)
     } else {
       this.addPokemon(newTodoText);
     }
@@ -151,36 +148,34 @@ class Main {
 
   addPokemon(newTodoText) {
     this.pokemonClient.catchPokemon(newTodoText).then(pokemons => {
+      let newItemsAmount;
+      let updatedArray;
       try {
         pokemons.forEach(pokemon => {
-          this.todosArray = itemManager.addItem(`Catch ${pokemon}`);
+          updatedArray = itemManager.addItem(`Catch ${pokemon}`);
         })
-        this.renderTodos(pokemons.length);
+        newItemsAmount = pokemons.length;
       } catch (error) {
-        this.todosArray = itemManager.addItem(`Failed to fetch ${newTodoText}`);
-        this.renderTodos(1);
+        updatedArray = itemManager.addItem(`Failed to fetch ${newTodoText}`);
+        newItemsAmount = 1;
       }
+      this.updateArrayAndRender(updatedArray, newItemsAmount)
     })
   }
 
   onSortListButtonClicked() {
-    this.todosArray = this.itemManager.sortItems();
-    this.renderTodos(0);
+    this.updateArrayAndRender(this.itemManager.sortItems(), 0);
+  }
+
+  updateArrayAndRender(updatedArray, newItemsAmount) {
+    this.todosArray = updatedArray;
+    this.renderTodos(newItemsAmount);
   }
 }
-
-// function compareElementsAsc(a, b) {
-//   return a > b;
-// }
-
-// function compareElementsDesc(a, b) {
-//   return a < b;
-// }
 
 const itemManager = new ItemManager();
 const pokemonClient = new PokemonClient();
 const main = new Main(itemManager, pokemonClient);
-
 
 document.addEventListener("DOMContentLoaded", function () {
     // you should create an `init` method in your class
