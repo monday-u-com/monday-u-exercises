@@ -3,17 +3,17 @@ export class PokemonClient {
     this.API_BASE = 'https://pokeapi.co/api/v2/pokemon';
   }
 
-  failureHandler(idOrName) {
-    console.log(`Failed to find ${idOrName}.`);
+  failureHandler(id) {
+    console.log(`Failed to find ${id}.`);
   }
 
-  async catchPokemon(idOrName) {
+  async catchPokemon(id) {
       try {
-        const response = await fetch (`${this.API_BASE}/${idOrName}/`);
+        const response = await fetch (`${this.API_BASE}/${id}/`);
         const data = await response.json();
         return data.forms[0].name;
       } catch (error) {
-        this.failureHandler(idOrName);
+        this.failureHandler(id);
       }
   }
 }

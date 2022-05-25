@@ -26,7 +26,7 @@ But this kind of work requires a bit more code organization, so...
 - [x] Create a PokemonClient class (in a new file) to get data from the Pokemon API - remember the HTML has to be aware of this file...
 - [x] If the user only inputs a number, add a `Catch ${pokemon}` todo to your array of todos (and render it, of course)
 - [ ] If the user inputs a comma separated list of IDs, retrieve multiple pokemon in parallel using `Promise.all` and render them all
-- [ ] Handle any errors in retrieving the pokemon (i.e. when a user inputs an invalid ID like 44124. See below gif for an example)
+- [x] Handle any errors in retrieving the pokemon (i.e. when a user inputs an invalid ID like 44124. See below gif for an example)
 - [x] Add a normal todo item if the input is not a pokemon
 
 When you finish it should look like this:
@@ -35,7 +35,7 @@ When you finish it should look like this:
 
 ### Bonus
 
-- [ ] Add a delete all option - make sure you're actually deleting the data, not just removing from the DOM
+- [x] Add a delete all option - make sure you're actually deleting the data, not just removing from the DOM
 - [ ] Validate that the user isn't adding the same pokemon todo more than once
 - [ ] Get more nested data from the pokemon API and display it as part of the todo item (e.g. “catch bulbasaur the grass/leaf type pokemon”)
   - you'll have to explore the API to understand where to extract that data from =]

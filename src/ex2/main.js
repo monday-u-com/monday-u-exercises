@@ -52,8 +52,8 @@ class Main {
       } else {
         this.addTodoItem(item, false);
       }
-      this.displayFooterAndImage();
     });
+    this.displayFooterAndImage();
   }
 
   addEventListenerForTodoTitle(listItem) {
@@ -80,10 +80,11 @@ class Main {
 
   createListElement(todoText, animation) {
     const listItem = document.createElement("li");
+    listItem.className = "existing-item";
     if (animation) {
       listItem.className = "add-item-animation";
+      setTimeout (() => { listItem.className = "existing-item";}, 700);
     }
-    setTimeout (() => { listItem.className = "existing-item";}, 700);
     listItem.innerHTML = `<div class="todo-text">${todoText}</div>
                           <button class="remove-todo-button"><i class="fa fa-trash"></i></button>`;
     return listItem;
@@ -145,14 +146,18 @@ class Main {
 
   onAddTodoFormSubmitted(event) {
     event.preventDefault();
-    const todoRequest = this.inputTitle.value;
+    let newTodoText = this.inputTitle.value;
     this.inputTitle.value = "";
-    this.pokemonClient.catchPokemon(todoRequest).then(pokemon => {
-      const newTodoText = pokemon ? `Catch ${pokemon}` : todoRequest;
+    if (isNaN(newTodoText)) {
       this.todosArray = itemManager.addItem(newTodoText);
       this.renderTodos(true);
-      this.displayFooterAndImage();
-    })
+    } else {
+      this.pokemonClient.catchPokemon(newTodoText).then(pokemon => {
+        newTodoText = pokemon ? `Catch ${pokemon}` : `There is no pokemon with id ${newTodoText}`;
+        this.todosArray = itemManager.addItem(newTodoText);
+        this.renderTodos(true);
+      })
+    }
   }
 
   onSortListButtonClicked() {
