@@ -1,15 +1,13 @@
-class PokemonClient {
-  constructor(name, level) {
+export class PokemonClient {
+  constructor(name) {
+    this.api = "https://pokeapi.co/api/v2/pokemon/"
     this.name = name
-    this.level = level
   }
-  getName() {
-    return this.name
-  }
-  getLevel() {
-    return this.level
-  }
-  setLevel(level) {
-    this.level = level
+  getPokemon() {
+    return fetch(this.api + this.name)
+      .then((response) => response.json())
+      .then((data) => {
+        return data
+      })
   }
 }

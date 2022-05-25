@@ -1,4 +1,5 @@
 import { ItemManager } from "./itemManager.js"
+import { PokemonClient } from "./PokemonClient.js"
 
 const addButton = document.getElementById("list-item-submit")
 const textInput = document.getElementById("list-item-input")
@@ -7,7 +8,6 @@ const counterLists = document.getElementById("counterLists")
 const deleteAllLists = document.getElementById("deleteAllTasks")
 const errorMessage = document.getElementById("error")
 
-const pokemonApi = "https://pokeapi.co/api/v2/pokemon/"
 const itemManager = new ItemManager()
 class Main {
   constructor() {
