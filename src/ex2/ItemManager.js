@@ -8,36 +8,45 @@ export default class ItemManager {
         this.pokemonClient = pokemonClient;
     }
 
-    async addTodo(enterValue){
+    addTodo(enterValue){
         
         if(enterValue.trim() === ""){
             return
         }
 
+        this.handleAddSingleOrMultiPokemonsTodo(enterValue)
+    }
+
+    handleAddSingleOrMultiPokemonsTodo(enterValue){
+
         if(enterValue.includes(",")){
-            const split = enterValue.split(",")
-            const pokemonArr = []
-            for(let i = 0; i < split.length; i++){
-                pokemonArr.push(this.fetchMulti(split[i]))
-            }
-            Promise.all(pokemonArr).then(response => {
-                response.forEach(res => {
-                    this.model.addData("catch " +res.name)
-                })
-                this.model.saveDataToLS()
-                this.pokemonClient.showTodos()
-            }).catch(error => {
-                this.model.addData("failed to fetch pokemon with this input: " +enterValue)
-                this.model.saveDataToLS()
-                this.pokemonClient.showTodos()
-            })
+            this.handleAddMultiPokemonsTodo(enterValue)
         }
         else {
-            const dataRetrieved = await this.fetchSingle(enterValue)
-            this.model.addData(dataRetrieved)
-            this.model.saveDataToLS()
-            this.pokemonClient.showTodos()
+            this.handleAddSinglePokemonTodo(enterValue)
         }
+    }
+
+    handleAddMultiPokemonsTodo(enterValue){
+
+        const split = enterValue.split(",")
+        const pokemonArr = []
+
+        for(let i = 0; i < split.length; i++){
+            pokemonArr.push(this.fetchMulti(split[i]))
+        }
+
+        Promise.all(pokemonArr)
+            .then(response => {
+                response.forEach(res => {
+                    this.model.addData("catch " +res.name)
+            })
+            this.updateTodo()
+        }).catch(error => {
+            console.log(error)
+            this.model.addData("failed to fetch pokemon with this input: " +enterValue)
+            this.updateTodo()
+        })
     }
 
     fetchMulti(pokemonName){
@@ -55,6 +64,12 @@ export default class ItemManager {
                     reject(error)
                 })
         })
+    }
+
+    async handleAddSinglePokemonTodo(enterValue){
+        const dataRetrieved = await this.fetchSingle(enterValue)
+        this.model.addData(dataRetrieved)
+        this.updateTodo()
     }
 
     async fetchSingle(dataEntered){ 
@@ -78,6 +93,11 @@ export default class ItemManager {
         this.model.saveDataToLS()   
 
         return removedTodo
+    }
+
+    updateTodo(){
+        this.model.saveDataToLS()
+        this.pokemonClient.showTodos()
     }
 
     todoListSize() {

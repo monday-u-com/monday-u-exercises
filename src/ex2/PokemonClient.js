@@ -1,4 +1,3 @@
-
 import ItemManager from "./ItemManager.js"
 const todoListElement = document.getElementById("todo-list")
 const addTodoButton = document.getElementById("add-todo-button")
@@ -22,23 +21,39 @@ export default class PokemonClient{
         sumTodos.textContent = this.itemManager.todoListSize()
         
         if(this.itemManager.todoListSize() > 0){
-            clearAllTodosButton.classList.add("active")
-            clearAllTodosButton.style.cursor = "pointer"
-            enterTodos.style.display = "none"
+            this.updateUIWithNonEmptyInput()
         }
         else{
-            clearAllTodosButton.classList.remove("active")
-            clearAllTodosButton.style.cursor = "not-allowed"
-            enterTodos.style.display = "block"
+            this.updateUIWithEmptyInput()
         }
     }
 
+    updateUIWithNonEmptyInput() {
+        clearAllTodosButton.classList.add("active")
+        clearAllTodosButton.style.cursor = "pointer"
+        enterTodos.style.display = "none"
+    }
+
+    updateUIWithEmptyInput() {
+        clearAllTodosButton.classList.remove("active")
+        clearAllTodosButton.style.cursor = "not-allowed"
+        enterTodos.style.display = "block"
+    }
+
     createTodoListItems() {
+
+        this.createItemsByCurrentData()
+        this.createItemsDeleteFuctionality()
+        
+        todoInput.value = "" //clear input
+    }
+
+    createItemsByCurrentData(){
         let listItems = ""
 
         this.itemManager.getTodoList().forEach((todo) => { 
             listItems += `<li>${todo}
-                <span class="delete";>
+                <span class="delete">
                     <i class="fas fa-trash"></i>
                 </span>
                 </li>
@@ -46,13 +61,13 @@ export default class PokemonClient{
         })
     
         todoListElement.innerHTML = listItems
-        
-        const func = document.querySelectorAll(".delete")
-        for (let i = 0; i < func.length; i++) {
-            func[i].addEventListener("click", () => this.deleteTodo(i))
+    }
+
+    createItemsDeleteFuctionality(){
+        const deleteItems = document.querySelectorAll(".delete")
+        for (let i = 0; i < deleteItems.length; i++) {
+            deleteItems[i].addEventListener("click", () => this.deleteTodo(i))
         }
-        
-        todoInput.value = ""
     }
 
     deleteTodo(index){
@@ -99,3 +114,19 @@ todoInput.onkeyup = (e) => {
 addTodoButton.addEventListener("click", () => {
     pokemonClient.addTodo()
 })
+
+/* clearAllTodosButton.addEventListener("click", () => {
+    let dataFromLS = localStorage.getItem("new-todo")
+
+    if(dataFromLS === null){
+        todoList = []
+    }
+    else{
+        todoList = JSON.parse(dataFromLS)
+        todoList = [] //initialize array again
+    }
+
+    alert('removed all todos')
+    localStorage.setItem("new-todo", JSON.stringify(todoList))
+    showTodos()
+}) */
