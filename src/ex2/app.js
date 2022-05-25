@@ -16,13 +16,13 @@ class Main {
   }
   init() {
     addButton.addEventListener("click", function () {
-      validation()
+      itemManager.addItem(textInput.value)
+      validation(itemManager.getLastItem())
     })
   }
 }
 
 function addNewList(name) {
-  itemManager.addItem(textInput.value)
   const li = document.createElement("li")
   const hr = document.createElement("hr")
   const deleteButton = document.createElement("button")
@@ -50,23 +50,38 @@ function addNewList(name) {
   console.log(itemManager.getItems())
 }
 
-function validation() {
+function validation(item) {
   const input = document.getElementById("list-item-input")
   if (input.value === "") {
     errorMessage.innerHTML = "Please enter a task"
     errorMessage.style.display = "block"
   } else {
-    pokemonClient
-      .getPokemon(textInput.value)
-      .then((data) => {
-        addNewList(`Catch ${data.name}`)
+    if (item.includes(",")) {
+      const items = item.split(",")
+      items.forEach(function (item) {
+        pokemonClient
+          .getPokemon(item)
+          .then(function (data) {
+            addNewList(`Catch ${data.name}`)
+          })
+          .catch(function (error) {
+            console.log(error)
+            addNewList(`Pokemon with ID ${input.value} was not found`)
+          })
       })
-      .catch((error) => {
-        console.log(error)
-        addNewList(`Pokemon with ID ${input.value} was not found`)
-      })
-    errorMessage.style.display = "none"
-    errorMessage.style.transition = "all 0.5s ease-in-out"
+    } else {
+      pokemonClient
+        .getPokemon(textInput.value)
+        .then((data) => {
+          addNewList(`Catch ${data.name}`)
+        })
+        .catch((error) => {
+          console.log(error)
+          addNewList(`Pokemon with ID ${input.value} was not found`)
+        })
+      errorMessage.style.display = "none"
+      errorMessage.style.transition = "all 0.5s ease-in-out"
+    }
   }
 }
 
