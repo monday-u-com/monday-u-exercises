@@ -2,24 +2,32 @@
 <html lang="en">
 
 <head>
-    <title> Doneday App</title>
+    <title>Doneday</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 
-<body">
+<body>
     <div class="container">
-        <h1> Doneday App </h1>
-        <div class="container-addTodo">
+        <h1>Doneday</h1>
+        <div class="container-addTask">
             <form>
-                <input required type="text" class="taskText" placeholder="Add Your Task">
-                <button class="submitBtn" type="submit">+</button>
+                <input required type="text" id="list-item-input" placeholder="Add Your Task" />
+                <button type="submit" id="addTask-btn">+</button>
             </form>
         </div>
-        <div class="container-tasks" id="container-tasks"></div>
         <img src="https://memegenerator.net/img/instances/43020609.jpg" alt="Do Your Job" id="imageOnNoTasks"
             class="NoTasksImg-visible">
+        <ol type="1" id="list"></ol>
+        <div class="pendingTasksCounter-hidden" id="pendingTasksCounter">
+            You have <span id="counter">0</span> pending tasks
+            <button type="submit" id="list-item-clear">Clear All</button>
+        </div>
     </div>
-    </body>
-    <script src="script.js"></script>
+    </div>
+</body>
+<script src="DomManager.js"></script>
+<script src="ItemManager.js"></script>
+<script src="PokemonClient.js"></script>
+<script src="main.js"></script>
 
 </html>
