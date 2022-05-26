@@ -93,12 +93,13 @@ body {
 }
 
 .list-item {
-  padding: 8px;
+  padding: 12px 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   width: 85%;
   border-radius: 3px;
+  font-weight: 400;
 }
 
 .list-item:hover {
