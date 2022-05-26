@@ -21,7 +21,7 @@
   font-size: 24px;
 }
 
-.add-item-animation {
+.animation-add-todo {
   animation: change-color 0.7s linear;
 }
 
@@ -34,7 +34,7 @@
   }
 }
 
-.delete-item-animation {
+.animation-delete-todo {
   color: antiquewhite;
   animation: deleting-color 0.7s ease-out;
 }

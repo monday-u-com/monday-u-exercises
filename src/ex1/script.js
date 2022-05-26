@@ -47,11 +47,11 @@ function addTodoItem(todoText, animation) {
 function createListElement(todoText, animation) {
   const listItem = document.createElement("li");
   if (animation) {
-    listItem.className = "add-item-animation";
+    listItem.className = "animation-add-todo";
   }
-  setTimeout (() => { listItem.className = "existing-item";}, 700);
+  setTimeout (() => { listItem.className = "existing-todo";}, 700);
   listItem.innerHTML = `<div class="todo-text">${todoText}</div>
-                        <button class="remove-todo-button"><i class="fa fa-trash"></i></button>`;
+                        <button class="delete-todo-button"><i class="fa fa-trash"></i></button>`;
   return listItem;
 }
 
@@ -95,8 +95,8 @@ function onTodoTitleClicked(clickedTodo) {
 function onDeleteButtonClicked(clickedButton) {
   const index = Array.prototype.indexOf.call(allTodosList.getElementsByTagName("li"), clickedButton.parentElement);
   todosArray.splice(index, 1);
-  clickedButton.parentElement.classList.remove("existing-item");
-  clickedButton.parentElement.classList.add("delete-item-animation");
+  clickedButton.parentElement.classList.remove("existing-todo");
+  clickedButton.parentElement.classList.add("animation-delete-todo");
   setTimeout (() => {
     clickedButton.parentElement.remove();
     displayFooterAndImage();
