@@ -147,7 +147,7 @@ class Main {
   }
 
   addPokemon(newTodoText) {
-    this.pokemonClient.catchPokemon(newTodoText).then(pokemons => {
+    this.pokemonClient.fetchPokemon(newTodoText).then(pokemons => {
       let updatedArray;
       try {
         pokemons.forEach(pokemon => {
