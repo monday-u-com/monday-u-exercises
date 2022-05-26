@@ -14,7 +14,10 @@
       <div class="card-container">
          <div class="card">
             <h1 class="app-title">Weekend To-Do</h1>
-            <p class="info">Get your tasks done before the weekend!</p>
+            <p class="info">
+               Get your tasks done before the weekend! And catch some Pokemons
+               while you're at it...
+            </p>
             <div class="container">
                <input
                   type="text"
@@ -35,17 +38,21 @@
                </button>
             </div>
             <div class="tasks-and-clear-container">
-               <div class="all-tasks-container"></div>
+               <ul class="all-tasks-container"></ul>
                <div class="footer-container">
                   <p class="pending-tasks">
                      You have <span id="tasks-counter">0</span> pending tasks
                   </p>
                   <button class="clear-all">Clear All</button>
                </div>
+               <p class="pokemons-catch-text">Pokemons caught:</p>
+               <div class="pokedex"></div>
             </div>
          </div>
       </div>
    </body>
+   <script src="item-manager.js"></script>
+   <script src="pokemon-client.js"></script>
    <script src="constants.js"></script>
    <script src="script.js"></script>
 </html>

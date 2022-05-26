@@ -6,19 +6,19 @@ This is my task for Exercise 2 of Monday-U Full Stack course. Task requirements 
 
 ## Single pokemon catch:
 
-![single pokemon](./src/assets/singlePokemon.gif)
+![single pokemon](./assets/singlePokemon.gif)
 
 ## Multiply Pokemon catch:
 
-![multiple pokemon](./src/assets/multiplePokemon.gif)
+![multiple pokemon](./assets/multiplePokemon.gif)
 
 ## Pokemon with invalid IDS:
 
-![invalid pokemon](./src/assets/invalidPokemon.gif)
+![invalid pokemon](./assets/invalidPokemon.gif)
 
 ## Regular tasks still an option:
 
-![regular tasks](./src/assets/tasks.gif)
+![regular tasks](./assets/tasks.gif)
 
 ## Task requirements:
 
