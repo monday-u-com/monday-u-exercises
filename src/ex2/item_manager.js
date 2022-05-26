@@ -9,7 +9,6 @@ class ItemManager {
 	addListItem(item) {
 		const { id, value } = this.createId(item);
 		this.itemArray = [...this.itemArray, { id, value }];
-
 		return this.itemArray;
 	}
 	removeItem(itemId) {
@@ -22,7 +21,6 @@ class ItemManager {
 
 	async pokemonIdsHendeling(pokeID) {
 		const pokemon = await this.pokemonClient.getPokemon(pokeID);
-		debugger;
 		return pokemon;
 	}
 
@@ -35,7 +33,7 @@ class ItemManager {
 	async pokemonIdsTostring(pokemonIdsStr) {
 		const pokemonIdsArray = pokemonIdsStr.split(",");
 		const pokemonPromises = [];
-		debugger;
+
 		pokemonIdsArray.forEach((pokemonIdStr) => {
 			pokemonPromises.push(this.pokemonIdsHendeling(pokemonIdStr.trim()));
 		});
@@ -44,6 +42,11 @@ class ItemManager {
 			this.addListItem(pokemon);
 		});
 
+		return this.itemArray;
+	}
+
+	clearItemsArray() {
+		this.itemArray = [];
 		return this.itemArray;
 	}
 }

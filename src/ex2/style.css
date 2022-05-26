@@ -4,7 +4,7 @@ html {
 body {
 	margin: 0;
 	padding: 0;
-	/* height: 100%; */
+	height: 100%;
 }
 
 .app-container {
@@ -114,4 +114,13 @@ body {
 .list-item-delete-button:hover {
 	background-color: #f0f0f5;
 	transition: background-color 0.2s ease-in-out;
+}
+.empty {
+	margin: 1rem;
+	width: 50%;
+	display: flex;
+	align-self: center;
+}
+.none-display {
+	display: none;
 }

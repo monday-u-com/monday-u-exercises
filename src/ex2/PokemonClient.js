@@ -4,7 +4,6 @@ class PokemonClient {
 		try {
 			const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeID}`);
 			const pokemonObj = await res.json();
-			debugger;
 			return `catch ${pokemonObj.name}`;
 		} catch (err) {
 			console.error(err);
