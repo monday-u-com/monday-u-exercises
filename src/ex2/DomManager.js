@@ -5,7 +5,8 @@ class DomManager {
         this.add_task_button = document.querySelector("#add_to_do_button");
         this.tasks_counter = document.querySelector("#task_counter");
         this.clear_all_button = document.querySelector("#clear_all_tasks_button");
-        this.sort_by_name_button = document.querySelector("#sort_by_name");;
+        this.sort_by_name_button = document.querySelector("#sort_by_name");
+        this.pokemon_data_list = document.querySelector("#pokemons_names");
     }
 
     /**
@@ -40,11 +41,10 @@ class DomManager {
 
         // Delete empty state from task container
         this.task_container.classList.remove("empty");
-
         // appends elements to dom
         this.task_container.appendChild(new_task);
-        new_task.appendChild(task_number);
-        new_task.appendChild(task_text);
+        task_buttons_container.append(task_delete_button, task_complete_button);
+        new_task.append(task_number, task_text);
         // image
         if (Number.isInteger(task_object.id)) {
             new_task.appendChild(this.PokemonImageElement(task_object));
@@ -55,15 +55,10 @@ class DomManager {
             task_text.innerHTML = task_object.data;
         else
             task_text.innerHTML = task_object;// adds text to task
-
-        task_buttons_container.appendChild(task_delete_button);
-        task_buttons_container.appendChild(task_complete_button);
-        new_task.appendChild(task_buttons_container);
+        new_task.append(task_buttons_container);
 
         // adds numbers to tasks
         task_number.innerText = (this.task_container.children.length).toString().concat(")");
-
-
         this.clearInput();
 
         // adds icons to buttons
@@ -73,7 +68,7 @@ class DomManager {
         // adds event listeners to elements
         task_delete_button.addEventListener("click", (event) => {
             delete_call_back(event);
-        });
+        });        
         task_complete_button.addEventListener("click", this.MarkAsCompleteTask);
         task_text.addEventListener("click", this.TaskClick);
 
@@ -180,5 +175,22 @@ class DomManager {
             next_image.classList.remove("hide");
             next_image.classList.add("show");
         });
+    }
+
+    /**
+     * parses array in to option html elements
+     * @param {Array} pokemons_array 
+     */
+    AddPokemonsToDataList(pokemons_array)
+    {
+        const options = [];
+        pokemons_array.forEach((pokemon) =>
+        {
+            const option = document.createElement("option");
+            option.value = pokemon.id;
+            option.label = pokemon.name;
+            options.push(option);
+        });
+        options.forEach((option) => this.pokemon_data_list.append(option));        
     }
 }

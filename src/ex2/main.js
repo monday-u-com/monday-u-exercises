@@ -9,7 +9,7 @@ class Main {
     /**
      * init all event listeners and image animation
      */
-    init() {
+    async init() {
         this.dom_manager.add_task_button.addEventListener("click", () => {
             this.AddButtonCallBack();
         });
@@ -30,6 +30,9 @@ class Main {
         });
 
         setInterval(this.dom_manager.PokemonImageAnimation, 500);
+
+        await this.item_manager.init();
+        this.dom_manager.AddPokemonsToDataList(this.item_manager.pokemons);
     }
     /**
      * add button call back function
