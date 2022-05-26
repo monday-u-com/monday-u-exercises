@@ -37,15 +37,17 @@ export class Tasks {
 
             Promise.all(listOfPromises).then(items => {
                 items.forEach(item => {
-                    newTaskText = `Catch ${item.forms[0].name} the ${item.types[0].type.name} pokemon`
+                    console.log(item)
                     if (item === 0) {
                         newTaskText = `No such pokemon exists :(`
+                        this.addTaskNode(newTaskText)
                     }
-                    else if (this.checkIfPokemonExists(newTaskText)) {
+                    else if (this.checkIfPokemonExists(`Catch ${item.name} the ${item.types[0].type.name} pokemon`)) {
                         alert("Pokemon already exists")
                         return
                     } else {
-                        addTaskNode(newTaskText)
+                        newTaskText = `Catch ${item.forms[0].name} the ${item.types[0].type.name} pokemon`
+                        this.addTaskNode(newTaskText)
                     }
                 })
             })
@@ -55,23 +57,23 @@ export class Tasks {
 
         else if (!isNaN(newTaskText)) {
             const pokemonName = await getPokemon(newTaskText)
-            console.log(pokemonName)
-            newTaskText = `Catch ${pokemonName.forms[0].name} the ${pokemonName.types[0].type.name} pokemon`
             if (pokemonName === 0) {
                 newTaskText = `No such pokemon exists :(`
+                this.addTaskNode(newTaskText)
             }
-            else if (this.checkIfPokemonExists(newTaskText)) {
+            else if (this.checkIfPokemonExists(`Catch ${pokemonName.forms[0].name} the ${pokemonName.types[0].type.name} pokemon`)) {
                 alert("Pokemon already exists")
                 return
+            } else {
+                newTaskText = `Catch ${pokemonName.forms[0].name} the ${pokemonName.types[0].type.name} pokemon`
+                this.addTaskNode(newTaskText)
             }
-            addTaskNode(newTaskText)
         }
 
         /*----------------------Normal text------------------------*/
 
         else {
-            const newTextDiv = document.createTextNode(newTaskText); //Text
-            this.addTaskNode(newTextDiv)
+            this.addTaskNode(newTaskText)
         }
         document.getElementById("bottom-text").innerText = `You have ${this.taskContainer.children.length} tasks`
     }
@@ -83,6 +85,7 @@ export class Tasks {
         const deleteButton = document.createElement("button"); //Button
         deleteButton.classList.add("delete-button")
         deleteButton.addEventListener("click", () => {
+            document.getElementById("bottom-text").innerText = `You have ${this.taskContainer.children.length} tasks`
             this.items.remove(newTaskDivContainer)
             while (this.taskContainer.children.length) {
                 this.taskContainer.children[0].remove()
@@ -92,8 +95,8 @@ export class Tasks {
             }
             if (!this.items.items.length) {
                 this.taskContainer.classList.add("empty-list")
+                document.getElementById("bottom-text").innerText = `You have no tasks`
             }
-            document.getElementById("bottom-text").innerText = `You have ${this.taskContainer.children.length} tasks`
         })
         newTaskDiv.appendChild(newTextDiv);
         newTaskDiv.addEventListener("click", () => alert(newTaskDiv.innerHTML))
