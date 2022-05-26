@@ -147,3 +147,38 @@ body {
   color: white;
   transition: background-color 0.2s ease-in-out;
 }
+
+.hithere {
+  animation: hithere 2s ease infinite;
+  animation-delay: 3s;
+}
+@keyframes hithere {
+  30% {
+    transform: scale(1.2);
+  }
+  40%,
+  60% {
+    transform: rotate(-20deg) scale(1.2);
+  }
+  50% {
+    transform: rotate(20deg) scale(1.2);
+  }
+  70% {
+    transform: rotate(0deg) scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.grow {
+  animation: grow 2s ease;
+}
+@keyframes grow {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}

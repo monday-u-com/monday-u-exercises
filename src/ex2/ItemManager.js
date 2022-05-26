@@ -90,7 +90,7 @@ class ItemManager {
 
     // style  elements
     divElm.classList.add("div-item");
-    // if (item === this.itemList.at(-1)) divElm.classList.add("grow");
+    if (item === this.itemList.at(-1)) divElm.classList.add("grow");
     liElm.classList.add("list-item");
     deleteButton.classList.add("list-item-delete-button");
 
