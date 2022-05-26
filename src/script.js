@@ -11,43 +11,33 @@ const pokemonCatchText = document.querySelector(POKEMON_TEXT_SELECTOR);
 
 let pendingTasks = 0;
 
-const tasks = new ItemManager();
+const tasks = new ItemManager(renderTasks);
 const pokemonClient = new PokemonClient();
 
 addTaskButton.onclick = () => {
-   renderAndAnimate();
+   addTask();
 };
 
 taskInput.onkeypress = (e) => {
    if (e.key === "Enter") {
-      renderAndAnimate();
+      addTask();
    }
 };
 
-async function renderAndAnimate() {
-   if (await addTask()) {
-      const newTask = renderTasks();
-      createTaskAnimation(newTask);
-   }
-}
-
 clearButton.onclick = () => {
    tasks.clear();
-   renderTasks();
    pendingTasksUpdate(0);
 };
 
 sortDownButton.onclick = () => {
    tasks.sortDown();
-   renderTasks();
 };
 
 sortUpButton.onclick = () => {
    tasks.sortUp();
-   renderTasks();
 };
 
-function renderTasks() {
+function renderTasks(toAnimate) {
    let lastTaskAdded;
    while (allTasksContainer.firstChild) {
       allTasksContainer.removeChild(allTasksContainer.lastChild);
@@ -59,8 +49,9 @@ function renderTasks() {
       addHoverReveal(taskContainer, deleteTask, newTask);
       lastTaskAdded = newTask;
    });
-
-   return lastTaskAdded;
+   if (toAnimate) {
+      createTaskAnimation(lastTaskAdded);
+   }
 }
 
 async function addTask() {
@@ -69,18 +60,13 @@ async function addTask() {
    const allPokemonNames = await pokemonClient.getAllPokemonNames();
    if (taskUserInput.trim().length === 0) {
       alert("Please fill in a task");
-
-      return false;
    } else if (
       !isNaN(taskUserInput) ||
       allPokemonNames.includes(taskUserInput)
    ) {
       // For single Pokemon entry
       let pokemonData = await pokemonClient.getPokemon(taskUserInput);
-      let render = false;
-      render = pokemonTasksHandle(pokemonData, taskUserInput, 0);
-
-      return render;
+      pokemonTasksHandle(pokemonData, taskUserInput, 0);
    } else if (
       taskUserInput
          .replace(/\s/g, "")
@@ -92,23 +78,17 @@ async function addTask() {
       const pokemonData = await Promise.all(
          pokemonIDS.map((id) => pokemonClient.getPokemon(id))
       );
-      let render = false;
       pokemonData.forEach((pokemon, i) => {
-         render = pokemonTasksHandle(pokemon, pokemonIDS, 1, i) || render; // Render even if one pokemon is not listed in tasks
+         pokemonTasksHandle(pokemon, pokemonIDS, 1, i);
       });
-
-      return render;
    } else {
       // For regular boring non-pokemon tasks
       tasks.add(taskUserInput);
       pendingTasksUpdate("+");
-
-      return true;
    }
 }
 
 function pokemonTasksHandle(pokemon, pokemonIDS, isMultiplePokemons, i) {
-   let render = false;
    if (pokemon) {
       let pokemonName =
          pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
@@ -118,13 +98,10 @@ function pokemonTasksHandle(pokemon, pokemonIDS, isMultiplePokemons, i) {
          alert(
             `${pokemonName} already exists in your tasks. Please try another Pokemon.`
          );
-         render = false;
       } else {
          addPokemonImage(pokemon);
          tasks.add(taskToAdd);
          pendingTasksUpdate("+");
-
-         render = true;
       }
    } else {
       if (isMultiplePokemons) {
@@ -133,11 +110,7 @@ function pokemonTasksHandle(pokemon, pokemonIDS, isMultiplePokemons, i) {
          tasks.add(`Pokemon ID ${pokemonIDS} does not exist`);
       }
       pendingTasksUpdate("+");
-
-      render = true;
    }
-
-   return render;
 }
 
 function addPokemonImage(pokemon) {
@@ -181,8 +154,7 @@ function createDeleteTaskButton(taskContainer) {
       const index = Array.from(taskContainer.parentNode.children).indexOf(
          taskContainer
       );
-      tasks.remove(index);
-      renderTasks();
+      tasks.remove(index, false);
       pendingTasksUpdate("-");
    };
 
