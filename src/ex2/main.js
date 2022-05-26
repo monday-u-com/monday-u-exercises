@@ -9,12 +9,14 @@ class Main {
   clearAllButton = document.querySelector("#clear-all-button");
 
   init() {
-    this.addButton.addEventListener("click", itemManager.addItem);
+    this.addButton.addEventListener("click", () => {
+      itemManager.addItem(this.addItemInput);
+    });
     this.clearAllButton.addEventListener("click", itemManager.removeAll);
 
     this.addItemInput.addEventListener("keypress", (event) => {
       if (event.key === "Enter") {
-        itemManager.addItem();
+        itemManager.addItem(this.addItemInput);
       }
     });
   }

@@ -6,20 +6,22 @@ class ItemManager {
     this.pokemonIds = new Set();
 
     this.addItem = this.addItem.bind(this);
-    this.renderItems = this.renderItems.bind(this);
-    this.createItem = this.createItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.removeAll = this.removeAll.bind(this);
+    this.renderItems = this.renderItems.bind(this);
+    this.createItemElement = this.createItemElement.bind(this);
   }
 
-  async addItem() {
-    const item = document.querySelector("#list-item-input").value;
-    const array = item.split(",");
+  async addItem(input) {
+    const item = input.value;
+    const inputArray = item.split(",");
 
-    if (!isNaN(+array[0])) {
+    if (!isNaN(+inputArray[0])) {
+      // if input is a number - fetch pokemon
       let allPromises = [];
 
-      array.forEach((elm) => {
+      // add promises to allPromises array
+      inputArray.forEach((elm) => {
         const id = elm.trim();
         const pokemonAlreadyAdded = this.pokemonIds.has(id);
 
@@ -31,9 +33,11 @@ class ItemManager {
         }
       });
 
-      const names = await Promise.all(allPromises);
+      // fetch all pokemons simulteniously
+      const pokemonNames = await Promise.all(allPromises);
 
-      names.forEach((name) => {
+      // push todos with pokemons to list
+      pokemonNames.forEach((name) => {
         const id = name.split(" ")[0];
 
         if (!isNaN(+id)) {
@@ -41,17 +45,17 @@ class ItemManager {
         } else {
           this.itemList.push(`Catch ${name}`);
         }
-
-        console.log(this.pokemonIds);
       });
     } else {
+      // if input is a string - add to list
       this.itemList.push(item);
     }
 
-    this.renderItems();
+    this.renderItems(this.itemList.at(-1));
   }
 
   removeItem({ target }) {
+    console.log(target.id);
     const buttonId = target.id.split("-");
     buttonId.pop();
     const item = buttonId.join(" ");
@@ -71,44 +75,53 @@ class ItemManager {
     this.renderItems();
   }
 
-  renderItems() {
+  renderItems(current) {
+    const addItemButton = document.querySelector("#list-item-submit");
+    const clearAllButton = document.querySelector("#clear-all-button");
+    if (this.itemList.length === 0) {
+      addItemButton.classList.add("hithere"); //add AddButton animation
+      clearAllButton.classList.add("hidden"); //hide ClearAll button
+    } else {
+      addItemButton.classList.remove("hithere"); //remove AddButton animation
+      clearAllButton.classList.remove("hidden"); //show ClearAll button
+    }
+
+    // clear list innerHTML
     const list = document.querySelector("#list");
     list.innerHTML = "";
 
+    // create elements for exisitng items
     this.itemList.forEach((item) => {
-      const itemNode = this.createItem(item);
+      const itemNode = this.createItemElement(item, current);
 
       list.appendChild(itemNode);
     });
   }
 
-  createItem(item) {
-    //create elements
+  createItemElement(input, current) {
+    const itemId = input.split(" ").join("-");
+
+    // create div element, add classes and id
     const divElm = document.createElement("div");
-    const liElm = document.createElement("li");
-    const deleteButton = document.createElement("img");
-
-    // style  elements
-    divElm.classList.add("div-item");
-    if (item === this.itemList.at(-1)) divElm.classList.add("grow");
-    liElm.classList.add("list-item");
-    deleteButton.classList.add("list-item-delete-button");
-
-    //add textNodes
-    liElm.appendChild(document.createTextNode(item));
-    deleteButton.src = "../images/delete_icon.svg";
-
-    //add ids
-    const itemId = item.split(" ").join("-");
     divElm.setAttribute("id", `${itemId}`);
+    divElm.classList.add("div-item");
+    if (input === current) divElm.classList.add("grow");
+
+    //create list element, add class and innerHTML
+    const liElm = document.createElement("li");
+    liElm.classList.add("list-item");
+    liElm.innerHTML = input;
+
+    //create delete button, add id, class, src and clickListener
+    const deleteButton = document.createElement("img");
     deleteButton.setAttribute("id", `${itemId}-delete`);
+    deleteButton.classList.add("list-item-delete-button");
+    deleteButton.src = "../images/delete_icon.svg";
+    deleteButton.addEventListener("click", this.removeItem);
 
     //append <li> and <button> to <div>
     divElm.appendChild(liElm);
     divElm.appendChild(deleteButton);
-
-    //add clickListener to button
-    deleteButton.addEventListener("click", this.removeItem);
 
     //clear input
     document.querySelector("#list-item-input").value = "";

@@ -129,6 +129,10 @@ body {
   border-bottom: 1px #bbb5b5 solid;
 }
 
+.hidden {
+  display: none;
+}
+
 #clear-all-button {
   font-size: medium;
   padding: 9px 13px;
