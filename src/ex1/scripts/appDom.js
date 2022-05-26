@@ -133,6 +133,7 @@ class AppDom {
   // List Events //
 
   onCompleteBtnClick(e) {
+    console.log(e.target.parentElement);
     e.target.classList.toggle("btn-completed");
     const taskItem = e.target.parentElement;
     taskItem.classList.toggle("task-completed");
@@ -169,6 +170,16 @@ class AppDom {
     completeTaskButton.classList.add("hide");
     const removeTaskButton = e.target.querySelector(".task-remove-btn");
     removeTaskButton.classList.add("hide");
+  }
+
+  updateIDsAfterReSort() {
+    tasks = this.tasksManager.getTasks();
+    console.log(tasks);
+    console.log(this.tasksList.chilren);
+    this.tasksList.children.forEach((task, index) =>
+      task.setAttribute("id", tasks[index][TASK_ID])
+    );
+    console.log(this.tasksList.chilren);
   }
 
   // Task Creation Methods //

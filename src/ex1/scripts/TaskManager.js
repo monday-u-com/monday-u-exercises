@@ -94,7 +94,12 @@ export class TasksManeger {
   }
 
   toggleCompleted(taskID) {
-    const task = this.tasks.find((task) => task[TASK_ID] == taskID);
+    const task = this.tasks.find((task) => {
+      console.log(task, task[TASK_ID], taskID);
+      if (task[TASK_ID] == taskID) {
+        return task;
+      }
+    });
     task[TASK_COMPLETED] = !task[TASK_COMPLETED];
     this.saveTasksToLocalStorage();
   }
@@ -111,12 +116,18 @@ export class TasksManeger {
     localStorage.setItem("counterID", JSON.stringify(this.counterID));
   }
 
+  pushTaskFromReSort(id, taskContent, isCompleted) {
+    this.tasks.push([id, taskContent, isCompleted]);
+    this.saveTasksToLocalStorage();
+  }
+
   reSortTasks(HTMLTaskList) {
     this.tasks = [];
     HTMLTaskList.forEach((taskDiv) => {
       const taskContent = taskDiv.querySelector("p").textContent;
       const isCompleted = taskDiv.classList.contains("task-completed");
-      this.addTask(taskContent, isCompleted);
+      const taskID = taskDiv.getAttribute("id");
+      this.pushTaskFromReSort(taskID, taskContent, isCompleted);
     });
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
   }
