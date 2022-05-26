@@ -12,10 +12,11 @@ class Main {
     this.itemManager = itemManager;
     this.pokemonClient = pokemonClient;
   }
+
   init() {
-    this.allTodosList = document.getElementById("all-todos-list");
-    this.inputTitle = document.getElementById("new-todo-title");
-    this.amountOfTodosInfo = document.getElementById("amount-info");
+    this.todoList = document.getElementById("todos-list");
+    this.todoTextBox = document.getElementById("new-todo-textbox");
+    this.todoAmountInfo = document.getElementById("amount-info");
 
     this.clearAllButton = document.getElementById("clear-all-button");
     this.addTodoForm = document.getElementById("add-todo");
@@ -24,34 +25,33 @@ class Main {
     this.clearAllButton.addEventListener('click', () => this.onClearAllButtonClicked());
     this.addTodoForm.addEventListener('submit', (event) => this.onAddTodoFormSubmitted(event));
     this.sortListButton.addEventListener('click', () => this.onSortListButtonClicked());
-
-    this.updateArrayAndRender(itemManager.init());
-
-    this.inputTitle.addEventListener("keypress", (event) => {
+    this.todoTextBox.addEventListener("keypress", (event) => {
       if (event.key === "Enter") {
         event.preventDefault();
         document.getElementById('add-todo-button').click();
       }
     });
+
+    this.updateTodos(itemManager.init());
   }
 
   renderTodos() {
-    this.allTodosList.innerHTML = "";
-    this.todosArray.forEach(item => {
-      this.addTodoItem(item);
+    this.todoList.innerHTML = "";
+    this.todos.forEach(todoItem => {
+      this.addTodoItem(todoItem);
     });
     this.displayFooterAndImage();
   }
 
   addEventListenerForTodoTitle(listItem) {
-    const todoTitleDiv = listItem.getElementsByTagName("div")[0];
+    const todoTitleDiv = listItem.getElementsByClassName("todo-text")[0];
     todoTitleDiv.addEventListener('click', ({target}) => {
       this.onTodoTitleClicked(target);
     });
   }
 
   addEventListenerForDeleteButton(listItem) {
-    const deleteButton = listItem.getElementsByTagName("button")[0]
+    const deleteButton = listItem.getElementsByClassName("remove-todo-button")[0]
     deleteButton.addEventListener('click', ({currentTarget}) => {
       this.onDeleteButtonClicked(currentTarget);
     });
@@ -61,7 +61,7 @@ class Main {
     const listItem = this.createListElement(todoItem);
     this.addEventListenerForTodoTitle(listItem);
     this.addEventListenerForDeleteButton(listItem);
-    this.allTodosList.appendChild(listItem);
+    this.todoList.appendChild(listItem);
   }
 
   createListElement(todoItem) {
@@ -84,7 +84,7 @@ class Main {
 
   displayButtonsAndAmount() {
     let tasks = "tasks";
-    if (this.todosArray.length === 1) {
+    if (this.todos.length === 1) {
       tasks = "task";
       this.displayElement('sort-list-button', false)
       this.displayElement('clear-all-button', false)
@@ -92,15 +92,15 @@ class Main {
       this.displayElement('sort-list-button', true)
       this.displayElement('clear-all-button', true)
     }
-    this.amountOfTodosInfo.textContent = `${this.todosArray.length} pending ${tasks}`;
+    this.todoAmountInfo.textContent = `${this.todos.length} pending ${tasks}`;
   }
 
   displayZeroImage() {
-    if (this.todosArray.length === 0) {
-      this.displayElement('zero-todos-image', true)
+    if (this.todos.length === 0) {
+      this.displayElement('no-todos-placeholder', true)
       this.displayElement('footer', false)
     } else {
-      this.displayElement('zero-todos-image', false)
+      this.displayElement('no-todos-placeholder', false)
       this.displayElement('footer', true)
     }
   }
@@ -115,11 +115,11 @@ class Main {
   }
 
   onDeleteButtonClicked(clickedButton) {
-    const index = Array.prototype.indexOf.call(this.allTodosList.getElementsByTagName("li"), clickedButton.parentElement);
+    const index = Array.prototype.indexOf.call(this.todoList.getElementsByTagName("li"), clickedButton.parentElement);
     clickedButton.parentElement.classList.remove("existing-item");
     clickedButton.parentElement.classList.add("delete-item-animation");
     setTimeout (() => {
-      this.updateArrayAndRender(this.itemManager.deleteItem(index));
+      this.updateTodos(this.itemManager.deleteItem(index));
     }, 700);
   }
 
@@ -132,14 +132,14 @@ class Main {
 
   onAddTodoFormSubmitted(event) {
     event.preventDefault();
-    const newTodoText = this.inputTitle.value;
-    this.inputTitle.value = "";
+    const newTodoText = this.todoTextBox.value;
+    this.todoTextBox.value = "";
     if (this.pokemonClient.isPokemon(newTodoText)) {
       this.addPokemon(newTodoText.toLowerCase());
     } else {
       const isNaNArray = newTodoText.split(',').map( el => isNaN(el));
       if (isNaNArray.includes(true)) {
-        this.updateArrayAndRender(itemManager.addItem(newTodoText))
+        this.updateTodos(itemManager.addItem(newTodoText))
       } else {
         this.addPokemon(newTodoText);
       }
@@ -156,16 +156,16 @@ class Main {
       } catch (error) {
         updatedArray = itemManager.addItem(`Failed to fetch ${newTodoText}`);
       }
-      this.updateArrayAndRender(updatedArray);
+      this.updateTodos(updatedArray);
     })
   }
 
   onSortListButtonClicked() {
-    this.updateArrayAndRender(this.itemManager.sortItems());
+    this.updateTodos(this.itemManager.sortItems());
   }
 
-  updateArrayAndRender(updatedArray) {
-    this.todosArray = updatedArray;
+  updateTodos(updatedArray) {
+    this.todos = updatedArray;
     this.renderTodos();
   }
 }

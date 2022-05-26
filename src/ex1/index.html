@@ -9,15 +9,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-  <main class="app-window">
-    <h1 class="app-title">TODOOPS</h1>
-    <article class="todo-content">
+  <main class="window">
+    <h1 class="title">TODOOPS</h1>
+    <article class="todos-content">
       <form id="add-todo">
-        <input type="text" id="new-todo-title" autofocus required minlength="4" placeholder="Add your new todo" />
+        <input type="text" id="new-todo-textbox" autofocus required minlength="4" placeholder="Add your new todo" />
         <button type="submit" id="add-todo-button">+</button>
       </form>
-      <img id="zero-todos-image" src="../assets/pointer.png" width="100px">
-      <ul id="all-todos-list">
+      <img id="no-todos-placeholder" src="../assets/pointer.png" width="100px">
+      <ul id="todos-list">
       </ul>
       <footer id="footer">
         <button id="sort-list-button">Sort</button>

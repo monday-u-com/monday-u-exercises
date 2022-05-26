@@ -1,4 +1,4 @@
-.app-window {
+.window {
   color: var(--very-dark-green);
   display: block;
   width: 500px;
@@ -9,14 +9,14 @@
   box-shadow: 5px 10px 18px gray;
 }
 
-.app-title {
+.title {
   font-family: 'Caveat', cursive;
   text-align: center;
   margin: 0px;
   padding-top: 20px;
 }
 
-.todo-content {
+.todos-content {
   padding: 20px;
   font-size: 24px;
 }

@@ -1,4 +1,4 @@
-const allTodosList = document.getElementById("all-todos-list");
+const allTodosList = document.getElementById("todos-list");
 
 const unsorted = 0;
 const sortedAsc = 1;
@@ -6,7 +6,7 @@ const sortedDesc = 2;
 let isListSorted = unsorted;
 
 const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
-const inputTitle = document.getElementById("new-todo-title");
+const inputTitle = document.getElementById("new-todo-textbox");
 const amountOfTodosInfo = document.getElementById("amount-info");
 
 const clearAllButton = document.getElementById("clear-all-button");
@@ -75,10 +75,10 @@ function displayButtonsAndAmount() {
 
 function displayZeroImage() {
   if (todosArray.length === 0) {
-    displayElement('zero-todos-image', true)
+    displayElement('no-todos-placeholder', true)
     displayElement('footer', false)
   } else {
-    displayElement('zero-todos-image', false)
+    displayElement('no-todos-placeholder', false)
     displayElement('footer', true)
   }
 }
