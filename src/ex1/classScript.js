@@ -7,6 +7,7 @@ export class Tasks {
     constructor() {
         let self = this;
         this.items = new ItemManager()
+        this.pokemons = ['pikachu', 'bulbasaur', 'squirtle', 'charmander']
 
         document.addEventListener('keydown', function (key) {
             if (key.code === "Enter") {
@@ -51,6 +52,12 @@ export class Tasks {
                     }
                 })
             })
+        } else if (this.pokemonInList(newTaskText)) {
+            console.log("fda")
+            const pokemon = await getPokemon(newTaskText)
+            console.log(pokemon)
+            const text = `Catch ${pokemon.name} the ${pokemon.types[0].type.name} pokemon`
+            this.addTaskNode(text)
         }
 
         /*--------------------------A single pokemon-----------------------*/
@@ -144,6 +151,10 @@ export class Tasks {
                 return true
             }
         }
+        return false
+    }
+    pokemonInList(pokemon) {
+        if (this.pokemons.includes(pokemon)) return true
         return false
     }
 };
