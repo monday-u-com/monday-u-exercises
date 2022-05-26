@@ -131,6 +131,7 @@ class AppDom {
   }
 
   // List Events //
+
   onCompleteBtnClick(e) {
     e.target.classList.toggle("btn-completed");
     const taskItem = e.target.parentElement;

@@ -14,7 +14,7 @@ export class TasksManeger {
     if (localStorage.getItem("tasks") !== null) {
       this.tasks = JSON.parse(localStorage.getItem("tasks"));
     }
-    if (localStorage.getItem("counterID" != null)) {
+    if (localStorage.getItem("counterID") !== null) {
       this.counterID = JSON.parse(localStorage.getItem("counterID"));
     }
   }
@@ -69,7 +69,7 @@ export class TasksManeger {
     if (!isTaskExist) {
       this.tasks.push([this.counterID, taskInput, isCompleted]);
       this.counterID++;
-      localStorage.setItem("counterID", JSON.stringify(this.counterID));
+      this.saveCounterIDToLocalStorage();
       this.saveTasksToLocalStorage();
       return true;
     } else {
@@ -84,7 +84,9 @@ export class TasksManeger {
 
   removeAllTasks() {
     this.tasks = [];
+    this.counterID = 0;
     this.saveTasksToLocalStorage();
+    this.saveCounterIDToLocalStorage();
   }
 
   getTasks() {
@@ -103,6 +105,10 @@ export class TasksManeger {
 
   saveTasksToLocalStorage() {
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
+  }
+
+  saveCounterIDToLocalStorage() {
+    localStorage.setItem("counterID", JSON.stringify(this.counterID));
   }
 
   reSortTasks(HTMLTaskList) {
