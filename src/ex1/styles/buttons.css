@@ -14,7 +14,8 @@ button {
   font-size: 32px;
 }
 
-.delete-todo-button {
+
+.remove-todo-button {
   background-color: brown;
   border: 0px;
   border-radius: 4px;
@@ -25,7 +26,7 @@ button {
   display: none;
 }
 
-#todos-list .existing-todo:hover .delete-todo-button {
+#all-todos-list .existing-item:hover .remove-todo-button {
   display: block;
 }
 

@@ -1,4 +1,4 @@
-.window {
+.app-window {
   color: var(--very-dark-green);
   display: block;
   width: 500px;
@@ -9,19 +9,20 @@
   box-shadow: 5px 10px 18px gray;
 }
 
-.title {
+.app-title {
   font-family: 'Caveat', cursive;
   text-align: center;
   margin: 0px;
   padding-top: 20px;
 }
 
-.todos-content {
+.todo-content {
   padding: 20px;
   font-size: 24px;
 }
 
-.animation-add-todo {
+
+.add-item-animation {
   animation: change-color 0.7s linear;
 }
 
@@ -34,7 +35,7 @@
   }
 }
 
-.animation-delete-todo {
+.delete-item-animation {
   color: antiquewhite;
   animation: deleting-color 0.7s ease-out;
 }
