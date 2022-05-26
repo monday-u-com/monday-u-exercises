@@ -1,5 +1,4 @@
 const mylistManager = new listManager();
-console.log(mylistManager);
 
 // create allert on click
 const todoInput = document.getElementById("todo-input");
@@ -22,10 +21,8 @@ async function addTodo(event) {
 	event.preventDefault();
 
 	const fetchPokemon = todoInput.value.split(",");
-	console.log(fetchPokemon);
 	for (let i = 0; i < fetchPokemon.length; i++) {
 		const searchNum = fetchPokemon[i];
-		console.log(searchNum);
 		//----add to my list
 		mylistManager.add(searchNum);
 		//----go to get from api
@@ -85,7 +82,6 @@ function deleteCheck(event) {
 			const place = mylistManager.listArray.indexOf(arrName);
 
 			mylistManager.listArray.splice(place, 1);
-			console.log(mylistManager.listArray);
 		});
 	}
 
@@ -100,5 +96,4 @@ clearButton.addEventListener("click", clearArray);
 function clearArray() {
 	mylistManager.listArray = [];
 	todoList.innerHTML = "";
-	console.log(mylistManager);
 }

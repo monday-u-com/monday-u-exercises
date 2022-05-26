@@ -5,8 +5,5 @@ class listManager {
 
 	add(newTodo) {
 		this.listArray.push(newTodo);
-		console.log(this.listArray);
 	}
 }
-
-
