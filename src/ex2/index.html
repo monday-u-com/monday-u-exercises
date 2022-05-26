@@ -23,10 +23,12 @@
             <div id="todo_form_container">
                 <form>
                     <div class="input_div">
-                        <input name="todo" id="todo_input" type="text" placeholder=" " required/>
+                        <input name="todo" id="todo_input" type="text" placeholder=" " list="pokemons_names" required/>
                         <label for="todo_input">
                             Add your new todo
                         </label>
+                        <datalist id="pokemons_names">                           
+                        </datalist>                       
                         <div id="add_to_do_button">
                             <i class="fa-solid fa-plus"></i>
                         </div>

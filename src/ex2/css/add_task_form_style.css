@@ -38,6 +38,7 @@
 .input_div > input[type="text"]:focus + label,
 .input_div > input[type="text"]:not(:placeholder-shown)+ label
 {
+    
     top: 0px;
     transition: all 0.2s linear 0.2s;
 }

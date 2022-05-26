@@ -1,7 +1,14 @@
 
 class PokemonClient {
     constructor() {
-        this.base_url = "https://pokeapi.co/api/v2/pokemon/"
+        this.base_url = "https://pokeapi.co/api/v2/pokemon/";
+        this.pokemons_url = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
+    }
+
+    async GetPokemonsNames()
+    {
+        const req = this.FetchAllPokemonsNamesRequest();
+        return Promise.resolve(req);
     }
     /**
      * send one request to pokemon api
@@ -41,6 +48,24 @@ class PokemonClient {
                 // parse response to json object
                 const res_obj = await response.json();
                 return res_obj;
+            }
+            catch (error) {
+                return error;
+            }
+        });
+    }
+
+    async FetchAllPokemonsNamesRequest()
+    {
+        return fetch(this.pokemons_url).then(async (response) => {
+            try {
+                // check if response is valid
+                if (!response.ok) {
+                    throw new Error(`Cant get pokemons names from API.`);
+                }
+                // parse response to json object
+                const res_obj = await response.json();
+                return res_obj.results;
             }
             catch (error) {
                 return error;

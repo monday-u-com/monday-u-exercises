@@ -2,6 +2,16 @@ class ItemManager {
     constructor() {
         this.tasks = [];
         this.pokemon_client = new PokemonClient();
+        this.pokemons = [];
+    }
+    
+    /**
+     * init pokemon names array
+     */
+    async init()
+    {
+        const pokemons_names_response = await this.pokemon_client.GetPokemonsNames();
+        this.ParsePokemonNamesResponse(pokemons_names_response);
     }
 
     /**
@@ -19,7 +29,7 @@ class ItemManager {
         {
             await this.GetOnePokemon(pokemon_id);
         }
-        else // regular task 
+        else // regular task or pokemon name
             this.tasks.push(task_text);
     }
     /**
@@ -103,5 +113,20 @@ class ItemManager {
     CheckIfPokemonExists(id)
     {
         return this.tasks.find(task => task.id === id);
+    }
+
+    /**
+     * parses response into pokemons array
+     * @param {Array} response 
+     */
+    ParsePokemonNamesResponse(response)
+    {
+        if(response.name !== "Error")
+            response.forEach((pokemon) => {
+                // split url string and get rid of empty elements
+                const parsed_url = pokemon.url.split('/').filter((item) => item); 
+                const id = parsed_url[parsed_url.length - 1];
+                this.pokemons.push({name: pokemon.name, id});
+            });
     }
 }
