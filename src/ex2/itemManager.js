@@ -15,4 +15,7 @@ export class ItemManager {
   getItems() {
     return this.items
   }
+  removeAllItems() {
+    this.items.splice(0, this.items.length)
+  }
 }

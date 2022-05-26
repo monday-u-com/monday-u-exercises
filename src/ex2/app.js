@@ -5,7 +5,7 @@ const addButton = document.getElementById("list-item-submit")
 const textInput = document.getElementById("list-item-input")
 const allLists = document.getElementById("list")
 const counterLists = document.getElementById("counter")
-// const deleteAllLists = document.getElementById("deleteAllTasks")
+const deleteAllLists = document.getElementById("deleteAllTasks")
 const errorMessage = document.getElementById("error")
 const regex = /^[0-9]*$/
 
@@ -17,8 +17,7 @@ class Main {
   }
   init() {
     addButton.addEventListener("click", function () {
-      itemManager.addItem(textInput.value)
-      validation(itemManager.getLastItem())
+      validation()
     })
   }
 }
@@ -49,52 +48,67 @@ function addNewList(name) {
   allLists.appendChild(li)
   allLists.appendChild(hr)
   textInput.value = ""
-  console.log(itemManager.getItems())
 }
 
-function validation(item) {
-  countLists()
-  const input = document.getElementById("list-item-input")
-  if (input.value === "") {
+async function validation() {
+  if (textInput.value === "") {
     errorMessage.innerHTML = "Please enter a task"
     errorMessage.style.display = "block"
   } else {
-    if (item.includes(",")) {
-      Promise.all(
-        item.split(",").map(async (name) => {
-          const pokemon = await pokemonClient.getPokemon(name) // promise
+    if (textInput.value.includes(",")) {
+      await Promise.all(
+        textInput.value.split(",").map(async (id) => {
+          const pokemon = await pokemonClient.getPokemon(id) // promise
+          itemManager.addItem(id)
           addNewList(`Catch ${pokemon.name}`)
         })
       ).catch((error) => {
         console.log("error", error)
-        addNewList(`Faild to fetch pokemon with the input: ${item}`)
+        itemManager.addItem(textInput.value)
+        addNewList(`Faild to fetch pokemon with the input: ${textInput.value}`)
       })
     } else {
-      if (regex.test(item)) {
-        pokemonClient
+      if (regex.test(textInput.value)) {
+        await pokemonClient
           .getPokemon(textInput.value)
           .then((data) => {
+            itemManager.addItem(textInput.value)
             addNewList(`Catch ${data.name}`)
           })
           .catch((error) => {
             console.log(error)
-            addNewList(`Pokemon with ID ${input.value} was not found`)
+            itemManager.addItem(textInput.value)
+            addNewList(`Pokemon with ID ${textInput.value} was not found`)
           })
       } else {
-        addNewList(item)
+        itemManager.addItem(textInput.value)
+        addNewList(textInput.value)
       }
       errorMessage.style.display = "none"
       errorMessage.style.transition = "all 0.5s ease-in-out"
     }
   }
+  countLists()
 }
 
 function countLists() {
   const items = itemManager.getItems()
+  console.log("countlists", items)
   counterLists.innerHTML = `${items.length}`
+}
+
+function deleteAllTasks() {
+  console.log("deleteall", itemManager.getItems())
+  itemManager.removeAllItems()
+  allLists.innerHTML = ""
+  counterLists.innerHTML = "0"
 }
 const main = new Main()
 
 document.addEventListener("DOMContentLoaded", function () {
   main.init()
+})
+
+deleteAllLists.addEventListener("click", function () {
+  deleteAllTasks()
 })
