@@ -33,6 +33,7 @@ body {
 }
 
 .list-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 30%;
@@ -125,4 +126,24 @@ body {
 
 .div-item:not(:last-of-type) {
   border-bottom: 1px #bbb5b5 solid;
+}
+
+#clear-all-button {
+  font-size: medium;
+  padding: 9px 13px;
+  border: none;
+  border-radius: 3px;
+  position: absolute;
+  width: 25%;
+  right: 32px;
+  top: 500px;
+  background-color: rgba(77, 170, 173, 0.76);
+  color: rgb(57, 53, 53);
+  cursor: pointer;
+}
+
+#clear-all-button:hover {
+  background-color: rgba(17, 150, 154, 0.76);
+  color: white;
+  transition: background-color 0.2s ease-in-out;
 }

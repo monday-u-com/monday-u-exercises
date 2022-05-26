@@ -6,9 +6,11 @@ class Main {
 
   addButton = document.querySelector("#list-item-submit");
   addItemInput = document.querySelector("#list-item-input");
+  clearAllButton = document.querySelector("#clear-all-button");
 
   init() {
     this.addButton.addEventListener("click", itemManager.addItem);
+    this.clearAllButton.addEventListener("click", itemManager.removeAll);
 
     this.addItemInput.addEventListener("keypress", (event) => {
       if (event.key === "Enter") {

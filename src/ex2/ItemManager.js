@@ -9,6 +9,7 @@ class ItemManager {
     this.renderItems = this.renderItems.bind(this);
     this.createItem = this.createItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.removeAll = this.removeAll.bind(this);
   }
 
   async addItem() {
@@ -64,6 +65,12 @@ class ItemManager {
     this.renderItems();
   }
 
+  removeAll() {
+    this.itemList.length = 0;
+
+    this.renderItems();
+  }
+
   renderItems() {
     const list = document.querySelector("#list");
     list.innerHTML = "";
@@ -83,7 +90,7 @@ class ItemManager {
 
     // style  elements
     divElm.classList.add("div-item");
-    // divElm.classList.add("grow");
+    // if (item === this.itemList.at(-1)) divElm.classList.add("grow");
     liElm.classList.add("list-item");
     deleteButton.classList.add("list-item-delete-button");
 
