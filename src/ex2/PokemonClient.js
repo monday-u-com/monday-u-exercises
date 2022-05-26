@@ -9,7 +9,7 @@ class PokemonClient {
 
       const data = await response.json();
 
-      return data.name;
+      return data;
     } catch (error) {
       console.log(error);
       return `${pokemonId} Not found`;

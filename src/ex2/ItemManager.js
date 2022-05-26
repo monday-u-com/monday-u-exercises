@@ -3,7 +3,7 @@ import { pokemonClient } from "./PokemonClient.js";
 class ItemManager {
   constructor() {
     this.itemList = [];
-    this.pokemonIds = new Set();
+    this.pokemons = new Set();
 
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
@@ -23,18 +23,32 @@ class ItemManager {
       // add promises to allPromises array
       inputArray.forEach((elm) => {
         const id = elm.trim();
-        const pokemonAlreadyAdded = this.pokemonIds.has(id);
+        const pokemonAlreadyAdded = this.pokemons.has(id);
 
         if (pokemonAlreadyAdded) {
           alert(`Pokemon with ID ${id} was alrady added!`);
         } else {
-          this.pokemonIds.add(id);
           allPromises.push(pokemonClient.fetchPokemon(id));
         }
       });
 
       // fetch all pokemons simulteniously
-      const pokemonNames = await Promise.all(allPromises);
+      const pokemonData = await Promise.all(allPromises);
+
+      const filteredPokemons = pokemonData.filter((pokemon) => {
+        if (this.pokemons.has(`${pokemon.name}`))
+          alert(`Pokemon with ID ${pokemon.id} was alrady added!`);
+        return !this.pokemons.has(`${pokemon.name}`);
+      });
+
+      const pokemonNames = filteredPokemons.map((pokemon) => {
+        if (pokemon.name) {
+          this.pokemons.add(`${pokemon.name}`);
+          return pokemon.name;
+        } else {
+          return pokemon;
+        }
+      });
 
       // push todos with pokemons to list
       pokemonNames.forEach((name) => {
@@ -55,9 +69,9 @@ class ItemManager {
   }
 
   removeItem({ target }) {
-    console.log(target.id);
     const buttonId = target.id.split("-");
     buttonId.pop();
+    const pokemonName = buttonId[1];
     const item = buttonId.join(" ");
 
     const itemIndex = this.itemList.findIndex((listItem) => {
@@ -65,12 +79,14 @@ class ItemManager {
     });
 
     this.itemList.splice(itemIndex, 1);
+    this.pokemons.delete(pokemonName);
 
     this.renderItems();
   }
 
   removeAll() {
     this.itemList.length = 0;
+    this.pokemons.clear();
 
     this.renderItems();
   }
