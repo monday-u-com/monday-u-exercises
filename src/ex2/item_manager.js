@@ -1,19 +1,50 @@
+import PokemonClient from "./PokemonClient.js";
+
 class ItemManager {
 	constructor() {
-		this.itemList = [];
-		this.id = 5;
+		this.id = 0;
+		this.itemArray = [];
+		this.pokemonClient = new PokemonClient();
 	}
 	addListItem(item) {
-		this.itemList = [...this.itemList, { id: this.id, value: item }];
-		this.id++;
+		const { id, value } = this.createId(item);
+		this.itemArray = [...this.itemArray, { id, value }];
+
+		return this.itemArray;
 	}
 	removeItem(itemId) {
-		this.itemList = [...this.itemList.filter((item = item.id !== itemId))];
+		this.itemArray = [
+			...this.itemArray.filter((item) => item.id !== parseInt(itemId)),
+		];
+
+		return this.itemArray;
 	}
 
-	pokemon(pokeID) {
-		return fetch(`https://pokeapi.co/api/v2/pokemon/${pokeID}`);
+	async pokemonIdsHendeling(pokeID) {
+		const pokemon = await this.pokemonClient.getPokemon(pokeID);
+		debugger;
+		return pokemon;
+	}
+
+	createId(item) {
+		const newItemObj = { id: this.id, value: item };
+		this.id++;
+		return newItemObj;
+	}
+
+	async pokemonIdsTostring(pokemonIdsStr) {
+		const pokemonIdsArray = pokemonIdsStr.split(",");
+		const pokemonPromises = [];
+		debugger;
+		pokemonIdsArray.forEach((pokemonIdStr) => {
+			pokemonPromises.push(this.pokemonIdsHendeling(pokemonIdStr.trim()));
+		});
+		const pokemonsRsult = await Promise.all(pokemonPromises);
+		pokemonsRsult.forEach((pokemon) => {
+			this.addListItem(pokemon);
+		});
+
+		return this.itemArray;
 	}
 }
-
 export default ItemManager;
