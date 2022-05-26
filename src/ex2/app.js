@@ -4,7 +4,7 @@ import { PokemonClient } from "./pokemonClient.js"
 const addButton = document.getElementById("list-item-submit")
 const textInput = document.getElementById("list-item-input")
 const allLists = document.getElementById("list")
-// const counterLists = document.getElementById("counterLists")
+const counterLists = document.getElementById("counter")
 // const deleteAllLists = document.getElementById("deleteAllTasks")
 const errorMessage = document.getElementById("error")
 const regex = /^[0-9]*$/
@@ -34,6 +34,7 @@ function addNewList(name) {
     li.remove()
     hr.remove()
     itemManager.removeItem(textInput.value)
+    countLists()
   })
   li.addEventListener("mouseover", function () {
     deleteButton.style.display = "block"
@@ -52,6 +53,7 @@ function addNewList(name) {
 }
 
 function validation(item) {
+  countLists()
   const input = document.getElementById("list-item-input")
   if (input.value === "") {
     errorMessage.innerHTML = "Please enter a task"
@@ -61,7 +63,6 @@ function validation(item) {
       Promise.all(
         item.split(",").map(async (name) => {
           const pokemon = await pokemonClient.getPokemon(name) // promise
-          console.log("pokemon", pokemon)
           addNewList(`Catch ${pokemon.name}`)
         })
       ).catch((error) => {
@@ -88,6 +89,10 @@ function validation(item) {
   }
 }
 
+function countLists() {
+  const items = itemManager.getItems()
+  counterLists.innerHTML = `${items.length}`
+}
 const main = new Main()
 
 document.addEventListener("DOMContentLoaded", function () {

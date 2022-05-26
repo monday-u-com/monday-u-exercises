@@ -15,5 +15,4 @@ export class ItemManager {
   getItems() {
     return this.items
   }
- 
 }
