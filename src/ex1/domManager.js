@@ -5,7 +5,6 @@ class DomManager {
         tasks.forEach((task) => {
             const li = this.createLiElement(ul, task);
             this.addDeleteBtn(li, task);
-            this.addDoneCheckBox(li);
         });
         this.updateCounter(tasks);
     }
@@ -44,20 +43,5 @@ class DomManager {
         }
         li.appendChild(DeleteTaskBtn);
         return li;
-    }
-
-    addDoneCheckBox(li) {
-        const input = document.createElement("input");
-        input.className = "taskDone-checkbox-not-pressed";
-        input.type = "checkbox";
-        input.onclick = function (event) {
-            event.stopPropagation();
-            if (input.checked) {
-                input.parentNode.className = "list-item-taskDone-checkbox-pressed";
-            } else {
-                input.parentNode.className = "list-item";
-            }
-        }
-        li.appendChild(input);
     }
 }
