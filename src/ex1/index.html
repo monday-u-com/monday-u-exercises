@@ -4,6 +4,7 @@
     <title>2DoList</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
     <div class="container">
@@ -16,13 +17,13 @@
         </div>
         <div class="input-container">
             <input class="todo-input" id="todo-input" type="text" placeholder="Add your new todo">
-            <button class="add-button" id="add-todo-button"><i class="fas fa-plus"></i></button>
+            <button class="button add-button" id="add-todo-button"><i class="fas fa-plus"></i></button>
         </div>
-        <div class="empty-todos-message" id="enter-todos"><h1>Enter Todos</h1></div>
+        <div class="empty-todos-message" id="enter-todos"><h1 class="enter-todo-title">Enter Todos</h1></div>
         <ul class="todo-list-container" id="todo-list"></ul>
         <div class="clear-and-pending-container">
             <span>You have <span id="sum-todos"></span> pending tasks</span>
-            <button class="clear-all-button" id="clear-all-todos-button">Clear All</button>
+            <button class="button clear-all-button" id="clear-all-todos-button">Clear All</button>
         </div>
     </div>
 </body>

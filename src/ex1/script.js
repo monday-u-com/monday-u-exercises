@@ -88,13 +88,15 @@ function showMatchUiByTodosNumber() {
 function createTodoListItems() {
     let listItems = ""
     todoList.forEach((todo, index) => { 
-        listItems += `<li>${todo}
-            <span class="delete" onclick="deleteTodo(${index})";>
-                <i class="fas fa-trash"></i>
-            </span>
-            <span class="edit" onclick="editTodo(${index})";>
-                <i class="fas fa-pen"></i>
-            </span>
+        listItems += `<li class="todo-item">${todo}
+            <div>
+                <span class="action-btn edit" onclick="editTodo(${index})";>
+                    <i class="fas fa-pen"></i>
+                </span>
+                <span class="action-btn delete" onclick="deleteTodo(${index})";>
+                    <i class="fas fa-trash"></i>
+                </span>
+            </div>
             </li>
             `
     })
