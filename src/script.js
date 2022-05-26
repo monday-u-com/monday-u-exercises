@@ -12,20 +12,16 @@ const pokemonCatchText = document.querySelector(POKEMON_TEXT_SELECTOR);
 const tasks = new ItemManager(renderTasks);
 const pokemonClient = new PokemonClient();
 
-addTaskButton.onclick = () => addTask();
 clearButton.onclick = () => tasks.clear();
 sortDownButton.onclick = () => tasks.sortDown();
 sortUpButton.onclick = () => tasks.sortUp();
+addTaskButton.onclick = () => addTask();
 taskInput.onkeypress = (e) => {
-   if (e.key === "Enter") {
-      addTask();
-   }
+   if (e.key === "Enter") addTask();
 };
 
 let allPokemonNames = JSON.parse(localStorage.getItem("allPokemonNames"));
-if (!allPokemonNames) {
-   getAllPokemonNames();
-}
+if (!allPokemonNames) getAllPokemonNames();
 
 async function getAllPokemonNames() {
    allPokemonNames = await pokemonClient.getAllPokemonNames();
@@ -52,9 +48,7 @@ function renderTasks(toAnimate) {
       sortButtonsContainer.classList.remove(VISIBLE_CLASS);
    }
 
-   if (toAnimate) {
-      createTaskAnimation(lastTaskAdded);
-   }
+   if (toAnimate) createTaskAnimation(lastTaskAdded);
 }
 
 async function addTask() {
@@ -125,10 +119,7 @@ function createNewTask(taskContainer, item) {
    newTask.textContent = item;
    newTask.classList.add("task");
    taskContainer.append(newTask);
-
-   newTask.onclick = () => {
-      alert(newTask.textContent);
-   };
+   newTask.onclick = () => alert(newTask.textContent);
 
    return newTask;
 }
