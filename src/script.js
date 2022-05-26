@@ -37,6 +37,16 @@ sortUpButton.onclick = () => {
    tasks.sortUp();
 };
 
+let allPokemonNames = JSON.parse(localStorage.getItem("allPokemonNames"));
+if (!allPokemonNames) {
+   getAllPokemonNames();
+}
+
+async function getAllPokemonNames() {
+   allPokemonNames = await pokemonClient.getAllPokemonNames();
+   localStorage.setItem("allPokemonNames", JSON.stringify(allPokemonNames));
+}
+
 function renderTasks(toAnimate) {
    let lastTaskAdded;
    while (allTasksContainer.firstChild) {
@@ -57,7 +67,6 @@ function renderTasks(toAnimate) {
 async function addTask() {
    const taskUserInput = taskInput.value;
    taskInput.value = "";
-   const allPokemonNames = await pokemonClient.getAllPokemonNames();
    if (taskUserInput.trim().length === 0) {
       alert("Please fill in a task");
    } else if (

@@ -16,7 +16,7 @@ class PokemonClient {
 
    async getAllPokemonNames() {
       try {
-         const response = await fetch(this.API_URL);
+         const response = await fetch(this.API_URL + "?limit=10000");
          const data = await response.json();
          const allPokemonNames = data.results.map((item) => item.name);
 
