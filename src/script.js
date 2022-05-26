@@ -12,26 +12,14 @@ const pokemonCatchText = document.querySelector(POKEMON_TEXT_SELECTOR);
 const tasks = new ItemManager(renderTasks);
 const pokemonClient = new PokemonClient();
 
-addTaskButton.onclick = () => {
-   addTask();
-};
-
+addTaskButton.onclick = () => addTask();
+clearButton.onclick = () => tasks.clear();
+sortDownButton.onclick = () => tasks.sortDown();
+sortUpButton.onclick = () => tasks.sortUp();
 taskInput.onkeypress = (e) => {
    if (e.key === "Enter") {
       addTask();
    }
-};
-
-clearButton.onclick = () => {
-   tasks.clear();
-};
-
-sortDownButton.onclick = () => {
-   tasks.sortDown();
-};
-
-sortUpButton.onclick = () => {
-   tasks.sortUp();
 };
 
 let allPokemonNames = JSON.parse(localStorage.getItem("allPokemonNames"));
@@ -172,7 +160,10 @@ function addHoverReveal(taskContainer, deleteTask, newTask) {
 }
 
 function createTaskAnimation(newTask) {
-   const taskAnimation = [{ transform: "scale(0)" }, { transform: "scale(1.1)" }, { transform: "scale(1)" }];
-
+   const taskAnimation = [
+      { transform: "scale(0)" },
+      { transform: "scale(1.1)" },
+      { transform: "scale(1)" },
+   ];
    newTask.animate(taskAnimation, 600);
 }
