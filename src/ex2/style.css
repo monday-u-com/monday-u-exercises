@@ -61,7 +61,6 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  overflow-y: auto;
 }
 
 .new-tasks-container {
@@ -72,6 +71,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  overflow-y: auto;
 }
 
 /* ------- add task ------- */

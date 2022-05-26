@@ -1,3 +1,7 @@
+const validTask = "valid-task-btn"
+const newTasks = ".new-tasks-container"
+
+
 class Main {
   constructor(addTaskBtn, addTaskInput) {
     this.addTaskBtn = addTaskBtn;
@@ -27,10 +31,15 @@ class Main {
   // Add task will be clickable only for a non empty/"only spaces" task
   onTaskInput() {
     if (!/^\s*$/.test(this.addTaskInput.value)) {
-      this.addTaskBtn.classList.add("valid-task-btn");
+      this.addTaskBtn.classList.add(validTask);
     } else if (/^\s*$/.test(this.addTaskInput.value)) {
-      this.addTaskBtn.classList.remove("valid-task-btn");
+      this.addTaskBtn.classList.remove(validTask);
     }
+  }
+
+  clearAddTaskInput() {
+    this.addTaskInput.value = "";
+    this.addTaskBtn.classList.remove(validTask);
   }
 
   onAddTask(taskId) {
@@ -38,19 +47,16 @@ class Main {
     this.todoList.todos.forEach((todo) => {
       if (!this.diplayedTasksSet.has(todo.id)) {
         document
-          .querySelector(".new-tasks-container")
+          .querySelector(newTasks)
           .appendChild(this.createTask(todo));
         this.diplayedTasksSet.add(todo.id);
       }
     });
 
-    // Clear 'Add task' input
-    this.addTaskInput.value = "";
-    this.addTaskBtn.classList.remove("valid-task-btn");
-
+    this.clearAddTaskInput();
     this.updateTasksLeft();
 
-    // Empty list that its first element was added
+    // list is empty and first task was added -> hide 'Done and Done' and show footer
     if (this.todoList.todos.length === 1) {
       this.toggleFinishedAllAndFooter();
     }
@@ -84,16 +90,14 @@ class Main {
   onTaskDelete(todoToDelete) {
     document.querySelector(`#task-${todoToDelete.id}`).remove();
     this.diplayedTasksSet.delete(todoToDelete.id);
-
     this.updateTasksLeft();
   }
 
   onClearAll() {
-    const nodes = document.querySelector(".new-tasks-container").childNodes;
+    const nodes = document.querySelector(newTasks).childNodes;
     for (let i = nodes.length - 1; i >= 0; i--) {
       nodes[i].remove();
     }
-
     this.toggleFinishedAllAndFooter();
   }
 
