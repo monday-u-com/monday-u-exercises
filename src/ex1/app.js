@@ -11,7 +11,7 @@ window.addEventListener('load',()=> {
   document.getElementById("current_date").innerHTML = date;
   
 
-  filterOption.addEventListener("click", filterTodo);
+
   
 
   form.addEventListener('submit',(e)=>{
@@ -30,10 +30,10 @@ window.addEventListener('load',()=> {
 
       // creating dom nodes
       const task_el = document.createElement('div');
-  task_el.classList.add('task');
+      task_el.classList.add('task');
 
       const task_content_el = document.createElement('div');
-  task_content_el.classList.add('content');
+      task_content_el.classList.add('content');
       // task_content_el.innerText = task;
       
       task_el.appendChild(task_content_el);
@@ -76,7 +76,7 @@ window.addEventListener('load',()=> {
       task_el.appendChild(task_actions_el);
 
 
-
+      console.log(input.value)
       list_el.appendChild(task_el);
       input.value="";
       
@@ -110,17 +110,18 @@ window.addEventListener('load',()=> {
      
 
   });
-  function saveLocalTodos(task) {
-      let tasks;
-      if (localStorage.getItem("task") === null) {
-          tasks = [];
-      } else {
-          tasks = JSON.parse(localStorage.getItem("tasks"));
-      }
-      tasks.push(task);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-      console.log(task);
-    }
+  // function saveLocalTodos(task) {
+  //     let tasks;
+  //     if (localStorage.getItem("task") === null) {
+  //         tasks = [];
+  //     } else {
+  //         tasks = JSON.parse(localStorage.getItem("tasks"));
+  //     }
+  //     tasks.push(task_el);
+  //     localStorage.setItem("tasks", JSON.stringify(tasks));
+  //     console.log(task_el);
+  //     console.log(tasks)
+  //   }
 
     function filterTodo(e) {
       const tasks = list_el.childNodes;
@@ -128,6 +129,7 @@ window.addEventListener('load',()=> {
         switch (e.target.value) {
           case "all":
             task.style.display = "flex";
+            console.log(task)
             break;
           case "completed":
             if (task.classList.contains("completed")) {
