@@ -155,10 +155,15 @@ class DomManager {
     RenderDomFromArray(todos, delete_call_back) {
         const todos_copy = [...todos];
         // clear task container for rendering
-        this.task_container.innerHTML = "";
-        todos_copy.map((todo, key) => {
-            this.AddNewTask(key, todo, delete_call_back);
-        });
+        if(todos_copy.length)
+        {
+            this.task_container.innerHTML = "";
+            todos_copy.map((todo, key) => {
+                this.AddNewTask(key, todo, delete_call_back);
+            });
+        }
+        else
+            this.task_container.classList.add("empty")
         this.UpdateTaskCounter();
     }
     /**
