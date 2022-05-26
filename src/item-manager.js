@@ -12,7 +12,7 @@ class ItemManager {
    }
 
    clear() {
-      this.items.length = 0;
+      this.items = [];
    }
 
    sortDown() {
