@@ -141,7 +141,7 @@ class AppDom {
   }
 
   onRemoveBtnClick(e) {
-    const taskItem = e.target.parentElement.parentElement;
+    const taskItem = e.target.parentElement;
     //taskItem.ontransitionend = this.onRemoveTransitionEnd.bind(this);
     //taskItem.classList.add("remove-task");
     const taskId = taskItem.getAttribute("id");

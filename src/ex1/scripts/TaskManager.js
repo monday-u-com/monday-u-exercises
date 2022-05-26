@@ -19,13 +19,13 @@ export class TasksManeger {
     }
   }
 
-  isInputIsSetOfPokemonsIDs(input) {
+  isInputSetOfPokemonIDs(input) {
     const regex = /^[0-9,]+$/;
     return regex.test(input);
   }
 
   async addTask(taskInput, isCompleted) {
-    if (this.isInputIsSetOfPokemonsIDs(taskInput)) {
+    if (this.isInputSetOfPokemonIDs(taskInput)) {
       return await this.addCatchPokemonTask(taskInput);
     } else if (this.pokedex.isPokemonNamesOnly(taskInput)) {
       return await this.addCatchPokemonTask(taskInput);
@@ -40,7 +40,8 @@ export class TasksManeger {
     if (response === false) {
       return false;
     } else if (response.includes("Pokemon with id")) {
-      return response;
+      this.pushingTaskAndSave(response, false);
+      return true;
     } else {
       response.forEach((pokemon) => {
         this.pushingTaskAndSave(pokemon, false);
@@ -54,6 +55,7 @@ export class TasksManeger {
     if (response === "Not a pokemon") {
       return false;
     } else if (response.includes("Pokemon with id")) {
+      console.log(response);
       return response;
     } else {
       return response;
@@ -75,9 +77,8 @@ export class TasksManeger {
     }
   }
 
-  removeTask(taskContent) {
-    const index = this.tasks.find((task) => task[TASK_ID] === taskContent);
-    this.tasks.splice(index, 1);
+  removeTask(taskID) {
+    this.tasks = this.tasks.filter((task) => task[TASK_ID] != taskID);
     this.saveTasksToLocalStorage();
   }
 

@@ -148,3 +148,7 @@
     -webkit-user-drag: element;
   }
 
+  button > i {
+    pointer-events: none;
+} 
+
