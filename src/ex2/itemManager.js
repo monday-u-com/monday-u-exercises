@@ -31,8 +31,8 @@ class ItemManager {
   }
 
   async addTask() {
-    // Validate the input isn't empty before adding the task
-    if (!addTaskInput.value) {
+    // Validate the input isn't empty/only spaces before adding the task
+    if (/^\s*$/.test(addTaskInput.value)) {
       return;
     }
 

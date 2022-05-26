@@ -24,11 +24,11 @@ class Main {
     );
   }
 
-  // Add task will be clickable only for a non empty task
+  // Add task will be clickable only for a non empty/"only spaces" task
   onTaskInput() {
-    if (this.addTaskInput.value !== "") {
+    if (!/^\s*$/.test(this.addTaskInput.value)) {
       this.addTaskBtn.classList.add("valid-task-btn");
-    } else if (this.addTaskInput.value === "") {
+    } else if (/^\s*$/.test(this.addTaskInput.value)) {
       this.addTaskBtn.classList.remove("valid-task-btn");
     }
   }
