@@ -10,22 +10,19 @@ class PokemonClient {
 
          return data;
       } catch (error) {
-         return false;
+         console.error(error);
       }
    }
 
    async getAllPokemonNames() {
       try {
-         const numberOfPokemons = 898;
-         const response = await fetch(
-            this.API_URL + "?limit=" + numberOfPokemons
-         );
+         const response = await fetch(this.API_URL);
          const data = await response.json();
          const allPokemonNames = data.results.map((item) => item.name);
 
          return allPokemonNames;
       } catch (error) {
-         return false;
+         console.error(error);
       }
    }
 
