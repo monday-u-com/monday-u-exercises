@@ -52,10 +52,12 @@ export default class PokemonClient{
         let listItems = ""
 
         this.itemManager.getTodoList().forEach((todo) => { 
-            listItems += `<li>${todo}
-                <span class="delete">
-                    <i class="fas fa-trash"></i>
-                </span>
+            listItems += `<li class="todo-item">${todo}
+                <div>
+                    <span class="action-btn delete">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                </div>
                 </li>
             `
         })
