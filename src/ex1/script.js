@@ -1,41 +1,94 @@
-const todoListElement = document.getElementById("todo-list")
-const addTodoButton = document.getElementById("add-todo-button")
-const todoInput = document.getElementById("todo-input")
-const clearAllTodosButton = document.getElementById("clear-all-todos-button")
-const sumTodos = document.getElementById("sum-todos")
-const orderSelect = document.getElementById("order-select")
-const enterTodos = document.getElementById("enter-todos")
+document.addEventListener("DOMContentLoaded", function() {
+    onDOMReady();
+})
 
-let todoList = [] //array for storing data
+function onDOMReady() {
+    
+    const addTodoButton = document.getElementById("add-todo-button")
+    const todoInput = document.getElementById("todo-input")
+    const clearAllTodosButton = document.getElementById("clear-all-todos-button")
+    const orderSelect = document.getElementById("order-select")
 
-showTodos()
+    let todoList = [] //array for storing data 
+    
+    showTodos()
 
-todoInput.onkeyup = (e) => {
-    let enterValue = todoInput.value
-    if (enterValue.trim() !== ""){
+    todoInput.addEventListener("keyup",(e) => {
+        
+        let enterValue = e.target.value
+        const ENTER_KEY = 13
+        const inputIsNotEmpty = enterValue.trim() !== ""
+        const enterKeyPressed = e.keyCode === ENTER_KEY
+
+        if (inputIsNotEmpty) {
+            addTodoButtonActive()
+            if(enterKeyPressed){
+                addTodo()
+            }
+        }
+        else{
+            addTodoButtonNonActive()
+        }
+    })
+
+    function addTodoButtonActive(){
+        const addTodoButton = document.getElementById("add-todo-button")
         addTodoButton.classList.add("active")
         addTodoButton.style.cursor = "pointer"
         addTodoButton.style.opacity = 1
-
-        if(e.keyCode === 13){
-            addTodo()
-        }
     }
-    else{
+
+    function addTodoButtonNonActive(){
+        const addTodoButton = document.getElementById("add-todo-button")
         addTodoButton.classList.remove("active")
         addTodoButton.style.opacity = 0.2
         addTodoButton.style.cursor = "not-allowed"
     }
+
+    addTodoButton.addEventListener("click", () => {
+        addTodo()
+    })
+
+    clearAllTodosButton.addEventListener("click", () => {
+        let dataFromLS = localStorage.getItem("new-todo")
+    
+        if(dataFromLS === null){
+            todoList = []
+        }
+        else{
+            todoList = JSON.parse(dataFromLS)
+            todoList = [] //initialize array again
+        }
+    
+        alert('removed all todos')
+        localStorage.setItem("new-todo", JSON.stringify(todoList))
+        showTodos()
+    })
+
+    orderSelect.addEventListener('change', (e) => {
+        let dataFromLS = localStorage.getItem("new-todo")
+        todoList = JSON.parse(dataFromLS)
+    
+        if(e.target.value === "A-Z") {
+            todoList = todoList.sort()
+        }
+        else{
+            todoList = todoList.sort().reverse()
+        }
+    
+        localStorage.setItem("new-todo", JSON.stringify(todoList))
+        showTodos()
+    })
 }
 
-addTodoButton.addEventListener("click", () => {
-    addTodo()
-})
 
 function addTodo(){
+    const todoInput = document.getElementById("todo-input")
+    const addTodoButton = document.getElementById("add-todo-button")
     let enterValue = todoInput.value
+    const inputIsEmpty = enterValue.trim() === ""
 
-    if(enterValue.trim() === ""){
+    if(inputIsEmpty){
         alert("todo cannot be empty")
         return
     }
@@ -71,6 +124,10 @@ function showTodos() {
 }
 
 function showMatchUiByTodosNumber() {
+    const sumTodos = document.getElementById("sum-todos")
+    const enterTodos = document.getElementById("enter-todos")
+    const clearAllTodosButton = document.getElementById("clear-all-todos-button")
+
     sumTodos.textContent = todoList.length
     
     if(todoList.length > 0){
@@ -86,7 +143,10 @@ function showMatchUiByTodosNumber() {
 }
 
 function createTodoListItems() {
+    const todoListElement = document.getElementById("todo-list")
+    const todoInput = document.getElementById("todo-input")
     let listItems = ""
+
     todoList.forEach((todo, index) => { 
         listItems += `<li class="todo-item">${todo}
             <div>
@@ -127,34 +187,6 @@ function editTodo(index) {
     showTodos()
 }
 
-clearAllTodosButton.addEventListener("click", () => {
-    let dataFromLS = localStorage.getItem("new-todo")
 
-    if(dataFromLS === null){
-        todoList = []
-    }
-    else{
-        todoList = JSON.parse(dataFromLS)
-        todoList = [] //initialize array again
-    }
 
-    alert('removed all todos')
-    localStorage.setItem("new-todo", JSON.stringify(todoList))
-    showTodos()
-})
-
-orderSelect.addEventListener('change', (e) => {
-    let dataFromLS = localStorage.getItem("new-todo")
-    todoList = JSON.parse(dataFromLS)
-
-    if(e.target.value === "A-Z") {
-        todoList = todoList.sort()
-    }
-    else{
-        todoList = todoList.sort().reverse()
-    }
-
-    localStorage.setItem("new-todo", JSON.stringify(todoList))
-    showTodos()
-})
 
