@@ -17,7 +17,6 @@ class PokemonClient {
     async getPokemons(ids) {
         const promiseIDs = [];
         const IDs = ids.split(",");
-        console.log(IDs)
         try {
             IDs.forEach(id => {
                 promiseIDs.push(fetch(`${this.API_BASE}${id}`, { method: "GET" }))

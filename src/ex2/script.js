@@ -31,7 +31,7 @@ class Main {
 
     //function to add task and update the list and the localStorage
     addLiTask(taskValue) {
-        taskList.appendChild(this.createLi(taskValue));
+        taskList.appendChild(this.createDOMTask(taskValue));
         taskInput.value = ''; //clear the input after added
         addBtn.disabled = true;
         this.updateForm();
@@ -61,13 +61,13 @@ class Main {
     //function to insert the all tasks from the localStorage to the html list element
     renderAllTasks() {
         itemManager.taskArr.forEach((taskValue) => {
-            taskList.appendChild(this.createLi(taskValue));
+            taskList.appendChild(this.createDOMTask(taskValue));
         });
         this.updateForm();
     }
 
     //Function to create the li element and its childs and assign a click event to them
-    createLi(taskValue) {
+    createDOMTask(taskValue) {
         const li = document.createElement("li");
         const span = document.createElement("span");
         const i = document.createElement("i");
