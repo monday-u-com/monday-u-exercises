@@ -23,7 +23,11 @@ export class Tasks {
             alert("Please input a value")
             return
         }
+
         let newTaskText = document.getElementById("new-task-input").value
+
+        /*-----------------------List of pokemons----------------------------*/
+
         if (newTaskText.includes(",") && JSON.stringify(newTaskText.split(",")) === JSON.stringify(newTaskText.split(",").filter(item => !isNaN(item)))) {
             const listOfItems = newTaskText.split(",")
             let listOfPromises = []
@@ -40,40 +44,15 @@ export class Tasks {
                     else if (this.checkIfPokemonExists(newTaskText)) {
                         alert("Pokemon already exists")
                         return
+                    } else {
+                        addTaskNode(newTaskText)
                     }
-                    const newTextDiv = document.createTextNode(newTaskText); //Text
-                    const newTaskDiv = document.createElement("div"); //Task
-                    const newTaskDivContainer = document.createElement("div"); //Task Container
-                    const deleteButton = document.createElement("button"); //Button
-                    deleteButton.classList.add("delete-button")
-                    deleteButton.addEventListener("click", () => {
-                        this.items.remove(newTaskDivContainer)
-                        while (this.taskContainer.children.length) {
-                            this.taskContainer.children[0].remove()
-                        }
-                        for (let i = 0; i < this.items.items.length; i++) {
-                            this.taskContainer.appendChild(this.items.items[i])
-                        }
-                        if (!this.items.items.length) {
-                            this.taskContainer.classList.add("empty-list")
-                        }
-                        document.getElementById("bottom-text").innerText = `You have ${this.taskContainer.children.length} tasks`
-                    })
-                    newTaskDiv.appendChild(newTextDiv);
-                    newTaskDiv.addEventListener("click", () => alert(newTaskDiv.innerHTML))
-                    newTaskDiv.classList.add("task")
-                    newTaskDivContainer.classList.add("new-task-div-container")
-                    newTaskDivContainer.appendChild(newTaskDiv)
-                    newTaskDivContainer.appendChild(deleteButton)
-                    this.items.add(newTaskDivContainer)
-
-                    document.getElementById("new-task-input").value = ""
-                    this.removeItems()
-                    this.loadItems()
                 })
-
             })
         }
+
+        /*--------------------------A single pokemon-----------------------*/
+
         else if (!isNaN(newTaskText)) {
             const pokemonName = await getPokemon(newTaskText)
             console.log(pokemonName)
@@ -85,69 +64,48 @@ export class Tasks {
                 alert("Pokemon already exists")
                 return
             }
+            addTaskNode(newTaskText)
+        }
+
+        /*----------------------Normal text------------------------*/
+
+        else {
             const newTextDiv = document.createTextNode(newTaskText); //Text
-            const newTaskDiv = document.createElement("div"); //Task
-            const newTaskDivContainer = document.createElement("div"); //Task Container
-
-            const deleteButton = document.createElement("button"); //Button
-            deleteButton.classList.add("delete-button")
-            deleteButton.addEventListener("click", () => {
-                this.items.remove(newTaskDivContainer)
-                while (this.taskContainer.children.length) {
-                    this.taskContainer.children[0].remove()
-                }
-                for (let i = 0; i < this.items.items.length; i++) {
-                    this.taskContainer.appendChild(this.items.items[i])
-                }
-                if (!this.items.items.length) {
-                    this.taskContainer.classList.add("empty-list")
-                }
-                document.getElementById("bottom-text").innerText = `You have ${this.taskContainer.children.length} tasks`
-            })
-            newTaskDiv.appendChild(newTextDiv);
-            newTaskDiv.addEventListener("click", () => alert(newTaskDiv.innerHTML))
-            newTaskDiv.classList.add("task")
-            newTaskDivContainer.classList.add("new-task-div-container")
-            newTaskDivContainer.appendChild(newTaskDiv)
-            newTaskDivContainer.appendChild(deleteButton)
-            this.items.add(newTaskDivContainer)
-
-            document.getElementById("new-task-input").value = ""
-            this.removeItems()
-            this.loadItems()
-        } else {
-            const newTextDiv = document.createTextNode(newTaskText); //Text
-            const newTaskDiv = document.createElement("div"); //Task
-            const newTaskDivContainer = document.createElement("div"); //Task Container
-
-            const deleteButton = document.createElement("button"); //Button
-            deleteButton.classList.add("delete-button")
-            deleteButton.addEventListener("click", () => {
-                this.items.remove(newTaskDivContainer)
-                while (this.taskContainer.children.length) {
-                    this.taskContainer.children[0].remove()
-                }
-                for (let i = 0; i < this.items.items.length; i++) {
-                    this.taskContainer.appendChild(this.items.items[i])
-                }
-                if (!this.items.items.length) {
-                    this.taskContainer.classList.add("empty-list")
-                }
-                document.getElementById("bottom-text").innerText = `You have ${this.taskContainer.children.length} tasks`
-            })
-            newTaskDiv.appendChild(newTextDiv);
-            newTaskDiv.addEventListener("click", () => alert(newTaskDiv.innerHTML))
-            newTaskDiv.classList.add("task")
-            newTaskDivContainer.classList.add("new-task-div-container")
-            newTaskDivContainer.appendChild(newTaskDiv)
-            newTaskDivContainer.appendChild(deleteButton)
-            this.items.add(newTaskDivContainer)
-
-            document.getElementById("new-task-input").value = ""
-            this.removeItems()
-            this.loadItems()
+            this.addTaskNode(newTextDiv)
         }
         document.getElementById("bottom-text").innerText = `You have ${this.taskContainer.children.length} tasks`
+    }
+
+    addTaskNode(text) {
+        const newTextDiv = document.createTextNode(text); //Text
+        const newTaskDiv = document.createElement("div"); //Task
+        const newTaskDivContainer = document.createElement("div"); //Task Container
+        const deleteButton = document.createElement("button"); //Button
+        deleteButton.classList.add("delete-button")
+        deleteButton.addEventListener("click", () => {
+            this.items.remove(newTaskDivContainer)
+            while (this.taskContainer.children.length) {
+                this.taskContainer.children[0].remove()
+            }
+            for (let i = 0; i < this.items.items.length; i++) {
+                this.taskContainer.appendChild(this.items.items[i])
+            }
+            if (!this.items.items.length) {
+                this.taskContainer.classList.add("empty-list")
+            }
+            document.getElementById("bottom-text").innerText = `You have ${this.taskContainer.children.length} tasks`
+        })
+        newTaskDiv.appendChild(newTextDiv);
+        newTaskDiv.addEventListener("click", () => alert(newTaskDiv.innerHTML))
+        newTaskDiv.classList.add("task")
+        newTaskDivContainer.classList.add("new-task-div-container")
+        newTaskDivContainer.appendChild(newTaskDiv)
+        newTaskDivContainer.appendChild(deleteButton)
+        this.items.add(newTaskDivContainer)
+
+        document.getElementById("new-task-input").value = ""
+        this.removeItems()
+        this.loadItems()
     }
 
     sort() {
