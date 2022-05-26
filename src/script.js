@@ -56,29 +56,23 @@ async function addTask() {
    taskInput.value = "";
    if (taskUserInput.trim().length === 0) {
       alert("Please fill in a task");
-   } else if (!isNaN(taskUserInput) || allPokemonNames.includes(taskUserInput)) {
-      // For single Pokemon entry
-      let pokemonData = await pokemonClient.getPokemon(taskUserInput);
-      pokemonTasksHandle(pokemonData, taskUserInput, 0);
    } else if (
       taskUserInput
          .replace(/\s/g, "")
          .split(",")
          .every((elem) => !isNaN(elem) || allPokemonNames.includes(elem))
    ) {
-      // For multiple Pokemons entry
       let pokemonIDS = taskUserInput.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
       const pokemonData = await Promise.all(pokemonIDS.map((id) => pokemonClient.getPokemon(id)));
       pokemonData.forEach((pokemon, i) => {
-         pokemonTasksHandle(pokemon, pokemonIDS, 1, i);
+         pokemonTasksHandle(pokemon, pokemonIDS, i);
       });
    } else {
-      // For regular boring non-pokemon tasks
       tasks.add(taskUserInput);
    }
 }
 
-function pokemonTasksHandle(pokemon, pokemonIDS, isMultiplePokemons, i) {
+function pokemonTasksHandle(pokemon, pokemonIDS, i) {
    if (pokemon) {
       let pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
       const pokemonTypes = pokemonClient.getPokemonTypes(pokemon);
@@ -90,11 +84,7 @@ function pokemonTasksHandle(pokemon, pokemonIDS, isMultiplePokemons, i) {
          tasks.add(taskToAdd);
       }
    } else {
-      if (isMultiplePokemons) {
-         tasks.add(`Pokemon ID ${pokemonIDS[i]} does not exist`);
-      } else {
-         tasks.add(`Pokemon ID ${pokemonIDS} does not exist`);
-      }
+      tasks.add(`Pokemon ID ${pokemonIDS[i]} does not exist`);
    }
 }
 
