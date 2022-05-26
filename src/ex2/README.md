@@ -1,3 +1,7 @@
+# My Solution
+Check out my solution: https://barakmaron.github.io/monday-u-exercises/src/ex2/
+![alt solution](https://github.com/barakmaron/monday-u-exercises/blob/develop/src/ex2/assets/ex2_solution.png)
+
 # Exercise 2 - In depth JS, Async, & MVC
 
 Time for task #2!
@@ -36,11 +40,11 @@ When you finish it should look like this:
 ### Bonus
 
 - [X] Add a delete all option - make sure you're actually deleting the data, not just removing from the DOM
-- [ ] Validate that the user isn't adding the same pokemon todo more than once
-- [ ] Get more nested data from the pokemon API and display it as part of the todo item (e.g. “catch bulbasaur the grass/leaf type pokemon”)
+- [X] Validate that the user isn't adding the same pokemon todo more than once
+- [X] Get more nested data from the pokemon API and display it as part of the todo item (e.g. “catch bulbasaur the grass/leaf type pokemon”)
   - you'll have to explore the API to understand where to extract that data from =]
-- [ ] Modify the API request to use a pokemon’s name instead of its ID if you find a pokemon name (from a closed list of values) in the user’s input. For example, if the user inputs "charmender", you should get the data about charmender from the API by this pokemon's name - you'll have to read the docs for this too to see how that works ;)
-- [ ] In the solution file you'll see this piece of code: `pokemons.forEach(this.addPokemonItem);`
+- [X] Modify the API request to use a pokemon’s name instead of its ID if you find a pokemon name (from a closed list of values) in the user’s input. For example, if the user inputs "charmender", you should get the data about charmender from the API by this pokemon's name - you'll have to read the docs for this too to see how that works ;)
+- [X] In the solution file you'll see this piece of code: `pokemons.forEach(this.addPokemonItem);`
   - The `addPokemonItem` method adds the pokemon to the array of todos and renders the todos list again
   - Can you figure out why this line of code is inefficient? Can you improve it?
-- [ ] Have another cool idea? Go wild!
+- [X] Have another cool idea? Go wild!
