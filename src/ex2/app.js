@@ -72,8 +72,13 @@ async function validation() {
         await pokemonClient
           .getPokemon(textInput.value)
           .then((data) => {
-            itemManager.addItem(textInput.value)
-            addNewList(`Catch ${data.name}`)
+            if (itemManager.checkingDuplicate(textInput.value)) {
+              alert(`${data.name} is already in the list`)
+              textInput.value = ""
+            } else {
+              itemManager.addItem(textInput.value)
+              addNewList(`Catch ${data.name}`)
+            }
           })
           .catch((error) => {
             console.log(error)
@@ -93,12 +98,10 @@ async function validation() {
 
 function countLists() {
   const items = itemManager.getItems()
-  console.log("countlists", items)
   counterLists.innerHTML = `${items.length}`
 }
 
 function deleteAllTasks() {
-  console.log("deleteall", itemManager.getItems())
   itemManager.removeAllItems()
   allLists.innerHTML = ""
   counterLists.innerHTML = "0"

@@ -18,4 +18,9 @@ export class ItemManager {
   removeAllItems() {
     this.items.splice(0, this.items.length)
   }
+  checkingDuplicate(item) {
+    const items = this.getItems()
+    const duplicate = items.includes(item)
+    return duplicate
+  }
 }
