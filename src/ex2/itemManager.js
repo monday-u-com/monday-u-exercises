@@ -38,7 +38,7 @@ class ItemManager {
 
     let todoValues;
     // Pokemon related task: comma separated numbers with potential spaces before/after numbers
-    if (/^(\d*\s*,\s*)*\s*\d*\s*$/.test(this.addTaskInput.value)) {
+    if (/^(\d+\s*,\s*)*\s*\d+\s*$/.test(this.addTaskInput.value)) {
       try {
         todoValues = await this.pokemonClient.getPokemon(
           this.addTaskInput.value.replaceAll(" ", "").split(",")

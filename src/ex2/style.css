@@ -64,6 +64,16 @@ body {
   overflow-y: auto;
 }
 
+.new-tasks-container {
+  /* background-color: red;
+  border: 1px solid black; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 /* ------- add task ------- */
 
 .add-task-container {

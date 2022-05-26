@@ -38,7 +38,7 @@ class Main {
     this.todoList.todos.forEach((todo) => {
       if (!this.diplayedTasksSet.has(todo.id)) {
         document
-          .querySelector(".tasks-container")
+          .querySelector(".new-tasks-container")
           .appendChild(this.createTask(todo));
         this.diplayedTasksSet.add(todo.id);
       }
@@ -89,9 +89,8 @@ class Main {
   }
 
   onClearAll() {
-    const nodes = document.querySelector(".tasks-container").childNodes;
-    // The first 5 aren't tasks
-    for (let i = nodes.length - 1; i >= 5; i--) {
+    const nodes = document.querySelector(".new-tasks-container").childNodes;
+    for (let i = nodes.length - 1; i >= 0; i--) {
       nodes[i].remove();
     }
 
