@@ -58,9 +58,16 @@ async function validation() {
     if (textInput.value.includes(",")) {
       await Promise.all(
         textInput.value.split(",").map(async (id) => {
-          const pokemon = await pokemonClient.getPokemon(id) // promise
-          itemManager.addItem(id)
-          addNewList(`Catch ${pokemon.name}`)
+          if (itemManager.checkingDuplicate(id)) {
+            errorMessage.innerHTML =
+              "One or more input is duplicated, please enter a unique task"
+            errorMessage.style.display = "block"
+            textInput.value = ""
+          } else {
+            const pokemon = await pokemonClient.getPokemon(id) // promise
+            itemManager.addItem(id)
+            addNewList(`Catch ${pokemon.name}`)
+          }
         })
       ).catch((error) => {
         console.log("error", error)
