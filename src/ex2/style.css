@@ -27,15 +27,10 @@ body {
   justify-content: center;
 }
 
-.app-name {
-  padding-left: 32px;
-  font-weight: 500;
-}
-
 .list-container {
-  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   width: 30%;
   height: 50%;
   background-color: white;
@@ -43,6 +38,11 @@ body {
   border-radius: 8px;
   -webkit-box-shadow: 12px 12px 38px -13px #000000;
   box-shadow: 12px 12px 38px -13px #000000;
+}
+
+.app-name {
+  padding-left: 32px;
+  font-weight: 500;
 }
 
 .list-controls {
@@ -87,8 +87,9 @@ body {
 
 #list {
   list-style-type: none;
+  margin: 0;
   padding: 0px 30px;
-  height: 310px;
+  height: 55%;
   overflow-y: scroll;
 }
 
@@ -133,18 +134,34 @@ body {
   display: none;
 }
 
-#clear-all-button {
+.list-footer {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px 0;
+}
+
+.footer-button {
   font-size: medium;
   padding: 9px 13px;
   border: none;
   border-radius: 3px;
-  position: absolute;
   width: 25%;
-  right: 32px;
-  top: 500px;
-  background-color: rgba(77, 170, 173, 0.76);
   color: rgb(57, 53, 53);
   cursor: pointer;
+}
+
+#sort-by-name-button {
+  background-color: #a7a7d9;
+}
+
+#sort-by-name-button:hover {
+  background-color: #8181d6;
+  color: white;
+  transition: background-color 0.2s ease-in-out;
+}
+
+#clear-all-button {
+  background-color: rgba(77, 170, 173, 0.76);
 }
 
 #clear-all-button:hover {
