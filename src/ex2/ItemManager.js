@@ -15,52 +15,11 @@ class ItemManager {
     const inputArray = item.split(",");
 
     if (!isNaN(+inputArray[0])) {
-      // if input is a number - fetch pokemon
-      let allPromises = [];
-
-      // add promises to allPromises array
-      inputArray.forEach((elm) => {
-        const id = elm.trim();
-        const pokemonAlreadyAdded = this.pokemons.has(id);
-
-        if (pokemonAlreadyAdded) {
-          alert(`Pokemon with ID ${id} was alrady added!`);
-        } else {
-          allPromises.push(pokemonClient.fetchPokemon(id));
-        }
-      });
-
-      // fetch all pokemons simulteniously
-      const pokemonData = await Promise.all(allPromises);
-
-      const filteredPokemons = pokemonData.filter((pokemon) => {
-        if (this.pokemons.has(`${pokemon.name}`))
-          alert(`Pokemon with ID ${pokemon.id} was alrady added!`);
-        return !this.pokemons.has(`${pokemon.name}`);
-      });
-
-      const pokemonNames = filteredPokemons.map((pokemon) => {
-        if (pokemon.name) {
-          this.pokemons.add(`${pokemon.name}`);
-          return pokemon.name;
-        } else {
-          return pokemon;
-        }
-      });
-
-      // push todos with pokemons to list
-      pokemonNames.forEach((name) => {
-        const id = name.split(" ")[0];
-
-        if (!isNaN(+id)) {
-          this.itemList.push(`Pokemon with ID ${id} was not found`);
-        } else {
-          this.itemList.push(`Catch ${name}`);
-        }
-      });
+      // if first item input is a number - add pokemon
+      await this.addPokemon(inputArray);
     } else {
-      // if input is a string - add to list
-      this.itemList.push(this.capitalize(item));
+      // if input is a string - add todo
+      this.addToDo(item);
     }
 
     //clear input
@@ -68,6 +27,60 @@ class ItemManager {
 
     // render the list
     this.renderItems(this.itemList.at(-1));
+  }
+
+  addToDo(item) {
+    this.itemList.push(this.capitalize(item));
+  }
+
+  async addPokemon(inputArray) {
+    // add promises to allPromises array
+    const allPromises = this.createPromises(inputArray);
+
+    // fetch all pokemons simulteniously
+    const pokemonData = await Promise.all(allPromises);
+
+    //filter out new pokemons
+    const newPokemons = pokemonData.filter((pokemon) => {
+      if (this.pokemons.has(`${pokemon.name}`))
+        alert(`Pokemon with ID ${pokemon.id} was alrady added!`); //alert existing pokemons
+      return !this.pokemons.has(`${pokemon.name}`);
+    });
+
+    // add new pokemons to list of pokemons
+    const pokemonNames = newPokemons.map((pokemon) => {
+      if (pokemon.name) {
+        this.pokemons.add(`${pokemon.name}`);
+        return pokemon.name;
+      } else {
+        return pokemon;
+      }
+    });
+
+    // push pokemons to todo list
+    pokemonNames.forEach((name) => {
+      const id = name.split(" ")[0];
+
+      if (!isNaN(+id)) {
+        //if first element is a number - it's id of a not found pokemon
+        this.itemList.push(`Pokemon with ID ${id} was not found`);
+      } else {
+        //if first element is not a number - it's name of a found pokemon
+        this.itemList.push(`Catch ${name}`);
+      }
+    });
+  }
+
+  createPromises(inputArray) {
+    let allPromises = [];
+
+    inputArray.forEach((elm) => {
+      const id = elm.trim();
+
+      allPromises.push(pokemonClient.fetchPokemon(id));
+    });
+
+    return allPromises;
   }
 
   removeItem(e, liElm) {
