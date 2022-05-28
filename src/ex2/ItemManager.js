@@ -6,6 +6,7 @@ class ItemManager {
     this.pokemons = new Set();
 
     this.addItem = this.addItem.bind(this);
+    this.sortByName = this.sortByName.bind(this);
     this.removeAll = this.removeAll.bind(this);
   }
 
@@ -59,7 +60,7 @@ class ItemManager {
       });
     } else {
       // if input is a string - add to list
-      this.itemList.push(item);
+      this.itemList.push(this.capitalize(item));
     }
 
     //clear input
@@ -143,6 +144,17 @@ class ItemManager {
 
   clearInputField() {
     document.querySelector("#list-item-input").value = "";
+  }
+
+  sortByName() {
+    this.itemList.sort();
+
+    this.renderItems();
+  }
+
+  capitalize(string) {
+    const updatedString = string.charAt(0).toUpperCase() + string.slice(1);
+    return updatedString;
   }
 }
 

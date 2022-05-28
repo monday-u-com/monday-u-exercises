@@ -6,12 +6,15 @@ class Main {
 
   addButton = document.querySelector("#list-item-submit");
   addItemInput = document.querySelector("#list-item-input");
+  sortByNameButton = document.querySelector("#sort-by-name-button");
   clearAllButton = document.querySelector("#clear-all-button");
 
   init() {
     this.addButton.addEventListener("click", () => {
       itemManager.addItem(this.addItemInput);
     });
+
+    this.sortByNameButton.addEventListener("click", itemManager.sortByName);
     this.clearAllButton.addEventListener("click", itemManager.removeAll);
 
     this.addItemInput.addEventListener("keypress", (event) => {
