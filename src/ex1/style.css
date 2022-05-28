@@ -1,0 +1,91 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #66999B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}
+
+#card-container {
+    width: 25%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    box-shadow: 1px 1px 100px 10px rgba(0, 0, 0, 0.1);
+}
+
+#new-task-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px
+}
+
+#new-task-input {
+    width: 100%;
+    height: 40px;
+    border-radius: 3px;
+    border: solid 1px rgba(0, 0, 0, 0.3);
+    font-size: 15px;
+    padding: 10px
+}
+
+#new-task-button {
+    height: 40px;
+    width: 40px;
+    background-color: #FFC482;
+    border-radius: 3px;
+    border: solid 1px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+#task-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px
+}
+
+.task {
+    border: solid 1px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    padding: 10px;
+    margin-top: 3px;
+    background-color: rgba(0, 0, 0, 0.03);
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+}
+
+.task:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.new-task-div-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+    gap: 20px;
+}
+
+.delete-button {
+    height: 20px;
+    width: 20px;
+    background-image: url("https://cdn-icons-png.flaticon.com/512/2891/2891491.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
