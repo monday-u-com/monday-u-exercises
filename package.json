@@ -1,0 +1,20 @@
+{
+  "name": "monday-u-exercises",
+  "description": "Welcome to monday-u official github repository! We are very excited to have you here!   This is going to be so much fun! Here are a few general details:",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epent/monday-u-exercises.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/epent/monday-u-exercises/issues"
+  },
+  "homepage": "https://github.com/epent/monday-u-exercises#readme"
+}
