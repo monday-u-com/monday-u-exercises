@@ -95,18 +95,7 @@ class ItemManager {
   }
 
   renderItems(current) {
-    const addItemButton = document.querySelector("#list-item-submit");
-    const clearAllButton = document.querySelector("#clear-all-button");
-    const sortByNameButton = document.querySelector("#sort-by-name-button");
-    if (this.itemList.length === 0) {
-      addItemButton.classList.add("hithere"); //add AddButton animation
-      clearAllButton.classList.add("hidden"); //hide ClearAll button
-      sortByNameButton.classList.add("hidden"); //hide Sort button
-    } else {
-      addItemButton.classList.remove("hithere"); //remove AddButton animation
-      clearAllButton.classList.remove("hidden"); //show ClearAll button
-      sortByNameButton.classList.remove("hidden"); //show Sort button
-    }
+    this.toggleFooter();
 
     // clear list innerHTML
     const list = document.querySelector("#list");
@@ -118,6 +107,22 @@ class ItemManager {
 
       list.appendChild(itemNode);
     });
+  }
+
+  toggleFooter() {
+    const addItemButton = document.querySelector("#list-item-submit");
+    const clearAllButton = document.querySelector("#clear-all-button");
+    const sortByNameButton = document.querySelector("#sort-by-name-button");
+
+    if (this.itemList.length === 0) {
+      addItemButton.classList.add("hithere"); //add AddButton animation
+      clearAllButton.classList.add("hidden"); //hide ClearAll button
+      sortByNameButton.classList.add("hidden"); //hide Sort button
+    } else {
+      addItemButton.classList.remove("hithere"); //remove AddButton animation
+      clearAllButton.classList.remove("hidden"); //show ClearAll button
+      sortByNameButton.classList.remove("hidden"); //show Sort button
+    }
   }
 
   createItemElement(input, current) {
