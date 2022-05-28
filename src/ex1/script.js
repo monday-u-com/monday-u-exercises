@@ -61,22 +61,22 @@ function onDOMReady() {
         }
     
         alert('removed all todos')
-        localStorage.setItem("new-todo", JSON.stringify(todoList))
+        setDataToLS(todoList)
         showTodos()
     })
 
     orderSelect.addEventListener('change', (e) => {
-        let dataFromLS = localStorage.getItem("new-todo")
-        todoList = JSON.parse(dataFromLS)
+        
+        todoList = retriveDataFromLS()
     
         if(e.target.value === "A-Z") {
-            todoList = todoList.sort()
+            todoList = [...todoList.sort()]
         }
         else{
-            todoList = todoList.sort().reverse()
+            todoList = [...todoList.sort().reverse()]
         }
     
-        localStorage.setItem("new-todo", JSON.stringify(todoList))
+        setDataToLS(todoList)
         showTodos()
     })
 }
@@ -93,32 +93,44 @@ function addTodo(){
         return
     }
 
-    checkIfExistDataFromLS()
-    pushEnteredDataToLS(enterValue)
+    todoList = retriveDataFromLS()
+    pushEnteredDataToLS(trim(enterValue))
     showTodos()
 
     addTodoButton.classList.remove("active")
 }
 
-function checkIfExistDataFromLS(){
+function retriveDataFromLS() {
+    const dataFromLS = localStorage.getItem("new-todo")
+    return JSON.parse(dataFromLS)
+}
+
+function setDataToLS(todoList) {
+    localStorage.setItem("new-todo", JSON.stringify(todoList))
+}
+
+function checkDataFromLS(){
     let dataFromLS = localStorage.getItem("new-todo")
+    let copyTodoList = []
 
     if(dataFromLS === null){
-        todoList = []
+        copyTodoList = []
     }
     else{
-        todoList = JSON.parse(dataFromLS)
+        copyTodoList = JSON.parse(dataFromLS)
     }
+
+    return copyTodoList
 }
 
 function pushEnteredDataToLS(enterValue){
     todoList.push(enterValue)
-    localStorage.setItem("new-todo", JSON.stringify(todoList))
+    setDataToLS(todoList)
     alert(`added new todo ${enterValue}`)
 }
 
 function showTodos() {
-    checkIfExistDataFromLS()
+    todoList = checkDataFromLS()
     showMatchUiByTodosNumber()
     createTodoListItems()
 }
@@ -150,10 +162,10 @@ function createTodoListItems() {
     todoList.forEach((todo, index) => { 
         listItems += `<li class="todo-item">${todo}
             <div>
-                <span class="action-btn edit" onclick="editTodo(${index})";>
+                <span class="action-btn edit">
                     <i class="fas fa-pen"></i>
                 </span>
-                <span class="action-btn delete" onclick="deleteTodo(${index})";>
+                <span class="action-btn delete">
                     <i class="fas fa-trash"></i>
                 </span>
             </div>
@@ -163,28 +175,61 @@ function createTodoListItems() {
 
     todoListElement.innerHTML = listItems
 
+    createDeleteAndEditEvents()
     todoInput.value = ""
+}
+
+function createDeleteAndEditEvents() {
+    const deleteItems = document.querySelectorAll(".delete")
+    const editItems = document.querySelectorAll(".edit")
+
+    for (let i = 0; i < deleteItems.length; i++) {
+        deleteItems[i].addEventListener("click", () => this.deleteTodo(i))
+    }
+
+    for (let i = 0; i < editItems.length; i++) {
+        editItems[i].addEventListener("click", () => this.editTodo(i))
+    }
 }
 
 function deleteTodo(index) {
     
-        let dataFromLS = localStorage.getItem("new-todo")
-        todoList = JSON.parse(dataFromLS)
+        todoList = retriveDataFromLS()
         const removedTodo = todoList[index]
-        todoList.splice(index, 1) //remove one todo
+        todoList = deletItemFromList(index) //remove one todo
         alert(`removed new todo ${removedTodo}`)
-        localStorage.setItem("new-todo", JSON.stringify(todoList))
+        setDataToLS(todoList)
         showTodos()       
+}
+
+function deletItemFromList(index) {
+    let copyTodoList = todoList
+    copyTodoList.splice(index, 1)
+    return copyTodoList
 }
 
 function editTodo(index) {
     let editedValue = prompt('Edit todo:', todoList[index])
-    let dataFromLS = localStorage.getItem("new-todo")
-    todoList = JSON.parse(dataFromLS)
-    todoList[index] = editedValue
+    
+    if(editedValue === null ){
+        return
+    }
+
+    todoList = retriveDataFromLS()
+    todoList = editItemFromList(index, editedValue)
     alert(`edited todo ${editedValue}`)
-    localStorage.setItem("new-todo", JSON.stringify(todoList))
+    setDataToLS(todoList)
     showTodos()
+}
+
+function editItemFromList(index ,editedValue) {
+    let copyTodoList = todoList
+    copyTodoList[index] = editedValue
+    return copyTodoList
+}
+
+function trim(value) {
+    return value.replace(/^\s+|\s+$/g,"");
 }
 
 
