@@ -6,10 +6,7 @@ class ItemManager {
     this.pokemons = new Set();
 
     this.addItem = this.addItem.bind(this);
-    this.removeItem = this.removeItem.bind(this);
     this.removeAll = this.removeAll.bind(this);
-    this.renderItems = this.renderItems.bind(this);
-    this.createItemElement = this.createItemElement.bind(this);
   }
 
   async addItem(input) {
@@ -65,6 +62,10 @@ class ItemManager {
       this.itemList.push(item);
     }
 
+    //clear input
+    this.clearInputField();
+
+    // render the list
     this.renderItems(this.itemList.at(-1));
   }
 
@@ -137,10 +138,11 @@ class ItemManager {
     deleteButton.addEventListener("click", (e) => this.removeItem(e, liElm));
     liElm.appendChild(deleteButton);
 
-    //clear input
-    document.querySelector("#list-item-input").value = "";
-
     return liElm;
+  }
+
+  clearInputField() {
+    document.querySelector("#list-item-input").value = "";
   }
 }
 
