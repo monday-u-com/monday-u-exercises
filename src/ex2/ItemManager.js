@@ -68,11 +68,12 @@ class ItemManager {
     this.renderItems(this.itemList.at(-1));
   }
 
-  removeItem({ target }) {
-    const buttonId = target.id.split("-");
-    buttonId.pop();
-    const pokemonName = buttonId[1];
-    const item = buttonId.join(" ");
+  removeItem(e, liElm) {
+    e.stopPropagation();
+
+    const itemId = liElm.id.split("-");
+    const pokemonName = itemId[1];
+    const item = itemId.join(" ");
 
     const itemIndex = this.itemList.findIndex((listItem) => {
       return listItem === item;
@@ -124,7 +125,7 @@ class ItemManager {
     const liElm = document.createElement("li");
     liElm.setAttribute("id", `${itemId}`);
     liElm.classList.add("list-item");
-    if (input === current) divElm.classList.add("grow");
+    if (input === current) liElm.classList.add("grow");
     liElm.innerHTML = input;
     liElm.addEventListener("click", () => alert(`Task: ${input}`));
 
@@ -133,7 +134,7 @@ class ItemManager {
     deleteButton.setAttribute("id", `${itemId}-delete`);
     deleteButton.classList.add("list-item-delete-button");
     deleteButton.src = "../images/delete_icon.svg";
-    deleteButton.addEventListener("click", this.removeItem);
+    deleteButton.addEventListener("click", (e) => this.removeItem(e, liElm));
     liElm.appendChild(deleteButton);
 
     //clear input
