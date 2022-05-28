@@ -120,16 +120,13 @@ class ItemManager {
   createItemElement(input, current) {
     const itemId = input.split(" ").join("-");
 
-    // create div element, add classes and id
-    const divElm = document.createElement("div");
-    divElm.setAttribute("id", `${itemId}`);
-    divElm.classList.add("div-item");
-    if (input === current) divElm.classList.add("grow");
-
-    //create list element, add class and innerHTML
+    //create list element, add class, innerHTML, eventListener
     const liElm = document.createElement("li");
+    liElm.setAttribute("id", `${itemId}`);
     liElm.classList.add("list-item");
+    if (input === current) divElm.classList.add("grow");
     liElm.innerHTML = input;
+    liElm.addEventListener("click", () => alert(`Task: ${input}`));
 
     //create delete button, add id, class, src and clickListener
     const deleteButton = document.createElement("img");
@@ -137,15 +134,12 @@ class ItemManager {
     deleteButton.classList.add("list-item-delete-button");
     deleteButton.src = "../images/delete_icon.svg";
     deleteButton.addEventListener("click", this.removeItem);
-
-    //append <li> and <button> to <div>
-    divElm.appendChild(liElm);
-    divElm.appendChild(deleteButton);
+    liElm.appendChild(deleteButton);
 
     //clear input
     document.querySelector("#list-item-input").value = "";
 
-    return divElm;
+    return liElm;
   }
 }
 
