@@ -5,23 +5,22 @@ class Main {
     }
 
     init = () => {
-        const addBtn = document.querySelectorAll('.add-task-btn');
-        const addTaskField = document.querySelectorAll('.add-task-field');
-        const clearAllBtn = document.querySelectorAll('.clear-all-btn');
+        const addBtn = document.querySelector('.add-task-btn');
+        const addTaskField = document.querySelector('.add-task-field');
+        const clearAllBtn = document.querySelector('.clear-all-btn');
 
 
-        addBtn[0].addEventListener('click', () => {
-            this.addTaskFunc();
+        addBtn.addEventListener('click', () => {
+            this.addTask();
         });
 
-        addTaskField[0].addEventListener("keydown", (event) => {
+        addTaskField.addEventListener("keydown", (event) => {
             if (event.key === "Enter") {
-                this.addTaskFunc();
+                this.addTask();
             }
         });
 
-        clearAllBtn[0].addEventListener('click', () => {
-            const tasks = document.querySelectorAll('.tasks');
+        clearAllBtn.addEventListener('click', () => {
             this.itemManager.removeAllTasks();
             this.renderTaskList(this.itemManager.getTaskList());
         });
@@ -29,10 +28,9 @@ class Main {
         this.renderTaskList(taskList);
     }
 
-    async addTaskFunc() {
-        const newTaskField = document.querySelectorAll('.add-task-field');
-        const taskText = newTaskField[0].value;
-        const tasks = document.querySelectorAll('.tasks');
+    async addTask() {
+        const newTaskField = document.querySelector('.add-task-field');
+        const taskText = newTaskField.value;
         const validInput = this.isValidInput(taskText);
 
         if (validInput) {
@@ -69,11 +67,18 @@ class Main {
         delBtn.classList.add('fa-1x');
 
 
-        delBtn.onclick = () => {
-            const getTaskContent = delBtn.parentNode.parentNode.getElementsByTagName('h3')[0].textContent;
-            this.itemManager.removeTask(getTaskContent);
+        div.onclick = () => {
+            alert(text);
+        }
+
+        delBtn.onclick = (e) => {
+            e.stopPropagation();
+            const getDivParent = delBtn.closest("div");
+            const getTextFromH3 = getDivParent.getElementsByTagName("h3")[0].textContent;
+            this.itemManager.removeTask(getTextFromH3);
             this.renderTaskList(this.itemManager.getTaskList());
         }
+
 
         span.append(delBtn)
         div.append(span);
@@ -104,26 +109,20 @@ class Main {
         const div = document.createElement('div');
         div.classList.add('chill');
         const i1 = document.createElement('i');
-        i1.classList.add('fa');
-        i1.classList.add('fa-solid');
-        i1.classList.add('fa-martini-glass-citrus');
-        i1.classList.add('fa-4x');
+        i1.classList.add('fa', 'fa-solid', 'fa-martini-glass-citrus', 'fa-4x');
         const i2 = document.createElement('i');
         i2.textContent = 'Chill out! Nothing to do';
-        div.append(i1);
-        div.append(i2);
+        div.append(i1, i2);
         return div;
-
     }
 
     resetInputField(newTaskField) {
-        newTaskField[0].value = "";
-        newTaskField[0].focus();
+        newTaskField.value = "";
+        newTaskField.focus();
     }
 
     renderTaskList(newTaskList) {
-        const tasks = document.querySelectorAll('.tasks');
-        const taskList = this.itemManager.getTaskList();
+        const tasks = document.querySelector('.tasks');
         const divList = [];
         if (newTaskList.length > 0) {
             newTaskList.forEach((task) => {
@@ -135,11 +134,11 @@ class Main {
             divList.push(this.ChillMsg());
         }
         console.log(divList);
-        tasks[0].replaceChildren();
+        tasks.replaceChildren();
         divList.forEach((divTask) => {
-            tasks[0].append(divTask);
+            tasks.append(divTask);
         })
-        this.updateFooter(taskList.length);
+        this.updateFooter(newTaskList.length);
     }
 }
 
