@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Welcome to monday-u official github repository! We are very excited to have you here!  \r This is going to be so much fun! Here are a few general details:",
   "main": "index.js",
+  "type":"module",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
