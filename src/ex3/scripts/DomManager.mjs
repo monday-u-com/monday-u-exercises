@@ -1,4 +1,4 @@
-class DomManager {
+export default class DomManager {
     constructor() {
         this.task_input = document.querySelector("#todo_input");
         this.task_container = document.querySelector("#todo_tasks_container");
