@@ -1,0 +1,348 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --dark: #374151;
+    --darker: #1F2937;
+    --darkest: #111827;
+    --grey: #6B7280;
+    --pink: #EC4899;
+    --purple: #8B5CF6;
+    --light: #EEE;
+}
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Fira sans", sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #FFF;
+    background-image: url("Sea_MonBay.jpeg");
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 500px; /*  a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    /* background-size: 900px 700px; /* Resize the background image to cover the entire container */
+}
+
+
+header {
+    padding: 2rem 1rem;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+header h1{
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--grey);
+    margin-bottom: 1rem;
+}
+
+#new-task-form {
+    display: flex;;
+}
+
+#new-task-input {
+    flex: 1 1 0%;
+    background-color: floralwhite;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-right: 1rem;
+    color: var(--light);
+    font-size: 1.25rem;
+}
+
+#new-task-input::placeholder {
+    color: var(--grey);
+}
+#new-task-submit {
+    color: var(--pink);
+    font-size: 1.25rem;
+    font-weight: 700;
+    background-image: linear-gradient(to right, var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    transition: 0.4s;
+}
+#new-task-submit:hover {
+    opacity: 0.8;
+}
+
+#new-task-submit:active {
+    opacity: 0.6;
+}
+main {
+    flex: 1 1 0%;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.task-list {
+    padding: 1rem;
+}
+
+.task-list h2 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--grey);
+    margin-bottom: 1rem;
+}
+
+#tasks .task {
+    display: flex;
+    justify-content: space-between;
+    background-color: floralwhite;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+
+.task .content {
+    flex: 1 1 0%;
+}
+
+.task .content .text {
+    color: var(--light);
+    font-size: 1.125rem;
+    width: 100%;
+    display: block;
+    transition: 0.4s;
+}
+
+.task .content .text:not(:read-only) {
+    color: var(--pink);
+}
+
+.task .actions {
+    display: flex;
+    margin: 0 -0.5rem;
+}
+
+.task .actions button {
+    cursor: pointer;
+    margin: 0 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: 0.4s;
+}
+
+.task .actions button:hover {
+    opacity: 0.8;
+}
+
+.task .actions button:active {
+    opacity: 0.6;
+}
+
+.task .actions .edit {
+    background-image: linear-gradient(to right, var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.task .actions .delete {
+    color: crimson;
+}
+
+
+
+
+
+
+
+
+
+
+body {
+    min-height: 100vh;
+    background-image: url("Sea_MonBay.jpeg");
+    font-family: "Poppins", sans-serif;
+    vertical-align: middle;
+}
+
+.container {
+    background: white;
+    width: 500px;
+    margin: 10vh auto;
+    border-radius: 10px;
+    padding-bottom: 30px;
+}
+
+h1 {
+    font-size: 2rem;
+    padding: 2rem 1rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    padding: 0rem 1rem;
+    justify-content: space-between;
+}
+
+form input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    border: 1px solid gray;
+    border-radius: 3px;
+    outline: none;
+    background: white;
+}
+
+form button {
+    flex: 1;
+    color: #8e49e8;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 5px;
+    border: none;
+    font-size: 3rem;
+}
+
+
+
+form button:hover {
+    color: white;
+}
+
+.todo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-list {
+    width: 100%;
+    list-style: none; /*cancel the little dots of the list */
+}
+
+.todo {
+    margin: 1rem;
+    background-color: var(--darker);
+    color: honeydew;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.7s ease;
+}
+
+.todo li {
+    flex: 1; /* moving check and trash icon to the right */
+}
+
+.trash-button,
+.complete-button {
+    color: white;
+    background: #db5039;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.complete-button {
+    color: white;
+    background: #31c521;
+}
+
+.trash-button:hover {
+    background: white;
+    color: #db5039;
+}
+
+.complete-button:hover {
+    background: #7cff6d;
+    color: #31c521;
+}
+
+.todo-item {
+    padding: 0rem 1rem;
+}
+
+.todo:hover {
+    cursor: pointer;
+    background: #63dad2;
+}
+
+.fa-trash,
+.fa-check {
+    pointer-events: none;
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.fall {
+    transform: translateY(8rem) rotateZ(20deg);
+    opacity: 0;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 0rem 1rem;
+}
+
+.pending-counter{
+    grid-column: 1/3;
+    font-size: 1rem;
+    align-self: center;
+}
+
+.clear-all-button {
+    grid-column: 4;
+    font-size: 1.1rem;
+    background: skyblue;
+    color: white;
+    padding: 0.5rem;
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    justify-self: end;
+    font-family: "Poppins", sans-serif;
+    display: none;
+}
+
+.clear-all-button:hover {
+    background: skyblue;
+    color: skyblue;
+    cursor: pointer;
+}
+
+.filter-todo{
+    grid-column: 3;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    background: skyblue;
+    color: white;
+    max-width: 145px;
+    display: none;
+}
+
