@@ -2,3 +2,4 @@ src/ex1/.vscode/
 node_modules
 .idea
 .DS_Store
+.env
