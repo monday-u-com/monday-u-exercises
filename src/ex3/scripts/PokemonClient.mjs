@@ -1,5 +1,6 @@
+import fetch from 'node-fetch';
 
-class PokemonClient {
+export default class PokemonClient {
     constructor() {
         this.base_url = "https://pokeapi.co/api/v2/pokemon/";
         this.pokemons_url = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";

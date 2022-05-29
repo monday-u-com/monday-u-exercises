@@ -84,18 +84,16 @@ class DomManager {
         const pokemon_image_sprites_container = document.createElement("div");
         pokemon_image_sprites_container.classList.add("image_sprites");
         Object.entries(task_object.images).forEach((image_attribute, index) => {// adds all images from api
-            if (image_attribute[1] && image_attribute[1] !== Object(image_attribute[1])) {// check if there is an image 
-                const pokemon_image = document.createElement("img");
-                pokemon_image.id = index;
-                // adds class for animation
-                if (index === 0)
-                    pokemon_image.classList.add("show");
-                else
-                    pokemon_image.classList.add("hide");
-                pokemon_image.classList.add("pokemon_image");
-                pokemon_image.src = image_attribute[1];
-                pokemon_image_sprites_container.appendChild(pokemon_image);
-            }
+            const pokemon_image = document.createElement("img");
+            pokemon_image.id = index;
+            // adds class for animation
+            if (index === 0)
+                pokemon_image.classList.add("show");
+            else
+                pokemon_image.classList.add("hide");
+            pokemon_image.classList.add("pokemon_image");
+            pokemon_image.src = image_attribute[1];
+            pokemon_image_sprites_container.appendChild(pokemon_image);
         });
         return pokemon_image_sprites_container;
     }
