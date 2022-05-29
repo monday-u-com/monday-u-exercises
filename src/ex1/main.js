@@ -1,9 +1,11 @@
+
 const inputText = document.querySelector(".inputField input");
 const addBtn = document.querySelector(".inputField button");
 const todoList = document.querySelector(".todoList");
 const deleteAllBtn = document.querySelector(".footer button");
 const orderDescBtn = document.querySelector(".fa-arrow-up");
 const orderAscBtn = document.querySelector(".fa-arrow-down");
+
 
 // View
 class Main {
@@ -76,6 +78,7 @@ class Main {
 
   render() {
     const getLocalStorageData = localStorage.getItem("New Todo") || [];
+    
     this.listOfToDoArr = JSON.parse(getLocalStorageData);
 
     if (!this.listOfToDoArr.length) {
@@ -224,6 +227,7 @@ const main = new Main();
 const itemManager = new ItemManager();
 
 document.addEventListener("DOMContentLoaded", function () {
+  localStorage.setItem("New Todo", "[]");
   main.render();
   main.init();
 });
