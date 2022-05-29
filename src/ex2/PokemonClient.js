@@ -75,7 +75,6 @@ export default class PokemonClient{
 
     deleteTodo(index){
         const removedTodo = this.itemManager.deleteTodo(index)
-        this.showTodos()
         alert(`removed new todo ${removedTodo}`) 
     }
 

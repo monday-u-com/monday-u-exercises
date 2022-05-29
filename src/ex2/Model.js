@@ -19,7 +19,9 @@ export default class Model {
     }
 
     removeData(index){
-        this.todoList.splice(index, 1)
+        let copyArr = this.todoList
+        copyArr.splice(index,1)
+        this.todoList = copyArr
     }
 
     saveDataToLS(){ 
@@ -31,10 +33,10 @@ export default class Model {
     }
 
     filterDataAToZ(){
-        this.todoList.sort()
+        this.todoList = [...this.todoList.sort()]
     }
 
     filterDataZToA(){
-        this.todoList.sort().reverse()
+        this.todoList = [...this.todoList.sort().reverse()]
     }
 }

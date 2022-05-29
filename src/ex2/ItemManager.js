@@ -29,7 +29,8 @@ export default class ItemManager {
 
     handleAddMultiPokemonsTodo(enterValue){
 
-        const split = enterValue.split(",")
+        const trimValue = this.trim(enterValue)
+        const split = trimValue.split(",")
         const pokemonArr = []
 
         for(let i = 0; i < split.length; i++){
@@ -40,7 +41,7 @@ export default class ItemManager {
             .then(response => {
                 response.forEach(res => {
                     const types = this.getTypes(res)
-                    this.model.addData(this.returnPokemonData(res, types))
+                    this.model.addData(this.trim(this.returnPokemonData(res, types)))
             })
             this.updateTodos()
         }).catch(error => {
@@ -68,7 +69,8 @@ export default class ItemManager {
     }
 
     async handleAddSinglePokemonTodo(enterValue){
-        const dataRetrieved = await this.fetchSingle(enterValue)
+        const trimValue = this.trim(enterValue)
+        const dataRetrieved = await this.fetchSingle(trimValue)
         this.model.addData(dataRetrieved)
         this.updateTodos()
     }
@@ -95,7 +97,7 @@ export default class ItemManager {
         let types = ""
 
         typeNo.forEach(type => {
-            types += type.type.name + ", "    
+            types += type.type.name + "/"    
         })
 
         return types
@@ -105,11 +107,15 @@ export default class ItemManager {
         return "catch " +res.name + " with type " + types
     }
 
+    trim(value) {
+        return value.replace(/^\s+|\s+$/g,"");
+    }
+
     deleteTodo(index) {
     
         const removedTodo = this.model.todoList[index]
         this.model.removeData(index)
-        this.model.saveDataToLS()   
+        this.updateTodos()
 
         return removedTodo
     }
