@@ -1,0 +1,21 @@
+.image_sprites
+{
+    position: relative;
+    width: 50px;
+}
+.pokemon_image
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 50px;
+}
+
+.hide
+{
+    opacity: 0;
+}
+.show
+{
+    opacity: 1;
+}
