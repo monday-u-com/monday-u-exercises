@@ -4,39 +4,33 @@ class PokemonClient {
     }
 
 
-    async catchPokemons(numbers) { // numbers -> array of numbers
+    async catchPokemons(numbers) { // numbers -> array of IDs
         const API = this.API_BASE + `pokemon/`;
-        const promises = [];
         let res = [];
-        numbers.map((num) => {
-            promises.push(fetch(API + num + '/'));
-        })
+        const promises = numbers.map((num) => fetch(API + num + '/'));
         try {
             const response = await Promise.all(promises);
-            for (const item of response) {//resolve each promise
+            for (const item of response) { //resolve each promise
                 res.push(await item.json());
             }
-            res.forEach((el, index) => res[index] = el.name);//extract each element to pokemon name
-            console.log('fetched pokemons: ', res);
-            return res;//one or more names
+            return res; //one or more names
         }
-        catch (e) {//Promise.all failed
-            console.log('Catch Error: ', e);
-            return false;
+        catch (err) { //Promise.all failed
+            throw err;
         }
 
     }
 
-    async pokemonType(number) {
-        const URL = `https://pokeapi.co/api/v2/type/${number}/`;
+    async getPokemonTypeById(number) {
+        const URL = this.API_BASE + `type/${number}/`;
         try {
             const response = await fetch(URL);
             const result = await response.json();
-            return result.name;
+            return result;
         }
-        catch (e) {
+        catch (err) {
             console.log(number + ' not found');
-            return false;
+            throw err;
         }
     }
 

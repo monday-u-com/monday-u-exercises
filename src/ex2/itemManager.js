@@ -4,38 +4,38 @@ class ItemManager {
         this.pokemonClient = new PokemonClient();
     }
 
-    async addTask(text) {
-        const newTaskList = [...this.getTaskList()];
-        const arr = text.split(',');
+    async addCatchPokemonTask(IDs) {
+        const newTaskList = [...this._getTaskList()];
         const pClient = this.pokemonClient;
-        
-        if (this.isNumbers(arr)) {//check if input is array of number(s)
-            let pokemonArray = [];
-            arr.forEach((num) => pokemonArray.push(parseInt(num)));
-            const pokemonsNames = await pClient.catchPokemons(pokemonArray);
 
-            if (pokemonsNames !== false) {//GET request success
-                pokemonsNames.forEach((pokemon) => {
-                    const newText = 'Catch: ' + pokemon;
-                    if (!this.isTaskExist(newText))//task already exist
-                        newTaskList.push(newText);
-                })
-            }
-            else {//GET request failed
-                const newText = 'Failed to catch pokemon with this input: ' + arr;
-                if (!this.isTaskExist(newText))
+        IDs.map((num) => parseInt(num));
+        try {
+            const pokemonsRawJson = await pClient.catchPokemons(IDs);
+            const pokemonsNames = pokemonsRawJson.map((pokemon) => pokemon.name);
+            pokemonsNames.forEach((pokemon) => {
+                const newText = 'Catch: ' + pokemon;
+                if (!this._isTaskExist(newText))//task already exist
                     newTaskList.push(newText);
-            }
+            })
         }
-        else {//plain text task
-            if (!this.isTaskExist(text))
-                newTaskList.push(text);
+        catch { //GET request failed                    
+            const newText = 'Failed to catch pokemon with this input: ' + IDs;
+            if (!this._isTaskExist(newText))
+                newTaskList.push(newText);
         }
-        this.setTaskList(newTaskList);
+        // }
+        this._setTaskList(newTaskList);
     }
 
-    isTaskExist(text) {
-        const taskList = this.getTaskList();
+    addPlainTextTask(text) {
+        const newTaskList = [...this._getTaskList()];
+        if (!this._isTaskExist(text))
+            newTaskList.push(text);
+        this._setTaskList(newTaskList);
+    }
+
+    _isTaskExist(text) {
+        const taskList = this._getTaskList();
         if (taskList.indexOf(text) !== -1) {
             alert("Task already exist!\nEnter new task!");
             return true;
@@ -44,34 +44,30 @@ class ItemManager {
     }
 
     removeTask(text) {
-        const newTaskList = [...this.getTaskList()];
+        const newTaskList = [...this._getTaskList()];
         const index = newTaskList.indexOf(text);
 
         if (index !== -1) {//text found and index number returned
             newTaskList.splice(index, 1);
-            this.setTaskList(newTaskList);
+            this._setTaskList(newTaskList);
             console.log('Item removed from list');
         }
         else console.log('removeFromTaskList ERROR!');
     }
 
     removeAllTasks() {
-        this.setTaskList([]);
+        this._setTaskList([]);
     }
 
 
-    getTaskList() {
+    _getTaskList() {
         return this.taskList;
     }
 
-    setTaskList(newTaskList) {
+    _setTaskList(newTaskList) {
         this.taskList = newTaskList;
     }
 
-    isNumbers(input) {
-        return input.every((item) => {
-            return !isNaN(item);
-        })
-    }
+
 }
 

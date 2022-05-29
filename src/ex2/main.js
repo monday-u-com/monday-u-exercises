@@ -22,26 +22,38 @@ class Main {
 
         clearAllBtn.addEventListener('click', () => {
             this.itemManager.removeAllTasks();
-            this.renderTaskList(this.itemManager.getTaskList());
+            this.renderTaskList(this.itemManager._getTaskList());
         });
-        const taskList = this.itemManager.getTaskList();
+        const taskList = this.itemManager._getTaskList();
         this.renderTaskList(taskList);
     }
 
     async addTask() {
         const newTaskField = document.querySelector('.add-task-field');
         const taskText = newTaskField.value;
-        const validInput = this.isValidInput(taskText);
+        const validInput = this._isValidInput(taskText);
 
         if (validInput) {
-            await this.itemManager.addTask(taskText);
-            this.renderTaskList(this.itemManager.getTaskList());
+            if (this._isNumbers(taskText)) {
+                await this.itemManager.addCatchPokemonTask(taskText.split(','));
+            }
+            else {
+                this.itemManager.addPlainTextTask(taskText);
+            }
+            this.renderTaskList(this.itemManager._getTaskList());
         }
         this.resetInputField(newTaskField);
     }
 
-    isValidInput(taskText) {
-        const taskList = this.itemManager.getTaskList();
+    _isNumbers(input) {
+        const arr = input.split(',');
+        return arr.every((item) => {
+            return !isNaN(item);
+        })
+    }
+
+    _isValidInput(taskText) {
+        const taskList = this.itemManager._getTaskList();
         if (taskText.trim() == "") {//handling empty string or string of spaces
             alert("Enter new task!");
             return false;
@@ -76,7 +88,7 @@ class Main {
             const getDivParent = delBtn.closest("div");
             const getTextFromH3 = getDivParent.getElementsByTagName("h3")[0].textContent;
             this.itemManager.removeTask(getTextFromH3);
-            this.renderTaskList(this.itemManager.getTaskList());
+            this.renderTaskList(this.itemManager._getTaskList());
         }
 
 
