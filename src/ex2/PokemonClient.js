@@ -1,13 +1,5 @@
 import ItemManager from "./ItemManager.js"
 
-const todoListElement = document.getElementById("todo-list")
-const addTodoButton = document.getElementById("add-todo-button")
-const todoInput = document.getElementById("todo-input")
-const clearAllTodosButton = document.getElementById("clear-all-todos-button")
-const sumTodos = document.getElementById("sum-todos")
-const orderSelect = document.getElementById("order-select")
-const enterTodos = document.getElementById("enter-todos")
-
 export default class PokemonClient{
     constructor(){
         this.itemManager = new ItemManager(this);
@@ -19,6 +11,7 @@ export default class PokemonClient{
     }
 
     showMatchUiByTodosNumber() {
+        const sumTodos = document.getElementById("sum-todos")
         sumTodos.textContent = this.itemManager.todoListSize()
         
         if(this.itemManager.todoListSize() > 0){
@@ -30,18 +23,26 @@ export default class PokemonClient{
     }
 
     updateUIWithNonEmptyInput() {
+        const enterTodos = document.getElementById("enter-todos")
+        const clearAllTodosButton = document.getElementById("clear-all-todos-button")
+
         clearAllTodosButton.classList.add("active")
         clearAllTodosButton.style.cursor = "pointer"
         enterTodos.style.display = "none"
     }
 
     updateUIWithEmptyInput() {
+        const enterTodos = document.getElementById("enter-todos")
+        const clearAllTodosButton = document.getElementById("clear-all-todos-button")
+
         clearAllTodosButton.classList.remove("active")
         clearAllTodosButton.style.cursor = "not-allowed"
         enterTodos.style.display = "block"
     }
 
     createTodoListItems() {
+        const todoInput = document.getElementById("todo-input")
+
         this.createItemsByCurrentData()
         this.createItemsDeleteFuctionality()
         
@@ -49,6 +50,7 @@ export default class PokemonClient{
     }
 
     createItemsByCurrentData(){
+        const todoListElement = document.getElementById("todo-list")
         let listItems = ""
 
         this.itemManager.getTodoList().forEach((todo) => { 
@@ -79,9 +81,13 @@ export default class PokemonClient{
     }
 
     addTodo(){
-        let enterValue = todoInput.value
+        const todoInput = document.getElementById("todo-input")
+        const addTodoButton = document.getElementById("add-todo-button")
 
-        if(enterValue.trim() === ""){
+        let enterValue = todoInput.value
+        const inputIsEmpty = enterValue.trim() === ""
+
+        if(inputIsEmpty){
             alert("todo cannot be empty")
         }
         else{
@@ -106,41 +112,68 @@ export default class PokemonClient{
     }
 }
 
-const pokemonClient = new PokemonClient();
-pokemonClient.showTodos()
+document.addEventListener("DOMContentLoaded", function() {
+    onDOMReady();
+})
 
-todoInput.onkeyup = (e) => {
-    let enterValue = todoInput.value
+function onDOMReady() {
+    const addTodoButton = document.getElementById("add-todo-button")
+    const todoInput = document.getElementById("todo-input")
+    const clearAllTodosButton = document.getElementById("clear-all-todos-button")
+    const orderSelect = document.getElementById("order-select")
 
-    if (enterValue.trim() !== ""){
-        addTodoButton.classList.add("active")
-        addTodoButton.style.cursor = "pointer"
-        addTodoButton.style.opacity = 1
+    const pokemonClient = new PokemonClient();
+    pokemonClient.showTodos()
 
-        if(e.keyCode === 13){
-            pokemonClient.addTodo()
+    todoInput.addEventListener('keyup', (e) => {
+        let enterValue = e.target.value
+        const ENTER_KEY = 13
+        const inputIsNotEmpty = enterValue.trim() !== ""
+        const enterKeyPressed = e.keyCode === ENTER_KEY
+    
+        if (inputIsNotEmpty){
+            handleButtonWhenInputIsEmpty()
+    
+            if(enterKeyPressed){
+                pokemonClient.addTodo()
+            }
         }
-    }
-    else{
-        addTodoButton.classList.remove("active")
-        addTodoButton.style.opacity = 0.2
-        addTodoButton.style.cursor = "not-allowed"
-    }
+        else{
+            handleButtonWhenInputIsNotEmpty()
+        }
+    })
+
+    addTodoButton.addEventListener("click", () => {
+        pokemonClient.addTodo()
+    })
+    
+    clearAllTodosButton.addEventListener("click", () => {
+        pokemonClient.clearAllTodos()
+    }) 
+    
+    orderSelect.addEventListener('change', (e) => {
+        if(e.target.value === "A-Z") {
+            pokemonClient.filterDataAToZ()
+        }
+        else{
+            pokemonClient.filterDataZToA()
+        }
+    })
 }
 
-addTodoButton.addEventListener("click", () => {
-    pokemonClient.addTodo()
-})
+function handleButtonWhenInputIsEmpty(){
+    const addTodoButton = document.getElementById("add-todo-button")
 
-clearAllTodosButton.addEventListener("click", () => {
-    pokemonClient.clearAllTodos()
-}) 
+    addTodoButton.classList.add("active")
+    addTodoButton.style.cursor = "pointer"
+    addTodoButton.style.opacity = 1
+}
 
-orderSelect.addEventListener('change', (e) => {
-    if(e.target.value === "A-Z") {
-        pokemonClient.filterDataAToZ()
-    }
-    else{
-        pokemonClient.filterDataZToA()
-    }
-})
+function handleButtonWhenInputIsNotEmpty() {
+    const addTodoButton = document.getElementById("add-todo-button")
+
+    addTodoButton.classList.remove("active")
+    addTodoButton.style.opacity = 0.2
+    addTodoButton.style.cursor = "not-allowed"
+}
+
