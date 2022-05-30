@@ -1,9 +1,9 @@
 const allTodosList = document.getElementById("all-todos-list");
 
-const unsorted = 0;
-const sortedAsc = 1;
-const sortedDesc = 2;
-let isListSorted = unsorted;
+const UNSORTED = 0;
+const SORTED_ASK = 1;
+const SORTED_DESC = 2;
+let isListSorted = UNSORTED;
 
 const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
 const inputTitle = document.getElementById("new-todo-title");
@@ -41,7 +41,7 @@ function addTodoItem(todoText, animation) {
   addEventListenerForTodoTitle(listItem);
   addEventListenerForDeleteButton(listItem);
   allTodosList.appendChild(listItem);
-  isListSorted = unsorted;
+  isListSorted = UNSORTED;
 }
 
 function createListElement(todoText, animation) {
@@ -127,12 +127,12 @@ inputTitle.addEventListener("keypress", (event) => {
 });
 
 function onSortListButtonClicked() {
-  if (isListSorted === unsorted || isListSorted === sortedDesc) {
+  if (isListSorted === UNSORTED || isListSorted === SORTED_DESC) {
     sortListWithOrder(compareElementsAsc);
-    isListSorted = sortedAsc;
+    isListSorted = SORTED_ASK;
   } else {
     sortListWithOrder(compareElementsDesc);
-    isListSorted = sortedDesc;
+    isListSorted = SORTED_DESC;
   }
 }
 
