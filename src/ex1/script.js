@@ -47,10 +47,11 @@ function addTodoItem(todoText, animation) {
 
 function createListElement(todoText, animation) {
   const listItem = document.createElement("li");
+  listItem.className = "todo-li";
   if (animation) {
-    listItem.className = "add-item-animation";
+    listItem.className = "todo-li add-item-animation";
   }
-  setTimeout (() => { listItem.className = "existing-item";}, 700);
+  setTimeout (() => { listItem.className = "todo-li existing-item";}, 700);
   listItem.innerHTML = `<div class="todo-text">${todoText}</div>
                         <button class="remove-todo-button btn"><i class="fa fa-trash"></i></button>`;
   return listItem;
@@ -106,7 +107,7 @@ function onDeleteButtonClicked(clickedButton) {
 }
 
 function onClearAllButtonClicked() {
-  const deleteButtons = Array.prototype.slice.call(document.querySelectorAll("div"));
+  const deleteButtons = Array.prototype.slice.call(document.getElementsByClassName("delete-todo-button"));
   deleteButtons.reverse().forEach(button => {
     onDeleteButtonClicked(button);
   });
