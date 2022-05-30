@@ -1,17 +1,22 @@
+import fs from 'fs';
 export default class Model {
     constructor() {
-        this.todolist = []
+        this.todoList = []
     }
 
-    LoadDataFromLS(){
-        let dataFromLS = localStorage.getItem("new-todo")
-    
-        if(dataFromLS === null){
-            this.todoList = []
-        }
-        else{
-            this.todoList = JSON.parse(dataFromLS)
-        }
+    LoadDataFromFile(){
+        fs.readFile('./todo.json', (err, data) => {
+            if(err){
+                return
+            }
+            if(data === null){
+                console.log('data is null');
+                this.todoList = []
+            }
+            else{
+                this.todoList = JSON.parse(data)
+            } 
+        })
     }
 
     addData(enterValue){
@@ -25,7 +30,11 @@ export default class Model {
     }
 
     saveDataToLS(){ 
-        localStorage.setItem("new-todo", JSON.stringify(this.todoList))
+        fs.writeFile("./todo.json", JSON.stringify(this.todoList), err => {
+            if(err) {
+                console.log(err)
+            }
+        })
     }
 
     clearAllData(){

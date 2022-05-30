@@ -1,10 +1,11 @@
-import Model from "./Model.js";
+import Model from "./Model.js"
+import fetch from 'node-fetch'
 
 export default class ItemManager {
     constructor(pokemonClient){
         this.API_BASE = 'https://pokeapi.co/api/v2/pokemon/'
         this.model = new Model()
-        this.model.LoadDataFromLS()
+        this.model.LoadDataFromFile()
         this.pokemonClient = pokemonClient;
     }
 
@@ -19,7 +20,8 @@ export default class ItemManager {
         const singleNumber = /^\d+$/
         const singleWord = /^[A-Za-z]+$/
         const multiNumbersSeparatedWithComma = /^\d+(,\d+)*$/
-        const partOfNumbersSeprateWithComma = trimValue.substring(0,1).match(multiNumbersSeparatedWithComma)
+        const partOfNumbersSeprateWithComma = 
+            trimValue.substring(0,1).match(multiNumbersSeparatedWithComma)
 
         const singleNumberPattern = trimValue.match(singleNumber)
         const singleWordPattern = trimValue.match(singleWord)

@@ -1,0 +1,19 @@
+{
+  "name": "ex3",
+  "version": "1.0.0",
+  "description": "Welcome to your first monday-u task! Hope you are excited as we are!  \r This is going to be an ongoing task, so don't worry, we are going to build this awesome project step by step, from zero to hero :)",
+  "main": "ItemManager.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "commander": "^9.3.0",
+    "node-fetch": "^3.2.4",
+    "nodemon": "^2.0.16"
+  }
+}
