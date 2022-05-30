@@ -191,7 +191,7 @@ select
     min-width: 1.5rem;
 }
  
-.search-input {
+#search-input {
     width: 100%;
     padding: 10px;
     text-align: center;

@@ -17,22 +17,20 @@
 <body>
     <div class="alert hide">
         <span class="fa-solid fa-circle-exclamation"></span>
-        <span class="alert-msg">Task input cannot be empty, please try again</span>
+        <span id="alert-message" class="alert-msg"></span>
         <span class="alert-close-btn">
             <span class="fas fa-times"></span>
         </span>
     </div>
-    <header>
-    </header>
 <div class="container">
     <h1>Todo list</h1>
     <div class="actions">
         <div class="search">
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input class="input search-input" type="text" placeholder="search">
+            <input id="search-input" class="input" type="text" placeholder="search">
         </div>
         <div class="select">
-            <select name="tasks" class="filter-tasks">
+            <select name="tasks" id="filter-dropdown" class="filter-tasks">
                 <option value="all">All</option>
                 <option value="completed">Completed</option>
                 <option value="uncompleted">Uncompleted</option>
@@ -41,28 +39,28 @@
     </div>
     <div class="addTask">
         <input class="input task-input" type="text" placeholder="Add somthing to do">
-        <button  class="btn task-add-btn" type="button"><i class="fas fa-plus-square"></i></button>
+        <button id="task-add-btn" class="btn" type="button"><i class="fas fa-plus-square"></i></button>
     </div>
     <div class="tasksContainer">
         <div class="tasks-list">
             
-        </div>
+        </div>  
+       
     </div>
-    <div class="empty-msg">
+    <div class="remove-all-btn">
+        <button id="remove-all-btn" class="btn" type="button">Remove all</button>
+    </div>
+    <div id="empty-tasks" class="empty-msg">
         <i class="fa-regular fa-keyboard"></i>
         <span>Waiting for you to add your tasks</span>
-
     </div>
 </div>
-
 </div>
 <div class="footer">
     <span>Made With
         <i class="fas fa-heart"></i>
         By Nadav Avraham
     </span>
+    <script type="module" src="./scripts/appDom.js"></script>
 </body>
-<script src="./scripts/domScripts.js"></script>
-<script src="./scripts/alertScripts.js"></script>
-<script src="./scripts/localStorage.js"></script>
 </html>
