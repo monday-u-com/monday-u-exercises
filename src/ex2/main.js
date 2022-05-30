@@ -129,7 +129,7 @@ class Main {
   }
 
   onClearAllButtonClicked() {
-    const deleteButtons = Array.prototype.slice.call(document.getElementsByClassName("remove-todo-button"));
+    const deleteButtons = Array.prototype.slice.call(document.getElementsByClassName("delete-todo-button"));
     deleteButtons.reverse().forEach(button => {
       this.onDeleteButtonClicked(button);
     });
