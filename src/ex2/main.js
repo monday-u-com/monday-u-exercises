@@ -7,7 +7,7 @@ Start your http server by issuing http-server -c-1
 import { ItemManager } from "/item-manager.js";
 import { PokemonClient } from "/pokemon-client.js";
 
-const DISPLAY = true;
+const SHOW = true;
 const HIDE = false;
 
 class Main {
@@ -43,7 +43,7 @@ class Main {
     this.todos.forEach(todoItem => {
       this.addTodoItem(todoItem);
     });
-    this.displayFooterAndImage();
+    this.showFooterAndImage();
   }
 
   addTodoItem(todoItem) {
@@ -80,36 +80,36 @@ class Main {
     });
   }
 
-  displayFooterAndImage() {
-    this.displayButtonsAndAmount();
-    this.displayNoTodosImage();
+  showFooterAndImage() {
+    this.showButtonsAndAmount();
+    this.showNoTodosImage();
   }
 
-  displayButtonsAndAmount() {
+  showButtonsAndAmount() {
     let tasks = "tasks";
     if (this.todos.length === 1) {
       tasks = "task";
-      this.displayOrHideElement('sort-list-button', HIDE)
-      this.displayOrHideElement('clear-all-button', HIDE)
+      this.showOrHideElement('sort-list-button', HIDE)
+      this.showOrHideElement('clear-all-button', HIDE)
     } else {
-      this.displayOrHideElement('sort-list-button', DISPLAY)
-      this.displayOrHideElement('clear-all-button', DISPLAY)
+      this.showOrHideElement('sort-list-button', SHOW)
+      this.showOrHideElement('clear-all-button', SHOW)
     }
     this.todoAmountInfo.textContent = `${this.todos.length} pending ${tasks}`;
   }
 
-  displayNoTodosImage() {
+  showNoTodosImage() {
     if (this.todos.length === 0) {
-      this.displayOrHideElement('no-todos-placeholder', DISPLAY)
-      this.displayOrHideElement('footer', HIDE)
+      this.showOrHideElement('no-todos-placeholder', SHOW)
+      this.showOrHideElement('footer', HIDE)
     } else {
-      this.displayOrHideElement('no-todos-placeholder', HIDE)
-      this.displayOrHideElement('footer', DISPLAY)
+      this.showOrHideElement('no-todos-placeholder', HIDE)
+      this.showOrHideElement('footer', SHOW)
     }
   }
 
-  displayOrHideElement(elementId, displayElement) {
-    this.displayStyle = displayElement ? "" : "none";
+  showOrHideElement(elementId, showElement) {
+    this.displayStyle = showElement ? "" : "none";
     document.getElementById(elementId).style.display = this.displayStyle;
   }
 
