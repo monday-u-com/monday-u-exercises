@@ -98,11 +98,20 @@ function onTodoTitleClicked(clickedTodo) {
 
 function onDeleteButtonClicked(clickedButton) {
   const index = Array.prototype.indexOf.call(allTodosList.getElementsByTagName("li"), clickedButton.parentElement);
+  const todoLi = clickedButton.parentElement;
+  deleteToDoTaskWithAnimation(index, todoLi);
+ }
+
+function deleteToDoTaskWithAnimation(index, todoLi) {
+  todoLi.classList.remove("existing-item");
+  todoLi.classList.add("delete-item-animation");
+  deleteTodoTask(index, todoLi);
+}
+
+function deleteTodoTask(index, todoLi) {
   todosArray.splice(index, 1);
-  clickedButton.parentElement.classList.remove("existing-item");
-  clickedButton.parentElement.classList.add("delete-item-animation");
   setTimeout (() => {
-    clickedButton.parentElement.remove();
+    todoLi.remove();
     showOrHideFooterAndImage();
   }, 700);
 }
