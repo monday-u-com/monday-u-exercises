@@ -5,6 +5,9 @@ const SORTED_ASC = 1;
 const SORTED_DESC = 2;
 let isListSorted = UNSORTED;
 
+const DISPLAY = true;
+const HIDE = false;
+
 const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
 
 const inputTitle = document.getElementById("new-todo-title");
@@ -19,7 +22,7 @@ addTodoForm.addEventListener('submit', onAddTodoFormSubmitted);
 sortListButton.addEventListener('click', onSortListButtonClicked);
 
 todosArray.forEach(todoText => {
-  addTodoItem(todoText, false);
+  addTodoItem(todoText, HIDE);
   displayFooterAndImage();
 });
 
@@ -66,22 +69,22 @@ function displayButtonsAndAmount() {
   let tasks = "tasks";
   if (todosArray.length === 1) {
     tasks = "task";
-    displayElement('sort-list-button', false)
-    displayElement('clear-all-button', false)
+    displayElement('sort-list-button', HIDE)
+    displayElement('clear-all-button', HIDE)
   } else {
-    displayElement('sort-list-button', true)
-    displayElement('clear-all-button', true)
+    displayElement('sort-list-button', DISPLAY)
+    displayElement('clear-all-button', DISPLAY)
   }
   amountOfTodosInfo.textContent = `${todosArray.length} pending ${tasks}`;
 }
 
 function displayZeroImage() {
   if (todosArray.length === 0) {
-    displayElement('zero-todos-image', true)
-    displayElement('footer', false)
+    displayElement('zero-todos-image', DISPLAY)
+    displayElement('footer', HIDE)
   } else {
-    displayElement('zero-todos-image', false)
-    displayElement('footer', true)
+    displayElement('zero-todos-image', HIDE)
+    displayElement('footer', DISPLAY)
   }
 }
 
@@ -116,7 +119,7 @@ function onClearAllButtonClicked() {
 function onAddTodoFormSubmitted(event){
   event.preventDefault();
   const newTodoText = inputTitle.value;
-  addTodoItem(newTodoText, true);
+  addTodoItem(newTodoText, DISPLAY);
   todosArray.push(newTodoText);
   displayFooterAndImage();
   inputTitle.value = "";

@@ -7,6 +7,9 @@ Start your http server by issuing http-server -c-1
 import { ItemManager } from "/item-manager.js";
 import { PokemonClient } from "/pokemon-client.js";
 
+const DISPLAY = true;
+const HIDE = false;
+
 class Main {
   constructor(itemManager, pokemonClient) {
     this.itemManager = itemManager;
@@ -86,26 +89,26 @@ class Main {
     let tasks = "tasks";
     if (this.todos.length === 1) {
       tasks = "task";
-      this.displayElement('sort-list-button', false)
-      this.displayElement('clear-all-button', false)
+      this.displayOrHideElement('sort-list-button', HIDE)
+      this.displayOrHideElement('clear-all-button', HIDE)
     } else {
-      this.displayElement('sort-list-button', true)
-      this.displayElement('clear-all-button', true)
+      this.displayOrHideElement('sort-list-button', DISPLAY)
+      this.displayOrHideElement('clear-all-button', DISPLAY)
     }
     this.todoAmountInfo.textContent = `${this.todos.length} pending ${tasks}`;
   }
 
   displayNoTodosImage() {
     if (this.todos.length === 0) {
-      this.displayElement('no-todos-placeholder', true)
-      this.displayElement('footer', false)
+      this.displayOrHideElement('no-todos-placeholder', DISPLAY)
+      this.displayOrHideElement('footer', HIDE)
     } else {
-      this.displayElement('no-todos-placeholder', false)
-      this.displayElement('footer', true)
+      this.displayOrHideElement('no-todos-placeholder', HIDE)
+      this.displayOrHideElement('footer', DISPLAY)
     }
   }
 
-  displayElement(elementId, displayElement) {
+  displayOrHideElement(elementId, displayElement) {
     this.displayStyle = displayElement ? "" : "none";
     document.getElementById(elementId).style.display = this.displayStyle;
   }
