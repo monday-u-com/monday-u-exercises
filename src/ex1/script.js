@@ -5,7 +5,7 @@ const SORTED_ASC = 1;
 const SORTED_DESC = 2;
 let isListSorted = UNSORTED;
 
-const DISPLAY = true;
+const SHOW = true;
 const HIDE = false;
 
 const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
@@ -23,7 +23,7 @@ sortListButton.addEventListener('click', onSortListButtonClicked);
 
 todosArray.forEach(todoText => {
   addTodoItem(todoText, HIDE);
-  displayFooterAndImage();
+  showFooterAndImage();
 });
 
 function addEventListenerForTodoTitle(listItem) {
@@ -60,36 +60,36 @@ function createListElement(todoText, animation) {
   return listItem;
 }
 
-function displayFooterAndImage() {
-  displayButtonsAndAmount();
-  displayZeroImage();
+function showFooterAndImage() {
+  showButtonsAndAmount();
+  showZeroImage();
 }
 
-function displayButtonsAndAmount() {
+function showButtonsAndAmount() {
   let tasks = "tasks";
   if (todosArray.length === 1) {
     tasks = "task";
-    displayElement('sort-list-button', HIDE)
-    displayElement('clear-all-button', HIDE)
+    showElement('sort-list-button', HIDE)
+    showElement('clear-all-button', HIDE)
   } else {
-    displayElement('sort-list-button', DISPLAY)
-    displayElement('clear-all-button', DISPLAY)
+    showElement('sort-list-button', SHOW)
+    showElement('clear-all-button', SHOW)
   }
   amountOfTodosInfo.textContent = `${todosArray.length} pending ${tasks}`;
 }
 
-function displayZeroImage() {
+function showZeroImage() {
   if (todosArray.length === 0) {
-    displayElement('zero-todos-image', DISPLAY)
-    displayElement('footer', HIDE)
+    showElement('zero-todos-image', SHOW)
+    showElement('footer', HIDE)
   } else {
-    displayElement('zero-todos-image', HIDE)
-    displayElement('footer', DISPLAY)
+    showElement('zero-todos-image', HIDE)
+    showElement('footer', SHOW)
   }
 }
 
-function displayElement(elementId, toDisplay) {
-  displayStyle = toDisplay ? "" : "none";
+function showElement(elementId, toShow) {
+  displayStyle = toShow ? "" : "none";
   document.getElementById(elementId).style.display = displayStyle;
 }
 
@@ -104,7 +104,7 @@ function onDeleteButtonClicked(clickedButton) {
   clickedButton.parentElement.classList.add("delete-item-animation");
   setTimeout (() => {
     clickedButton.parentElement.remove();
-    displayFooterAndImage();
+    showFooterAndImage();
   }, 700);
   console.log(todosArray); // does not work good here after sorting (because of index), but in ex2 it is already correct
 }
@@ -119,9 +119,9 @@ function onClearAllButtonClicked() {
 function onAddTodoFormSubmitted(event){
   event.preventDefault();
   const newTodoText = inputTitle.value;
-  addTodoItem(newTodoText, DISPLAY);
+  addTodoItem(newTodoText, SHOW);
   todosArray.push(newTodoText);
-  displayFooterAndImage();
+  showFooterAndImage();
   inputTitle.value = "";
 }
 
