@@ -59,7 +59,7 @@ class Main {
       this.itemManager.markItemAsOld(todoItem);
     }
     todoListElement.innerHTML = `<div class="todo-text">${todoItem.text}</div>
-                                <button class="delete-todo-button"><i class="fa fa-trash"></i></button>`;
+                                <button class="delete-todo-button btn-hover"><i class="fa fa-trash"></i></button>`;
     return todoListElement;
   }
 
