@@ -23,7 +23,7 @@ todosArray.forEach(todoText => {
 displayFooterAndImage();
 
 function addEventListenerForTodoTitle(listItem) {
-  const todoTitleDiv = listItem.getElementsByTagName("div")[0];
+  const todoTitleDiv = listItem.getElementsByClassName("todo-text")[0]
   todoTitleDiv.addEventListener('click', ({target}) => {
     onTodoTitleClicked(target);
   });
