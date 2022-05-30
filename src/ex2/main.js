@@ -119,11 +119,20 @@ class Main {
 
   onDeleteButtonClicked(clickedButton) {
     const index = Array.prototype.indexOf.call(this.todoList.getElementsByClassName("existing-todo"), clickedButton.parentElement);
-    clickedButton.parentElement.classList.remove("existing-todo");
-    clickedButton.parentElement.classList.add("animation-delete-todo");
+    const todoLi = clickedButton.parentElement;
+    this.deleteToDoTaskWithAnimation(index, todoLi);
+   }
+
+  deleteToDoTaskWithAnimation(index, todoLi) {
+    todoLi.classList.remove("existing-todo");
+    todoLi.classList.add("animation-delete-todo");
     setTimeout (() => {
-      this.updateTodos(this.itemManager.deleteItem(index));
+      this.deleteTodoTask(index);
     }, 700);
+  }
+
+  deleteTodoTask(index) {
+    this.updateTodos(this.itemManager.deleteItem(index));
   }
 
   updateTodos(updatedArray) {
