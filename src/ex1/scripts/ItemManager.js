@@ -1,7 +1,11 @@
+import {
+  POKEMON_WITH_ID_NOT_FOUND,
+  NOT_A_POKEMON,
+  FAILED_TO_FETCH,
+} from "./GlobalConstants.js";
 import { PokemonClient } from "./PokemonClient.js";
-import { TASK_ID, TASK_CONTENT, TASK_COMPLETED } from "./GlobalConstants.js";
 
-export class TasksManeger {
+export class ItemManager {
   constructor() {
     this.tasks = [];
     this.counterID = 0;
@@ -25,9 +29,10 @@ export class TasksManeger {
   }
 
   async addTask(taskInput, isCompleted) {
-    if (this.isInputSetOfPokemonIDs(taskInput)) {
-      return await this.addCatchPokemonTask(taskInput);
-    } else if (this.pokedex.isPokemonNamesOnly(taskInput)) {
+    if (
+      this.isInputSetOfPokemonIDs(taskInput) ||
+      this.pokedex.isPokemonNamesOnly(taskInput)
+    ) {
       return await this.addCatchPokemonTask(taskInput);
     } else {
       const isAdded = this.pushingTaskAndSave(taskInput, isCompleted);
@@ -39,7 +44,10 @@ export class TasksManeger {
     const response = await this.getPokemonsToAdd(input);
     if (response === false) {
       return false;
-    } else if (response.includes("Pokemon with id")) {
+    } else if (
+      response.includes(POKEMON_WITH_ID_NOT_FOUND) ||
+      response.includes(FAILED_TO_FETCH)
+    ) {
       this.pushingTaskAndSave(response, false);
       return true;
     } else {
@@ -52,22 +60,19 @@ export class TasksManeger {
 
   async getPokemonsToAdd(input) {
     const response = await this.pokedex.getPokemonsNamesAndTypes(input);
-    if (response === "Not a pokemon") {
+    if (response === NOT_A_POKEMON) {
       return false;
-    } else if (response.includes("Pokemon with id")) {
-      console.log(response);
-      return response;
-    } else {
-      return response;
-    }
+    } else return response;
   }
 
   pushingTaskAndSave(taskInput, isCompleted) {
-    const isTaskExist = this.tasks.find(
-      (task) => task[TASK_CONTENT] === taskInput
-    );
+    const isTaskExist = this.tasks.find((task) => task.contenr === taskInput);
     if (!isTaskExist) {
-      this.tasks.push([this.counterID, taskInput, isCompleted]);
+      this.tasks.push({
+        id: this.counterID,
+        content: taskInput,
+        completed: isCompleted,
+      });
       this.counterID++;
       this.saveCounterIDToLocalStorage();
       this.saveTasksToLocalStorage();
@@ -78,7 +83,7 @@ export class TasksManeger {
   }
 
   removeTask(taskID) {
-    this.tasks = this.tasks.filter((task) => task[TASK_ID] != taskID);
+    this.tasks = this.tasks.filter((task) => task.id != taskID);
     this.saveTasksToLocalStorage();
   }
 
@@ -95,12 +100,12 @@ export class TasksManeger {
 
   toggleCompleted(taskID) {
     const task = this.tasks.find((task) => {
-      console.log(task, task[TASK_ID], taskID);
-      if (task[TASK_ID] == taskID) {
+      console.log(task, task.id, taskID);
+      if (task.id == taskID) {
         return task;
       }
     });
-    task[TASK_COMPLETED] = !task[TASK_COMPLETED];
+    task.completed = !task.completed;
     this.saveTasksToLocalStorage();
   }
 
@@ -117,7 +122,7 @@ export class TasksManeger {
   }
 
   pushTaskFromReSort(id, taskContent, isCompleted) {
-    this.tasks.push([id, taskContent, isCompleted]);
+    this.tasks.push({ id: id, content: taskContent, completed: isCompleted });
     this.saveTasksToLocalStorage();
   }
 

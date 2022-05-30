@@ -1,15 +1,10 @@
-import { TasksManeger } from "./TaskManager.js";
+import { ItemManager } from "./ItemManager.js";
 import { Alert } from "./Alert.js";
-import {
-  TASK_ID,
-  TASK_CONTENT,
-  TASK_COMPLETED,
-  EMPTY_INPUT_MSG,
-} from "./GlobalConstants.js";
+import { EMPTY_INPUT_MSG } from "./GlobalConstants.js";
 
-class AppDom {
+class main {
   constructor(htmlElement) {
-    this.tasksManager = new TasksManeger();
+    this.tasksManager = new ItemManager();
     this.emprtyInputAlert = new Alert(htmlElement);
 
     // Action Elements //
@@ -177,7 +172,7 @@ class AppDom {
     console.log(tasks);
     console.log(this.tasksList.chilren);
     this.tasksList.children.forEach((task, index) =>
-      task.setAttribute("id", tasks[index][TASK_ID])
+      task.setAttribute("id", tasks[index].id)
     );
     console.log(this.tasksList.chilren);
   }
@@ -261,13 +256,9 @@ class AppDom {
       case "all":
         return tasksToBeFiltered;
       case "completed":
-        return tasksToBeFiltered.filter(
-          (task) => task[TASK_COMPLETED] === true
-        );
+        return tasksToBeFiltered.filter((task) => task.completed === true);
       case "uncompleted":
-        return tasksToBeFiltered.filter(
-          (task) => task[TASK_COMPLETED] === false
-        );
+        return tasksToBeFiltered.filter((task) => task.completed === false);
       default:
         return tasksToBeFiltered;
     }
@@ -279,9 +270,7 @@ class AppDom {
       return tasks;
     } else {
       return tasks.filter((task) => {
-        return task[TASK_CONTENT].toLowerCase().includes(
-          searchInput.toLowerCase()
-        );
+        return task.content.toLowerCase().includes(searchInput.toLowerCase());
       });
     }
   }
@@ -295,15 +284,12 @@ class AppDom {
     this.toggleEmptyMsg();
     this.toggleRemoveAllBtn(filteredTasks);
     filteredTasks.forEach(function (task) {
-      const taskDiv = self.createTaskDiv(
-        task[TASK_CONTENT],
-        task[TASK_COMPLETED]
-      );
-      taskDiv.setAttribute("id", task[TASK_ID]);
+      const taskDiv = self.createTaskDiv(task.content, task.completed);
+      taskDiv.setAttribute("id", task.id);
       self.tasksList.appendChild(taskDiv);
       self.addTaskDivEventListeners(taskDiv);
     });
   }
 }
 
-const app = new AppDom(document);
+const app = new main(document);
