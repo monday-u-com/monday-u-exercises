@@ -52,10 +52,10 @@ class Main {
 
   createTodoListElement(todoItem) {
     const todoListElement = document.createElement("li");
-    todoListElement.className = "existing-todo";
+    todoListElement.className = "todo-li existing-todo";
     if (todoItem.isNew) {
-      todoListElement.className = "animation-add-todo";
-      setTimeout (() => { todoListElement.className = "existing-todo";}, 700);
+      todoListElement.className = "todo-li animation-add-todo";
+      setTimeout (() => { todoListElement.className = "todo-li existing-todo";}, 700);
       this.itemManager.markItemAsOld(todoItem);
     }
     todoListElement.innerHTML = `<div class="todo-text">${todoItem.text}</div>
