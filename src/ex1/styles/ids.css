@@ -2,26 +2,26 @@
   display: flex;
 }
 
-#new-todo-textbox:focus {
+#new-todo-title:focus {
   border: 2px solid var(--very-dark-green);
   border-radius: 4px;
   outline: none;
 }
 
-#new-todo-textbox {
+#new-todo-title {
   padding: 5px 10px;
   font-family: 'Indie Flower', cursive;
   font-size: 20px;
   width: 90%;
 }
 
-#todos-list {
+#all-todos-list {
   font-family: 'Caveat', cursive;
   padding-left: 0px;
   border-radius: 4px;
 }
 
-#todos-list li {
+#all-todos-list li {
   list-style-type: none;
   background-color: rgba(128, 128, 128, 0.2);
   margin-top: 10px;
@@ -29,7 +29,7 @@
   display: flex;
 }
 
-#todos-list li:hover {
+#all-todos-list li:hover {
   background-color: rgba(128, 128, 128, 0.4);
   cursor: pointer;
 }
@@ -53,7 +53,7 @@
   text-align: center;
 }
 
-#no-todos-placeholder {
+#zero-todos-image {
   margin-top: 5px;
   margin-left: 5px;
 }

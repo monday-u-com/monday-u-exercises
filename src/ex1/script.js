@@ -1,4 +1,4 @@
-const allTodosList = document.getElementById("todos-list");
+const allTodosList = document.getElementById("all-todos-list");
 
 const UNSORTED = 0;
 const SORTED_ASC = 1;
@@ -6,7 +6,8 @@ const SORTED_DESC = 2;
 let isListSorted = UNSORTED;
 
 const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
-const inputTitle = document.getElementById("new-todo-textbox");
+
+const inputTitle = document.getElementById("new-todo-title");
 const amountOfTodosInfo = document.getElementById("amount-info");
 
 const clearAllButton = document.getElementById("clear-all-button");
@@ -47,11 +48,11 @@ function addTodoItem(todoText, animation) {
 function createListElement(todoText, animation) {
   const listItem = document.createElement("li");
   if (animation) {
-    listItem.className = "animation-add-todo";
+    listItem.className = "add-item-animation";
   }
-  setTimeout (() => { listItem.className = "existing-todo";}, 700);
+  setTimeout (() => { listItem.className = "existing-item";}, 700);
   listItem.innerHTML = `<div class="todo-text">${todoText}</div>
-                        <button class="delete-todo-button"><i class="fa fa-trash"></i></button>`;
+                        <button class="remove-todo-button"><i class="fa fa-trash"></i></button>`;
   return listItem;
 }
 
@@ -75,10 +76,10 @@ function displayButtonsAndAmount() {
 
 function displayZeroImage() {
   if (todosArray.length === 0) {
-    displayElement('no-todos-placeholder', true)
+    displayElement('zero-todos-image', true)
     displayElement('footer', false)
   } else {
-    displayElement('no-todos-placeholder', false)
+    displayElement('zero-todos-image', false)
     displayElement('footer', true)
   }
 }
@@ -95,13 +96,13 @@ function onTodoTitleClicked(clickedTodo) {
 function onDeleteButtonClicked(clickedButton) {
   const index = Array.prototype.indexOf.call(allTodosList.getElementsByTagName("li"), clickedButton.parentElement);
   todosArray.splice(index, 1);
-  clickedButton.parentElement.classList.remove("existing-todo");
-  clickedButton.parentElement.classList.add("animation-delete-todo");
+  clickedButton.parentElement.classList.remove("existing-item");
+  clickedButton.parentElement.classList.add("delete-item-animation");
   setTimeout (() => {
     clickedButton.parentElement.remove();
     displayFooterAndImage();
   }, 700);
-  console.log(todosArray);
+  console.log(todosArray); // does not work good here after sorting (because of index), but in ex2 it is already correct
 }
 
 function onClearAllButtonClicked() {
@@ -135,7 +136,7 @@ function onSortListButtonClicked() {
     sortListWithOrder(compareElementsDesc);
     isListSorted = SORTED_DESC;
   }
-  console.log(todosArray);
+  console.log(todosArray); // the array is not sorted, just the list in html
 }
 
 function sortListWithOrder(comparator) {
