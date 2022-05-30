@@ -1,14 +1,15 @@
 @import "button-hover.css";
 
-button {
+.btn {
   cursor: pointer;
+  border-radius: 4px;
+  border: 0px;
+  color: antiquewhite;
+  font-size: 24px;
 }
 
 #add-todo-button {
   background-color: var(--dark-green);
-  border-radius: 4px;
-  border: 0px;
-  color: antiquewhite;
   height: 45px;
   width: 45px;
   font-size: 32px;
@@ -16,12 +17,8 @@ button {
 
 .delete-todo-button {
   background-color: brown;
-  border: 0px;
-  border-radius: 4px;
-  color: antiquewhite;
   height: 40px;
   width: 45px;
-  font-size: 24px;
   display: none;
 }
 
@@ -31,19 +28,12 @@ button {
 
 #clear-all-button {
   background-color: var(--dark-green);
-  border-radius: 4px;
-  border: 0px;
-  font-size: 24px;
   font-family: 'Indie Flower', cursive;
-  color: antiquewhite;
   width: 138px;
 }
 
 #sort-list-button {
   background-color: var(--light-green);
-  border-radius: 4px;
-  border: 0px;
-  font-size: 24px;
   font-family: 'Indie Flower', cursive;
   color: var(--very-dark-green);
   width: 92px;

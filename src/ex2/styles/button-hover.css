@@ -1,4 +1,4 @@
-.btn-hover {
+.btn {
   background-repeat: no-repeat;
   background-position: -120px -120px, 0 0;
 
@@ -40,7 +40,7 @@
           transition: background-position 0s ease;
 }
 
-.btn-hover:hover {
+.btn:hover {
   background-position: 0 0, 0 0;
 
   -webkit-transition-duration: 0.5s;
