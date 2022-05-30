@@ -5,11 +5,7 @@ const SORTED_ASC = 1;
 const SORTED_DESC = 2;
 let isListSorted = UNSORTED;
 
-const DISPLAY = true;
-const HIDE = false;
-
 const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
-
 const inputTitle = document.getElementById("new-todo-title");
 const amountOfTodosInfo = document.getElementById("amount-info");
 
@@ -22,9 +18,9 @@ addTodoForm.addEventListener('submit', onAddTodoFormSubmitted);
 sortListButton.addEventListener('click', onSortListButtonClicked);
 
 todosArray.forEach(todoText => {
-  addTodoItem(todoText, HIDE);
-  displayFooterAndImage();
+  addTodoItem(todoText, false);
 });
+displayFooterAndImage();
 
 function addEventListenerForTodoTitle(listItem) {
   const todoTitleDiv = listItem.getElementsByTagName("div")[0];
@@ -69,22 +65,22 @@ function displayButtonsAndAmount() {
   let tasks = "tasks";
   if (todosArray.length === 1) {
     tasks = "task";
-    displayElement('sort-list-button', HIDE)
-    displayElement('clear-all-button', HIDE)
+    displayElement('sort-list-button', false)
+    displayElement('clear-all-button', false)
   } else {
-    displayElement('sort-list-button', DISPLAY)
-    displayElement('clear-all-button', DISPLAY)
+    displayElement('sort-list-button', true)
+    displayElement('clear-all-button', true)
   }
   amountOfTodosInfo.textContent = `${todosArray.length} pending ${tasks}`;
 }
 
 function displayZeroImage() {
   if (todosArray.length === 0) {
-    displayElement('zero-todos-image', DISPLAY)
-    displayElement('footer', HIDE)
+    displayElement('zero-todos-image', true)
+    displayElement('footer', false)
   } else {
-    displayElement('zero-todos-image', HIDE)
-    displayElement('footer', DISPLAY)
+    displayElement('zero-todos-image', false)
+    displayElement('footer', true)
   }
 }
 
@@ -106,7 +102,6 @@ function onDeleteButtonClicked(clickedButton) {
     clickedButton.parentElement.remove();
     displayFooterAndImage();
   }, 700);
-  console.log(todosArray); // does not work good here after sorting (because of index), but in ex2 it is already correct
 }
 
 function onClearAllButtonClicked() {
@@ -119,7 +114,7 @@ function onClearAllButtonClicked() {
 function onAddTodoFormSubmitted(event){
   event.preventDefault();
   const newTodoText = inputTitle.value;
-  addTodoItem(newTodoText, DISPLAY);
+  addTodoItem(newTodoText, true);
   todosArray.push(newTodoText);
   displayFooterAndImage();
   inputTitle.value = "";
@@ -140,7 +135,6 @@ function onSortListButtonClicked() {
     sortListWithOrder(compareElementsDesc);
     isListSorted = SORTED_DESC;
   }
-  console.log(todosArray); // the array is not sorted, just the list in html
 }
 
 function sortListWithOrder(comparator) {
