@@ -12,7 +12,7 @@
   padding: 5px 10px;
   font-family: 'Indie Flower', cursive;
   font-size: 20px;
-  width: 90%;
+  width: 415px;
 }
 
 #all-todos-list {
@@ -47,8 +47,8 @@
 
 #footer p {
   margin: 0;
-  padding-left: 5px;
-  width: 80%;
+  /* padding-left: 5px; */
+  width: 230px;
   padding: auto;
   text-align: center;
 }
