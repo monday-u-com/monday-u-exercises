@@ -1,6 +1,6 @@
-const unsorted = Symbol("unsorted");
-const sortedAsc = Symbol("sortedAsc");
-const sortedDesc = Symbol("sortedDesc");
+const UNSORTED = Symbol("unsorted");
+const SORTED_ASC = Symbol("sortedAsc");
+const SORTED_DESC = Symbol("sortedDesc");
 
 export class ItemManager {
   init() {
@@ -10,7 +10,7 @@ export class ItemManager {
       {text: 'Feed the baby', isNew: false},
       {text: 'Wash the dishes', isNew: false}
     ]
-    this.sortOrder = unsorted;
+    this.sortOrder = UNSORTED;
     return this.items;
   }
 
@@ -21,7 +21,7 @@ export class ItemManager {
     } else {
       this.items.push({text: text, isNew: true });
     }
-    this.sortOrder = unsorted;
+    this.sortOrder = UNSORTED;
     return this.items;
   }
 
@@ -35,12 +35,12 @@ export class ItemManager {
   }
 
   sortItems(){
-    if (this.sortOrder === unsorted || this.sortOrder === sortedDesc) {
+    if (this.sortOrder === UNSORTED || this.sortOrder === SORTED_DESC) {
       this.items.sort((a, b) => a.text.localeCompare(b.text));
-      this.sortOrder = sortedAsc;
+      this.sortOrder = SORTED_ASC;
     } else {
       this.items.reverse();
-      this.sortOrder = sortedDesc;
+      this.sortOrder = SORTED_DESC;
     }
     return this.items;
   }
