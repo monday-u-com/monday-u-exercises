@@ -17,13 +17,18 @@ export default class ItemManager {
         const trimValue = this.trim(enterValue)
 
         const singleNumber = /^\d+$/
+        const singleWord = /^[A-Za-z]+$/
         const multiNumbersSeparatedWithComma = /^\d+(,\d+)*$/
         const partOfNumbersSeprateWithComma = trimValue.substring(0,1).match(multiNumbersSeparatedWithComma)
 
-        const firstNumberPattern = trimValue.match(singleNumber)
-        const secondNumberPattern = trimValue.match(multiNumbersSeparatedWithComma) 
+        const singleNumberPattern = trimValue.match(singleNumber)
+        const singleWordPattern = trimValue.match(singleWord)
+        const multiNumberPattern = trimValue.match(multiNumbersSeparatedWithComma) 
     
-        if(firstNumberPattern !== null || secondNumberPattern !== null || partOfNumbersSeprateWithComma !== null) {
+        if(singleWordPattern !== null || 
+                singleNumberPattern !== null || 
+                    multiNumberPattern !== null || 
+                        partOfNumbersSeprateWithComma !== null) {
             this.handleAddSingleOrMultiPokemonsTodo(trimValue)
         }
         else{
