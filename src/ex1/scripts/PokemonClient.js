@@ -1,4 +1,5 @@
 import { ALL_POKEMONS_NAMES_LIST } from "./PokemonNamesList.js";
+import { NOT_A_POKEMON } from "./GlobalConstants.js";
 export class PokemonClient {
   constructor() {
     this.pokemonNames = ALL_POKEMONS_NAMES_LIST;
@@ -14,20 +15,23 @@ export class PokemonClient {
     });
 
     return Promise.all(promises).catch((err) => {
-      if (
-        namesList.length === 1 &&
-        this.checkIfInputIsOnlyNumbers(namesList[0])
-      ) {
+      if (namesList.length === 1 && this.isInputNumbersOnly(namesList[0])) {
         return this.createIDNotFoundResponse(namesList[0]);
+      } else if (namesList.length > 1 && this.isListOfPokemonIds(namesList)) {
+        return this.createUnableToFetchListOFIds(namesList);
       } else {
-        return "Not a pokemon";
+        return NOT_A_POKEMON;
       }
     });
   }
 
-  checkIfInputIsOnlyNumbers(input) {
+  isInputNumbersOnly(input) {
     const regex = /^[0-9]+$/;
     return regex.test(input);
+  }
+
+  isListOfPokemonIds(list) {
+    return list.every((id) => this.isInputNumbersOnly(id) === true);
   }
 
   parseInputToList(input) {
@@ -67,15 +71,8 @@ export class PokemonClient {
     }
   }
 
-  /* for future use - tried making async creator with static creator - and initilize wiyh list first. didt work well
-  async getistAllPokemonsNames() {
-    const url = "https://pokeapi.co/api/v2/pokemon/?limit=898";
-    const response = await fetch(url);
-    const data = await response.json();
-    const pokemonsNames = data.results.map((pokemon) => {
-      return pokemon.name;
-    });
-    return pokemonsNames;
+  createUnableToFetchListOFIds(idsList) {
+    const resString = `Failed to fetch pokemons with this input ${idsList.join(", ")}`;
+    return resString;
   }
-  */
 }
