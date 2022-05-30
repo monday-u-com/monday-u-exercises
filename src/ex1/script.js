@@ -68,28 +68,28 @@ function showOrHideButtonsAndAmount() {
   let tasks = "tasks";
   if (todosArray.length === 1) {
     tasks = "task";
-    showElement('sort-list-button', HIDE)
-    showElement('clear-all-button', HIDE)
+    showOrHideElement('sort-list-button', HIDE)
+    showOrHideElement('clear-all-button', HIDE)
   } else {
-    showElement('sort-list-button', SHOW)
-    showElement('clear-all-button', SHOW)
+    showOrHideElement('sort-list-button', SHOW)
+    showOrHideElement('clear-all-button', SHOW)
   }
   amountOfTodosInfo.textContent = `${todosArray.length} pending ${tasks}`;
 }
 
 function showOrHideZeroImage() {
   if (todosArray.length === 0) {
-    showElement('zero-todos-image', SHOW)
-    showElement('footer', HIDE)
+    showOrHideElement('zero-todos-image', SHOW)
+    showOrHideElement('footer', HIDE)
   } else {
-    showElement('zero-todos-image', HIDE)
-    showElement('footer', SHOW)
+    showOrHideElement('zero-todos-image', HIDE)
+    showOrHideElement('footer', SHOW)
   }
 }
 
-function showElement(elementId, toShow) {
-  showStyle = toShow ? "" : "none";
-  document.getElementById(elementId).style.show = showStyle;
+function showOrHideElement(elementId, toShow) {
+  displayStyle = toShow ? "" : "none";
+  document.getElementById(elementId).style.display = displayStyle;
 }
 
 function onTodoTitleClicked(clickedTodo) {
