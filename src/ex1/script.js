@@ -105,7 +105,7 @@ function onDeleteButtonClicked(clickedButton) {
 }
 
 function onClearAllButtonClicked() {
-  const deleteButtons = Array.prototype.slice.call(document.querySelectorAll("div"));
+  const deleteButtons = Array.prototype.slice.call(document.getElementsByClassName("remove-todo-button"));
   deleteButtons.reverse().forEach(button => {
     onDeleteButtonClicked(button);
   });
