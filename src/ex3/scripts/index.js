@@ -54,7 +54,7 @@ async function DeleteTaskResolver(task_id)
 {
     const delete_task = Promise.resolve(item_manager.RemoveTask(task_id));
     await delete_task;
-    console.log(delete_task);
+    console.log("Todo was deleted successfully");
 }
 
 /**

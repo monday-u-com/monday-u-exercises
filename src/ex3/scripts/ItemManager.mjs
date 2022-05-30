@@ -6,31 +6,28 @@ export default class ItemManager {
         this.pokemon_client = new PokemonClient();
         this.pokemons = [];
         this.tasks = [];
-        this.file_manager = new FileManager();   
+        this.file_manager = new FileManager();
     }
-    
+
     /**
      * init pokemon names array
      */
-    async init()
-    {
+    async init() {
         const pokemons_names_response = await this.pokemon_client.GetPokemonsNames();
-        this.ParsePokemonNamesResponse(pokemons_names_response);        
+        this.ParsePokemonNamesResponse(pokemons_names_response);
     }
 
     /**
      * sets the json object to the array of tasks 
      */
-    async SetArrayFromFile()
-    {
-        try{
+    async SetArrayFromFile() {
+        try {
             // get json object
             const file_read_promise = await this.file_manager.ReadFromFileTasks();
             // assing json object to tasks
             this.tasks = file_read_promise;
         }
-        catch(error)
-        {
+        catch (error) {
             console.log(error);
         }
     }
@@ -44,18 +41,12 @@ export default class ItemManager {
         if (task_text.indexOf(',') > -1) // check if text has commas
         {
             const pokemos = await this.GetMultiplePokemons(task_text);
-            pokemos.forEach(pokemon => {
-                const pokemon_filtered = this.FilterPokemonAttributes(pokemon_result);
-                this.InsertResultToArray(pokemon_filtered);
-                this.file_manager.WriteToFileTasksArray(this.tasks);
-            });
+            pokemos.forEach(pokemon => this.InsertPokemonToArrayWrapperFunction(pokemon));
         }
         else if (Number.isInteger(pokemon_id)) // check if its number
         {
-            const pokemon_result = await this.GetOnePokemon(pokemon_id);
-            const pokemon_filtered = this.FilterPokemonAttributes(pokemon_result);
-            this.InsertResultToArray(pokemon_filtered);
-            this.file_manager.WriteToFileTasksArray(this.tasks);
+            const pokemon = await this.GetOnePokemon(pokemon_id);
+            this.InsertPokemonToArrayWrapperFunction(pokemon);
         }
         else // regular task
         {
@@ -63,6 +54,20 @@ export default class ItemManager {
             this.file_manager.WriteToFileTasksArray(this.tasks);
         }
     }
+    /**
+     * calls the functions to insert pokemon correctly
+     * @param {Object} pokemon  pokemon object from api
+     */
+    InsertPokemonToArrayWrapperFunction(pokemon) {
+        if (pokemon.name !== "Error") {
+            const pokemon_filtered = this.FilterPokemonAttributes(pokemon);
+            this.InsertResultToArray(pokemon_filtered);
+        }
+        else
+            this.InsertResultToArray(pokemon);
+        this.file_manager.WriteToFileTasksArray(this.tasks);
+    }
+
     /**
      * removes a task from array
      * @param {int} task_to_remove_id task location in array
@@ -92,7 +97,7 @@ export default class ItemManager {
         const pokemon_ids = ids.split(',');
         const result = Promise.resolve(this.pokemon_client.GetPokemonsByList(pokemon_ids));
         await result;
-        return result;       
+        return result;
     }
 
     /**
@@ -102,15 +107,14 @@ export default class ItemManager {
      */
     InsertResultToArray(result) {
         // check if found pokemon
-        if (typeof result.name !== "undefined" && result.name !== "Error")
-        {
-            if(!this.CheckIfPokemonExists(result.id))
-                this.tasks.push({name: result.name, images: result.sprites, id: result.id});// found pokemon add the name and id of pokemon 
+        if (typeof result.name !== "undefined" && result.name !== "Error") {
+            if (!this.CheckIfPokemonExists(result.id))
+                this.tasks.push({ name: result.name, images: result.images, id: result.id });// found pokemon add the name and id of pokemon 
         }
-        else if(typeof result === "object")
-            this.tasks.push({data: result.message, id: "Error"});// did not find pokemon 
+        else if (typeof result === "object")
+            this.tasks.push({ data: result.message, id: "Error" });// did not find pokemon 
         else
-            this.tasks.push({name: result, id: "Regular task"});
+            this.tasks.push({ name: result, id: "Regular task" });
     }
 
     /**
@@ -132,14 +136,13 @@ export default class ItemManager {
             return item1.toLowerCase().localeCompare(item2.toLowerCase());
         });
     }
-    
+
     /**
      * check if pokemon is in tasks
      * @param {int} id id of pokemon to find
      * @returns true if found false if not found
      */
-    CheckIfPokemonExists(id)
-    {
+    CheckIfPokemonExists(id) {
         return this.tasks.find(task => task.id === id);
     }
 
@@ -147,40 +150,36 @@ export default class ItemManager {
      * parses response into pokemons array
      * @param {Array} response 
      */
-    ParsePokemonNamesResponse(response)
-    {
-        if(response.name !== "Error")
+    ParsePokemonNamesResponse(response) {
+        if (response.name !== "Error")
             response.forEach((pokemon) => {
                 // split url string and get rid of empty elements
-                const parsed_url = pokemon.url.split('/').filter((item) => item); 
+                const parsed_url = pokemon.url.split('/').filter((item) => item);
                 const id = parsed_url[parsed_url.length - 1];
-                this.pokemons.push({name: pokemon.name, id});
+                this.pokemons.push({ name: pokemon.name, id });
             });
     }
-    
+
     /**
      * filters the pokemon object from api and takes only the images
      * @param {Object} pokemon_object pokemon object from api 
      * @returns 
      */
-    FilterPokemonAttributes(pokemon_object)
-    {
+    FilterPokemonAttributes(pokemon_object) {
         // new pokemon object
-        const pokemon_filtered = {name: pokemon_object.name, id: pokemon_object.id, images: {}};
+        const pokemon_filtered = { name: pokemon_object.name, id: pokemon_object.id, images: {} };
         // images url from object
         const images_unfiltered = pokemon_object.sprites;
-        const images = Object.entries(images_unfiltered).filter((value) =>
-        {
+        const images = Object.entries(images_unfiltered).filter((value) => {
             // get only attributes of url (filters null and other objects)
-            if(typeof value[1] !== "object")
+            if (typeof value[1] !== "object")
                 return value;
         });
         // appends it to the new object
-        images.forEach((value) =>
-        {
-            pokemon_filtered.images = {...pokemon_filtered.images, ...{[value[0]]: value[1]}};
+        images.forEach((value) => {
+            pokemon_filtered.images = { ...pokemon_filtered.images, ...{ [value[0]]: value[1] } };
         });
         return pokemon_filtered;
     }
-    
+
 }
