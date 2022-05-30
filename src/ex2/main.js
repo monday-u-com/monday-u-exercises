@@ -57,13 +57,17 @@ class Main {
     const todoListElement = document.createElement("li");
     todoListElement.className = "todo-li existing-todo";
     if (todoItem.isNew) {
-      todoListElement.className = "todo-li animation-add-todo";
-      setTimeout (() => { todoListElement.className = "todo-li existing-todo";}, 700);
-      this.itemManager.markItemAsOld(todoItem);
+      this.showTodoWithAnimation(todoListElement, todoItem);
     }
     todoListElement.innerHTML = `<div class="todo-text">${todoItem.text}</div>
                                 <button class="delete-todo-button btn"><i class="fa fa-trash"></i></button>`;
     return todoListElement;
+  }
+
+  showTodoWithAnimation(todoListElement, todoItem) {
+    todoListElement.className = "todo-li animation-add-todo";
+    setTimeout (() => { todoListElement.className = "todo-li existing-todo";}, 700);
+    this.itemManager.markItemAsOld(todoItem);
   }
 
   addEventListenerForTodoText(listElement) {
