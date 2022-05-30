@@ -105,15 +105,15 @@ function onDeleteButtonClicked(clickedButton) {
 function deleteToDoTaskWithAnimation(index, todoLi) {
   todoLi.classList.remove("existing-item");
   todoLi.classList.add("delete-item-animation");
-  deleteTodoTask(index, todoLi);
+  setTimeout (() => {
+    deleteTodoTask(index, todoLi);
+  }, 700);
 }
 
 function deleteTodoTask(index, todoLi) {
   todosArray.splice(index, 1);
-  setTimeout (() => {
-    todoLi.remove();
-    showOrHideFooterAndImage();
-  }, 700);
+  todoLi.remove();
+  showOrHideFooterAndImage();
 }
 
 function onClearAllButtonClicked() {
