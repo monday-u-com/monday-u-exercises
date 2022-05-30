@@ -5,6 +5,9 @@ const SORTED_ASC = 1;
 const SORTED_DESC = 2;
 let isListSorted = UNSORTED;
 
+const SHOW = true;
+const HIDE = false;
+
 const todosArray = ['Wash the dishes', 'Walk the dog', 'Water the flower', 'Feed the baby'];
 const inputTitle = document.getElementById("new-todo-title");
 const amountOfTodosInfo = document.getElementById("amount-info");
@@ -18,9 +21,9 @@ addTodoForm.addEventListener('submit', onAddTodoFormSubmitted);
 sortListButton.addEventListener('click', onSortListButtonClicked);
 
 todosArray.forEach(todoText => {
-  addTodoItem(todoText, false);
+  addTodoItem(todoText, HIDE);
 });
-displayFooterAndImage();
+showOrHideFooterAndImage();
 
 function addEventListenerForTodoTitle(listItem) {
   const todoTitleDiv = listItem.getElementsByClassName("todo-text")[0]
@@ -56,37 +59,37 @@ function createListElement(todoText, animation) {
   return listItem;
 }
 
-function displayFooterAndImage() {
-  displayButtonsAndAmount();
-  displayZeroImage();
+function showOrHideFooterAndImage() {
+  showOrHideButtonsAndAmount();
+  showOrHideZeroImage();
 }
 
-function displayButtonsAndAmount() {
+function showOrHideButtonsAndAmount() {
   let tasks = "tasks";
   if (todosArray.length === 1) {
     tasks = "task";
-    displayElement('sort-list-button', false)
-    displayElement('clear-all-button', false)
+    showElement('sort-list-button', HIDE)
+    showElement('clear-all-button', HIDE)
   } else {
-    displayElement('sort-list-button', true)
-    displayElement('clear-all-button', true)
+    showElement('sort-list-button', SHOW)
+    showElement('clear-all-button', SHOW)
   }
   amountOfTodosInfo.textContent = `${todosArray.length} pending ${tasks}`;
 }
 
-function displayZeroImage() {
+function showOrHideZeroImage() {
   if (todosArray.length === 0) {
-    displayElement('zero-todos-image', true)
-    displayElement('footer', false)
+    showElement('zero-todos-image', SHOW)
+    showElement('footer', HIDE)
   } else {
-    displayElement('zero-todos-image', false)
-    displayElement('footer', true)
+    showElement('zero-todos-image', HIDE)
+    showElement('footer', SHOW)
   }
 }
 
-function displayElement(elementId, toDisplay) {
-  displayStyle = toDisplay ? "" : "none";
-  document.getElementById(elementId).style.display = displayStyle;
+function showElement(elementId, toShow) {
+  showStyle = toShow ? "" : "none";
+  document.getElementById(elementId).style.show = showStyle;
 }
 
 function onTodoTitleClicked(clickedTodo) {
@@ -100,7 +103,7 @@ function onDeleteButtonClicked(clickedButton) {
   clickedButton.parentElement.classList.add("delete-item-animation");
   setTimeout (() => {
     clickedButton.parentElement.remove();
-    displayFooterAndImage();
+    showOrHideFooterAndImage();
   }, 700);
 }
 
@@ -114,9 +117,9 @@ function onClearAllButtonClicked() {
 function onAddTodoFormSubmitted(event){
   event.preventDefault();
   const newTodoText = inputTitle.value;
-  addTodoItem(newTodoText, true);
+  addTodoItem(newTodoText, SHOW);
   todosArray.push(newTodoText);
-  displayFooterAndImage();
+  showOrHideFooterAndImage();
   inputTitle.value = "";
 }
 
