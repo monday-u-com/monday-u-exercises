@@ -58,7 +58,7 @@ function createListElement(todoText, animation) {
   return listItem;
 }
 function showItemWithAnimation(listItem) {
-  listItem.className = "todo-li add-item-animation";
+  listItem.className = "todo-li add-todo-animation";
   setTimeout (() => { listItem.className = "todo-li existing-item";}, 700);
 }
 
@@ -107,7 +107,7 @@ function onDeleteButtonClicked(clickedButton) {
 
 function deleteToDoTaskWithAnimation(index, todoLi) {
   todoLi.classList.remove("existing-item");
-  todoLi.classList.add("delete-item-animation");
+  todoLi.classList.add("delete-todo-animation");
   setTimeout (() => {
     deleteTodoTask(index, todoLi);
   }, 700);
