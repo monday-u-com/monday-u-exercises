@@ -46,11 +46,11 @@ function addTodoItem(todoText, animation) {
 
 function createListElement(todoText, animation) {
   const listItem = document.createElement("li");
-  listItem.className = "li-todo";
+  listItem.className = "todo-li";
   if (animation) {
-    listItem.className = "li-todo add-item-animation";
+    listItem.className = "todo-li add-item-animation";
   }
-  setTimeout (() => { listItem.className = "li-todo existing-item";}, 700);
+  setTimeout (() => { listItem.className = "todo-li existing-item";}, 700);
   listItem.innerHTML = `<div class="todo-text">${todoText}</div>
                         <button class="remove-todo-button btn"><i class="fa fa-trash"></i></button>`;
   return listItem;
