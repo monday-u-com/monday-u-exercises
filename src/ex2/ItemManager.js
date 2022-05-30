@@ -22,11 +22,6 @@ export default class ItemManager {
 
         const firstNumberPattern = trimValue.match(singleNumber)
         const secondNumberPattern = trimValue.match(multiNumbersSeparatedWithComma) 
-
-        const singleWord = /^[A-Za-z]+$/
-        const multiWordsSeparatedWithComma = /^[0-9a-zA-Z]+(,[0-9a-zA-Z]+)*$/
-        const try1 = /^[0-9a-zA-Z]+(,[0-9a-zA-Z]+)*$/
-        //console.log(trimValue.match(try1))
     
         if(firstNumberPattern !== null || secondNumberPattern !== null || partOfNumbersSeprateWithComma !== null) {
             this.handleAddSingleOrMultiPokemonsTodo(trimValue)
