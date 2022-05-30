@@ -51,7 +51,7 @@ function createListElement(todoText, animation) {
   }
   setTimeout (() => { listItem.className = "existing-item";}, 700);
   listItem.innerHTML = `<div class="todo-text">${todoText}</div>
-                        <button class="remove-todo-button"><i class="fa fa-trash"></i></button>`;
+                        <button class="remove-todo-button btn-hover"><i class="fa fa-trash"></i></button>`;
   return listItem;
 }
 
