@@ -14,7 +14,25 @@ export default class ItemManager {
             return
         }
 
-        this.handleAddSingleOrMultiPokemonsTodo(enterValue)
+        const trimValue = this.trim(enterValue)
+        const pattern = /^\d+$/
+        const pattern2 = /^\d+(,\d+)*$/
+        const result = trimValue.substring(0,1).match(pattern2)
+
+        const singleNumber = /^\d+$/
+        const multiNumbersSeparatedWithComma = /^\d+(,\d+)*$/
+        const partOfNumbersSeprateWithComma = trimValue.substring(0,1).match(pattern2)
+
+        const firstNumberPattern = trimValue.match(singleNumber)
+        const secondNumberPattern = trimValue.match(multiNumbersSeparatedWithComma) 
+    
+        if(firstNumberPattern !== null || secondNumberPattern !== null || partOfNumbersSeprateWithComma !== null) {
+            this.handleAddSingleOrMultiPokemonsTodo(trimValue)
+        }
+        else{
+            this.model.addData(trimValue)
+            this.updateTodos()
+        }
     }
 
     handleAddSingleOrMultiPokemonsTodo(enterValue){
@@ -29,8 +47,7 @@ export default class ItemManager {
 
     handleAddMultiPokemonsTodo(enterValue){
 
-        const trimValue = this.trim(enterValue)
-        const split = trimValue.split(",")
+        const split = enterValue.split(",")
         const pokemonArr = []
 
         for(let i = 0; i < split.length; i++){
@@ -69,8 +86,7 @@ export default class ItemManager {
     }
 
     async handleAddSinglePokemonTodo(enterValue){
-        const trimValue = this.trim(enterValue)
-        const dataRetrieved = await this.fetchSingle(trimValue)
+        const dataRetrieved = await this.fetchSingle(enterValue)
         this.model.addData(dataRetrieved)
         this.updateTodos()
     }
