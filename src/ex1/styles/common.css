@@ -11,6 +11,10 @@
   --very-light-green: #60D6A7;
 }
 
+html {
+  font-family: 'Caveat', cursive;
+}
+
 body, html {
   height: 100%;
 }
