@@ -49,14 +49,17 @@ function addTodoItem(todoText, animation) {
 
 function createListElement(todoText, animation) {
   const listItem = document.createElement("li");
-  listItem.className = "todo-li";
+  listItem.className = "todo-li existing-item";
   if (animation) {
-    listItem.className = "todo-li add-item-animation";
+    showItemWithAnimation(listItem);
   }
-  setTimeout (() => { listItem.className = "todo-li existing-item";}, 700);
   listItem.innerHTML = `<div class="todo-text">${todoText}</div>
                         <button class="remove-todo-button btn"><i class="fa fa-trash"></i></button>`;
   return listItem;
+}
+function showItemWithAnimation(listItem) {
+  listItem.className = "todo-li add-item-animation";
+  setTimeout (() => { listItem.className = "todo-li existing-item";}, 700);
 }
 
 function showOrHideFooterAndImage() {
