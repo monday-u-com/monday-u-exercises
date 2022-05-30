@@ -1,119 +1,85 @@
 import ItemManager from "./ItemManager.js";
+import Task from "./Task.js";
 import PokemonClient from "./PokemonClient.js";
-import RenderList from "./RenderList.js";
-import Pokemon from "./Pokemons.js";
-import Task from "./Tasks.js";
+import Pokemon from "./Pokemon.js";
+import RenderTaskList from "./RenderList.js";
 
+export default class App {
+  constructor() {
+    this.itemManager = new ItemManager();
+    this.RenderTaskList = new RenderTaskList(this.itemManager,this.itemManager.tasksArray());
+    this.pokemonFetcher = new PokemonClient();
+    this.inputFiled = document.querySelector(".new-input");
+    this.addTaskBtn = document.querySelector(".new-button");
+    this.clearAllTasksBtn = document.querySelector(".clear-all-btn");
+  }
 
-export default class App{
-    constructor(){
-        this.itemManager = new ItemManager();
-        this.render = new RenderList(
-            this.itemManager,this.itemManager.getCurrentTask
+  runApp() {
+    this.RenderTaskList.render(this.itemManager.tasksArray());
+
+    this.addTaskBtn.addEventListener("click", async () => {
+      let inputValue = this.inputFiled.value;
+
+      if (inputValue.trim() === "") {
+        alert("Invalid Optins");
+      } else {
+        if (this.inputOfNums(inputValue)) {
+          const parsedInput = this.checkUserInput(inputValue);
+          try {
+            const pokemons = await this.pokemonFetcher.pokemonFetcherById(parsedInput);
+            this.insertPokemon(pokemons);
+            this.inputFiled.value = "";
+            this.RenderTaskList.render(this.itemManager.tasksArray());
+          } catch (e) {}
+        } else {
+          this.itemManager.addItem(
+            new Task(inputValue, false)
+          );
+          this.inputFiled.value = "";
+          this.RenderTaskList.render(this.itemManager.tasksArray());
+        }
+      }
+    });
+    
+    this.inputFiled.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
+        this.addTaskBtn.click();
+      }
+    });
+
+    this.clearAllTasksBtn.addEventListener("click", () => {
+      this.itemManager.clearAllTasks();
+      this.RenderTaskList.render(this.itemManager.tasksArray());
+    });
+  }
+  checkUserInput(userInput) {
+    return userInput.split(",");
+  }
+  inputOfNums(inputValue) {
+    const regex = /^[\d,]+$/;
+    return regex.test(inputValue);
+  }
+  insertPokemon(pokemons) {
+    pokemons.forEach((pokemon) => {
+      if (pokemon.name) {
+        this.itemManager.addItem(
+          new Pokemon(pokemon.name, pokemon.id, pokemon.types[0].type.name)
         );
-        this.pokemonFetchId = new PokemonClient();
-        this.formInput = document.querySelector(".form-input");
-        this.addTaskBtn = document.querySelector(".add-new-button");
-        this.deleteAllTasksBtn = document.querySelector(".delete-all-tasks");
-    }
-    // 
-    initializeApp() {
-        this.render.renderList(this.itemManager.getItems());
-    
-        this.addTaskBtn.addEventListener("click", async () => {
-          let userValue = this.inputBox.value;
-    
-          if (userValue.trim() === "") {
-            alert("Please enter a valid input");
-          } else {
-            if (this.isOnlyNumbers(userValue)) {
-              const parsedInput = this.parseUserInputToIds(userValue);
-              try {
-                const pokemons = await this.pokemonFetchId.fetchPokemonsById(
-                  parsedInput
-                );
-                this.addPokemonsToList(pokemons);
-                this.inputBox.value = "";
-                this.render.renderList(this.itemManager.getItems());
-              } catch (e) {}
-            } else {
-              this.itemManager.addTask(
-                new Task(userValue, this.getNowTime(), false)
-              );
-              this.inputBox.value = "";
-              this.render.renderList(this.itemManager.getItems());
-            }
-          }
-        });
-    
-        this.inputBox.addEventListener("keypress", (event) => {
-          if (event.key === "Enter") {
-            this.addTaskBtn.click();
-          }
-        });
-    
-        this.deleteAllTasksBtn.addEventListener("click", () => {
-          this.itemManager.deleteAllItems();
-          this.render.renderList(this.itemManager.getItems());
-        });
+      } else {
+        this.itemManager.addItem(
+          new Task(
+            `${pokemon} Id of Pokemon not exist`,
+            false
+          )
+        );
       }
-    
-      addPokemonsToList(pokemons) {
-        pokemons.forEach((pokemon) => {
-          if (pokemon.name) {
-            this.itemManager.addTask(
-              new Pokemon(pokemon.name, pokemon.id, pokemon.types[0].type.name)
-            );
-          } else {
-            this.itemManager.addTask(
-              new Task(
-                `Pokemon with ID ${pokemon} was not found`,
-                this.getNowTime(),
-                false
-              )
-            );
-          }
-        });
-      }
-    
-      pokemonAlreadyExist(pokemon) {}
-    
-      createPokemonNotFoundMsg(pokemonId) {
-        return `Pokemon with ID ${pokemonId} was not found`;
-      }
-    
-      isOnlyNumbers(userValue) {
-        const regex = /^[\d,]+$/;
-        return regex.test(userValue);
-      }
-    
-      parseUserInputToIds(userInput) {
-        return userInput.split(",");
-      }
-    
-      getNowTime() {
-        var today = new Date();
-        var nowtime =
-          today.getFullYear() +
-          "-" +
-          (today.getMonth() + 1) +
-          "-" +
-          today.getDate() +
-          " " +
-          today.getHours() +
-          ":" +
-          today.getMinutes() +
-          ":" +
-          today.getSeconds();
-        return nowtime;
-      }
-    }
-    
+    });
+  }
+  pokemonNotFound(pokemonId) {
+    return `This ${pokemonId}s was not found`;
+  }
 
+ 
 
-
-
-
-
-
-
+ 
+}

@@ -1,50 +1,49 @@
-export default class RenderList {
-    constructor(tracker, tasks) {
-        this.tasksList = tasks;
-        this.manager = tracker;
-        this.todoList = document.querySelector(".todo-list");
-        this.currentTask = document.querySelector(".pending-tasks");
-      }
-      render(list) {
-        this.todoList.innerHTML = "";
-        list.forEach((value, index) => {
-          const listItem = this.renderListItem(value, index);
-          this.todoList.appendChild(listItem);
-        });
-        this.pendingTasks.innerText =
-        list.length == 0 ? `0 pending tasks`: `You have ${list.length} pending tasks`;
+export default class RenderTaskList {
+  constructor(tracker, tasks) {
+    this.todoList = document.querySelector(".todo-list");
+    this.pendingTasks = document.querySelector(".upcomingTasks");
+    this.tasksList = tasks;
+    this.tracker = tracker;
   }
-    renderListElements(v,index){
-      const item= document.createElement("li");
-      const task= document.createElement("text");
-      const deleteBtn= document.createElement("button");
-      const deleteIcon= document.createElement("icon");
-      const span= document.createElement("span");
-      
-    //   Adding Classes :
-    item.classList.add("todo-list-item");
-    deleteBtn.classList.add("fa fa-trash");
-    deleteBtn.id = index;
-    task.id = index;
-    task.innerText = v.task;
-    deleteIcon.name = "trash-outline";
+  render(list) {
+    this.todoList.innerHTML = "";
+    list.forEach((v, index) => {
+      const listItem = this.renderItem(v, index);
+      this.todoList.appendChild(listItem);
+    });
 
-    deleteBtn.onclick = () => {
-      this.tracker.removeItem(deleteBtn.id);
-      this.renderList(this.tracker.getItems());
-    };
+    this.pendingTasks.innerText =
+      list.length == 0
+        ? `0 Awating Todos`
+        : `${list.length} Todos Await`;
+  }
 
-    task.onclick = () => {
-      this.taskClicked(deleteBtn.id);
-    };
 
-    //Building the elements tree hierarchically
-    deleteBtn.appendChild(deleteIcon);
-    span.appendChild(task);
-    span.appendChild(deleteBtn);
-    item.appendChild(span);
-    return item;
-    }
+  renderItem(v, index) {
+    const listItem = document.createElement("li");
+    const span = document.createElement("span");
+    const task = document.createElement("Text");
+    const taskDeleteBtn = document.createElement("button");
+    const trashIcon = document.createElement("button");
 
     
+    listItem.classList.add("task-item");
+    taskDeleteBtn.classList.add("delete-task-btn");
+    taskDeleteBtn.id = index;
+    taskDeleteBtn.innerText = "🗑️"
+    task.id = index;
+    task.innerText = v.task;
+    trashIcon.name = "trash-outline";
+
+    taskDeleteBtn.onclick = () => {
+      this.tracker.taskToRmove(taskDeleteBtn.id);
+      this.render(this.tracker.tasksArray());
+    };
+
+    taskDeleteBtn.appendChild(trashIcon);
+    span.appendChild(task);
+    span.appendChild(taskDeleteBtn);
+    listItem.appendChild(span);
+    return listItem;
+  }
 }
