@@ -1,7 +1,7 @@
 const allTodosList = document.getElementById("all-todos-list");
 
 const UNSORTED = 0;
-const SORTED_ASK = 1;
+const SORTED_ASC = 1;
 const SORTED_DESC = 2;
 let isListSorted = UNSORTED;
 
@@ -129,7 +129,7 @@ inputTitle.addEventListener("keypress", (event) => {
 function onSortListButtonClicked() {
   if (isListSorted === UNSORTED || isListSorted === SORTED_DESC) {
     sortListWithOrder(compareElementsAsc);
-    isListSorted = SORTED_ASK;
+    isListSorted = SORTED_ASC;
   } else {
     sortListWithOrder(compareElementsDesc);
     isListSorted = SORTED_DESC;
