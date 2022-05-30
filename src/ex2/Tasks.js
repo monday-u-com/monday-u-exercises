@@ -1,10 +1,11 @@
 export default class Task {
-    constructor(task, dateCreated, checked) {
-      {
-        this.task = task;
-        this.dateCreated = dateCreated;
-        this.checked = checked;
-      }
+  constructor(task, date, marked) {
+    {
+      this.task = task;
+      this.date = date;
+      this.marked = marked;
     }
   }
-  
+}
+
+

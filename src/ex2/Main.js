@@ -1,19 +1,17 @@
-import App from "./app";
 
+import App from "./App.js";
 
-
-class Main{
-  constructor(){
-  this.app = new App();
-  
+class Main {
+  constructor() {
+    this.app = new App();
   }
   init() {
-    this.app.initializeApp();
+    this.app.runApp();
   }
-  
- }
+}
 
- const main = new Main();
- document.addEventListener("DOMContentLoaded", function () {
+const main = new Main();
+
+document.addEventListener("DOMContentLoaded", function () {
   main.init();
 });

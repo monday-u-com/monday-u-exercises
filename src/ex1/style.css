@@ -1,625 +1,200 @@
-:root {
-	--dark: #374151;
-	--darker: #1F2937;
-	--darkest: #111827;
-	--grey: #6B7280;
-	--pink: #EC4899;
-	--purple: #8B5CF6;
-	--light: #EEE;
-}
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap");
 
-* {
-	margin: 0;
-	box-sizing: border-box;
-	font-family: "Fira sans", sans-serif;
-}
+
 
 body {
-	display: flex;
-    border: 40px;
-    padding: 20px;
-	flex-direction: column;
-	min-height: 100vh;
-	color: #FFF;
-	background-color: var(--dark);
-}
-.navbar{
-    border-radius: 1rem;
-    
-}
-.navbar-brand{
-    color: #EEE;
-}
-#current_date{
-   flex:-1;
-   font-size:1.125rem;
-}
-.wrapper{
-    background: var(--grey);
-    max-width: 700px;
-    width: 100%;
-    margin: 140px auto;
-    padding: 5px 5px;
-    border-radius: 20px;
-    box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
-    resize: both;
-    overflow: auto;
-  }
-
-header {
-	padding: 2rem 1rem;
-	max-width: 800px;
-	width: 100%;
-	margin: 0 auto;
-}
-
-header h1{ 
-	font-size: 1.5rem;
-	font-weight: 300;
-	color:white;
-	margin-bottom: 1rem;
-    font-weight: bold;
-    font-family:"Poppins", sans-serif;
-}
-
-#new-task-form {
-	display: flex;;
-}
-
-input, button {
-	appearance: none;
-	border: none;
-	outline: none;
-	background: none;
-}
-/*  */
-
-select{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    outline: none;
-    border: none;
-    border-radius: 35px;
-    color: #ffffff;
-    font-family: "Poppins", sans-serif;
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: bold;
-    text-align:start;
-    width: 6rem;
-    padding: 1rem;
-    border-radius: 20px;
-    background-color: var(--purple);
-}
-
-select::after{
-    transition:all 0.3s ease;
-}
-
-
-
-select:hover{
-      background-color: blueviolet;
-      color: #fefefe;
-  }
-
-#new-task-input {
-	flex: 1 1 0%;
-	background-color: var(--darker);
-	padding: 1rem;
-	border-radius: 1rem;
-	margin-right: 1rem;
-	color: var(--light);
-	font-size: 1.25rem;
-}
-
-#new-task-input::placeholder {
-	color: var(--grey);
-}
-
-#new-task-submit {
-	color: var(--pink);
-	font-size: 1.25rem;
-	font-weight: 700;
-	background-image: linear-gradient(to right, white,white);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	cursor: pointer;
-	transition: 0.4s;
-}
-
-#new-task-submit:hover {
-	opacity: 0.8;
-}
-
-#new-task-submit:active {
-	opacity: 0.6;
-}
-
-main {
-	flex: 1 1 0%;
-	max-width: 800px;
-	width: 100%;
-	margin: 0 auto;
-}
-
-.task-list {
-	padding: 1rem;
-}
-
-.task-list h2 {
-	font-size: 1.5rem;
-	font-weight: 300;
-	color: var(--grey);
-	margin-bottom: 1rem;
-}
-
-#tasks .task {
-	display: flex;
-	justify-content: space-between;
-	background-color: var(--darkest);
-	padding: 1rem;
-	border-radius: 1rem;
-	margin-bottom: 1rem;
-}
-
-.task .content {
-	flex: 1 1 0%;
-}
-
-.task .content .text {
-	color: var(--light);
-	font-size: 1.125rem;
-	width: 100%;
-	display: block;
-	transition: 0.4s;
-}
-
-.task .content .text:not(:read-only) {
-	color: var(--pink);
-}
-
-.task .actions {
-	display: flex;
-	margin: 0 -0.5rem;
-}
-
-.task .actions button {
-	cursor: pointer;
-	margin: 0 0.5rem;
-	font-size: 1rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	transition: 0.4s;
-}
-
-.task .actions button:hover {
-	opacity: 0.8;
-}
-
-.task .actions button:active {
-	opacity: 0.6;
-}
-.task .actions .edit{
-    background-image: linear-gradient(to right, var(--grey), var(--purple));
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent; 
-}
-
-.task .actions .delete{
-    color: crimson; 
-}
-
-.task .actions .complete-btn {
-    
-    color: azure;
-    border: none;
-    /* padding: 1rem; */
-    cursor: pointer;
-    font-size: 1.8rem;
-    transition: all 0.3 ease;
-}
-
-.completed {
-    text-decoration: line-through;
-    opacity: 0.5;
-    color: aquamarine;
-}
-
-/*  */
-body .card {
-    display: grid;
-    place-content: center;
-    align-items: center;
-    font-family: "nunito", sans-serif;
-    background-color: #ff00c8;
-  }
+  /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
+  background-color: #776f81;
+  font-family: "Rajdhani", sans-serif;
+  background-size: cover;
   
-  .card {
-    position:absolute;
-    top: 170px;
-    right:380px;
-    /* padding: 40px 32px; */
-    clip-path: circle(3% at 97% 11%);
-    transition: all ease-in-out 0.3s;
-    background-color: #ffffff;
-  }
-  .card__infoicon {
-    position: absolute;
-    top: 5px;
-    right:13px;
-    font-size: 0.8em;
-    color: #ffffff;
-    transition: ease-out 0.3s;
-  }
-  .card__title {
-    color: #1F2937;
-    margin: 0;
-    font-size: 2em;
-    line-height: 1.8;
-  }
-  .card__description {
-    margin: 0;
-    color:#374151;
-    font-size: 1.1em;
-    line-height: 1.6;
-  }
-  .card__credits {
-    color: #8B5CF6;
-    margin: 0;
-    padding: 4px 0;
-    font-size: 1.1em;
-  }
-  .card__reference {
-    display: inline-block;
-    border-bottom: 1px solid transparent;
-    color: #0099ff;
-    text-decoration: none;
-    transition: ease-in 0.3s;
-  }
-  .card__reference:hover {
-    border-bottom-color: #0099ff;
-  }
-  .card:hover, .card:focus {
-    clip-path: circle(75%);
-    border-radius: 20px;
-    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.12), 0px 3px 18px rgba(0, 0, 0, 0.08);
-    background: #ffffff;
-    outline: none;
-  }
-  .card:hover .card__infoicon, .card:focus .card__infoicon {
-    opacity: 0;
-  }
-  .card:focus {
-    box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.12), 0px 3px 18px rgba(0, 0, 0, 0.08), 0px 0px 0px 4px rgba(0, 0, 0, 0.2);
-  }
+}
 
-  /*/////////////////////////////  */
+.app-container {
+  background: whitesmoke;
+  max-width: 600px;
+  width: 100%;
+  height: 570px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.todo-list-container {
+  display: flex;
+  flex-direction: column;
+}
+.app-container h1,
+.upcomingTasks {
+  font-family:"Rajdhani", sans-serif;
+  font-weight: bolder;
+  font-size: xxx-large;
+  color: rgb(167, 67, 254);
+  text-align: center;
+}
 
-  /* html {
-	height: 100%;
-} */
-
-
-
-
-html {
-    height: 100%;
-  }
+.upcomingTasks {
+  font-size: large;
+  margin-left: 40%;
+}
+.new-input{
+  color: #270057;
+  box-shadow: #00b09b;
   
-  /* body {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Bungee Shade", cursive;
-    background: #ffed94;
-  } */
+}
+.task-item text {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: large;
+  font-weight: bold;
   
-.todo-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-    font-weight: bolder;
-    width: 100%;
-    text-align: center;
-    font-size: 4rem;
-    padding-bottom: 30px;
-    background: linear-gradient( 20deg, #ffffff 25%, #ffffff 25%, #ffffff 50%, #ffffff 50%, #ffffff 75%, #f7f7f7 75%, #969696);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 20px 20px;
+  color: rgb(255, 255, 255);
+}
+
+.add-new-container,
+.todo-list {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 2px;
+  padding: 1.4rem 2rem 1.6rem;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  width: 100%;
+}
+
+.task-item {
+  position: relative;
+  list-style: none;
+  height: 45px;
+  line-height: 45px;
+  margin-bottom: 8px;
+  width: 100%;
+  background-color: rgb(75, 6, 102);
+  border-radius: 3px;
+  padding: 0 0px;
+  cursor: default;
+  border-radius: 5px;
+}
+
+.delete-task-btn {
+  height: fit-content;
+  background: rgba(255, 255, 255, 0.407);
+  width: auto;
+  margin-top: 4px;
+}
+
+.task-item span {
+  margin-right: 5px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.task-item text {
+  width: 90%;
+  word-wrap: break-word;
+}
+
+.todo-list li:hover {
+  background: linear-gradient(45deg, rgb(157, 98, 215), rgb(195, 138, 216), rgb(148, 148, 204));
+  background-size: 500% auto;
+  color: black;
+  animation: gradient 5s linear infinite;
+  /* cursor: pointer; */
+}
+
+.task-item button {
+  width: 10%;
+  color: #893fe3;
+  font-size: xx-large;
+  line-height: 2.4rem;
+  vertical-align: middle;
+  transition: color 0.25s;
+  padding: 0;
+  background: none;
+  border: none;
+  outline: none;
+}
+.task-item button:hover {
+  cursor: pointer;
+  
+}
+.add-new-container{
+ background-color: #3ad4c2;
+ border-radius: 3rem;
+}
+.add-new-container input {
+  flex-grow: 1;
+  color: #7010c4;
+  background-color: #00b09b;
+  font-size: 1.5rem;
+  line-height: 2.4rem;
+  vertical-align: middle;
+  border-style:none;
+  background: transparent;
+  text-align: center;
+}
+
+.add-new-container:after {
+  content: "";
+  position: absolute;
+  border-style:none;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 999;
+  height: 10px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+
+}
+
+@keyframes gradient {
+  0% {
     background-position: 0 0;
-    -webkit-animation: stripes 5s linear infinite;
-            animation: stripes 6s linear infinite;
   }
-  
-  @-webkit-keyframes stripes {
-    100% {
-      background-position: 20px 0, 20px 0, 20px 0;
-    }
+  100% {
+    background-position: 100% 0;
   }
-  
-  @keyframes stripes {
-    100% {
-      background-position: 20px 0, 20px 0, 20px 0;
-    }
-  }
- /* //////////////// */
-
-
-
- :root {
-    --body: #ff533e;
-    --mouth: #000000;
-    --feather: #939393;
-    --beak-top: #e9581a;
-    --beak-down: #aa4c21;
-    --leg: #00adef;
-    --body-color: #e3edf7;
-  }
-  
-  /* body {
-    background: var(--body-color);
-    font-family: sans-serif;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-   */
-  .container {
-    width: 0px;
-    height:0px;
-    position: relative;
-    size: 5rem;
-    right: 400px;
-  }
-  
-  /* .body, */
-  .mouth,
-  .feather,
-  .tail,
-  .beak,
-  .mouth::before,
-  .mouth::after,
-  .leg,
-  .leg::after,
-  .leg::before {
-    position: absolute;
-  }
-  .body,
-  .mouth,
-  .feather,
-  .beak,
-  .mouth::before,
-  .mouth::after {
-    border-radius: 50%;
-  }
-/*   
-  .body {
-    top: 26px;
-    left: 50px;
-    height: 180px;
-    width: 200px;
-    transform: rotate(-17deg);
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      transparent 20%,
-      var(--body) 20%
-    );
-    z-index: 2;
-  } */
-  
-  .mouth {
-    background: var(--mouth);
-    top: 20px;
-    left: -175px;
-    width: 100px;
-    height: 100px;
-    transform: rotate(-17deg);
-    z-index: 5;
-    animation: animate-mouth 1.5s forwards;
-    animation-delay: 2s;
-  }
-  
-  @keyframes animate-mouth {
-    100% {
-      left: 175px;
-    }
-  }
-  .mouth::before {
-    content: "";
-    width: 30px;
-    height: 30px;
-    background: white;
-    position: absolute;
-    top: 20px;
-    left: 40px;
-  }
-  .mouth::after {
-    content: "";
-    width: 10px;
-    height: 10px;
-    background: black;
-    position: absolute;
-    top: 30px;
-    left: 55px;
-    animation: animate-eye 1s infinite;
-    animation-delay: 4s;
-  }
-  
-  @keyframes animate-eye {
-    50% {
-      height: 5px;
-    }
-  }
-  
-  .feather {
-    z-index: 4;
-    left: 44px;
-    top: -206px;
-    width: 150px;
-    height: 150px;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      transparent 50%,
-      var(--feather) 50%
-    );
-    transform: rotate(-17deg);
-    animation: animate-feather 1.5s forwards;
-    animation-delay: 2s;
-  }
-  
-  @keyframes animate-feather {
-    100% {
-      top: -6px;
-    }
-  }
-  
-  .tail {
-    width: 150px;
-    height: 60px;
-    background-color: var(--mouth);
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
-    top: 92px;
-    left: 324px;
-    transform: rotate(-17deg);
-    z-index: 3;
-    animation: animate-tail 1.5s forwards;
-    animation-delay: 2s;
-  }
-  @keyframes animate-tail {
-    100% {
-      left: -24px;
-    }
-  }
-  .beak {
-    height: 100px;
-    width: 100px;
-    background: linear-gradient(
-      to bottom,
-      var(--beak-top) 0%,
-      var(--beak-top) 15%,
-      transparent 15%
-    );
-    left: 224px;
-    top: 240px;
-    z-index: -1;
-    transform: rotate(-17deg);
-    animation: animate-beak 1.5s forwards;
-    animation-delay: 2s;
-  }
-  @keyframes animate-beak {
-    100% {
-      top: 40px;
-    }
-  }
-  .leg {
-    background: var(--leg);
-    height: 50px;
-    width: 10px;
-    border-radius: 10px;
-    top: 515px;
-    left: 125px;
-    transform: rotate(-15deg);
-    z-index: 1;
-    animation: animate-leg 1.5s forwards;
-    animation-delay: 2s;
-  }
-  @keyframes animate-leg {
-    100% {
-      top: 215px;
-    }
-  }
-  .leg::before {
-    bottom: -8px;
-    content: "";
-    width: 40px;
-    height: 9px;
-    background: var(--leg);
-    border-radius: 10px;
-    transform: rotate(15deg);
-    z-index: -1;
-  }
-  .leg::after {
-    top: -8px;
-    content: "";
-    width: 30px;
-    height: 9px;
-    background: var(--leg);
-    border-radius: 10px;
-    transform: rotate(-15deg);
-    z-index: -1;
-  }
-
-  /* ////////////////////////////////////// */
-  svg {
-	width: 256px;
-	height: 256px;
 }
 
-/* SMOKE */
-#smoke-1 {
-	stroke-dasharray: 0, 10;
-	animation: smoke 6s ease infinite;
+.add-new-container button:hover {
+  color: darkblue;
+  cursor: pointer;
 }
 
-#smoke-2 {
-	stroke-dasharray: 0, 10;
-	animation: smoke 6s 0.5s ease infinite;
+.todo-list {
+  overflow: auto;
+  max-height: 260px;
+}
+.clear-all-btn{
+  width: 50%;
+  margin-left: 25%;
 }
 
-@keyframes smoke {
-	0% {
-		stroke-dasharray: 0, 10;
-	}
-	50% {
-		stroke-dasharray: 10, 0;
-	}
-	100% {
-		stroke-dasharray: 10, 0;
-		opacity: 0;
-	}
+.btn-add{
+  color: #00b09b;
+  cursor: pointer;
+  position: absolute;
+  font-size: 1.8rem;
+  
+  margin-right: 1px;
 }
 
-/* WRITING */
-#line-1 {
-	opacity: 0;
-	animation: writing 0.5s linear forwards;
+footer{
+  background-color: #00b09b;
+  justify-content: center;
+  color: #ffffff;
+  text-align: center;
 }
-
-#line-2 {
-	opacity: 0;
-	animation: writing 0.5s 1s linear forwards;
-}
-
-#line-3 {
-	opacity: 0;
-	animation: writing 0.5s 1.5s linear forwards;
-}
-
-#line-4 {
-	opacity: 0;
-	animation: writing 0.5s 2s linear forwards;
-}
-
-@keyframes writing {
-	0% {
-		width: 0px;
-		opacity: 1;
-	}
-	100% {
-		width: 14px;
-		opacity: 1;
-	}
-}
-
-/* ///////////////////////////////////////////// */
