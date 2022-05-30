@@ -21,7 +21,7 @@
   border-radius: 4px;
 }
 
-#all-todos-list li {
+.li-todo {
   list-style-type: none;
   background-color: rgba(128, 128, 128, 0.2);
   margin-top: 10px;
@@ -29,7 +29,7 @@
   display: flex;
 }
 
-#all-todos-list li:hover {
+.li-todo:hover {
   background-color: rgba(128, 128, 128, 0.4);
   cursor: pointer;
 }
