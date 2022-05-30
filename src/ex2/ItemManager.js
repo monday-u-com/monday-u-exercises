@@ -15,16 +15,18 @@ export default class ItemManager {
         }
 
         const trimValue = this.trim(enterValue)
-        const pattern = /^\d+$/
-        const pattern2 = /^\d+(,\d+)*$/
-        const result = trimValue.substring(0,1).match(pattern2)
 
         const singleNumber = /^\d+$/
         const multiNumbersSeparatedWithComma = /^\d+(,\d+)*$/
-        const partOfNumbersSeprateWithComma = trimValue.substring(0,1).match(pattern2)
+        const partOfNumbersSeprateWithComma = trimValue.substring(0,1).match(multiNumbersSeparatedWithComma)
 
         const firstNumberPattern = trimValue.match(singleNumber)
         const secondNumberPattern = trimValue.match(multiNumbersSeparatedWithComma) 
+
+        const singleWord = /^[A-Za-z]+$/
+        const multiWordsSeparatedWithComma = /^[0-9a-zA-Z]+(,[0-9a-zA-Z]+)*$/
+        const try1 = /^[0-9a-zA-Z]+(,[0-9a-zA-Z]+)*$/
+        //console.log(trimValue.match(try1))
     
         if(firstNumberPattern !== null || secondNumberPattern !== null || partOfNumbersSeprateWithComma !== null) {
             this.handleAddSingleOrMultiPokemonsTodo(trimValue)
@@ -94,8 +96,10 @@ export default class ItemManager {
     async fetchSingle(dataEntered){ 
         try{
             const response = await fetch(this.API_BASE+dataEntered)
-
-            if(response.status === 404){
+            if(response.status === 404 && isNaN(+dataEntered)){
+                return dataEntered
+            }
+            else if(response.status === 404 && !isNaN(+dataEntered)){    
                 return `pokemon id ${dataEntered} not found` 
             }
 
