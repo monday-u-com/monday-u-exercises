@@ -33,27 +33,39 @@
   cursor: pointer;
 }
 
-#footer {
-  font-family: 'Indie Flower', cursive;
-  display: flex;
-  /* justify-content: space-between; */
-  justify-content: center;
+.todos-content {
+  padding: 20px;
+  font-size: 24px;
 }
 
-#amount-info {
-  margin: auto;
+.animation-add-todo {
+  animation: change-color 0.7s linear;
 }
 
-#footer p {
-  margin: 0;
-  /* padding-left: 5px; */
-  width: 230px;
-  padding: auto;
-  text-align: center;
+@keyframes change-color {
+  0% {
+    background: rgba(128, 128, 128, 0.8);
+  }
+  100% {
+    background: rgba(128, 128, 128, 0.2);
+  }
 }
 
-#no-todos-placeholder {
-  width: 100px;
-  margin-top: 5px;
-  margin-left: 5px;
+.animation-delete-todo {
+  color: antiquewhite;
+  animation: deleting-color 0.7s ease-out;
+}
+
+@keyframes deleting-color {
+  0% {
+    background: brown;
+  }
+  100% {
+    background: antiquewhite;
+  }
+}
+
+.todo-text {
+  padding: 5px;
+  width: 415px;
 }
