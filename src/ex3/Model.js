@@ -5,18 +5,42 @@ export default class Model {
     }
 
     LoadDataFromFile(){
-        fs.readFile('./todo.json', (err, data) => {
-            if(err){
-                return
-            }
+        try {
+            const data = fs.readFileSync('./todo.json', 'utf8');
             if(data === null){
-                console.log('data is null');
                 this.todoList = []
             }
             else{
                 this.todoList = JSON.parse(data)
             } 
-        })
+        } catch (err) {
+            console.error(err);
+        }
+
+        /* try {
+            const data = await fs.readFile('./todo.json', { encoding: 'utf8' });
+            console.log(data);
+            if(data === null){
+                this.todoList = []
+            }
+            else{
+                this.todoList = JSON.parse(data)
+            } 
+          } catch (err) {
+            console.log(err);
+        } */  
+
+        /* fs.readFile('./todo.json', (err, data) => {
+            if(err){
+                return
+            }
+            if(data === null){
+                this.todoList = []
+            }
+            else{
+                this.todoList = JSON.parse(data)
+            } 
+        }) */
     }
 
     addData(enterValue){
@@ -47,5 +71,9 @@ export default class Model {
 
     filterDataZToA(){
         this.todoList = [...this.todoList.sort().reverse()]
+    }
+
+    checkUncheckTodo(index, status){
+        this.todoList[index].done = status
     }
 }

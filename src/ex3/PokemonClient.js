@@ -9,8 +9,8 @@ export default class PokemonClient{
         //this.showMatchUiByTodosNumber() 
         //this.createTodoListItems() 
         
-        this.itemManager.getTodoList().forEach(todo => {
-            console.log(todo)
+        this.itemManager.getTodoList().forEach((todo,index) => {
+            console.log(index + ": " + todo.title +" is " + (todo.done ? "done" : "not done"))
         }) 
     }
 
@@ -114,14 +114,24 @@ export default class PokemonClient{
     filterDataZToA() {
         this.itemManager.filterDataZToA()
     }
+
+    changeDoneStatus(index, status) {
+        console.log(status)
+        if(status === 'true'){
+            this.itemManager.checkTodo(index)
+        }
+        else{
+            this.itemManager.uncheckTodo(index)
+        }
+    }
 }
 
 /* document.addEventListener("DOMContentLoaded", function() {
     onDOMReady();
 }) */
 
-const pokemonClient = new PokemonClient();
-pokemonClient.showTodos()
+/* const pokemonClient = new PokemonClient();
+pokemonClient.showTodos() */
 
 /* function onDOMReady() {
     const addTodoButton = document.getElementById("add-todo-button")

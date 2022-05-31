@@ -1,6 +1,1 @@
-[
-    {
-        "todo": "play footbal",
-        "done" : true
-    }
-]
+[{"title":"buy milk","done":false},{"title":"catch ivysaur with type grass/poison/","done":false},{"title":"catch fearow with type normal/flying/","done":true},{"title":"catch grimer with type poison/","done":false},{"title":"catch vileplume with type grass/poison/","done":false},{"title":"catch ekans with type poison/","done":false},{"title":"catch arbok with type poison/","done":false}]

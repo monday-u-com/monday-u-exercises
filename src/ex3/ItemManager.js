@@ -33,8 +33,8 @@ export default class ItemManager {
                         partOfNumbersSeprateWithComma !== null) {
             this.handleAddSingleOrMultiPokemonsTodo(trimValue)
         }
-        else{
-            this.model.addData(trimValue)
+        else{ //just todo
+            this.addTodoParse(trimValue)
             this.updateTodos()
         }
     }
@@ -62,12 +62,12 @@ export default class ItemManager {
             .then(response => {
                 response.forEach(res => {
                     const types = this.getTypes(res)
-                    this.model.addData(this.trim(this.returnPokemonData(res, types)))
+                    this.addTodoParse(this.returnPokemonData(res, types))
             })
             this.updateTodos()
         }).catch(error => {
             console.log(error)
-            this.model.addData("failed to fetch pokemon with this input: " +enterValue)
+            this.addTodoParse("failed to fetch pokemon with this input: " +enterValue)
             this.updateTodos()
         })
     }
@@ -91,7 +91,7 @@ export default class ItemManager {
 
     async handleAddSinglePokemonTodo(enterValue){
         const dataRetrieved = await this.fetchSingle(enterValue)
-        this.model.addData(dataRetrieved)
+        this.addTodoParse(dataRetrieved)
         this.updateTodos()
     }
 
@@ -112,6 +112,10 @@ export default class ItemManager {
         }catch(error){
             console.log(error)
         }
+    }
+
+    addTodoParse(value){
+        this.model.addData({title: value, done: false})
     }
 
     getTypes(data){
@@ -144,7 +148,7 @@ export default class ItemManager {
 
     updateTodos(){
         this.model.saveDataToLS()
-        this.pokemonClient.showTodos()
+        //this.pokemonClient.showTodos()
     }
 
     clearAllTodos() {
@@ -159,6 +163,16 @@ export default class ItemManager {
 
     filterDataZToA() {
         this.model.filterDataZToA()
+        this.updateTodos()
+    }
+
+    checkTodo(index) {
+        this.model.checkUncheckTodo(index,true)
+        this.updateTodos()
+    }
+
+    uncheckTodo(index) {
+        this.model.checkUncheckTodo(index, false)
         this.updateTodos()
     }
 
