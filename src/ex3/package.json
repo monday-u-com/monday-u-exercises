@@ -1,0 +1,19 @@
+{
+  "name": "ex3",
+  "version": "1.0.0",
+  "description": "Time for task #3!<br>",
+  "main": "script.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "commander": "^9.3.0",
+    "fs": "^0.0.1-security",
+    "node-fetch": "^3.2.4"
+  }
+}
