@@ -11,9 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^5.0.1",
-    "commander": "^9.3.0",
     "dotenv": "^16.0.1",
-    "fetch": "^1.1.0"
+    "fetch": "^1.1.0",
+    "inquirer": "^8.2.4"
   },
   "type": "module",
   "devDependencies": {
