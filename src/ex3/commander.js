@@ -1,25 +1,37 @@
 import { ItemManager } from "./item-manager.js";
 import { PokemonClient } from "./pokemon-client.js";
+import chalk from "chalk";
+import { Command } from "commander";
 
-class Main {
+class MainCommander {
   constructor(itemManager, pokemonClient) {
     this.itemManager = itemManager;
     this.pokemonClient = pokemonClient;
   }
 
   init() {
-    this.updateTodos(itemManager.init());
+    this.updateTodos(this.itemManager.init());
   }
 
-  deleteTodoTask(index) {
-    this.updateTodos(this.itemManager.deleteItem(index));
+  showTodos() {
+    this.todos.forEach(todo => {
+      console.log(todo.text);
+    });
+  }
+
+  addTodo(text) {
+    this.updateTodos(this.itemManager.addItem(text));
   }
 
   updateTodos(updatedArray) {
     this.todos = updatedArray;
   }
 
-  addTodo(text) {
+  deleteTodoTask(index) {
+    this.updateTodos(this.itemManager.deleteItem(index));
+  }
+
+  addTodoTask(text) {
     if (this.pokemonClient.isPokemon(text)) {
       this.addPokemon(text.toLowerCase());
     } else {
@@ -51,37 +63,31 @@ class Main {
 
 const itemManager = new ItemManager();
 const pokemonClient = new PokemonClient();
-const main = new Main(itemManager, pokemonClient);
+const mainCommander = new MainCommander(itemManager, pokemonClient);
 
-// document.addEventListener("DOMContentLoaded", function () {
-//     // you should create an `init` method in your class
-//     // the method should add the event listener to your "add" button
-//     main.init();
-// });
-main.init();
+mainCommander.init();
 
-
-import chalk from "chalk";
-import { Command } from "commander";
 const program = new Command();
 
 program
-  .name("cli-calc")
-  .description("The best CLI calculator")
+  .name("todos-manager")
+  .description("Read, add, delete todos")
   .version("1.0.0");
 
 program
   .command("add")
-  .description("Add two numbers")
-  .argument("<number>", "first operand")
-  .argument("<number>", "second operand")
-  .option("-c, --color <string>", "Result color", "white")
-  .action((firstNumber, secondNumber, options) => {
-    console.log(
-      chalk[options.color](
-        `Result: ${Number(firstNumber) + Number(secondNumber)}`
-      )
-    );
+  .description("Add a new todo")
+  .argument("<string>", "todo text")
+  .action((text) => {
+    mainCommander.addTodo(text);
+    console.log(`Adding '${text}'`);
+  });
+
+program
+  .command("show")
+  .description("Show all todos")
+  .action(() => {
+    mainCommander.showTodos();
   });
 
 program.parse();
