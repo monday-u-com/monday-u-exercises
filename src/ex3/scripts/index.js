@@ -1,11 +1,16 @@
 import inquirer from 'inquirer';
 import ItemManager from "./ItemManager.mjs";
+import { createSpinner } from 'nanospinner';
 
 class CliApp
 {
     constructor()
     {
         this.item_manager = new ItemManager();
+        this.intro_message = {
+            name: "The Best Todo list cli",
+            description: "This is a cli for a todo list go a head and check it out."
+        }
         this.questions = {
             get_command_question: {
                 name: "command",
@@ -80,17 +85,33 @@ class CliApp
     }
 
     AddCommand()
-    {
+    {        
         inquirer
             .prompt([this.questions.add_task_question])
-            .then((answer) => AddTaskResolver(answer.task_text));
+            .then(async (answer) => 
+            {
+                const spinner = createSpinner('Processing your todo...').start();
+                const result = await this.AddTaskResolver(answer.task_text);
+                if(typeof result === "boolean")
+                    spinner.success({ text: "New todo was added." });
+                else
+                    spinner.error({ text: result });
+            });
     }
 
     DeleteCommand()
     {
         inquirer
             .prompt([this.questions.delete_task_question])
-            .then((answer) => DeleteTaskResolver(answer.task_id));
+            .then(async (answer) => 
+            {
+                const spinner = createSpinner('Deleting your todo...').start();
+                const result = await this.DeleteTaskResolver(answer.task_id);
+                if(typeof result === "boolean")
+                    spinner.success({ text: "The todo was deleted." });
+                else
+                    spinner.error({ text: result });
+            });
     }
 
     HelpCommand()
@@ -110,10 +131,10 @@ class CliApp
         try {
             const add_task = Promise.resolve(this.item_manager.AddTask(task_text));
             await add_task;
-            console.log("New todo added successfully");
+            return true;
         }
         catch (error) {
-            console.log(error);
+            return error;
         }
     }
 
@@ -122,9 +143,14 @@ class CliApp
     * @param {int} task_id 
     */
     async  DeleteTaskResolver(task_id) {
-        const delete_task = Promise.resolve(this.item_manager.RemoveTask(task_id));
-        await delete_task;
-        console.log("Todo was deleted successfully");
+        try{
+            const delete_task = Promise.resolve(this.item_manager.RemoveTask(task_id));
+            await delete_task;
+            return true;
+        }
+        catch (error) {
+            return error;
+        }
     }
 
     /**
