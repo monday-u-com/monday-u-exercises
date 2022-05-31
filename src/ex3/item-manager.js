@@ -1,6 +1,7 @@
 const UNSORTED = Symbol("unsorted");
 const SORTED_ASC = Symbol("sortedAsc");
 const SORTED_DESC = Symbol("sortedDesc");
+import { myLogger } from "mondayu-logger-assh";
 
 export class ItemManager {
   init() {
@@ -20,6 +21,7 @@ export class ItemManager {
       this.items[itemIndex].isNew = true;
     } else {
       this.items.push({text: text, isNew: true });
+      myLogger.log(this.items);
     }
     this.sortOrder = UNSORTED;
     return this.items;

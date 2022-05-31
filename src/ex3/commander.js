@@ -1,6 +1,6 @@
 import { ItemManager } from "./item-manager.js";
 import { PokemonClient } from "./pokemon-client.js";
-import chalk from "chalk";
+// import chalk from "chalk";
 import { Command } from "commander";
 
 class MainCommander {
