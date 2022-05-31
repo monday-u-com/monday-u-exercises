@@ -73,7 +73,12 @@ export default class ItemManager {
      * @param {int} task_to_remove_id task location in array
      */
     RemoveTask(task_to_remove_id) {
+        const current_task_length = this.tasks.length;
         this.tasks.splice(task_to_remove_id, 1);
+        const after_task_deletion = this.tasks.length;
+        // task id is not in task length
+        if(current_task_length === after_task_deletion)
+            throw new Error("Task id illegal.");
         this.file_manager.WriteToFileTasksArray(this.tasks);
     }
 
