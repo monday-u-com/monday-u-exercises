@@ -1,0 +1,22 @@
+[
+  {
+    "text": "Feed the baby",
+    "isNew": false
+  },
+  {
+    "text": "say hi",
+    "isNew": true
+  },
+  {
+    "text": "Take a shower",
+    "isNew": false
+  },
+  {
+    "text": "Walk the dog",
+    "isNew": false
+  },
+  {
+    "text": "Wash the dishes",
+    "isNew": false
+  }
+]

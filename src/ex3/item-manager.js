@@ -1,18 +1,15 @@
 const UNSORTED = Symbol("unsorted");
 const SORTED_ASC = Symbol("sortedAsc");
 const SORTED_DESC = Symbol("sortedDesc");
-import { AppendToFile, OverwriteFile } from "mondayu-logger-assh";
+import { writeFile, readFileSync } from 'fs';
+
+const DATA_FILE_NAME = "savedData.json";
 
 export class ItemManager {
   init() {
-    this.items = [
-      {text: 'Walk the dog', isNew: false},
-      {text: 'Take a shower', isNew: false},
-      {text: 'Feed the baby', isNew: false},
-      {text: 'Wash the dishes', isNew: false}
-    ]
+    this.items = this.getItemsFromFile();
+    console.log(this.items);
     this.sortOrder = UNSORTED;
-    // OverwriteFile.log(this.items);
     return this.items;
   }
 
@@ -24,7 +21,7 @@ export class ItemManager {
       this.items.push({text: text, isNew: true });
       this.sortOrder = UNSORTED;
     }
-    // OverwriteFile.log(this.items);
+    this.writeItemsToFile();
     return this.items;
   }
 
@@ -34,7 +31,7 @@ export class ItemManager {
 
   deleteItem(index) {
     this.items.splice(index, 1);
-    // OverwriteFile.log(this.items);
+    this.writeItemsToFile();
     return this.items;
   }
 
@@ -46,7 +43,18 @@ export class ItemManager {
       this.items.reverse();
       this.sortOrder = SORTED_DESC;
     }
-    // OverwriteFile.log(this.items);
+    this.writeItemsToFile();
     return this.items;
+  }
+
+  getItemsFromFile(){
+    const data = readFileSync(DATA_FILE_NAME);
+    return JSON.parse(data);
+  }
+
+  writeItemsToFile(){
+    writeFile(DATA_FILE_NAME, JSON.stringify(this.items, null, 2), err => {
+      if (err) throw err;
+    });
   }
 }

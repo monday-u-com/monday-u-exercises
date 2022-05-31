@@ -2,7 +2,6 @@ import { ItemManager } from "./item-manager.js";
 import { PokemonClient } from "./pokemon-client.js";
 // import chalk from "chalk";
 import { Command } from "commander";
-import { AppendToFile, OverwriteFile } from "mondayu-logger-assh";
 
 class MainCommander {
   constructor(itemManager, pokemonClient) {
@@ -18,7 +17,6 @@ class MainCommander {
     this.todos.forEach(todo => {
       console.log(todo.text);
     });
-    AppendToFile.log('123');
   }
 
   addTodo(text) {
@@ -58,7 +56,7 @@ class MainCommander {
     })
   }
 
-  onSortListButtonClicked() {
+  sortTodos() {
     this.updateTodos(this.itemManager.sortItems());
   }
 }
@@ -90,6 +88,13 @@ program
   .description("Show all todos")
   .action(() => {
     mainCommander.showTodos();
+  });
+
+program
+  .command("sort")
+  .description("Sort todos")
+  .action(() => {
+    mainCommander.sortTodos();
   });
 
 program.parse();
