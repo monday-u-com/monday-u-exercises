@@ -1,6 +1,11 @@
+#!/usr/bin/env node
+
 import inquirer from 'inquirer';
-import ItemManager from "./ItemManager.mjs";
+import ItemManager from "./scripts/ItemManager.mjs";
 import { createSpinner } from 'nanospinner';
+import figlet from 'figlet';
+import gradient from 'gradient-string';
+import chalk from 'chalk';
 
 class CliApp
 {
@@ -59,8 +64,13 @@ class CliApp
         await this.item_manager.SetArrayFromFile();
     }
 
-    run()
+    sleep(ms = 2000) {
+        new Promise((r) => setTimeout(r, ms));
+    }
+
+    async run()
     {
+        this.PrintIntroMessage();
         inquirer
             .prompt([this.questions.get_command_question])
             .then((answer) => {
@@ -77,11 +87,14 @@ class CliApp
                     case "Help":
                         this.HelpCommand();
                         break;
-                    case "Settings":
-                        // add Settings 
-                        break;
                 }
             });
+    }
+
+    async PrintIntroMessage()
+    {
+        console.log(gradient.pastel.multiline(figlet.textSync(this.intro_message.name)));
+        console.log(chalk.hex('#63e500')(this.intro_message.description));
     }
 
     AddCommand()

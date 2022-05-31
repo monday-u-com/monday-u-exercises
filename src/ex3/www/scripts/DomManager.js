@@ -54,7 +54,7 @@ export default class DomManager {
         else if(task_object.id === "Error")
             task_text.innerHTML = task_object.data;
         else
-            task_text.innerHTML = task_object;// adds text to task
+            task_text.innerHTML = task_object.name;// adds text to task
         new_task.append(task_buttons_container);
 
         // adds numbers to tasks
@@ -153,9 +153,9 @@ export default class DomManager {
     RenderDomFromArray(todos, delete_call_back) {
         const todos_copy = [...todos];
         // clear task container for rendering
+        this.task_container.innerHTML = "";
         if(todos_copy.length)
         {
-            this.task_container.innerHTML = "";
             todos_copy.map((todo, key) => {
                 this.AddNewTask(key, todo, delete_call_back);
             });

@@ -1,5 +1,5 @@
-import PokemonClient from './PokemonClient.mjs';
-import FileManager from './FileManager.mjs';
+import PokemonClient from "./PokemonClient.mjs";
+import FileManager from "./FileManager.mjs";
 
 export default class ItemManager {
     constructor() {
@@ -51,8 +51,8 @@ export default class ItemManager {
         else // regular task
         {
             this.InsertResultToArray(task_text);
-            this.file_manager.WriteToFileTasksArray(this.tasks);
         }
+        this.file_manager.WriteToFileTasksArray(this.tasks);
     }
     /**
      * calls the functions to insert pokemon correctly
@@ -140,6 +140,7 @@ export default class ItemManager {
             const item2 = b.name || b.data;
             return item1.toLowerCase().localeCompare(item2.toLowerCase());
         });
+        this.file_manager.WriteToFileTasksArray(this.tasks);
     }
 
     /**
