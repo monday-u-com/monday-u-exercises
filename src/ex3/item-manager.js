@@ -1,7 +1,7 @@
 const UNSORTED = Symbol("unsorted");
 const SORTED_ASC = Symbol("sortedAsc");
 const SORTED_DESC = Symbol("sortedDesc");
-import { myLogger } from "mondayu-logger-assh";
+import { AppendToFile, OverwriteFile } from "mondayu-logger-assh";
 
 export class ItemManager {
   init() {
@@ -12,6 +12,7 @@ export class ItemManager {
       {text: 'Wash the dishes', isNew: false}
     ]
     this.sortOrder = UNSORTED;
+    // OverwriteFile.log(this.items);
     return this.items;
   }
 
@@ -21,9 +22,9 @@ export class ItemManager {
       this.items[itemIndex].isNew = true;
     } else {
       this.items.push({text: text, isNew: true });
-      myLogger.log(this.items);
+      this.sortOrder = UNSORTED;
     }
-    this.sortOrder = UNSORTED;
+    // OverwriteFile.log(this.items);
     return this.items;
   }
 
@@ -33,6 +34,7 @@ export class ItemManager {
 
   deleteItem(index) {
     this.items.splice(index, 1);
+    // OverwriteFile.log(this.items);
     return this.items;
   }
 
@@ -44,6 +46,7 @@ export class ItemManager {
       this.items.reverse();
       this.sortOrder = SORTED_DESC;
     }
+    // OverwriteFile.log(this.items);
     return this.items;
   }
 }

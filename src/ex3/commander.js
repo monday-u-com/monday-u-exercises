@@ -2,6 +2,7 @@ import { ItemManager } from "./item-manager.js";
 import { PokemonClient } from "./pokemon-client.js";
 // import chalk from "chalk";
 import { Command } from "commander";
+import { AppendToFile, OverwriteFile } from "mondayu-logger-assh";
 
 class MainCommander {
   constructor(itemManager, pokemonClient) {
@@ -17,6 +18,7 @@ class MainCommander {
     this.todos.forEach(todo => {
       console.log(todo.text);
     });
+    AppendToFile.log('123');
   }
 
   addTodo(text) {
