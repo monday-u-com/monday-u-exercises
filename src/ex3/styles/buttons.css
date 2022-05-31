@@ -1,0 +1,38 @@
+@import "button-hover.css";
+
+.btn {
+  cursor: pointer;
+  border-radius: 4px;
+  border: 0px;
+  color: antiquewhite;
+  font-size: 24px;
+}
+
+#add-todo-button {
+  background-color: var(--dark-green);
+  height: 45px;
+  width: 45px;
+  font-size: 32px;
+}
+
+.delete-todo-button {
+  background-color: brown;
+  height: 40px;
+  width: 45px;
+  display: none;
+}
+
+#todos-list .existing-todo:hover .delete-todo-button {
+  display: block;
+}
+
+#clear-all-button {
+  background-color: var(--dark-green);
+  width: 138px;
+}
+
+#sort-list-button {
+  background-color: var(--light-green);
+  color: var(--very-dark-green);
+  width: 92px;
+}

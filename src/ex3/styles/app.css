@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  /* https://colorscheme.ru/#2X11Tw0w0w0w0 */
+  --very-dark-green: #007143;
+  --dark-green: #21825B;
+  --middle-green: #00AE68;
+  --light-green: #36D695;
+  --very-light-green: #60D6A7;
+}
+
+/* https://stackoverflow.com/questions/26140050/why-is-font-family-not-inherited-in-button-tags-automatically#:~:text=Because%20the%20elements%20are%20rendered,%22standard%22%20cross%2Dbrowser. */
+body, input, textarea, button {
+  font-family: 'Indie Flower', cursive;
+}
+
+body, html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(var(--very-light-green), var(--dark-green));
+  padding: 50px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
