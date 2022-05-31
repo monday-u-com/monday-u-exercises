@@ -35,7 +35,7 @@ class Main {
       }
     });
 
-    this.updateTodos(itemManager.init());
+    this.updateTodos(this.itemManager.init());
   }
 
   renderTodos() {
@@ -160,7 +160,7 @@ class Main {
     } else {
       const isTextNaN = text.split(',').map( el => isNaN(el));
       if (isTextNaN.includes(true)) {
-        this.updateTodos(itemManager.addItem(text))
+        this.updateTodos(this.itemManager.addItem(text))
       } else {
         this.addPokemon(text);
       }
