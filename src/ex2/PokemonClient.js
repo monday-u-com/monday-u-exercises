@@ -1,12 +1,19 @@
-export default class Pokemon {
-  constructor(pokemonName, PokemonId, PokemonType) {
-    this.pokemonName = pokemonName;
-    this.PokemonId = PokemonId;
-    this.PokemonType = PokemonType;
-    this.task = this.pokemonToTask();
-  }
+export default class PokemonClient {
+  constructor() {}
 
-  pokemonToTask() {
-    return `Try to catch ${this.pokemonName} (${this.PokemonType} pokemon) `;
+  async pokemonFetcherById(pokemon) {
+    const pokemons = await Promise.all(
+      pokemon.map(async (id) => {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        if (response.ok) {
+          return response.json();
+        } else {
+          return id;
+        }
+      })
+    ).catch((error) => {
+      alert(error);
+    });
+    return pokemons;
   }
 }
