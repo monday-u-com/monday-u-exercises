@@ -172,10 +172,10 @@ class Main {
       let updatedTodos;
       try {
         pokemons.forEach(pokemon => {
-          updatedTodos = itemManager.addItem(`Catch ${pokemon}`);
+          updatedTodos = this.itemManager.addItem(`Catch ${pokemon}`);
         })
       } catch (error) {
-        updatedTodos = itemManager.addItem(`Failed to fetch ${text}`);
+        updatedTodos = this.itemManager.addItem(`Failed to fetch ${text}`);
       }
       this.updateTodos(updatedTodos);
     })

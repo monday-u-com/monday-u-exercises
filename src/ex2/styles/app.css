@@ -11,8 +11,9 @@
   --very-light-green: #60D6A7;
 }
 
-html {
-  font-family: 'Caveat', cursive;
+/* https://stackoverflow.com/questions/26140050/why-is-font-family-not-inherited-in-button-tags-automatically#:~:text=Because%20the%20elements%20are%20rendered,%22standard%22%20cross%2Dbrowser. */
+body, input, textarea, button {
+  font-family: 'Indie Flower', cursive;
 }
 
 body, html {
