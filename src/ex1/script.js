@@ -1,3 +1,4 @@
+
 const addInput = document.getElementById('add-input');
 const addBtn = document.getElementById('add-btn');
 const sortBtn = document.getElementById('sort-btn');
@@ -133,3 +134,5 @@ function sortTasks(){
     }
   }
 }
+
+
