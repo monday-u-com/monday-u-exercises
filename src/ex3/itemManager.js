@@ -1,4 +1,4 @@
-export class ItemManager {
+export default class ItemManager {
   constructor() {
     this.items = []
   }

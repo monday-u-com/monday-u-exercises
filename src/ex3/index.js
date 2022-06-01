@@ -1,30 +1,36 @@
-import chalk from "chalk"
-import { Command } from "commander"
 import fetch from "node-fetch"
-const program = new Command()
-import dotenv from "dotenv"
-import { PokemonClient } from "./PokemonClient.js"
-import { ItemManager } from "./itemManager.js"
-dotenv.config()
+import { Command } from "commander"
+import PokemonClient from "./PokemonClient.js"
+import ItemManager from "./itemManager.js"
+import fs from "fs"
 
 const pokemonClient = new PokemonClient()
 
-async function addNewPokemon(id) {
-  try {
-    const queryString = `${id}`
-    const requestUrl = `${pokemonClient.api}${queryString}`
-    const response = await fetch(requestUrl)
-    const pokemonData = await response.json()
-    return pokemonData.forms[0].name
-  } catch (err) {
-    throw err
-  }
+async function getPokemon(id) {
+  const data = fs.readFileSync("./pokemon.txt", "utf8", (err, data) => {
+    if (err) {
+      console.log(data.toString())
+      throw err
+    }
+  })
+  const response = await fetch(`${pokemonClient.api}${id}`)
+  const json = await response.json()
+  return json
 }
 
 function getCommanderProgram() {
   const program = new Command()
+  program.name("pokemon-cli").version("0.0.1").description("Pokemon CLI")
+
+  program
+    .command("add <name>")
+    .description("Add a pokemon to your collection")
+    .action(async (id) => {
+      const pokemon = await getPokemon(id)
+      fs.appendFileSync("./pokemon.txt", `Catch ${pokemon.name}\n`)
+      console.log("New todo added successfully")
+    })
   return program
 }
-
-const programm = getCommanderProgram()
-programm.parse()
+const program = getCommanderProgram()
+program.parse()
