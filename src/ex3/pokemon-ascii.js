@@ -5887,6 +5887,20 @@ export function LogPokemonAscii(index) {
 
     break;
 
+  default:
+    process.stdout.write("                                  ,'\\\n");
+    process.stdout.write("    _.----.        ____         ,'  _\\   ___    ___     ____\n");
+    process.stdout.write("_,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.\n");
+    process.stdout.write("\\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |\n");
+    process.stdout.write(" \\.    \\ \\   |  __  |  |/    ,','_  `.  |          | __  |    \\|  |\n");
+    process.stdout.write("   \\    \\/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |\n");
+    process.stdout.write("    \\     ,-'/  /   \\    ,'   | \\/ / ,`.|         /  /   \\  |     |\n");
+    process.stdout.write("     \\    \\ |   \\_/  |   `-.  \\    `'  /|  |    ||   \\_/  | |\\    |\n");
+    process.stdout.write("      \\    \\ \\      /       `-.`.___,-' |  |\\  /| \\      /  | |   |\n");
+    process.stdout.write("       \\    \\ `.__,'|  |`-._    `|      |__| \\/ |  `.__,'|  | |   |\n");
+    process.stdout.write("        \\_.-'       |__|    `-._ |              '-.|     '-.| |   |\n");
+    process.stdout.write("                                `'                            '-._|\n");
+
     }
     console.log('\n\n');
 }

@@ -4,7 +4,12 @@ const DATA_FILE_NAME = "savedData.json";
 
 export class ItemManagerCommander {
   init() {
-    this.items = this.getItemsFromFile();
+    try {
+      this.items = this.getItemsFromFile();
+    } catch (error) {
+      this.items = [];
+      this.writeItemsToFile();
+    }
     return this.items;
   }
 
@@ -44,8 +49,8 @@ export class ItemManagerCommander {
   }
 
   getItemsFromFile(){
-    const data = readFileSync(DATA_FILE_NAME);
-    return JSON.parse(data);
+      const data = readFileSync(DATA_FILE_NAME);
+      return JSON.parse(data);
   }
 
   writeItemsToFile(){

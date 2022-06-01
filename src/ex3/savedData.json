@@ -1,14 +1,10 @@
 [
   {
-    "text": "Catch venusaur with id 3 and type grass",
-    "isNew": true
+    "text": "Take a break",
+    "isNew": false
   },
   {
-    "text": "Catch charmander with id 4 and type fire",
-    "isNew": true
-  },
-  {
-    "text": "Catch shellder with id 90 and type water",
-    "isNew": true
+    "text": "Catch ivysaur with id 2 and type grass",
+    "isNew": false
   }
 ]
