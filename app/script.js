@@ -9,6 +9,7 @@ const sortButtonsContainer = document.querySelector(SORT_BTNS_SELECTOR);
 const pokemonImagesContainer = document.querySelector(POKEMON_IMAGES_SELECTOR);
 const pokemonCatchText = document.querySelector(POKEMON_TEXT_SELECTOR);
 
+import ItemManager from "./item-manager.js";
 const tasks = new ItemManager(renderTasks);
 const pokemonClient = new PokemonClient();
 
