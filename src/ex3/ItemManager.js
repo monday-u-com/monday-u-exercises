@@ -10,13 +10,12 @@ export default class ItemManager {
     }
 
     addTodo(enterValue){
-        
-        if(enterValue.trim() === ""){
-            return
-        }
+        const trimValue = ItemManager.trim(enterValue)
 
-        const trimValue = this.trim(enterValue)
+        this.handleInputToAdd(trimValue)
+    }
 
+    handleInputToAdd(trimValue){
         const singleNumber = /^\d+$/
         const singleWord = /^[A-Za-z]+$/
         const multiNumbersSeparatedWithComma = /^\d+(,\d+)*$/
@@ -61,8 +60,8 @@ export default class ItemManager {
         Promise.all(pokemonArr)
             .then(response => {
                 response.forEach(res => {
-                    const types = this.getTypes(res)
-                    this.addTodoParse(this.returnPokemonData(res, types))
+                    const types = ItemManager.getTypes(res)
+                    this.addTodoParse(ItemManager.returnPokemonData(res, types))
             })
             this.updateTodos()
         }).catch(error => {
@@ -106,9 +105,9 @@ export default class ItemManager {
             }
 
             const res = await response.json()
-            const types = this.getTypes(res)
+            const types = ItemManager.getTypes(res)
 
-            return this.returnPokemonData(res, types)
+            return ItemManager.returnPokemonData(res, types)
         }catch(error){
             console.log(error)
         }
@@ -118,7 +117,7 @@ export default class ItemManager {
         this.model.addData({title: value, done: false})
     }
 
-    getTypes(data){
+    static getTypes(data){
         const typeNo = data.types
         let types = ""
 
@@ -129,11 +128,11 @@ export default class ItemManager {
         return types
     }
 
-    returnPokemonData(res, types){
+    static returnPokemonData(res, types){
         return "catch " +res.name + " with type " + types
     }
 
-    trim(value) {
+    static trim(value) {
         return value.replace(/^\s+|\s+$/g,"");
     }
 

@@ -35,6 +35,11 @@ function addAndShowAddedTodo(todo) {
     },1000)
 }
 
+function showUpdates() {
+  const data = pokemonClient.itemManager.getTodoList()
+  getFullCurrentList(data)
+}
+
 program
   .name("PokeDoList")
   .description("todolist app with regular todos and catch pokemons todos. for run commands run node index.js and the command after as described in each command description")
@@ -44,8 +49,7 @@ program
   .command("get")
   .description("get list of all todos - just enter the word get")
   .action(() => {
-    const data = pokemonClient.itemManager.getTodoList()
-    getFullCurrentList(data)
+    showUpdates()
   });
 
 program
@@ -74,8 +78,7 @@ program
   .action(() => {
     console.log(chalk.bold.redBright("clear all todos"))
     pokemonClient.clearAllTodos()
-    const data = pokemonClient.itemManager.getTodoList()
-    getFullCurrentList(data)
+    showUpdates()
   })
 
 program
@@ -83,8 +86,7 @@ program
   .description("order all todos by alphabetichal order - just enter the word asc-order")
   .action(() => {
     pokemonClient.orderDataAlphabetically()
-    const data = pokemonClient.itemManager.getTodoList()
-    getFullCurrentList(data)
+    showUpdates()
   })
 
 program
@@ -92,8 +94,7 @@ program
   .description("order all todos by reverse alphabetichal order - just enter the word desc-order")
   .action(() => {
     pokemonClient.orderDataAlphabeticallyReverse()
-    const data = pokemonClient.itemManager.getTodoList()
-    getFullCurrentList(data)
+    showUpdates()
   })
 
 program
@@ -101,8 +102,7 @@ program
   .description("order all todos by done to undone order - just enter the word done-order")
   .action(() => {
     pokemonClient.filterDoneToUnDone()
-    const data = pokemonClient.itemManager.getTodoList()
-    getFullCurrentList(data)
+    showUpdates()
   })
 
 program
@@ -110,8 +110,7 @@ program
   .description("order all todos by undone to done order - just enter the word undone-order")
   .action(() => {
     pokemonClient.filterUnDoneToDone()
-    const data = pokemonClient.itemManager.getTodoList()
-    getFullCurrentList(data)
+    showUpdates()
   })
 
 program

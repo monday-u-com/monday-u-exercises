@@ -41,22 +41,22 @@ export default class Model {
     }
 
     orderDataAlphabetically(){
-        this.todoList = this.compareFunc(this.todoList,"title")
+        this.todoList = Model.compareFunc(this.todoList,"title")
     }
 
     orderDataAlphabeticallyReverse(){
-        this.todoList = this.compareFunc(this.todoList,"title").reverse()
+        this.todoList = Model.compareFunc(this.todoList,"title").reverse()
     }
 
     filterUnDoneToDone(){
-        this.todoList = this.compareFunc(this.todoList,"done")
+        this.todoList = Model.compareFunc(this.todoList,"done")
     }
 
     filterDoneToUnDone(){
-        this.todoList = this.compareFunc(this.todoList,"done").reverse()
+        this.todoList = Model.compareFunc(this.todoList,"done").reverse()
     }
 
-    compareFunc(array, key){
+    static compareFunc(array, key){
         let copyArr = array
         return copyArr.sort(function(a, b) {
             const x = a[key]; 
@@ -72,13 +72,16 @@ export default class Model {
     }
 
     getDoneTodos() {
-        const filteredArr = [...this.todoList].filter(todo => todo.done === true)
-
-        return filteredArr
+       return Model.getDoneUnTodos(true, this.todoList)
     }
 
     getUnDoneTodos(){
-        const filteredArr = [...this.todoList].filter(todo => todo.done === false)
+       return Model.getDoneUnTodos(false, this.todoList)
+    }
+
+    static getDoneUnTodos(value, list){
+        const copyArr = list
+        const filteredArr = copyArr.filter(todo => todo.done === value)
 
         return filteredArr
     }
