@@ -10,7 +10,6 @@
 
 #new-todo-textbox {
   padding: 5px 10px;
-  font-family: 'Indie Flower', cursive;
   font-size: 20px;
   width: 415px;
 }
@@ -18,6 +17,7 @@
 #todos-list {
   padding-left: 0px;
   border-radius: 4px;
+  font-family: 'Caveat', cursive;
 }
 
 .todo-li {

@@ -13,10 +13,10 @@
   text-align: center;
   margin: 0px;
   padding-top: 20px;
+  font-family: 'Caveat', cursive;
 }
 
 #footer {
-  font-family: 'Indie Flower', cursive;
   display: flex;
   /* justify-content: space-between; */
   justify-content: center;

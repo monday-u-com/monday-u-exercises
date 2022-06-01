@@ -1,15 +1,11 @@
-const UNSORTED = Symbol("unsorted");
-const SORTED_ASC = Symbol("sortedAsc");
-const SORTED_DESC = Symbol("sortedDesc");
 import { writeFile, readFileSync } from 'fs';
 
 const DATA_FILE_NAME = "savedData.json";
 
-export class ItemManager {
+export class ItemManagerCommander {
   init() {
     this.items = this.getItemsFromFile();
     console.log(this.items);
-    this.sortOrder = UNSORTED;
     return this.items;
   }
 
@@ -19,7 +15,6 @@ export class ItemManager {
       this.items[itemIndex].isNew = true;
     } else {
       this.items.push({text: text, isNew: true });
-      this.sortOrder = UNSORTED;
     }
     this.writeItemsToFile();
     return this.items;
@@ -36,13 +31,7 @@ export class ItemManager {
   }
 
   sortItems(){
-    if (this.sortOrder === UNSORTED || this.sortOrder === SORTED_DESC) {
-      this.items.sort((a, b) => a.text.localeCompare(b.text));
-      this.sortOrder = SORTED_ASC;
-    } else {
-      this.items.reverse();
-      this.sortOrder = SORTED_DESC;
-    }
+    this.items.sort((a, b) => a.text.localeCompare(b.text));
     this.writeItemsToFile();
     return this.items;
   }

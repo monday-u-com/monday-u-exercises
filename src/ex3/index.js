@@ -1,16 +1,16 @@
-import { ItemManager } from "./item-manager.js";
+import { ItemManagerCommander } from "./item-manager.js";
 import { PokemonClient } from "./pokemon-client.js";
 // import chalk from "chalk";
 import { Command } from "commander";
 
 class MainCommander {
-  constructor(itemManager, pokemonClient) {
-    this.itemManager = itemManager;
+  constructor(itemManagerCommander, pokemonClient) {
+    this.itemManagerCommander = itemManagerCommander;
     this.pokemonClient = pokemonClient;
   }
 
   init() {
-    this.updateTodos(this.itemManager.init());
+    this.updateTodos(this.itemManagerCommander.init());
   }
 
   showTodos() {
@@ -20,7 +20,7 @@ class MainCommander {
   }
 
   addTodo(text) {
-    this.updateTodos(this.itemManager.addItem(text));
+    this.updateTodos(this.itemManagerCommander.addItem(text));
   }
 
   updateTodos(updatedArray) {
@@ -28,7 +28,7 @@ class MainCommander {
   }
 
   deleteTodoTask(index) {
-    this.updateTodos(this.itemManager.deleteItem(index));
+    this.updateTodos(this.itemManagerCommander.deleteItem(index));
   }
 
   addTodoTask(text) {
@@ -37,7 +37,7 @@ class MainCommander {
     } else {
       const isTextNaN = text.split(',').map( el => isNaN(el));
       if (isTextNaN.includes(true)) {
-        itemManager.addItem(text);
+        itemManagerCommander.addItem(text);
       } else {
         this.addPokemon(text);
       }
@@ -48,22 +48,22 @@ class MainCommander {
     this.pokemonClient.fetchPokemon(text).then(pokemons => {
       try {
         pokemons.forEach(pokemon => {
-          itemManager.addItem(`Catch ${pokemon}`);
+          itemManagerCommander.addItem(`Catch ${pokemon}`);
         })
       } catch (error) {
-        itemManager.addItem(`Failed to fetch ${text}`);
+        itemManagerCommander.addItem(`Failed to fetch ${text}`);
       }
     })
   }
 
   sortTodos() {
-    this.updateTodos(this.itemManager.sortItems());
+    this.updateTodos(this.itemManagerCommander.sortItems());
   }
 }
 
-const itemManager = new ItemManager();
+const itemManagerCommander = new ItemManagerCommander();
 const pokemonClient = new PokemonClient();
-const mainCommander = new MainCommander(itemManager, pokemonClient);
+const mainCommander = new MainCommander(itemManagerCommander, pokemonClient);
 
 mainCommander.init();
 

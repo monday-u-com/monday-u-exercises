@@ -28,13 +28,11 @@
 
 #clear-all-button {
   background-color: var(--dark-green);
-  font-family: 'Indie Flower', cursive;
   width: 138px;
 }
 
 #sort-list-button {
   background-color: var(--light-green);
-  font-family: 'Indie Flower', cursive;
   color: var(--very-dark-green);
   width: 92px;
 }
