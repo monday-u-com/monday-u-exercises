@@ -14,20 +14,40 @@ class MainCommander {
   }
 
   showTodos() {
+    this.showAmount();
+    this.todos.forEach((todo, index) => {
+      const todoColor = todo.isNew ? 'green' : 'white';
+      if (todo.isNew) this.markTodoAsOld(todo);
+      console.log(chalk.yellow(index), chalk[todoColor](todo.text));
+    });
+  }
+
+  showAmount() {
     const amount = this.todos.length;
     if (amount === 1) {
       console.log(chalk.yellow(`You have only one todo:`));
     } else {
       console.log(chalk.yellow(`You have ${amount} todos:`));
     }
-    this.todos.forEach((todo, index) => {
-      console.log(chalk.yellow(index), todo.text);
-    });
+  }
+
+  markTodoAsOld(todo) {
+    this.updateTodos(this.itemManagerCommander.markItemAsOld(todo));
   }
 
   addTodo(text) {
     console.log(chalk.green(`Adding '${text}'`));
     this.updateTodos(this.itemManagerCommander.addItem(text));
+    // if (this.pokemonClient.isPokemon(text)) {
+    //   this.addPokemon(text.toLowerCase());
+    // } else {
+    //   const isTextNaN = text.split(',').map( el => isNaN(el));
+    //   if (isTextNaN.includes(true)) {
+    //     itemManagerCommander.addItem(text);
+    //   } else {
+    //     this.addPokemon(text);
+    //   }
+    // }
   }
 
   updateTodos(updatedArray) {
@@ -35,21 +55,8 @@ class MainCommander {
   }
 
   deleteTodo(index) {
-    console.log(chalk.red(`Deleting todo with index '${index}'`));
+    console.log(chalk.red(`Deleting todo with index ${index}`));
     this.updateTodos(this.itemManagerCommander.deleteItem(index));
-  }
-
-  addTodoTask(text) {
-    if (this.pokemonClient.isPokemon(text)) {
-      this.addPokemon(text.toLowerCase());
-    } else {
-      const isTextNaN = text.split(',').map( el => isNaN(el));
-      if (isTextNaN.includes(true)) {
-        itemManagerCommander.addItem(text);
-      } else {
-        this.addPokemon(text);
-      }
-    }
   }
 
   addPokemon(text) {
@@ -65,7 +72,7 @@ class MainCommander {
   }
 
   sortTodos() {
-    console.log(chalk.yellow(`Sorting todos`));
+    console.log(chalk.gray(`Sorting todos`));
     this.updateTodos(this.itemManagerCommander.sortItems());
   }
 }

@@ -21,6 +21,8 @@ export class ItemManagerCommander {
 
   markItemAsOld(item){
     item.isNew = false;
+    this.writeItemsToFile();
+    return this.items;
   }
 
   deleteItem(index) {

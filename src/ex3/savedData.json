@@ -4,8 +4,8 @@
     "isNew": false
   },
   {
-    "text": "say hi",
-    "isNew": true
+    "text": "qqq",
+    "isNew": false
   },
   {
     "text": "Take a shower",
@@ -17,6 +17,22 @@
   },
   {
     "text": "Wash the dishes",
+    "isNew": false
+  },
+  {
+    "text": "123",
+    "isNew": false
+  },
+  {
+    "text": "qqb",
+    "isNew": false
+  },
+  {
+    "text": "cvbnm",
+    "isNew": false
+  },
+  {
+    "text": "1234",
     "isNew": false
   }
 ]
