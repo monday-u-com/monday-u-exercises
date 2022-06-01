@@ -2,3 +2,4 @@ Catch bulbasaur
 Catch ivysaur
 Catch venusaur
 Catch venusaur
+Catch fearow

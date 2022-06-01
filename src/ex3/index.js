@@ -7,7 +7,7 @@ import fs from "fs"
 const pokemonClient = new PokemonClient()
 
 async function getPokemon(id) {
-  const data = fs.readFileSync("./pokemon.txt", "utf8", (err, data) => {
+  fs.readFileSync("./pokemon.txt", "utf8", (err, data) => {
     if (err) {
       console.log(data.toString())
       throw err
@@ -16,6 +16,16 @@ async function getPokemon(id) {
   const response = await fetch(`${pokemonClient.api}${id}`)
   const json = await response.json()
   return json
+}
+
+async function getAllItemsFromFile() {
+  const items = fs.readFileSync("./pokemon.txt", "utf8", (err, data) => {
+    if (err) {
+      console.log(data.toString())
+      throw err
+    }
+  })
+  return items
 }
 
 function getCommanderProgram() {
@@ -30,6 +40,15 @@ function getCommanderProgram() {
       fs.appendFileSync("./pokemon.txt", `Catch ${pokemon.name}\n`)
       console.log("New todo added successfully")
     })
+
+  program
+    .command("getAll")
+    .description("Get all pokemon")
+    .action(async () => {
+      const items = await getAllItemsFromFile()
+      console.log(items)
+    })
+
   return program
 }
 const program = getCommanderProgram()
