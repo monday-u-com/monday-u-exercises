@@ -138,6 +138,10 @@ export default class ItemManager {
     }
 
     deleteTodo(index) {
+
+        if(index < 0 || index >= this.model.todoList.length){
+            return null;
+        }
     
         const removedTodo = this.model.todoList[index]
         this.model.removeData(index)
@@ -175,13 +179,13 @@ export default class ItemManager {
         this.updateTodos()
     }
 
-    filterDoneToUnDone(){
-        this.model.filterDoneToUnDone()
+    filterUnDoneToDone(){
+        this.model.filterUnDoneToDone()
         this.updateTodos()
     }
 
-    filterUnDoneToDone(){
-        this.model.filterUnDoneToDone()
+    filterDoneToUnDone(){
+        this.model.filterDoneToUnDone()
         this.updateTodos()
     }
 

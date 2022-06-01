@@ -53,10 +53,16 @@ program
 program
   .command("delete")
   .description("delete todo - enter the word delete and after enter the index for todo that you want to delete")
-  .argument("<number>", "todo")
+  .argument("<number>", "todo", (value)=> parseInt(value,10))
   .action((todo) => {
+    console.log(todo)
     const deleteItem = pokemonClient.deleteTodo(todo)
-    console.log("deleted " + chalk.bold.red(deleteItem.title))
+    if(deleteItem === null){
+      console.log(chalk.bold.red("invalid index"))
+    }
+    else{
+      console.log("deleted " + chalk.bold.blue(deleteItem.title))
+    }
   })
 
 program
@@ -103,10 +109,17 @@ program
 program
   .command("status")
   .description("check/unchecksingle todo, enter the word status, and after enter the index of todo and after true to check todo and false to uncheck todo")
-  .argument("<index>")
-  .argument("<status>")
-  .action((index, status) => {
-    pokemonClient.changeDoneStatus(index, status)
+  .option("-i, --index <index>","int arg",(value)=> parseInt(value,10) )
+  .option("-ch, --check")
+  .option("-uch, --uncheck")
+  .action((options) => {
+    console.log(options)
+    if(options.check){
+      pokemonClient.changeDoneStatus(options.index, true);
+    }else if(options.uncheck){
+      pokemonClient.changeDoneStatus(options.index, false);
+    }
+    getFullCurrentList()
   })
 
 program.parse();

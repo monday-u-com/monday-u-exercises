@@ -26,17 +26,17 @@ export default class PokemonClient{
         this.itemManager.orderDataAlphabeticallyReverse()
     }
 
-    filterDoneToUnDone() {
-        this.itemManager.filterDoneToUnDone()
+    filterUnDoneToDone() {
+        this.itemManager.filterUnDoneToDone()
     }
 
-    filterUnDoneToDone(){
-        this.itemManager.filterUnDoneToDone()
+    filterDoneToUnDone(){
+        this.itemManager.filterDoneToUnDone()
     }
 
     changeDoneStatus(index, status) {
         console.log(status)
-        if(status === 'true'){
+        if(status){
             this.itemManager.checkTodo(index)
         }
         else{
