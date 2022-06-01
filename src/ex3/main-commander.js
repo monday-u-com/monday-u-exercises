@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { LogPokemonAscii } from "./pokemon-ascii.js";
 
 export class MainCommander {
   constructor(itemManagerCommander, pokemonClient) {
@@ -68,8 +69,9 @@ export class MainCommander {
     return this.pokemonClient.fetchPokemon(text).then(pokemons => {
       try {
         pokemons.forEach(pokemon => {
-          this.updateTodos(this.itemManagerCommander.addItem(`Catch ${pokemon}`));
-          console.log(chalk.red('POKEMOSHA'));
+          const catchPokemonTodo = `Catch ${pokemon[0]}, ${pokemon[1]} pokemon, id ${pokemon[2]}}`
+          this.updateTodos(this.itemManagerCommander.addItem(catchPokemonTodo));
+          LogPokemonAscii(pokemon[2]);
         })
       } catch (error) {
         console.log(chalk.red("Todo was not added"));;

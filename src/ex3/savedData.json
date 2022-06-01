@@ -1,10 +1,14 @@
 [
   {
-    "text": "Catch bulbasaur (grass pokemon)",
+    "text": "Catch pikachu (electric pokemon, id 25)}",
     "isNew": false
   },
   {
-    "text": "cvbnm",
+    "text": "Catch bulbasaur (grass pokemon, id 1)}",
+    "isNew": false
+  },
+  {
+    "text": "Catch mewtwo, psychic pokemon, id 150}",
     "isNew": false
   }
 ]
