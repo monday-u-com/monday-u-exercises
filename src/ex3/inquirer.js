@@ -57,12 +57,12 @@ function getAnswers() {
         mainCommander.showTodos();
         break;
       case 'add':
-        const promise = mainCommander.addTodo(answers.todo);
-        if (promise) { // if it is a pokemon, addTodo returns a promise
-          return promise.then(() => {
+        const pokemon = mainCommander.addTodo(answers.todo);
+        if (pokemon) { // if pokemon, addTodo returns a promise
+          return pokemon.then(() => {
             return getAnswers();
           })
-        } else {
+        } else { // it is a regular to do
           break
         }
       case 'delete':
