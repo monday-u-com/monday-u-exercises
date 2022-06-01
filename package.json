@@ -2,7 +2,7 @@
   "name": "todo-cli",
   "version": "1.0.0",
   "description": "Run the to-do list app through CLI. This is my task for Exercise 3 of Monday-U Full Stack course.",
-  "main": "cli.js",
+  "main": "index.js",
   "type": "module",
   "directories": {
     "lib": "lib"
