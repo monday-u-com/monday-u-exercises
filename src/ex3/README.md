@@ -17,9 +17,9 @@ Use your code from the last exercise and refactor where needed.
 
 ### The requirements:
 
-- [ ] Build node.js cli todo app
-- [ ] Detailed help option
-- [ ] Read/Write/Delete todos from a file
+- [x] Build node.js cli todo app
+- [x] Detailed help option // every command has a description
+- [x] Read/Write/Delete todos from a file // + sort, + clear
 
 When you finish it should look like this:
 

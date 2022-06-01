@@ -74,7 +74,7 @@ class MainCommander {
           itemManagerCommander.addItem(`Catch ${pokemon}`);
         })
       } catch (error) {
-        itemManagerCommander.addItem(`Failed to fetch ${text}`);
+        console.log(chalk.red("Todo was not added"));;
       }
     })
   }
@@ -122,7 +122,7 @@ program
   });
 
 program
-  .command("show")
+  .command("get")
   .description("Show all todos")
   .action(() => {
     mainCommander.showTodos();

@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "text": "Make a list",
+    "isNew": false
+  },
+  {
+    "text": "Catch a bird",
+    "isNew": false
+  }
+]
