@@ -5,114 +5,33 @@ export default class PokemonClient{
         this.itemManager = new ItemManager(this);
     }
 
-    showTodos() {
-        //this.showMatchUiByTodosNumber() 
-        //this.createTodoListItems() 
-        
-        this.itemManager.getTodoList().forEach((todo,index) => {
-            console.log(index + ": " + todo.title +" is " + (todo.done ? "done" : "not done"))
-        }) 
-    }
-
-    /* showMatchUiByTodosNumber() {
-        //const sumTodos = document.getElementById("sum-todos")
-        //sumTodos.textContent = this.itemManager.todoListSize()
-        
-        if(this.itemManager.todoListSize() > 0){
-            this.updateUIWithNonEmptyInput()
-        }
-        else{
-            this.updateUIWithEmptyInput()
-        }
-    } */
-
-    /* updateUIWithNonEmptyInput() {
-        const enterTodos = document.getElementById("enter-todos")
-        const clearAllTodosButton = document.getElementById("clear-all-todos-button")
-
-        clearAllTodosButton.classList.add("active")
-        clearAllTodosButton.style.cursor = "pointer"
-        enterTodos.style.display = "none"
-    } */
-
-    /* updateUIWithEmptyInput() {
-        const enterTodos = document.getElementById("enter-todos")
-        const clearAllTodosButton = document.getElementById("clear-all-todos-button")
-
-        clearAllTodosButton.classList.remove("active")
-        clearAllTodosButton.style.cursor = "not-allowed"
-        enterTodos.style.display = "block"
-    } */
-
-    /* createTodoListItems() {
-        //const todoInput = document.getElementById("todo-input")
-
-        //this.createItemsByCurrentData()
-        //this.createItemsDeleteFuctionality()
-        
-        //todoInput.value = "" //clear input
-    } */
-
-    /* createItemsByCurrentData(){
-        const todoListElement = document.getElementById("todo-list")
-        let listItems = ""
-
-        this.itemManager.getTodoList().forEach((todo) => { 
-            listItems += `<li class="todo-item">${todo}
-                <div>
-                    <span class="action-btn delete">
-                        <i class="fas fa-trash"></i>
-                    </span>
-                </div>
-                </li>
-            `
-        })
-    
-        todoListElement.innerHTML = listItems
-    } */
-
-    /* createItemsDeleteFuctionality(){
-        const deleteItems = document.querySelectorAll(".delete")
-
-        for (let i = 0; i < deleteItems.length; i++) {
-            deleteItems[i].addEventListener("click", () => this.deleteTodo(i))
-        }
-    } */
-
     deleteTodo(index){
         const removedTodo = this.itemManager.deleteTodo(index)
-        console.log(`removed new todo ${removedTodo}`) 
+        return removedTodo
     }
 
     addTodo(todoInput){
-        //const todoInput = document.getElementById("todo-input")
-        //const addTodoButton = document.getElementById("add-todo-button")
-
-        let enterValue = todoInput
-        const inputIsEmpty = enterValue.trim() === ""
-
-        if(inputIsEmpty){
-            console.log("todo cannot be empty")
-        }
-        else{
-            console.log(`added new todo ${enterValue}`)
-        }
-
-        this.itemManager.addTodo(enterValue)
-        //addTodoButton.classList.remove("active")
+        this.itemManager.addTodo(todoInput)
     }
 
     clearAllTodos(){
         this.itemManager.clearAllTodos()
-        console.log("all todos cleared")
     }
 
-    filterDataAToZ() {
-        this.itemManager.filterDataAToZ()
+    orderDataAlphabetically() {
+        this.itemManager.orderDataAlphabetically()
     }
 
-    filterDataZToA() {
-        this.itemManager.filterDataZToA()
+    orderDataAlphabeticallyReverse() {
+        this.itemManager.orderDataAlphabeticallyReverse()
+    }
+
+    filterDoneToUnDone() {
+        this.itemManager.filterDoneToUnDone()
+    }
+
+    filterUnDoneToDone(){
+        this.itemManager.filterUnDoneToDone()
     }
 
     changeDoneStatus(index, status) {

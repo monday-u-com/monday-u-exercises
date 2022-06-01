@@ -33,7 +33,7 @@ export default class ItemManager {
                         partOfNumbersSeprateWithComma !== null) {
             this.handleAddSingleOrMultiPokemonsTodo(trimValue)
         }
-        else{ //just todo
+        else{ //noraml todo
             this.addTodoParse(trimValue)
             this.updateTodos()
         }
@@ -148,7 +148,6 @@ export default class ItemManager {
 
     updateTodos(){
         this.model.saveDataToLS()
-        //this.pokemonClient.showTodos()
     }
 
     clearAllTodos() {
@@ -156,13 +155,13 @@ export default class ItemManager {
         this.updateTodos()
     }
 
-    filterDataAToZ() {
-        this.model.filterDataAToZ()
+    orderDataAlphabetically() {
+        this.model.orderDataAlphabetically()
         this.updateTodos()
     }
 
-    filterDataZToA() {
-        this.model.filterDataZToA()
+    orderDataAlphabeticallyReverse() {
+        this.model.orderDataAlphabeticallyReverse()
         this.updateTodos()
     }
 
@@ -173,6 +172,16 @@ export default class ItemManager {
 
     uncheckTodo(index) {
         this.model.checkUncheckTodo(index, false)
+        this.updateTodos()
+    }
+
+    filterDoneToUnDone(){
+        this.model.filterDoneToUnDone()
+        this.updateTodos()
+    }
+
+    filterUnDoneToDone(){
+        this.model.filterUnDoneToDone()
         this.updateTodos()
     }
 

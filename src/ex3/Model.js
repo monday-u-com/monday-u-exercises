@@ -16,31 +16,6 @@ export default class Model {
         } catch (err) {
             console.error(err);
         }
-
-        /* try {
-            const data = await fs.readFile('./todo.json', { encoding: 'utf8' });
-            console.log(data);
-            if(data === null){
-                this.todoList = []
-            }
-            else{
-                this.todoList = JSON.parse(data)
-            } 
-          } catch (err) {
-            console.log(err);
-        } */  
-
-        /* fs.readFile('./todo.json', (err, data) => {
-            if(err){
-                return
-            }
-            if(data === null){
-                this.todoList = []
-            }
-            else{
-                this.todoList = JSON.parse(data)
-            } 
-        }) */
     }
 
     addData(enterValue){
@@ -65,12 +40,29 @@ export default class Model {
         this.todoList = []
     }
 
-    filterDataAToZ(){
-        this.todoList = [...this.todoList.sort()]
+    orderDataAlphabetically(){
+        this.todoList = this.compareFunc(this.todoList,"title")
     }
 
-    filterDataZToA(){
-        this.todoList = [...this.todoList.sort().reverse()]
+    orderDataAlphabeticallyReverse(){
+        this.todoList = this.compareFunc(this.todoList,"title").reverse()
+    }
+
+    filterDoneToUnDone(){
+        this.todoList = this.compareFunc(this.todoList,"done")
+    }
+
+    filterUnDoneToDone(){
+        this.todoList = this.compareFunc(this.todoList,"done").reverse()
+    }
+
+    compareFunc(array, key){
+        let copyArr = array
+        return copyArr.sort(function(a, b) {
+            const x = a[key]; 
+            const y = b[key];
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        })
     }
 
     checkUncheckTodo(index, status){
