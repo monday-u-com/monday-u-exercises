@@ -1,14 +1,10 @@
 [
   {
-    "text": "Make a list",
+    "text": "Say hi",
     "isNew": false
   },
   {
-    "text": "Catch a bird",
-    "isNew": false
-  },
-  {
-    "text": "abc",
+    "text": "Walk the dog",
     "isNew": false
   }
 ]

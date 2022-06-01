@@ -1,10 +1,14 @@
-/**
- * Pizza delivery prompt example
- * run example by writing `node pizza.js` in your console
- */
-
 import inquirer from 'inquirer';
 import chalk from "chalk";
+import { MainCommander } from "./main-commander.js";
+import { ItemManagerCommander } from "./item-manager-commander.js";
+import { PokemonClient } from "./pokemon-client.js";
+
+const itemManagerCommander = new ItemManagerCommander();
+const pokemonClient = new PokemonClient();
+const mainCommander = new MainCommander(itemManagerCommander, pokemonClient);
+
+mainCommander.init();
 
 console.log(chalk.yellow('Welcome to TODOOPS!'));
 
@@ -15,25 +19,61 @@ const questions = [
     message: 'What do you want to do?',
     choices:
       [
-        'get all todos',
-        'add a new todo',
-        'delete an existing todo',
-        'sort todos',
-        'clear all todos',
-        'exit'
+        'Get all todos',
+        'Add a new todo',
+        'Delete an existing todo',
+        'Sort todos',
+        'Clear all todos',
+        'Exit'
       ],
-    filter(val) {
-      return val.toLowerCase().split(' ')[0];
+    filter(command) {
+      return command.toLowerCase().split(' ')[0];
+    },
+  },
+  {
+    type: 'number',
+    name: 'index',
+    message: 'Choose the index of todo to be deleted',
+    when: (answers) => answers.command === 'delete',
+    filter(index) {
+      return parseInt(index, 10);
+    },
+  },
+  {
+    type: 'input',
+    name: 'todo',
+    message: 'Enter your new todo',
+    when: (answers) => answers.command === 'add',
+    filter(todo) {
+      return todo;
     },
   },
 ];
 
 function getAnswers() {
   return inquirer.prompt(questions).then((answers) => {
-    if (answers.command !== 'exit') {
-      return getAnswers();
+    switch(answers.command) {
+      case 'exit':
+        return 'See you later!';
+      case 'get':
+        mainCommander.showTodos();
+        break;
+      case 'add':
+        mainCommander.addTodo(answers.todo);
+        break;
+      case 'delete':
+        mainCommander.deleteTodo(answers.index);
+        break;
+      case 'sort':
+        mainCommander.sortTodos();
+        break;
+      case 'clear':
+        mainCommander.clearAllTodos();
+        break;
+      case 'exit':
+        return 'See you later!';
     }
-    return 'See you later!';
+    return getAnswers();
   });
 }
 

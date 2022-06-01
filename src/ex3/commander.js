@@ -41,7 +41,7 @@ program
 
 program
   .command("get")
-  .description("Show all todos")
+  .description("Get all todos")
   .action(() => {
     mainCommander.showTodos();
   });
