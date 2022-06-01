@@ -5,7 +5,6 @@ const DATA_FILE_NAME = "savedData.json";
 export class ItemManagerCommander {
   init() {
     this.items = this.getItemsFromFile();
-    console.log(this.items);
     return this.items;
   }
 

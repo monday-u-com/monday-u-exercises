@@ -1,6 +1,6 @@
 import { ItemManagerCommander } from "./item-manager.js";
 import { PokemonClient } from "./pokemon-client.js";
-// import chalk from "chalk";
+import chalk from "chalk";
 import { Command } from "commander";
 
 class MainCommander {
@@ -14,12 +14,19 @@ class MainCommander {
   }
 
   showTodos() {
-    this.todos.forEach(todo => {
-      console.log(todo.text);
+    const amount = this.todos.length;
+    if (amount === 1) {
+      console.log(chalk.yellow(`You have only one todo:`));
+    } else {
+      console.log(chalk.yellow(`You have ${amount} todos:`));
+    }
+    this.todos.forEach((todo, index) => {
+      console.log(chalk.yellow(index), todo.text);
     });
   }
 
   addTodo(text) {
+    console.log(chalk.green(`Adding '${text}'`));
     this.updateTodos(this.itemManagerCommander.addItem(text));
   }
 
@@ -27,7 +34,8 @@ class MainCommander {
     this.todos = updatedArray;
   }
 
-  deleteTodoTask(index) {
+  deleteTodo(index) {
+    console.log(chalk.red(`Deleting todo with index '${index}'`));
     this.updateTodos(this.itemManagerCommander.deleteItem(index));
   }
 
@@ -57,6 +65,7 @@ class MainCommander {
   }
 
   sortTodos() {
+    console.log(chalk.yellow(`Sorting todos`));
     this.updateTodos(this.itemManagerCommander.sortItems());
   }
 }
@@ -71,7 +80,7 @@ const program = new Command();
 
 program
   .name("todos-manager")
-  .description("Read, add, delete todos")
+  .description("Add, delete, show and sort todos")
   .version("1.0.0");
 
 program
@@ -80,7 +89,14 @@ program
   .argument("<string>", "todo text")
   .action((text) => {
     mainCommander.addTodo(text);
-    console.log(`Adding '${text}'`);
+  });
+
+program
+  .command("delete")
+  .description("Delete an existing todo")
+  .argument("<number>", "todo index")
+  .action((index) => {
+    mainCommander.deleteTodo(index);
   });
 
 program
@@ -92,7 +108,7 @@ program
 
 program
   .command("sort")
-  .description("Sort todos")
+  .description("Sort todos alphabetically")
   .action(() => {
     mainCommander.sortTodos();
   });
