@@ -1,4 +1,4 @@
-import { ItemManagerCommander } from "./item-manager.js";
+import { ItemManagerCommander } from "./item-manager-commander.js";
 import { PokemonClient } from "./pokemon-client.js";
 import chalk from "chalk";
 import { Command } from "commander";
@@ -27,7 +27,7 @@ class MainCommander {
     if (amount === 1) {
       console.log(chalk.yellow(`You have only one todo:`));
     } else {
-      console.log(chalk.yellow(`You have ${amount} todos:`));
+      console.log(chalk.yellow(`You have ${amount} todos`));
     }
   }
 
@@ -37,17 +37,16 @@ class MainCommander {
 
   addTodo(text) {
     console.log(chalk.green(`Adding '${text}'`));
-    this.updateTodos(this.itemManagerCommander.addItem(text));
-    // if (this.pokemonClient.isPokemon(text)) {
-    //   this.addPokemon(text.toLowerCase());
-    // } else {
-    //   const isTextNaN = text.split(',').map( el => isNaN(el));
-    //   if (isTextNaN.includes(true)) {
-    //     itemManagerCommander.addItem(text);
-    //   } else {
-    //     this.addPokemon(text);
-    //   }
-    // }
+    if (this.pokemonClient.isPokemon(text)) {
+      this.addPokemon(text.toLowerCase());
+    } else {
+      const isTextNaN = text.split(',').map( el => isNaN(el));
+      if (isTextNaN.includes(true)) {
+        this.updateTodos(this.itemManagerCommander.addItem(text));
+      } else {
+        this.addPokemon(text);
+      }
+    }
   }
 
   updateTodos(updatedArray) {
@@ -55,8 +54,17 @@ class MainCommander {
   }
 
   deleteTodo(index) {
-    console.log(chalk.red(`Deleting todo with index ${index}`));
-    this.updateTodos(this.itemManagerCommander.deleteItem(index));
+    if (Number.isInteger(index) && index > -1 && index < this.todos.length) {
+      console.log(chalk.red(`Deleting todo with index ${index}`));
+      this.updateTodos(this.itemManagerCommander.deleteItem(index));
+    } else {
+      console.log(chalk.red("ERROR"), `There is no todo with index ${index}`);
+    }
+  }
+
+  clearAllTodos() {
+    console.log(chalk.red("Deleting all todos"));
+    this.updateTodos(this.itemManagerCommander.clearAllItems());
   }
 
   addPokemon(text) {
@@ -103,7 +111,14 @@ program
   .description("Delete an existing todo")
   .argument("<number>", "todo index")
   .action((index) => {
-    mainCommander.deleteTodo(index);
+    mainCommander.deleteTodo(parseInt(index, 10));
+  });
+
+program
+  .command("clear")
+  .description("Clear all todos")
+  .action(() => {
+    mainCommander.clearAllTodos();
   });
 
 program

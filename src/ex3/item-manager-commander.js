@@ -31,6 +31,12 @@ export class ItemManagerCommander {
     return this.items;
   }
 
+  clearAllItems() {
+    this.items = [];
+    this.writeItemsToFile();
+    return this.items;
+  }
+
   sortItems(){
     this.items.sort((a, b) => a.text.localeCompare(b.text));
     this.writeItemsToFile();
