@@ -1,7 +1,7 @@
 {
-  "name": "ex3",
-  "version": "1.0.0",
-  "description": "Time for task #3!<br>",
+  "name": "todo-console-app-assh",
+  "version": "1.0.2",
+  "description": "Todo console app<br>",
   "main": "main.js",
   "type": "module",
   "scripts": {

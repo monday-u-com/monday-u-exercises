@@ -31,7 +31,7 @@ When you finish it should look like this:
 
 ### Bonus
 
-- [x] Publish your code as npm package and run it with npx
+- [/] Publish your code as npm package and run it with npx // published, but it doesn't work with npx
 - [x] Add colors to your cli tool // every command has its color; new todos are green when shown for the first time
 - [x] Add Inquirer.js and make your cli tool interactive
 - [x] Display pokemon image (ascii art) // for ids from 1 to 151 (default picture for the rest)
