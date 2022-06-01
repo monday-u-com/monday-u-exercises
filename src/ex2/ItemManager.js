@@ -20,6 +20,12 @@ export class ItemManager {
     this.todos = [...filteredTodo];
   }
 
+  removeAll(){
+    while (this.todos.length) {
+      this.todos.pop();
+    }
+  }
+
   async addPokemons(ids) {
     const pokemonsArray = ids.split(',');
     const pokemonClient = new PokemonClient();

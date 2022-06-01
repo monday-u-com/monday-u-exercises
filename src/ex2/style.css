@@ -141,3 +141,17 @@ border:1px solid #f2c57c ;
   background-color: #ddae7e7a;
   transition: background-color 0.2s ease-in-out;
 }
+
+.delete-all{
+  display: flex;
+  justify-content: center;
+  margin: 10px 15px;
+}
+#delete-all-button{
+  width: 100px;
+  color: white;
+  background-color: #f2c57c;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 4px;
+}

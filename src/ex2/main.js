@@ -3,11 +3,12 @@
 import { ItemManager } from './ItemManager.js';
 
 class Main {
-  constructor(itemManager, listEl, inputEl, addButtonEl) {
+  constructor(itemManager, listEl, inputEl, addButtonEl,deleteAllButtonEl) {
     this.itemManager = itemManager;
     this.listEl = listEl;
     this.inputEl = inputEl;
     this.addButtonEl = addButtonEl;
+    this.deleteAllButtonEl = deleteAllButtonEl;
   }
 
   async addTaskHandler() {
@@ -29,6 +30,7 @@ class Main {
   }
 
   renderList() {
+    this.listEl.innerHTML ='';
     const todos = this.itemManager.todos;
     const filteredTodos = todos.filter(
       (todo) => !document.getElementById(todo.id)
@@ -73,16 +75,23 @@ class Main {
     alert(itemValue.innerText);
   }
 
+  deleteAll(){
+    this.itemManager.removeAll();
+    this.renderList();
+  }
+
   init() {
     this.addButtonEl.addEventListener('click', this.addTaskHandler.bind(this));
+    this.deleteAllButtonEl.addEventListener('click', this.deleteAll.bind(this));
   }
 }
 
 const listEl = document.getElementById('list');
 const inputEl = document.getElementById('list-item-input');
 const addButtonEl = document.getElementById('list-item-submit');
+const deleteAllButtonEl = document.getElementById('delete-all-button');
 const itemManager = new ItemManager();
-const main = new Main(itemManager, listEl, inputEl, addButtonEl);
+const main = new Main(itemManager, listEl, inputEl, addButtonEl, deleteAllButtonEl);
 
 document.addEventListener('DOMContentLoaded', function () {
   main.init();
