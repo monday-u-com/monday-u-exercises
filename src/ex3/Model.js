@@ -67,5 +67,7 @@ export default class Model {
 
     checkUncheckTodo(index, status){
         this.todoList[index].done = status
+
+        return this.todoList[index]
     }
 }

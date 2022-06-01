@@ -170,13 +170,23 @@ export default class ItemManager {
     }
 
     checkTodo(index) {
-        this.model.checkUncheckTodo(index,true)
+        if(index < 0 || index >= this.model.todoList.length){
+            return null;
+        }
+
+        const todo = this.model.checkUncheckTodo(index,true)
         this.updateTodos()
+        return todo
     }
 
     uncheckTodo(index) {
-        this.model.checkUncheckTodo(index, false)
+        if(index < 0 || index >= this.model.todoList.length){
+            return null;
+        }
+        
+        const todo = this.model.checkUncheckTodo(index, false)
         this.updateTodos()
+        return todo
     }
 
     filterUnDoneToDone(){

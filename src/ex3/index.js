@@ -113,13 +113,20 @@ program
   .option("-ch, --check")
   .option("-uch, --uncheck")
   .action((options) => {
-    console.log(options)
+    let status
     if(options.check){
-      pokemonClient.changeDoneStatus(options.index, true);
+      status = pokemonClient.changeDoneStatus(options.index, true);
     }else if(options.uncheck){
-      pokemonClient.changeDoneStatus(options.index, false);
+      status = pokemonClient.changeDoneStatus(options.index, false);
     }
-    getFullCurrentList()
+
+    if(status === null){
+      console.log(chalk.bold.red("invalid index"))
+    }
+    else{
+      getFullCurrentList()
+    }
+    
   })
 
 program.parse();
