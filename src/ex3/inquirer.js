@@ -51,20 +51,14 @@ const questions = [
 ];
 
 function getAnswers() {
-  return inquirer.prompt(questions).then((answers) => {
+  return inquirer.prompt(questions).then(async (answers) => {
     switch(answers.command) {
       case 'get':
         mainCommander.showTodos();
         break;
       case 'add':
-        const pokemon = mainCommander.addTodo(answers.todo);
-        if (pokemon) { // if pokemon, addTodo returns a promise
-          return pokemon.then(() => {
-            return getAnswers();
-          })
-        } else { // it is a regular to do
-          break
-        }
+        await mainCommander.addTodo(answers.todo);
+        break
       case 'delete':
         mainCommander.deleteTodo(answers.index);
         break;
