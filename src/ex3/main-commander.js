@@ -55,7 +55,7 @@ export class MainCommander {
       console.log(chalk.red(`Deleting todo with index ${index}`));
       this.updateTodos(this.itemManagerCommander.deleteItem(index));
     } else {
-      console.log(chalk.red("ERROR"), `There is no todo with index ${index}`);
+      console.log(chalk.red("Error"), `There is no todo with index ${index}`);
     }
   }
 
@@ -68,7 +68,7 @@ export class MainCommander {
     this.pokemonClient.fetchPokemon(text).then(pokemons => {
       try {
         pokemons.forEach(pokemon => {
-          itemManagerCommander.addItem(`Catch ${pokemon}`);
+          this.itemManagerCommander.addItem(`Catch ${pokemon}`);
         })
       } catch (error) {
         console.log(chalk.red("Todo was not added"));;
@@ -77,7 +77,7 @@ export class MainCommander {
   }
 
   sortTodos() {
-    console.log(chalk.gray(`Sorting todos`));
+    console.log(chalk.gray(`Sorting todos alphabetically`));
     this.updateTodos(this.itemManagerCommander.sortItems());
   }
 }

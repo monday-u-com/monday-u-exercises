@@ -29,5 +29,5 @@ When you finish it should look like this:
 
 - [ ] Publish your code as npm package and run it with npx
 - [x] Add colors to your cli tool // every command has its color; new todos are green when shown for the first time
-- [ ] Add Inquirer.js and make your cli tool interactive
+- [x] Add Inquirer.js and make your cli tool interactive
 - [ ] Display pokemon image (ascii art)

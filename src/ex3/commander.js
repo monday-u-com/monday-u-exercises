@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import { MainCommander } from "./main-commander.js";
 import { ItemManagerCommander } from "./item-manager-commander.js";
-import { PokemonClient } from "./pokemon-client.js";
+import { PokemonClient } from "./pokemon-client-commander.js";
 
 const itemManagerCommander = new ItemManagerCommander();
 const pokemonClient = new PokemonClient();

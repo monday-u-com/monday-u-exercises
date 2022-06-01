@@ -1,10 +1,22 @@
 [
   {
-    "text": "Say hi",
+    "text": "abc",
     "isNew": false
   },
   {
-    "text": "Walk the dog",
+    "text": "asdfghj",
+    "isNew": false
+  },
+  {
+    "text": "Catch pikachu (electric pokemon)",
+    "isNew": false
+  },
+  {
+    "text": "Catch scyther (bug pokemon)",
+    "isNew": false
+  },
+  {
+    "text": "Catch bulbasaur (grass pokemon)",
     "isNew": false
   }
 ]

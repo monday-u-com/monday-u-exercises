@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 export class PokemonClient {
   constructor() {
     this.API_BASE = 'https://pokeapi.co/api/v2/pokemon';
@@ -10,7 +12,7 @@ export class PokemonClient {
       const pokemons = pokemonText.split(',').map( el => el.trim() );
       let promises = [];
       pokemons.forEach(pokemon => {
-        promises.push(fetch(`${this.API_BASE}/${25}/`));
+        promises.push(fetch(`${this.API_BASE}/${pokemon}/`));
       });
       const responses = await Promise.all(promises);
       const elements = await Promise.all(responses.map(response => response.json()));
