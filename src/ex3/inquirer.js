@@ -53,14 +53,18 @@ const questions = [
 function getAnswers() {
   return inquirer.prompt(questions).then((answers) => {
     switch(answers.command) {
-      case 'exit':
-        return 'See you later!';
       case 'get':
         mainCommander.showTodos();
         break;
       case 'add':
-        mainCommander.addTodo(answers.todo);
-        break;
+        const promise = mainCommander.addTodo(answers.todo);
+        if (promise) { // if it is a pokemon, addTodo returns a promise
+          return promise.then(() => {
+            return getAnswers();
+          })
+        } else {
+          break
+        }
       case 'delete':
         mainCommander.deleteTodo(answers.index);
         break;

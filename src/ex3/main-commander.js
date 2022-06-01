@@ -35,13 +35,13 @@ export class MainCommander {
   addTodo(text) {
     console.log(chalk.green(`Adding '${text}'`));
     if (this.pokemonClient.isPokemon(text)) {
-      this.addPokemon(text.toLowerCase());
+      return this.addPokemon(text.toLowerCase());
     } else {
       const isTextNaN = text.split(',').map( el => isNaN(el));
       if (isTextNaN.includes(true)) {
         this.updateTodos(this.itemManagerCommander.addItem(text));
       } else {
-        this.addPokemon(text);
+        return this.addPokemon(text);
       }
     }
   }
@@ -65,10 +65,11 @@ export class MainCommander {
   }
 
   addPokemon(text) {
-    this.pokemonClient.fetchPokemon(text).then(pokemons => {
+    return this.pokemonClient.fetchPokemon(text).then(pokemons => {
       try {
         pokemons.forEach(pokemon => {
-          this.itemManagerCommander.addItem(`Catch ${pokemon}`);
+          this.updateTodos(this.itemManagerCommander.addItem(`Catch ${pokemon}`));
+          console.log(chalk.red('POKEMOSHA'));
         })
       } catch (error) {
         console.log(chalk.red("Todo was not added"));;
