@@ -1,14 +1,14 @@
 [
   {
-    "text": "Catch pikachu (electric pokemon, id 25)}",
-    "isNew": false
+    "text": "Catch venusaur with id 3 and type grass",
+    "isNew": true
   },
   {
-    "text": "Catch bulbasaur (grass pokemon, id 1)}",
-    "isNew": false
+    "text": "Catch charmander with id 4 and type fire",
+    "isNew": true
   },
   {
-    "text": "Catch mewtwo, psychic pokemon, id 150}",
-    "isNew": false
+    "text": "Catch shellder with id 90 and type water",
+    "isNew": true
   }
 ]

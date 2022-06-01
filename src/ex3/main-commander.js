@@ -69,9 +69,9 @@ export class MainCommander {
     return this.pokemonClient.fetchPokemon(text).then(pokemons => {
       try {
         pokemons.forEach(pokemon => {
-          const catchPokemonTodo = `Catch ${pokemon[0]}, ${pokemon[1]} pokemon, id ${pokemon[2]}}`
+          const catchPokemonTodo = `Catch ${pokemon.name} with id ${pokemon.id} and type ${pokemon.type}`;
           this.updateTodos(this.itemManagerCommander.addItem(catchPokemonTodo));
-          LogPokemonAscii(pokemon[2]);
+          LogPokemonAscii(pokemon.id);
         })
       } catch (error) {
         console.log(chalk.red("Todo was not added"));;

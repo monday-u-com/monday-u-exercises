@@ -5888,4 +5888,5 @@ export function LogPokemonAscii(index) {
     break;
 
     }
+    console.log('\n\n');
 }

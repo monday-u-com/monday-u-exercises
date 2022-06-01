@@ -16,13 +16,13 @@ export class PokemonClient {
       });
       const responses = await Promise.all(promises);
       const elements = await Promise.all(responses.map(response => response.json()));
-      return await Promise.all(elements.map(element =>
-        [
-          element.forms[0].name,
-          element.types[0].type.name,
-          element.id
-        ]
-        ));
+      return await Promise.all(elements.map(element => {
+        return {
+          name: element.forms[0].name,
+          type: element.types[0].type.name,
+          id: element.id
+        }
+      }));
     } catch (error) {
       this.failureHandler(pokemonText);
     }
