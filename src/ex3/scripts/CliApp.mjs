@@ -1,13 +1,13 @@
 
 import inquirer from 'inquirer';
-import ItemManager from "./scripts/ItemManager.mjs";
+import ItemManager from "./ItemManager.mjs";
 import { createSpinner } from 'nanospinner';
 import figlet from 'figlet';
 import gradient from 'gradient-string';
 import chalk from 'chalk';
 import asciifyImage from 'asciify-image';
 
-class CliApp
+export default class CliApp
 {
     constructor()
     {
@@ -27,12 +27,20 @@ class CliApp
             add_task_question: {
                 name: "task_text",
                 type: "input",
-                message: "Enter your todo text:"
+                message: "Enter your todo text:",
+                validate: function (task_text) {
+                    var valid = task_text.length;
+                    return valid > 0 || `Please enter a valid string`;
+                  }
             },
             delete_task_question: {
                 name: "task_id",
-                type: "number",
-                message: "Enter your todos id to delete:"
+                type: "input",
+                message: "Enter your todos id to delete:",
+                validate: function (id) {
+                    var valid = Number.isInteger(parseInt(id));
+                    return valid || `Please enter a valid id number`;
+                  }
             },
             get_tasks_with_image_art_question: {
                 name: "image_art",
@@ -70,7 +78,9 @@ class CliApp
     async  init() {
         await this.item_manager.SetArrayFromFile();
     }
-    
+    /**
+     * run the cli cycle
+     */
     async run()
     {
         this.PrintIntroMessage();
@@ -195,13 +205,7 @@ class CliApp
                 if(Number.isInteger(parseInt(task.id)))
                 { 
                     if(answer.image_art === "Yes")               
-                        asciifyImage(task.images.front_default, 
-                            {
-                                fit: 'original',
-                                width: 5,
-                                height: 5
-                            }, 
-                        (error, converted) =>
+                        asciifyImage(task.images.front_default, { fit: 'original' }, (error, converted) =>
                             {
                                 console.log(figlet.textSync(`Catch ${task.name}`));
                                 console.log(error || converted);

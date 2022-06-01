@@ -119,7 +119,9 @@ class Main {
             this.RerenderFunctionWrapper();
         });
     }
-
+    /**
+     * clear all tasks in array and log it to the file
+     */
     async ClearAllTasks() {
         const delete_promise = Promise.resolve(this.SendToServer('DeleteAllTasks', {}));
         // wait to get response before re-rendering
@@ -131,7 +133,9 @@ class Main {
             this.RerenderFunctionWrapper();
         });
     }
-
+    /**
+     * sort tasks by name
+     */
     async SortTasksByName() {
         const sort_promise = Promise.resolve(this.SendToServer('SortByNameTasks', {}));
         // wait to get response before re-rendering
