@@ -42,4 +42,12 @@ export default class PokemonClient{
             return this.itemManager.uncheckTodo(index)
         }
     }
+
+    getDoneTodos(){
+        return this.itemManager.getDoneTodos()
+    }
+
+    getUnDoneTodos(){
+        return this.itemManager.getUnDoneTodos()
+    }
 }

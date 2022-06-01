@@ -70,4 +70,16 @@ export default class Model {
 
         return this.todoList[index]
     }
+
+    getDoneTodos() {
+        const filteredArr = [...this.todoList].filter(todo => todo.done === true)
+
+        return filteredArr
+    }
+
+    getUnDoneTodos(){
+        const filteredArr = [...this.todoList].filter(todo => todo.done === false)
+
+        return filteredArr
+    }
 }

@@ -183,7 +183,7 @@ export default class ItemManager {
         if(index < 0 || index >= this.model.todoList.length){
             return null;
         }
-        
+
         const todo = this.model.checkUncheckTodo(index, false)
         this.updateTodos()
         return todo
@@ -197,6 +197,14 @@ export default class ItemManager {
     filterDoneToUnDone(){
         this.model.filterDoneToUnDone()
         this.updateTodos()
+    }
+
+    getDoneTodos() {
+        return this.model.getDoneTodos()
+    }
+
+    getUnDoneTodos(){
+        return this.model.getUnDoneTodos()
     }
 
     todoListSize() {
