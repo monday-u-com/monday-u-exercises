@@ -1,3 +1,5 @@
+import { POKEMON_IMAGE_DIV, TASK_HTML } from "./GlobalConses.js";
+
 export default class DomManager {
     constructor() {
         this.task_input = document.querySelector("#todo_input");
@@ -20,34 +22,17 @@ export default class DomManager {
     * Click call back function to add new task
     */
     AddNewTask(id, task_object, delete_call_back) {
-        // creates new task elements
-        const new_task = document.createElement("li");
-        const task_text = document.createElement("span");
-        const task_number = document.createElement("span");
-        const task_buttons_container = document.createElement("div");
-        const task_delete_button = document.createElement("button");
-        const task_complete_button = document.createElement("button");
-
-        // adds class to elements
-        new_task.classList.add("todo_task");
-        new_task.classList.add("animate__animated");
-        new_task.classList.add("animate__fadeIn");
-        task_text.classList.add("task_text");
-        task_number.classList.add("task_number");
-        task_buttons_container.classList.add("task_buttons");
-        task_delete_button.classList.add("delete_task_button");
+        const new_task_from_html = this.CreateElementFromHtml(TASK_HTML);
+        const task_number = new_task_from_html.querySelector('.task_number');
+        const task_text = new_task_from_html.querySelector('.task_text');
+        const task_delete_button = new_task_from_html.querySelector('.delete_task_button');
+        const task_complete_button = new_task_from_html.querySelector('.complete_task_button');
         task_delete_button.id = id;
-        task_complete_button.classList.add("complete_task_button");
-
         // Delete empty state from task container
         this.task_container.classList.remove("empty");
-        // appends elements to dom
-        this.task_container.appendChild(new_task);
-        task_buttons_container.append(task_delete_button, task_complete_button);
-        new_task.append(task_number, task_text);
         // image
         if (Number.isInteger(task_object.id)) {
-            new_task.appendChild(this.PokemonImageElement(task_object));
+            task_text.after(this.PokemonImageElement(task_object));
             // adds text to task
             task_text.innerHTML = `Catch ${task_object.name}`;
         }
@@ -55,23 +40,18 @@ export default class DomManager {
             task_text.innerHTML = task_object.data;
         else
             task_text.innerHTML = task_object.name;// adds text to task
-        new_task.append(task_buttons_container);
+        //new_task.append(task_buttons_container);
 
         // adds numbers to tasks
         task_number.innerText = (this.task_container.children.length).toString().concat(")");
         this.clearInput();
-
-        // adds icons to buttons
-        task_delete_button.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
-        task_complete_button.innerHTML = '<i class="fa-solid fa-check"></i>';
-
         // adds event listeners to elements
         task_delete_button.addEventListener("click", (event) => {
             delete_call_back(event);
         });        
-        task_complete_button.addEventListener("click", this.MarkAsCompleteTask);
+        task_complete_button.addEventListener("click", (event) => this.MarkAsCompleteTask(event));
         task_text.addEventListener("click", this.TaskClick);
-
+        this.task_container.append(new_task_from_html);
         // updates task counter
         this.UpdateTaskCounter();
     }
@@ -81,8 +61,7 @@ export default class DomManager {
      * @returns 
      */
     PokemonImageElement(task_object) {
-        const pokemon_image_sprites_container = document.createElement("div");
-        pokemon_image_sprites_container.classList.add("image_sprites");
+        const pokemon_image_sprites_container = this.CreateElementFromHtml(POKEMON_IMAGE_DIV);
         Object.entries(task_object.images).forEach((image_attribute, index) => {// adds all images from api
             const pokemon_image = document.createElement("img");
             pokemon_image.id = index;
@@ -112,8 +91,9 @@ export default class DomManager {
     /**
      * toggle complete task class
      */
-    MarkAsCompleteTask() {
-        this.parentNode.parentNode.classList.toggle("completed_task");
+    MarkAsCompleteTask(event) {
+        event.currentTarget.parentNode.parentNode.classList.toggle("completed_task");
+        this.UpdateTaskCounter();
     }
 
     /**
@@ -128,7 +108,9 @@ export default class DomManager {
      */
     UpdateTaskCounter() {
         const tasks_number = this.task_container.children.length;
-        this.tasks_counter.innerHTML = tasks_number;
+        // takes in consideration task completed
+        const task_completed = this.task_container.querySelectorAll(".completed_task").length;
+        this.tasks_counter.innerHTML = tasks_number - task_completed;
     }
 
     /**
@@ -195,5 +177,18 @@ export default class DomManager {
             options.push(option);
         });
         options.forEach((option) => this.pokemon_data_list.append(option));        
+    }
+
+    /**
+     * Creates a html object from html string
+     * @param {string} html 
+     * @returns 
+     */
+    CreateElementFromHtml(html)
+    {
+        let temp = document.createElement('template');
+        html = html.trim();
+        temp.innerHTML = html;
+        return temp.content.firstChild;
     }
 }
