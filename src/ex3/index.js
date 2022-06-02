@@ -23,6 +23,10 @@ function getFullCurrentList(data){
 }
 
 function addAndShowAddedTodo(todo) {
+  if(todo.trim() === ""){ 
+     console.log("can't add empty todo")
+    return
+  }
   const prevLength = pokemonClient.itemManager.getTodoList().length
     pokemonClient.addTodo(todo)
     setTimeout(() => { //wait untill the async todo operation done
@@ -66,7 +70,6 @@ inquirer
   .prompt(options)
   .then((answers) => {
       const answer = answers.listOptions
-      
       switch (answer){
         case "get full todo list":
           showUpdates()
