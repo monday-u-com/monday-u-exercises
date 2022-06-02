@@ -36,7 +36,6 @@ export default class FileManager {
         }
         catch(error)
         {
-            console.log(error);
             return [];
         }
     }

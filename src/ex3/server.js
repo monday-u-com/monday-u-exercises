@@ -6,9 +6,9 @@ const app = express();
 const item_manager = new ItemManager();
 await item_manager.init();
 await item_manager.SetArrayFromFile();
-
+// setup root directory for web server
 app.use(express.static('./www'));
-app.use(express.json()) ;
+app.use(express.json());
 /**
  * bind the server and start listening
  */
