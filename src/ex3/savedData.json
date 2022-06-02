@@ -6,5 +6,9 @@
   {
     "text": "Catch ivysaur with id 2 and type grass",
     "isNew": false
+  },
+  {
+    "text": "say hi",
+    "isNew": true
   }
 ]

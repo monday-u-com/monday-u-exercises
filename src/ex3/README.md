@@ -2,6 +2,8 @@
 
 To run the program use `node inquirer.js` (with interactive menu) or `node commander.js`(without interactive menu)
 
+You can also call it using `npx todo-console-app-assh` (calls inquirer.js).
+
 -----
 
 Time for task #3!<br>
@@ -31,7 +33,7 @@ When you finish it should look like this:
 
 ### Bonus
 
-- [/] Publish your code as npm package and run it with npx // published, but it doesn't work with npx
+- [x] Publish your code as npm package and run it with npx
 - [x] Add colors to your cli tool // every command has its color; new todos are green when shown for the first time
 - [x] Add Inquirer.js and make your cli tool interactive
 - [x] Display pokemon image (ascii art) // for ids from 1 to 151 (default picture for the rest)
