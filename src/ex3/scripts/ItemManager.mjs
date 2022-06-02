@@ -114,12 +114,12 @@ export default class ItemManager {
         // check if found pokemon
         if (typeof result.name !== "undefined" && result.name !== "Error") {
             if (!this.CheckIfPokemonExists(result.id))
-                this.tasks.push({ name: result.name, images: result.images, id: result.id });// found pokemon add the name and id of pokemon 
+                this.tasks.push({ name: result.name, images: result.images, id: result.id, completed: false });// found pokemon add the name and id of pokemon 
         }
         else if (typeof result === "object")
-            this.tasks.push({ data: result.message, id: "Error" });// did not find pokemon 
+            this.tasks.push({ data: result.message, id: "Error", completed: false });// did not find pokemon 
         else
-            this.tasks.push({ name: result, id: "Regular task" });
+            this.tasks.push({ name: result, id: "Regular task", completed: false });
     }
 
     /**
@@ -186,6 +186,14 @@ export default class ItemManager {
             pokemon_filtered.images = { ...pokemon_filtered.images, ...{ [value[0]]: value[1] } };
         });
         return pokemon_filtered;
+    }
+    /**
+     * toggle completed attribute
+     * @param {int} task_id 
+     */
+    CompleteTask(task_id){
+        this.tasks[task_id].completed = !this.tasks[task_id].completed;
+        this.file_manager.WriteToFileTasksArray(this.tasks);
     }
 
 }

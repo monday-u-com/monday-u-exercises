@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 export default class FileManager {
     constructor(){
         dotenv.config();
-        this.file = process.env.FILE_DIRECTORY;
+        this.file = process.env.FILE_DIRECTORY || './tasks.json';
     }
     /**
      * write task array to file in json format

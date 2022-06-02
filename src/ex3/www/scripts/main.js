@@ -120,6 +120,22 @@ class Main {
         });
     }
     /**
+     * toggle complete task 
+     * @param {Event} event click event object
+     */
+     async CompleteTodo(event) {
+        const task_id = event.currentTarget.id;
+        const complete_promise = Promise.resolve(this.SendToServer('CompleteTask', {task_id: task_id}));
+        // wait to get response before re-rendering
+        await complete_promise;
+        // get the updated tasks
+        const tasks = main.FetchUrlFromServer('tasks');
+        Promise.all([complete_promise, tasks]).then((results) => {
+            this.tasks = results[1];
+            this.RerenderFunctionWrapper();
+        });
+    }
+    /**
      * clear all tasks in array and log it to the file
      */
     async ClearAllTasks() {
@@ -153,7 +169,11 @@ class Main {
     RerenderFunctionWrapper()
     {
         this.dom_manager.RenderDomFromArray(this.tasks, (event) => {
+            // delete task call beck
             this.RemoveTodo(event);
+        }, (event) => {
+            // complete task call back
+            this.CompleteTodo(event);
         });
     }
 }

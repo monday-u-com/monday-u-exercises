@@ -18,16 +18,24 @@ export default class DomManager {
         this.task_input.value = "";
     }
 
-    /**
-    * Click call back function to add new task
+   /**
+    * adds new task to dom and set its call back to buttons
+    * @param {int} id 
+    * @param {Object} task_object 
+    * @param {Function} delete_call_back 
+    * @param {Function} complete_call_back 
     */
-    AddNewTask(id, task_object, delete_call_back) {
+    AddNewTask(id, task_object, delete_call_back, complete_call_back) {
         const new_task_from_html = this.CreateElementFromHtml(TASK_HTML);
         const task_number = new_task_from_html.querySelector('.task_number');
         const task_text = new_task_from_html.querySelector('.task_text');
         const task_delete_button = new_task_from_html.querySelector('.delete_task_button');
         const task_complete_button = new_task_from_html.querySelector('.complete_task_button');
         task_delete_button.id = id;
+        task_complete_button.id = id;
+
+        if(task_object.completed)
+            new_task_from_html.classList.add('completed_task');
         // Delete empty state from task container
         this.task_container.classList.remove("empty");
         // image
@@ -43,13 +51,16 @@ export default class DomManager {
         //new_task.append(task_buttons_container);
 
         // adds numbers to tasks
-        task_number.innerText = (this.task_container.children.length).toString().concat(")");
+        task_number.innerText = (this.task_container.children.length + 1).toString().concat(")");
         this.clearInput();
         // adds event listeners to elements
         task_delete_button.addEventListener("click", (event) => {
             delete_call_back(event);
         });        
-        task_complete_button.addEventListener("click", (event) => this.MarkAsCompleteTask(event));
+        task_complete_button.addEventListener("click", (event) => {
+                this.MarkAsCompleteTask(event);
+                complete_call_back(event);
+        }); 
         task_text.addEventListener("click", this.TaskClick);
         this.task_container.append(new_task_from_html);
         // updates task counter
@@ -132,14 +143,14 @@ export default class DomManager {
      * @param {array} todos 
      * @param {function} delete_call_back 
      */
-    RenderDomFromArray(todos, delete_call_back) {
+    RenderDomFromArray(todos, delete_call_back, complete_call_back) {
         const todos_copy = [...todos];
         // clear task container for rendering
         this.task_container.innerHTML = "";
         if(todos_copy.length)
         {
             todos_copy.map((todo, key) => {
-                this.AddNewTask(key, todo, delete_call_back);
+                this.AddNewTask(key, todo, delete_call_back, complete_call_back);
             });
         }
         else
