@@ -1,6 +1,7 @@
 import chalk from "chalk";
-import { Command } from "commander";
-const program = new Command();
+import inquirer from 'inquirer';
+/* import { Command } from "commander";
+const program = new Command(); */
 import PokemonClient from './PokemonClient.js';
 
 const pokemonClient = new PokemonClient();
@@ -40,117 +41,154 @@ function showUpdates() {
   getFullCurrentList(data)
 }
 
-program
-  .name("PokeDoList")
-  .description("todolist app with regular todos and catch pokemons todos. for run commands run node index.js and the command after as described in each command description")
-  .version("1.0.0");
+const options = [
+  {
+      type: "list",
+      name: "listOptions",
+      message: "What you want to do in your list",
+      choices: [
+          "get full todo list",
+          "add todo to the list",
+          "delete todo from list",
+          "clear all list",
+          "alphabetichal list order",
+          "reverse alphabetichal list order",
+          "done to undone order",
+          "undone to done order",
+          "check or uncheck todo", 
+          "get all done todos",
+          "get all undone todos"
+      ]
+  }
+]
 
-program
-  .command("get")
-  .description("get list of all todos - just enter the word get")
-  .action(() => {
-    showUpdates()
-  });
+inquirer
+  .prompt(options)
+  .then((answers) => {
+      const answer = answers.listOptions
+      
+      switch (answer){
+        case "get full todo list":
+          showUpdates()
+          break;
 
-program
-  .command("add")
-  .description("add new todo/single pokemon/multi pokemons - enter the word add and after: for one pokemon write a number, for multiple pokemons write a numbers seprate in comma, for regular todo write a string wrap with two apostrophes")
-  .argument("<string>", "todo")
-  .action((todo) => addAndShowAddedTodo(todo))
+        case "add todo to the list":
+            inquirer.prompt({
+                type: 'input',
+                name: 'addTodo',
+                message: 'add new todo/single pokemon/multi pokemons - \nfor one pokemon write a number, \nfor multiple pokemons write a numbers seprate in comma, \nfor regular todo write a string with todo\n', 
+            })
+            .then(answers => {
+              addAndShowAddedTodo(answers.addTodo)
+            })
+            break;
 
-program
-  .command("delete")
-  .description("delete todo - enter the word delete and after enter the index for todo that you want to delete")
-  .argument("<number>", "todo", (value)=> parseInt(value,10)) //convert to int
-  .action((todo) => {
-    const deleteItem = pokemonClient.deleteTodo(todo)
-    if(deleteItem === null){
-      console.log(chalk.bold.red("invalid index"))
+        case "delete todo from list":
+          inquirer.prompt({
+            type: 'number',
+            name: 'deleteTodo',
+            message: 'enter the index for todo that you want to delete', 
+          })
+          .then(answers => {
+            if(isNaN(answers.deleteTodo)) return
+
+            const deleteItem = pokemonClient.deleteTodo(answers.deleteTodo)
+
+            if(deleteItem === null){
+              console.log(chalk.bold.red("invalid index"))
+            }
+            else{
+              console.log("deleted " + chalk.bold.blue(deleteItem.title))
+            }
+          })
+          break;
+
+        case "clear all list":
+          inquirer.prompt({
+            type: 'confirm',
+            name: 'clearTodo',
+            message: 'are you sure you want to reset all the list?', 
+          })
+          .then(answers => {
+            if(answers.clearTodo === true){
+              console.log(chalk.bold.redBright("clear all todos"))
+              pokemonClient.clearAllTodos()
+              showUpdates()
+            }
+          })
+          break;
+
+        case "alphabetichal list order":
+          pokemonClient.orderDataAlphabetically()
+          showUpdates()
+          break;
+
+        case "reverse alphabetichal list order":
+          pokemonClient.orderDataAlphabeticallyReverse()
+          showUpdates()
+          break;
+
+        case "done to undone order":
+          pokemonClient.orderDoneToUnDone()
+          showUpdates()
+          break;
+
+        case "undone to done order": 
+          pokemonClient.orderUnDoneToDone()
+          showUpdates()
+          break;
+
+        case "check or uncheck todo":
+          inquirer.prompt({
+            type: 'number',
+            name: 'checkUncheckTodoIndex',
+            message: 'enter the index for todo that you want to check or uncheck', 
+          })
+          .then(answers => {
+            if(isNaN(answers.checkUncheckTodoIndex)) return
+            inquirer.prompt({
+              type: 'list',
+              name: 'checkUncheckOptions',
+              message: `check/uncheck the todo in index ${answers.checkUncheckTodoIndex}`,
+              choices: ["check", "uncheck"]
+            })
+            .then(answersNested => {
+              let status
+              console.log(answers.checkUncheckTodoIndex)
+              console.log(answersNested.checkUncheckOptions)
+
+              if(answersNested.checkUncheckOptions === "check") {
+                status = pokemonClient.changeDoneStatus(answers.checkUncheckTodoIndex, true);
+              }else if(options.uncheck){
+                status = pokemonClient.changeDoneStatus(answers.checkUncheckTodoIndex,false);
+              } 
+
+              if(status === null){
+                console.log(chalk.bold.red("invalid index"))
+              }
+              else{
+                const data = pokemonClient.itemManager.getTodoList()
+                getFullCurrentList(data)
+              }
+            })
+          })
+          break;
+
+          case "get all done todos":
+            const doneTodos = pokemonClient.getDoneTodos()
+            getFullCurrentList(doneTodos)
+            break;
+          
+          case "get all undone todos":
+            const undoneTodos = pokemonClient.getUnDoneTodos()
+            getFullCurrentList(undoneTodos)
+            break;
+      }
+  })
+  .catch((error) => {
+    if (error.isTtyError) {
+      console.log("Your console environment is not supported!")
+    } else {
+      console.log(error)
     }
-    else{
-      console.log("deleted " + chalk.bold.blue(deleteItem.title))
-    }
-  })
-
-program
-  .command("clear")
-  .description("clear all todos and reset them to 0 - just enter the word clear")
-  .action(() => {
-    console.log(chalk.bold.redBright("clear all todos"))
-    pokemonClient.clearAllTodos()
-    showUpdates()
-  })
-
-program
-  .command("asc-order")
-  .description("order all todos by alphabetichal order - just enter the word asc-order")
-  .action(() => {
-    pokemonClient.orderDataAlphabetically()
-    showUpdates()
-  })
-
-program
-  .command("desc-order")
-  .description("order all todos by reverse alphabetichal order - just enter the word desc-order")
-  .action(() => {
-    pokemonClient.orderDataAlphabeticallyReverse()
-    showUpdates()
-  })
-
-program
-  .command("done-order")
-  .description("order all todos by done to undone order - just enter the word done-order")
-  .action(() => {
-    pokemonClient.filterDoneToUnDone()
-    showUpdates()
-  })
-
-program
-  .command("undone-order")
-  .description("order all todos by undone to done order - just enter the word undone-order")
-  .action(() => {
-    pokemonClient.filterUnDoneToDone()
-    showUpdates()
-  })
-
-program
-  .command("status")
-  .description("check/unchecksingle todo, enter the word status, and after the -i flag and after the index, and the the -ch flag to check item and -uch to uncheck item")
-  .option("-i, --index <index>","int arg",(value)=> parseInt(value,10) )
-  .option("-ch, --check")
-  .option("-uch, --uncheck")
-  .action((options) => {
-    let status
-    if(options.check){
-      status = pokemonClient.changeDoneStatus(options.index, true);
-    }else if(options.uncheck){
-      status = pokemonClient.changeDoneStatus(options.index, false);
-    }
-
-    if(status === null){
-      console.log(chalk.bold.red("invalid index"))
-    }
-    else{
-      const data = pokemonClient.itemManager.getTodoList()
-      getFullCurrentList(data)
-    }
-    
-  })
-
-program
-  .command("get-done")
-  .description("filter all done todos - just enter get-done")
-  .action(() => {
-    const doneTodos = pokemonClient.getDoneTodos()
-    getFullCurrentList(doneTodos)
-  })
-
-  program
-  .command("get-undone")
-  .description("filter all undone todos - just enter get-undone")
-  .action(() => {
-    const undoneTodos = pokemonClient.getUnDoneTodos()
-    getFullCurrentList(undoneTodos)
-  })
-
-program.parse();
+})

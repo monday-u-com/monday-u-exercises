@@ -188,13 +188,13 @@ export default class ItemManager {
         return todo
     }
 
-    filterUnDoneToDone(){
-        this.model.filterUnDoneToDone()
+    orderUnDoneToDone(){
+        this.model.orderUnDoneToDone()
         this.updateTodos()
     }
 
-    filterDoneToUnDone(){
-        this.model.filterDoneToUnDone()
+    orderDoneToUnDone(){
+        this.model.orderDoneToUnDone()
         this.updateTodos()
     }
 

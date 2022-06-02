@@ -26,12 +26,12 @@ export default class PokemonClient{
         this.itemManager.orderDataAlphabeticallyReverse()
     }
 
-    filterUnDoneToDone() {
-        this.itemManager.filterUnDoneToDone()
+    orderUnDoneToDone() {
+        this.itemManager.orderUnDoneToDone()
     }
 
-    filterDoneToUnDone(){
-        this.itemManager.filterDoneToUnDone()
+    orderDoneToUnDone(){
+        this.itemManager.orderDoneToUnDone()
     }
 
     changeDoneStatus(index, status) {

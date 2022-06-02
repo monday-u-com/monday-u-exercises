@@ -48,11 +48,11 @@ export default class Model {
         this.todoList = Model.compareFunc(this.todoList,"title").reverse()
     }
 
-    filterUnDoneToDone(){
+    orderUnDoneToDone(){
         this.todoList = Model.compareFunc(this.todoList,"done")
     }
 
-    filterDoneToUnDone(){
+    orderDoneToUnDone(){
         this.todoList = Model.compareFunc(this.todoList,"done").reverse()
     }
 
