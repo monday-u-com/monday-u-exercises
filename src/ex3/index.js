@@ -54,6 +54,7 @@ const options = [
           "get full todo list",
           "add todo to the list",
           "delete todo from list",
+          "edit todo from list",
           "clear all list",
           "alphabetichal list order",
           "reverse alphabetichal list order",
@@ -104,6 +105,54 @@ inquirer
               console.log("deleted " + chalk.bold.blue(deleteItem.title))
             }
           })
+          break;
+        
+        case "edit todo from list":
+          inquirer.prompt({
+            type: 'number',
+            name: 'editTodoIndex',
+            message: 'enter the index for todo that you want to edit', 
+          })
+          .then(answers => {
+            if(isNaN(answers.editTodoIndex)) {
+              console.log(chalk.bold.red("invalid index"))
+              return
+            }
+            
+            const getIndexData = pokemonClient.getDataInIndex(answers.editTodoIndex)
+            
+            if(getIndexData === null) {
+              console.log(chalk.bold.red("invalid index"))
+              return
+            }
+            
+            inquirer.prompt({
+              type: 'confirm',
+              name: 'confirmEdit',
+              message: `data in index ${answers.editTodoIndex} is ${pokemonClient.getDataInIndex(answers.editTodoIndex).title}, are you want to change it?`, 
+            })
+            .then(confirm => {
+              if(confirm.confirmEdit === false) {
+                return
+              }
+
+              inquirer.prompt({
+                type: 'input',
+                name: 'editTodo',
+                message: `change ${getIndexData.title} to:`, 
+              })
+              .then((edit) => {
+                if(edit.editTodo === "") {
+                    console.log(chalk.bold.red("no change"));
+                  return
+                }
+
+                const editedValue = pokemonClient.editDataInIndex(edit.editTodo, getIndexData.index);
+                console.log('data in index ' +chalk.bold.cyan(getIndexData.index) + ' changed to ' + chalk.bold.green(editedValue.title))
+              })
+            })
+          })
+
           break;
 
         case "clear all list":
@@ -157,8 +206,6 @@ inquirer
             })
             .then(answersNested => {
               let status
-              console.log(answers.checkUncheckTodoIndex)
-              console.log(answersNested.checkUncheckOptions)
 
               if(answersNested.checkUncheckOptions === "check") {
                 status = pokemonClient.changeDoneStatus(answers.checkUncheckTodoIndex, true);

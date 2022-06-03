@@ -85,4 +85,18 @@ export default class Model {
 
         return filteredArr
     }
+
+    getDataInIndex(index){
+        return {title: this.todoList[index].title, index}
+    }
+
+    getDoneInIndex(index){
+        return this.todoList[index].done
+    }
+
+    editDataInIndex(value, index){
+        this.todoList[index].title = value
+
+        return this.todoList[index]
+    }
 }

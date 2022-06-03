@@ -153,6 +153,22 @@ export default class ItemManager {
         this.model.saveDataToLS()
     }
 
+    getDataInIndex(index){
+        if(index < 0 || index >= this.model.todoList.length){
+            return null
+        }
+
+        return this.model.getDataInIndex(index)
+    }
+
+    getDoneInIndex(index){
+        if(index < 0 || index >= this.model.todoList.length){
+            return null
+        }
+
+        return this.model.getDoneInIndex(index)
+    }
+
     clearAllTodos() {
         this.model.clearAllData()
         this.updateTodos()
@@ -174,6 +190,16 @@ export default class ItemManager {
         }
 
         const todo = this.model.checkUncheckTodo(index,true)
+        this.updateTodos()
+        return todo
+    }
+
+    editDataInIndex(value, index){
+        if(index < 0 || index >= this.model.todoList.length){
+            return null;
+        }
+        
+        const todo = this.model.editDataInIndex(value, index)
         this.updateTodos()
         return todo
     }

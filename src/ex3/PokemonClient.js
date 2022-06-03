@@ -14,6 +14,18 @@ export default class PokemonClient{
         this.itemManager.addTodo(todoInput)
     }
 
+    getDataInIndex(index){ 
+        return this.itemManager.getDataInIndex(index)
+    }
+
+    getDoneInIndex(index){
+        return this.itemManager.getDoneInIndex(index)
+    }
+
+    editDataInIndex(value, index){
+        return this.itemManager.editDataInIndex(value, index)
+    }
+
     clearAllTodos(){
         this.itemManager.clearAllTodos()
     }
