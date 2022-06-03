@@ -1,7 +1,8 @@
 {
   "name": "ouriel-todolist-cli",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "todolist cli",
+  "bin":"index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
