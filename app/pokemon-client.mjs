@@ -1,4 +1,4 @@
-class PokemonClient {
+export default class PokemonClient {
    constructor() {
       this.API_URL = "https://pokeapi.co/api/v2/pokemon/";
    }
@@ -7,7 +7,6 @@ class PokemonClient {
       try {
          const response = await fetch(this.API_URL + pokemonID);
          const data = await response.json();
-
          return data;
       } catch (error) {
          console.error(error);

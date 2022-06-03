@@ -1,6 +1,9 @@
+#!/usr/bin/env node
 import fs from "fs";
+import "isomorphic-fetch";
 import { Command } from "commander";
-import ItemManager from "./../app/item-manager.js";
+import ItemManager from "../app/item-manager.mjs";
+import PokemonClient from "../app/pokemon-client.mjs";
 
 const FILE_NAME = "tasks.json";
 const fileData = fs.readFileSync(FILE_NAME);
@@ -10,6 +13,8 @@ const tasksManager = new ItemManager(render);
 fileTasks.forEach((task) => {
    tasksManager.add(task);
 });
+
+const pokemonClient = new PokemonClient();
 
 const program = new Command();
 
@@ -26,6 +31,16 @@ program
    .argument("<string>", "task")
    .action((task) => {
       tasksManager.add(task);
+      console.log("New todo added successfully");
+   });
+
+program
+   .command("addp")
+   .description("Add a task to your to-do list")
+   .argument("<string>", "task")
+   .action(async (task) => {
+      const pokemonName = await pokemonClient.getPokemon(task);
+      tasksManager.add(pokemonName.name);
       console.log("New todo added successfully");
    });
 
