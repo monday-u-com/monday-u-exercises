@@ -5,8 +5,9 @@ import { Command } from "commander";
 import ItemManager from "../app/item-manager.mjs";
 import PokemonClient from "../app/pokemon-client.mjs";
 
-const FILE_NAME = "tasks.json";
-const fileData = fs.readFileSync(FILE_NAME);
+const POKEMON_FILE_NAME = "./pokemon-names.json";
+const TASKS_FILE_NAME = "tasks.json";
+const fileData = fs.readFileSync(TASKS_FILE_NAME);
 let fileTasks = JSON.parse(fileData);
 
 const tasksManager = new ItemManager(render);
@@ -15,6 +16,20 @@ fileTasks.forEach((task) => {
 });
 
 const pokemonClient = new PokemonClient();
+
+let allPokemonNames = [];
+if (!fs.existsSync(POKEMON_FILE_NAME)) {
+   allPokemonNames = await getAllPokemonNames();
+   let data = JSON.stringify(allPokemonNames);
+   fs.writeFileSync(POKEMON_FILE_NAME, data);
+} else {
+   allPokemonNames = JSON.parse(fs.readFileSync(POKEMON_FILE_NAME));
+}
+
+async function getAllPokemonNames() {
+   const pokemonNames = await pokemonClient.getAllPokemonNames();
+   return JSON.stringify(pokemonNames);
+}
 
 const program = new Command();
 
@@ -29,19 +44,24 @@ program
    .command("add")
    .description("Add a task to your to-do list")
    .argument("<string>", "task")
-   .action((task) => {
-      tasksManager.add(task);
-      console.log("New todo added successfully");
-   });
-
-program
-   .command("addp")
-   .description("Add a task to your to-do list")
-   .argument("<string>", "task")
    .action(async (task) => {
-      const pokemonName = await pokemonClient.getPokemon(task);
-      tasksManager.add(pokemonName.name);
-      console.log("New todo added successfully");
+      if (
+         task
+            .replace(/\s/g, "")
+            .split(",")
+            .every((elem) => !isNaN(elem) || allPokemonNames.includes(elem))
+      ) {
+         let pokemonIDS = task.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
+         const pokemonData = await Promise.all(
+            pokemonIDS.map((id) => pokemonClient.getPokemon(id))
+         );
+         pokemonData.forEach((pokemon, i) => {
+            pokemonTasksHandle(pokemon, pokemonIDS, i);
+         });
+      } else {
+         tasksManager.add(task);
+         console.log("New todo added successfully");
+      }
    });
 
 program
@@ -74,5 +94,21 @@ program.parse();
 
 function render() {
    let data = JSON.stringify(tasksManager.items);
-   fs.writeFileSync(FILE_NAME, data);
+   fs.writeFileSync(TASKS_FILE_NAME, data);
+}
+
+function pokemonTasksHandle(pokemon, pokemonIDS, i) {
+   if (pokemon) {
+      let pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+      const pokemonTypes = pokemonClient.getPokemonTypes(pokemon);
+      const taskToAdd = `Catch ${pokemonName} of type ${pokemonTypes}`;
+      if (tasksManager.items.includes(taskToAdd)) {
+         console.log(`${pokemonName} already exists in your tasks. Please try another Pokemon.`);
+      } else {
+         tasksManager.add(taskToAdd);
+         console.log("New todo added successfully");
+      }
+   } else {
+      console.log(`Pokemon ID ${pokemonIDS[i]} does not exist`);
+   }
 }
