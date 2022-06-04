@@ -2,6 +2,8 @@
 import fs from "fs";
 import "isomorphic-fetch";
 import { Command } from "commander";
+import chalk from "chalk";
+import inquirer from "inquirer";
 import ItemManager from "../app/item-manager.mjs";
 import PokemonClient from "../app/pokemon-client.mjs";
 
@@ -54,8 +56,8 @@ program
 program
    .command("delete")
    .description("Delete task of index i")
-   .argument("<number>", "index")
-   .action((index) => {
+   .action(async () => {
+      const index = await chooseTaskToDelete();
       tasksManager.remove(index);
       console.log("Todo deleted successfully");
    });
@@ -82,6 +84,16 @@ program.parse();
 function render() {
    let data = JSON.stringify(tasksManager.items);
    fs.writeFileSync(TASKS_FILE_NAME, data);
+}
+
+async function chooseTaskToDelete() {
+   const answer = await inquirer.prompt({
+      name: "delete",
+      type: "list",
+      message: "Which task would you like to delete?",
+      choices: tasksManager.items,
+   });
+   return tasksManager.items.indexOf(answer.delete);
 }
 
 async function addTask(task) {
