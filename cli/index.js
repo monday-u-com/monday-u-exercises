@@ -4,6 +4,7 @@ import "isomorphic-fetch";
 import { Command } from "commander";
 import ItemManager from "../app/item-manager.mjs";
 import PokemonClient from "../app/pokemon-client.mjs";
+import { addAbortSignal } from "stream";
 
 const POKEMON_FILE_NAME = "pokemon-names.json";
 const TASKS_FILE_NAME = "tasks.json";
@@ -48,23 +49,7 @@ program
    .description("Add a task to your to-do list")
    .argument("<string>", "task")
    .action(async (task) => {
-      if (
-         task
-            .replace(/\s/g, "")
-            .split(",")
-            .every((elem) => !isNaN(elem) || allPokemonNames.includes(elem))
-      ) {
-         let pokemonIDS = task.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
-         const pokemonData = await Promise.all(
-            pokemonIDS.map((id) => pokemonClient.getPokemon(id))
-         );
-         pokemonData.forEach((pokemon, i) => {
-            pokemonTasksHandle(pokemon, pokemonIDS, i);
-         });
-      } else {
-         tasksManager.add(task);
-         console.log("New todo added successfully");
-      }
+      addTask(task);
    });
 
 program
@@ -98,6 +83,24 @@ program.parse();
 function render() {
    let data = JSON.stringify(tasksManager.items);
    fs.writeFileSync(TASKS_FILE_NAME, data);
+}
+
+async function addTask(task) {
+   if (
+      task
+         .replace(/\s/g, "")
+         .split(",")
+         .every((elem) => !isNaN(elem) || allPokemonNames.includes(elem))
+   ) {
+      let pokemonIDS = task.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
+      const pokemonData = await Promise.all(pokemonIDS.map((id) => pokemonClient.getPokemon(id)));
+      pokemonData.forEach((pokemon, i) => {
+         pokemonTasksHandle(pokemon, pokemonIDS, i);
+      });
+   } else {
+      tasksManager.add(task);
+      console.log("New todo added successfully");
+   }
 }
 
 function pokemonTasksHandle(pokemon, pokemonIDS, i) {
