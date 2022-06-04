@@ -4,7 +4,6 @@ import "isomorphic-fetch";
 import { Command } from "commander";
 import ItemManager from "../app/item-manager.mjs";
 import PokemonClient from "../app/pokemon-client.mjs";
-import { addAbortSignal } from "stream";
 
 const POKEMON_FILE_NAME = "pokemon-names.json";
 const TASKS_FILE_NAME = "tasks.json";
