@@ -5,15 +5,18 @@ import { Command } from "commander";
 import ItemManager from "../app/item-manager.mjs";
 import PokemonClient from "../app/pokemon-client.mjs";
 
-const POKEMON_FILE_NAME = "./pokemon-names.json";
+const POKEMON_FILE_NAME = "pokemon-names.json";
 const TASKS_FILE_NAME = "tasks.json";
-const fileData = fs.readFileSync(TASKS_FILE_NAME);
-let fileTasks = JSON.parse(fileData);
-
 const tasksManager = new ItemManager(render);
-fileTasks.forEach((task) => {
-   tasksManager.add(task);
-});
+if (!fs.existsSync(TASKS_FILE_NAME)) {
+   fs.writeFileSync(TASKS_FILE_NAME, JSON.stringify([]));
+} else {
+   const fileData = fs.readFileSync(TASKS_FILE_NAME);
+   let fileTasks = JSON.parse(fileData);
+   fileTasks.forEach((task) => {
+      tasksManager.add(task);
+   });
+}
 
 const pokemonClient = new PokemonClient();
 
