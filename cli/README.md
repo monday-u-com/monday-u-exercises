@@ -10,6 +10,39 @@ This is my task for Exercise 3 of Monday-U Full Stack course. Task requirements 
 
 -  Or try the web app right here: https://weekend-todo.netlify.app/
 
+## Commands:
+
+-  Add task:
+
+   ```
+   npx weekend-to-do add charmander
+   ```
+
+-  Delete task, choose from list:
+
+   ```
+   npx weekend-to-do delete
+   ```
+
+-  Show all tasks:
+
+   ```
+   npx weekend-to-do get
+   ```
+
+-  Clear all tasks:
+
+   ```
+   npx weekend-to-do clear
+   ```
+
+-  Sort tasks:
+
+   ```
+   npx weekend-to-do sort up
+   npx weekend-to-do sort down
+   ```
+
 ## CLI demonstration:
 
 ![cli example](./assets/cli.gif)
