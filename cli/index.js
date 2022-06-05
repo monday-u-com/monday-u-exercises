@@ -6,8 +6,8 @@ import inquirer from "inquirer";
 import chalk from "chalk";
 import asciify from "asciify-image";
 import chalklet from "chalklet";
-import ItemManager from "./item-manager.mjs";
-import PokemonClient from "./pokemon-client.mjs";
+import ItemManager from "./item-manager.js";
+import PokemonClient from "./pokemon-client.js";
 
 const POKEMON_FILE_NAME = "pokemon-names.json";
 const TASKS_FILE_NAME = "tasks.json";
