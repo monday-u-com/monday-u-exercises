@@ -1,5 +1,5 @@
 {
-  "name": "weekend-to-do-cli",
+  "name": "weekend-to-do",
   "version": "1.0.0",
   "description": "This is my task for Exercise 3 of Monday-U Full Stack course.",
   "main": "index.js",
