@@ -2,8 +2,8 @@
 import fs from "fs";
 import "isomorphic-fetch";
 import { Command } from "commander";
-import chalk from "chalk";
 import inquirer from "inquirer";
+import asciify from "asciify-image";
 import ItemManager from "../app/item-manager.mjs";
 import PokemonClient from "../app/pokemon-client.mjs";
 
@@ -123,9 +123,23 @@ function pokemonTasksHandle(pokemon, pokemonIDS, i) {
          console.log(`${pokemonName} already exists in your tasks. Please try another Pokemon.`);
       } else {
          tasksManager.add(taskToAdd);
+         printPokemonAscii(pokemon);
          console.log("New todo added successfully");
       }
    } else {
       console.log(`Pokemon ID ${pokemonIDS[i]} does not exist`);
    }
+}
+
+function printPokemonAscii(pokemon) {
+   const imageURL = pokemon.sprites.front_default;
+   const options = {
+      fit: "box",
+      width: 50,
+      height: 50,
+   };
+
+   asciify(imageURL, options, function (err, asciified) {
+      console.log(asciified);
+   });
 }
