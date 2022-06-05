@@ -80,6 +80,20 @@ program
       });
    });
 
+program
+   .command("sort")
+   .description("Sort the To-Do list up or down")
+   .argument("<string>", "direction")
+   .action((direction) => {
+      if (direction === "up") {
+         tasksManager.sortUp();
+      } else if (direction === "down") {
+         tasksManager.sortDown();
+      } else {
+         console.log(chalk.bgRed("Unfamiliar direction argument. Please type up or down"));
+      }
+   });
+
 program.parse();
 
 function render() {
