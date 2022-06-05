@@ -3,6 +3,7 @@ import fs from "fs";
 import "isomorphic-fetch";
 import { Command } from "commander";
 import inquirer from "inquirer";
+import chalk from "chalk";
 import asciify from "asciify-image";
 import ItemManager from "../app/item-manager.mjs";
 import PokemonClient from "../app/pokemon-client.mjs";
@@ -59,7 +60,7 @@ program
    .action(async () => {
       const index = await chooseTaskToDelete();
       tasksManager.remove(index);
-      console.log("Todo deleted successfully");
+      console.log(chalk.bgRedBright("Todo deleted successfully"));
    });
 
 program
@@ -67,7 +68,7 @@ program
    .description("Delete entire to-do list")
    .action(() => {
       tasksManager.clear();
-      console.log("All tasks cleared");
+      console.log(chalk.red.bgGreen("All tasks cleared"));
    });
 
 program
@@ -75,7 +76,7 @@ program
    .description("Get entire to-do list")
    .action(() => {
       tasksManager.items.forEach((item) => {
-         console.log(item);
+         console.log(chalk.bgCyan(item));
       });
    });
 
@@ -110,7 +111,7 @@ async function addTask(task) {
       });
    } else {
       tasksManager.add(task);
-      console.log("New todo added successfully");
+      console.log(chalk.bgGreen("New todo added successfully"));
    }
 }
 
@@ -120,14 +121,17 @@ function pokemonTasksHandle(pokemon, pokemonIDS, i) {
       const pokemonTypes = pokemonClient.getPokemonTypes(pokemon);
       const taskToAdd = `Catch ${pokemonName} of type ${pokemonTypes}`;
       if (tasksManager.items.includes(taskToAdd)) {
-         console.log(`${pokemonName} already exists in your tasks. Please try another Pokemon.`);
+         console.log(
+            chalk.bgRed(`${pokemonName} already exists in your tasks. Please try another Pokemon.`)
+         );
       } else {
          tasksManager.add(taskToAdd);
          printPokemonAscii(pokemon);
-         console.log("New todo added successfully");
+         console.log(chalk.bgBlueBright(`A wild Pokemon appeared! Catch ${pokemon.name}!`));
+         console.log(chalk.bgGreen("New todo added successfully"));
       }
    } else {
-      console.log(`Pokemon ID ${pokemonIDS[i]} does not exist`);
+      console.log(chalk.bgMagenta(`Pokemon ID ${pokemonIDS[i]} does not exist`));
    }
 }
 
