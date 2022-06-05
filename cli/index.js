@@ -5,6 +5,7 @@ import { Command } from "commander";
 import inquirer from "inquirer";
 import chalk from "chalk";
 import asciify from "asciify-image";
+import chalklet from "chalklet";
 import ItemManager from "../app/item-manager.mjs";
 import PokemonClient from "../app/pokemon-client.mjs";
 
@@ -37,12 +38,20 @@ async function getAllPokemonNames() {
    return JSON.stringify(pokemonNames);
 }
 
+const colorOptions = {
+   type: "string",
+   text: { value: "white" },
+   bg: { value: "blue" },
+};
+
 const program = new Command();
 
 program
-   .name("Weekend To-Do")
+   .name(chalklet.generate("Weekend To-Do", colorOptions))
    .description(
-      "Get your tasks done before the weekend! And catch some Pokemons while you're at it..."
+      chalk.bgBlueBright(
+         "Get your tasks done before the weekend! And catch some Pokemons while you're at it..."
+      )
    )
    .version("1.0.0");
 
