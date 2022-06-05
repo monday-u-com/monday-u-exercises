@@ -117,8 +117,8 @@ async function addTask(task) {
 
 function pokemonTasksHandle(pokemon, pokemonIDS, i) {
    if (pokemon) {
-      let pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-      const pokemonTypes = pokemonClient.getPokemonTypes(pokemon);
+      let pokemonName = capitalize(pokemon.name);
+      const pokemonTypes = capitalize(pokemonClient.getPokemonTypes(pokemon));
       const taskToAdd = `Catch ${pokemonName} of type ${pokemonTypes}`;
       if (tasksManager.items.includes(taskToAdd)) {
          console.log(
@@ -127,7 +127,9 @@ function pokemonTasksHandle(pokemon, pokemonIDS, i) {
       } else {
          tasksManager.add(taskToAdd);
          printPokemonAscii(pokemon);
-         console.log(chalk.bgBlueBright(`A wild Pokemon appeared! Catch ${pokemon.name}!`));
+         console.log(
+            chalk.bgBlueBright(`A wild Pokemon appeared! Catch ${capitalize(pokemon.name)}!`)
+         );
          console.log(chalk.bgGreen("New todo added successfully"));
       }
    } else {
@@ -146,4 +148,8 @@ function printPokemonAscii(pokemon) {
    asciify(imageURL, options, function (err, asciified) {
       console.log(asciified);
    });
+}
+
+function capitalize(word) {
+   return word.charAt(0).toUpperCase() + word.slice(1);
 }
