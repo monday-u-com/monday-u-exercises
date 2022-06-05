@@ -56,7 +56,7 @@ program
 
 program
    .command("delete")
-   .description("Delete task of index i")
+   .description("Delete a task of your choice")
    .action(async () => {
       const index = await chooseTaskToDelete();
       tasksManager.remove(index);
@@ -65,7 +65,7 @@ program
 
 program
    .command("clear")
-   .description("Delete entire to-do list")
+   .description("Clear entire to-do list")
    .action(() => {
       tasksManager.clear();
       console.log(chalk.red.bgGreen("All tasks cleared"));
