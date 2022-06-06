@@ -1,10 +1,14 @@
-import Model from "./Model.js";
+import TodoListModel from "./todolist-model.js";
+
+const API_BASE = 'https://pokeapi.co/api/v2/pokemon/'
+const singleNumber = /^\d+$/
+const singleWord = /^[A-Za-z]+$/
+const multiNumbersSeparatedWithComma = /^\d+(,\d+)*$/
 
 export default class ItemManager {
     constructor(pokemonClient){
-        this.API_BASE = 'https://pokeapi.co/api/v2/pokemon/'
-        this.model = new Model()
-        this.model.LoadDataFromLS()
+        this.model = new TodoListModel()
+        this.model.loadDataFromLS()
         this.pokemonClient = pokemonClient;
     }
 
@@ -15,11 +19,8 @@ export default class ItemManager {
         }
 
         const trimValue = this.trim(enterValue)
-
-        const singleNumber = /^\d+$/
-        const singleWord = /^[A-Za-z]+$/
-        const multiNumbersSeparatedWithComma = /^\d+(,\d+)*$/
-        const partOfNumbersSeprateWithComma = trimValue.substring(0,1).match(multiNumbersSeparatedWithComma)
+        const partOfNumbersSeprateWithComma = 
+            trimValue.substring(0,1).match(multiNumbersSeparatedWithComma)
 
         const singleNumberPattern = trimValue.match(singleNumber)
         const singleWordPattern = trimValue.match(singleWord)
@@ -53,7 +54,7 @@ export default class ItemManager {
         const pokemonArr = []
 
         for(let i = 0; i < split.length; i++){
-            pokemonArr.push(this.fetchMulti(split[i]))
+            pokemonArr.push(this.fetchMulti(this.trim(split[i])))
         }
 
         Promise.all(pokemonArr)
@@ -72,7 +73,7 @@ export default class ItemManager {
 
     fetchMulti(pokemonName){
         return new Promise((resolve, reject) => {
-            return fetch(this.API_BASE+pokemonName)
+            return fetch(`${API_BASE}${pokemonName}`)
                 .then(response => {
                     if(response.status === 200){
                         resolve(response.json())
@@ -94,8 +95,8 @@ export default class ItemManager {
     }
 
     async fetchSingle(dataEntered){ 
-        try{
-            const response = await fetch(this.API_BASE+dataEntered)
+        try {
+            const response = await fetch(`${API_BASE}${dataEntered}`)
             if(response.status === 404 && isNaN(+dataEntered)){
                 return dataEntered
             }
@@ -107,7 +108,7 @@ export default class ItemManager {
             const types = this.getTypes(res)
 
             return this.returnPokemonData(res, types)
-        }catch(error){
+        } catch(error){
             console.log(error)
         }
     }
@@ -124,7 +125,7 @@ export default class ItemManager {
     }
 
     returnPokemonData(res, types){
-        return "catch " +res.name + " with type " + types
+        return `catch ${res.name} with type ${types}`
     }
 
     trim(value) {
@@ -161,7 +162,7 @@ export default class ItemManager {
     }
 
     todoListSize() {
-        return this.model.todoList.length
+        return this.getTodoList().length
     }
 
     getTodoList() {

@@ -1,11 +1,11 @@
-export default class Model {
+const dataFromLS = localStorage.getItem("new-todo")
+
+export default class TodoListModel {
     constructor() {
         this.todolist = []
     }
 
-    LoadDataFromLS(){
-        let dataFromLS = localStorage.getItem("new-todo")
-    
+    loadDataFromLS(){
         if(dataFromLS === null){
             this.todoList = []
         }

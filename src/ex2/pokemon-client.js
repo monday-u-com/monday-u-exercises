@@ -1,4 +1,4 @@
-import ItemManager from "./ItemManager.js"
+import ItemManager from "./item-manager.js"
 
 export default class PokemonClient{
     constructor(){
@@ -51,6 +51,13 @@ export default class PokemonClient{
 
     createItemsByCurrentData(){
         const todoListElement = document.getElementById("todo-list")
+
+        const listItems = this.createListItems()
+    
+        todoListElement.innerHTML = listItems
+    }
+
+    createListItems(){
         let listItems = ""
 
         this.itemManager.getTodoList().forEach((todo) => { 
@@ -63,16 +70,16 @@ export default class PokemonClient{
                 </li>
             `
         })
-    
-        todoListElement.innerHTML = listItems
+
+        return listItems
     }
 
     createItemsDeleteFuctionality(){
         const deleteItems = document.querySelectorAll(".delete")
 
-        for (let i = 0; i < deleteItems.length; i++) {
-            deleteItems[i].addEventListener("click", () => this.deleteTodo(i))
-        }
+        deleteItems.forEach((item, index) => {
+            item.addEventListener("click", () => this.deleteTodo(index))
+        })
     }
 
     deleteTodo(index){
