@@ -236,30 +236,35 @@ function checkOrUncheckTodo() {
     message: 'enter the index for todo that you want to check or uncheck', 
   })
   .then(answers => {
-    if(isNaN(answers.checkUncheckTodoIndex)) return
-    inquirer.prompt({
-      type: 'list',
-      name: 'checkUncheckOptions',
-      message: `check/uncheck the todo in index ${answers.checkUncheckTodoIndex}`,
-      choices: ["check", "uncheck"]
-    })
-    .then(answersNested => {
-      let status
+    if(!numberValidation(answers.checkUncheckTodoIndex)) return
 
-      if(answersNested.checkUncheckOptions === "check") {
-        status = main.changeDoneStatus(answers.checkUncheckTodoIndex, true);
-      }else if(answersNested.checkUncheckOptions === "uncheck"){
-        status = main.changeDoneStatus(answers.checkUncheckTodoIndex,false);
-      } 
+    selectCheckOrUncheck(answers.checkUncheckTodoIndex)
+  })
+}
 
-      if(status === null){
-        console.log(chalk.bold.red("invalid index"))
-      }
-      else{
-        const data = main.itemManager.getTodoList()
-        getFullCurrentList(data)
-      }
-    })
+function selectCheckOrUncheck(index) {
+  inquirer.prompt({
+    type: 'list',
+    name: 'checkUncheckOptions',
+    message: `check/uncheck the todo in index ${index}`,
+    choices: ["check", "uncheck"]
+  })
+  .then(answers => {
+    let status
+
+    if(answers.checkUncheckOptions === "check") {
+      status = main.changeDoneStatus(index, true);
+    }else if(answers.checkUncheckOptions === "uncheck"){
+      status = main.changeDoneStatus(index,false);
+    } 
+
+    if(!indexValidation(status)){
+      return
+    }
+    else{
+      const data = main.itemManager.getTodoList()
+      getFullCurrentList(data)
+    }
   })
 }
 
