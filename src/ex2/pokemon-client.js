@@ -14,8 +14,8 @@ export class PokemonClient {
       });
       const responses = await Promise.all(promises);
       const elements = await Promise.all(responses.map(response => response.json()));
-      return await Promise.all(elements.map(element =>
-        `${element.forms[0].name} (${element.types[0].type.name} pokemon)`));
+      return elements.map(element =>
+        `${element.forms[0].name} (${element.types[0].type.name} pokemon)`);
     } catch (error) {
       this.handleFailure(pokemonText);
     }
