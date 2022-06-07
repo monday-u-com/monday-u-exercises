@@ -17,11 +17,11 @@ export class PokemonClient {
       return await Promise.all(elements.map(element =>
         `${element.forms[0].name} (${element.types[0].type.name} pokemon)`));
     } catch (error) {
-      this.failureHandler(pokemonText);
+      this.handleFailure(pokemonText);
     }
   }
 
-  failureHandler(pokemon) {
+  handleFailure(pokemon) {
     console.log(`Failed to fetch ${pokemon}`);
   }
 
