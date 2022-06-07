@@ -1,65 +1,66 @@
-import ItemManager from "./item-manager.js"
+import fetch from 'node-fetch'
+
+const API_BASE = 'https://pokeapi.co/api/v2/pokemon/'
 
 export default class PokemonClient{
-    constructor(){
-        this.itemManager = new ItemManager(this);
+
+    fetchMulti(pokemonName){
+        return new Promise((resolve, reject) => {
+            return fetch(`${API_BASE}${pokemonName}`)
+                .then(response => {
+                    if(response.status === 200){
+                        resolve(response.json())
+                    }
+                    else if(response.status === 404){
+                        resolve(pokemonName)
+                    }
+                    else{
+                        reject(response)
+                    }
+                })
+                .catch(error => {
+                    reject(error)
+                })
+        })
     }
 
-    deleteTodo(index){
-        const removedTodo = this.itemManager.deleteTodo(index)
-        return removedTodo
-    }
+    async fetchSingle(dataEntered){ 
+        try{
+            const response = await fetch(`${API_BASE}${dataEntered}`)
+            if(response.status === 404 && isNaN(Number.parseInt(dataEntered))){
+                return dataEntered
+            }
+            else if(response.status === 404 && !isNaN(Number.parseInt(dataEntered))){    
+                return `pokemon id ${dataEntered} not found` 
+            }
 
-    addTodo(todoInput){
-        this.itemManager.addTodo(todoInput)
-    }
+            const res = await response.json()
+            const types = this.getTypes(res)
 
-    getDataInIndex(index){ 
-        return this.itemManager.getDataInIndex(index)
-    }
-
-    getDoneInIndex(index){
-        return this.itemManager.getDoneInIndex(index)
-    }
-
-    editDataInIndex(value, index){
-        return this.itemManager.editDataInIndex(value, index)
-    }
-
-    clearAllTodos(){
-        this.itemManager.clearAllTodos()
-    }
-
-    orderDataAlphabetically() {
-        this.itemManager.orderDataAlphabetically()
-    }
-
-    orderDataAlphabeticallyReverse() {
-        this.itemManager.orderDataAlphabeticallyReverse()
-    }
-
-    orderUnDoneToDone() {
-        this.itemManager.orderUnDoneToDone()
-    }
-
-    orderDoneToUnDone(){
-        this.itemManager.orderDoneToUnDone()
-    }
-
-    changeDoneStatus(index, status) {
-        if(status){
-            return this.itemManager.checkTodo(index)
-        }
-        else{
-            return this.itemManager.uncheckTodo(index)
+            return this.returnPokemonData(res, types)
+        }catch(error){
+            console.log(error)
         }
     }
 
-    getDoneTodos(){
-        return this.itemManager.getDoneTodos()
+    getTypes(data){
+        if(!data.types) return data
+
+        const typeNo = data.types
+        let types = ""
+
+        typeNo.forEach(type => {
+            types += `${type.type.name}/`    
+        })
+
+        return types
     }
 
-    getUnDoneTodos(){
-        return this.itemManager.getUnDoneTodos()
+    returnPokemonData(res, types){
+        if(res.name === undefined){
+            return `failed to catch pokemon with id ${res}`
+        }
+
+        return `catch ${res.name} with type ${types}`
     }
 }

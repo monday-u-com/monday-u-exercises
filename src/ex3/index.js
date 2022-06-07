@@ -2,9 +2,9 @@
 
 import chalk from "chalk";
 import inquirer from 'inquirer';
-import PokemonClient from './pokemon-client.js';
+import Main from './main.js';
 
-const pokemonClient = new PokemonClient();
+const main = new Main();
 
 function getFullCurrentList(data){
 
@@ -28,12 +28,12 @@ function addAndShowAddedTodo(todo) {
      console.log("can't add empty todo")
     return
   }
-  const prevLength = pokemonClient.itemManager.getTodoList().length
-    pokemonClient.addTodo(todo)
+  const prevLength = main.itemManager.getTodoList().length
+    main.addTodo(todo)
     setTimeout(() => { //wait untill the async todo operation done
-      const currLength = pokemonClient.itemManager.getTodoList().length
+      const currLength = main.itemManager.getTodoList().length
       const diff = currLength - prevLength
-      const data = pokemonClient.itemManager.getTodoList()
+      const data = main.itemManager.getTodoList()
       console.log(chalk.bold.blue('added new todo/s'))
       for (let i = 0; i < diff; i++) {
         console.log(chalk.bold.green(data[data.length-i-1].title))
@@ -42,7 +42,7 @@ function addAndShowAddedTodo(todo) {
 }
 
 function showFullUpdatedList() {
-  const data = pokemonClient.itemManager.getTodoList()
+  const data = main.itemManager.getTodoList()
   getFullCurrentList(data)
 }
 
@@ -84,7 +84,7 @@ function deleteTodoFromList() {
   .then(answers => {
     if(!numberValidation(answers.deleteTodo)) return
 
-    const deleteItem = pokemonClient.deleteTodo(answers.deleteTodo)
+    const deleteItem = main.deleteTodo(answers.deleteTodo)
 
     if(!indexValidation(deleteItem)){
       return
@@ -104,7 +104,7 @@ function editTodoFromList(){
   .then(answers => {
     if(!numberValidation(answers.editTodoIndex)) return
     
-    const getIndexData = pokemonClient.getDataInIndex(answers.editTodoIndex)
+    const getIndexData = main.getDataInIndex(answers.editTodoIndex)
     
     if(!indexValidation(getIndexData)) {
       return
@@ -141,7 +141,7 @@ function editData(title, index) {
       return
     }
 
-    const editedValue = pokemonClient.editDataInIndex(edit.editTodo, index);
+    const editedValue = main.editDataInIndex(edit.editTodo, index);
     const indexText = chalk.bold.cyan(index)
     const titleText = chalk.bold.green(editedValue.title)
     console.log(`data in index ${indexText} changed to ${titleText}`)
@@ -157,7 +157,7 @@ function clearAllTodosFromList(){
   .then(answers => {
     if(answers.clearTodo === true){
       console.log(chalk.bold.redBright("clear all todos"))
-      pokemonClient.clearAllTodos()
+      main.clearAllTodos()
       showFullUpdatedList()
     }
     else{
@@ -183,19 +183,19 @@ function orderList(){
     const answer = answers.listOptions
     switch(answer){
       case "alphabetichal list order":
-        pokemonClient.orderDataAlphabetically()
+        main.orderDataAlphabetically()
         break;
 
       case "reverse alphabetichal list order":
-        pokemonClient.orderDataAlphabeticallyReverse()
+        main.orderDataAlphabeticallyReverse()
         break;
 
       case "done to undone order":
-        pokemonClient.orderDoneToUnDone()
+        main.orderDoneToUnDone()
         break;
 
       case "undone to done order":
-        pokemonClient.orderUnDoneToDone()
+        main.orderUnDoneToDone()
         break;
     }
     showFullUpdatedList()
@@ -217,11 +217,11 @@ function getAllDoneOrUndoneTodos() {
     let todos
     switch(answer){
       case "get all done todos":
-        todos = pokemonClient.getDoneTodos()
+        todos = main.getDoneTodos()
         break;
 
       case "get all undone todos":
-        todos = pokemonClient.getUnDoneTodos()
+        todos = main.getUnDoneTodos()
         break;
     }
 
@@ -247,16 +247,16 @@ function checkOrUncheckTodo() {
       let status
 
       if(answersNested.checkUncheckOptions === "check") {
-        status = pokemonClient.changeDoneStatus(answers.checkUncheckTodoIndex, true);
+        status = main.changeDoneStatus(answers.checkUncheckTodoIndex, true);
       }else if(answersNested.checkUncheckOptions === "uncheck"){
-        status = pokemonClient.changeDoneStatus(answers.checkUncheckTodoIndex,false);
+        status = main.changeDoneStatus(answers.checkUncheckTodoIndex,false);
       } 
 
       if(status === null){
         console.log(chalk.bold.red("invalid index"))
       }
       else{
-        const data = pokemonClient.itemManager.getTodoList()
+        const data = main.itemManager.getTodoList()
         getFullCurrentList(data)
       }
     })

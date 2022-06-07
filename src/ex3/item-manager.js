@@ -1,16 +1,16 @@
 import TodoListModel from "./todolist-model.js"
-import fetch from 'node-fetch'
+import PokemonClient from "./pokemon-client.js"
 
-const API_BASE = 'https://pokeapi.co/api/v2/pokemon/'
 const singleNumber = /^\d+$/
 const singleWord = /^[A-Za-z]+$/
 const multiNumbersSeparatedWithComma = /^\d+(,\d+)*$/
 
 export default class ItemManager {
-    constructor(pokemonClient){
+    constructor(main){
+        this.pokemonClient = new PokemonClient()
         this.model = new TodoListModel()
         this.model.loadDataFromFile()
-        this.pokemonClient = pokemonClient;
+        this.main = main;
     }
 
     addTodo(enterValue){
@@ -55,14 +55,14 @@ export default class ItemManager {
         const pokemonArr = []
 
         for(let i = 0; i < split.length; i++){
-            pokemonArr.push(this.fetchMulti(ItemManager.trim(split[i])))
+            pokemonArr.push(this.pokemonClient.fetchMulti(ItemManager.trim(split[i])))
         }
 
         Promise.all(pokemonArr)
             .then(response => {
                 response.forEach(res => {
-                    const types = ItemManager.getTypes(res)
-                    this.addTodoParse(ItemManager.returnPokemonData(res, types))
+                    const types = this.pokemonClient.getTypes(res)
+                    this.addTodoParse(this.pokemonClient.returnPokemonData(res, types))
             })
             this.updateTodos()
         }).catch(error => {
@@ -72,65 +72,14 @@ export default class ItemManager {
         })
     }
 
-    fetchMulti(pokemonName){
-        return new Promise((resolve, reject) => {
-            return fetch(`${API_BASE}${pokemonName}`)
-                .then(response => {
-                    if(response.status === 200){
-                        resolve(response.json())
-                    }
-                    else{
-                        reject(response)
-                    }
-                })
-                .catch(error => {
-                    reject(error)
-                })
-        })
-    }
-
     async handleAddSinglePokemonTodo(enterValue){
-        const dataRetrieved = await this.fetchSingle(enterValue)
+        const dataRetrieved = await this.pokemonClient.fetchSingle(enterValue)
         this.addTodoParse(dataRetrieved)
         this.updateTodos()
     }
 
-    async fetchSingle(dataEntered){ 
-        try{
-            const response = await fetch(`${API_BASE}${dataEntered}`)
-            if(response.status === 404 && isNaN(+dataEntered)){
-                return dataEntered
-            }
-            else if(response.status === 404 && !isNaN(+dataEntered)){    
-                return `pokemon id ${dataEntered} not found` 
-            }
-
-            const res = await response.json()
-            const types = ItemManager.getTypes(res)
-
-            return ItemManager.returnPokemonData(res, types)
-        }catch(error){
-            console.log(error)
-        }
-    }
-
     addTodoParse(value){
         this.model.addData({title: value, done: false})
-    }
-
-    static getTypes(data){
-        const typeNo = data.types
-        let types = ""
-
-        typeNo.forEach(type => {
-            types += `${type.type.name}/`    
-        })
-
-        return types
-    }
-
-    static returnPokemonData(res, types){
-        return `catch ${res.name} with type ${types}`
     }
 
     static trim(value) {
