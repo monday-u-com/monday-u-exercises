@@ -2,7 +2,7 @@
 
 import { ItemManager } from './ItemManager.js';
 
-class Main {
+export class Main {
   constructor(itemManager, listEl, inputEl, addButtonEl,deleteAllButtonEl) {
     this.itemManager = itemManager;
     this.listEl = listEl;
@@ -13,15 +13,17 @@ class Main {
 
   async addTaskHandler() {
     const inputValue = this.inputEl.value.trim();
+    const inputArray = inputValue.split(',');
+
     if (!inputValue) {
       alert('A task can not be empty');
     } else {
       const isNumber = !isNaN(inputValue.split(',')[0]);
 
       if (isNumber) {
-        await itemManager.addPokemons(inputValue);
+        await itemManager.addPokemons(inputArray);
       } else {
-        itemManager.addItem(inputValue);
+        itemManager.addItem(inputArray);
       }
 
       this.inputEl.value = null;
@@ -67,7 +69,7 @@ class Main {
   deleteItemHandler(todo, event) {
     event.stopPropagation();
     this.itemManager.removeItem(todo.id);
-    this.listEl.removeChild(todo);
+    this.renderList();
   }
 
   onItemClick(item) {
