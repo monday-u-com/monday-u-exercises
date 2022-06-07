@@ -6,18 +6,19 @@ You can also call it using `npx todo-console-app-assh` (calls inquirer.js).
 
 -----
 
-Time for task #3!<br>
+=======
+
 
 ## In this section you will practice
 
-**Node.js** - Build your first node.js cli app <br>
+**Node.js** - Build your first node.js cli app <br> 
 **Npm** - Work with external libraries <br>
 **Files** - Read and write from the file system <br>
 
 ## What you are going to build
 
 We already have a beautiful todo app that will help us to catch all the pokemons. <br>
-Now let's create cli tool, so we can add, delete, and view todos like a real pro 👩‍💻 🧑‍💻
+Now let's create cli tool, so we can add, delete, and view todos like a real pro 👩‍💻 🧑‍💻 
 
 Use your code from the last exercise and refactor where needed.
 
@@ -26,6 +27,7 @@ Use your code from the last exercise and refactor where needed.
 - [x] Build node.js cli todo app
 - [x] Detailed help option // every command has a description
 - [x] Read/Write/Delete todos from a file // + sort, + clear
+
 
 When you finish it should look like this:
 
