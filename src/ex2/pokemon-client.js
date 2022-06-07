@@ -26,6 +26,7 @@ export class PokemonClient {
   }
 
   isPokemon(name) {
-    return this.popularPokemons.find(pokemon => pokemon.toLowerCase() === name.toLowerCase());
+    console.log(name.trim().toLowerCase());
+    return this.popularPokemons.find(pokemon => pokemon.toLowerCase() === name.trim().toLowerCase());
   }
 }
