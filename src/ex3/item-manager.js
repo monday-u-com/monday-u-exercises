@@ -1,11 +1,15 @@
-import Model from "./Model.js"
+import TodoListModel from "./todolist-model.js"
 import fetch from 'node-fetch'
+
+const API_BASE = 'https://pokeapi.co/api/v2/pokemon/'
+const singleNumber = /^\d+$/
+const singleWord = /^[A-Za-z]+$/
+const multiNumbersSeparatedWithComma = /^\d+(,\d+)*$/
 
 export default class ItemManager {
     constructor(pokemonClient){
-        this.API_BASE = 'https://pokeapi.co/api/v2/pokemon/'
-        this.model = new Model()
-        this.model.LoadDataFromFile()
+        this.model = new TodoListModel()
+        this.model.loadDataFromFile()
         this.pokemonClient = pokemonClient;
     }
 
@@ -16,9 +20,6 @@ export default class ItemManager {
     }
 
     handleInputToAdd(trimValue){
-        const singleNumber = /^\d+$/
-        const singleWord = /^[A-Za-z]+$/
-        const multiNumbersSeparatedWithComma = /^\d+(,\d+)*$/
         const partOfNumbersSeprateWithComma = 
             trimValue.substring(0,1).match(multiNumbersSeparatedWithComma)
 
@@ -54,7 +55,7 @@ export default class ItemManager {
         const pokemonArr = []
 
         for(let i = 0; i < split.length; i++){
-            pokemonArr.push(this.fetchMulti(split[i]))
+            pokemonArr.push(this.fetchMulti(ItemManager.trim(split[i])))
         }
 
         Promise.all(pokemonArr)
@@ -66,14 +67,14 @@ export default class ItemManager {
             this.updateTodos()
         }).catch(error => {
             console.log(error)
-            this.addTodoParse("failed to fetch pokemon with this input: " +enterValue)
+            this.addTodoParse(`failed to fetch pokemon with this input: ${enterValue}`)
             this.updateTodos()
         })
     }
 
     fetchMulti(pokemonName){
         return new Promise((resolve, reject) => {
-            return fetch(this.API_BASE+pokemonName)
+            return fetch(`${API_BASE}${pokemonName}`)
                 .then(response => {
                     if(response.status === 200){
                         resolve(response.json())
@@ -96,7 +97,7 @@ export default class ItemManager {
 
     async fetchSingle(dataEntered){ 
         try{
-            const response = await fetch(this.API_BASE+dataEntered)
+            const response = await fetch(`${API_BASE}${dataEntered}`)
             if(response.status === 404 && isNaN(+dataEntered)){
                 return dataEntered
             }
@@ -122,14 +123,14 @@ export default class ItemManager {
         let types = ""
 
         typeNo.forEach(type => {
-            types += type.type.name + "/"    
+            types += `${type.type.name}/`    
         })
 
         return types
     }
 
     static returnPokemonData(res, types){
-        return "catch " +res.name + " with type " + types
+        return `catch ${res.name} with type ${types}`
     }
 
     static trim(value) {
@@ -233,7 +234,7 @@ export default class ItemManager {
     }
 
     todoListSize() {
-        return this.model.todoList.length
+        return this.getTodoList().length
     }
 
     getTodoList() {

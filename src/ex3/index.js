@@ -4,7 +4,7 @@ import chalk from "chalk";
 import inquirer from 'inquirer';
 /* import { Command } from "commander";
 const program = new Command(); */
-import PokemonClient from './PokemonClient.js';
+import PokemonClient from './pokemon-client.js';
 
 const pokemonClient = new PokemonClient();
 

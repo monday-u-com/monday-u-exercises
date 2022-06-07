@@ -1,4 +1,4 @@
-import ItemManager from "./ItemManager.js"
+import ItemManager from "./item-manager.js"
 
 export default class PokemonClient{
     constructor(){

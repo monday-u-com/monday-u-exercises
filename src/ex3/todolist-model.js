@@ -1,10 +1,10 @@
 import fs from 'fs';
-export default class Model {
+export default class TodoListModel {
     constructor() {
         this.todoList = []
     }
 
-    LoadDataFromFile(){
+    loadDataFromFile(){
         try {
             const data = fs.readFileSync('./todo.json', 'utf8');
             if(data === null){
@@ -41,19 +41,19 @@ export default class Model {
     }
 
     orderDataAlphabetically(){
-        this.todoList = Model.compareFunc(this.todoList,"title")
+        this.todoList = TodoListModel.compareFunc(this.todoList,"title")
     }
 
     orderDataAlphabeticallyReverse(){
-        this.todoList = Model.compareFunc(this.todoList,"title").reverse()
+        this.todoList = TodoListModel.compareFunc(this.todoList,"title").reverse()
     }
 
     orderUnDoneToDone(){
-        this.todoList = Model.compareFunc(this.todoList,"done")
+        this.todoList = TodoListModel.compareFunc(this.todoList,"done")
     }
 
     orderDoneToUnDone(){
-        this.todoList = Model.compareFunc(this.todoList,"done").reverse()
+        this.todoList = TodoListModel.compareFunc(this.todoList,"done").reverse()
     }
 
     static compareFunc(array, key){
@@ -72,11 +72,11 @@ export default class Model {
     }
 
     getDoneTodos() {
-       return Model.getDoneUnTodos(true, this.todoList)
+       return TodoListModel.getDoneUnTodos(true, this.todoList)
     }
 
     getUnDoneTodos(){
-       return Model.getDoneUnTodos(false, this.todoList)
+       return TodoListModel.getDoneUnTodos(false, this.todoList)
     }
 
     static getDoneUnTodos(value, list){
