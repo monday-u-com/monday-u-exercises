@@ -1,3 +1,6 @@
+import fetch from 'node-fetch';
+// const fetch = require("./fileSystemManager");
+
 class PokemonClient {
     constructor() {
         this.API_BASE = 'https://pokeapi.co/api/v2/pokemon';
@@ -28,3 +31,5 @@ class PokemonClient {
         return response;
     }
 }
+
+export default PokemonClient
