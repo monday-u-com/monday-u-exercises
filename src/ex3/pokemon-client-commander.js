@@ -33,6 +33,6 @@ export class PokemonClient {
   }
 
   isPokemon(name) {
-    return popularPokemons.find(pokemon => pokemon.toLowerCase() === name.toLowerCase());
+    return popularPokemons.find(pokemon => pokemon.toLowerCase() === name.trim().toLowerCase());
   }
 }
