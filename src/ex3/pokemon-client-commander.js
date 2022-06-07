@@ -24,11 +24,11 @@ export class PokemonClient {
         }
       }));
     } catch (error) {
-      this.failureHandler(pokemonText);
+      this.handleFailure(pokemonText);
     }
   }
 
-  failureHandler(pokemon) {
+  handleFailure(pokemon) {
     console.log(`Failed to fetch ${pokemon}`);
   }
 
