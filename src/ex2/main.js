@@ -35,7 +35,7 @@ class Main {
       }
     });
 
-    this.updateTodos(itemManager.init());
+    this.updateTodos(this.itemManager.init());
   }
 
   renderTodos() {
@@ -160,7 +160,7 @@ class Main {
     } else {
       const isTextNaN = text.split(',').map( el => isNaN(el));
       if (isTextNaN.includes(true)) {
-        this.updateTodos(itemManager.addItem(text))
+        this.updateTodos(this.itemManager.addItem(text))
       } else {
         this.addPokemon(text);
       }
@@ -172,10 +172,10 @@ class Main {
       let updatedTodos;
       try {
         pokemons.forEach(pokemon => {
-          updatedTodos = itemManager.addItem(`Catch ${pokemon}`);
+          updatedTodos = this.itemManager.addItem(`Catch ${pokemon}`);
         })
       } catch (error) {
-        updatedTodos = itemManager.addItem(`Failed to fetch ${text}`);
+        updatedTodos = this.itemManager.addItem(`Failed to fetch ${text}`);
       }
       this.updateTodos(updatedTodos);
     })
