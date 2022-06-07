@@ -2,7 +2,7 @@
   "name": "ouriel-todolist-cli",
   "version": "1.0.18",
   "description": "todolist cli",
-  "bin":"index.js",
+  "bin": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,6 +11,7 @@
   "author": "ouriel ohayon",
   "license": "ISC",
   "dependencies": {
+    "ascii-art": "^2.8.5",
     "chalk": "^5.0.1",
     "commander": "^9.3.0",
     "inquirer": "^8.2.4",
