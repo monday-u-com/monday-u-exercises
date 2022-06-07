@@ -1,6 +1,6 @@
 {
   "name": "todo-console-app-assh",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Todo console app<br>",
   "main": "main.js",
   "type": "module",
