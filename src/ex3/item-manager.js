@@ -34,7 +34,9 @@ export default class ItemManager {
             this.handleAddSingleOrMultiPokemonsTodo(trimValue)
         }
         else{ //noraml todo
-            this.addTodoParse(trimValue)
+            const isPokemon = false
+            const imagePokemonPath = null
+            this.addTodoParse(trimValue, isPokemon, imagePokemonPath)
             this.updateTodos()
         }
     }
@@ -62,24 +64,30 @@ export default class ItemManager {
             .then(response => {
                 response.forEach(res => {
                     const types = this.pokemonClient.getTypes(res)
-                    this.addTodoParse(this.pokemonClient.returnPokemonData(res, types))
+                    const dataRetrieved = this.pokemonClient.returnPokemonData(res, types)
+                    const {value, isPokemon, imagePokemonPath} = dataRetrieved
+                    this.addTodoParse(value, isPokemon, imagePokemonPath)
             })
             this.updateTodos()
         }).catch(error => {
             console.log(error)
-            this.addTodoParse(`failed to fetch pokemon with this input: ${enterValue}`)
+            const isPokemon = false
+            const imagePokemonPath = null
+            const value = `failed to fetch pokemon with this input: ${enterValue}`
+            this.addTodoParse(value, isPokemon, imagePokemonPath)
             this.updateTodos()
         })
     }
 
     async handleAddSinglePokemonTodo(enterValue){
         const dataRetrieved = await this.pokemonClient.fetchSingle(enterValue)
-        this.addTodoParse(dataRetrieved)
+        const {value, isPokemon, imagePokemonPath} = dataRetrieved
+        this.addTodoParse(value, isPokemon, imagePokemonPath)
         this.updateTodos()
     }
 
-    addTodoParse(value){
-        this.model.addData({title: value, done: false})
+    addTodoParse(value, isPokemon, imagePokemonPath){
+        this.model.addData({title: value, done: false, isPokemon, imagePokemonPath})
     }
 
     static trim(value) {

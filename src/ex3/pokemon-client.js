@@ -58,9 +58,17 @@ export default class PokemonClient{
 
     returnPokemonData(res, types){
         if(res.name === undefined){
-            return `failed to catch pokemon with id ${res}`
+            return {
+                value: `failed to catch pokemon with id ${res}`, 
+                isPokemon: false, 
+                imagePokemonPath:null
+            }
         }
 
-        return `catch ${res.name} with type ${types}`
+        return {
+            value: `catch ${res.name} with type ${types}`,
+            isPokemon: true,
+            imagePokemonPath: res.sprites.front_default
+        }
     }
 }

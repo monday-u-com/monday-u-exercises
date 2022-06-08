@@ -3,6 +3,7 @@
 import chalk from "chalk";
 import inquirer from 'inquirer';
 import Main from './main.js';
+import Image from 'ascii-art-image'
 
 const main = new Main();
 
@@ -268,6 +269,40 @@ function selectCheckOrUncheck(index) {
   })
 }
 
+function displayPokemon() {
+
+  inquirer.prompt({
+    type: 'number',
+    name: 'pokemonIndex',
+    message: 'enter the index for pokemon that you want to display'
+  })
+  .then(answers => {
+    if(!numberValidation(answers.pokemonIndex)) return
+
+    const getIndexData = main.getDataInIndex(answers.pokemonIndex)
+    if(!indexValidation(getIndexData)) return
+
+    const data = main.itemManager.getTodoList()
+    const {index} = getIndexData
+    
+    if(!data[index].isPokemon) {
+      console.log(chalk.bold.red("that's is not a Pokemon"))
+      return
+    }
+
+    let image = new Image({
+      filepath: data[index].imagePokemonPath,
+      alphabet: "blocks",
+      width: 100,
+      height: 100
+    })
+  
+    image.write(function(err, rendered){
+      console.log(rendered);
+    }) 
+  })
+}
+
 const options = [
   {
       type: "list",
@@ -282,6 +317,7 @@ const options = [
           "order list",
           "get all done/undone todos",
           "check or uncheck todo", 
+          "display pokemon",
       ]
   }
 ]
@@ -321,6 +357,10 @@ inquirer
 
         case "check or uncheck todo":
           checkOrUncheckTodo()
+          break;
+        
+        case "display pokemon":
+          displayPokemon()
           break;
       }
   })
