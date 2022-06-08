@@ -1,117 +1,196 @@
-html {
-  height: 100%;
-}
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
 
-.app-container {
+.background {
+  padding: 45px;
   width: 100%;
-  height: 100%;
-  font-family: Georgia, serif;
-  font-weight: lighter;
-  background-image: linear-gradient(
-    to top right,
-    white,
-    #d4dff3,
-    rgba(138, 144, 224, 0.76),
-    rgba(106, 117, 231, 0.76),
-    rgba(85, 97, 229, 0.76)
-  );
+  height: 100vh;
+  background-image: linear-gradient(120deg, lightblue, rgb(45, 111, 133));
+}
+  input[type=text] {
+    padding-left: 15px;
+    width: 79%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+  }
+  
+  input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+#footer {
+  display: inline; 
+  width: 80px;
+  height: 90px;
+}
+#footer #h3 {
+    font-size: 4px;
+     margin :30px;
+  }
+#buttonClearAll {
+    background-color: #0095ff;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-size: 10px;
+    padding: 6px 18px;
+    pointer-events: none;
+    opacity: 0;
+  }  
+#buttonClearAll.hover,
+#buttonClearAll.focus {
+    background-color: #07c;
+    pointer-events: auto;
+
+  }
+  
+#buttonClearAll.focus {
+    box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+    pointer-events: auto;
+  }
+  
+#buttonClearAll.active {
+  box-shadow: none;
+  opacity: 1;
+  pointer-events: auto;
+  align-items: right;
+  margin :10px;
+  }
+     
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 85%;
+    margin: auto;
+    width: 30%;
+    border: 3px solid rgb(0, 62, 128);
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    overflow: clip;
+    box-sizing: border-box;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-family:"Franklin Gothic Medium";
+  
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  .card #buttonAdd {
+    background-color: #0095ff;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1.15385;
+    margin: 0;
+    outline: none;
+    padding: 10px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    white-space: nowrap;
+  }
+  
+  .card #buttonAdd:hover,
+  .card #buttonAdd:focus {
+    background-color: #07c;
+  }
+  
+  .card #buttonAdd:focus {
+    box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+  }
+  
+.todo{
+    background-color: #c5e1e6;
+    height: 50px;
+      margin-bottom: 8px;
+    padding: 5px 10px;
+      border-radius: 5px;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #939697;
+    cursor: pointer;
+    width: 90%;
+    opacity: 1;
+}
+.todo span{
+  display: block;
+  max-width: 2200px;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  opacity: 1;
+}
+ 
+.todo:hover,
+.todo:focus {
+  background-color: #7cafb8;
+  opacity: 1;
+  animation: slideInRight;
+  animation-duration: 0.5s;
 }
 
-.app-name {
-  padding-left: 32px;
-  font-weight: lighter;
+.todo:focus {
+  box-shadow: 0 0 0 4px rgba(167, 207, 236, 0.15);
 }
 
-.list-container {
-  display: flex;
-  flex-direction: column;
-  width: 30%;
-  height: 50%;
-  background-color: white;
-  border: 1px silver solid;
-  border-radius: 8px;
-  -webkit-box-shadow: 12px 12px 38px -13px #000000;
-  box-shadow: 12px 12px 38px -13px #000000;
+.todo:hover .delete{
+  opacity: 1;
+  animation: slideInRight;
+  animation-duration: 0.5s;
 }
 
-.list-controls {
-  padding: 0px 32px;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
+.todo .delete {
+  background-color: #0095ff;
+   border: 1px solid transparent;
+   border-radius: 3px;
+   box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+   box-sizing: border-box;
+   color: #fff;
+   cursor: pointer;
+   font-size: 13px;
+   font-weight: 400;
+   line-height: 1.15385;
+   margin: 0;
+   outline: none;
+   padding: 10px;
+   position: relative;
+   text-align: center;
+   text-decoration: none;
+   touch-action: manipulation;
+   vertical-align: baseline;
+   white-space: nowrap;
+   float: right;
+   opacity: 0;
+ }
+ 
+ .todo .delete:hover,
+ .delete:focus {
+   background-color: #07c;
+   opacity: 1;
+ }
+ 
+ .todo .delete:focus {
+   box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+   opacity: 1;
+ }
+.newToDo {
+    display: inline-block;
+    width: 10%;
+    text-align: center;
 }
 
-.list-controls #list-item-input {
-  width: 85%;
-  height: 30px;
-  font-size: 16px;
-  padding-left: 8px;
-}
-
-.list-controls #list-item-submit {
-  color: white;
-  background-color: #6c6cff;
-  border-style: solid;
-  border-color: transparent;
-  border-radius: 4px;
-  height: 35px;
-  width: 35px;
-  font-size: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-left: auto;
-}
-
-.list-controls #list-item-submit:hover {
-  background-color: #3c3cff;
-  transition: background-color 0.2s ease-in-out;
-}
-
-#list {
-  list-style-type: none;
-  padding: 0px 30px;
-  height: 310px;
-  overflow-y: scroll;
-}
-
-.list-item {
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.list-item:hover {
-  color: blueviolet;
-  transition: color 0.2s ease-in-out;
-}
-
-.list-item:not(:last-of-type) {
-  border-bottom: 1px #bbb5b5 solid;
-}
-
-.list-item-delete-button {
-  margin-left: auto;
-  padding: 8px;
-  cursor: pointer;
-  border-radius: 8px;
-}
-
-.list-item-delete-button:hover {
-  background-color: #f0f0f5;
-  transition: background-color 0.2s ease-in-out;
-}

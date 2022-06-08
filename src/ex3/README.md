@@ -2,6 +2,10 @@
 
 Time for task #3!<br>
 
+**To run the program use node inquirer.js or node index.js**
+
+=================================================================
+
 ## In this section you will practice
 
 **Node.js** - Build your first node.js cli app <br> 
