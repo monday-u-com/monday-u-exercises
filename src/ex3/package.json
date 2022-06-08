@@ -1,6 +1,6 @@
 {
   "name": "ouriel-todolist-cli",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "todolist cli",
   "bin": "index.js",
   "type": "module",

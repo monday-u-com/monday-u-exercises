@@ -96,6 +96,9 @@ export default class TodoListModel {
 
     editDataInIndex(value, index){
         this.todoList[index].title = value
+        //for now is change to normal todo
+        this.todoList[index].isPokemon = false
+        this.todoList[index].imagePokemonPath = null
 
         return this.todoList[index]
     }
