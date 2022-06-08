@@ -1,6 +1,6 @@
 # Exercise 3 - Node.js, CLI
 
-**To run the program use ```node inquirer.js``` or ```node index.js``` **
+**To run the program use ```node inquirer.js``` or ```node index.js```**
 
 =================================================================
 
