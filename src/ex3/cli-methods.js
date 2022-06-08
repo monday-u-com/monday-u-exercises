@@ -291,8 +291,8 @@ export function displayPokemon() {
     let image = new Image({
       filepath: data[index].imagePokemonPath,
       alphabet: "blocks",
-      width: 100,
-      height: 100
+      width: 80,
+      height: 80
     })
   
     image.write(function(err, rendered){
