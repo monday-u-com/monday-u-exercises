@@ -2,7 +2,7 @@
 
 **To run the program use ```node inquirer.js``` or ```node index.js```**
 
-=================================================================
+
 
 ## In this section you will practice
 
