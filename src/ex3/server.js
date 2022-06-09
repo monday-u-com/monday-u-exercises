@@ -13,7 +13,6 @@ export default async function TodoWebServer()
     const __dirname = Path.dirname(Path.join('node_modules/todo-mondayu-barakmaron/', '/www'));
     app.use(express.static(__dirname + '/www'));
     app.use(express.json());
-    
     /**
      * index end point
      */

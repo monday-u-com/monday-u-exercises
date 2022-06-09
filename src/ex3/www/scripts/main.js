@@ -1,4 +1,5 @@
 import DomManager from './DomManager.js';
+import { GetResourceRequest, AddNewResourceRequest, DeleteResourceRequest, PatchResourceRequest } from './ApiRequest.mjs';
 // Implement the `Main` class here
 
 class Main {
@@ -6,88 +7,6 @@ class Main {
         this.dom_manager = new DomManager();
         this.pokemons = [];
         this.tasks = [];
-    }
-
-    async GetResourceRequest(url)
-    {
-        return fetch(`/${url}`).then(async (response) => {
-            try {
-                // check if response is valid
-                if (!response.ok) {
-                    throw new Error(`Cant get ${url}`);
-                }
-                // parse response to json object
-                const res_obj = await response.json();
-                return res_obj;
-            }
-            catch (error) {
-                return error;
-            }
-        });
-    }
-
-    async AddNewResourceRequest(url, data)
-    {
-        return fetch(`/${url}`, {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-        }).then(async (response) => {
-            try {
-                // check if response is valid
-                if (!response.status === 201) {
-                    throw new Error(`Cant send ${data} to ${url}`);
-                }
-                // parse response to json object
-                const res_obj = await response.json();
-                return res_obj;
-            }
-            catch (error) {
-                return error;
-            }
-        });
-    }
-
-    async DeleteResourceRequest(url)
-    {
-        return fetch(`/${url}`, {
-            method: "DELETE",
-            headers: {'Content-Type': 'application/json'}
-        }).then(async (response) => {
-            try {
-                // check if response is valid
-                if (!response.ok) {
-                    throw new Error(`Cant delete ${url}`);
-                }
-                // parse response to json object
-                const res_obj = await response.json();
-                return res_obj;
-            }
-            catch (error) {
-                return error;
-            }
-        });
-    }
-
-    async PatchResourceRequest(url)
-    {
-        return fetch(`/${url}`, {
-            method: "PATCH",
-            headers: {'Content-Type': 'application/json'}
-        }).then(async (response) => {
-            try {
-                // check if response is valid
-                if (!response.ok) {
-                    throw new Error(`Cant patch ${url}`);
-                }
-                // parse response to json object
-                const res_obj = await response.json();
-                return res_obj;
-            }
-            catch (error) {
-                return error;
-            }
-        });
     }
 
     /**
@@ -136,11 +55,11 @@ class Main {
             // clear error message
             this.dom_manager.ClearErrorEmptyTask();            
             // send the task to item manager
-            const add_promise = Promise.resolve(this.AddNewResourceRequest('task', {task: task_text_from_user}));
+            const add_promise = Promise.resolve(AddNewResourceRequest('task', {task: task_text_from_user}));
             // wait to get response before re-rendering
             await add_promise;
             // get the updated tasks
-            const tasks = main.GetResourceRequest('task');
+            const tasks = GetResourceRequest('task');
             Promise.all([add_promise, tasks]).then((results) => {
                 if(results[0].status === 201)
                     this.tasks =  results[1];
@@ -158,11 +77,11 @@ class Main {
      */
     async RemoveTodo(event) {
         const task_id = event.currentTarget.id;
-        const delete_promise = Promise.resolve(this.DeleteResourceRequest(`task/${task_id}`));
+        const delete_promise = Promise.resolve(DeleteResourceRequest(`task/${task_id}`));
         // wait to get response before re-rendering
         await delete_promise;
         // get the updated tasks
-        const tasks = main.GetResourceRequest('task');
+        const tasks = GetResourceRequest('task');
         Promise.all([delete_promise, tasks]).then((results) => {
             this.tasks = results[1];
             this.RerenderFunctionWrapper();
@@ -174,11 +93,11 @@ class Main {
      */
      async CompleteTodo(event) {
         const task_id = event.currentTarget.id;
-        const complete_promise = Promise.resolve(this.PatchResourceRequest(`task/${task_id}`));
+        const complete_promise = Promise.resolve(PatchResourceRequest(`task/${task_id}`));
         // wait to get response before re-rendering
         await complete_promise;
         // get the updated tasks
-        const tasks = main.GetResourceRequest('task');
+        const tasks = GetResourceRequest('task');
         Promise.all([complete_promise, tasks]).then((results) => {
             this.tasks = results[1];
             this.RerenderFunctionWrapper();
@@ -188,11 +107,11 @@ class Main {
      * clear all tasks in array and log it to the file
      */
     async ClearAllTasks() {
-        const delete_promise = Promise.resolve(this.DeleteResourceRequest('task'));
+        const delete_promise = Promise.resolve(DeleteResourceRequest('task'));
         // wait to get response before re-rendering
         await delete_promise;
         // get the updated tasks
-        const tasks = main.GetResourceRequest('task');
+        const tasks = GetResourceRequest('task');
         Promise.all([delete_promise, tasks]).then((results) => {
             this.tasks = results[1];
             this.RerenderFunctionWrapper();
@@ -202,11 +121,11 @@ class Main {
      * sort tasks by name
      */
     async SortTasksByName() {
-        const sort_promise = Promise.resolve(this.PatchResourceRequest('task/sortbyname', {}));
+        const sort_promise = Promise.resolve(PatchResourceRequest('task/sortbyname', {}));
         // wait to get response before re-rendering
         await sort_promise;
         // get the updated tasks
-        const tasks = main.GetResourceRequest('task');
+        const tasks = GetResourceRequest('task');
         Promise.all([sort_promise, tasks]).then((results) => {
             this.tasks = results[1];
             this.RerenderFunctionWrapper();
@@ -233,8 +152,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     // you should create an `init` method in your class
     // the method should add the event listener to your "add" button
     try{
-        const tasks = main.GetResourceRequest('task');
-        const pokemons = main.GetResourceRequest('pokemon');
+        const tasks = GetResourceRequest('task');
+        const pokemons = GetResourceRequest('pokemon');
         Promise.all([tasks, pokemons]).then((results) => {
             main.init(results[0], results[1]);
         });
