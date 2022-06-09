@@ -8,7 +8,7 @@ class Main {
         this.tasks = [];
     }
 
-    async FetchUrlFromServer(url)
+    async GetResourceRequest(url)
     {
         return fetch(`/${url}`).then(async (response) => {
             try {
@@ -26,7 +26,7 @@ class Main {
         });
     }
 
-    async SendToServer(url, data)
+    async AddNewResourceRequest(url, data)
     {
         return fetch(`/${url}`, {
             method: "POST",
@@ -35,8 +35,50 @@ class Main {
         }).then(async (response) => {
             try {
                 // check if response is valid
-                if (!response.ok) {
+                if (!response.status === 201) {
                     throw new Error(`Cant send ${data} to ${url}`);
+                }
+                // parse response to json object
+                const res_obj = await response.json();
+                return res_obj;
+            }
+            catch (error) {
+                return error;
+            }
+        });
+    }
+
+    async DeleteResourceRequest(url)
+    {
+        return fetch(`/${url}`, {
+            method: "DELETE",
+            headers: {'Content-Type': 'application/json'}
+        }).then(async (response) => {
+            try {
+                // check if response is valid
+                if (!response.ok) {
+                    throw new Error(`Cant delete ${url}`);
+                }
+                // parse response to json object
+                const res_obj = await response.json();
+                return res_obj;
+            }
+            catch (error) {
+                return error;
+            }
+        });
+    }
+
+    async PatchResourceRequest(url)
+    {
+        return fetch(`/${url}`, {
+            method: "PATCH",
+            headers: {'Content-Type': 'application/json'}
+        }).then(async (response) => {
+            try {
+                // check if response is valid
+                if (!response.ok) {
+                    throw new Error(`Cant patch ${url}`);
                 }
                 // parse response to json object
                 const res_obj = await response.json();
@@ -94,13 +136,13 @@ class Main {
             // clear error message
             this.dom_manager.ClearErrorEmptyTask();            
             // send the task to item manager
-            const add_promise = Promise.resolve(this.SendToServer('AddTask', {task: task_text_from_user}));
+            const add_promise = Promise.resolve(this.AddNewResourceRequest('task', {task: task_text_from_user}));
             // wait to get response before re-rendering
             await add_promise;
             // get the updated tasks
-            const tasks = main.FetchUrlFromServer('tasks');
+            const tasks = main.GetResourceRequest('task');
             Promise.all([add_promise, tasks]).then((results) => {
-                if(results[0].status === "added")
+                if(results[0].status === 201)
                     this.tasks =  results[1];
                 else
                     this.tasks.push(results[0].error);
@@ -116,11 +158,11 @@ class Main {
      */
     async RemoveTodo(event) {
         const task_id = event.currentTarget.id;
-        const delete_promise = Promise.resolve(this.SendToServer('DeleteTask', {task_id: task_id}));
+        const delete_promise = Promise.resolve(this.DeleteResourceRequest(`task/${task_id}`));
         // wait to get response before re-rendering
         await delete_promise;
         // get the updated tasks
-        const tasks = main.FetchUrlFromServer('tasks');
+        const tasks = main.GetResourceRequest('task');
         Promise.all([delete_promise, tasks]).then((results) => {
             this.tasks = results[1];
             this.RerenderFunctionWrapper();
@@ -132,11 +174,11 @@ class Main {
      */
      async CompleteTodo(event) {
         const task_id = event.currentTarget.id;
-        const complete_promise = Promise.resolve(this.SendToServer('CompleteTask', {task_id: task_id}));
+        const complete_promise = Promise.resolve(this.PatchResourceRequest(`task/${task_id}`));
         // wait to get response before re-rendering
         await complete_promise;
         // get the updated tasks
-        const tasks = main.FetchUrlFromServer('tasks');
+        const tasks = main.GetResourceRequest('task');
         Promise.all([complete_promise, tasks]).then((results) => {
             this.tasks = results[1];
             this.RerenderFunctionWrapper();
@@ -146,11 +188,11 @@ class Main {
      * clear all tasks in array and log it to the file
      */
     async ClearAllTasks() {
-        const delete_promise = Promise.resolve(this.SendToServer('DeleteAllTasks', {}));
+        const delete_promise = Promise.resolve(this.DeleteResourceRequest('task'));
         // wait to get response before re-rendering
         await delete_promise;
         // get the updated tasks
-        const tasks = main.FetchUrlFromServer('tasks');
+        const tasks = main.GetResourceRequest('task');
         Promise.all([delete_promise, tasks]).then((results) => {
             this.tasks = results[1];
             this.RerenderFunctionWrapper();
@@ -160,11 +202,11 @@ class Main {
      * sort tasks by name
      */
     async SortTasksByName() {
-        const sort_promise = Promise.resolve(this.SendToServer('SortByNameTasks', {}));
+        const sort_promise = Promise.resolve(this.PatchResourceRequest('task/sortbyname', {}));
         // wait to get response before re-rendering
         await sort_promise;
         // get the updated tasks
-        const tasks = main.FetchUrlFromServer('tasks');
+        const tasks = main.GetResourceRequest('task');
         Promise.all([sort_promise, tasks]).then((results) => {
             this.tasks = results[1];
             this.RerenderFunctionWrapper();
@@ -191,8 +233,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     // you should create an `init` method in your class
     // the method should add the event listener to your "add" button
     try{
-        const tasks = main.FetchUrlFromServer('tasks');
-        const pokemons = main.FetchUrlFromServer('pokemons');
+        const tasks = main.GetResourceRequest('task');
+        const pokemons = main.GetResourceRequest('pokemon');
         Promise.all([tasks, pokemons]).then((results) => {
             main.init(results[0], results[1]);
         });

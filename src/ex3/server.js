@@ -23,7 +23,7 @@ export default async function TodoWebServer()
     /**
      * get all tasks
      */
-    app.get('/tasks', async(request, response) =>
+    app.get('/task', async(request, response) =>
     {
         await item_manager.SetArrayFromFile();
         response.json(item_manager.tasks);
@@ -31,108 +31,152 @@ export default async function TodoWebServer()
     /**
      * get list of all pokemon
      */
-    app.get('/pokemons', (request, response) =>
+    app.get('/pokemon', (request, response) =>
     {
         response.json(item_manager.pokemons);
     });
     /**
      * add task end point
      */
-    app.post('/AddTask', async (request, response) => {
+    app.post('/task', async (request, response) => {
         try
         {
             const task = request.body.task;
             const add_task = Promise.resolve(item_manager.AddTask(task));
             await add_task;
-            response.json({ status: "added"});
+            response.status(201).json({
+                status: 201,
+                task: task    
+            });
         }
         catch(error)
         {
             console.log(error);
-            response.json({ status: "error", error});
+            response.status(400).json({ 
+                status: 400, 
+                error: error
+            });
         }
     });
     /**
+     * delete all task end point
+     */
+     app.delete('/task', async (request, response) =>
+     {
+         // sync task array because it can change from cli app
+         await item_manager.SetArrayFromFile();
+         try
+         {
+             const delete_task = Promise.resolve(item_manager.ClearArray());
+             await delete_task;
+             response.status(200).json({
+                 status: 200
+                 });
+         }
+         catch(error)
+         {
+             console.log(error);
+             response.status(400).json({ 
+                 status: 400, 
+                 error: error
+             });
+         }    
+     });
+    /**
      * delete task end point
      */
-    app.post('/DeleteTask', async (request, response) =>
+    app.delete('/task/:id', async (request, response) =>
     {
         // sync task array because it can change from cli app
         await item_manager.SetArrayFromFile();
-        const task_id = request.body.task_id;
+        const task_id = Number.parseInt(request.params.id);
+        if(isNaN(task_id)) 
+            return response.status(400).json({
+                status: 400,
+                error: "wrong parameters"
+            });
         try
         {
             const delete_task = Promise.resolve(item_manager.RemoveTask(task_id));
             await delete_task;
-            response.json({ status: "deleted"});
+            response.status(200).json({
+                status: 200,
+                id: task_id
+                });
         }
         catch(error)
         {
             console.log(error);
-            response.json({ status: "error", error});
+            response.status(400).json({ 
+                status: 400, 
+                error: error
+            });
         }    
     });
-    /**
-     * complete task end point
+
+     /**
+     * sort by name all tasks end point
      */
-    app.post('/CompleteTask', async (request, response) =>
+    app.patch('/task/sortbyname', async (request, response) =>
     {
         // sync task array because it can change from cli app
         await item_manager.SetArrayFromFile();
-        const task_id = parseInt(request.body.task_id);
+        try
+        {
+            const sortbyname = Promise.resolve(item_manager.SortArrayByName());
+            await sortbyname;
+            response.status(200).json({ 
+                status: 200,
+                action: "sorted by name"
+            });
+        }
+        catch(error)
+        {
+            console.log(error);
+            response.status(400).json({ 
+                status: 400, 
+                error: error
+            });
+        }    
+    });
+
+    /**
+     * complete task end point
+     */
+    app.patch('/task/:id', async (request, response) =>
+    {
+        // sync task array because it can change from cli app
+        await item_manager.SetArrayFromFile();
+        const task_id = Number.parseInt(request.params.id);
+        if(isNaN(task_id)) 
+            return response.status(400).json({
+                status: 400,
+                error: "wrong parameters"
+            });
         try
         {
             const complete_task = Promise.resolve(item_manager.CompleteTask(task_id));
             await complete_task;
-            response.json({ status: "completed"});
+            response.status(202).json({ 
+                status: 202,
+                id: task_id,
+                complete: item_manager.tasks[task_id].complete
+            });
         }
         catch(error)
         {
             console.log(error);
-            response.json({ status: "error", error});
-        }    
-    });
-    /**
-     * delete all tasks end point
-     */
-    app.post('/DeleteAllTasks', async (request, response) =>
-    {
-        try
-        {
-            const delete_task = Promise.resolve(item_manager.ClearArray());
-            await delete_task;
-            response.json({ status: "deleted"});
-        }
-        catch(error)
-        {
-            console.log(error);
-            response.json({ status: "error", error});
-        }    
-    });
-    /**
-     * sort by name all tasks end point
-     */
-    app.post('/SortByNameTasks', async (request, response) =>
-    {
-        // sync task array because it can change from cli app
-        await item_manager.SetArrayFromFile();
-        try
-        {
-            const delete_task = Promise.resolve(item_manager.SortArrayByName());
-            await delete_task;
-            response.json({ status: "deleted"});
-        }
-        catch(error)
-        {
-            console.log(error);
-            response.json({ status: "error", error});
+            response.status(400).json({ 
+                status: 400, 
+                error: error
+            });
         }    
     });
 
     /**
      * bind the server and start listening
      */
-     const server = app.listen(8000, function () {
+    const server = app.listen(8000, function () {
         const host = server.address().address;
         const port = server.address().port;
         console.log('Express app listening at http://%s:%s', host, port);
