@@ -1,12 +1,12 @@
 export default class ItemManager {
   constructor() {
     {
-      this.TasksArray = this.getTasksFromLocalStorage();
+      this.taskArray = this.getTasksFromLocalStorage();
     }
   }
- 
+  
   addItem(newTasks) {
-    this.TasksArray.push(newTasks);
+    this.taskArray.push(newTasks);
     localStorage.setItem(
       "tasks",
       JSON.stringify([
@@ -16,17 +16,17 @@ export default class ItemManager {
     );
   }
 
-  tasksArray() {
-    return this.TasksArray;
+  taskArray() {
+    return this.taskArray;
   }
-  removeTask(taskToRemove) {
-    const index = taskToRemove;
-    this.TasksArray.splice(index, 1);
-    localStorage.setItem("tasks", JSON.stringify(this.TasksArray));
+  removeTask(taskIndexToRemove) {
+    const index = taskIndexToRemove;
+    this.taskArray.splice(index, 1);
+    localStorage.setItem("tasks", JSON.stringify(this.taskArray));
   }
   // Claer All Tasks
   clearAllTasks() {
-    this.TasksArray = [];
+    this.taskArray = [];
     localStorage.setItem("tasks", []);
   }
   getTasksFromLocalStorage() {

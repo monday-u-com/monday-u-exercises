@@ -6,7 +6,7 @@ export default class PokemonClient {
       pokemon.map(async (id) => {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
         if (response.ok) {
-          return response.json();
+          return await response.json();
         } else {
           return id;
         }
