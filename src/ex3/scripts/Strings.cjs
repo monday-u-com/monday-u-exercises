@@ -4,13 +4,18 @@ const CLI_DESCRIPTION = "This is a cli for a todo list go a head and check it ou
 const CLI_BEST_VIEW_INSTRUCTION = "Open console/terminal in full screen for the best user experience!!!";
 /*********************** COMMAND SELECTION STRINGS ***********************/
 const CLI_COMMAND_SELECT_MESSAGE = "Hi master what is your command for me:";
-const CLI_COMMAND_SELECT_OPTIONS = ["Add", "Delete", "Get", "Help", "Exit"];
+const CLI_COMMAND_SELECT_OPTIONS = ["Add", "Completed/Uncompleted", "Delete", "Clear all", "Sort By Name", "Get", "Help", "Exit"];
 /*********************** ADD TASK STRINGS ***********************/
 const CLI_ADD_TASK_MESSAGE = "Enter your todo text:";
 const CLI_ADD_TASK_VALIDATION_TEXT = "Please enter a valid string";
 /*********************** DELETE TASK STRINGS ***********************/
+const CLI_COMPLETE_TASK_MESSAGE = "Enter your todos id to set as completed/uncompleted:";
+const CLI_COMPLETE_TASK_VALIDATION_TEXT = "Please enter a valid id number";
+/*********************** DELETE TASK STRINGS ***********************/
 const CLI_DELETE_TASK_MESSAGE = "Enter your todos id to delete:";
 const CLI_DELETE_TASK_VALIDATION_TEXT = "Please enter a valid id number";
+/*********************** CLEAR ALL TASKS STRINGS ***********************/
+const CLI_CLEAR_ALL_TASKS_MESSAGE = "Are you sure you want to delete all todos:";
 /*********************** GET TASKS STRINGS ***********************/
 const CLI_GET_TASKS_WITH_POKEMON_IMAGE = "Do you want to get tasks with image art:";
 /*********************** HELP STRINGS ***********************/
@@ -41,8 +46,11 @@ module.exports = {
     CLI_COMMAND_SELECT_OPTIONS,
     CLI_ADD_TASK_MESSAGE,
     CLI_ADD_TASK_VALIDATION_TEXT,
+    CLI_COMPLETE_TASK_MESSAGE,
+    CLI_COMPLETE_TASK_VALIDATION_TEXT,
     CLI_DELETE_TASK_MESSAGE,
     CLI_DELETE_TASK_VALIDATION_TEXT,
+    CLI_CLEAR_ALL_TASKS_MESSAGE,
     CLI_GET_TASKS_WITH_POKEMON_IMAGE,
     CLI_HELP_QUESTION_MESSAGE,
     CLI_HELP_INSTRUCTIONS_FIRST_SECTION,

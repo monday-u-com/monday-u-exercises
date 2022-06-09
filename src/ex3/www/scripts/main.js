@@ -69,7 +69,14 @@ class Main {
         });
 
         this.dom_manager.sort_by_name_button.addEventListener("click", () => {
-            this.SortTasksByName();
+            try
+            {
+                this.SortTasksByName();
+            }
+            catch(error)
+            {
+                console.log(error);
+            }
             this.RerenderFunctionWrapper();
         });
         this.RerenderFunctionWrapper();

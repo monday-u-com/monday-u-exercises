@@ -13,14 +13,7 @@ export default async function TodoWebServer()
     const __dirname = Path.dirname(Path.join('node_modules/todo-mondayu-barakmaron/', '/www'));
     app.use(express.static(__dirname + '/www'));
     app.use(express.json());
-    /**
-     * bind the server and start listening
-     */
-    const server = app.listen(8000, function () {
-        const host = server.address().address;
-        const port = server.address().port;
-        console.log('Express app listening at http://%s:%s', host, port);
-    });
+    
     /**
      * index end point
      */
@@ -134,6 +127,15 @@ export default async function TodoWebServer()
             console.log(error);
             response.json({ status: "error", error});
         }    
+    });
+
+    /**
+     * bind the server and start listening
+     */
+     const server = app.listen(8000, function () {
+        const host = server.address().address;
+        const port = server.address().port;
+        console.log('Express app listening at http://%s:%s', host, port);
     });
 }
 

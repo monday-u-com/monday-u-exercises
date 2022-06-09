@@ -138,9 +138,12 @@ export default class ItemManager {
             // tasks object has name or data for error
             const item1 = a.name || a.data;
             const item2 = b.name || b.data;
+            if(typeof item1 === "undefined" || typeof item2 === "undefined")
+                throw new Error('Task is undefined');
             return item1.toLowerCase().localeCompare(item2.toLowerCase());
         });
         this.file_manager.WriteToFileTasksArray(this.tasks);
+        return true;
     }
 
     /**

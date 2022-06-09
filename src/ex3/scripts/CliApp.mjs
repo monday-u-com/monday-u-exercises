@@ -6,7 +6,7 @@ import figlet from 'figlet';
 import gradient from 'gradient-string';
 import chalk from 'chalk';
 import asciifyImage from 'asciify-image';
-import { CLI_NAME, CLI_DESCRIPTION, CLI_BEST_VIEW_INSTRUCTION, CLI_COMMAND_SELECT_MESSAGE, CLI_COMMAND_SELECT_OPTIONS, CLI_ADD_TASK_MESSAGE, CLI_ADD_TASK_VALIDATION_TEXT, CLI_DELETE_TASK_MESSAGE, CLI_DELETE_TASK_VALIDATION_TEXT, CLI_GET_TASKS_WITH_POKEMON_IMAGE, CLI_HELP_QUESTION_MESSAGE, CLI_HELP_INSTRUCTIONS_FIRST_SECTION, CLI_HELP_INSTRUCTIONS_SECOND_SECTION, CLI_YES_NO_OPTIONS } from './Strings.cjs';
+import { CLI_NAME, CLI_DESCRIPTION, CLI_BEST_VIEW_INSTRUCTION, CLI_COMMAND_SELECT_MESSAGE, CLI_COMMAND_SELECT_OPTIONS, CLI_ADD_TASK_MESSAGE, CLI_ADD_TASK_VALIDATION_TEXT, CLI_DELETE_TASK_MESSAGE, CLI_DELETE_TASK_VALIDATION_TEXT, CLI_CLEAR_ALL_TASKS_MESSAGE, CLI_GET_TASKS_WITH_POKEMON_IMAGE, CLI_HELP_QUESTION_MESSAGE, CLI_HELP_INSTRUCTIONS_FIRST_SECTION, CLI_HELP_INSTRUCTIONS_SECOND_SECTION, CLI_YES_NO_OPTIONS, CLI_COMPLETE_TASK_MESSAGE, CLI_COMPLETE_TASK_VALIDATION_TEXT } from './Strings.cjs';
 
 export default class CliApp
 {
@@ -34,6 +34,15 @@ export default class CliApp
                     return valid > 0 || CLI_ADD_TASK_VALIDATION_TEXT;
                   }
             },
+            complete_task_question: {
+                name: "task_id",
+                type: "input",
+                message: CLI_COMPLETE_TASK_MESSAGE,
+                validate: function (id) {
+                    var valid = Number.isInteger(parseInt(id));
+                    return valid || CLI_COMPLETE_TASK_VALIDATION_TEXT;
+                  }
+            },
             delete_task_question: {
                 name: "task_id",
                 type: "input",
@@ -42,6 +51,12 @@ export default class CliApp
                     var valid = Number.isInteger(parseInt(id));
                     return valid || CLI_DELETE_TASK_VALIDATION_TEXT;
                   }
+            },
+            clear_all_tasks_question: {
+                name: "clear_all",
+                type: "list",
+                message: CLI_CLEAR_ALL_TASKS_MESSAGE,
+                choices: CLI_YES_NO_OPTIONS
             },
             get_tasks_with_image_art_question: {
                 name: "image_art",
@@ -80,8 +95,17 @@ export default class CliApp
                     case "Add":
                         this.AddCommand();
                         break;
+                    case "Completed/Uncompleted":
+                        this.CompletedToggleCommand();
+                        break;
                     case "Delete":
                         this.DeleteCommand();
+                        break;
+                    case "Clear all":
+                        this.ClearAllCommand();
+                        break;
+                    case "Sort By Name":
+                        this.SortByName();
                         break;
                     case "Get":
                         this.GetTasks();
@@ -122,6 +146,21 @@ export default class CliApp
                     spinner.error({ text: result });
             });
     }
+    CompletedToggleCommand()
+    {
+        inquirer
+            .prompt([this.questions.complete_task_question])
+            .then(async (answer) => 
+            {
+                const spinner = createSpinner('Setting your todo as completed...').start();
+                const result = await this.CompleteToggleResolver(answer.task_id);
+                if(typeof result === "boolean")
+                    spinner.success({ text: "The todo was Set as completed." });
+                else
+                    spinner.error({ text: result });
+            });
+    }
+
     /**
      * handle delete command
      */
@@ -139,6 +178,39 @@ export default class CliApp
                     spinner.error({ text: result });
             });
     }
+
+    /**
+     * handle clear all command
+     */
+     ClearAllCommand()
+     {
+         inquirer
+             .prompt([this.questions.clear_all_tasks_question])
+             .then(async (answer) => 
+             {
+                const spinner = createSpinner('Clear your todos...').start();
+                let result;
+                if(answer.clear_all === "Yes")
+                    result = await this.ClearALLTaskResolver();
+                if(typeof result === "boolean")
+                    spinner.success({ text: "Cleared todos." });
+                else
+                    spinner.error({ text: answer.clear_all === "No" ? "Canceled clear all" : result });
+             });
+     }
+     /**
+     * handle sort by command
+     */
+      async SortByName()
+      {
+
+        const spinner = createSpinner('Sorting your todos by name...').start();
+        const result = await this.item_manager.SortArrayByName();
+        if(typeof result === "boolean")
+            spinner.success({ text: "Sorted by name all todos." });
+        else
+            spinner.error({ text: result });
+      }
     /**
      * handle help command
      */
@@ -170,7 +242,22 @@ export default class CliApp
     * gets task id and deletes it from file and array
     * @param {int} task_id 
     */
-    async  DeleteTaskResolver(task_id) {
+     async CompleteToggleResolver(task_id) {
+        try{
+            const complete_task = Promise.resolve(this.item_manager.CompleteTask(task_id));
+            await complete_task;
+            return true;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+
+    /**
+    * gets task id and deletes it from file and array
+    * @param {int} task_id 
+    */
+    async DeleteTaskResolver(task_id) {
         try{
             const delete_task = Promise.resolve(this.item_manager.RemoveTask(task_id));
             await delete_task;
@@ -182,9 +269,23 @@ export default class CliApp
     }
 
     /**
+    * deletes all tasks from file and array
+    */
+     async ClearALLTaskResolver() {
+        try{
+            const delete_tasks = Promise.resolve(this.item_manager.ClearArray());
+            await delete_tasks;
+            return true;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+
+    /**
     * gets all the task and prints it in order
     */
-    async  GetTasks() {
+    async GetTasks() {
         const tasks = this.item_manager.tasks;
         const promises = [];
         inquirer
@@ -192,6 +293,7 @@ export default class CliApp
         .then((answer) => 
         {
             tasks.forEach(async (task, index) => {
+                const chalk_style = task.completed ? chalk.bgGreen.strikethrough : chalk.bgBlue;
                 // check if task is pokemon
                 if(Number.isInteger(parseInt(task.id)))
                 { 
@@ -201,10 +303,10 @@ export default class CliApp
                         promises.push(Promise.resolve(this.AsciiArt(task, index)));
                     }
                     else
-                        promises.push(Promise.resolve(chalk.bgCyan(`${index + 1} ) Catch ${task.name}`)));
+                        promises.push(Promise.resolve(chalk_style(`${index + 1} ) Catch ${task.name}`)));
                 }
                 else
-                    promises.push(Promise.resolve(chalk.bgBlue(`${index + 1} ) ` + (task.name || task.data))));
+                    promises.push(Promise.resolve(chalk_style(`${index + 1} ) ` + (task.name || task.data))));
             });
             // wait for all images to parse to ascii art and display them
             Promise.all(promises).then((results) => {
