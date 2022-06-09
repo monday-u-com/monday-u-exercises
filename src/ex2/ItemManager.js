@@ -5,21 +5,25 @@ class ItemManager {
 
     addNewTask(taskValue) {
         this.taskArr.push(taskValue); //add the user value to the task array
-        localStorage.setItem("tasks", JSON.stringify(this.taskArr));//add the updated task array to the localStorage
+        this.updateLocalStorage(this.taskArr);
     }
 
     removeTask(taskValue) {
-        this.taskArr.splice(this.taskArr.indexOf(taskValue), 1);
-        localStorage.setItem("tasks", JSON.stringify(this.taskArr)); //add the updated task array to the localStorage
+        this.taskArr = this.taskArr.filter(task => task !== taskValue);
+        this.updateLocalStorage(this.taskArr);
     }
 
     sortArr() {
         this.taskArr.sort();
-        localStorage.setItem("tasks", JSON.stringify(this.taskArr)); //add the updated task array to the localStorage
+        this.updateLocalStorage(this.taskArr);
     }
 
     clearArr() {
         this.taskArr.length = 0;
-        localStorage.setItem("tasks", JSON.stringify(this.taskArr)); //add the updated task array to the localStorage
+        this.updateLocalStorage(this.taskArr);
+    }
+
+    updateLocalStorage(valueToUpdate) {
+        localStorage.setItem("tasks", JSON.stringify(valueToUpdate)); //add the updated task array to the localStorage
     }
 }
