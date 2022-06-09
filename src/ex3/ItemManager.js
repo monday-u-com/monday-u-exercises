@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import fs from "fs";
 import PokemonClient from "./PokemonClient.js";
+import Image from "ascii-art-image"
 
 const pokemonClientI = new PokemonClient();
 
@@ -15,11 +16,12 @@ class ItemManager {
         if (/^\d+(\,\d+)+$/.test(taskValue) || /^\d*$/.test(taskValue)) {
             pokemonClientI.getPokemons(taskValue).then((pokemons) => {
                 if (pokemons) {
-                    pokemons.forEach((pokemon) => {
-                        this.taskArr.push(`Catch ${pokemon}`);
-                        fs.writeFileSync("./Todos.txt", JSON.stringify(this.taskArr));
-                    })
                     console.log(chalk.green.bold("New Pokemons caught successfully"));
+                    pokemons.forEach((pokemon) => {
+                        this.taskArr.push(`Catch ${pokemon.name}`);
+                        fs.writeFileSync("./Todos.txt", JSON.stringify(this.taskArr));
+                        this.printAsciiImage(pokemon.sprites.front_default);
+                    })
                 } else {
                     console.log(chalk.red.bold(`faild to fetch pokemon with this input: ${taskValue}`));
                 }
@@ -73,6 +75,18 @@ class ItemManager {
             return true;
         }
         return false;
+    }
+
+    printAsciiImage(imageUrl) {
+
+        var image = new Image({
+            filepath: imageUrl,
+            alphabet: 'blocks'
+        });
+
+        image.write(function (err, rendered) {
+            console.log(rendered);
+        })
     }
 }
 

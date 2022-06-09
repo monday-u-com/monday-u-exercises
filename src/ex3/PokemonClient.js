@@ -14,7 +14,7 @@ class PokemonClient {
             });
             const responses = await Promise.all(promiseIDs);
             const result = await Promise.all(responses.map(r => r.json()));
-            return result.map(r => r.name)
+            return result
         } catch (e) {
             return false;
         }
