@@ -19,7 +19,7 @@ export default class ItemManager {
   tasksArray() {
     return this.TasksArray;
   }
-  taskToRmove(taskToRemove) {
+  removeTask(taskToRemove) {
     const index = taskToRemove;
     this.TasksArray.splice(index, 1);
     localStorage.setItem("tasks", JSON.stringify(this.TasksArray));
