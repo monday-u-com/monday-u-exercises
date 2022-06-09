@@ -86,7 +86,9 @@ class cliTodoFunctions {
 		if (this.checkIfExsitInList(task)) {
 			console.log(chalk.bgYellow(`${task.task} already exist`));
 		} else {
-			this.printImage(pokemomImage);
+			if (pokemomImage) {
+				this.printImage(pokemomImage);
+			}
 			tasks.push(task);
 			this.writeToList();
 		}
