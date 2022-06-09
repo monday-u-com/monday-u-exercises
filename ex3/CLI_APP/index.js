@@ -1,7 +1,5 @@
 #!/usr/bin/env node
-
 import { Command } from "commander";
-import chalkAnimation from "chalk-animation";
 import figlet from 'figlet';
 import PokemonClient from "./pokemonClient.js";
 import {
@@ -9,7 +7,6 @@ import {
   showTodos,
   deleteTodo,
   displayAscii,
-  inputOfNums
 } from "./itemManager.js";
 import inquire from "./inquire.js";
 
@@ -38,28 +35,23 @@ program
   .description(
     `To add an new Todo just run $node index.js add <Todo string>`
   )
-  .argument("<string>", "newTask")
+  .argument("<string>", "input")
   .action(async (newTask) => {
-    // If argument is passed
-    if(newTask){
-      // Check if Pokemon or not
-      if (inputOfNums(newTask)) {
-        pokemonClient.fetchPokemon(newTask).then((data) => {
-          return addTodo({
-            name: `YEAH! you just caught ${data.name} Cool! ◓ 🐾`,
-            pokemonId: data.id,
-          });
-      
-        });
-        
-    }else{
-      console.log(`Great ${newTask} was Added`);
-      return addTodo({ name: newTask.split(" "), pokemonId: -1 });
-    }   
-  
-  }
-  });
+    if (isNaN(newTask)) {
+      return addTodo({ name: newTask, pokemonId: -1 });
+    }
+    pokemonClient.fetchPokemon(newTask).then((data) => {
+      console.log(chalk.Blue(`Great ${data.name} was Added`));
+      return addTodo({
+        name: `YEAH! you just caught ${data.name} Cool! ◓ 🐾`,
+        pokemonId: data.id,
+      });
+    });
+    
 
+  });
+  
+  
 program
   .command("get")
   .description(
@@ -87,8 +79,8 @@ program
   just run :  $node index.js img <pokemon ID>`
   )
   .argument("<number>", "id")
-  .action(async (id) => {
-    await displayAscii(id);
+  .action(async (pokemonId) => {
+    await displayAscii(pokemonId);
   });
 program.command("help").description("Help Menu").action(async ()=>{
   
