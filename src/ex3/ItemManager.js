@@ -36,7 +36,7 @@ class ItemManager {
     }
 
     removeTask(index) {
-        if (checkIfEmpty()) return;
+        if (this.checkIfEmpty()) return;
         else if (this.taskArr.length <= index) console.log(chalk.red.bold("No value with this index!"))
         else {
             this.taskArr.splice(index, 1);
