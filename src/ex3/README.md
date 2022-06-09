@@ -9,18 +9,14 @@ Time for task #3!<br>
 **WebPage** - to run web page ui just call
 <br>
 <code>
-    import { WebServer } from 'todo-mondayu-barakmaron';
+    import { WebServer } from 'todo-mondayu-barakmaron';<br>
     WebServer();
 </code>
-<br>
-To see all end points do to
-<code>
-localhost:8000/docs 
-</code>
+
 <br>
 
 **CliApp** - to run cli tool just call
 <code>
-    import { CliAppRun } from 'todo-mondayu-barakmaron';
+    import { CliAppRun } from 'todo-mondayu-barakmaron';<br>
     CliAppRun();
 </code>
