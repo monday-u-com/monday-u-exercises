@@ -6,6 +6,7 @@ import figlet from 'figlet';
 import gradient from 'gradient-string';
 import chalk from 'chalk';
 import asciifyImage from 'asciify-image';
+import { CLI_NAME, CLI_DESCRIPTION, CLI_BEST_VIEW_INSTRUCTION, CLI_COMMAND_SELECT_MESSAGE, CLI_COMMAND_SELECT_OPTIONS, CLI_ADD_TASK_MESSAGE, CLI_ADD_TASK_VALIDATION_TEXT, CLI_DELETE_TASK_MESSAGE, CLI_DELETE_TASK_VALIDATION_TEXT, CLI_GET_TASKS_WITH_POKEMON_IMAGE, CLI_HELP_QUESTION_MESSAGE, CLI_HELP_INSTRUCTIONS_FIRST_SECTION, CLI_HELP_INSTRUCTIONS_SECOND_SECTION, CLI_YES_NO_OPTIONS } from './Strings.cjs';
 
 export default class CliApp
 {
@@ -13,61 +14,49 @@ export default class CliApp
     {
         this.item_manager = new ItemManager();
         this.intro_message = {
-            name: "The Best Todo list cli",
-            description: "This is a cli for a todo list go a head and check it out.",
-            best_view_instructions: "Open console/terminal in full screen for the best user experience!!!"
+            name: CLI_NAME,
+            description: CLI_DESCRIPTION,
+            best_view_instructions: CLI_BEST_VIEW_INSTRUCTION
         };
         this.questions = {
             get_command_question: {
                 name: "command",
                 type: "list",
-                message: "Hi master what is your command for me:",
-                choices: ["Add", "Delete", "Get", "Help", "Exit"]
+                message: CLI_COMMAND_SELECT_MESSAGE,
+                choices: CLI_COMMAND_SELECT_OPTIONS
             },
             add_task_question: {
                 name: "task_text",
                 type: "input",
-                message: "Enter your todo text:",
+                message: CLI_ADD_TASK_MESSAGE,
                 validate: function (task_text) {
                     var valid = task_text.length;
-                    return valid > 0 || `Please enter a valid string`;
+                    return valid > 0 || CLI_ADD_TASK_VALIDATION_TEXT;
                   }
             },
             delete_task_question: {
                 name: "task_id",
                 type: "input",
-                message: "Enter your todos id to delete:",
+                message: CLI_DELETE_TASK_MESSAGE,
                 validate: function (id) {
                     var valid = Number.isInteger(parseInt(id));
-                    return valid || `Please enter a valid id number`;
+                    return valid || CLI_DELETE_TASK_VALIDATION_TEXT;
                   }
             },
             get_tasks_with_image_art_question: {
                 name: "image_art",
                 type: "list",
-                message: `${new inquirer.Separator()}\n Do you want to get tasks with image art:`,
-                choices: ["Yes", "No"]
+                message: `${new inquirer.Separator()}\n ${CLI_GET_TASKS_WITH_POKEMON_IMAGE}`,
+                choices: CLI_YES_NO_OPTIONS
             },
             help_question: {
                 name: "help",
                 type: "list",
-                message: `${new inquirer.Separator()}\n Do you want to execute a command:`,
-                choices: ["Yes", "No"],
-                instructions: `Hello user this is a todo cli.\n` +
-                            `The usage is very simple and contains 1-2 steps (depending on the command you wish to use).\n` +
-                            `First you need to select a base command from the list that is presented to you,\n` +
-                            `Use the arrows up/down to change your selection once you are happy with your selection use Enter key to confirm it.\n` +
+                message: `${new inquirer.Separator()}\n ${CLI_HELP_QUESTION_MESSAGE}`,
+                choices: CLI_YES_NO_OPTIONS,
+                instructions: CLI_HELP_INSTRUCTIONS_FIRST_SECTION +
                             `${new inquirer.Separator()}\n` +
-                            `List of command:\n` +
-                            `   Add - adds a todo to the app.\n` +
-                                    `      Usage: todo of type <string>.\n` +
-                                    `      Example: "Clean the kitchen", "1,2,3" (get pokemons), "55" (get pokemon)\n\n` + 
-                            `   Delete - deletes a todo from the app.\n` +
-                                    `      Usage: todo id of type <number>.\n` +
-                                    `      Example: 1\n\n` +
-                            `   Get - Gets all todo in the app.\n` +
-                                    `      Usage: no additional input required\n\n` +
-                            `   Help - Shows this message.\n`
+                            CLI_HELP_INSTRUCTIONS_SECOND_SECTION
             }
         }
     }
@@ -75,7 +64,7 @@ export default class CliApp
     /**
     * init the tasks in items manager
     */
-    async  init() {
+    async init() {
         await this.item_manager.SetArrayFromFile();
     }
     /**
@@ -193,29 +182,49 @@ export default class CliApp
     }
 
     /**
-    * gets all the task and prints it
+    * gets all the task and prints it in order
     */
     async  GetTasks() {
         const tasks = this.item_manager.tasks;
+        const promises = [];
         inquirer
         .prompt([this.questions.get_tasks_with_image_art_question])
         .then((answer) => 
         {
-            tasks.forEach((task) => {
+            tasks.forEach(async (task, index) => {
+                // check if task is pokemon
                 if(Number.isInteger(parseInt(task.id)))
                 { 
-                    if(answer.image_art === "Yes")               
-                        asciifyImage(task.images.front_default, { fit: 'original' }, (error, converted) =>
-                            {
-                                console.log(figlet.textSync(`Catch ${task.name}`));
-                                console.log(error || converted);
-                            });
+                    if(answer.image_art === "Yes")  
+                    {
+                        // task images is url need async await to print in order          
+                        promises.push(Promise.resolve(this.AsciiArt(task, index)));
+                    }
                     else
-                        console.log(`Catch ${task.name}`);
+                        promises.push(Promise.resolve(chalk.bgCyan(`${index + 1} ) Catch ${task.name}`)));
                 }
                 else
-                    console.log(task.name || task.data);
+                    promises.push(Promise.resolve(chalk.bgBlue(`${index + 1} ) ` + (task.name || task.data))));
             });
-        });
+            // wait for all images to parse to ascii art and display them
+            Promise.all(promises).then((results) => {
+                results.forEach((result) => {
+                    console.log(result);
+                })
+            });
+        });        
     }
+
+    /**
+     * parse task to title and ascii art
+     * @param {Object} task 
+     * @param {number} index 
+     * @returns text to print in console (title + image)
+     */
+    async AsciiArt(task, index)
+    {
+        const ascii_promise = await asciifyImage(task.images.front_default, { fit: 'original' });   
+        const console_log_text = figlet.textSync(`${index + 1} ) Catch ${task.name}`) + ascii_promise;    
+        return console_log_text;
+    }    
 }
