@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/Roniana11/monday-u-exercises#readme",
   "dependencies": {
+    "ascii-art-image": "^1.4.0",
+    "asciify-image": "^0.1.8",
+    "inquirer": "^8.2.4",
     "node-fetch": "^3.2.5"
   }
 }

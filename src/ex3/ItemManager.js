@@ -1,113 +1,99 @@
 import { PokemonClient } from './PokemonClient.js';
+import chalk from 'chalk';
 import * as fs from 'fs';
 
-export async function addItem(item) {
-  const writeStream = fs.createWriteStream('tasks.txt', { flags: 'a' });
-  const isNumber = !isNaN(item);
-  let newTask;
-
-  if (isNumber) {
-    newTask = await addPokemon(item);
-  } else {
-    newTask = item;
-  }
-  if(newTask){
-  writeStream.write(`${newTask}\n`, (err) => {
-    if (err) {
-      console.log('task was not added');
-    } else {
-      console.log('task was added succesfuly!');
-    }
+export async function addTodo(todo) {
+  writeToFile(`${todo}\n`, 'Task was not added', 'Task was added succesfuly!', {
+    flags: 'a',
   });
 }
-  return newTask;
-}
 
-async function addPokemon(id) {
+
+
+export async function addPokemon(id) {
   const pokemonClient = new PokemonClient();
   const result = await pokemonClient.fetchSinglePokemon(id);
-  if (typeof result === 'string') {
-    console.log(result);
-    return '';
-  } else {
-  return result.task;
+
+  if (!result) {
+    console.log(chalk.red(`could not fetch the pokemon ${id}.`));
+    return;
   }
+
+  writeToFile(
+    `Catch ${result.name}\n`,
+    'Pokemon was not added',
+    'Pokemon was added succesfuly!',
+    { flags: 'a' }
+  );
 }
 
-export async function addOnlyPokemons(pokemons) {
-  const writeStream = fs.createWriteStream('tasks.txt', { flags: 'a' });
+
+
+export async function addPokemons(pokemons) {
   const pokemonClient = new PokemonClient();
   const result = await pokemonClient.fetchPokemons(pokemons);
 
-  if (typeof result === 'string') {
-    console.log(result);
-    return;
-  } else {
-    result.forEach((task) => {
-      writeStream.write(`${task.task}\n`, (err) => {
-        if (err) {
-          console.log('task was not added');
-        } else {
-          console.log('task was added succesfuly!');
-        }
-      });
-    });
-  }
-}
-
-export function removeItem(idx) {
-  const fileData = fs.readFileSync('tasks.txt').toString();
-  const tasksArray = fileData.split('\n').filter((task) => task !== '');
-
-  if (idx > tasksArray.length - 1 || idx < 0) {
-    console.log('index is invalid!');
+  if (!result) {
+    console.log(`could not fetch one of the pokemons ${pokemons}`);
     return;
   }
 
-  tasksArray.splice(idx, 1);
-
-  const newData = tasksArray.join('\n');
-  const writeStream = fs.createWriteStream('tasks.txt');
-
-  writeStream.write(newData, (err) => {
-    if (err) {
-      console.log('something went wrong');
-    } else {
-      console.log('task was deleted successfuly');
-    }
+  result.forEach((pokemon) => {
+    writeToFile(
+      `Catch ${pokemon.name}\n`,
+      'Pokemon was not added',
+      'Pokemon was added succesfuly!',
+      { flags: 'a' }
+    );
   });
 }
+
+
+
+export function removeItem(indices) {
+  const fileData = fs.readFileSync('tasks.txt').toString(); // reading file data
+  const tasksArray = fileData.split('\n').filter((task) => task !== ''); // creating array of lines
+  const indicesSorted = [...indices].sort((a, b) => b - a);
+
+  indicesSorted.forEach((idx) => {
+    if (idx > tasksArray.length - 1 || idx < 0) { // checking idx validity
+      throw new Error(chalk.red('Index is invalid!'));
+    }
+    tasksArray.splice(idx, 1); // removing a line
+  });
+
+  const newData = tasksArray.join('\n').concat('\n'); // creating new string without the lines
+  writeToFile(newData,'Could not delete tasks','Tasks were deleted successfuly'); // writing back to the file
+}
+
+
 
 export function removeAll() {
-  const writeStream = fs.createWriteStream('tasks.txt');
-
-  writeStream.write('', (err) => {
-    if (err) {
-      console.log('something went wrong');
-    } else {
-      console.log('All tasks where deleted');
-    }
-  });
+  writeToFile('', 'Could not delete all tasks', 'All tasks were deleted');
 }
+
+
 
 export function printTasks() {
   const fileData = fs.readFileSync('tasks.txt', 'utf8');
-  console.log(fileData);
+  const tasksArray = fileData.split('\n').filter((task) => task !== '');
+  let currentColor = '#DEADED';
+  tasksArray.forEach((line) => { // add changing colors to each line
+    console.log(chalk.hex(currentColor)(line));
+    currentColor = currentColor === '#FFA500' ? '#DEADED' : '#FFA500';
+  });
 }
 
-/*   export async function addPokemons(ids) {
-    const pokemonsArray = ids.split(',');
-    const pokemonClient = new PokemonClient();
-    let result;
-    if (pokemonsArray.length === 1) {
-      result = await pokemonClient.fetchSinglePokemon(pokemonsArray);
+
+
+function writeToFile(text, errorMsg, successMsg, options = {}) {
+  const writeStream = fs.createWriteStream('tasks.txt', options);
+
+  writeStream.write(text, (err) => {
+    if (err) {
+      console.log(chalk.blue(errorMsg));
     } else {
-      result = await pokemonClient.fetchPokemons(pokemonsArray);
+      console.log(chalk.magenta(successMsg));
     }
-    result.forEach((pokemon) => {
-      if (!this.todos.find((p) => p.id === pokemon.id)) {
-        this.todos.push(pokemon);
-      }
-    });
-  }
- */
+  });
+}
