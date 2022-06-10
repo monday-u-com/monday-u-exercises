@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable camelcase */
 import inquirer from 'inquirer';
@@ -6,7 +7,7 @@ import figlet from 'figlet';
 import gradient from 'gradient-string';
 import chalk from 'chalk';
 import asciifyImage from 'asciify-image';
-import ItemManager from './ItemManager';
+import ItemManager from './ItemManager.mjs';
 import {
   CLI_NAME, CLI_DESCRIPTION, CLI_BEST_VIEW_INSTRUCTION,
   CLI_COMMAND_SELECT_MESSAGE, CLI_COMMAND_SELECT_OPTIONS,

@@ -1,8 +1,9 @@
+/* eslint-disable import/extensions */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable array-callback-return */
 /* eslint-disable camelcase */
-import PokemonClient from './PokemonClient';
-import FileManager from './FileManager';
+import PokemonClient from './PokemonClient.mjs';
+import FileManager from './FileManager.mjs';
 
 export default class ItemManager {
   constructor() {

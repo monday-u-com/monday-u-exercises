@@ -107,6 +107,7 @@ export default class DomManager {
      * task click call back function
      */
   TaskClick() {
+    // eslint-disable-next-line no-alert
     alert(this.innerHTML);
   }
 

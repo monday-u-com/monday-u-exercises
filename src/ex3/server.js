@@ -1,8 +1,9 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 import express from 'express'; // Import Node.js core module
 import Path from 'path';
-import ItemManager from './scripts/ItemManager';
+import ItemManager from './scripts/ItemManager.mjs';
 
 export default async function TodoWebServer() {
   const app = express();
