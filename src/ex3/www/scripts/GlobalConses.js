@@ -12,4 +12,4 @@ export const TASK_HTML = `<li class="todo_task animate__animated animate__fadeIn
                                 </button>
                             </div>
                         </li>`;
-export const POKEMON_IMAGE_DIV = `<div class="image_sprites"></div>`;
+export const POKEMON_IMAGE_DIV = '<div class="image_sprites"></div>';

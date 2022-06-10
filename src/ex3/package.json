@@ -1,6 +1,6 @@
 {
   "name": "todo-mondayu-barakmaron",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Time for task #3!<br>",
   "main": "index.js",
   "scripts": {
@@ -17,11 +17,15 @@
     "figlet": "^1.5.2",
     "gradient-string": "^2.0.1",
     "inquirer": "^8.2.4",
-    "nanospinner": "^1.1.0"
+    "nanospinner": "^1.1.0",
+    "node-fetch": "^3.2.6"
   },
   "type": "module",
   "devDependencies": {
-    "@types/node-fetch": "^2.6.1"
+    "@types/node-fetch": "^2.6.1",
+    "eslint": "^8.17.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
   },
   "files": [
     "/*",

@@ -1,15 +1,13 @@
 #!/usr/bin/env node
-import CliApp from './scripts/CliApp.mjs';
-import TodoWebServer from './server.js';
+import CliApp from './scripts/CliApp';
+import TodoWebServer from './server';
 
-export function CliAppRun()
-{
-    const cli = new CliApp();
-    cli.init();
-    cli.run();
+export function CliAppRun() {
+  const cli = new CliApp();
+  cli.init();
+  cli.run();
 }
 
-export function WebServer()
-{
-    const server = TodoWebServer();
+export function WebServer() {
+  TodoWebServer();
 }
