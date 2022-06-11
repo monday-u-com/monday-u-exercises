@@ -9,9 +9,9 @@ const sortButtonsContainer = document.querySelector(SORT_BTNS_SELECTOR);
 const pokemonImagesContainer = document.querySelector(POKEMON_IMAGES_SELECTOR);
 const pokemonCatchText = document.querySelector(POKEMON_TEXT_SELECTOR);
 
-import ItemManager from "../cli/item-manager.js";
+import ItemManager from "../server/item-manager.js";
 const tasks = new ItemManager(renderTasks);
-import PokemonClient from "../cli/pokemon-client.js";
+import PokemonClient from "../server/clients/pokemon-client.js";
 const pokemonClient = new PokemonClient();
 
 clearButton.onclick = () => tasks.clear();

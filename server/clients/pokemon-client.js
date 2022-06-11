@@ -1,3 +1,5 @@
+// The Pokemon Client (using axios) goes here
+
 export default class PokemonClient {
    constructor() {
       this.API_URL = "https://pokeapi.co/api/v2/pokemon/";
