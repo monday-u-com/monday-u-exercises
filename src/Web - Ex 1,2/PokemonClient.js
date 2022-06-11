@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 class PokemonClient {
 	constructor() {
 		this.API_BASE = 'https://pokeapi.co/api/v2';
@@ -10,11 +9,7 @@ class PokemonClient {
 				`${this.API_BASE}/pokemon/${pokemonId}`
 			);
 			const result = await response.json();
-			let pokemomImage =
-				result.sprites.other['official-artwork'].front_default;
-			let pokemonName = result.name;
-
-			return { pokemonName, pokemomImage };
+			return result.name;
 		} catch (error) {
 			const errorMessage = `Pokemon with ID ${pokemonId} was not found`;
 			return errorMessage;
@@ -51,4 +46,3 @@ class PokemonClient {
 		}
 	}
 }
-export default PokemonClient;
