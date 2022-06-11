@@ -18,16 +18,16 @@ But this kind of work requires a bit more code organization, so...
 
 ### The requirements:
 
-- [ ] Refactor your current code to use classes with methods (you can copy+paste the code to a new file and refactor there - just make sure to update the `scripts` tag in your `index.html`)
-- [ ] Create an ItemManager class (in a new file) to manage the item adding/removing + pokemon fetching - this class does _not_ deal with the DOM
-- [ ] Store todos in an array (class attribute) - this should be in the ItemManager class
-- [ ] Render todos from the array using a separate render method
-- [ ] Remove todos by updating the list and re-rendering
-- [ ] Create a PokemonClient class (in a new file) to get data from the Pokemon API - remember the HTML has to be aware of this file...
-- [ ] If the user only inputs a number, add a `Catch ${pokemon}` todo to your array of todos (and render it, of course)
-- [ ] If the user inputs a comma separated list of IDs, retrieve multiple pokemon in parallel using `Promise.all` and render them all
-- [ ] Handle any errors in retrieving the pokemon (i.e. when a user inputs an invalid ID like 44124. See below gif for an example)
-- [ ] Add a normal todo item if the input is not a pokemon
+- [v] Refactor your current code to use classes with methods (you can copy+paste the code to a new file and refactor there - just make sure to update the `scripts` tag in your `index.html`)
+- [v] Create an ItemManager class (in a new file) to manage the item adding/removing + pokemon fetching - this class does _not_ deal with the DOM
+- [v] Store todos in an array (class attribute) - this should be in the ItemManager class
+- [v] Render todos from the array using a separate render method
+- [v] Remove todos by updating the list and re-rendering
+- [v] Create a PokemonClient class (in a new file) to get data from the Pokemon API - remember the HTML has to be aware of this file...
+- [v] If the user only inputs a number, add a `Catch ${pokemon}` todo to your array of todos (and render it, of course)
+- [v] If the user inputs a comma separated list of IDs, retrieve multiple pokemon in parallel using `Promise.all` and render them all
+- [v] Handle any errors in retrieving the pokemon (i.e. when a user inputs an invalid ID like 44124. See below gif for an example)
+- [v] Add a normal todo item if the input is not a pokemon
 
 When you finish it should look like this:
 
@@ -35,12 +35,12 @@ When you finish it should look like this:
 
 ### Bonus
 
-- [ ] Add a delete all option - make sure you're actually deleting the data, not just removing from the DOM
-- [ ] Validate that the user isn't adding the same pokemon todo more than once
-- [ ] Get more nested data from the pokemon API and display it as part of the todo item (e.g. “catch bulbasaur the grass/leaf type pokemon”)
+- [v] Add a delete all option - make sure you're actually deleting the data, not just removing from the DOM
+- [v] Validate that the user isn't adding the same pokemon todo more than once
+- [v] Get more nested data from the pokemon API and display it as part of the todo item (e.g. “catch bulbasaur the grass/leaf type pokemon”)
   - you'll have to explore the API to understand where to extract that data from =]
-- [ ] Modify the API request to use a pokemon’s name instead of its ID if you find a pokemon name (from a closed list of values) in the user’s input. For example, if the user inputs "charmender", you should get the data about charmender from the API by this pokemon's name - you'll have to read the docs for this too to see how that works ;)
-- [ ] In the solution file you'll see this piece of code: `pokemons.forEach(this.addPokemonItem);`
+- [v] Modify the API request to use a pokemon’s name instead of its ID if you find a pokemon name (from a closed list of values) in the user’s input. For example, if the user inputs "charmender", you should get the data about charmender from the API by this pokemon's name - you'll have to read the docs for this too to see how that works ;)
+- [v] In the solution file you'll see this piece of code: `pokemons.forEach(this.addPokemonItem);`
   - The `addPokemonItem` method adds the pokemon to the array of todos and renders the todos list again
   - Can you figure out why this line of code is inefficient? Can you improve it?
 - [ ] Have another cool idea? Go wild!
