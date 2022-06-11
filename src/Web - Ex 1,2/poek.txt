@@ -1,0 +1,21 @@
+
+export class PokemonClient {
+	constructor() {
+		this.API_BASE = 'https://pokeapi.co/api/v2';
+	}
+	async getPokemon(pokemonId) {
+		try {
+			
+			const response = await fetch(`${this.API_BASE}/pokemon/${pokemonId}`);
+			const result = await response.data;
+			//axios.post('/', { fs: 'fs' });
+			return result.name;
+		} catch (error) {
+			const errorMessage =
+				await `Pokemon with ID ${pokemonId} was not found`;
+			return errorMessage;
+		}
+	}
+}
+
+// export default PokemonClient;

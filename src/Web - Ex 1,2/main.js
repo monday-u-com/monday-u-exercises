@@ -1,3 +1,9 @@
+import { ItemManager } from './itemManager.js';
+import { PokemonClient } from './pokemonClient.js';
+import { DomManager } from './domManager.js';
+const itemManager = new ItemManager();
+const pokemonClient = new PokemonClient();
+const domManager = new DomManager();
 class Main {
 	constructor() {}
 	init() {
@@ -5,42 +11,26 @@ class Main {
 		submitButton.addEventListener('click', (event) => {
 			let input = domManager.getElement('list-item-input').value;
 			event.preventDefault();
-			// check if number
-			if (/^[0-9]+$/.test(input)) {
-				pokemonClient.getPokemon(input).then((pokemon) => {
-					let item = pokemon.endsWith('was not found')
-						? pokemon // error handling
-						: `catch ${pokemon}`; // real pokemon
-					this.addAndRenderItem(item);
-				});
-			}
-			// check if comma separated list of IDs
-			else if (/^[0-9, ]+$/.test(input)) {
-				pokemonClient
-					.getAllPokemons(input.split(',').map((e) => e.trim()))
-					.then((pokemons) => {
-						// error handling
-						if (typeof pokemons === 'string') {
-							this.addAndRenderItem(pokemons);
-						}
-						// real pokemons
-						else {
-							setTimeout(() => {
-								pokemons.forEach((pokemon) => {
-									if (pokemon !== undefined)
-										this.addAndRenderItem(
-											`catch ${pokemon}`
-										);
-								});
-							}, 50);
-						}
+			if (/^[0-9, ]+$/.test(input)) {
+				const ids = input.split(',');
+				ids.forEach((id) => {
+					pokemonClient.getPokemon(id).then((pokemon) => {
+						let item = pokemon.endsWith('was not found')
+							? pokemon // error handling
+							: `catch ${pokemon}`; // real pokemon
+						console.log(item);
+						this.addAndRenderItem(item).then(
+							itemManager.handleNoTasks()
+						);
 					});
+				});
 			}
 			// regular tasks
 			else {
 				this.addAndRenderItem(input);
+				itemManager.handleNoTasks();
 			}
-			itemManager.handleNoTasks();
+
 			// reset current task input
 			domManager.getElement('list-item-input').value = '';
 		});
@@ -53,16 +43,12 @@ class Main {
 		});
 	}
 
-	addAndRenderItem(input) {
+	async addAndRenderItem(input) {
 		itemManager.addTask(input);
 		domManager.render(itemManager.tasks);
 	}
 }
-
 const main = new Main();
-const itemManager = new ItemManager();
-const domManager = new DomManager();
-const pokemonClient = new PokemonClient();
 
 document.addEventListener('DOMContentLoaded', function () {
 	main.init();

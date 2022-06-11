@@ -1,5 +1,6 @@
-class DomManager {
-	render(tasks) {
+export class DomManager {
+	async render(tasks) {
+		console.log(tasks);
 		const ul = document.querySelector('#list');
 		ul.innerHTML = '';
 		tasks.forEach((task) => {
@@ -37,11 +38,13 @@ class DomManager {
 		DeleteTaskBtn.onclick = function (event) {
 			event.preventDefault();
 			event.stopPropagation();
-			itemManager.removeTask(task);
-			domManager.render(itemManager.tasks);
-			itemManager.handleNoTasks();
+			ItemManager.removeTask(task);
+			this.render(ItemManager.tasks);
+			this.handleNoTasks();
 		};
 		li.appendChild(DeleteTaskBtn);
 		return li;
 	}
 }
+
+//export default DomManager;

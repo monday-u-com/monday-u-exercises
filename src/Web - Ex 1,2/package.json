@@ -1,16 +1,16 @@
 {
-	"dependencies": {
-		"node-fetch": "^3.2.6"
-	},
-	"type": "module",
 	"name": "ex1",
 	"description": "Welcome to your first monday-u task! Hope you are excited as we are!   This is going to be an ongoing task, so don't worry, we are going to build this awesome project step by step, from zero to hero :)",
 	"version": "1.0.0",
 	"main": "main.js",
-	"devDependencies": {},
+	"type": "module",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"axios": "^0.27.2",
+		"node-fetch": "^3.2.6"
+	}
 }
