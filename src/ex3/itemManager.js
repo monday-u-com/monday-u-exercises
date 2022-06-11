@@ -80,8 +80,15 @@ export class ItemManager {
     }
 
     _updateListFromFile() {
-        const data = fs.readFileSync(TXT_FILE, 'utf-8');
-        return data.split("\n");
+        let data = [];
+        try{
+            data = fs.readFileSync(TXT_FILE, 'utf-8');
+            data = data.split("\n");
+        }
+        catch{
+            fs.writeFileSync(TXT_FILE,'');                
+        }
+        return data;
     }
 }
 

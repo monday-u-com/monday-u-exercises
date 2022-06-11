@@ -3,7 +3,7 @@ import { ItemManager } from "./itemManager.js"
 import fetch from "node-fetch";
 
 const ITEM_MANAGER = new ItemManager();
-let ASCII_JSON_FILE = [];
+const TASK_LIST_IS_EMPTY = "Task list is empty";
 
 async function addTask(taskText) {
   if (_isNumbers(taskText)) {
@@ -29,6 +29,10 @@ async function getAsciiPaints() {
   const response = await fetch(URL);
   const data = await response.json();
   return data;
+}
+
+function isEmptyList(list) {
+  return list.length === 1 && list[0] == "";
 }
 
 function getCommanderProgram() {
@@ -57,7 +61,6 @@ function getCommanderProgram() {
         }
         catch (err) {
           console.log("Ascii paint not available");
-          // console.log(arr);     
         }
       }
     });
@@ -73,7 +76,7 @@ function getCommanderProgram() {
         });
       }
       else {
-        console.log("No task exist!")
+        console.log(TASK_LIST_IS_EMPTY);
       }
     });
 
@@ -87,10 +90,15 @@ function getCommanderProgram() {
         ITEM_MANAGER.removeAllTasks();
       }
       else {
-        taskIndex.forEach(task => {
-          const taskList = ITEM_MANAGER._getTaskList();
-          ITEM_MANAGER.removeTask(taskList[task]); // modified to use the original 'removeTask' function
-        })
+        const taskList = ITEM_MANAGER._getTaskList();
+        if (!isEmptyList(taskList)) {
+          taskIndex.forEach(task => {
+            ITEM_MANAGER.removeTask(taskList[task]); // modified to use the original 'removeTask' function
+          });
+        }
+        else {
+          console.log(TASK_LIST_IS_EMPTY);
+        }
       }
     });
   return program;

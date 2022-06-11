@@ -4,11 +4,12 @@ export class PokemonClient {
     constructor() {
         this.API_BASE = `https://pokeapi.co/api/v2/`;
     }
+
     async catchPokemons(numbers) { // numbers -> array of IDs
-        const API = this.API_BASE + `pokemon/`;
+        const URL = this.API_BASE + `pokemon/`;
         let res = [];
         try {
-            const promises = numbers.map((num) => fetch(API + num + '/'));
+            const promises = numbers.map((num) => fetch(URL + num + '/'));
             const response = await Promise.all(promises);
             for (const item of response) { //resolve each promise
                 res.push(await item.json());
@@ -22,6 +23,8 @@ export class PokemonClient {
         }
 
     }
+
+
     async getPokemonTypeById(number) {
         const URL = this.API_BASE + `type/${number}/`;
         try {
