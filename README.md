@@ -13,6 +13,8 @@ This is going to be so much fun! Here are a few general details:
 
 **Exercise 3** - [Advance Node.js, CLI](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex3)
 
+**Exercise 4** - [Express.js](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex4)
+
 # Submitting your tasks
 Create a pull request in your forked repository and send to your mentor when it's ready.
 
