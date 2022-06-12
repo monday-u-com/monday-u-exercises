@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 
 export class PokemonClient {
     constructor() {
-        this.API_BASE = `https://pokeapi.co/api/v2/`;
+        const API_BASE = `https://pokeapi.co/api/v2/`;
     }
 
     async catchPokemons(numbers) { // numbers -> array of IDs
@@ -17,13 +17,9 @@ export class PokemonClient {
             return res; //one or more pokemon objects
         }
         catch (err) { //Promise.all failed
-            // console.log(err);
-            // throw err;
             console.log("PokemonClient error");
         }
-
     }
-
 
     async getPokemonTypeById(number) {
         const URL = this.API_BASE + `type/${number}/`;
@@ -37,5 +33,4 @@ export class PokemonClient {
             throw err;
         }
     }
-
 }

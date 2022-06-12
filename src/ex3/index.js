@@ -2,17 +2,17 @@ import { Command } from "commander";
 import { ItemManager } from "./itemManager.js"
 import fetch from "node-fetch";
 
-const ITEM_MANAGER = new ItemManager();
+const itemManager = new ItemManager();
 const TASK_LIST_IS_EMPTY = "Task list is empty";
 
 async function addTask(taskText) {
   if (_isNumbers(taskText)) {
     const numbersList = taskText.split(',');
-    await ITEM_MANAGER.addCatchPokemonTask(numbersList);
+    await itemManager.addCatchPokemonTask(numbersList);
     return numbersList;
   }
   else {
-    ITEM_MANAGER.addPlainTextTask(taskText);
+    itemManager.addPlainTextTask(taskText);
     return false;
   }
 }
@@ -69,7 +69,7 @@ function getCommanderProgram() {
     .command("get")
     .description("Get the tasks list")
     .action(() => {
-      const taskList = ITEM_MANAGER._getTaskList();
+      const taskList = itemManager._getTaskList();
       if (taskList[0] != '') { // handling empty file scenario
         taskList.forEach((task, index) => {
           console.log(index, " - ", task);
@@ -87,13 +87,13 @@ function getCommanderProgram() {
     .option('-a, --all', "delete all tasks")
     .action((taskIndex, options) => {
       if (options.all) {
-        ITEM_MANAGER.removeAllTasks();
+        itemManager.removeAllTasks();
       }
       else {
-        const taskList = ITEM_MANAGER._getTaskList();
+        const taskList = itemManager._getTaskList();
         if (!isEmptyList(taskList)) {
           taskIndex.forEach(task => {
-            ITEM_MANAGER.removeTask(taskList[task]); // modified to use the original 'removeTask' function
+            itemManager.removeTask(taskList[task]); // modified to use the original 'removeTask' function
           });
         }
         else {

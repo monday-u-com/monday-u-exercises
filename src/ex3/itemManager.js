@@ -11,7 +11,6 @@ export class ItemManager {
     async addCatchPokemonTask(IDs) {
         const newTaskList = [...this._getTaskList()];
         const pClient = this.pokemonClient;
-        IDs.map((num) => parseInt(num));
         try {
             const pokemonsRawJson = await pClient.catchPokemons(IDs);
             pokemonsRawJson.forEach((pokemonJson) => {
@@ -91,5 +90,3 @@ export class ItemManager {
         return data;
     }
 }
-
-
