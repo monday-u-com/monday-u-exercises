@@ -30,7 +30,7 @@ async function run() {
 			todo.readFromList();
 			break;
 		case 3:
-			todo.SelectTaskToBeDeleted();
+			todo.selectTaskToBeDeleted();
 			break;
 
 		case 4:

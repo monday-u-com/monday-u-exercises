@@ -1,0 +1,72 @@
+.container {
+    padding: 15px;
+    border-radius: 7px;
+    max-width: 50%;
+    margin: auto;
+    background-color: aliceblue;
+    width: 500px;
+}
+
+body {
+    background-color: darkslategray;
+}
+
+h1 {
+    text-align: center;
+    margin-left: auto;
+    padding: auto;
+}
+
+img {
+    display: block;
+    margin: auto;
+    width: 50%;
+}
+
+
+
+.removeTask-btn {
+    background-color: azure;
+    cursor: pointer;
+    float: right;
+    height: auto;
+    width: auto;
+}
+
+
+
+.taskDone-btn {
+    background-color: azure;
+    float: right;
+    height: 2p0;
+    width: auto;
+}
+
+.taskDone-btn-pressed {
+    text-decoration: line-through;
+    padding: 7px;
+    border: 1px solid black;
+}
+
+.container-addTodo {
+    text-align: center;
+    margin-bottom: 11px;
+}
+
+.container-tasks {
+    background-color: #d8bfd8;
+    width: 50%;
+    margin: auto;
+    text-align: ceter;
+}
+
+.task {
+    padding: 7px;
+    border: 1px solid black;
+    
+}
+
+.task:hover {
+    cursor: pointer;
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(255, 228, 196, 1) 0%, rgba(0, 212, 255, 1) 100%);
+}

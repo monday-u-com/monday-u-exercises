@@ -142,7 +142,7 @@ class cliTodoFunctions {
 		console.log('Todo was deleted Succesfuly');
 	}
 
-	async SelectTaskToBeDeleted() {
+	async selectTaskToBeDeleted() {
 		let deleteTask = true;
 		let options = this.readFromList(undefined, deleteTask);
 		const choice = await inquirer.prompt({
