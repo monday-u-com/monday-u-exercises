@@ -1,0 +1,21 @@
+{
+	"name": "ex1",
+	"description": "Welcome to your first monday-u task! Hope you are excited as we are!   This is going to be an ongoing task, so don't worry, we are going to build this awesome project step by step, from zero to hero :)",
+	"version": "1.0.0",
+	"main": "server.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start:dev": "nodemon server.js",
+		"start": "node server.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"axios": "^0.27.2",
+		"express": "^4.18.1"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.16",
+		"webpack": "^5.73.0"
+	}
+}
