@@ -1,0 +1,26 @@
+{
+  "name": "monday-u-exercises",
+  "version": "1.0.0",
+  "description": "Welcome to monday-u official github repository! We are very excited to have you here!  \r This is going to be so much fun! Here are a few general details:",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Roniana11/monday-u-exercises.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Roniana11/monday-u-exercises/issues"
+  },
+  "homepage": "https://github.com/Roniana11/monday-u-exercises#readme",
+  "dependencies": {
+    "ascii-art-image": "^1.4.0",
+    "asciify-image": "^0.1.8",
+    "inquirer": "^8.2.4",
+    "node-fetch": "^3.2.5"
+  }
+}
