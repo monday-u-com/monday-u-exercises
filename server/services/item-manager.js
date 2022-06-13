@@ -1,4 +1,4 @@
-export default class ItemManager {
+class ItemManager {
    constructor(render) {
       this.items = [];
       this.render = render;
@@ -33,3 +33,7 @@ export default class ItemManager {
       this.render(false);
    }
 }
+
+module.exports = {
+   ItemManager,
+};
