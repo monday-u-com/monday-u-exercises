@@ -11,11 +11,11 @@ class Main {
     }
 
     handleItem = async () => {
-        // implement
+        // implement enter to the server and render the page
     }
 
     deleteItem = async item => {
-        // implement
+        // implement delete from the server and render the page
     }
 
     renderItems = async () => {
