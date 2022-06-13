@@ -21,6 +21,7 @@ Use your code from the last exercise and refactor where needed.
 - [x] Detailed help option
 - [x] Read/Write/Delete todos from a file
 
+
 When you finish it should look like this:
 
 ![](../assets/cli.gif)
@@ -31,4 +32,5 @@ When you finish it should look like this:
 - [ ] Add colors to your cli tool
 - [ ] Add Inquirer.js and make you cli tool interactive
 - [x] Display pokemon image (ascii art)
+
 
