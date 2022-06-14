@@ -4,11 +4,11 @@ import chalk from "chalk";
 import pokemonClient from "./pokemon-client.js";
 import file from "./file-manager.js";
 
-export default class TaskManager {
+class TaskManager {
    getTasks = () => file.getAllTasks();
 
    async add(task) {
-      const allPokemonNames = await pokemonClient.getAllPokemonNames();
+      const allPokemonNames = await file.getFilePokemonNames();
       if (
          task
             .replace(/\s/g, "")
@@ -40,7 +40,7 @@ export default class TaskManager {
          sortedTasks = this.getTasks().sort().reverse();
       }
       file.clearTasks();
-      file.addTask(sortedTasks);
+      sortedTasks.forEach((task) => file.addTask(task));
    }
 
    _pokemonTasksHandle(pokemon, pokemonIDS, i) {
@@ -96,3 +96,5 @@ export default class TaskManager {
       });
    }
 }
+
+export default new TaskManager();

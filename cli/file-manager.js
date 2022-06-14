@@ -1,5 +1,5 @@
 import fs from "fs";
-import PokemonClient from "./pokemon-client.js";
+import pokemonClient from "./pokemon-client.js";
 const POKEMON_FILE_NAME = "pokemon-names.json";
 const TASKS_FILE_NAME = "tasks.json";
 
@@ -19,7 +19,7 @@ class File {
 
    addTask(task) {
       let allTasks = this.getAllTasks();
-      allTasks = [...allTasks, ...task];
+      allTasks = [...allTasks, task];
       try {
          this._writeToFile(allTasks);
       } catch (error) {
@@ -48,18 +48,15 @@ class File {
       }
    }
 
-   sortTasks() {}
-
-   async getPokemonNames() {
+   async getFilePokemonNames() {
       if (fs.existsSync(POKEMON_FILE_NAME)) {
          const allPokemonNames = JSON.parse(fs.readFileSync(POKEMON_FILE_NAME));
 
          return allPokemonNames;
       } else {
-         const pokemonClient = new PokemonClient();
          const data = await pokemonClient.getAllPokemonNames();
          const allPokemonNames = JSON.stringify(data);
-         fs.writeFileSync(POKEMON_FILE_NAME, data);
+         fs.writeFileSync(POKEMON_FILE_NAME, allPokemonNames);
 
          return allPokemonNames;
       }

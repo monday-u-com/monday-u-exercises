@@ -3,15 +3,13 @@ import "isomorphic-fetch";
 import { Command } from "commander";
 import chalk from "chalk";
 import chalklet from "chalklet";
-import TaskManager from "./task-manager.js";
+import tasksManager from "./task-manager.js";
 
 const colorOptions = {
    type: "string",
    text: { value: "white" },
    bg: { value: "blue" },
 };
-
-const tasksManager = new TaskManager();
 
 const program = new Command();
 

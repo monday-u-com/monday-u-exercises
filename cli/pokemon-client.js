@@ -30,4 +30,5 @@ class PokemonClient {
       return pokemonTypes.join();
    }
 }
+
 export default new PokemonClient();
