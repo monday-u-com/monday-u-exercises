@@ -63,9 +63,9 @@ program
    .argument("<string>", "direction")
    .action((direction) => {
       if (direction === "up") {
-         tasksManager.sortUp();
+         tasksManager.sort("up");
       } else if (direction === "down") {
-         tasksManager.sortDown();
+         tasksManager.sort("down");
       } else {
          console.log(chalk.bgRed("Unfamiliar direction argument. Please type up or down"));
       }

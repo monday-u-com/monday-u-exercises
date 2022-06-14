@@ -3,6 +3,7 @@ import inquirer from "inquirer";
 import chalk from "chalk";
 import pokemonClient from "./pokemon-client.js";
 import file from "./file-manager.js";
+
 export default class TaskManager {
    getTasks = () => file.getAllTasks();
 
@@ -27,22 +28,19 @@ export default class TaskManager {
       }
    }
 
-   async remove() {
-      file.deleteTask(await this._chooseTaskToDelete());
-   }
+   remove = async () => file.deleteTask(await this._chooseTaskToDelete());
 
-   clear() {
+   clear = () => file.clearTasks();
+
+   sort(direction) {
+      let sortedTasks;
+      if (direction === "down") {
+         sortedTasks = this.getTasks().sort();
+      } else {
+         sortedTasks = this.getTasks().sort().reverse();
+      }
       file.clearTasks();
-   }
-
-   sortDown() {
-      this.getTasks.sort();
-      //this.render(false);
-   }
-
-   sortUp() {
-      this.getTasks.sort().reverse();
-      //this.render(false);
+      file.addTask(sortedTasks);
    }
 
    _pokemonTasksHandle(pokemon, pokemonIDS, i) {

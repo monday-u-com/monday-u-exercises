@@ -19,7 +19,7 @@ class File {
 
    addTask(task) {
       let allTasks = this.getAllTasks();
-      allTasks = [...allTasks, task];
+      allTasks = [...allTasks, ...task];
       try {
          this._writeToFile(allTasks);
       } catch (error) {
@@ -47,6 +47,8 @@ class File {
          throw error;
       }
    }
+
+   sortTasks() {}
 
    async getPokemonNames() {
       if (fs.existsSync(POKEMON_FILE_NAME)) {
