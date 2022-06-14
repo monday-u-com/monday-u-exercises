@@ -5,6 +5,8 @@ class ItemManager {
       this.pendingTasks = 0;
    }
 
+   getAll() {}
+
    add(task) {
       this.items.push(task);
       this.pendingTasks++;

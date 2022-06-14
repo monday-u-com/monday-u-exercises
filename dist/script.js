@@ -9,11 +9,10 @@ const sortButtonsContainer = document.querySelector(SORT_BTNS_SELECTOR);
 const pokemonImagesContainer = document.querySelector(POKEMON_IMAGES_SELECTOR);
 const pokemonCatchText = document.querySelector(POKEMON_TEXT_SELECTOR);
 
-async function getAll() {
-   const response = await fetch("/getAll");
-   const tasks = await response.json();
-   return tasks;
-}
+import ItemClient from "./clients/item-client.js";
+
+const api = new ItemClient();
+
 renderTasks(true);
 
 // import ItemManager from "../server/services/item-manager";
@@ -42,7 +41,7 @@ async function renderTasks(toAnimate) {
    while (allTasksContainer.firstChild) {
       allTasksContainer.removeChild(allTasksContainer.lastChild);
    }
-   const tasks = await getAll();
+   const tasks = await api.getAllTasks();
    tasks.items.forEach((item) => {
       const taskContainer = createTaskContainer();
       const newTask = createNewTask(taskContainer, item);

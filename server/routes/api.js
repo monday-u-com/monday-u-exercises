@@ -13,7 +13,13 @@ router.get("/getAll", async (req, res) => {
    } else {
       const fileData = await fs.promises.readFile(TASKS_FILE_NAME);
       itemManager.items = JSON.parse(fileData);
+      itemManager.pendingTasks = itemManager.items.length;
    }
+   res.status(200).json(itemManager);
+});
+
+router.delete("/:id", async (req, res) => {
+   itemManager.remove(req.params.id);
    res.status(200).json(itemManager);
 });
 
