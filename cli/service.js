@@ -12,6 +12,13 @@ const pokemonClient = new PokemonClient();
 let allPokemonNames = [];
 
 export async function init() {
+   tasksFileInit();
+   pokemonFileInit();
+
+   return tasksManager;
+}
+
+function tasksFileInit() {
    if (!fs.existsSync(TASKS_FILE_NAME)) {
       fs.writeFileSync(TASKS_FILE_NAME, JSON.stringify([]));
    } else {
@@ -21,7 +28,9 @@ export async function init() {
          tasksManager.add(task);
       });
    }
+}
 
+async function pokemonFileInit() {
    if (!fs.existsSync(POKEMON_FILE_NAME)) {
       allPokemonNames = await getAllPokemonNames();
       let data = JSON.stringify(allPokemonNames);
@@ -29,8 +38,6 @@ export async function init() {
    } else {
       allPokemonNames = JSON.parse(fs.readFileSync(POKEMON_FILE_NAME));
    }
-
-   return tasksManager;
 }
 
 async function getAllPokemonNames() {
