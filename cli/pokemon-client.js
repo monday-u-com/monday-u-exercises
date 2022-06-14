@@ -1,4 +1,4 @@
-export default class PokemonClient {
+class PokemonClient {
    constructor() {
       this.API_URL = "https://pokeapi.co/api/v2/pokemon/";
    }
@@ -30,3 +30,4 @@ export default class PokemonClient {
       return pokemonTypes.join();
    }
 }
+export default new PokemonClient();

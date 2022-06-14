@@ -3,7 +3,7 @@ import "isomorphic-fetch";
 import { Command } from "commander";
 import chalk from "chalk";
 import chalklet from "chalklet";
-import { init, addTask, chooseTaskToDelete } from "./service.js";
+import TaskManager from "./task-manager.js";
 
 const colorOptions = {
    type: "string",
@@ -11,7 +11,7 @@ const colorOptions = {
    bg: { value: "blue" },
 };
 
-const tasksManager = await init();
+const tasksManager = new TaskManager();
 
 const program = new Command();
 
@@ -29,15 +29,14 @@ program
    .description("Add a task to your to-do list")
    .argument("<string>", "task")
    .action(async (task) => {
-      addTask(task);
+      tasksManager.add(task);
    });
 
 program
    .command("delete")
    .description("Delete a task of your choice")
    .action(async () => {
-      const index = await chooseTaskToDelete();
-      tasksManager.remove(index);
+      await tasksManager.remove();
       console.log(chalk.bgRedBright("Todo deleted successfully"));
    });
 
@@ -53,8 +52,8 @@ program
    .command("get")
    .description("Get entire to-do list")
    .action(() => {
-      tasksManager.items.forEach((item) => {
-         console.log(chalk.bgCyan(item));
+      tasksManager.getTasks().forEach((task) => {
+         console.log(chalk.bgCyan(task));
       });
    });
 
