@@ -1,6 +1,9 @@
+import ItemClient from './clients/item_client.js'
+
 class Main {
     constructor() {
         this.itemClient = new ItemClient()
+        this.list = document.getElementById("list");
     }
 
     init = async () => {
@@ -11,28 +14,50 @@ class Main {
     }
 
     handleItem = async () => {
-        // implement
+        const item = document.getElementById("list-item-input").value
+        try {
+            await this.itemClient.postItem(item)
+            this.renderItems()
+        } catch (e) {
+            console.log(e)
+            alert("There was an error creating the item.")
+        }
     }
 
     deleteItem = async item => {
-        // implement
+        let index = this.findIndexOfItem(item)
+        await this.itemClient.deleteItem(index)
+        this.renderItems()
+    }
+
+    findIndexOfItem(item) {
+        const listItems = this.list.getElementsByTagName('li')
+        for (let i = 0; i < listItems.length; i++) {
+            if (listItems[i].innerText === item) {
+                return i
+            }
+        }
     }
 
     renderItems = async () => {
-        const list = document.getElementById("list");
         list.innerHTML = "";
+        document.getElementById("list-item-input").value = ' ';
 
-        const items = 'where do you get the items from now that you have a server..?'
+        const items = await this.itemClient.getItems()
 
         items.forEach(item => {
-            const listItem = document.createElement("li");
-            listItem.classList.add('list-item');
-            listItem.innerHTML = item;
-
-            const listItemDeleteButton = this._createDeleteButton(item);
-            listItem.appendChild(listItemDeleteButton);
-            list.appendChild(listItem);
+            this.createItem(item)
         })
+    }
+
+    createItem = async (item) => {
+        const listItem = document.createElement("li");
+        listItem.classList.add('list-item');
+        listItem.innerHTML = item;
+
+        const listItemDeleteButton = this._createDeleteButton(item);
+        listItem.appendChild(listItemDeleteButton);
+        this.list.appendChild(listItem);
     }
 
     _createDeleteButton = item => {
