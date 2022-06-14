@@ -1,20 +1,40 @@
 
 const fs = require('fs').promises;
 const itemFile = './server/data/itemsList.json'
-const { v4: uuidv4 } = require('uuid');
-uuidv4(); 
+const { v4: ideKeyGen } = require('uuid');
+
 
 async function getAllItems() {
     return await readItemFile();
 }
 
+
 async function addItem(item) {
+  
     let data = await readItemFile();
     if (!data) {
         data = [];
     }
-    data.push(jedi);
+  
+    item.itemId = ideKeyGen()
+    data.push(item);
     await writeToItemFile(data);
+}
+
+async function getItemById(itemId) {
+    const data = await readItemFile();
+    return data.find((item) => item.itemId === itemId);
+}
+
+async function deleteItem(itemId) {
+    const data = await getAllItems();
+    const index = data.findIndex((item) => item.itemId === itemId);
+   
+    const deletedItem = data[index]
+    data.splice(index, 1);
+    console.log(deletedItem)
+    await writeToItemFile(data);
+    return deletedItem
 }
 
 
@@ -39,4 +59,6 @@ async function writeToItemFile(content) {
 module.exports = {
     addItem,
     getAllItems,
+    getItemById,
+    deleteItem,
 };

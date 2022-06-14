@@ -2,7 +2,7 @@
   "name": "ex4mondayuorimarom",
   "version": "1.0.0",
   "description": "You know what they say about #4: you'll remember it *for*ever (ha)",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node index.js",
     "start:dev": "nodemon app.js",
