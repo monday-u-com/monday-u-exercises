@@ -11,7 +11,7 @@ const {
 const itemRouter = express.Router();
 
 itemRouter.get('/', auth, getAllItems);
-//itemRouter.post('/',auth,validateSchema(itemSchema) ,createItem);
+itemRouter.post('/',auth, createItem);
 
 
 
