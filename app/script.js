@@ -11,8 +11,7 @@ const pokemonCatchText = document.querySelector(POKEMON_TEXT_SELECTOR);
 
 import ItemManager from "./item-manager.js";
 const tasks = new ItemManager(renderTasks);
-import PokemonClient from "../cli/pokemon-client.js";
-const pokemonClient = new PokemonClient();
+import pokemonClient from "../cli/pokemon-client.js";
 
 clearButton.onclick = () => tasks.clear();
 sortDownButton.onclick = () => tasks.sortDown();
