@@ -21,6 +21,7 @@ class ItemManager {
     async postItem(req, res) {
         try {
             let items = await readFile("./server/data/data.json")
+            if (!items) items = []
             let newItem = req.body.item
             if (isListOfPokemons(newItem)) {
                 let listOfPokemons = newItem.split(',');
@@ -32,8 +33,11 @@ class ItemManager {
                 res.status(200).json(items)
             } else if (isPokemon(newItem)) {
                 const pokemon = await getPokemon(newItem)
-                items = [...items, `Catch ${pokemon.data.name}`]
-                await writeToFile("./server/data/data.json", items)
+                const pokemonExists = await pokemonExistsInTodoList(pokemon.data.name)
+                if (!pokemonExists) {
+                    items = [...items, `Catch ${pokemon.data.name}`]
+                    await writeToFile("./server/data/data.json", items)
+                }
                 res.status(200).json(items)
             } else {
                 items = [...items, newItem]

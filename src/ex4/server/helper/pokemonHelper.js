@@ -1,3 +1,5 @@
+import { readFile } from './fileHandler.js'
+
 export function isPokemon(item) {
     if (!isNaN(item)) return true
     return false
@@ -11,7 +13,7 @@ export function isListOfPokemons(item) {
 }
 
 export async function pokemonExistsInTodoList(pokemon) {
-    const list = await readFile()
-    if (list.includes(`catch ${pokemon}`)) return true
+    const list = await readFile("./server/data/data.json")
+    if (list.includes(`Catch ${pokemon}`)) return true
     return false
 }

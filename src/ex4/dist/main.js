@@ -41,7 +41,7 @@ class Main {
 
     renderItems = async () => {
         list.innerHTML = "";
-        document.getElementById("list-item-input").value = ' ';
+        document.getElementById("list-item-input").value = '';
 
         const items = await this.itemClient.getItems()
 

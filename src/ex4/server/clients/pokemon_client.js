@@ -1,5 +1,6 @@
 // The Pokemon Client (using axios) goes here
 import axios from "axios"
+import { pokemonExistsInTodoList } from "../helper/pokemonHelper.js"
 
 export async function getPokemon(num) {
     const url = `https://pokeapi.co/api/v2/pokemon/${num}`
@@ -13,7 +14,7 @@ export async function getPokemon(num) {
 
 export async function getAllPokemons(listOfPokemons) {
     let listOfPokemonNames = []
-    listOfPokemons.forEach(item => {
+    listOfPokemons.forEach(async item => {
         listOfPokemonNames.push(getPokemon(item))
     })
     await Promise.all(listOfPokemonNames).then(res => {
