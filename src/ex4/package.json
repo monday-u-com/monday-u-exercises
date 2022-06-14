@@ -1,18 +1,30 @@
 {
   "name": "ex4mondayuorimarom",
   "version": "1.0.0",
-  "description": "",
+  "description": "You know what they say about #4: you'll remember it *for*ever (ha)",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "start:dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "OriMarom",
   "license": "ISC",
   "dependencies": {
+    "compression": "^1.7.4",
     "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
+    "express-validator": "^6.14.1",
+    "fs": "^0.0.1-security",
     "nodemon": "^2.0.16",
     "uuid": "^8.3.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orimaro123/monday-u-exercises.git#ex4"
+  },
+  "bugs": {
+    "url": "https://github.com/orimaro123/monday-u-exercises/issues"
+  },
+  "homepage": "https://github.com/orimaro123/monday-u-exercises/tree/ex4#readme"
 }
