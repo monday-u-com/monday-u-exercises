@@ -3,7 +3,7 @@ import {
   NOT_A_POKEMON,
   FAILED_TO_FETCH,
 } from "./GlobalConstants.js";
-import { PokemonClient } from "./PokemonClient.js";
+import PokemonClient from "./PokemonClient.js";
 
 export class ItemManager {
   constructor() {
@@ -100,7 +100,6 @@ export class ItemManager {
 
   toggleCompleted(taskID) {
     const task = this.tasks.find((task) => {
-      console.log(task, task.id, taskID);
       if (task.id == taskID) {
         return task;
       }

@@ -1,6 +1,7 @@
 import { ALL_POKEMONS_NAMES_LIST } from "./PokemonNamesList.js";
 import { NOT_A_POKEMON } from "./GlobalConstants.js";
-export class PokemonClient {
+
+export default class PokemonClient {
   constructor() {
     this.pokemonNames = ALL_POKEMONS_NAMES_LIST;
     this.URL = "https://pokeapi.co/api/v2/pokemon/";
@@ -72,7 +73,9 @@ export class PokemonClient {
   }
 
   createUnableToFetchListOFIds(idsList) {
-    const resString = `Failed to fetch pokemons with this input ${idsList.join(", ")}`;
+    const resString = `Failed to fetch pokemons with this input ${idsList.join(
+      ", "
+    )}`;
     return resString;
   }
 }
