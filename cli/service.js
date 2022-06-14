@@ -9,6 +9,7 @@ const POKEMON_FILE_NAME = "pokemon-names.json";
 const TASKS_FILE_NAME = "tasks.json";
 const tasksManager = new ItemManager(render);
 const pokemonClient = new PokemonClient();
+let allPokemonNames = [];
 
 export async function init() {
    if (!fs.existsSync(TASKS_FILE_NAME)) {
@@ -21,7 +22,6 @@ export async function init() {
       });
    }
 
-   let allPokemonNames = [];
    if (!fs.existsSync(POKEMON_FILE_NAME)) {
       allPokemonNames = await getAllPokemonNames();
       let data = JSON.stringify(allPokemonNames);
