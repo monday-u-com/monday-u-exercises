@@ -1,37 +1,36 @@
 // Create an ItemClient class here. This is what makes requests to your express server (your own custom API!)
 
-import fetch from "node-fetch";
+
 
 
 class ItemClient {
-    async fetchAllItems() {
-      const url = "/item" 
+  constructor(){
+    
+  }
+     async fetchAllItems() {
+      const url = "http://localhost:8080/item" 
       
       const errorResponse = {
         error: true,
-        data: ,
+       
         description: `Items were not found`,
       };
       try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          return errorResponse;
-        }
-        const json = await response.json();
+        const response = await axios.get(url);
+      
       
           return {
             error: false,
-            data: json,
-            description: `Items with ${json} data`,
+            data: response.data,
+            description: `Items with ${response.data} data`,
           };
        
-        return errorResponse;
+        
       } catch (error) {
         console.log("this is error fetching the items");
         return errorResponse;
       }
-    }
+    } 
 }
 
 
-export default ItemClient;

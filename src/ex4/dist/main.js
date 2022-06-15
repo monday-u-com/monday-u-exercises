@@ -1,62 +1,54 @@
-import ItemClient from "./clients/itemClient";
-
 class Main {
-    constructor() {
-        this.itemClient = new ItemClient()
-    }
-    /* callAPI(){
-        fetch("http://localhost:8080/")
-        .then(res => res.text())
-    } */
-    init = async () => {
-        const addItemButton = document.getElementById("list-item-submit");
-        addItemButton.addEventListener("click", this.handleItem);
-        //const getAllItems = this.itemClient.fetchAllItems()
-        //this.callAPI()
-        
-        await this.renderItems(); // this will make it so that any time you refresh the page you'll see the items already in your todo list
-    }
+  constructor() {
+    this.itemClient = new ItemClient();
+  }
 
-    handleItem = async () => {
-     
-        // implement
-    }
+  init = async () => {
+    const addItemButton = document.getElementById("list-item-submit");
+    addItemButton.addEventListener("click", this.handleItem);
 
-    deleteItem = async item => {
-        // implement
-    }
+    const itemsData = await this.itemClient.fetchAllItems();
 
-    renderItems = async () => {
-        
-        const list = document.getElementById("list");
-        list.innerHTML = "";
+    await this.renderItems(itemsData); // this will make it so that any time you refresh the page you'll see the items already in your todo list
+  };
 
-        const items = 'where do you get the items from now that you have a server..?'
+  handleItem = async () => {
+    // implement
+  };
 
-        items.forEach(item => {
-            const listItem = document.createElement("li");
-            listItem.classList.add('list-item');
-            listItem.innerHTML = item;
+  deleteItem = async (item) => {
+    // implement
+  };
 
-            const listItemDeleteButton = this._createDeleteButton(item);
-            listItem.appendChild(listItemDeleteButton);
-            list.appendChild(listItem);
-        })
-    }
+  renderItems = async (itemsData) => {
+    const list = document.getElementById("list");
+    list.innerHTML = "";
 
-    _createDeleteButton = item => {
-        const button = document.createElement("img");
-        button.src = "./images/delete_icon.svg";
-        button.classList.add('list-item-delete-button');
-        button.addEventListener("click", _ => this.deleteItem(item));
+    const items = itemsData.data;
 
-        return button
-    }
+    items.forEach((item) => {
+      const listItem = document.createElement("li");
+      listItem.classList.add("list-item");
+      listItem.innerHTML = item.name;
+
+      const listItemDeleteButton = this._createDeleteButton(item);
+      listItem.appendChild(listItemDeleteButton);
+      list.appendChild(listItem);
+    });
+  };
+
+  _createDeleteButton = (item) => {
+    const button = document.createElement("img");
+    button.src = "./images/delete_icon.svg";
+    button.classList.add("list-item-delete-button");
+    button.addEventListener("click", (_) => this.deleteItem(item));
+
+    return button;
+  };
 }
 
 const main = new Main();
 
 document.addEventListener("DOMContentLoaded", function () {
-    main.init();
-   
+  main.init();
 });

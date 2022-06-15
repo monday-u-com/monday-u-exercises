@@ -14,7 +14,7 @@ const itemRouter = express.Router();
 
 itemRouter.get('/', getAllItems);
 itemRouter.get('/:id', auth, getItemById);
-itemRouter.post('/create_item',auth, createItem);
+itemRouter.post('/create_item',auth,  createItem);
 itemRouter.delete('/delete_item/:id',auth, deleteItem)
 
 

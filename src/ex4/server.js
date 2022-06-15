@@ -1,6 +1,7 @@
 // Express boilerplate, hosting the `dist` file, connecting to the routes
 const fs = require('fs')
 const express = require('express');
+const path = require("path")
 const compression = require('compression');
 require('express-async-errors');
 const logger = require('./server/middleware/logger')
@@ -9,6 +10,9 @@ const errorHandler = require('./server/middleware/error_handler');
 const itemRouter = require('./server/routes/itemRouter');
 const port = 8080;
 const server = express();
+
+server.use(express.urlencoded({ extended: true }));
+server.use(express.text());
 
 
 
