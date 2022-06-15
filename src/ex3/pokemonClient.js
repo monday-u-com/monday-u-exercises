@@ -1,12 +1,12 @@
 import fetch from "node-fetch";
+const API_BASE = `https://pokeapi.co/api/v2/`;
 
 export class PokemonClient {
     constructor() {
-        const API_BASE = `https://pokeapi.co/api/v2/`;
     }
 
     async catchPokemons(numbers) { // numbers -> array of IDs
-        const URL = this.API_BASE + `pokemon/`;
+        const URL = API_BASE + `pokemon/`;
         let res = [];
         try {
             const promises = numbers.map((num) => fetch(URL + num + '/'));
@@ -22,7 +22,7 @@ export class PokemonClient {
     }
 
     async getPokemonTypeById(number) {
-        const URL = this.API_BASE + `type/${number}/`;
+        const URL = API_BASE + `type/${number}/`;
         try {
             const response = await fetch(URL);
             const result = await response.json();
