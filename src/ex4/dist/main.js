@@ -15,9 +15,12 @@ class Main {
 
     handleItem = async () => {
         const item = document.getElementById("list-item-input").value
+        let loading = document.getElementById('spinner')
         try {
+            loading.style.visibility = 'visible'
             await this.itemClient.postItem(item)
             this.renderItems()
+            loading.style.visibility = 'hidden'
         } catch (e) {
             console.log(e)
             alert("There was an error creating the item.")
@@ -25,8 +28,11 @@ class Main {
     }
 
     deleteItem = async item => {
+        let loading = document.getElementById('spinner')
         let index = this.findIndexOfItem(item)
+        loading.style.visibility = 'visible'
         await this.itemClient.deleteItem(index)
+        loading.style.visibility = 'hidden'
         this.renderItems()
     }
 
