@@ -33,9 +33,12 @@ class ItemManager {
                 res.status(200).json(items)
             } else if (isPokemon(newItem)) {
                 const pokemon = await getPokemon(newItem)
-                const pokemonExists = await pokemonExistsInTodoList(pokemon.data.name)
+                if (pokemon === undefined) {
+                    res.status(404).json(items)
+                }
+                const pokemonExists = await pokemonExistsInTodoList(pokemon?.data?.name)
                 if (!pokemonExists) {
-                    items = [...items, `Catch ${pokemon.data.name}`]
+                    items = [...items, `Catch ${pokemon?.data?.name}`]
                     await writeToFile("./server/data/data.json", items)
                 }
                 res.status(200).json(items)

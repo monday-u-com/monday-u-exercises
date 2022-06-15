@@ -20,7 +20,9 @@ export async function getAllPokemons(listOfPokemons) {
     await Promise.all(listOfPokemonNames).then(res => {
         listOfPokemonNames = []
         res.forEach(item => {
-            listOfPokemonNames.push(item.data.name)
+            if (item !== undefined) {
+                listOfPokemonNames.push(item?.data?.name)
+            }
         })
     })
     return listOfPokemonNames
