@@ -7,35 +7,32 @@ class Main {
     const addItemButton = document.getElementById("list-item-submit");
     addItemButton.addEventListener("click", this.handleItem);
 
-    
-
     await this.renderItems(); // this will make it so that any time you refresh the page you'll see the items already in your todo list
   };
 
   handleItem = async () => {
     // implement
     console.log("hi handle item");
-    console.log(addItemButton)
+    
   };
 
   deleteItem = async (item) => {
     // implement
     const itemId = item.itemId;
     const itemInDOM = document.getElementById(item.itemId);
-   // itemInDOM.remove();
+    itemInDOM.remove();
     this.itemClient.deleteItemById(itemId);
-    
-    this.renderItems()
-
   };
 
   renderItems = async () => {
     const itemsData = await this.itemClient.fetchAllItems();
+    
+    const items = itemsData.data;
+    
     const list = document.getElementById("list");
     list.innerHTML = "";
 
-
-    const items = itemsData.data;
+    
 
     items.forEach((item) => {
       const listItem = document.createElement("li");
