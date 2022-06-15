@@ -12,7 +12,7 @@ const server = express();
 
 
 
-server.use([logger, compression(), express.json()]);
+server.use([logger, compression(), express.json(),express.static("dist")]);
 server.use('/item', itemRouter);
 
 

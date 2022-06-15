@@ -1,16 +1,24 @@
+import ItemClient from "./clients/itemClient";
+
 class Main {
     constructor() {
         this.itemClient = new ItemClient()
     }
-
+    /* callAPI(){
+        fetch("http://localhost:8080/")
+        .then(res => res.text())
+    } */
     init = async () => {
         const addItemButton = document.getElementById("list-item-submit");
         addItemButton.addEventListener("click", this.handleItem);
-
+        //const getAllItems = this.itemClient.fetchAllItems()
+        //this.callAPI()
+        
         await this.renderItems(); // this will make it so that any time you refresh the page you'll see the items already in your todo list
     }
 
     handleItem = async () => {
+     
         // implement
     }
 
@@ -19,6 +27,7 @@ class Main {
     }
 
     renderItems = async () => {
+        
         const list = document.getElementById("list");
         list.innerHTML = "";
 
@@ -49,4 +58,5 @@ const main = new Main();
 
 document.addEventListener("DOMContentLoaded", function () {
     main.init();
+   
 });
