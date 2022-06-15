@@ -4,11 +4,12 @@ const compression = require("compression");
 require("express-async-errors");
 const errorHandler = require("./server/middleware/error_handler");
 const router = require("./server/routes/api");
+const bodyParser = require("body-parser");
 
 const port = 8080;
 const server = express();
 
-server.use([compression(), express.json()]);
+server.use([compression(), bodyParser.json(), express.json()]);
 server.use(express.static("dist"));
 
 server.use("/", router);
