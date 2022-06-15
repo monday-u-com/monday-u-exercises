@@ -1,52 +1,234 @@
 class Main {
     constructor() {
-        this.itemClient = new ItemClient()
+        this.todoInput = document.querySelector('#todo-input');
+        this.addBtn = document.querySelector('#todo-input-btn');
+        this.sortOrder = document.querySelector('#select-sort');
+        this.editTodoElement = document.querySelector('#edit-todo');
+        this.editTodoInput = document.querySelector('#edit-todo-input');
+        this.editTodoApproveBtn = document.querySelector('#edit-todo-approve-btn');
+        this.editTodoCancelBtn = document.querySelector('#edit-todo-cancel-btn');
+        this.todoList = document.querySelector('#todo-list');
+        this.deleteAllBtn = document.querySelector('#footer-btn');
+        this.spinnerElement = document.querySelector('#spinner');
+        this.itemClient = new ItemClient;
+        this.localStorageManager = new LocalStorageManager;
+
+        this.todoListData = [];
     }
 
-    init = async () => {
-        const addItemButton = document.getElementById("list-item-submit");
-        addItemButton.addEventListener("click", this.handleItem);
-
-        await this.renderItems(); // this will make it so that any time you refresh the page you'll see the items already in your todo list
+    init() {
+        this.todoInput.addEventListener('keyup', (event) => this._onUserInputKeyUp(event));
+        this.todoInput.addEventListener('keypress', (event) => this._onAddBtnKeyPress(event));
+        this.addBtn.addEventListener('click', (event) => this._onAddBtnClicked(event));
+        this.sortOrder.addEventListener('change', (event) => this._onSortChange(event));
+        this.editTodoApproveBtn.addEventListener('click', (event) => this._onEditTodoApproveBtn(event));
+        this.editTodoCancelBtn.addEventListener('click', (event) => this._onEditTodoCancelBtn(event));
+        this.deleteAllBtn.addEventListener('click', (event) => this._onDeleteAllBtnClicked(event));
+        this._setSortBy();
     }
 
-    handleItem = async () => {
-        // implement
+    async render() {
+        try {
+            this._toggleSpinner(true);
+            await Promise.all([
+                this._showPendingTodos(),
+                this._showTodosList()
+            ]);
+        } catch (e) {
+            console.error(e)
+        }
+        this._toggleSpinner(false);
+        setTimeout(() => this.todoInput.focus(), 0);
     }
 
-    deleteItem = async item => {
-        // implement
+
+    _onUserInputKeyUp(event) {
+        if (event) {
+            if (this.todoInput.value.trim().length !== 0) {
+                this.addBtn.classList.add('active');
+            } else {
+                this.addBtn.classList.remove('active');
+            }
+        }
     }
 
-    renderItems = async () => {
-        const list = document.getElementById("list");
-        list.innerHTML = "";
+    _onAddBtnKeyPress(event) {
+        if (event.key === 'Enter' && this.addBtn.classList.contains('active')) {
+            this._onAddBtnClicked();
+        } else if (event.key === 'Enter' && this.todoInput.value.trim().length === 0) {
+            alert('Please add a new todo');
+        }
+    }
 
-        const items = 'where do you get the items from now that you have a server..?'
+    async _onAddBtnClicked() {
+        let todos;
+        this._toggleSpinner(true);
+        try {
+            this.addBtn.disabled = true;
+            this.todoInput.disabled = true;
+            todos = await this.itemClient.addTodo(this.todoInput.value);
+            await this.render();
+        } catch (e) {
+            console.error(e);
+        }
+        this._toggleSpinner(false);
+        this.addBtn.classList.remove('active');
+        this.addBtn.disabled = false;
+        this.todoInput.disabled = false;
+        (todos && todos.success) && setTimeout(() => this._checkForAddedDuplicatePokemon(todos.body), 0);
+    }
 
-        items.forEach(item => {
-            const listItem = document.createElement("li");
-            listItem.classList.add('list-item');
-            listItem.innerHTML = item;
+    _onSortChange() {
+        this.localStorageManager.saveSortBy(this.sortOrder.value);
+        this.render();
+    }
 
-            const listItemDeleteButton = this._createDeleteButton(item);
-            listItem.appendChild(listItemDeleteButton);
-            list.appendChild(listItem);
+    async _onEditTodoApproveBtn() {
+        await this.itemClient.editTodo(this.currentTodoEdit.id, this.editTodoInput.value);
+        this.editTodoElement.style.display = 'none';
+        this._toggleElementsForEditTodo();
+        await this.render();
+    }
+
+    _onEditTodoCancelBtn() {
+        this.editTodoElement.style.display = 'none';
+    }
+
+    async _onDeleteAllBtnClicked() {
+        await this.itemClient.deleteAllTodos();
+        await this.render();
+    }
+
+    _checkForAddedDuplicatePokemon(todos) {
+        const duplicatesPokemons = todos.filter(item => item.type == 'pokemonExists');
+        if (!duplicatesPokemons.length) {
+            return;
+        }
+        let content = 'The following pokemons are already exist: \n';
+        duplicatesPokemons.forEach(({ pokemon }) => {
+            content += `id: ${pokemon.id}, name: ${pokemon.name} \n`;
+        });
+        this._toggleSpinner(false);
+        alert(content);
+    }
+
+    _toggleSpinner(animate) {
+        if (!animate) {
+            this.spinnerElement.style.display = 'none';
+            return;
+        }
+        this.spinnerElement.style.display = 'block';
+    }
+
+
+    async _showPendingTodos() {
+        const pendingTodos = document.querySelector(".pending-todos");
+        const tmp = await this.itemClient.getPendingTodos();
+        pendingTodos.textContent = tmp.body.count;
+    }
+
+    async _getTodoListData() {
+        const sortOrder = this.localStorageManager.getSortBy();
+        const response = await this.itemClient.getAllTodos(sortOrder);
+        this.todoListData = response.success && Array.isArray(response.body) ? response.body : [];
+    }
+
+    async _showTodosList() {
+        await this._getTodoListData();
+
+        if (!this.todoListData.length) {
+            this._showContent(this._handleEmptyTodoListContent());
+            return;
+        }
+        let todoListContent = '';
+        this.deleteAllBtn.classList.add('active');
+        this.todoListData.forEach((element, index) => {
+            todoListContent += this._handleTodoListContent(element, index);
+        });
+        setTimeout(() => this._addTodosListeneres(), 0);
+        this._showContent(todoListContent);
+    }
+
+    _showContent(content) {
+        this.todoList.innerHTML = content;
+        this.todoInput.value = '';
+    }
+
+    _handleTodoListContent(element, index) {
+        const checked = element.checked ? 'checked' : '';
+        const pic = element.type === 'pokemon' ? `<img class="pokemon-pic" src="${element.pokemon.sprites.front_default}" alt="">` : '&emsp;&emsp;';
+        const editBtn = (element.type === 'text') ? `<span id="todo-edit-${element.id}" class="icon-edit"><i class="fas fa-pen" ></i></span>` : '';
+        const todoListContent = `<li> 
+        <input id="todo-checkbox-${element.id}" type="checkbox" name="todoCheckbox" ${checked}>
+        ${pic}
+        <span id="todo-element-${element.id}"> ${element.message}</span>
+        ${editBtn}
+        <span id="todo-delete-${element.id}" class="icon-delete"><i class="fas fa-trash" ></i></span>
+        </li>`;
+        return todoListContent;
+    }
+
+    _handleEmptyTodoListContent() {
+        const todoListContent = `<p class="empty-todo-list">
+        Well done your todo list is empty </br>
+        <span class="icon"><i class="fas fa-clipboard"></i></span> </br>
+        now you will not forget anything</p>`;
+        this.deleteAllBtn.classList.remove('active');
+        return todoListContent;
+    }
+
+    async _addTodosListeneres() {
+        this.todoListData.forEach((element, index) => {
+            if (element.type === 'text') {
+                document.getElementById(`todo-edit-${element.id}`).addEventListener('click', () => this._openEditTodo(element, index));
+            }
+            document.getElementById(`todo-element-${element.id}`).addEventListener('click', () => this._showSelectedTodo(element));
+            document.getElementById(`todo-delete-${element.id}`).addEventListener('click', () => this._deleteTodo(element));
         })
     }
 
-    _createDeleteButton = item => {
-        const button = document.createElement("img");
-        button.src = "./images/delete_icon.svg";
-        button.classList.add('list-item-delete-button');
-        button.addEventListener("click", _ => this.deleteItem(item));
+    _showSelectedTodo(element) {
+        alert(element.message);
+    }
 
-        return button
+    _openEditTodo(element) {
+        this.editTodoInput.value = element.item;
+        this.editTodoElement.style.display = 'flex';
+        this.currentTodoEdit = element;
+        this._toggleElementsForEditTodo(true);
+    }
+
+    async _deleteTodo(element) {
+        await this.itemClient._deleteTodo(element.id);
+        await this.render();
+    }
+
+    _setSortBy() {
+        const sortByOrder = this.localStorageManager.getSortBy();
+        if (!sortByOrder) {
+            return;
+        }
+        const options = Array.from(this.sortOrder.options);
+        for (let i = 0; i < options.length; i++) {
+            const element = options[i];
+            if (sortByOrder == element.value) {
+                this.sortOrder.selectedIndex = i;
+                return;
+            }
+        }
+    }
+
+    _toggleElementsForEditTodo(disabled) {
+        this.todoInput.disabled = typeof disabled == 'boolean' ? disabled : !this.todoInput.disabled;
+        this.addBtn.disabled = typeof disabled == 'boolean' ? disabled : !this.addBtn.disabled;
+        this.sortOrder.disabled = typeof disabled == 'boolean' ? disabled : !this.sortOrder.disabled;
+        this.deleteAllBtn.disabled = typeof disabled == 'boolean' ? disabled : !this.deleteAllBtn.disabled;
     }
 }
 
 const main = new Main();
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async () => {
     main.init();
+    await main.render();
 });

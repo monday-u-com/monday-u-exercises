@@ -1,0 +1,27 @@
+{
+  "name": "ex4",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "bin": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "todo.json"
+    ]
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "chalk": "^5.0.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-validator": "^6.14.1",
+    "node-fetch": "^3.2.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
