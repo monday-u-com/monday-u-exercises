@@ -11,6 +11,8 @@ const mainCommander = new MainCommander(itemManagerCommander, pokemonClient);
 
 mainCommander.init();
 
+const program = new Command();
+
 program
   .name("todos-manager")
   .description("Add, delete, show and sort todos")

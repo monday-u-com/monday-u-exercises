@@ -10,9 +10,8 @@ export class PokemonClient {
   async fetchPokemon(pokemonText) {
     try {
       const pokemons = pokemonText.split(',').map( el => el.trim() );
-      let promises = [];
-      pokemons.forEach(pokemon => {
-        promises.push(fetch(`${this.API_BASE}/${pokemon}/`));
+      const promises = pokemons.map(pokemon => {
+        fetch(`${this.API_BASE}/${pokemon}/`);
       });
       const responses = await Promise.all(promises);
       const elements = await Promise.all(responses.map(response => response.json()));
