@@ -1,0 +1,15 @@
+{
+  "name": "ex1",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Welcome to your first monday-u task! Hope you are excited as we are!  \r This is going to be an ongoing task, so don't worry, we are going to build this awesome project step by step, from zero to hero :)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
