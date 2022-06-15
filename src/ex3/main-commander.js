@@ -65,18 +65,17 @@ export class MainCommander {
     this.updateTodos(this.itemManagerCommander.clearAllItems());
   }
 
-  addPokemon(text) {
-    return this.pokemonClient.fetchPokemon(text).then(pokemons => {
-      try {
-        pokemons.forEach(pokemon => {
-          const catchPokemonTodo = `Catch ${pokemon.name} with id ${pokemon.id} and type ${pokemon.type}`;
-          this.updateTodos(this.itemManagerCommander.addItem(catchPokemonTodo));
-          LogPokemonAscii(pokemon.id);
-        })
-      } catch (error) {
-        console.log(chalk.red("Todo was not added"));;
-      }
-    })
+  async addPokemon(text) {
+    const pokemons = await this.pokemonClient.fetchPokemon(text);
+    try {
+      pokemons.forEach(pokemon => {
+        const catchPokemonTodo = `Catch ${pokemon.name} with id ${pokemon.id} and type ${pokemon.type}`;
+        this.updateTodos(this.itemManagerCommander.addItem(catchPokemonTodo));
+        LogPokemonAscii(pokemon.id);
+      })
+    } catch (error) {
+      console.log(chalk.red("Todo was not added"));;
+    }
   }
 
   sortTodos() {
