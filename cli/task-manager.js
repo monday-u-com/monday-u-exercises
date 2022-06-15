@@ -1,7 +1,7 @@
 import asciify from "asciify-image";
 import inquirer from "inquirer";
 import chalk from "chalk";
-import pokemonClient from "./pokemon-client.js";
+import pokemonClient from "../server/clients/pokemon-client.mjs";
 import file from "./file-manager.js";
 
 class TaskManager {
