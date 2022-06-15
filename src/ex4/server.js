@@ -1,9 +1,13 @@
 // Express boilerplate, hosting the `dist` file, connecting to the routes
 const fs = require('fs')
 const express = require('express');
-const path = require("path")
+const bodyParser = require ('body-parser')
 const compression = require('compression');
 require('express-async-errors');
+
+
+ const livereload = require("livereload");
+
 const logger = require('./server/middleware/logger')
 
 const errorHandler = require('./server/middleware/error_handler');
@@ -11,9 +15,20 @@ const itemRouter = require('./server/routes/itemRouter');
 const port = 8080;
 const server = express();
 
-server.use(express.urlencoded({ extended: true }));
-server.use(express.text());
+ const liveReloadServer = livereload.createServer();
+liveReloadServer.server.once("connection", () => {
+  setTimeout(() => {
+    liveReloadServer.refresh("/");
+  }, 100);
+});  
 
+
+
+// parse application/x-www-form-urlencoded
+server.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+server.use(bodyParser.json())
 
 
 server.use([logger, compression(), express.json(),express.static("dist")]);
@@ -53,3 +68,5 @@ server.use(errorHandler);
 server.listen(port, () => {
     console.log("Server started on port", port);
 });
+
+module.exports = server

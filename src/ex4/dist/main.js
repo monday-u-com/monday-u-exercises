@@ -1,38 +1,57 @@
+const ENTER_KEY = "13";
+
 class Main {
   constructor() {
     this.itemClient = new ItemClient();
+    this.parser = new Parser();
+    this.addItemButton = document.getElementById("list-item-submit");
+    this.input = document.getElementById("list-item-input");
   }
 
   init = async () => {
-    const addItemButton = document.getElementById("list-item-submit");
-    addItemButton.addEventListener("click", this.handleItem);
+    this.addItemButton.addEventListener("click", this.handleItem);
+
+    this.input.addEventListener("keyup", () => {
+      if (event.keyCode == ENTER_KEY) {
+        this.handleItem();
+      }
+    });
 
     await this.renderItems(); // this will make it so that any time you refresh the page you'll see the items already in your todo list
   };
 
   handleItem = async () => {
-    // implement
-    console.log("hi handle item");
-    
+    if (this.input.value.trim() === "") {
+      this.clearInput(this.input);
+      return alert("There is no input");
+    }
+    const dictionary = this.parser.parseInputValue(this.input.value);
+
+    dictionary.tasks.forEach((task) => {
+     this.itemClient.createItem(task);
+    });
+    this.clearInput(this.input);
   };
+
+  clearInput() {
+    this.input.value = "";
+  }
 
   deleteItem = async (item) => {
     // implement
     const itemId = item.itemId;
-    const itemInDOM = document.getElementById(item.itemId);
-    itemInDOM.remove();
-    this.itemClient.deleteItemById(itemId);
+  
+   this.itemClient.deleteItemById(itemId);
+    this.renderItems();
   };
 
   renderItems = async () => {
     const itemsData = await this.itemClient.fetchAllItems();
-    
+
     const items = itemsData.data;
-    
+
     const list = document.getElementById("list");
     list.innerHTML = "";
-
-    
 
     items.forEach((item) => {
       const listItem = document.createElement("li");

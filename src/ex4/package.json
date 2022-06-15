@@ -4,21 +4,23 @@
   "description": "You know what they say about #4: you'll remember it *for*ever (ha)",
   "main": "server.js",
   "scripts": {
-    "start": "node index.js",
-    "start:dev": "nodemon app.js",
+    "start": "node server.js",
+
+    "watch": "nodemon --ext *",
+    "start:dev": "nodemon --ext *",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "OriMarom",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
     "compression": "^1.7.4",
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
     "express-validator": "^6.14.1",
     "fs": "^0.0.1-security",
     "node-fetch": "^3.2.6",
-    "nodemon": "^2.0.16",
     "require": "^2.4.20",
     "uuid": "^8.3.2"
   },
@@ -29,5 +31,10 @@
   "bugs": {
     "url": "https://github.com/orimaro123/monday-u-exercises/issues"
   },
-  "homepage": "https://github.com/orimaro123/monday-u-exercises/tree/ex4#readme"
+  "homepage": "https://github.com/orimaro123/monday-u-exercises/tree/ex4#readme",
+  "devDependencies": {
+    "connect-livereload": "^0.6.1",
+    "livereload": "^0.9.3",
+    "nodemon": "^2.0.16"
+  }
 }
