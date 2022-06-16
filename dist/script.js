@@ -61,9 +61,13 @@ async function renderTasks(toAnimate) {
 async function addTask() {
    const taskUserInput = taskInput.value;
    taskInput.value = "";
-   const pokemonImagesURLs = await api.addTask(taskUserInput);
-   addPokemonImage(pokemonImagesURLs);
-   renderTasks(true);
+   if (taskUserInput.trim().length === 0) {
+      alert("Please fill in a task");
+   } else {
+      const pokemonImagesURLs = await api.addTask(taskUserInput);
+      addPokemonImage(pokemonImagesURLs);
+      renderTasks(true);
+   }
 }
 
 function addPokemonImage(pokemonImagesURLs) {
