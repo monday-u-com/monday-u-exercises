@@ -28,9 +28,7 @@ class Main {
     }
 
     await this.itemClient.createItem(this.input.value);
-
     await this.renderItems();
-
     this.clearInput(this.input);
   };
 
@@ -58,7 +56,6 @@ class Main {
     list.innerHTML = "";
 
     items.forEach((item) => {
-      console.log(item);
       const listItem = document.createElement("li");
       listItem.classList.add("list-item");
       listItem.innerHTML = item.name;
@@ -75,7 +72,6 @@ class Main {
       list.appendChild(listItem);
     });
   };
-  
 
   getPokemonImage(pokemonData) {
     const url = pokemonData.picture;
