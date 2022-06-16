@@ -3,14 +3,14 @@ const ENTER_KEY = "13";
 class Main {
   constructor() {
     this.itemClient = new ItemClient();
-    
+
     this.addItemButton = document.getElementById("list-item-submit");
     this.input = document.getElementById("list-item-input");
     this.loader = document.getElementById("loaderId");
   }
 
   init = async () => {
-    this.addItemButton.addEventListener( "click", (_) => this.handleItem(item));
+    this.addItemButton.addEventListener("click", (_) => this.handleItem());
 
     this.input.addEventListener("keyup", () => {
       if (event.keyCode == ENTER_KEY) {
@@ -26,14 +26,11 @@ class Main {
       this.clearInput(this.input);
       return alert("There is no input");
     }
-    
 
-    const items = await this.itemClient.createItem(this.input.value);
-    this.loader.classList.remove("display");
-    await this.renderItems()
-    this.loader.classList.add("display");
-  
-    
+    await this.itemClient.createItem(this.input.value);
+
+    await this.renderItems();
+
     this.clearInput(this.input);
   };
 
@@ -47,16 +44,13 @@ class Main {
 
     this.itemClient.deleteItemById(itemId);
     this.loader.classList.remove("display");
-    await this.renderItems()
+    await this.renderItems();
     this.loader.classList.add("display");
-  
   };
 
   renderItems = async () => {
     let itemsData = await this.itemClient.fetchAllItems();
-    itemsData = await this.itemClient.fetchAllItems()
-   
-   
+    itemsData = await this.itemClient.fetchAllItems();
 
     const items = itemsData.data;
 
@@ -64,16 +58,31 @@ class Main {
     list.innerHTML = "";
 
     items.forEach((item) => {
+      console.log(item);
       const listItem = document.createElement("li");
       listItem.classList.add("list-item");
       listItem.innerHTML = item.name;
 
+      if (item.isPokemon) {
+        const listItemPicture = this.getPokemonImage(item);
+        listItem.appendChild(listItemPicture);
+      }
+
       const listItemDeleteButton = this._createDeleteButton(item);
+
       listItem.appendChild(listItemDeleteButton);
       listItem.setAttribute("id", item.itemId);
       list.appendChild(listItem);
     });
   };
+  
+
+  getPokemonImage(pokemonData) {
+    const url = pokemonData.picture;
+    const img = document.createElement("img");
+    img.setAttribute("src", url);
+    return img;
+  }
 
   _createDeleteButton = (item) => {
     const button = document.createElement("img");

@@ -23,7 +23,7 @@ async function createItem(req, res) {
       let pokemonData = await pokemonService.fetchPokemon(pokemon.name);
    
 
-      pokemon.name = pokemonData.data.name;
+      pokemon.name = `Catch ${pokemonData.data.name}`;
       pokemon.itemId = idKeyGen();
       pokemon.picture = pokemonData.data.sprites.front_default;
 
