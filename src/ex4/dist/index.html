@@ -1,27 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Listy</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-
-  <body>
-    <div class="app-container">
-      <div class="list-container">
-        <h1 class="app-name">Todo App</h1>
-        <div class="list-controls">
-          <input
-            type="text"
-            id="list-item-input"
-            placeholder="Add your new todo"
-          />
-          <button type="button" id="list-item-submit">+</button>
+<head>
+    <title>From To By Do</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8 ;">
+    <meta http-equiv="Content-Security-Policy" content="default-src *;
+   img-src * 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
+   style-src  'self' 'unsafe-inline' *">
+    <!-- import all css files -->
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/pokemon_image_animtion.css" />
+    <link rel="stylesheet" href="css/add_task_form_style.css" />
+    <link rel="stylesheet" href="css/task_container_style.css" />
+    <link rel="stylesheet" href="css/button_style.css" />
+    <link rel="stylesheet" href="css/task_style.css" />
+    <link rel="stylesheet" href="css/loder.css" />
+    <link rel="stylesheet" href="css/error.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- end of import -->
+    <!-- font awesome import for icons -->
+    <script src="https://kit.fontawesome.com/f1fe3009bc.js" crossorigin="anonymous"></script>
+    <!-- css library fro animation -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+    <div id="main_container">
+        <div id="container" class="white_box">
+            <h1>Todo list</h1>
+            <div id="todo_form_container">
+                <form>
+                    <div class="input_div">
+                        <input name="todo" id="todo_input" type="text" placeholder=" " list="pokemons_names" required/>
+                        <label for="todo_input">
+                            Add your new todo
+                        </label>
+                        <datalist id="pokemons_names">                           
+                        </datalist>                       
+                        <div id="add_to_do_button">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <ul id="todo_tasks_container" class="empty"></ul>        
+            <div class="clear_todo_container">
+                <div class="todo_status_text">
+                    <span>You have </span>
+                    <span id="task_counter">0</span>
+                    <span> pending tasks</span>
+                </div>
+                <button id="clear_all_tasks_button" class="clear_all_button">
+                    <span>Clear All</span>
+                    <div class="buttonColoring"></div>
+                </button>
+                <button id="sort_by_name" class="sort_by_name_button">
+                    <span>Sort by name</span>
+                    <div class="buttonColoring"></div>
+                </button>
+            </div>
         </div>
-        <ul id="list"></ul>
-      </div>
     </div>
-  </body>
 
-  <script src="./clients/item_client.js"></script>
-  <script src="main.js"></script>
+</body>
+<script type="module" src="./main.js"></script>
 </html>
+ 

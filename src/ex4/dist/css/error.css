@@ -1,0 +1,12 @@
+.error{
+    text-align: center;
+    font-size: 15pt;
+    color: #fff;
+    background-color: #ff7676;
+    border: #fff;
+    position: absolute;
+    top: 0px;
+    padding: 20px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
