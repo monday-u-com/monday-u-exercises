@@ -20,42 +20,35 @@ async function createItem(req, res) {
   const pokemonsErrors = [];
   for (let pokemon of pokemonOrTaskResults.pokemons) {
     try {
-      
-      const isPokemonIdInCache = await itemManagerService.checkIfPokemonIdInCache(pokemon.name)
-      
-     if(!isPokemonIdInCache){
+      const isPokemonIdInCache =
+        await itemManagerService.checkIfPokemonIdInCache(pokemon.name);
 
-     
-      let pokemonData = await pokemonService.fetchPokemon(pokemon.name);
-   
-      pokemon.pokemonId = pokemonData.data.id
-      
-      pokemon.name = `Catch ${pokemonData.data.name}`;
-      pokemon.itemId = idKeyGen();
-      pokemon.picture = pokemonData.data.sprites.front_default;
-     
-      const isPokemonExist = itemManagerService.isPokemonExist(
-        currentData,
-        pokemon.name
-      );
+      if (!isPokemonIdInCache) {
+        let pokemonData = await pokemonService.fetchPokemon(pokemon.name);
+        if (!pokemonData.error) {
+          pokemon.pokemonId = pokemonData.data.id;
 
-  
-      if (typeof isPokemonExist === "undefined") {
-        currentData.push(pokemon);
-      
+          pokemon.name = `Catch ${pokemonData.data.name}`;
+          pokemon.itemId = idKeyGen();
+          pokemon.picture = pokemonData.data.sprites.front_default;
+
+          const isPokemonExist = itemManagerService.isPokemonExist(
+            currentData,
+            pokemon.name
+          );
+
+          if (typeof isPokemonExist === "undefined") {
+            currentData.push(pokemon);
+          }
+        }
+
+        if (pokemonData.error) {
+          pokemonsErrors.push(pokemonData.data);
+        }
       }
-    
-
-          
-    if (pokemonData.error) {
-        pokemonsErrors.push(pokemonData.data);
-       
-      }
-    }
     } catch (e) {
       console.log(e);
     }
-    
   }
   if (pokemonsErrors.length === 1) {
     const errorToString = `Pokemon with ID ${pokemonsErrors[0]} was not found`;
@@ -76,14 +69,13 @@ async function createItem(req, res) {
       itemId: idKeyGen(),
       isPokemon: false,
     };
-   
+
     currentData.push(errorItem);
   }
-  
+
   //write all items once finished processing
-  
+
   await itemManagerService.addItem(currentData);
-  
 
   await res.status(200).json(currentData);
 }
