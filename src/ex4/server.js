@@ -6,7 +6,8 @@ const compression = require('compression');
 require('express-async-errors');
 
 
- const livereload = require("livereload");
+const livereload = require("livereload");
+const connectLiveReload = require("connect-livereload");
 
 const logger = require('./server/middleware/logger')
 
@@ -19,10 +20,10 @@ const server = express();
 liveReloadServer.server.once("connection", () => {
   setTimeout(() => {
     liveReloadServer.refresh("/");
-  }, 100);
-});  
+  }, 10);
+}); 
 
-
+server.use(connectLiveReload());
 
 // parse application/x-www-form-urlencoded
 server.use(bodyParser.urlencoded({ extended: false }))
@@ -33,6 +34,7 @@ server.use(bodyParser.json())
 
 server.use([logger, compression(), express.json(),express.static("dist")]);
 server.use('/item', itemRouter);
+
 
 
 server.get('/', (req, res) => {

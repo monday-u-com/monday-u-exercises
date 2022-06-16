@@ -3,9 +3,10 @@ const ENTER_KEY = "13";
 class Main {
   constructor() {
     this.itemClient = new ItemClient();
-    this.parser = new Parser();
+    
     this.addItemButton = document.getElementById("list-item-submit");
     this.input = document.getElementById("list-item-input");
+    this.loader = document.getElementById("loaderId");
   }
 
   init = async () => {
@@ -25,11 +26,18 @@ class Main {
       this.clearInput(this.input);
       return alert("There is no input");
     }
-    const dictionary = this.parser.parseInputValue(this.input.value);
+    //const results = this.parser.parseInputValue(this.input.value);
+    //const parserBackEnd = this.itemClient.parseInputValue(this.input.value)
 
-    dictionary.tasks.forEach((task) => {
-     this.itemClient.createItem(task);
-    });
+    //this.loader.classList.remove("display");
+    //this.itemClient.createItem(dictionary.tasks);
+    //this.itemClient.createItem(results)
+    /* results.forEach((result) => {
+      this.itemClient.createItem(result);
+    }); */
+
+    this.itemClient.createItem(this.input.value);
+    //console.log(results)
     this.clearInput(this.input);
   };
 
@@ -40,9 +48,10 @@ class Main {
   deleteItem = async (item) => {
     // implement
     const itemId = item.itemId;
-  
-   this.itemClient.deleteItemById(itemId);
-    this.renderItems();
+
+    this.itemClient.deleteItemById(itemId);
+
+    this.loader.classList.remove("display");
   };
 
   renderItems = async () => {

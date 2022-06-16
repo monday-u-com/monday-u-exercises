@@ -1,10 +1,8 @@
 // Create an ItemClient class here. This is what makes requests to your express server (your own custom API!)
 
-
 const url = "http://localhost:8080";
 class ItemClient {
   constructor() {}
-
   async fetchAllItems() {
     const urlFetchAllItems = `${url}/item`;
 
@@ -33,17 +31,26 @@ class ItemClient {
     axios.delete(urlDeleteItem).then((resp) => resp.data);
   }
 
-  async createItem(item){
-    const urlDeleteItem = `${url}/item/create_item/`
+  async createItem(input) {
+    const urlCreateItem = url + `/item/create_item/`;
+
+    const errorResponse = {
+      error: true,
+
+      description: `Items were not found`,
+    };
     
-    await axios({
-      method: 'post',
-      url: url + '/item/create_item/',
-      headers: {}, 
+    axios({
+      method: "post",
+      url: urlCreateItem,
+      headers: {},
       data: {
-        name: item
-      }
+       input
+      },
     });
 
+  
   }
+
+
 }
