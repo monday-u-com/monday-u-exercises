@@ -23,5 +23,7 @@ export default new (class ItemClient {
       const response = await fetch("/add", reqOptions);
    }
 
-   async clearTasks() {}
+   async clearTasks() {
+      const response = await fetch("/del", { method: "DELETE" });
+   }
 })();

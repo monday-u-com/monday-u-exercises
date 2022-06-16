@@ -13,7 +13,10 @@ import api from "./clients/item-client.js";
 
 renderTasks(false);
 
-// clearButton.onclick = () => tasks.clear();
+clearButton.onclick = async () => {
+   await api.clearTasks();
+   renderTasks(false);
+};
 // sortDownButton.onclick = () => tasks.sortDown();
 // sortUpButton.onclick = () => tasks.sortUp();
 addTaskButton.onclick = () => addTask();
