@@ -1,0 +1,29 @@
+{
+  "name": "ex4",
+  "version": "1.0.0",
+  "description": "You know what they say about #4: you'll remember it *for*ever (ha)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon server.js",
+    "start": "node server.js",
+    "debug": "node --inspect-brk server.js"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "tasks.json"
+    ]
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "compression": "^1.7.4",
+    "express": "^4.18.1",
+    "helmet": "^5.1.0",
+    "morgan": "^1.10.0",
+    "node-fetch": "^3.2.6",
+    "nodemon": "^2.0.16"
+  }
+}
