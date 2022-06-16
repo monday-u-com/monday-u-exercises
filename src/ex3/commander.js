@@ -12,14 +12,13 @@ const itemManagerCommander = new ItemManagerCommander();
 const pokemonClient = new PokemonClient();
 const mainCommander = new MainCommander(itemManagerCommander, pokemonClient);
 
-mainCommander.init();
+itemManagerCommander.getAll();
 
 const program = new Command();
 
 program
   .name("todos-manager")
   .description("Add, delete, show and sort todos")
-  // .version("1.0.0");
   .version(Package.version);
 
 program

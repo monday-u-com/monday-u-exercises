@@ -7,13 +7,10 @@ export class MainCommander {
     this.pokemonClient = pokemonClient;
   }
 
-  init() {
-    this.updateTodos(this.itemManagerCommander.init());
-  }
-
   showTodos() {
     this.showAmount();
-    this.todos.forEach((todo, index) => {
+    const data = this.itemManagerCommander.getAll();
+    data.forEach((todo, index) => {
       const todoColor = todo.isNew ? 'green' : 'white';
       if (todo.isNew) this.markTodoAsOld(todo);
       console.log(chalk.yellow(index), chalk[todoColor](todo.text));
@@ -21,7 +18,8 @@ export class MainCommander {
   }
 
   showAmount() {
-    const amount = this.todos.length;
+    const data = this.itemManagerCommander.getAll();
+    const amount = data.length;
     if (amount === 1) {
       console.log(chalk.yellow(`You have only one todo:`));
     } else {
@@ -30,7 +28,7 @@ export class MainCommander {
   }
 
   markTodoAsOld(todo) {
-    this.updateTodos(this.itemManagerCommander.markItemAsOld(todo));
+    this.itemManagerCommander.markItemAsOld(todo);
   }
 
   addTodo(text) {
@@ -40,21 +38,18 @@ export class MainCommander {
     } else {
       const isTextNaN = text.split(',').map( el => isNaN(el));
       if (isTextNaN.includes(true)) {
-        this.updateTodos(this.itemManagerCommander.addItem(text));
+        this.itemManagerCommander.addItem(text);
       } else {
         return this.addPokemon(text);
       }
     }
   }
 
-  updateTodos(updatedArray) {
-    this.todos = updatedArray;
-  }
-
   deleteTodo(index) {
-    if (Number.isInteger(index) && index > -1 && index < this.todos.length) {
+    const data = this.itemManagerCommander.getAll();
+    if (Number.isInteger(index) && index > -1 && index < data.length) {
       console.log(chalk.red(`Deleting todo with index ${index}`));
-      this.updateTodos(this.itemManagerCommander.deleteItem(index));
+      this.itemManagerCommander.deleteItem(index);
     } else {
       console.log(chalk.red("Error"), `There is no todo with index ${index}`);
     }
@@ -62,7 +57,7 @@ export class MainCommander {
 
   clearAllTodos() {
     console.log(chalk.red("Deleting all todos"));
-    this.updateTodos(this.itemManagerCommander.clearAllItems());
+    this.itemManagerCommander.clearAllItems();
   }
 
   async addPokemon(text) {
@@ -70,7 +65,7 @@ export class MainCommander {
     try {
       pokemons.forEach(pokemon => {
         const catchPokemonTodo = `Catch ${pokemon.name} with id ${pokemon.id} and type ${pokemon.type}`;
-        this.updateTodos(this.itemManagerCommander.addItem(catchPokemonTodo));
+        this.itemManagerCommander.addItem(catchPokemonTodo);
         LogPokemonAscii(pokemon.id);
       })
     } catch (error) {
@@ -80,6 +75,6 @@ export class MainCommander {
 
   sortTodos() {
     console.log(chalk.gray(`Sorting todos alphabetically`));
-    this.updateTodos(this.itemManagerCommander.sortItems());
+    this.itemManagerCommander.sortItems();
   }
 }
