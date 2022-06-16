@@ -12,15 +12,21 @@ class TaskManager {
             .split(",")
             .every((elem) => !isNaN(elem) || allPokemonNames.includes(elem))
       ) {
+         let pokemonImagesURLs = [];
          let pokemonIDS = task.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
          const pokemonData = await Promise.all(
             pokemonIDS.map((id) => pokemonClient.getPokemon(id))
          );
          pokemonData.forEach((pokemon, i) => {
-            this._pokemonTasksHandle(pokemon, pokemonIDS, i);
+            pokemonImagesURLs = [
+               ...pokemonImagesURLs,
+               this._pokemonTasksHandle(pokemon, pokemonIDS, i),
+            ];
          });
+         return pokemonImagesURLs;
       } else {
          file.addTask(task);
+         return [];
       }
    }
 
@@ -50,6 +56,7 @@ class TaskManager {
             );
          } else {
             file.addTask(taskToAdd);
+            return pokemon.sprites.front_default;
          }
       } else {
          file.addTask(`Pokemon ID ${pokemonIDS[i]} does not exist`);

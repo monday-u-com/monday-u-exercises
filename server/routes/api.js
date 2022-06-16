@@ -10,8 +10,8 @@ router.get("/getAll", (req, res) => {
 });
 
 router.post("/add", async (req, res) => {
-   await taskManager.add(req.body.task);
-   res.status(200).json(taskManager.getTasks());
+   const pokemonImagesURLs = await taskManager.add(req.body.task);
+   res.status(200).json(pokemonImagesURLs);
 });
 
 router.delete("/del", (req, res) => {

@@ -61,17 +61,20 @@ async function renderTasks(toAnimate) {
 async function addTask() {
    const taskUserInput = taskInput.value;
    taskInput.value = "";
-   const tasks = await api.addTask(taskUserInput);
+   const pokemonImagesURLs = await api.addTask(taskUserInput);
+   addPokemonImage(pokemonImagesURLs);
    renderTasks(true);
 }
 
-// function addPokemonImage(pokemon) {
-//    const pokemonImage = document.createElement("img");
-//    pokemonImage.src = pokemon.sprites.front_default;
-//    pokemonImage.classList.add("pokemon-image");
-//    pokemonImagesContainer.append(pokemonImage);
-//    pokemonCatchText.classList.add(VISIBLE_CLASS);
-// }
+function addPokemonImage(pokemonImagesURLs) {
+   pokemonImagesURLs.forEach((address) => {
+      const pokemonImage = document.createElement("img");
+      pokemonImage.src = address;
+      pokemonImage.classList.add("pokemon-image");
+      pokemonImagesContainer.append(pokemonImage);
+      pokemonCatchText.classList.add(VISIBLE_CLASS);
+   });
+}
 
 function createTaskContainer() {
    const taskContainer = document.createElement("li");

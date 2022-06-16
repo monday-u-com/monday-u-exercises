@@ -21,6 +21,8 @@ export default new (class ItemClient {
          body: JSON.stringify({ task }),
       };
       const response = await fetch("/add", reqOptions);
+      const pokemonImagesURLs = await response.json();
+      return pokemonImagesURLs;
    }
 
    async clearTasks() {
