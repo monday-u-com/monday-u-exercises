@@ -26,7 +26,7 @@ async function fetchPokemonsTasks(ids, data) {
     ids = ids.split(',');
     const tasks = [];
     const pokemonsRawJson = await catchPokemons(ids);
-    pokemonsRawJson.forEach((pokemonJson) => {
+    pokemonsRawJson?.forEach((pokemonJson) => {
         const pokemonName = pokemonJson.name;
         const pokemonTask = 'Catch: ' + pokemonName;
         if (data.indexOf(pokemonTask) === -1)//task not exist

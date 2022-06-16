@@ -1,6 +1,7 @@
 class Main {
     constructor() {
-        this.itemClient = new ItemClient()
+        this.itemClient = new ItemClient();
+        this.taskList = [];
     }
     init = async () => {
         const addBtn = document.querySelector('.add-task-btn');
@@ -28,7 +29,7 @@ class Main {
     async addTask() {
         const newTaskField = document.querySelector('.add-task-field');
         const taskText = newTaskField.value;
-        const taskList = await this.itemClient.getAllTasks();
+        const taskList = this._getTaskList();
         const validInput = await this._isValidInput(taskText, taskList);
 
         if (validInput) {
@@ -76,7 +77,7 @@ class Main {
 
         delBtn.onclick = async (e) => {
             e.stopPropagation();
-            const taskList = await this.itemClient.getAllTasks();
+            const taskList = this._getTaskList();
             const getDivParent = delBtn.closest("div");
             const getTextFromH3 = getDivParent.getElementsByTagName("h3")[0].textContent;
             const index = taskList.indexOf(getTextFromH3);
@@ -117,6 +118,7 @@ class Main {
 
     async renderTaskList() {
         const taskList = await this.itemClient.getAllTasks();
+        this._setTaskList(taskList);
         const tasks = document.querySelector('.tasks');
         const divList = [];
         if (taskList.length > 0) {
@@ -133,6 +135,14 @@ class Main {
             tasks.append(divTask);
         })
         this.updateFooter(taskList.length);
+    }
+
+    _setTaskList(list) {
+        this.taskList = list;
+    }
+
+    _getTaskList() {
+        return this.taskList;
     }
 }
 

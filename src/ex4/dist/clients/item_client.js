@@ -2,23 +2,23 @@
 const HOST = 'http://localhost';
 const SERVER_PORT = 3000;
 const ROUTE = 'todo';
+const PATH = `${HOST}:${SERVER_PORT}/${ROUTE}`;
+const STANDARD_HEADERS = { 'Accept': 'application/json', 'Content-Type': 'application/json' };
 
 class ItemClient {
     constructor() {
-        this.PATH = `${HOST}:${SERVER_PORT}/${ROUTE}`;
-        this.STANDARD_HEADERS = { 'Accept': 'application/json', 'Content-Type': 'application/json' };
     }
 
     async getAllTasks() {
-        const response = await fetch(this.PATH);
+        const response = await fetch(PATH);
         const tasks = await response.json();
         return tasks;
     }
 
     async addTask(task) {
-        const response = await fetch(this.PATH, {
+        const response = await fetch(PATH, {
             method: "POST",
-            headers: this.STANDARD_HEADERS,
+            headers: STANDARD_HEADERS,
             body: JSON.stringify({ task })
         })
         const result = await response.json();
@@ -26,18 +26,18 @@ class ItemClient {
     }
 
     async removeTask(taskId) {
-        const response = await fetch(`${this.PATH}/${taskId}`, {
+        const response = await fetch(`${PATH}/${taskId}`, {
             method: "DELETE",
-            headers: this.STANDARD_HEADERS,
+            headers: STANDARD_HEADERS,
         })
         const result = await response.json();
         console.log(result,'task removed');
     }
 
     async removeAllTasks(){
-       const response = await fetch(this.PATH, {
+       const response = await fetch(PATH, {
             method: "DELETE",
-            headers: this.STANDARD_HEADERS,
+            headers: STANDARD_HEADERS,
         })
         await response.json();
     }
