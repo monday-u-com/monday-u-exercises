@@ -26,4 +26,8 @@ export default new (class ItemClient {
    async clearTasks() {
       const response = await fetch("/del", { method: "DELETE" });
    }
+
+   async sortTasks(way) {
+      const response = await fetch(`/sort/${way}`);
+   }
 })();

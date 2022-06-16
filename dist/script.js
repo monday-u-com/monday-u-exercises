@@ -17,8 +17,15 @@ clearButton.onclick = async () => {
    await api.clearTasks();
    renderTasks(false);
 };
-// sortDownButton.onclick = () => tasks.sortDown();
-// sortUpButton.onclick = () => tasks.sortUp();
+sortDownButton.onclick = async () => {
+   await api.sortTasks("down");
+   renderTasks(false);
+};
+sortUpButton.onclick = async () => {
+   await api.sortTasks("up");
+   renderTasks(false);
+};
+
 addTaskButton.onclick = () => addTask();
 taskInput.onkeypress = (e) => {
    if (e.key === "Enter") addTask();

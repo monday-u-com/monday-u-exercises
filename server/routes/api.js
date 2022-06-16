@@ -32,7 +32,7 @@ router.delete("/del/:id", (req, res) => {
 });
 
 router.get("/sort/:way", (req, res) => {
-   let way = parseInt(req.params.way);
+   let way = req.params.way;
    taskManager.sort(way);
    res.status(200).json(taskManager.getTasks());
 });
