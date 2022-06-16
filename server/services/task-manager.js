@@ -1,10 +1,12 @@
-import pokemonClient from "../clients/pokemon-client.mjs";
-import file from "./file-manager.js";
+const pokemonClient = require("../clients/pokemon-client.js");
+const file = require("./file-manager.js");
 
 class TaskManager {
    getTasks = () => file.getAllTasks();
 
    async add(task) {
+      console.log("entered task manager add task!");
+
       const allPokemonNames = await file.getFilePokemonNames();
       if (
          task
@@ -61,4 +63,4 @@ class TaskManager {
    }
 }
 
-export default new TaskManager();
+module.exports = new TaskManager();

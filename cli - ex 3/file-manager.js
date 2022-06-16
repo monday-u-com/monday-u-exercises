@@ -1,5 +1,5 @@
 import fs from "fs";
-import pokemonClient from "../server/clients/pokemon-client.mjs";
+import pokemonClient from "./pokemon-client.mjs";
 const POKEMON_FILE_NAME = "pokemon-names.json";
 const TASKS_FILE_NAME = "tasks.json";
 

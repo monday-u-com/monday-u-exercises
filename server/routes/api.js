@@ -2,6 +2,7 @@
 const express = require("express");
 const taskManager = require("../services/task-manager.js");
 const fs = require("fs");
+//const bodyParser = require("body-parser");
 
 const router = express.Router();
 
@@ -10,8 +11,10 @@ router.get("/getAll", (req, res) => {
 });
 
 router.post("/add", (req, res) => {
-   console.log(req.body);
-   taskManager.add(req.body);
+   console.log("Inside add at api.js");
+   console.log(req.body.task);
+   taskManager.add(req.body.task);
+   console.log("added");
    res.status(200).json(taskManager.getTasks());
 });
 

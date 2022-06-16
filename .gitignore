@@ -1,5 +1,6 @@
 node_modules
 .idea
 .DS_Store
+.eslintrc
 pokemon-names.json
 tasks.json

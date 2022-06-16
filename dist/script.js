@@ -9,32 +9,17 @@ const sortButtonsContainer = document.querySelector(SORT_BTNS_SELECTOR);
 const pokemonImagesContainer = document.querySelector(POKEMON_IMAGES_SELECTOR);
 const pokemonCatchText = document.querySelector(POKEMON_TEXT_SELECTOR);
 
-import ItemClient from "./clients/item-client.js";
+import api from "./clients/item-client.js";
 
-const api = new ItemClient();
-
-renderTasks(true);
-
-// import ItemManager from "../server/services/item-manager";
-// const tasks = new ItemManager(renderTasks);
-// import PokemonClient from "../server/clients/pokemon-client";
-// const pokemonClient = new PokemonClient();
+renderTasks(false);
 
 // clearButton.onclick = () => tasks.clear();
 // sortDownButton.onclick = () => tasks.sortDown();
 // sortUpButton.onclick = () => tasks.sortUp();
-// addTaskButton.onclick = () => addTask();
-// taskInput.onkeypress = (e) => {
-//    if (e.key === "Enter") addTask();
-// };
-
-// let allPokemonNames = JSON.parse(localStorage.getItem("allPokemonNames"));
-// if (!allPokemonNames) getAllPokemonNames();
-
-// async function getAllPokemonNames() {
-//    allPokemonNames = await pokemonClient.getAllPokemonNames();
-//    localStorage.setItem("allPokemonNames", JSON.stringify(allPokemonNames));
-// }
+addTaskButton.onclick = () => addTask();
+taskInput.onkeypress = (e) => {
+   if (e.key === "Enter") addTask();
+};
 
 async function renderTasks(toAnimate) {
    let lastTaskAdded;
@@ -42,7 +27,7 @@ async function renderTasks(toAnimate) {
       allTasksContainer.removeChild(allTasksContainer.lastChild);
    }
    const tasks = await api.getAllTasks();
-   tasks.items.forEach((item) => {
+   tasks.forEach((item) => {
       const taskContainer = createTaskContainer();
       const newTask = createNewTask(taskContainer, item);
       const deleteTask = createDeleteTaskButton(taskContainer);
@@ -60,42 +45,30 @@ async function renderTasks(toAnimate) {
    if (toAnimate) createTaskAnimation(lastTaskAdded);
 }
 
-// async function addTask() {
-//    const taskUserInput = taskInput.value;
-//    taskInput.value = "";
-//    if (taskUserInput.trim().length === 0) {
-//       alert("Please fill in a task");
-//    } else if (
-//       taskUserInput
-//          .replace(/\s/g, "")
-//          .split(",")
-//          .every((elem) => !isNaN(elem) || allPokemonNames.includes(elem))
-//    ) {
-//       let pokemonIDS = taskUserInput.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
-//       const pokemonData = await Promise.all(pokemonIDS.map((id) => pokemonClient.getPokemon(id)));
-//       pokemonData.forEach((pokemon, i) => {
-//          pokemonTasksHandle(pokemon, pokemonIDS, i);
-//       });
-//    } else {
-//       tasks.add(taskUserInput);
-//    }
-// }
-
-// function pokemonTasksHandle(pokemon, pokemonIDS, i) {
-//    if (pokemon) {
-//       let pokemonName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-//       const pokemonTypes = pokemonClient.getPokemonTypes(pokemon);
-//       const taskToAdd = `Catch ${pokemonName} of type ${pokemonTypes}`;
-//       if (tasks.items.includes(taskToAdd)) {
-//          alert(`${pokemonName} already exists in your tasks. Please try another Pokemon.`);
-//       } else {
-//          addPokemonImage(pokemon);
-//          tasks.add(taskToAdd);
-//       }
-//    } else {
-//       tasks.add(`Pokemon ID ${pokemonIDS[i]} does not exist`);
-//    }
-// }
+async function addTask() {
+   const taskUserInput = taskInput.value;
+   taskInput.value = "";
+   const tasks = await api.addTask(taskUserInput);
+   renderTasks(true);
+   //    const taskUserInput = taskInput.value;
+   //    taskInput.value = "";
+   //    if (taskUserInput.trim().length === 0) {
+   //       alert("Please fill in a task");
+   //    } else if (
+   //       taskUserInput
+   //          .replace(/\s/g, "")
+   //          .split(",")
+   //          .every((elem) => !isNaN(elem) || allPokemonNames.includes(elem))
+   //    ) {
+   //       let pokemonIDS = taskUserInput.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
+   //       const pokemonData = await Promise.all(pokemonIDS.map((id) => pokemonClient.getPokemon(id)));
+   //       pokemonData.forEach((pokemon, i) => {
+   //          pokemonTasksHandle(pokemon, pokemonIDS, i);
+   //       });
+   //    } else {
+   //       tasks.add(taskUserInput);
+   //    }
+}
 
 // function addPokemonImage(pokemon) {
 //    const pokemonImage = document.createElement("img");
@@ -131,9 +104,10 @@ function createDeleteTaskButton(taskContainer) {
    deleteTask.classList.add(DEL_BTN_CLASS);
    taskContainer.append(deleteTask);
 
-   deleteTask.onclick = () => {
+   deleteTask.onclick = async () => {
       const index = Array.from(taskContainer.parentNode.children).indexOf(taskContainer);
-      tasks.remove(index, false);
+      const tasks = await api.deleteTask(index);
+      renderTasks(false);
    };
 
    return deleteTask;

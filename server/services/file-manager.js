@@ -1,13 +1,13 @@
-import fs from "fs";
-import pokemonClient from "../clients/pokemon-client.mjs";
-const POKEMON_FILE_NAME = "pokemon-names.json";
-const TASKS_FILE_NAME = "tasks.json";
+const fs = require("fs");
+const pokemonClient = require("../clients/pokemon-client.js");
+const POKEMON_FILE_NAME = "./server/pokemon-names.json";
+const TASKS_FILE_NAME = "./server/tasks.json";
 
 class File {
    getAllTasks() {
       if (fs.existsSync(TASKS_FILE_NAME)) {
-         const fileData = fs.readFileSync(TASKS_FILE_NAME);
-         const fileTasks = JSON.parse(fileData);
+         const data = fs.readFileSync(TASKS_FILE_NAME);
+         const fileTasks = JSON.parse(data);
 
          return fileTasks;
       } else {
@@ -50,7 +50,7 @@ class File {
 
    async getFilePokemonNames() {
       if (fs.existsSync(POKEMON_FILE_NAME)) {
-         const allPokemonNames = JSON.parse(fs.readFileSync(POKEMON_FILE_NAME));
+         const allPokemonNames = JSON.parse(fs.readFile(POKEMON_FILE_NAME));
 
          return allPokemonNames;
       } else {
@@ -63,6 +63,7 @@ class File {
    }
 
    _writeToFile(tasks) {
+      console.log(tasks);
       fs.writeFileSync(TASKS_FILE_NAME, JSON.stringify(tasks), (error) => {
          if (error) {
             throw error;
@@ -71,4 +72,4 @@ class File {
    }
 }
 
-export default new File();
+module.exports = new File();
