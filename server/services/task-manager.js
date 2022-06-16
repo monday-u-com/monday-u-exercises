@@ -5,8 +5,7 @@ class TaskManager {
    getTasks = () => file.getAllTasks();
 
    async add(task) {
-      console.log("entered task manager add task!");
-
+      console.log(`entered task manager add task with string ${task}`);
       const allPokemonNames = await file.getFilePokemonNames();
       if (
          task

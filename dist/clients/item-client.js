@@ -15,13 +15,11 @@ export default new (class ItemClient {
    }
 
    async addTask(task) {
-      console.log("Entered addTask inside item-client.js");
       const reqOptions = {
          method: "POST",
          headers: { "Content-Type": "application/json" },
          body: JSON.stringify({ task }),
       };
       const response = await fetch("/add", reqOptions);
-      console.log("finished addTask");
    }
 })();

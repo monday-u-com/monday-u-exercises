@@ -50,7 +50,7 @@ class File {
 
    async getFilePokemonNames() {
       if (fs.existsSync(POKEMON_FILE_NAME)) {
-         const allPokemonNames = JSON.parse(fs.readFile(POKEMON_FILE_NAME));
+         const allPokemonNames = JSON.parse(fs.readFileSync(POKEMON_FILE_NAME));
 
          return allPokemonNames;
       } else {
