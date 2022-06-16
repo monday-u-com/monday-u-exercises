@@ -29,19 +29,22 @@ async function renderTasks(toAnimate) {
    while (allTasksContainer.firstChild) {
       allTasksContainer.removeChild(allTasksContainer.lastChild);
    }
+
    const tasks = await api.getAllTasks();
+   let pendingTasks = 0;
    tasks.forEach((item) => {
       const taskContainer = createTaskContainer();
       const newTask = createNewTask(taskContainer, item);
       const deleteTask = createDeleteTaskButton(taskContainer);
       addHoverReveal(taskContainer, deleteTask, newTask);
       lastTaskAdded = newTask;
+      pendingTasks++;
    });
 
-   pendingTasksCounter.textContent = tasks.pendingTasks;
-   if (tasks.pendingTasks === 1) {
+   pendingTasksCounter.textContent = pendingTasks;
+   if (pendingTasks === 1) {
       sortButtonsContainer.classList.add(VISIBLE_CLASS);
-   } else if (tasks.pendingTasks === 0) {
+   } else if (pendingTasks === 0) {
       sortButtonsContainer.classList.remove(VISIBLE_CLASS);
    }
 
