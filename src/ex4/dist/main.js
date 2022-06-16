@@ -9,14 +9,12 @@ class Main {
   constructor() {
     this.dom_manager = new DomManager();
     this.pokemons = [];
-    this.tasks = [];
   }
 
   /**
      * init all event listeners and image animation
      */
-  async init(tasks, pokemons) {
-    this.tasks = tasks;
+  async init(pokemons) {
     this.pokemons = pokemons;
 
     this.dom_manager.add_task_button.addEventListener('click', () => {
@@ -34,9 +32,8 @@ class Main {
 
     this.dom_manager.sort_by_name_button.addEventListener('click', () => {
       this.SortTasksByName();
-      this.RerenderFunctionWrapper();
     });
-    this.RerenderFunctionWrapper();
+
     setInterval(this.dom_manager.PokemonImageAnimation, 500);
 
     this.dom_manager.AddPokemonsToDataList(this.pokemons);
@@ -59,7 +56,7 @@ class Main {
         const add_response = await add_promise;
         // status 201 is for created
         if (add_response.status !== 201) 
-          this.tasks.push(add_response.error);
+          throw add_response.error;
       }
       catch (error) {
         this.ShowError(error);
@@ -152,8 +149,8 @@ class Main {
   async RerenderFunctionWrapper() {
     try {
       const tasks = await GetResourceRequest('task');
-      this.tasks = tasks.tasks;
-      this.dom_manager.RenderDomFromArray(this.tasks, (event) => {
+      //this.tasks = tasks.tasks;
+      this.dom_manager.RenderDomFromArray(tasks.tasks, (event) => {
         // delete task call beck
         this.RemoveTodo(event);
       }, (event) => {
@@ -185,11 +182,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   // the method should add the event listener to your "add" button
   try {
     main.dom_manager.CreateLoader();
-    const tasks = GetResourceRequest('task');
     const pokemons = GetResourceRequest('pokemon');
-    const results = await Promise.all([tasks, pokemons]);
-    const [task_result, pokemon_result] = results;
-    main.init(task_result.tasks, pokemon_result.pokemons);
+    const pokemon_result = await Promise.resolve(pokemons);
+    main.init(pokemon_result.pokemons);
+    main.RerenderFunctionWrapper();
     main.dom_manager.DeleteLoader();
   } catch (error) {
     main.ShowError(error);
