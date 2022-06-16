@@ -1,0 +1,18 @@
+{
+  "name": "todo-console-app-assh",
+  "version": "1.0.11",
+  "description": "Todo console app<br>",
+  "bin": "./inquirer.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "commander": "^9.3.0",
+    "inquirer": "^8.2.4",
+    "node-fetch": "^3.2.4"
+  }
+}

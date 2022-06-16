@@ -1,6 +1,13 @@
 # Exercise 3 - Node.js, CLI
 
-Time for task #3!<br>
+To run the program use `node inquirer.js` (with interactive menu) or `node commander.js`(without interactive menu)
+
+You can also call it using `npx todo-console-app-assh` (calls inquirer.js).
+
+-----
+
+=======
+
 
 ## In this section you will practice
 
@@ -17,9 +24,10 @@ Use your code from the last exercise and refactor where needed.
 
 ### The requirements:
 
-- [ ] Build node.js cli todo app
-- [ ] Detailed help option
-- [ ] Read/Write/Delete todos from a file
+- [x] Build node.js cli todo app
+- [x] Detailed help option // every command has a description
+- [x] Read/Write/Delete todos from a file // + sort, + clear
+
 
 When you finish it should look like this:
 
@@ -27,8 +35,7 @@ When you finish it should look like this:
 
 ### Bonus
 
-- [ ] Publish your code as npm package and run it with npx
-- [ ] Add colors to your cli tool
-- [ ] Add Inquirer.js and make you cli tool interactive
-- [ ] Display pokemon image (ascii art)
-
+- [x] Publish your code as npm package and run it with npx
+- [x] Add colors to your cli tool // every command has its color; new todos are green when shown for the first time
+- [x] Add Inquirer.js and make your cli tool interactive
+- [x] Display pokemon image (ascii art) // for ids from 1 to 151 (default picture for the rest)
