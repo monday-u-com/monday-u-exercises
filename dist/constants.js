@@ -9,6 +9,7 @@ const SORT_UP_BTN_SELECTOR = ".name-sort-up";
 const SORT_DOWN_BTN_SELECTOR = ".name-sort-down";
 const POKEMON_IMAGES_SELECTOR = ".pokedex";
 const POKEMON_TEXT_SELECTOR = ".pokemons-catch-text";
+const LOADER_SELECTOR = ".loader";
 
 const VISIBLE_CLASS = "visible";
 const DEL_BTN_CLASS = "delete";

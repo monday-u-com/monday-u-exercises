@@ -8,20 +8,24 @@ const sortUpButton = document.querySelector(SORT_UP_BTN_SELECTOR);
 const sortButtonsContainer = document.querySelector(SORT_BTNS_SELECTOR);
 const pokemonImagesContainer = document.querySelector(POKEMON_IMAGES_SELECTOR);
 const pokemonCatchText = document.querySelector(POKEMON_TEXT_SELECTOR);
+const loader = document.querySelector(LOADER_SELECTOR);
 
 import api from "./clients/item-client.js";
 
 renderTasks(false);
 
 clearButton.onclick = async () => {
+   loader.classList.add(VISIBLE_CLASS);
    await api.clearTasks();
    renderTasks(false);
 };
 sortDownButton.onclick = async () => {
+   loader.classList.add(VISIBLE_CLASS);
    await api.sortTasks("down");
    renderTasks(false);
 };
 sortUpButton.onclick = async () => {
+   loader.classList.add(VISIBLE_CLASS);
    await api.sortTasks("up");
    renderTasks(false);
 };
@@ -56,6 +60,7 @@ async function renderTasks(toAnimate) {
    }
 
    if (toAnimate) createTaskAnimation(lastTaskAdded);
+   loader.classList.remove(VISIBLE_CLASS);
 }
 
 async function addTask() {
@@ -64,6 +69,7 @@ async function addTask() {
    if (taskUserInput.trim().length === 0) {
       alert("Please fill in a task");
    } else {
+      loader.classList.add(VISIBLE_CLASS);
       const pokemonImagesURLs = await api.addTask(taskUserInput);
       addPokemonImage(pokemonImagesURLs);
       renderTasks(true);
