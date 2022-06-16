@@ -49,7 +49,7 @@ async function renderTasks(toAnimate) {
    });
 
    pendingTasksCounter.textContent = pendingTasks;
-   if (pendingTasks === 1) {
+   if (pendingTasks >= 1) {
       sortButtonsContainer.classList.add(VISIBLE_CLASS);
    } else if (pendingTasks === 0) {
       sortButtonsContainer.classList.remove(VISIBLE_CLASS);
