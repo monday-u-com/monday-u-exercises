@@ -1,52 +1,86 @@
-class Main {
-    constructor() {
-        this.itemClient = new ItemClient()
-    }
+const newToDo_txt = document.getElementById("NewToDo_txt");
+const newToDo_btn = document.getElementById("NewToDo_btn");
+const tasksList = document.getElementById("taskList");
+const clearAll_btn = document.getElementById("clearAll");
+const emptyState = document.getElementById("emptyState");
+const amountTasks = document.getElementById("amountTasks");
+import { getAllTasks, addItem, deleteItem } from "./clients/item_client.js";
 
-    init = async () => {
-        const addItemButton = document.getElementById("list-item-submit");
-        addItemButton.addEventListener("click", this.handleItem);
+const createItems = (items = []) => {
+	if (items.length > 0) {
+		tasksList.innerHTML = "";
+		displayAmountTasks(items.length);
+		items.forEach((item, i) => {
+			const taskElement = document.createElement("div");
+			taskElement.id = i;
+			taskElement.innerText = item.value;
+			taskElement.classList.add("clickable", "task-element");
+			taskElement.addEventListener("click", () => {
+				alert(taskElement.innerText);
+			});
 
-        await this.renderItems(); // this will make it so that any time you refresh the page you'll see the items already in your todo list
-    }
+			const deleteTask = document.createElement("div");
+			deleteTask.classList.add("clickable", "delete-button");
 
-    handleItem = async () => {
-        // implement
-    }
+			const trashImg = document.createElement("img");
+			trashImg.src = "./images/trash.png";
+			trashImg.className = "tash-icon";
 
-    deleteItem = async item => {
-        // implement
-    }
+			deleteTask.addEventListener("click", async (e) => {
+				e.stopPropagation();
+				const items = await deleteItem(taskElement.id);
+				taskElement.remove();
+				displayAmountTasks();
+				createItems(items);
+			});
 
-    renderItems = async () => {
-        const list = document.getElementById("list");
-        list.innerHTML = "";
+			deleteTask.appendChild(trashImg);
+			taskElement.appendChild(deleteTask);
+			tasksList.appendChild(taskElement);
+		});
+	} else {
+		tasksList.innerHTML = "";
+		displayAmountTasks(items.length);
+	}
+};
 
-        const items = 'where do you get the items from now that you have a server..?'
+newToDo_btn.addEventListener("click", async () => {
+	if (newToDo_txt.value) {
+		const newItem = { value: newToDo_txt.value };
+		const items = await addItem(newItem);
+		if (items.data) {
+			createItems(items.data);
+		}
+	} else {
+		alert("Write your task first");
+		return;
+	}
+	newToDo_txt.value = "";
+	newToDo_txt.focus();
+});
 
-        items.forEach(item => {
-            const listItem = document.createElement("li");
-            listItem.classList.add('list-item');
-            listItem.innerHTML = item;
+clearAll_btn.addEventListener("click", () => {
+	const noItemsArr = deleteItem("all");
+	createItems();
+});
 
-            const listItemDeleteButton = this._createDeleteButton(item);
-            listItem.appendChild(listItemDeleteButton);
-            list.appendChild(listItem);
-        })
-    }
-
-    _createDeleteButton = item => {
-        const button = document.createElement("img");
-        button.src = "./images/delete_icon.svg";
-        button.classList.add('list-item-delete-button');
-        button.addEventListener("click", _ => this.deleteItem(item));
-
-        return button
-    }
+function isEmptyState(taskCount) {
+	if (taskCount === 0) {
+		clearAll_btn.style.display = "none";
+		emptyState.style.display = "block";
+		tasksList.appendChild(emptyState);
+	} else {
+		clearAll_btn.style.display = "block";
+	}
 }
 
-const main = new Main();
+function displayAmountTasks(taskCount) {
+	isEmptyState(taskCount);
+	amountTasks.innerText = `${taskCount} Active tasks`;
+	tasksList.appendChild(amountTasks);
+}
 
-document.addEventListener("DOMContentLoaded", function () {
-    main.init();
+document.addEventListener("DOMContentLoaded", async () => {
+	const items = await getAllTasks();
+	createItems(items);
 });
