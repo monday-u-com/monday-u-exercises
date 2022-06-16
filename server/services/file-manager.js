@@ -6,12 +6,19 @@ const TASKS_FILE_NAME = "./server/tasks.json";
 class File {
    getAllTasks() {
       if (fs.existsSync(TASKS_FILE_NAME)) {
-         const data = fs.readFileSync(TASKS_FILE_NAME);
-         const fileTasks = JSON.parse(data);
+         try {
+            const data = fs.readFileSync(TASKS_FILE_NAME);
+            const fileTasks = JSON.parse(data);
 
-         return fileTasks;
+            return fileTasks;
+         } catch (error) {
+            error.statusCode = 500;
+            error.message = "Failed to read file";
+
+            throw error;
+         }
       } else {
-         fs.writeFileSync(TASKS_FILE_NAME, JSON.stringify([]));
+         this._writeToFile(TASKS_FILE_NAME, []);
 
          return [];
       }
@@ -20,51 +27,44 @@ class File {
    addTask(task) {
       let allTasks = this.getAllTasks();
       allTasks = [...allTasks, task];
-      try {
-         this._writeToFile(allTasks);
-      } catch (error) {
-         console.error("Fail to add task");
-         throw error;
-      }
+      this._writeToFile(TASKS_FILE_NAME, allTasks);
    }
 
    deleteTask(index) {
       const allTasks = this.getAllTasks();
       allTasks.splice(index, 1);
-      try {
-         this._writeToFile(allTasks);
-      } catch (error) {
-         console.error("Failed to delete todo");
-         throw error;
-      }
+      this._writeToFile(TASKS_FILE_NAME, allTasks);
    }
 
-   clearTasks() {
-      try {
-         this._writeToFile([]);
-      } catch (error) {
-         console.error("Failed to clear all todos");
-         throw error;
-      }
-   }
+   clearTasks = () => this._writeToFile(TASKS_FILE_NAME, []);
 
    async getFilePokemonNames() {
       if (fs.existsSync(POKEMON_FILE_NAME)) {
          const allPokemonNames = JSON.parse(fs.readFileSync(POKEMON_FILE_NAME));
 
+         if (!allPokemonNames) {
+            let error = Error();
+            error.statusCode = 500;
+            error.message = "Failed to write to file";
+
+            throw error;
+         }
+
          return allPokemonNames;
       } else {
-         const data = await pokemonClient.getAllPokemonNames();
-         const allPokemonNames = JSON.stringify(data);
-         fs.writeFileSync(POKEMON_FILE_NAME, allPokemonNames);
+         const allPokemonNames = await pokemonClient.getAllPokemonNames();
+         this._writeToFile(POKEMON_FILE_NAME, allPokemonNames);
 
          return allPokemonNames;
       }
    }
 
-   _writeToFile(tasks) {
-      fs.writeFileSync(TASKS_FILE_NAME, JSON.stringify(tasks), (error) => {
+   _writeToFile(fileName, data) {
+      fs.writeFileSync(fileName, JSON.stringify(data), (error) => {
          if (error) {
+            error.statusCode = 500;
+            error.message = "Failed to write to file";
+
             throw error;
          }
       });

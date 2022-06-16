@@ -15,7 +15,7 @@ router.post("/add", async (req, res) => {
 
 router.delete("/del", (req, res) => {
    taskManager.clear();
-   res.status(200).json(taskManager.getTasks());
+   res.status(200).json({ message: "Successfully cleared" });
 });
 
 router.delete("/del/:id", (req, res) => {
@@ -23,17 +23,17 @@ router.delete("/del/:id", (req, res) => {
    if (isNaN(id)) {
       let error = Error();
       error.statusCode = 400;
-      error.message = "wrong parameters";
+      error.message = "Wrong parameters";
       throw error;
    }
    taskManager.remove(id);
-   res.status(200).json(taskManager.getTasks());
+   res.status(200).json({ message: "Successfully deleted task" });
 });
 
 router.get("/sort/:way", (req, res) => {
    let way = req.params.way;
    taskManager.sort(way);
-   res.status(200).json(taskManager.getTasks());
+   res.status(200).json({ message: "Successfully sorted tasks" });
 });
 
 module.exports = router;
