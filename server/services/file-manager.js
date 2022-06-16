@@ -63,7 +63,6 @@ class File {
    }
 
    _writeToFile(tasks) {
-      console.log(tasks);
       fs.writeFileSync(TASKS_FILE_NAME, JSON.stringify(tasks), (error) => {
          if (error) {
             throw error;

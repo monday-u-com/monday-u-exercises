@@ -7,9 +7,9 @@ class PokemonClient {
 
    async getPokemon(pokemonID) {
       try {
-         const response = await fetch(this.API_URL + pokemonID);
-         const data = await response.json();
-         return data;
+         const response = await axios.get(this.API_URL + pokemonID);
+
+         return response.data;
       } catch (error) {
          return false;
       }

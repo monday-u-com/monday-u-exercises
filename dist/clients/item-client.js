@@ -22,4 +22,6 @@ export default new (class ItemClient {
       };
       const response = await fetch("/add", reqOptions);
    }
+
+   async clearTasks() {}
 })();

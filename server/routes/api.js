@@ -10,10 +10,7 @@ router.get("/getAll", (req, res) => {
 });
 
 router.post("/add", async (req, res) => {
-   console.log("Inside add at api.js");
-   console.log(req.body.task);
    await taskManager.add(req.body.task);
-   console.log("added");
    res.status(200).json(taskManager.getTasks());
 });
 

@@ -50,24 +50,6 @@ async function addTask() {
    taskInput.value = "";
    const tasks = await api.addTask(taskUserInput);
    renderTasks(true);
-   //    const taskUserInput = taskInput.value;
-   //    taskInput.value = "";
-   //    if (taskUserInput.trim().length === 0) {
-   //       alert("Please fill in a task");
-   //    } else if (
-   //       taskUserInput
-   //          .replace(/\s/g, "")
-   //          .split(",")
-   //          .every((elem) => !isNaN(elem) || allPokemonNames.includes(elem))
-   //    ) {
-   //       let pokemonIDS = taskUserInput.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
-   //       const pokemonData = await Promise.all(pokemonIDS.map((id) => pokemonClient.getPokemon(id)));
-   //       pokemonData.forEach((pokemon, i) => {
-   //          pokemonTasksHandle(pokemon, pokemonIDS, i);
-   //       });
-   //    } else {
-   //       tasks.add(taskUserInput);
-   //    }
 }
 
 // function addPokemonImage(pokemon) {
