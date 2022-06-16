@@ -11,6 +11,7 @@ class ItemManager {
   constructor() {
     this.pokedex = PokemonClient;
     this.tasksFile = "../DB/tasks.json";
+    this.cacheFile = "../DB/pokemonsCache.json";
     try {
       this.tasks = this.getTasks();
     } catch (e) {
@@ -40,7 +41,16 @@ class ItemManager {
   }
 
   async addCatchPokemonTask(input) {
-    const response = await this.getPokemonsToAdd(input);
+    //check if in cache first
+    let response = null;
+    const cache = this.getCache();
+    const cacheItem = cache.find((item) => item.input === input);
+    if (cacheItem) {
+      response = cacheItem.response;
+    } else {
+      response = await this.getPokemonsToAdd(input);
+      this.saveResponseToCache(input, response);
+    }
     if (response === false) {
       return false;
     } else if (
@@ -106,7 +116,7 @@ class ItemManager {
 
   removeAllTasks() {
     this.tasks = [];
-    saveTasksToFile();
+    this.saveTasksToFile();
   }
 
   saveTasksToFile() {
@@ -116,9 +126,29 @@ class ItemManager {
     );
   }
 
+  saveResponseToCache(input, response) {
+    const time = new Date().getTime();
+    const itemToSave = {
+      time: time,
+      input: input,
+      response: response,
+    };
+    const cache = this.getCache();
+    cache.push(itemToSave);
+    fs.writeFileSync(
+      path.join(__dirname, this.cacheFile),
+      JSON.stringify(cache)
+    );
+  }
+
   getTasks() {
     const tasks = fs.readFileSync(path.join(__dirname, this.tasksFile));
     return JSON.parse(tasks);
+  }
+
+  getCache() {
+    const cache = fs.readFileSync(path.join(__dirname, this.cacheFile));
+    return JSON.parse(cache);
   }
 
   pushTaskFromReSort(id, taskContent, isCompleted) {

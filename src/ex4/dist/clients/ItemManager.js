@@ -10,9 +10,8 @@ export class ItemManager {
   }
 
   async fetchTasks() {
-    const response = await fetch(this.serverURL, { mode: "cors" });
+    const response = await fetch(this.serverURL);
     const tasks = await response.json();
-    this.tasks = tasks;
     return tasks;
   }
 
@@ -58,7 +57,15 @@ export class ItemManager {
     }
   }
 
-  async removeAllTasks() {}
+  async removeAllTasks() {
+    const response = await fetch(this.serverURL, {
+      method: "DELETE",
+    });
+    if (response.status === 200) {
+      return true;
+    }
+    return false;
+  }
 
   async reSortTasks() {}
 }

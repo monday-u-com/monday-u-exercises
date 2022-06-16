@@ -44,26 +44,34 @@ class main {
   }
 
   addFieldsEventListeners() {
-    this.addTaskButton.onclick = this.onAddTaskClick.bind(this);
     this.filterOption.onchange = this.onFilterOptionChange.bind(this);
     this.searchInput.onkeyup = this.onSearchInputKeyUp.bind(this);
     this.removeAllTasksButton.onclick = this.onRemoveAllTasksClick.bind(this);
 
     this.taskInput.onkeyup = (e) => {
       if (e.key === "Enter") {
+        console.log(e);
         e.preventDefault();
-        this.onAddTaskClick();
+        this.onAddTaskClick(e);
       }
     };
+
+    this.addTaskButton.addEventListener("click", async (e) => {
+      e.preventDefault();
+      await this.onAddTaskClick(e);
+      return false;
+    });
   }
 
   async init() {
+    console.log("Main init");
     await this.renderTasks();
   }
 
   // Action Methods //
 
   async onAddTaskClick(e) {
+    console.log(e);
     const isOk = this.canProceed();
 
     const isAlertShown = this.emprtyInputAlert.isAlertShown();
@@ -85,6 +93,7 @@ class main {
       //else - alert exists, or other error do nothing for now, but later we can add some error alert handling
     }
     this.taskInput.value = "";
+    return false;
   }
 
   canProceed() {
@@ -288,4 +297,8 @@ class main {
 }
 
 const app = new main(document);
-app.init();
+
+document.addEventListener("DOMContentLoaded", async function () {
+  await app.init();
+  console.log("DOMContentLoaded");
+});

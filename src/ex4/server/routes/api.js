@@ -43,4 +43,9 @@ router.delete("/:id", (req, res) => {
   res.status(200).json({ message: "Task removed" });
 });
 
+router.delete("/", (req, res) => {
+  itemManager.removeAllTasks();
+  res.status(200).json({ message: "All tasks removed" });
+});
+
 module.exports = router;
