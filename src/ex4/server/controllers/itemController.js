@@ -20,13 +20,20 @@ async function createItem(req, res) {
   const pokemonsErrors = [];
   for (let pokemon of pokemonOrTaskResults.pokemons) {
     try {
+      
+      const isPokemonIdInCache = await itemManagerService.checkIfPokemonIdInCache(pokemon.name)
+      
+     if(!isPokemonIdInCache){
+
+     
       let pokemonData = await pokemonService.fetchPokemon(pokemon.name);
    
-
+      pokemon.pokemonId = pokemonData.data.id
+      
       pokemon.name = `Catch ${pokemonData.data.name}`;
       pokemon.itemId = idKeyGen();
       pokemon.picture = pokemonData.data.sprites.front_default;
-
+     
       const isPokemonExist = itemManagerService.isPokemonExist(
         currentData,
         pokemon.name
@@ -37,12 +44,14 @@ async function createItem(req, res) {
         currentData.push(pokemon);
       
       }
+    
 
           
     if (pokemonData.error) {
         pokemonsErrors.push(pokemonData.data);
        
       }
+    }
     } catch (e) {
       console.log(e);
     }
@@ -74,7 +83,7 @@ async function createItem(req, res) {
   //write all items once finished processing
   
   await itemManagerService.addItem(currentData);
-  console.log("after writeng to file",currentData)
+  
 
   await res.status(200).json(currentData);
 }

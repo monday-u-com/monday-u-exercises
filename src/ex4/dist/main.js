@@ -27,8 +27,14 @@ class Main {
       return alert("There is no input");
     }
 
+    this.loader.classList.remove("display");
     await this.itemClient.createItem(this.input.value);
-    await this.renderItems();
+    await this.renderItems().then((resolvedData) =>
+      setTimeout(() => {
+        this.loader.classList.add("display");
+      }, 300)
+    );
+
     this.clearInput(this.input);
   };
 
@@ -40,10 +46,13 @@ class Main {
     // implement
     const itemId = item.itemId;
 
-    this.itemClient.deleteItemById(itemId);
     this.loader.classList.remove("display");
-    await this.renderItems();
-    this.loader.classList.add("display");
+    this.itemClient.deleteItemById(itemId);
+    await this.renderItems().then((resolvedData) =>
+      setTimeout(() => {
+        this.loader.classList.add("display");
+      }, 300)
+    );
   };
 
   renderItems = async () => {
@@ -71,6 +80,7 @@ class Main {
       listItem.setAttribute("id", item.itemId);
       list.appendChild(listItem);
     });
+    return "render items finished";
   };
 
   getPokemonImage(pokemonData) {

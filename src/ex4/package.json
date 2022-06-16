@@ -10,9 +10,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "nodemonConfig": {
-    "ignore": ["data/*.json", "*.js"]
+    "ignore": [
+      "data/*.json",
+      "*.js"
+    ]
   },
- 
   "author": "OriMarom",
   "license": "ISC",
   "dependencies": {
@@ -26,6 +28,8 @@
     "fs": "^0.0.1-security",
     "node-fetch": "^3.2.6",
     "require": "^2.4.20",
+    "rimraf": "^3.0.2",
+    "use-spinner": "^0.2.0",
     "uuid": "^8.3.2"
   },
   "repository": {

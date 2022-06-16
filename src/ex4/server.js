@@ -1,8 +1,8 @@
 // Express boilerplate, hosting the `dist` file, connecting to the routes
 const fs = require('fs')
 const express = require('express');
-const bodyParser = require ('body-parser')
-const compression = require('compression');
+
+
 require('express-async-errors');
 
 
@@ -17,11 +17,7 @@ const port = 8080;
 const server = express();
 
  const liveReloadServer = livereload.createServer();
-liveReloadServer.server.once("connection", () => {
-  setTimeout(() => {
-    liveReloadServer.refresh("/");
-  }, 10);
-});  
+
 
 server.use(connectLiveReload());
 
