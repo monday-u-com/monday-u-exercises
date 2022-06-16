@@ -1,4 +1,4 @@
-const fs = require("fs").promises;
+const fs = require("fs")
 
 const itemFile = "./server/data/itemsList.json";
 const { v4: ideKeyGen } = require("uuid");
@@ -7,22 +7,25 @@ async function getAllItems() {
   return await readItemFile();
 }
 
-async function addItem(item) {
-  let data = await readItemFile();
-  if (!data) {
-    data = [];
-  }
+async function addItem(data) {
 
-  item.itemId = ideKeyGen();
-  data.push(item);
 
   return await writeToItemFile(data);
+  
+  
 }
+
+
 
 function addMultipleItems(items) {
   items.forEach((item) => {
     addItem(item);
   });
+}
+
+function isPokemonExist(data, pokemonName){
+    const pokemonExist = data.find(item => item.name === pokemonName)
+    return pokemonExist
 }
 
 async function getItemById(itemId) {
@@ -43,7 +46,7 @@ async function deleteItem(itemId) {
 
 async function readItemFile() {
   try {
-    const data = await fs.readFile(itemFile);
+    const data = await fs.readFileSync(itemFile);
     return JSON.parse(data.toString());
   } catch (error) {
     console.error(`Got an error trying to read the file: ${error.message}`);
@@ -52,7 +55,8 @@ async function readItemFile() {
 
 async function writeToItemFile(content) {
   try {
-    await fs.writeFile(itemFile, JSON.stringify(content));
+     fs.writeFileSync(itemFile, JSON.stringify(content));
+   return "file written"
   } catch (error) {
     console.error(`Failed to write to file ${error.message}`);
   }
@@ -64,4 +68,7 @@ module.exports = {
   getItemById,
   deleteItem,
   addMultipleItems,
+  readItemFile,
+  writeToItemFile,
+  isPokemonExist,
 };

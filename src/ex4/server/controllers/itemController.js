@@ -1,29 +1,82 @@
-const { v4: ideKeyGen } = require("uuid");
+const { v4: idKeyGen } = require("uuid");
 const { validate: uuidValidate } = require("uuid");
 const itemManagerService = require("../services/itemManagerService");
 const parserService = require("../services/parserService");
-
-async function getPokemonId(req, res) {
-  await res.status(200).json(req.body);
-}
+const pokemonService = require("../services/pokemonClientService");
 
 async function createItem(req, res) {
   //validation
 
+  const currentData = await itemManagerService.readItemFile();
+
   const pokemonOrTaskResults = parserService.parseInputValue(req.body.input);
 
-  //itemManagerService.addMultipleItems(result);
-
-  pokemonOrTaskResults.forEach((result) => {
-    console.log(result)
-    if (!result.isPokemon){
-        itemManagerService.addItem(result)
-    }
+  pokemonOrTaskResults.tasks.forEach((result) => {
+    result.itemId = idKeyGen();
+    result.picture = null;
+    currentData.push(result);
   });
 
+  const pokemonsErrors = [];
+  for (let pokemon of pokemonOrTaskResults.pokemons) {
+    try {
+      let pokemonData = await pokemonService.fetchPokemon(pokemon.name);
+   
 
+      pokemon.name = pokemonData.data.name;
+      pokemon.itemId = idKeyGen();
+      pokemon.picture = pokemonData.data.sprites.front_default;
 
-  await res.status(200).json(req.body);
+      const isPokemonExist = itemManagerService.isPokemonExist(
+        currentData,
+        pokemon.name
+      );
+
+  
+      if (typeof isPokemonExist === "undefined") {
+        currentData.push(pokemon);
+      
+      }
+
+          
+    if (pokemonData.error) {
+        pokemonsErrors.push(pokemonData.data);
+       
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    
+  }
+  if (pokemonsErrors.length === 1) {
+    const errorToString = `Pokemon with ID ${pokemonsErrors[0]} was not found`;
+    const errorItem = {
+      name: errorToString,
+      itemId: idKeyGen(),
+      isPokemon: false,
+    };
+    currentData.push(errorItem);
+  }
+  if (pokemonsErrors.length > 1) {
+    const errorToString = `Failed to fetch pokemons with input :${pokemonsErrors.join(
+      ","
+    )}`;
+
+    const errorItem = {
+      name: errorToString,
+      itemId: idKeyGen(),
+      isPokemon: false,
+    };
+   
+    currentData.push(errorItem);
+  }
+  
+  //write all items once finished processing
+  
+  await itemManagerService.addItem(currentData);
+  console.log("after writeng to file",currentData)
+
+  await res.status(200).json(currentData);
 }
 
 async function getAllItems(req, res) {
@@ -78,12 +131,9 @@ async function deleteItem(req, res) {
   res.status(200).json(data);
 }
 
-
-
 module.exports = {
   createItem,
   getAllItems,
   getItemById,
   deleteItem,
-  
 };

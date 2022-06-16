@@ -40,7 +40,7 @@ class ItemClient {
       description: `Items were not found`,
     };
     
-    axios({
+    return await axios({
       method: "post",
       url: urlCreateItem,
       headers: {},

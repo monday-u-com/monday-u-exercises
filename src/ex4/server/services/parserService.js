@@ -15,7 +15,11 @@ const closedListOfValues = [
      
       let inputValues = inputValue.split(/\s*,\s*/);
      
-      let results = [];
+      let results = []
+      let dictionary = {
+        pokemons: [],
+        tasks: [],
+      };
   
       for (let textItem of inputValues) {
         const checkIfTextItemIsNum = /^\d+$/.test(textItem);
@@ -24,6 +28,7 @@ const closedListOfValues = [
   
           let result = { name: textItem, isPokemon: true };
           results.push(result);
+          dictionary.pokemons.push(result)
           continue;
         }
   
@@ -35,6 +40,7 @@ const closedListOfValues = [
           if (closedListOfValues.includes(element)) {
             let result = { name: textItem, isPokemon: true };
             results.push(result);
+            dictionary.pokemons.push(result)
             isInClosedList = true;
           }
         });
@@ -42,10 +48,11 @@ const closedListOfValues = [
         if (!isInClosedList) {
           let result = { name: textItem, isPokemon: false };
           results.push(result);
+          dictionary.tasks.push(result)
         }
       }
   
-      return results;
+      return dictionary;
     }
   
     module.exports = {

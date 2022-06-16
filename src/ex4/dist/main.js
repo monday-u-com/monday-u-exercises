@@ -10,7 +10,7 @@ class Main {
   }
 
   init = async () => {
-    this.addItemButton.addEventListener("click", this.handleItem);
+    this.addItemButton.addEventListener( "click", (_) => this.handleItem(item));
 
     this.input.addEventListener("keyup", () => {
       if (event.keyCode == ENTER_KEY) {
@@ -26,18 +26,14 @@ class Main {
       this.clearInput(this.input);
       return alert("There is no input");
     }
-    //const results = this.parser.parseInputValue(this.input.value);
-    //const parserBackEnd = this.itemClient.parseInputValue(this.input.value)
+    
 
-    //this.loader.classList.remove("display");
-    //this.itemClient.createItem(dictionary.tasks);
-    //this.itemClient.createItem(results)
-    /* results.forEach((result) => {
-      this.itemClient.createItem(result);
-    }); */
-
-    this.itemClient.createItem(this.input.value);
-    //console.log(results)
+    const items = await this.itemClient.createItem(this.input.value);
+    this.loader.classList.remove("display");
+    await this.renderItems()
+    this.loader.classList.add("display");
+  
+    
     this.clearInput(this.input);
   };
 
@@ -50,12 +46,17 @@ class Main {
     const itemId = item.itemId;
 
     this.itemClient.deleteItemById(itemId);
-
     this.loader.classList.remove("display");
+    await this.renderItems()
+    this.loader.classList.add("display");
+  
   };
 
   renderItems = async () => {
-    const itemsData = await this.itemClient.fetchAllItems();
+    let itemsData = await this.itemClient.fetchAllItems();
+    itemsData = await this.itemClient.fetchAllItems()
+   
+   
 
     const items = itemsData.data;
 

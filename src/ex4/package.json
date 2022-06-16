@@ -5,10 +5,14 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "watch": "nodemon --ext *",
-    "start:dev": "nodemon --ext *",
+    "watch": "nodemon",
+    "start:dev": "nodemon --ext ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "nodemonConfig": {
+    "ignore": ["data/*.json", "*.js"]
+  },
+ 
   "author": "OriMarom",
   "license": "ISC",
   "dependencies": {

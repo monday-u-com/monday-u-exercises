@@ -21,19 +21,14 @@ liveReloadServer.server.once("connection", () => {
   setTimeout(() => {
     liveReloadServer.refresh("/");
   }, 10);
-}); 
+});  
 
 server.use(connectLiveReload());
 
-// parse application/x-www-form-urlencoded
-server.use(bodyParser.urlencoded({ extended: false }))
 
-// parse application/json
-server.use(bodyParser.json())
-
-
-server.use([logger, compression(), express.json(),express.static("dist")]);
-server.use('/item', itemRouter);
+//
+server.use([ logger, express.json(),express.static("dist")]);
+server.use('/item', itemRouter, express.static("dist"));
 
 
 
