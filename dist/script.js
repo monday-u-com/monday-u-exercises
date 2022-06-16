@@ -104,7 +104,7 @@ function createDeleteTaskButton(taskContainer) {
 
    deleteTask.onclick = async () => {
       const index = Array.from(taskContainer.parentNode.children).indexOf(taskContainer);
-      const tasks = await api.deleteTask(index);
+      await api.deleteTask(index);
       renderTasks(false);
    };
 

@@ -9,9 +9,7 @@ export default new (class ItemClient {
    }
 
    async deleteTask(i) {
-      const response = await fetch(`/del/${i}`, { method: "DELETE" });
-      const tasks = await response.json();
-      return tasks;
+      await fetch(`/del/${i}`, { method: "DELETE" });
    }
 
    async addTask(task) {
@@ -26,10 +24,10 @@ export default new (class ItemClient {
    }
 
    async clearTasks() {
-      const response = await fetch("/del", { method: "DELETE" });
+      await fetch("/del", { method: "DELETE" });
    }
 
    async sortTasks(way) {
-      const response = await fetch(`/sort/${way}`);
+      await fetch(`/sort/${way}`);
    }
 })();

@@ -1,4 +1,3 @@
-// Express boilerplate, hosting the `dist` file, connecting to the routes
 const express = require("express");
 const compression = require("compression");
 require("express-async-errors");
