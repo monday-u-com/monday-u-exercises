@@ -1,5 +1,4 @@
-import { ItemManager } from "./itemManager.js"
-import { PokemonClient } from "./pokemonClient.js"
+
 
 const addButton = document.getElementById("list-item-submit")
 const textInput = document.getElementById("list-item-input")
@@ -9,8 +8,6 @@ const deleteAllLists = document.getElementById("deleteAllTasks")
 const errorMessage = document.getElementById("error")
 const regex = /^[0-9]*$/
 
-const itemManager = new ItemManager()
-const pokemonClient = new PokemonClient()
 class Main {
   constructor() {
     this.name = "Main"
