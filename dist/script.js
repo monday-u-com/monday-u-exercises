@@ -71,7 +71,12 @@ async function addTask() {
    } else {
       loader.classList.add(VISIBLE_CLASS);
       const pokemonImagesURLs = await api.addTask(taskUserInput);
-      addPokemonImage(pokemonImagesURLs);
+      if (pokemonImagesURLs === "Not render") {
+         loader.classList.remove(VISIBLE_CLASS);
+         return;
+      } else if (pokemonImagesURLs) {
+         addPokemonImage(pokemonImagesURLs);
+      }
       renderTasks(true);
    }
 }

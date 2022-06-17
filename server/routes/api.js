@@ -1,14 +1,14 @@
 const express = require("express");
 const taskManager = require("../services/task-manager.js");
 const fs = require("fs");
-
+const cacher = require("../middleware/cacher");
 const router = express.Router();
 
 router.get("/getAll", (req, res) => {
    res.status(200).json(taskManager.getTasks());
 });
 
-router.post("/add", async (req, res) => {
+router.post("/add", cacher, async (req, res) => {
    const pokemonImagesURLs = await taskManager.add(req.body.task);
    res.status(200).json(pokemonImagesURLs);
 });
