@@ -1,8 +1,7 @@
 // Create an ItemClient class here. This is what makes requests to your express server (your own custom API!)
-import axios from "axios"
 const backEndUrl = "http://localhost:8080"
 
-export class ItemClient {
+class ItemClient {
   constructor() {
     this.api = backEndUrl
   }
@@ -22,8 +21,18 @@ export class ItemClient {
     return response.data
   }
 
-  async checkingDuplicate(item) {
+  async deleteItems() {
+    const response = await axios.delete(`${this.api}/items`)
+    return response.data
+  }
+
+  async getItem(item) {
     const response = await axios.get(`${this.api}/items/${item}`)
     return response.data
   }
+
+  // async checkingDuplicate(item) {
+  //   const response = await axios.get(`${this.api}/items/${item}`)
+  //   return response.data
+  // }
 }

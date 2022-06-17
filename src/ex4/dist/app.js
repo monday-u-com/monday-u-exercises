@@ -1,5 +1,3 @@
-
-
 const addButton = document.getElementById("list-item-submit")
 const textInput = document.getElementById("list-item-input")
 const allLists = document.getElementById("list")
@@ -8,6 +6,7 @@ const deleteAllLists = document.getElementById("deleteAllTasks")
 const errorMessage = document.getElementById("error")
 const regex = /^[0-9]*$/
 
+const itemC = new ItemClient()
 class Main {
   constructor() {
     this.name = "Main"
@@ -29,7 +28,8 @@ function addNewList(name) {
   deleteButton.addEventListener("click", function () {
     li.remove()
     hr.remove()
-    itemManager.removeItem(textInput.value)
+    // itemManager.removeItem(textInput.value)
+    itemC.deleteItem(textInput.value)
     countLists()
   })
   li.addEventListener("mouseover", function () {
@@ -55,42 +55,41 @@ async function validation() {
     if (textInput.value.includes(",")) {
       await Promise.all(
         textInput.value.split(",").map(async (id) => {
-          if (itemManager.checkingDuplicate(id)) {
-            errorMessage.innerHTML =
-              "One or more input is duplicated, please enter a unique task"
-            errorMessage.style.display = "block"
-            textInput.value = ""
-          } else {
-            const pokemon = await pokemonClient.getPokemon(id) // promise
-            itemManager.addItem(id)
-            addNewList(`Catch ${pokemon.name}`)
-          }
+          const pokemon = await itemC.getItem(id) // promise
+          itemC.addItem(id)
+          addNewList(`Catch ${pokemon.name}`)
         })
       ).catch((error) => {
         console.log("error", error)
-        itemManager.addItem(textInput.value)
+        itemC.addItem(textInput.value)
+        // itemManager.addItem(textInput.value)
         addNewList(`Faild to fetch pokemon with the input: ${textInput.value}`)
       })
     } else {
       if (regex.test(textInput.value)) {
-        await pokemonClient
-          .getPokemon(textInput.value)
-          .then((data) => {
-            if (itemManager.checkingDuplicate(textInput.value)) {
-              alert(`${data.name} is already in the list`)
-              textInput.value = ""
-            } else {
-              itemManager.addItem(textInput.value)
-              addNewList(`Catch ${data.name}`)
-            }
-          })
-          .catch((error) => {
-            console.log(error)
-            itemManager.addItem(textInput.value)
-            addNewList(`Pokemon with ID ${textInput.value} was not found`)
-          })
+        //   await pokemonClient
+        //     .getPokemon(textInput.value)
+        //     .then((data) => {
+        //       if (itemManager.checkingDuplicate(textInput.value)) {
+        //         alert(`${data.name} is already in the list`)
+        //         textInput.value = ""
+        //       } else {
+        //         itemManager.addItem(textInput.value)
+        //         addNewList(`Catch ${data.name}`)
+        //       }
+        //     })
+        //     .catch((error) => {
+        //       console.log(error)
+        //       itemManager.addItem(textInput.value)
+        //       addNewList(`Pokemon with ID ${textInput.value} was not found`)
+        //     })
+
+        await itemC.addItem(textInput.value)
+        const pokemon = await itemC.getItem(textInput.value)
+        addNewList(`Catch ${pokemon.name}`)
       } else {
-        itemManager.addItem(textInput.value)
+        // itemManager.addItem(textInput.value)
+        itemC.addItem(textInput.value)
         addNewList(textInput.value)
       }
       errorMessage.style.display = "none"
@@ -101,12 +100,14 @@ async function validation() {
 }
 
 function countLists() {
-  const items = itemManager.getItems()
+  // const items = itemManager.getItems()
+  const items = itemC.getItems()
   counterLists.innerHTML = `${items.length}`
 }
 
 function deleteAllTasks() {
-  itemManager.removeAllItems()
+  // itemManager.removeAllItems()
+  itemC.deleteItems()
   allLists.innerHTML = ""
   counterLists.innerHTML = "0"
 }

@@ -1,5 +1,5 @@
-import axios from "axios"
-export class PokemonClient {
+const axios = require("axios")
+class PokemonClient {
   constructor() {
     this.api = "https://pokeapi.co/api/v2/pokemon/"
   }
@@ -9,3 +9,5 @@ export class PokemonClient {
     return response.data
   }
 }
+
+module.exports = PokemonClient
