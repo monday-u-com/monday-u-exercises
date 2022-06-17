@@ -1,5 +1,4 @@
-
-class PokemonClient {
+export class PokemonClient {
     constructor() {
         this.API_BASE = 'https://pokeapi.co/api/v2';
     }
@@ -16,6 +15,5 @@ class PokemonClient {
             console.log(err);
         } 
     }
-
 }
 const pokemon = new PokemonClient()

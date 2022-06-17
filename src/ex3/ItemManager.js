@@ -1,16 +1,14 @@
-class ItemManager {
+export class ItemManager {
     constructor() {
         this.todoList = [];
     }
-    
+
     async addItem(todo){
-        if (isNaN(todo))
-        {
-            return {id:this.todoList.length ,text:todo ,number:0};
-        }
-        else{
-            const response = await (pokemon.getPokemonNameById(todo))
-            return {id:this.todoList.length ,text:response,number:1};
+        if (isNaN(todo)){
+            return {text:todo ,number:0};
+        }else{
+            const response = await (pokemon.getPokemonNameById(todo));
+            return {text:response ,number:1};
         }
     }
 
@@ -25,7 +23,7 @@ class ItemManager {
         let str='';
         arr.forEach((item)=>{
             if(item.number){
-                this.todoList.push({id:this.todoList.length,text:item.text})
+                this.todoList.push(item.text)
             }else{
                 if (str.length>0){
                     str=str+','+item.text
@@ -35,20 +33,20 @@ class ItemManager {
             }
         })
         if (str.length>0){
-            this.todoList.push({id:this.todoList.length,text:str})
+            this.todoList.push(str)
         }
     }
-
+    
     deleteListTodo(){
         this.todoList=[];
     }
 
     deleteIdListTodo(id){
-        this.todoList=this.todoList.filter((item) => item.id!=id);
+        this.todoList.splice(id, 1);
     }
-
     deleteNameListTodo(name){
-        this.todoList=this.todoList.filter((item) => item.name!=name);
+        this.todoList=this.todoList.filter((item) => item!=name);
     }
 }
 const itemManager = new ItemManager();
+

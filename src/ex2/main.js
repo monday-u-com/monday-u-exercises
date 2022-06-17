@@ -18,7 +18,7 @@ class Main {
         }   
 
         function renderTodoList () {
-            listToDo.innerHTML=""
+            listToDo.innerHTML="";
             itemManager.todoList.forEach((todo) => {
                 const todoItem = createListTodoDiv(todo);
                 listToDo.appendChild(todoItem);
@@ -62,20 +62,23 @@ class Main {
             remove.classList.add('delete');
             remove.innerHTML = removeSVG
             remove.id=todo.id;
-            remove.addEventListener('click', () =>deleteIdFromList(remove.id) );
+            remove.addEventListener('click', () => {itemManager.deleteIdListTodo(remove.id); renderTodoList();});
             div.appendChild(remove);
             div.appendChild(item);
             return div;
         }
 
-        function addTodo () {
+        function addTodo(){
             const todoInput=document.querySelector('#newToDo input').value;
             if(todoInput.length == 0) {
                 alert("Please Enter new todo");
-            }
-            else { 
-                itemManager.addArrayItem(todoInput.split(',')).then((res)=> {if (!res) return; renderTodoList()});
-                document.getElementById('newToInput').value = ""
+            }else { 
+                itemManager.addArrayItem(todoInput
+                    .split(',')
+                    .map(todo => todo.trim())
+                    .filter(Boolean))
+                    .then(()=> renderTodoList());
+                document.getElementById('newToInput').value = "";
             }
         }
 
