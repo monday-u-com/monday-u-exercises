@@ -1,47 +1,35 @@
 const fs = require("fs");
 const path = require("path");
-const rimraf = require("rimraf");
-
 const itemFile = "./server/data/itemsList.json";
 const cacheDir = "./server/data/cache";
 const cacheFilePath = "./server/data/cache/cache.json";
-const { v4: ideKeyGen } = require("uuid");
+const cacheFileName = "cache.json";
+const autoDeleteCacheService = require("./autoDeleteCacheService");
 
-fs.readdir(cacheDir, function (err, files) {
-  files.forEach(function (file, index) {
-    fs.stat(path.join(cacheDir, file), function (err, stat) {
-      var endTime, now;
-      if (err) {
-        return console.error(err);
-      }
-      now = new Date().getTime();
-      endTime = new Date(stat.ctime).getTime() + 6000;
-      if (now > endTime) {
-        return rimraf(path.join(cacheDir, file), function (err) {
-          if (err) {
-            return console.error(err);
-          }
-          console.log("cache file deleted");
-        });
-      }
-    });
-  });
-});
+const { v4: ideKeyGen } = require("uuid");
 
 async function checkIfPokemonIdInCache(pokemonId) {
   let cacheData = [];
   try {
     if (!fs.existsSync(cacheFilePath)) {
-      createStorageFile(cacheFilePath);
+      //createCacheFile(cacheFilePath);
+
+      cacheData.push(pokemonId);
+      //writeToCacheItemFile(cacheData);
+      //autoDeleteCacheService.autoDeleteCache();
+
+      return false;
     }
+
     cacheData = JSON.parse(fs.readFileSync(cacheFilePath));
 
     const pokemonExist = cacheData.find((item) => item === pokemonId);
 
     if (typeof pokemonExist === "undefined") {
       cacheData.push(pokemonId);
-
       writeToCacheItemFile(cacheData);
+      //autoDeleteCacheService.autoDeleteCache();
+
       return false;
     }
 
@@ -51,9 +39,12 @@ async function checkIfPokemonIdInCache(pokemonId) {
   }
 }
 
-function createStorageFile(cacheFilePath) {
+function createCacheFile(cacheFilePath) {
   try {
     fs.writeFileSync(cacheFilePath, JSON.stringify([]));
+    fs.stat(path.join(cacheDir, cacheFileName), function (err, stat) {
+      console.log("cache file created at: ", new Date(stat.ctime));
+    });
   } catch (e) {
     console.error(`cannot create file ${cacheFilePath}`, e);
   }
@@ -61,16 +52,6 @@ function createStorageFile(cacheFilePath) {
 
 async function getAllItems() {
   return await readItemFile();
-}
-
-async function addItem(data) {
-  return await writeToItemFile(data);
-}
-
-function addMultipleItems(items) {
-  items.forEach((item) => {
-    addItem(item);
-  });
 }
 
 function isPokemonExist(data, pokemonName) {
@@ -122,11 +103,10 @@ async function writeToCacheItemFile(content) {
 }
 
 module.exports = {
-  addItem,
   getAllItems,
   getItemById,
   deleteItem,
-  addMultipleItems,
+
   readItemFile,
   writeToItemFile,
   isPokemonExist,

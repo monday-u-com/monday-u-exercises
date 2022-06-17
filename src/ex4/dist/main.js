@@ -18,7 +18,7 @@ class Main {
       }
     });
 
-    await this.renderItems(); // this will make it so that any time you refresh the page you'll see the items already in your todo list
+    await this.renderItems();
   };
 
   handleItem = async () => {
@@ -32,7 +32,7 @@ class Main {
     await this.renderItems().then((resolvedData) =>
       setTimeout(() => {
         this.loader.classList.add("display");
-      }, 300)
+      }, 100)
     );
 
     this.clearInput(this.input);
@@ -43,7 +43,6 @@ class Main {
   }
 
   deleteItem = async (item) => {
-    // implement
     const itemId = item.itemId;
 
     this.loader.classList.remove("display");
@@ -51,13 +50,12 @@ class Main {
     await this.renderItems().then((resolvedData) =>
       setTimeout(() => {
         this.loader.classList.add("display");
-      }, 300)
+      }, 100)
     );
   };
 
   renderItems = async () => {
     let itemsData = await this.itemClient.fetchAllItems();
-    itemsData = await this.itemClient.fetchAllItems();
 
     const items = itemsData.data;
 

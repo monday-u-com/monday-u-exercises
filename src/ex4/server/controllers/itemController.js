@@ -75,7 +75,7 @@ async function createItem(req, res) {
 
   //write all items once finished processing
 
-  await itemManagerService.addItem(currentData);
+  await itemManagerService.writeToItemFile(currentData);
 
   await res.status(200).json(currentData);
 }

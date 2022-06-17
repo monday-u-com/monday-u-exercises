@@ -21,6 +21,7 @@ class ItemClient {
       };
     } catch (error) {
       console.log("this is error fetching the items");
+
       return errorResponse;
     }
   }
@@ -28,7 +29,12 @@ class ItemClient {
   async deleteItemById(itemId) {
     const urlDeleteItem = `${url}/item/delete_item/${itemId}`;
 
-    axios.delete(urlDeleteItem).then((resp) => resp.data);
+    axios
+      .delete(urlDeleteItem, {
+        headers: {},
+        data: {},
+      })
+      .then((resp) => resp.data);
   }
 
   async createItem(input) {
@@ -39,18 +45,14 @@ class ItemClient {
 
       description: `Items were not found`,
     };
-    
+
     return await axios({
       method: "post",
       url: urlCreateItem,
       headers: {},
       data: {
-       input
+        input,
       },
     });
-
-  
   }
-
-
 }

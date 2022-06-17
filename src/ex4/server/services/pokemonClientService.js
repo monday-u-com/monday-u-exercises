@@ -1,9 +1,7 @@
 const { default: axios } = require("axios");
 
-
-axios
+axios;
 async function fetchPokemon(pokemonId) {
-  
   const url = "https://pokeapi.co/api/v2/pokemon/" + pokemonId;
   const errorResponse = {
     error: true,
@@ -11,17 +9,15 @@ async function fetchPokemon(pokemonId) {
     description: `Pokemon with ID ${pokemonId} was not found`,
   };
   try {
-    
     const response = await axios.get(url)
-    
     
     
     if (!response) {
       return errorResponse;
     }
-   
-    const data =  response.data
-   
+
+    const data = response.data;
+
     if (data.name) {
       return {
         error: false,
@@ -38,13 +34,13 @@ async function fetchPokemon(pokemonId) {
 
 async function fetchMultiplePokemons(pokemonsToFetch) {
   const promises = [];
-  
+
   for (let pokemon of pokemonsToFetch) {
     let promise = await fetchPokemon(pokemon);
-   
+
     promises.push(promise);
   }
- 
+
   return promises;
 }
 
