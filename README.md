@@ -36,7 +36,7 @@ This is my task for Exercise 4 of Monday-U Full Stack course. Task requirements 
 -  [x] Create a [middleware](https://expressjs.com/en/guide/using-middleware.html) that makes a log each time a user accesses any of the routes (you can just do a `console.log`)
 -  [x] Handle server errors elegantly. Specifically, if anything goes wrong the user should see an error message (ideally, not an alert) with an explanation of what went wrong instead of crashing the page
 -  [x] Add a loder/spinner to the page that indicates the client is waiting for an async operation (e.g. a call to the server) to finish
--  [ ] Add simple caching to your server. If a user requests for the same pokemon ID three times in the same minute, for example, it should only make a request to the Pokemon API once. You can use a simple in-memory data structure for your cache
+-  [x] Add simple caching to your server. If a user requests for the same pokemon ID three times in the same minute, for example, it should only make a request to the Pokemon API once. You can use a simple in-memory data structure for your cache
 
 ## CLI(exc 3)
 
