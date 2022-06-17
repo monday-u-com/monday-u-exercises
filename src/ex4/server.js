@@ -4,10 +4,12 @@ import compression from 'compression';
 import ErrorHandler from './server/middleware/ErrorHandler.js';
 import task_router from './server/routes/task.js';
 import pokemon_router from './server/routes/pokemon.js';
+import bodyParser from 'body-parser';
 
 const app = express();
 
 // middleware
+app.use(bodyParser.json());
 app.use([morgan("common"), compression(), express.json()]);
 
 app.use(express.static('dist'));
