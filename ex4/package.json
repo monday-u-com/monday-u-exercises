@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "You know what they say about #4: you'll remember it *for*ever (ha)",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
     "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.1"
   },
   "devDependencies": {
