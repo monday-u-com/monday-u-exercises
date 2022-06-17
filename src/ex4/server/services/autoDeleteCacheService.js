@@ -1,4 +1,4 @@
-const CACHE_FILE_AUTO_DELETE_TIME = 25000;
+const CACHE_FILE_AUTO_DELETE_TIME = 15000;
 
 const fs = require("fs");
 const path = require("path");
@@ -22,7 +22,6 @@ function autoDeleteCache() {
             if (err) {
               return console.error(err);
             }
-            console.log("cache file deleted at: ", new Date(stat.ctime));
           });
         }, CACHE_FILE_AUTO_DELETE_TIME);
       });

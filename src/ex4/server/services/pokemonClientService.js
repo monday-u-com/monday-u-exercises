@@ -9,9 +9,8 @@ async function fetchPokemon(pokemonId) {
     description: `Pokemon with ID ${pokemonId} was not found`,
   };
   try {
-    const response = await axios.get(url)
-    
-    
+    const response = await axios.get(url).then((response) => response);
+
     if (!response) {
       return errorResponse;
     }

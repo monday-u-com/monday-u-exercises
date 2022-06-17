@@ -9,7 +9,9 @@ async function createItem(req, res) {
 
   const currentData = await itemManagerService.readItemFile();
 
-  const pokemonOrTaskResults = parserService.parseInputValue(req.body.data.input);
+  const pokemonOrTaskResults = parserService.parseInputValue(
+    req.body.data.input
+  );
 
   pokemonOrTaskResults.tasks.forEach((result) => {
     result.itemId = idKeyGen();
@@ -25,6 +27,7 @@ async function createItem(req, res) {
 
       if (!isPokemonIdInCache) {
         let pokemonData = await pokemonService.fetchPokemon(pokemon.name);
+
         if (!pokemonData.error) {
           pokemon.pokemonId = pokemonData.data.id;
 
@@ -37,7 +40,7 @@ async function createItem(req, res) {
             pokemon.name
           );
 
-          if (typeof isPokemonExist === "undefined") {
+          if (!isPokemonExist) {
             currentData.push(pokemon);
           }
         }

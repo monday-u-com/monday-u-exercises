@@ -21,9 +21,9 @@ async function checkIfPokemonIdInCache(pokemonId) {
 
     cacheData = JSON.parse(fs.readFileSync(cacheFilePath));
 
-    const pokemonExist = cacheData.find((item) => item === pokemonId);
+    const pokemonExist = cacheData.some((item) => item === pokemonId);
 
-    if (typeof pokemonExist === "undefined") {
+    if (!pokemonExist) {
       cacheWriteAutoDelete(pokemonId, cacheData);
 
       return false;
@@ -39,6 +39,7 @@ function cacheWriteAutoDelete(pokemonId, cacheData) {
   cacheData.push(pokemonId);
   writeToCacheItemFile(cacheData);
   autoDeleteCacheService.autoDeleteCache();
+ 
 }
 
 function createCacheFile(cacheFilePath) {
@@ -57,7 +58,7 @@ async function getAllItems() {
 }
 
 function isPokemonExist(data, pokemonName) {
-  const pokemonExist = data.find((item) => item.name === pokemonName);
+  const pokemonExist = data.some((item) => item.name === pokemonName);
   return pokemonExist;
 }
 
