@@ -3,7 +3,7 @@ const count = document.querySelector(".count");
 const buttonClearAll = document.querySelector(".buttonClearAll");
 const newToInput = document.querySelector(".newToInput");
 const buttonAdd = document.querySelector(".buttonAdd");
-
+console.log("33");
 
 var removeSVG = '<i class="fa fa-trash"></i>';
 count.textContent=0;

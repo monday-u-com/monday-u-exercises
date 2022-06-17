@@ -2,15 +2,14 @@
 
 class Main {
     init () {
-
         const listToDo = document.querySelector("#listToDo");
         const buttonClearAll = document.querySelector("#buttonClearAll");
         const buttonAdd = document.querySelector("#buttonAdd");
         const removeSVG = '<i class="fa fa-trash"></i>';
         const lengthTodoList = document.querySelector(".lengthTodoList");
 
-        lengthTodoList.textContent =0 ;
-        eventListener();
+        lengthTodoList.textContent =0;
+        eventListener()
 
         function eventListener(){
             document.addEventListener('keydown', addEnter);
@@ -25,21 +24,32 @@ class Main {
                 listToDo.appendChild(todoItem);
             });
             lengthTodoList.textContent = itemManager.todoList.length;
-            setIsActiveClearButton();
+            setIsActiveClearButton()
         };
 
         function deleteListToDo(){
-        if (confirm("Are you sure??")){
-            itemManager.deleteListTodo()
-            renderTodoList();
+        if (confirm("Are you sure??") == true) {
+            itemManager.todoList=[];
+            renderTodoList()
         }
         }
     
-        function setIsActiveClearButton(){
-            buttonClearAll.classList.toggle('active', itemManager.todoList.length > 0);
+        function setIsActiveClearButton() {
+            if (itemManager.todoList.length > 0) {
+                buttonClearAll.classList.add("active");
+            }   
+            else {
+                buttonClearAll.classList.remove("active");
+            }
         }
-        function onItemClick(inputValue){
-            alert(inputValue);
+        function onItemClick(inputValue) {
+            alert(inputValue)
+        }
+
+        function deleteIdFromList(id)
+        {
+            itemManager.todoList=itemManager.todoList.filter((item) => item.id!=id);
+            renderTodoList();
         }
 
         function createListTodoDiv(todo){
@@ -73,18 +83,9 @@ class Main {
         }
 
         function addEnter(event){
-            if (event.code === 'Enter') addTodo();
+            if (event.code === 'Enter') addTodo()
         }
     }
-    renderTodoList () {
-        listToDo.innerHTML="";
-        itemManager.todoList.forEach((todo) => {
-            const todoItem = createListTodoDiv(todo);
-            listToDo.appendChild(todoItem);
-        });
-        lengthTodoList.textContent = itemManager.todoList.length;
-        setIsActiveClearButton();
-    };
 }
 document.addEventListener("DOMContentLoaded", function () {
     // you should create an `init` method in your class
