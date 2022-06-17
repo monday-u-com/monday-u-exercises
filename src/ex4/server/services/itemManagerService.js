@@ -12,11 +12,9 @@ async function checkIfPokemonIdInCache(pokemonId) {
   let cacheData = [];
   try {
     if (!fs.existsSync(cacheFilePath)) {
-      //createCacheFile(cacheFilePath);
+      createCacheFile(cacheFilePath);
 
-      cacheData.push(pokemonId);
-      //writeToCacheItemFile(cacheData);
-      //autoDeleteCacheService.autoDeleteCache();
+      cacheWriteAutoDelete(pokemonId, cacheData);
 
       return false;
     }
@@ -26,9 +24,7 @@ async function checkIfPokemonIdInCache(pokemonId) {
     const pokemonExist = cacheData.find((item) => item === pokemonId);
 
     if (typeof pokemonExist === "undefined") {
-      cacheData.push(pokemonId);
-      writeToCacheItemFile(cacheData);
-      //autoDeleteCacheService.autoDeleteCache();
+      cacheWriteAutoDelete(pokemonId, cacheData);
 
       return false;
     }
@@ -37,6 +33,12 @@ async function checkIfPokemonIdInCache(pokemonId) {
   } catch (err) {
     console.error("cannot load", err);
   }
+}
+
+function cacheWriteAutoDelete(pokemonId, cacheData) {
+  cacheData.push(pokemonId);
+  writeToCacheItemFile(cacheData);
+  autoDeleteCacheService.autoDeleteCache();
 }
 
 function createCacheFile(cacheFilePath) {

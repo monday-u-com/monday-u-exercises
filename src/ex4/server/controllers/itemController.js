@@ -9,7 +9,7 @@ async function createItem(req, res) {
 
   const currentData = await itemManagerService.readItemFile();
 
-  const pokemonOrTaskResults = parserService.parseInputValue(req.body.input);
+  const pokemonOrTaskResults = parserService.parseInputValue(req.body.data.input);
 
   pokemonOrTaskResults.tasks.forEach((result) => {
     result.itemId = idKeyGen();

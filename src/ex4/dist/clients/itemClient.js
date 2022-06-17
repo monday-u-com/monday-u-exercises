@@ -12,12 +12,16 @@ class ItemClient {
       description: `Items were not found`,
     };
     try {
-      const response = await axios.get(urlFetchAllItems);
+      const response = await fetch(urlFetchAllItems);
 
+      if (!response.ok) {
+        return errorResponse;
+      }
+      const json = await response.json();
       return {
         error: false,
-        data: response.data,
-        description: `Items with ${response.data} data`,
+        data: json,
+        description: `Items with ${json} data`,
       };
     } catch (error) {
       console.log("this is error fetching the items");
@@ -46,13 +50,11 @@ class ItemClient {
       description: `Items were not found`,
     };
 
-    return await axios({
-      method: "post",
-      url: urlCreateItem,
-      headers: {},
+    return await axios.post(urlCreateItem, {
       data: {
         input,
       },
     });
+
   }
 }

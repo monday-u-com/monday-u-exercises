@@ -1,4 +1,4 @@
-const CACHE_FILE_AUTO_DELETE_TIME = 1000;
+const CACHE_FILE_AUTO_DELETE_TIME = 25000;
 
 const fs = require("fs");
 const path = require("path");
