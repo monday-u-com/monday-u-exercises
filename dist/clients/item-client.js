@@ -1,6 +1,3 @@
-// Create an ItemClient class here. This is what makes requests to your express server (your own custom API!)
-// This is the post get if the client side!! wow
-
 export default new (class ItemClient {
    async getAllTasks() {
       const response = await fetch("/getAll");
