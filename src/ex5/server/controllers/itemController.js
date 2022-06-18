@@ -44,6 +44,7 @@ async function createItem(req, res) {
         }
 
         if (pokemonDataFromClient.error) {
+          
           pokemonsFetchErrors.push(pokemonDataFromClient.data);
         }
       }
@@ -56,7 +57,9 @@ async function createItem(req, res) {
     pokemonHandleService.handlePokemonErrors(pokemonsFetchErrors);
 
   if (errorsToData.length > 0) {
-    currentData.push(errorsToData);
+    
+    errorsToData.forEach(error => currentData.push(error))
+   
   }
 
   //write all items once finished processing
@@ -68,6 +71,7 @@ async function createItem(req, res) {
 
 async function getAllItems(req, res) {
   let data = await itemManagerService.getAllItems();
+
   if (!data) data = [];
   res.status(200).json(data);
 }
@@ -96,7 +100,7 @@ async function getItemById(req, res) {
 
 async function deleteItem(req, res) {
   let itemId = req.params.id;
-
+  console.log();
   let validatedItemId = uuidValidate(itemId);
   if (!validatedItemId) {
     let error = Error();

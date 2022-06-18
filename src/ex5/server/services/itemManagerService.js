@@ -80,7 +80,10 @@ async function deleteItem(itemId) {
 
 async function readItemFile() {
   try {
+
     const data = await fs.readFileSync(itemFile);
+   
+    
     return JSON.parse(data.toString());
   } catch (error) {
     console.error(`Got an error trying to read the file: ${error.message}`);

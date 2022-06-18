@@ -1,5 +1,9 @@
 const fs = require("fs");
 const express = require("express");
+//const { Sequelize } = require('sequelize');
+
+const path = require("path");
+const bodyParser = require("body-parser");
 
 require("express-async-errors");
 
@@ -10,6 +14,9 @@ const itemRouter = require("./server/routes/itemRouter");
 const port = 8080;
 const server = express();
 
+
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: false }));
 server.use([logger, express.json(), express.static("dist")]);
 server.use("/item", itemRouter);
 
