@@ -20,4 +20,12 @@ class ItemClient {
 			body: JSON.stringify({ item }),
 		});
 	};
+
+	updateStatus = async (item) => {
+		await fetch('/item', {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ item }),
+		});
+	};
 }

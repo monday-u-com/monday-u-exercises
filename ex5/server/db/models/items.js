@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	Items.init(
 		{
-			item_id: DataTypes.INTEGER,
+			item_id: DataTypes.STRING,
 			ItemName: DataTypes.STRING,
 			status: DataTypes.BOOLEAN,
 		},

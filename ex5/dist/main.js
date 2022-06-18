@@ -14,13 +14,17 @@ class Main {
 		const input = document.getElementById('list-item-input');
 		const inputValue = input.value;
 
-		await this.itemClient.postItem(inputValue).then(this.renderItems());
-		//await this.renderItems();
+		const t = await this.itemClient.postItem(inputValue);
+		this.renderItems();
 	};
 
 	deleteItem = async (item) => {
 		await this.itemClient.deleteItem(item);
 		await this.renderItems();
+	};
+
+	updateStatus = async (item) => {
+		await this.itemClient.updateStatus(item);
 	};
 
 	renderItems = async () => {
@@ -31,10 +35,13 @@ class Main {
 			const listItem = document.createElement('li');
 			listItem.classList.add('list-item');
 			listItem.innerHTML = item.ItemName;
-
+			const listItemStatusButton = this._createStatusButton(
+				item.ItemName
+			);
 			const listItemDeleteButton = this._createDeleteButton(
 				item.ItemName
 			);
+			listItem.appendChild(listItemStatusButton);
 			listItem.appendChild(listItemDeleteButton);
 			list.appendChild(listItem);
 		});
@@ -53,8 +60,16 @@ class Main {
 
 		return button;
 	};
-}
 
+	_createStatusButton = (item) => {
+		const button = document.createElement('input');
+		button.type = 'checkbox';
+		button.classList.add('list-item-status-button');
+		button.addEventListener('click', (_) => this.updateStatus(item));
+
+		return button;
+	};
+}
 const main = new Main();
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -11,6 +11,11 @@ router.post('/item', async (req, res) => {
 	res.end();
 });
 
+router.put('/item', async (req, res) => {
+	await itemManager.updateStatus(req.body.item);
+	res.end();
+});
+
 router.delete('/item', async (req, res) => {
 	await itemManager.deleteItem(req.body.item);
 	res.end();

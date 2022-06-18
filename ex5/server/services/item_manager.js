@@ -1,5 +1,7 @@
 const PokemonClient = require('../clients/pokemon_client');
 const { Items } = require('../db/models');
+const { v4: uuidv4 } = require('uuid');
+
 class ItemManager {
 	constructor() {
 		this.pokemonClient = new PokemonClient();
@@ -24,8 +26,10 @@ class ItemManager {
 		});
 		if (!user) {
 			const itemv = Items.create({
+				id: uuidv4(),
 				item_id: 3,
 				ItemName: item,
+				status: false,
 			});
 		} else return;
 	};
@@ -58,12 +62,20 @@ class ItemManager {
 	};
 
 	deleteItem = async (item) => {
-		console.log(item);
 		await Items.destroy({
 			where: {
 				ItemName: item,
 			},
 		});
+	};
+
+	updateStatus = async (item) => {
+		let currItem = await Items.findOne({
+			where: {
+				ItemName: item,
+			},
+		});
+		return currItem.update({ status: !currItem.status });
 	};
 
 	_isNumber = (value) => !isNaN(Number(value));
