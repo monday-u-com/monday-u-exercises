@@ -33,13 +33,18 @@ class ItemClient {
   async deleteItemById(itemId) {
     const urlDeleteItem = `${url}/item/delete_item/${itemId}`;
 
-    axios
-      .delete(urlDeleteItem, {
-        headers: {},
-        data: {},
-      })
-      .then((resp) => resp.data);
-  }
+    try {
+      await fetch(urlDeleteItem, {
+       method: "delete",
+       headers: { "Content-Type": "application/json" },
+     });
+   } catch (err) {
+     throw new Error("failed to delete item");
+   }
+ }
+
+
+ 
 
   async createItem(input) {
     const urlCreateItem = url + `/item/create_item/`;
