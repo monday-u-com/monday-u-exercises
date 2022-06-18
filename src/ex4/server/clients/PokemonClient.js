@@ -4,8 +4,9 @@ class PokemonClient {
     this.api = "https://pokeapi.co/api/v2/pokemon/"
   }
 
-  async getPokemon(name) {
-    const response = await axios.get(`${this.api}${name}`)
+  async getPokemon(id) {
+    console.log(`${this.api}${id}`)
+    const response = await axios.get(`${this.api}${id}`)
     return response.data
   }
 }

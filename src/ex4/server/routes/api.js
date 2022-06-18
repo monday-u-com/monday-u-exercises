@@ -1,10 +1,12 @@
 // Define your endpoints here (this is your "controller file")
-
 const pokemonService = require("../services/ItemManager")
+const pokemonClient = require("../clients/PokemonClient")
+const pc = new pokemonClient()
 
 async function createPokemon(req, res) {
-  const pokemon = await pokemonService.addPokemon(req.body)
-  res.status(201).json(pokemon)
+  const newPokemon = await pc.getPokemon(req.params.id)
+  const pokemon = await pokemonService.addPokemon(newPokemon)
+  res.status(200).json(pokemon)
 }
 
 async function getPokemon(req, res) {

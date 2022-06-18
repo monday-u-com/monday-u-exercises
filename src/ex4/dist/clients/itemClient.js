@@ -12,7 +12,9 @@ class ItemClient {
   }
 
   async addItem(item) {
-    const response = await axios.post(`${this.api}/items`, { item })
+    const response = await axios.post(`${this.api}/api/pokemon/${item}`, {
+      item,
+    })
     return response.data
   }
 

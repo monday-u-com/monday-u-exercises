@@ -1,5 +1,7 @@
 const fs = require("fs").promises
-const pokemonFile = "pokemons.json"
+const pokemonFile = "pokemons.txt"
+
+
 
 async function readPokemonFile() {
   try {
@@ -12,7 +14,7 @@ async function readPokemonFile() {
 
 async function writePokemonFile(content) {
   try {
-    await fs.writeFile(jediFile, JSON.stringify(content))
+    await fs.writeFile(pokemonFile, JSON.stringify(content))
   } catch (error) {
     console.error(`Failed to write to file ${error.message}`)
   }
@@ -26,7 +28,7 @@ async function getPokemon(id) {
 async function addPokemon(pokemon) {
   const pokemons = await readPokemonFile()
   if (!pokemons) pokemons = []
-  pokemons.push(pokemon)
+  pokemons.push(pokemon.name)
   await writePokemonFile(pokemons)
 }
 
