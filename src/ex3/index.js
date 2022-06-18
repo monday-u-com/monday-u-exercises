@@ -4,19 +4,19 @@ import * as ItemManager from './ItemManager.js';
 
 const program = new Command();
 
-function addTasksCli(args,options) {
+function addTasksCli(args, options = {}) {
   const tasks = args.split(',');
   if (options.pokemons) {
-     ItemManager.addPokemons(tasks);
-  }else{
+    ItemManager.addPokemons(tasks);
+  } else {
     addTasks(tasks);
   }
 }
 
-function addTasks(tasks){
+function addTasks(tasks) {
   tasks.forEach((task) => {
     if (!isNaN(task)) {
-      ItemManager.addPokemon(task);
+      ItemManager.addPokemons([task]);
     } else {
       ItemManager.addTodo(task);
     }
@@ -29,7 +29,7 @@ function removeTask(args) {
     return;
   }
   const tasksIdxs = args.split(',');
-    ItemManager.removeItem(tasksIdxs);
+  ItemManager.removeItem(tasksIdxs);
 }
 
 function startInquier() {
@@ -70,21 +70,23 @@ function startInquier() {
         return answers.action === 'Remove a task';
       },
     },
-  ]).then((answers) => {
-    if (answers.add) {
-      addTasks(answers.add.split(','));
-    } else if (answers.pokemon) {
-      ItemManager.addPokemons(answers.pokemon.split(','));
-    } else if (answers.remove) {
-      removeTask(answers.remove);
-    } else if (answers.action === 'See all the tasks') {
-      ItemManager.printTasks();
-    } else{
-      return;
-    }
-  }).catch((err) => {
-    console.log(err);
-});
+  ])
+    .then((answers) => {
+      if (answers.add) {
+        addTasks(answers.add.split(','));
+      } else if (answers.pokemon) {
+        ItemManager.addPokemons(answers.pokemon.split(','));
+      } else if (answers.remove) {
+        removeTask(answers.remove);
+      } else if (answers.action === 'See all the tasks') {
+        ItemManager.printTasks();
+      } else {
+        return;
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 program
@@ -107,6 +109,9 @@ program
   .description('get all tasks')
   .action(ItemManager.printTasks);
 
-program.command('inquier').description('work with inquirer').action(startInquier);
+program
+  .command('inquier')
+  .description('work with inquirer')
+  .action(startInquier);
 
 program.parse();
