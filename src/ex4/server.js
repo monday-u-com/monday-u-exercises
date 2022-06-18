@@ -3,10 +3,14 @@ const express = require("express")
 const port = 8080
 const cors = require("cors")
 const app = express()
-const itemManager = require("./server/services/ItemManager")
-const pokemonClient = require("./server/clients/PokemonClient")
 
-const im = new itemManager()
+const pokemonClient = require("./server/clients/PokemonClient")
+const {
+  createPokemon,
+  getPokemon,
+  getAllPokemons,
+  deletePokemon,
+} = require("./server/routes/api")
 const pc = new pokemonClient()
 
 app.use(express.static("dist"))
