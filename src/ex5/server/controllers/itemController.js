@@ -2,10 +2,11 @@ const { v4: idKeyGen } = require("uuid");
 const { validate: uuidValidate } = require("uuid");
 const itemManagerService = require("../services/itemManagerService");
 const parserService = require("../services/parserService");
-const pokemonService = require("../clients/pokemonClientService");
+const pokemonClientService = require("../clients/pokemonClientService");
+const pokemonHandleService = require("../services/handlePokemonService")
 
 async function createItem(req, res) {
-  //validation
+ 
  
   const currentData = await itemManagerService.readItemFile();
 
@@ -17,42 +18,40 @@ async function createItem(req, res) {
     currentData.push(result);
   });
 
-  const pokemonsErrors = [];
+  const pokemonsFetchErrors = [];
   for (let pokemon of pokemonOrTaskResults.pokemons) {
     try {
       const isPokemonIdInCache =
         await itemManagerService.checkIfPokemonIdInCache(pokemon.name);
 
       if (!isPokemonIdInCache) {
-        let pokemonData = await pokemonService.fetchPokemon(pokemon.name);
+        let pokemonDataFromClient = await pokemonClientService.fetchPokemon(pokemon.name);
 
-        if (!pokemonData.error) {
-          pokemon.pokemonId = pokemonData.data.id;
+        if (!pokemonDataFromClient.error) {
 
-          pokemon.name = `Catch ${pokemonData.data.name}`;
-          pokemon.itemId = idKeyGen();
-          pokemon.picture = pokemonData.data.sprites.front_default;
+          const handledPokemon = pokemonHandleService.handlePokemon(pokemon, pokemonDataFromClient)
+         
 
           const isPokemonExist = itemManagerService.isPokemonExist(
             currentData,
-            pokemon.name
+            handledPokemon.name
           );
 
           if (!isPokemonExist) {
-            currentData.push(pokemon);
+            currentData.push(handledPokemon);
           }
         }
 
-        if (pokemonData.error) {
-          pokemonsErrors.push(pokemonData.data);
+        if (pokemonDataFromClient.error) {
+          pokemonsFetchErrors.push(pokemonDataFromClient.data);
         }
       }
     } catch (e) {
       console.log(e);
     }
   }
-  if (pokemonsErrors.length === 1) {
-    const errorToString = `Pokemon with ID ${pokemonsErrors[0]} was not found`;
+  if (pokemonsFetchErrors.length === 1) {
+    const errorToString = `Pokemon with ID ${pokemonsFetchErrors[0]} was not found`;
     const errorItem = {
       name: errorToString,
       itemId: idKeyGen(),
@@ -60,8 +59,8 @@ async function createItem(req, res) {
     };
     currentData.push(errorItem);
   }
-  if (pokemonsErrors.length > 1) {
-    const errorToString = `Failed to fetch pokemons with input :${pokemonsErrors.join(
+  if (pokemonsFetchErrors.length > 1) {
+    const errorToString = `Failed to fetch pokemons with input :${pokemonsFetchErrors.join(
       ","
     )}`;
 
