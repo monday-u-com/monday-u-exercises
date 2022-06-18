@@ -5,15 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "watch": "nodemon",
     "start:dev": "nodemon --ext ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "nodemonConfig": {
-    "ignore": [
-      "data/*.json",
-      "*.js"
-    ]
+    "ignore": "data//"
   },
   "author": "OriMarom",
   "license": "ISC",
@@ -43,6 +39,7 @@
   "devDependencies": {
     "connect-livereload": "^0.6.1",
     "livereload": "^0.9.3",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "sequelize-cli": "^6.4.1"
   }
 }

@@ -49,19 +49,19 @@ class ItemClient {
   async createItem(input) {
     const urlCreateItem = url + `/item/create_item/`;
 
-    const errorResponse = {
-      error: true,
-
-      description: `Items were not found`,
-    };
-
     
 
+    
+    try {
     const response = await fetch(urlCreateItem, {
       method: "POST",
       body: JSON.stringify({ item: input }),
       headers: { "Content-Type": "application/json" },
     });
+  }
+  catch(e){
+    console.log("this is error creating item", e)
+  }
     
 
   }

@@ -2,11 +2,11 @@ const { v4: idKeyGen } = require("uuid");
 const { validate: uuidValidate } = require("uuid");
 const itemManagerService = require("../services/itemManagerService");
 const parserService = require("../services/parserService");
-const pokemonService = require("../services/pokemonClientService");
+const pokemonService = require("../clients/pokemonClientService");
 
 async function createItem(req, res) {
   //validation
-  console.log(req.body);
+ 
   const currentData = await itemManagerService.readItemFile();
 
   const pokemonOrTaskResults = parserService.parseInputValue(req.body.item);
