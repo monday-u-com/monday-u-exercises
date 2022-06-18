@@ -6,7 +6,7 @@ This is my task for Exercise 4 of Monday-U Full Stack course. Task requirements 
 
 ## Demo:
 
-![app demo](./dist/assets/app-demo2.mov)
+https://user-images.githubusercontent.com/99750449/174444998-2a6cfa98-ba87-47a0-b7ab-6b22a52c7a6a.mov
 
 ## Task requirements:
 
