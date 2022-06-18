@@ -32,7 +32,7 @@ body {
    flex-direction: column;
    align-items: center;
    background-color: aliceblue;
-   width: 54rem;
+   width: 58rem;
    min-width: 45rem;
    height: 69rem;
    border-radius: 8px;
@@ -40,8 +40,8 @@ body {
 
 .all-tasks-container {
    overflow: auto;
-   height: 29rem;
-   width: 48rem;
+   height: 33rem;
+   width: 52rem;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -56,6 +56,7 @@ body {
 
 .info {
    font-size: 1.7rem;
+   width: 50rem;
    margin-bottom: 2rem;
    text-align: center;
 }
@@ -112,7 +113,7 @@ body {
 }
 
 .task {
-   width: 39rem;
+   width: 43rem;
    height: 3.5rem;
    background-color: rgb(139, 218, 255);
    font-size: 2rem;
@@ -120,6 +121,7 @@ body {
    margin: 0.3rem;
    display: flex;
    align-items: center;
+   justify-content: space-between;
    border-radius: 3px;
 }
 
@@ -179,8 +181,7 @@ body {
 }
 
 .pokemon-image {
-   object-fit: cover;
-   width: 5.5rem;
+   width: 4.5rem;
 }
 
 .loader {

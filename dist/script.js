@@ -44,7 +44,7 @@ async function renderTasks(toAnimate) {
    tasks.forEach((task) => {
       const taskContainer = createTaskContainer();
       const newTask = createNewTask(taskContainer, task);
-      if (task.imageURL) addPokemonImage(taskContainer, task.imageURL);
+      if (task.imageURL) addPokemonImage(newTask, task.imageURL);
       const deleteTask = createDeleteTaskButton(taskContainer);
       addHoverReveal(taskContainer, deleteTask, newTask);
       lastTaskAdded = newTask;
@@ -74,12 +74,11 @@ async function addTask() {
    }
 }
 
-function addPokemonImage(taskContainer, pokemonImagesURL) {
+function addPokemonImage(newTask, pokemonImagesURL) {
    const pokemonImage = document.createElement("img");
    pokemonImage.src = pokemonImagesURL;
    pokemonImage.classList.add("pokemon-image");
-   taskContainer.append(pokemonImage);
-   //pokemonCatchText.classList.add(VISIBLE_CLASS);
+   newTask.append(pokemonImage);
 }
 
 function createTaskContainer() {
