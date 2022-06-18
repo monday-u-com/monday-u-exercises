@@ -4,21 +4,9 @@ This is my task for Exercise 4 of Monday-U Full Stack course. Task requirements 
 
 -  Please try the app right here: https://weekend-todo.netlify.app/
 
-## Single pokemon catch:
+## Demo:
 
-![single pokemon](./dist/assets/singlePokemon.gif)
-
-## Multiply Pokemon catch:
-
-![multiple pokemon](./dist/assets/multiplePokemon.gif)
-
-## Pokemon with invalid IDS:
-
-![invalid pokemon](./dist/assets/invalidPokemon.gif)
-
-## Regular tasks still an option:
-
-![regular tasks](./dist/assets/tasks.gif)
+![app demo](./dist/assets/app-demo2.mov)
 
 ## Task requirements:
 
