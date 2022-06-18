@@ -125,7 +125,6 @@ body {
     justify-content: space-between;
 }
 
-
 .clear-all-btn {
     border: none;
     padding: 5px 15px;
@@ -137,3 +136,28 @@ body {
 .clear-all-btn[disabled]{
     cursor: default;
 }
+
+
+.loader {
+    top: 40%;
+    left: 50%;
+    position: absolute;
+    z-index: 1;
+    margin: 0 0 0 -20px;
+    border: 10px solid #fdcd3b; /* Light grey */
+    border-top: 10px solid #ffed4b; /* Blue */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1.5s ease infinite, fadeIn 1s;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }

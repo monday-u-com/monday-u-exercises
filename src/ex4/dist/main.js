@@ -33,10 +33,29 @@ class Main {
     const validInput = await this._isValidInput(taskText, taskList);
 
     if (validInput) {
-      await this.itemClient.addTask(taskText);
+      await this.callFuncWithLoader(this.itemClient.addTask, taskText);
       await this.renderTaskList();
     }
     this.resetInputField(newTaskField);
+  }
+
+  async callFuncWithLoader(func, args) {
+    const div = this._loaderElem();
+    const result = await func(args);
+    this._removeLoaderElem(div);
+    return result;
+  }
+
+  _loaderElem() {
+    const main = document.querySelector(".main");
+    const div = document.createElement("div");
+    div.classList.add("loader");
+    main.append(div);
+    return div;
+  }
+
+  _removeLoaderElem(div) {
+    div.remove();
   }
 
   _isNumbers(input) {
@@ -47,7 +66,8 @@ class Main {
   }
 
   async _isValidInput(taskText, taskList) {
-    if (taskText.trim() == "") {//handling empty string or string of spaces
+    if (taskText.trim() == "") {
+      //handling empty string or string of spaces
       alert("Enter new task!");
       return false;
     } else if (taskList.indexOf(taskText) !== -1) {
@@ -117,7 +137,7 @@ class Main {
   }
 
   async renderTaskList() {
-    const taskList = await this.itemClient.getAllTasks();
+    const taskList = await this.callFuncWithLoader(this.itemClient.getAllTasks);
     this._setTaskList(taskList);
     const tasks = document.querySelector(".tasks");
     const divList = [];
@@ -133,6 +153,7 @@ class Main {
     divList.forEach((divTask) => {
       tasks.append(divTask);
     });
+
     this.updateFooter(taskList.length);
   }
 
