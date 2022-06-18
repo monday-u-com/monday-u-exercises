@@ -69,8 +69,8 @@ async function addTask() {
       alert("Please fill in a task");
    } else {
       loader.classList.add(VISIBLE_CLASS);
-      await api.addTask(taskUserInput);
-      renderTasks(true);
+      const toRender = await api.addTask(taskUserInput);
+      toRender ? renderTasks(true) : renderTasks(false);
    }
 }
 
