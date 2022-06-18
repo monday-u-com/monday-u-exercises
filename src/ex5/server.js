@@ -1,6 +1,9 @@
 // Express boilerplate, hosting the `dist` file, connecting to the routes
 const fs = require("fs");
 const express = require("express");
+const bodyParser = require('body-parser')
+
+
 
 require("express-async-errors");
 
@@ -18,9 +21,16 @@ const liveReloadServer = livereload.createServer();
 
 server.use(connectLiveReload());
 
-//
+
+
+
 server.use([logger, express.json(), express.static("dist")]);
 server.use("/item", itemRouter);
+
+server.use( bodyParser.json() );       // to support JSON-encoded bodies
+server.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
 server.get("/", (req, res) => {
   res.status(200).json({

@@ -50,11 +50,18 @@ class ItemClient {
       description: `Items were not found`,
     };
 
-    return await axios.post(urlCreateItem, {
+    /* return await axios.post(urlCreateItem, {
       data: {
         input,
       },
+    }); */
+
+    const response = await fetch(urlCreateItem, {
+      method: "POST",
+      body: JSON.stringify({ item: input }),
+      headers: { "Content-Type": "application/json" },
     });
+    
 
   }
 }

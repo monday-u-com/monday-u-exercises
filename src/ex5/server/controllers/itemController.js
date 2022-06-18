@@ -6,11 +6,11 @@ const pokemonService = require("../services/pokemonClientService");
 
 async function createItem(req, res) {
   //validation
-
+console.log(req.body)
   const currentData = await itemManagerService.readItemFile();
 
   const pokemonOrTaskResults = parserService.parseInputValue(
-    req.body.data.input
+    req.body.item
   );
 
   pokemonOrTaskResults.tasks.forEach((result) => {
