@@ -1,5 +1,3 @@
-// Create an ItemClient class here. This is what makes requests to your express server (your own custom API!)
-
 const url = "http://localhost:8080";
 class ItemClient {
   constructor() {}
@@ -35,34 +33,25 @@ class ItemClient {
 
     try {
       await fetch(urlDeleteItem, {
-       method: "delete",
-       headers: { "Content-Type": "application/json" },
-     });
-   } catch (err) {
-     throw new Error("failed to delete item");
-   }
- }
-
-
- 
+        method: "delete",
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (err) {
+      throw new Error("failed to delete item");
+    }
+  }
 
   async createItem(input) {
     const urlCreateItem = url + `/item/create_item/`;
 
-    
-
-    
     try {
-    const response = await fetch(urlCreateItem, {
-      method: "POST",
-      body: JSON.stringify({ item: input }),
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-  catch(e){
-    console.log("this is error creating item", e)
-  }
-    
-
+      const response = await fetch(urlCreateItem, {
+        method: "POST",
+        body: JSON.stringify({ item: input }),
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (e) {
+      console.log("this is error creating item", e);
+    }
   }
 }

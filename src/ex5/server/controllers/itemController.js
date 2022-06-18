@@ -3,11 +3,9 @@ const { validate: uuidValidate } = require("uuid");
 const itemManagerService = require("../services/itemManagerService");
 const parserService = require("../services/parserService");
 const pokemonClientService = require("../clients/pokemonClientService");
-const pokemonHandleService = require("../services/handlePokemonService")
+const pokemonHandleService = require("../services/handlePokemonService");
 
 async function createItem(req, res) {
- 
- 
   const currentData = await itemManagerService.readItemFile();
 
   const pokemonOrTaskResults = parserService.parseInputValue(req.body.item);
@@ -25,12 +23,15 @@ async function createItem(req, res) {
         await itemManagerService.checkIfPokemonIdInCache(pokemon.name);
 
       if (!isPokemonIdInCache) {
-        let pokemonDataFromClient = await pokemonClientService.fetchPokemon(pokemon.name);
+        let pokemonDataFromClient = await pokemonClientService.fetchPokemon(
+          pokemon.name
+        );
 
         if (!pokemonDataFromClient.error) {
-
-          const handledPokemon = pokemonHandleService.handlePokemon(pokemon, pokemonDataFromClient)
-         
+          const handledPokemon = pokemonHandleService.handlePokemon(
+            pokemon,
+            pokemonDataFromClient
+          );
 
           const isPokemonExist = itemManagerService.isPokemonExist(
             currentData,
@@ -50,27 +51,12 @@ async function createItem(req, res) {
       console.log(e);
     }
   }
-  if (pokemonsFetchErrors.length === 1) {
-    const errorToString = `Pokemon with ID ${pokemonsFetchErrors[0]} was not found`;
-    const errorItem = {
-      name: errorToString,
-      itemId: idKeyGen(),
-      isPokemon: false,
-    };
-    currentData.push(errorItem);
-  }
-  if (pokemonsFetchErrors.length > 1) {
-    const errorToString = `Failed to fetch pokemons with input :${pokemonsFetchErrors.join(
-      ","
-    )}`;
 
-    const errorItem = {
-      name: errorToString,
-      itemId: idKeyGen(),
-      isPokemon: false,
-    };
+  const errorsToData =
+    pokemonHandleService.handlePokemonErrors(pokemonsFetchErrors);
 
-    currentData.push(errorItem);
+  if (errorsToData.length > 0) {
+    currentData.push(errorsToData);
   }
 
   //write all items once finished processing

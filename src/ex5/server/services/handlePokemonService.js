@@ -12,6 +12,36 @@ pokemonObject.picture = pokemonDataFromClient.data.sprites.front_default;
 return pokemonObject
 }
 
+function handlePokemonErrors(pokemonsFetchErrors){
+
+    const errorItems = []
+    if (pokemonsFetchErrors.length === 1) {
+        const errorToString = `Pokemon with ID ${pokemonsFetchErrors[0]} was not found`;
+        const errorItem = {
+          name: errorToString,
+          itemId: idKeyGen(),
+          isPokemon: false,
+        };
+        errorItems.push(errorItem);
+      }
+      if (pokemonsFetchErrors.length > 1) {
+        const errorToString = `Failed to fetch pokemons with input :${pokemonsFetchErrors.join(
+          ","
+        )}`;
+    
+        const errorItem = {
+          name: errorToString,
+          itemId: idKeyGen(),
+          isPokemon: false,
+        };
+    
+        errorItems.push(errorItem);
+      }
+      return errorItems
+
+}
+
 module.exports = {
-    handlePokemon
+    handlePokemon,
+    handlePokemonErrors,
 }
