@@ -12,22 +12,15 @@ class TaskManager {
             .split(",")
             .every((elem) => !isNaN(elem) || allPokemonNames.includes(elem))
       ) {
-         let pokemonImagesURLs = [];
          let pokemonIDS = task.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
          const pokemonData = await Promise.all(
             pokemonIDS.map((id) => pokemonClient.getPokemon(id))
          );
          pokemonData.forEach((pokemon, i) => {
-            pokemonImagesURLs = pokemonImagesURLs.concat(
-               this._pokemonTasksHandle(pokemon, pokemonIDS, i)
-            );
+            this._pokemonTasksHandle(pokemon, pokemonIDS, i);
          });
-
-         return pokemonImagesURLs;
       } else {
-         file.addTask(task);
-
-         return [];
+         file.addTask(new Task(task));
       }
    }
 
@@ -37,40 +30,50 @@ class TaskManager {
 
    sort(direction) {
       let sortedTasks;
+      sortedTasks = this.getTasks().sort((a, b) => {
+         if (a.taskText < b.taskText) return 1;
+         return -1;
+      });
       if (direction === "down") {
-         sortedTasks = this.getTasks().sort();
-      } else {
-         sortedTasks = this.getTasks().sort().reverse();
+         sortedTasks = sortedTasks.reverse();
       }
       file.clearTasks();
       sortedTasks.forEach((task) => file.addTask(task));
    }
 
    _pokemonTasksHandle(pokemon, pokemonIDS, i) {
+      let task;
       if (pokemon) {
          let pokemonName = this._capitalize(pokemon.name);
          const pokemonTypes = this._capitalize(pokemonClient.getPokemonTypes(pokemon));
          const taskToAdd = `Catch ${pokemonName} of type ${pokemonTypes}`;
+         const imageURL = pokemon.sprites.front_default;
+         task = new Task(taskToAdd, pokemonIDS[i], pokemonName, pokemonTypes, imageURL);
+
          if (file.getAllTasks().includes(taskToAdd)) {
-            file.addTask(
+            task.taskText(
                `${pokemonName} already exists in your tasks. Please try another Pokemon.`
             );
-
-            return [];
-         } else {
-            file.addTask(taskToAdd);
-
-            return pokemon.sprites.front_default;
+            task.imageURL = [];
          }
       } else {
-         file.addTask(`Pokemon ID ${pokemonIDS[i]} does not exist`);
-
-         return [];
+         task = new Task(`Pokemon ID ${pokemonIDS[i]} does not exist`);
       }
+      file.addTask(task);
    }
 
    _capitalize(word) {
       return word.charAt(0).toUpperCase() + word.slice(1);
+   }
+}
+
+class Task {
+   constructor(taskText, pokemonID, pokemonName, pokemonType, imageURL) {
+      this.taskText = taskText;
+      this.pokemonID = pokemonID;
+      this.pokemonName = pokemonName;
+      this.pokemonType = pokemonType;
+      this.imageURL = imageURL;
    }
 }
 

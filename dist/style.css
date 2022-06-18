@@ -183,21 +183,6 @@ body {
    width: 5.5rem;
 }
 
-.pokedex {
-   display: flex;
-   justify-content: center;
-   margin-bottom: 1.5rem;
-   max-width: 46rem;
-   overflow: auto;
-}
-
-.pokemons-catch-text {
-   align-self: center;
-   font-size: 1.6rem;
-   margin-top: -1rem;
-   visibility: hidden;
-}
-
 .loader {
    position: absolute;
    z-index: 10;

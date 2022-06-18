@@ -9,8 +9,8 @@ router.get("/getAll", (req, res) => {
 });
 
 router.post("/add", cacher, async (req, res) => {
-   const pokemonImagesURLs = await taskManager.add(req.body.task);
-   res.status(200).json(pokemonImagesURLs);
+   await taskManager.add(req.body.task);
+   res.status(200).json({ message: "Successfully added task" });
 });
 
 router.delete("/del", (req, res) => {

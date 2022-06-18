@@ -6,8 +6,6 @@ const clearButton = document.querySelector(CLEAR_BTN_SELECTOR);
 const sortDownButton = document.querySelector(SORT_DOWN_BTN_SELECTOR);
 const sortUpButton = document.querySelector(SORT_UP_BTN_SELECTOR);
 const sortButtonsContainer = document.querySelector(SORT_BTNS_SELECTOR);
-const pokemonImagesContainer = document.querySelector(POKEMON_IMAGES_SELECTOR);
-const pokemonCatchText = document.querySelector(POKEMON_TEXT_SELECTOR);
 const loader = document.querySelector(LOADER_SELECTOR);
 
 import api from "./clients/item-client.js";
@@ -43,9 +41,10 @@ async function renderTasks(toAnimate) {
 
    const tasks = await api.getAllTasks();
    let pendingTasks = 0;
-   tasks.forEach((item) => {
+   tasks.forEach((task) => {
       const taskContainer = createTaskContainer();
-      const newTask = createNewTask(taskContainer, item);
+      const newTask = createNewTask(taskContainer, task);
+      if (task.imageURL) addPokemonImage(taskContainer, task.imageURL);
       const deleteTask = createDeleteTaskButton(taskContainer);
       addHoverReveal(taskContainer, deleteTask, newTask);
       lastTaskAdded = newTask;
@@ -70,25 +69,17 @@ async function addTask() {
       alert("Please fill in a task");
    } else {
       loader.classList.add(VISIBLE_CLASS);
-      const pokemonImagesURLs = await api.addTask(taskUserInput);
-      if (pokemonImagesURLs === "Not render") {
-         loader.classList.remove(VISIBLE_CLASS);
-         return;
-      } else if (pokemonImagesURLs) {
-         addPokemonImage(pokemonImagesURLs);
-      }
+      await api.addTask(taskUserInput);
       renderTasks(true);
    }
 }
 
-function addPokemonImage(pokemonImagesURLs) {
-   pokemonImagesURLs.forEach((address) => {
-      const pokemonImage = document.createElement("img");
-      pokemonImage.src = address;
-      pokemonImage.classList.add("pokemon-image");
-      pokemonImagesContainer.append(pokemonImage);
-      pokemonCatchText.classList.add(VISIBLE_CLASS);
-   });
+function addPokemonImage(taskContainer, pokemonImagesURL) {
+   const pokemonImage = document.createElement("img");
+   pokemonImage.src = pokemonImagesURL;
+   pokemonImage.classList.add("pokemon-image");
+   taskContainer.append(pokemonImage);
+   //pokemonCatchText.classList.add(VISIBLE_CLASS);
 }
 
 function createTaskContainer() {
@@ -99,9 +90,9 @@ function createTaskContainer() {
    return taskContainer;
 }
 
-function createNewTask(taskContainer, item) {
+function createNewTask(taskContainer, task) {
    const newTask = document.createElement("div");
-   newTask.textContent = item;
+   newTask.textContent = task.taskText;
    newTask.classList.add("task");
    taskContainer.append(newTask);
    newTask.onclick = () => alert(newTask.textContent);
