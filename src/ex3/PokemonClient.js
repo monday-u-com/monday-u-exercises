@@ -22,27 +22,7 @@ export class PokemonClient {
       });
       return pokemons;
     } catch (err) {
-      console.log(err);
-      throw new Error('Failed to fetch pokemons');
-    }
-  }
-
-  async fetchSinglePokemon(id) {
-    try {
-      const response = await fetch(`${this.API_URL}${id}/`);
-      if (!response.ok) {
-        console.log(response.statusText);
-        return;
-      }
-      const pokemon = await response.json();
-      const pokemonImg = this.printPokemonImage(
-        pokemon.sprites.other['official-artwork'].front_default
-      );
-
-      return { ...pokemon, image: pokemonImg };
-    } catch (err) {
-      console.log(err);
-      throw new Error('failed to fetch pokemon');
+      console.log(err.message);
     }
   }
 
