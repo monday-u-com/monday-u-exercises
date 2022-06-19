@@ -13,12 +13,8 @@ body {
   height: 100%;
   font-family: Georgia, serif;
   font-weight: lighter;
-  background-image: linear-gradient(to top right,
-      white,
-      #d4dff3,
-      rgba(138, 144, 224, 0.76),
-      rgba(106, 117, 231, 0.76),
-      rgba(85, 97, 229, 0.76));
+  background-color: darkslategray;
+
 
   display: flex;
   flex-direction: column;
@@ -104,10 +100,10 @@ body {
 }
 
 .list-item-delete-button {
-  margin-left: auto;
-  padding: 8px;
   cursor: pointer;
-  border-radius: 8px;
+  float: right;
+  height: auto;
+  width: auto;
 }
 
 .list-item-delete-button:hover {
@@ -116,9 +112,15 @@ body {
 }
 
 .NoTasksImg-visible {
+  padding: 30px;
   display: block;
   margin: auto;
-  width: 50%;
+  height: 1000%;
+  overflow: auto;
+
+
+
+
 }
 
 .noTasks-img-hidden {
@@ -130,9 +132,18 @@ body {
 .pendingTasksCounter-visible {
   display: block;
   text-align: center;
+  margin-bottom: 20px;
+
 }
 
 .pendingTasksCounter-hidden {
   display: none;
   text-align: center;
+}
+
+
+.list-item-status-button {
+  height: auto;
+  width: auto;
+  margin-left: auto
 }
