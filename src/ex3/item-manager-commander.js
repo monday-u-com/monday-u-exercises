@@ -20,9 +20,10 @@ export class ItemManagerCommander {
   addItem(text) {
     const itemIndex = this.items.findIndex(item => item.text === text);
     if (itemIndex > -1) {
-      this.items[itemIndex].isNew = true;
+      this.items = this.items.map(oItem =>
+        oItem.text === text ? {text: text, isNew: true} : oItem)
     } else {
-      this.items.push({text: text, isNew: true });
+      this.items = [ ...this.items, {text: text, isNew: true } ]
     }
     this.writeItemsToFile();
   }
