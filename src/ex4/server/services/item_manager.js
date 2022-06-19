@@ -1,17 +1,21 @@
-import { readFile, writeToFile } from '../helper/fileHandler.js'
 import { isPokemon, isListOfPokemons, pokemonExistsInTodoList } from '../helper/pokemonHelper.js'
 import { getPokemon, getAllPokemons } from '../clients/pokemon_client.js'
+import items from '../db/models/items.cjs'
+import { Sequelize } from 'sequelize'
 
 class ItemManager {
 
     constructor() {
-        this.filePath = "./server/data/data.json" //Why is this not working??
+        this.sequelize = new Sequelize('todo_db', 'root', 'password', {
+            host: 'localhost',
+            dialect: 'mysql'
+        });
     }
 
     async getItems(req, res) {
         try {
-            const items = await readFile("./server/data/data.json")
-            res.status(200).json(items)
+            let newItems = await items(this.sequelize).findAll()
+            res.status(200).json(newItems)
         } catch (error) {
             console.log(error)
             return []
@@ -20,44 +24,40 @@ class ItemManager {
 
     async postItem(req, res) {
         try {
-            let items = await readFile("./server/data/data.json")
-            if (!items) items = []
             let newItem = req.body.item
             if (isListOfPokemons(newItem)) {
                 let listOfPokemons = newItem.split(',');
                 listOfPokemons = await getAllPokemons(listOfPokemons)
-                listOfPokemons.forEach(item => {
-                    items = [...items, `Catch ${item}`]
+                listOfPokemons.forEach(async item => {
+                    await items(this.sequelize).create({ itemName: item })
                 })
-                await writeToFile("./server/data/data.json", items)
-                res.status(200).json(items)
-            } else if (isPokemon(newItem)) {
+            }
+            else if (isPokemon(newItem)) {
                 const pokemon = await getPokemon(newItem)
                 if (pokemon === undefined) {
                     res.status(404).json(items)
                 }
                 const pokemonExists = await pokemonExistsInTodoList(pokemon?.data?.name)
                 if (!pokemonExists) {
-                    items = [...items, `Catch ${pokemon?.data?.name}`]
-                    await writeToFile("./server/data/data.json", items)
+                    await items(this.sequelize).create({ itemName: pokemon?.data?.name })
                 }
-                res.status(200).json(items)
             } else {
-                items = [...items, newItem]
-                await writeToFile("./server/data/data.json", items)
-                res.status(200).json(items)
+                await items(this.sequelize).create({ itemName: newItem })
             }
         } catch (error) {
             console.log(error)
             return []
         }
+        res.status(200)
     }
 
     async deleteItem(req, res) {
         try {
-            let items = await readFile("./server/data/data.json")
-            items.splice(req.params.id, 1)
-            await writeToFile("./server/data/data.json", items)
+            await items(this.sequelize).destroy({
+                where: {
+                    itemName: req.params.id
+                }
+            })
             res.status(200).json(items)
         } catch (error) {
             console.log(error)

@@ -29,9 +29,8 @@ class Main {
 
     deleteItem = async item => {
         let loading = document.getElementById('spinner')
-        let index = this.findIndexOfItem(item)
         loading.style.visibility = 'visible'
-        await this.itemClient.deleteItem(index)
+        await this.itemClient.deleteItem(item)
         loading.style.visibility = 'hidden'
         this.renderItems()
     }
@@ -48,11 +47,10 @@ class Main {
     renderItems = async () => {
         list.innerHTML = "";
         document.getElementById("list-item-input").value = '';
-
         const items = await this.itemClient.getItems()
 
         items.forEach(item => {
-            this.createItem(item)
+            this.createItem(item.itemName)
         })
     }
 

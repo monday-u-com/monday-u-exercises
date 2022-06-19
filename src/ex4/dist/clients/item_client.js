@@ -33,14 +33,14 @@ class ItemClient {
         }
     }
 
-    async deleteItem(indexToDelete) {
+    async deleteItem(item) {
 
         const options = {
             method: "DELETE",
         }
 
         try {
-            await fetch(this.url + `${indexToDelete}`, options)
+            await fetch(this.url + `${item}`, options)
         } catch (e) {
             console.log(e)
             return e
