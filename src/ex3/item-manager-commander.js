@@ -35,7 +35,8 @@ export class ItemManagerCommander {
   }
 
   deleteItem(index) {
-    this.items.splice(index, 1);
+    const item = this.items[index];
+    this.items = this.items.filter(oItem => oItem !== item)
     this.writeItemsToFile();
   }
 
