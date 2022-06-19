@@ -39,6 +39,12 @@ async function AddPokemon(pokemon_id) {
     InsertPokemon(pokemon, tasks);
     await WriteTasks(tasks);
   } catch (error) {
+    if(error.response.status === 404)
+    {
+      const err = new Error(`Pokemon with ID ${pokemon_id} was not found`);
+      err.statusCode = 404;
+      throw err;      
+    }
     throw error;
   }
 };
@@ -71,17 +77,7 @@ async function DeleteTasks() {
 
 async function DeleteTask(task_id) {
   const tasks = await GetTasksFromFile();
-  const current_task_length = tasks.length;
   tasks.splice(task_id, 1);
-  const after_task_deletion = tasks.length;
-  // task id is not in task length
-  if (current_task_length === after_task_deletion)
-  {
-    const error = new Error();
-    error.message = 'Task id illegal.';
-    error.statusCode = 409;
-    throw error;
-  }
   await WriteTasks(tasks);
 }
 
@@ -113,18 +109,13 @@ function InsertPokemon(pokemon, tasks) {
     if (!CheckIfPokemonExists(tasks, pokemon.id))
       tasks.push({ name: pokemon.name, images: pokemon.images, id: pokemon.id, completed: false });
     else {
-      const error = new Error();
+      const error = new Error(`Pokemon Exists with id: ${pokemon.id}`);
       error.statusCode = 409;
-      error.message = `Pokemon Exists with id: ${pokemon.id}`;
       throw error;
     }
   }
   catch (error) {
-    // check if its axius error 404 or other error
-    if (typeof error.response !== "undefined" && error.response.status === 404)
-      tasks.push({ name: `Pokemon with ID ${pokemon.id} was not found`, id: "Error", completed: false });
-    else
-      throw error;
+    throw error;
   }
 }
 

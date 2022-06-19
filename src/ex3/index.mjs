@@ -6,7 +6,6 @@ import TodoWebServer from './server.js';
 
 export function CliAppRun() {
   const cli = new CliApp();
-  cli.init();
   cli.run();
 }
 

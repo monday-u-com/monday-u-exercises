@@ -9,7 +9,6 @@ export default async function TodoWebServer() {
   const app = express();
   // setup item manager
   const item_manager = new ItemManager();
-  await item_manager.init();
   await item_manager.SetArrayFromFile();
   // setup root directory for web server
   const __dirname = Path.dirname(Path.join('node_modules/todo-mondayu-barakmaron/', '/www'));

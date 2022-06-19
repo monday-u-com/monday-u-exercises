@@ -8,89 +8,73 @@ import gradient from 'gradient-string';
 import chalk from 'chalk';
 import asciifyImage from 'asciify-image';
 import ItemManager from './ItemManager.mjs';
-import {
-  CLI_NAME, CLI_DESCRIPTION, CLI_BEST_VIEW_INSTRUCTION,
-  CLI_COMMAND_SELECT_MESSAGE, CLI_COMMAND_SELECT_OPTIONS,
-  CLI_ADD_TASK_MESSAGE, CLI_ADD_TASK_VALIDATION_TEXT,
-  CLI_DELETE_TASK_MESSAGE, CLI_DELETE_TASK_VALIDATION_TEXT,
-  CLI_CLEAR_ALL_TASKS_MESSAGE,
-  CLI_GET_TASKS_WITH_POKEMON_IMAGE,
-  CLI_HELP_QUESTION_MESSAGE,
-  CLI_HELP_INSTRUCTIONS_FIRST_SECTION, CLI_HELP_INSTRUCTIONS_SECOND_SECTION,
-  CLI_YES_NO_OPTIONS, CLI_COMPLETE_TASK_MESSAGE, CLI_COMPLETE_TASK_VALIDATION_TEXT,
-} from './Strings.cjs';
+import STRINGS from './Strings.mjs';
 
 export default class CliApp {
   constructor() {
     this.item_manager = new ItemManager();
     this.intro_message = {
-      name: CLI_NAME,
-      description: CLI_DESCRIPTION,
-      best_view_instructions: CLI_BEST_VIEW_INSTRUCTION,
+      name: STRINGS.CLI_NAME,
+      description: STRINGS.CLI_DESCRIPTION,
+      best_view_instructions: STRINGS.CLI_BEST_VIEW_INSTRUCTION,
     };
     this.questions = {
       get_command_question: {
         name: 'command',
         type: 'list',
-        message: CLI_COMMAND_SELECT_MESSAGE,
-        choices: CLI_COMMAND_SELECT_OPTIONS,
+        message: STRINGS.CLI_COMMAND_SELECT_MESSAGE,
+        choices: STRINGS.CLI_COMMAND_SELECT_OPTIONS,
       },
       add_task_question: {
         name: 'task_text',
         type: 'input',
-        message: CLI_ADD_TASK_MESSAGE,
+        message: STRINGS.CLI_ADD_TASK_MESSAGE,
         validate(task_text) {
           const valid = task_text.length;
-          return valid > 0 || CLI_ADD_TASK_VALIDATION_TEXT;
+          return valid > 0 || STRINGS.CLI_ADD_TASK_VALIDATION_TEXT;
         },
       },
       complete_task_question: {
         name: 'task_id',
         type: 'input',
-        message: CLI_COMPLETE_TASK_MESSAGE,
+        message: STRINGS.CLI_COMPLETE_TASK_MESSAGE,
         validate(id) {
           const valid = Number.isInteger(Number.parseInt(id, 10));
-          return valid || CLI_COMPLETE_TASK_VALIDATION_TEXT;
+          return valid || STRINGS.CLI_COMPLETE_TASK_VALIDATION_TEXT;
         },
       },
       delete_task_question: {
         name: 'task_id',
         type: 'input',
-        message: CLI_DELETE_TASK_MESSAGE,
+        message: STRINGS.CLI_DELETE_TASK_MESSAGE,
         validate(id) {
           const valid = Number.isInteger(Number.parseInt(id, 10));
-          return valid || CLI_DELETE_TASK_VALIDATION_TEXT;
+          return valid || STRINGS.CLI_DELETE_TASK_VALIDATION_TEXT;
         },
       },
       clear_all_tasks_question: {
         name: 'clear_all',
         type: 'list',
-        message: CLI_CLEAR_ALL_TASKS_MESSAGE,
-        choices: CLI_YES_NO_OPTIONS,
+        message: STRINGS.CLI_CLEAR_ALL_TASKS_MESSAGE,
+        choices: STRINGS.CLI_YES_NO_OPTIONS,
       },
       get_tasks_with_image_art_question: {
         name: 'image_art',
         type: 'list',
-        message: `${new inquirer.Separator()}\n ${CLI_GET_TASKS_WITH_POKEMON_IMAGE}`,
-        choices: CLI_YES_NO_OPTIONS,
+        message: `${new inquirer.Separator()}\n ${STRINGS.CLI_GET_TASKS_WITH_POKEMON_IMAGE}`,
+        choices: STRINGS.CLI_YES_NO_OPTIONS,
       },
       help_question: {
         name: 'help',
         type: 'list',
-        message: `${new inquirer.Separator()}\n ${CLI_HELP_QUESTION_MESSAGE}`,
-        choices: CLI_YES_NO_OPTIONS,
-        instructions: `${CLI_HELP_INSTRUCTIONS_FIRST_SECTION
+        message: `${new inquirer.Separator()}\n ${STRINGS.CLI_HELP_QUESTION_MESSAGE}`,
+        choices: STRINGS.CLI_YES_NO_OPTIONS,
+        instructions: `${STRINGS.CLI_HELP_INSTRUCTIONS_FIRST_SECTION
         }${new inquirer.Separator()}\n${
-          CLI_HELP_INSTRUCTIONS_SECOND_SECTION}`,
+          STRINGS.CLI_HELP_INSTRUCTIONS_SECOND_SECTION}`,
       },
     };
-  }
-
-  /**
-    * init the tasks in items manager
-    */
-  async init() {
-    await this.item_manager.SetArrayFromFile();
+    this.item_manager.SetArrayFromFile();
   }
 
   /**

@@ -17,8 +17,8 @@ export async function AddTask(request, response, next) {
   try {
     const { task } = request.body;
     const pokemon_id = Number.parseInt(task, 10);
-    // check if text has commas
-    if (task.indexOf(',') > -1) {
+    // check if text has commas and only numbers
+    if (task.indexOf(',') > -1 && Number.parseInt(task_text.split(',')[0], 10)) {
       await ItemManagerService.AddPokemons(task);
     } else if (Number.isInteger(pokemon_id)) { 
       await ItemManagerService.AddPokemon(pokemon_id);

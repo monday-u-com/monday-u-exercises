@@ -1,3 +1,5 @@
+/* eslint-disable no-return-await */
+/* eslint-disable no-constructor-return */
 /* eslint-disable import/extensions */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable array-callback-return */
@@ -11,12 +13,13 @@ export default class ItemManager {
     this.pokemons = [];
     this.tasks = [];
     this.file_manager = new FileManager();
+    this.InitPokemons();
   }
 
   /**
      * init pokemon names array
      */
-  async init() {
+  async InitPokemons() {
     const pokemons_names_response = await this.pokemon_client.GetPokemonsNames();
     this.ParsePokemonNamesResponse(pokemons_names_response);
   }
@@ -43,7 +46,7 @@ export default class ItemManager {
     // parse text to int
     const pokemon_id = Number.parseInt(task_text, 10);
     // check if text has commas
-    if (task_text.indexOf(',') > -1) {
+    if (task_text.indexOf(',') > -1 && Number.parseInt(task_text.split(',')[0], 10)) {
       const pokemos = await this.GetMultiplePokemons(task_text);
       pokemos.forEach((pokemon) => this.InsertPokemonToArrayWrapperFunction(pokemon));
     } else if (Number.isInteger(pokemon_id)) { // check if its number
@@ -72,12 +75,11 @@ export default class ItemManager {
      * @param {int} task_to_remove_id task location in array
      */
   RemoveTask(task_to_remove_id) {
-    const current_task_length = this.tasks.length;
-    this.tasks.splice(task_to_remove_id, 1);
-    const after_task_deletion = this.tasks.length;
-    // task id is not in task length
-    if (current_task_length === after_task_deletion) { throw new Error('Task id illegal.'); }
-    this.file_manager.WriteToFileTasksArray(this.tasks);
+    const id_parsed_int = Number.parseInt(task_to_remove_id, 10);
+    if (id_parsed_int && id_parsed_int < this.tasks.length) {
+      const tasks = this.tasks.filter((task, index) => index !== id_parsed_int);
+      this.file_manager.WriteToFileTasksArray(tasks);
+    } else { throw new Error('Task id illegal.'); }
   }
 
   /**
@@ -86,10 +88,7 @@ export default class ItemManager {
      */
   async GetOnePokemon(id) {
     // send the id to pokemon client
-    const result = Promise.resolve(this.pokemon_client.GetPokemonById(id));
-    // wait for response
-    await result;
-    return result;
+    return await Promise.resolve(this.pokemon_client.GetPokemonById(id));
   }
 
   /**
@@ -98,9 +97,7 @@ export default class ItemManager {
      */
   async GetMultiplePokemons(ids) {
     const pokemon_ids = ids.split(',');
-    const result = Promise.resolve(this.pokemon_client.GetPokemonsByList(pokemon_ids));
-    await result;
-    return result;
+    return await Promise.resolve(this.pokemon_client.GetPokemonsByList(pokemon_ids));
   }
 
   /**
