@@ -16,14 +16,28 @@ class Main {
 	handleItem = async () => {
 		const input = document.getElementById('list-item-input');
 		const inputValue = input.value;
-
-		const t = await this.itemClient.postItem(inputValue);
-		this.renderItems();
+		await this.itemClient.postItem(inputValue);
+		await this.renderItems();
 	};
 
 	deleteItem = async (item) => {
 		await this.itemClient.deleteItem(item);
 		await this.renderItems();
+	};
+
+	editItem = async (item) => {
+		let itemToEdit;
+		const list = document.querySelectorAll('.list-item');
+		//console.log(item);
+		for (const listItem of list) {
+			if (listItem.textContent == item) {
+				itemToEdit = listItem;
+			}
+		}
+
+		itemToEdit.contentEditable = 'true';
+		await this.itemClient.editItem(item);
+		//await this.renderItems();
 	};
 
 	updateStatus = async (item) => {
@@ -44,6 +58,8 @@ class Main {
 			const listItemDeleteButton = this._createDeleteButton(
 				item.ItemName
 			);
+			const editItemButton = this._createEditButton(item.ItemName);
+			listItem.appendChild(editItemButton);
 			listItem.appendChild(listItemStatusButton);
 			listItem.appendChild(listItemDeleteButton);
 			list.appendChild(listItem);
@@ -52,6 +68,7 @@ class Main {
 		this.changeImageState();
 		this.updateTaskCounter();
 		this.clearForm();
+		console.log('rend');
 	};
 
 	handleDeleteAll = async () => {
@@ -94,7 +111,14 @@ class Main {
 		button.src = './images/delete_icon.svg';
 		button.classList.add('list-item-delete-button');
 		button.addEventListener('click', (_) => this.deleteItem(item));
+		return button;
+	};
 
+	_createEditButton = (item) => {
+		const button = document.createElement('img');
+		button.src = './images/edit_btn.svg';
+		button.classList.add('edit-item-button');
+		button.addEventListener('click', (_) => this.editItem(item));
 		return button;
 	};
 

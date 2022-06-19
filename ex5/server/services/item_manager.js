@@ -17,7 +17,7 @@ class ItemManager {
 			return await this.fetchAndAddManyPokemon(item);
 		}
 
-		this.addItem(item);
+		await this.addItem(item);
 	};
 
 	addItem = async (item) => {
@@ -25,7 +25,7 @@ class ItemManager {
 			where: { ItemName: item },
 		});
 		if (!user) {
-			const itemv = Items.create({
+			await Items.create({
 				id: uuidv4(),
 				item_id: uuidv4(),
 				ItemName: item,
@@ -76,6 +76,15 @@ class ItemManager {
 			},
 		});
 		return currItem.update({ status: !currItem.status });
+	};
+
+	updateStatus = async (item, newContent) => {
+		let currItem = await Items.findOne({
+			where: {
+				ItemName: item,
+			},
+		});
+		return currItem.update({ ItemName: newContent });
 	};
 
 	_isNumber = (value) => !isNaN(Number(value));

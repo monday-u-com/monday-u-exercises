@@ -117,10 +117,6 @@ body {
   margin: auto;
   height: 1000%;
   overflow: auto;
-
-
-
-
 }
 
 .noTasks-img-hidden {
@@ -143,6 +139,13 @@ body {
 
 
 .list-item-status-button {
+  height: auto;
+  width: auto;
+  margin-left: auto
+}
+
+.edit-item-button {
+  cursor: pointer;
   height: auto;
   width: auto;
   margin-left: auto

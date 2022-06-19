@@ -6,7 +6,7 @@ class ItemClient {
 	};
 
 	postItem = async (item) => {
-		await fetch('/item', {
+		const d = await fetch('/item', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ item }),
@@ -22,6 +22,14 @@ class ItemClient {
 	};
 
 	updateStatus = async (item) => {
+		await fetch('/item', {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ item }),
+		});
+	};
+
+	editItem = async (item) => {
 		await fetch('/item', {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
