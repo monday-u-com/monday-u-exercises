@@ -3,6 +3,10 @@ import { writeFile, readFileSync } from 'fs';
 const DATA_FILE_NAME = "savedData.json";
 
 export class ItemManagerCommander {
+  init() {
+    this.getAll();
+  }
+
   getAll() {
     try {
       this.items = this.getItemsFromFile();

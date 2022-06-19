@@ -12,7 +12,7 @@ const itemManagerCommander = new ItemManagerCommander();
 const pokemonClient = new PokemonClient();
 const mainCommander = new MainCommander(itemManagerCommander, pokemonClient);
 
-itemManagerCommander.getAll();
+itemManagerCommander.init();
 
 const program = new Command();
 
