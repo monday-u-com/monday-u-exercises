@@ -1,6 +1,6 @@
 {
   "name": "todo-console-app-assh",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Todo console app<br>",
   "bin": "./inquirer.js",
   "type": "module",
