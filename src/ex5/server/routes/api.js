@@ -11,6 +11,6 @@ itemRouter.post("/", createItem);
 itemRouter.get("/", getAll);
 itemRouter.delete("/", deleteAll);
 itemRouter.delete("/:id", deleteItem);
-
+console.log('k');
 console.log('Hello');
 export default itemRouter;
