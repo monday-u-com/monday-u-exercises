@@ -2,7 +2,6 @@ const addButton = document.getElementById("list-item-submit")
 const textInput = document.getElementById("list-item-input")
 const allLists = document.getElementById("list")
 const counterLists = document.getElementById("counter")
-const deleteAllLists = document.getElementById("deleteAllTasks")
 const errorMessage = document.getElementById("error")
 const regex = /^[0-9]*$/
 
@@ -23,12 +22,13 @@ function addNewList(name) {
   const hr = document.createElement("hr")
   const deleteButton = document.createElement("button")
   deleteButton.setAttribute("class", "dltbtn")
+  deleteButton.setAttribute("id", textInput.value)
   deleteButton.innerHTML = "X"
 
-  deleteButton.addEventListener("click", function () {
+  deleteButton.addEventListener("click", async function (e) {
     li.remove()
     hr.remove()
-    itemC.deleteItem(textInput.value)
+    await itemC.deleteItem(e.target.id)
     countLists()
   })
   li.addEventListener("mouseover", function () {
@@ -64,7 +64,15 @@ async function validation() {
       })
     } else {
       if (regex.test(textInput.value)) {
-        const newPokemon = await itemC.addItem(textInput.value)
+        const newPokemon = await itemC
+          .addItem(textInput.value)
+          .catch((error) => {
+            console.log("error", error)
+            itemC.addItem(textInput.value)
+            addNewList(
+              `Faild to fetch pokemon with the input: ${textInput.value}`
+            )
+          })
         addNewList(`Catch ${newPokemon.name}`)
       } else {
         await itemC.addItem(textInput.value)
@@ -79,22 +87,16 @@ async function validation() {
 
 async function countLists() {
   const items = await itemC.getItems()
-  console.log(first)
   counterLists.innerHTML = `${items.length}`
-}
-
-function deleteAllTasks() {
-  itemC.deleteItems()
-  allLists.innerHTML = ""
-  counterLists.innerHTML = "0"
 }
 
 const main = new Main()
 
-document.addEventListener("DOMContentLoaded", function (e) {
+document.addEventListener("DOMContentLoaded", async function () {
   main.init()
-})
-
-deleteAllLists.addEventListener("click", function () {
-  deleteAllTasks()
+  const items = await itemC.getItems()
+  items.forEach((item) => {
+    addNewList(`Catch ${item.name}`)
+  })
+  countLists()
 })

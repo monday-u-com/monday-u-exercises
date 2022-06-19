@@ -1,10 +1,10 @@
 const fs = require("fs").promises
-const pokemonFile = "pokemons.txt"
+const pokemonFile = "pokemons.json"
 
 async function readPokemonFile() {
   try {
     const data = await fs.readFile(pokemonFile)
-    return JSON.parse(data.toString())
+    return JSON.parse(data)
   } catch (error) {
     console.error(`Got an error trying to read the file: ${error.message}`)
   }
@@ -33,15 +33,15 @@ async function getAllPokemons() {
 
 async function deletePokemon(id) {
   const pokemons = await getAllPokemons()
-  const index = pokemons.findIndex((pokemon) => pokemon.id === id)
-  const deletedPokemon = pokemons[index]
-  pokemons.splice(index, 1)
-  await writePokemonFile(pokemons)
-  return deletedPokemon
+  // const index = pokemons.findIndex((pokemon) => pokemon.id === id)
+  // pokemons.splice(index, 1)
+
+  const res = pokemons.filter((pokemon) => pokemon.id !== id)
+
+  await writePokemonFile(res)
 }
 
 module.exports = {
-  // getPokemon,
   addPokemon,
   getAllPokemons,
   deletePokemon,

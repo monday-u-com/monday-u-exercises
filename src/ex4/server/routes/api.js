@@ -31,13 +31,14 @@ async function getPokemon(req, res) {
 }
 
 async function getAllPokemons(req, res) {
-  const pokemons = await pokemonService.getAllPokemons()
+  let pokemons = await pokemonService.getAllPokemons()
   if (!pokemons) pokemons = []
   res.status(200).json(pokemons)
 }
 
 async function deletePokemon(req, res) {
-  const pokemonId = Number.parseInt(req.params.id)
+  const pokemonId = Number.parseInt(req.body.item)
+  console.log("pokemonId", pokemonId)
   if (isNaN(pokemonId)) {
     let error = Error()
     error.statusCode = 400

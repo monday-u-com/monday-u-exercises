@@ -7,19 +7,23 @@ class ItemClient {
   }
 
   async getItems() {
-    const response = await axios.get(`${this.api}/`)
+    const response = await axios.get(`${this.api}/getall`)
     return response.data
   }
 
   async addItem(item) {
-    const response = await axios.post(`${this.api}/`, {
+    const response = await axios.post(`${this.api}/create`, {
       item,
     })
     return response.data
   }
 
   async deleteItem(item) {
-    const response = await axios.delete(`${this.api}/}`, { item })
+    const response = await axios.delete(`${this.api}/delete`, {
+      data: {
+        item,
+      },
+    })
     return response.data
   }
 }

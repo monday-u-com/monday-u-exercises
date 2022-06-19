@@ -13,9 +13,9 @@ const {
 app.use(express.static("dist"))
 app.use([express.json(), cors()])
 
-app.get("/", getAllPokemons)
-app.post("/", createPokemon)
-app.delete("/", deletePokemon)
+app.get("/getall", getAllPokemons)
+app.post("/create", createPokemon)
+app.delete("/delete", deletePokemon)
 
 app.listen(port, () => {
   console.log("Server started on port", port)
