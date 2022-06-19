@@ -5,7 +5,7 @@ const url = "http://localhost:8080";
 class ItemClient {
   constructor() {}
   async fetchAllItems() {
-    const urlFetchAllItems = `${url}/item`;
+    const urlFetchAllItems = `${url}/item/db_items`;
 
     const errorResponse = {
       error: true,

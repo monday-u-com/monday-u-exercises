@@ -82,7 +82,8 @@ class Main {
   };
 
   getPokemonImage(pokemonData) {
-    const url = pokemonData.picture;
+    const url = pokemonData.pokemonData;
+
     const img = document.createElement("img");
     img.setAttribute("src", url);
     return img;

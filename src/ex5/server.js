@@ -28,7 +28,7 @@ const logger = require("./server/middleware/logger");
 
 const errorHandler = require("./server/middleware/error_handler");
 const itemRouter = require("./server/routes/itemRouter");
-const port = 8080;
+//const port = 8080;
 const server = express();
 
 
@@ -36,6 +36,7 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use([logger, express.json(), express.static("dist")]);
 server.use("/item", itemRouter);
+
 
 
 server.get("/", (req, res) => {
@@ -66,9 +67,13 @@ process.on("uncaughtException", (error) => {
 
 server.use(errorHandler);
 
-
-server.listen(port, () => {
+const port = process.env.PORT || '8080';
+/* server.listen(port, () => {
   console.log("Server started on port", port);
-});
+}); */
+
+
+server.listen(port, function () { console.log('Running on ' + port); });
+
 
 module.exports = server;

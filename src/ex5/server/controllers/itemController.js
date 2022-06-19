@@ -4,19 +4,22 @@ const itemManagerService = require("../services/itemManagerService");
 const parserService = require("../services/parserService");
 const pokemonClientService = require("../clients/pokemonClientService");
 const pokemonHandleService = require("../services/handlePokemonService");
+const storage = require("../services/storageService")
 
 async function createItem(req, res) {
   const currentData = await itemManagerService.readItemFile();
 
-  
+  console.log(req.body)
   //const pokemonOrTaskResults = parserService.parseInputValue(req.body.item);
 
   const pokemonOrTaskResults = parserService.parseInputValue(req.body.data);
 
   pokemonOrTaskResults.tasks.forEach((result) => {
     result.itemId = idKeyGen();
-    result.picture = null;
+    result.pokemonData = null;
     currentData.push(result);
+    
+    storage.createItem(result);
   });
 
   const pokemonsFetchErrors = [];
@@ -43,6 +46,9 @@ async function createItem(req, res) {
 
           if (!isPokemonExist) {
             currentData.push(handledPokemon);
+            
+            storage.createItem(handledPokemon);
+           
           }
         }
 
@@ -63,7 +69,8 @@ async function createItem(req, res) {
   }
 
   //write all items once finished processing
-
+  
+ 
   await itemManagerService.writeToItemFile(currentData);
 
   await res.status(200).json(currentData);
