@@ -74,26 +74,27 @@ async function validation() {
       errorMessage.style.transition = "all 0.5s ease-in-out"
     }
   }
-  // countLists()
+  countLists()
 }
 
-// function countLists() {
-//   const items = itemC.getItems()
-//   counterLists.innerHTML = `${items.length}`
-// }
+async function countLists() {
+  const items = await itemC.getItems()
+  console.log(first)
+  counterLists.innerHTML = `${items.length}`
+}
 
-// function deleteAllTasks() {
-//   itemC.deleteItems()
-//   allLists.innerHTML = ""
-//   counterLists.innerHTML = "0"
-// }
+function deleteAllTasks() {
+  itemC.deleteItems()
+  allLists.innerHTML = ""
+  counterLists.innerHTML = "0"
+}
 
 const main = new Main()
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function (e) {
   main.init()
 })
 
-// deleteAllLists.addEventListener("click", function () {
-//   deleteAllTasks()
-// })
+deleteAllLists.addEventListener("click", function () {
+  deleteAllTasks()
+})
