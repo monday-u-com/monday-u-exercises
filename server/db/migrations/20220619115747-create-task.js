@@ -10,6 +10,7 @@ module.exports = {
          },
          text: {
             type: Sequelize.STRING,
+            allowNull: false,
          },
          pokemonID: {
             type: Sequelize.INTEGER,

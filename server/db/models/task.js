@@ -11,13 +11,14 @@ module.exports = (sequelize, DataTypes) => {
          // define association here
       }
    }
+
    Task.init(
       {
-         text: DataTypes.STRING,
+         text: { type: DataTypes.STRING, allowNull: false, validate: { notEmpty: true } },
          pokemonID: DataTypes.INTEGER,
          pokemonName: DataTypes.STRING,
          pokemonType: DataTypes.STRING,
-         imageURL: DataTypes.STRING,
+         imageURL: { type: DataTypes.STRING, validate: { isUrl: true } },
       },
       {
          sequelize,
