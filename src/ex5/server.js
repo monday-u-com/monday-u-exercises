@@ -1,6 +1,23 @@
 const fs = require("fs");
 const express = require("express");
-//const { Sequelize } = require('sequelize');
+const { Sequelize } = require('sequelize');
+
+const sequelize = new Sequelize("ori", "root", 'bgZONOT2602!', {
+  host: 'localhost',
+  dialect:  'mysql' 
+});
+
+async function test(){
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+}
+test()
+
+
 
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -19,6 +36,7 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use([logger, express.json(), express.static("dist")]);
 server.use("/item", itemRouter);
+
 
 server.get("/", (req, res) => {
   res.status(200).json({
@@ -47,6 +65,7 @@ process.on("uncaughtException", (error) => {
 });
 
 server.use(errorHandler);
+
 
 server.listen(port, () => {
   console.log("Server started on port", port);

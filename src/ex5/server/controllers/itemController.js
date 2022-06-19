@@ -8,7 +8,10 @@ const pokemonHandleService = require("../services/handlePokemonService");
 async function createItem(req, res) {
   const currentData = await itemManagerService.readItemFile();
 
-  const pokemonOrTaskResults = parserService.parseInputValue(req.body.item);
+  
+  //const pokemonOrTaskResults = parserService.parseInputValue(req.body.item);
+
+  const pokemonOrTaskResults = parserService.parseInputValue(req.body.data);
 
   pokemonOrTaskResults.tasks.forEach((result) => {
     result.itemId = idKeyGen();
@@ -44,7 +47,6 @@ async function createItem(req, res) {
         }
 
         if (pokemonDataFromClient.error) {
-          
           pokemonsFetchErrors.push(pokemonDataFromClient.data);
         }
       }
@@ -57,9 +59,7 @@ async function createItem(req, res) {
     pokemonHandleService.handlePokemonErrors(pokemonsFetchErrors);
 
   if (errorsToData.length > 0) {
-    
-    errorsToData.forEach(error => currentData.push(error))
-   
+    errorsToData.forEach((error) => currentData.push(error));
   }
 
   //write all items once finished processing

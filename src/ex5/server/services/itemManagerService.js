@@ -12,7 +12,7 @@ async function checkIfPokemonIdInCache(pokemonId) {
   let cacheData = [];
   try {
     if (!fs.existsSync(cacheFilePath)) {
-      createCacheFile(cacheFilePath);
+      
 
       cacheWriteAutoDelete(pokemonId, cacheData);
 
@@ -37,9 +37,8 @@ async function checkIfPokemonIdInCache(pokemonId) {
 
 function cacheWriteAutoDelete(pokemonId, cacheData) {
   cacheData.push(pokemonId);
-  writeToCacheItemFile(cacheData);
+  //writeToCacheItemFile(cacheData);
   autoDeleteCacheService.autoDeleteCache();
- 
 }
 
 function createCacheFile(cacheFilePath) {
@@ -80,10 +79,8 @@ async function deleteItem(itemId) {
 
 async function readItemFile() {
   try {
-
     const data = await fs.readFileSync(itemFile);
-   
-    
+
     return JSON.parse(data.toString());
   } catch (error) {
     console.error(`Got an error trying to read the file: ${error.message}`);
