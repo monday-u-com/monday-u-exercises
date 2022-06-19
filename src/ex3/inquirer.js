@@ -10,8 +10,6 @@ const itemManagerCommander = new ItemManagerCommander();
 const pokemonClient = new PokemonClient();
 const mainCommander = new MainCommander(itemManagerCommander, pokemonClient);
 
-mainCommander.init();
-
 console.log(chalk.yellow('Welcome to TODOOPS!'));
 
 const questions = [

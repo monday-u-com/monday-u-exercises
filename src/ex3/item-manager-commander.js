@@ -28,7 +28,8 @@ export class ItemManagerCommander {
   }
 
   markItemAsOld(item){
-    item.isNew = false;
+    this.items = this.items.map(oItem =>
+      oItem.text === item.text ? {...item, isNew: false} : oItem)
     this.writeItemsToFile();
   }
 
