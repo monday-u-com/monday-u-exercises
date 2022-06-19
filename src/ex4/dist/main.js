@@ -57,11 +57,20 @@ class Main {
     createItem = async (item) => {
         const listItem = document.createElement("li");
         listItem.classList.add('list-item');
-        listItem.innerHTML = item;
+        const listItemCheckBox = this._createCheckBox(item)
+        listItem.appendChild(listItemCheckBox)
+        listItem.appendChild(document.createTextNode(item))
 
         const listItemDeleteButton = this._createDeleteButton(item);
         listItem.appendChild(listItemDeleteButton);
         this.list.appendChild(listItem);
+    }
+
+    _createCheckBox = item => {
+        const checkBox = document.createElement("input")
+        checkBox.type = 'checkbox'
+        checkBox.style.marginRight = '10px'
+        return checkBox
     }
 
     _createDeleteButton = item => {
