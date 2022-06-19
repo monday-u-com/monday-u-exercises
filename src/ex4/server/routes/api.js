@@ -4,7 +4,7 @@ const pokemonClient = require("../clients/PokemonClient")
 const pc = new pokemonClient()
 
 async function createPokemon(req, res) {
-  const newPokemon = await pc.getPokemon(req.params.id)
+  const newPokemon = await pc.getPokemon(req.body.item)
   const pokemon = await pokemonService.addPokemon(newPokemon)
   res.status(200).json(pokemon)
 }

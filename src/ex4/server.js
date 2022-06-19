@@ -6,7 +6,6 @@ const app = express()
 
 const {
   createPokemon,
-  getPokemon,
   getAllPokemons,
   deletePokemon,
 } = require("./server/routes/api")
@@ -14,8 +13,9 @@ const {
 app.use(express.static("dist"))
 app.use([express.json(), cors()])
 
-app.get("/api/pokemon", getAllPokemons)
-app.post("/api/pokemon/:id", createPokemon)
+app.get("/", getAllPokemons)
+app.post("/", createPokemon)
+app.delete("/", deletePokemon)
 
 app.listen(port, () => {
   console.log("Server started on port", port)

@@ -1,8 +1,6 @@
 const fs = require("fs").promises
 const pokemonFile = "pokemons.txt"
 
-
-
 async function readPokemonFile() {
   try {
     const data = await fs.readFile(pokemonFile)
@@ -20,16 +18,12 @@ async function writePokemonFile(content) {
   }
 }
 
-async function getPokemon(id) {
-  const pokemons = await readPokemonFile()
-  return pokemons.find((pokemon) => pokemon.id === id)
-}
-
 async function addPokemon(pokemon) {
-  const pokemons = await readPokemonFile()
+  let pokemons = await readPokemonFile()
   if (!pokemons) pokemons = []
-  pokemons.push(pokemon.name)
+  pokemons.push({ name: pokemon.name, id: pokemon.order })
   await writePokemonFile(pokemons)
+  return pokemon
 }
 
 async function getAllPokemons() {
@@ -47,7 +41,7 @@ async function deletePokemon(id) {
 }
 
 module.exports = {
-  getPokemon,
+  // getPokemon,
   addPokemon,
   getAllPokemons,
   deletePokemon,

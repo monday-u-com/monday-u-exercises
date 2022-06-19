@@ -7,34 +7,19 @@ class ItemClient {
   }
 
   async getItems() {
-    const response = await axios.get(`${this.api}/items`)
+    const response = await axios.get(`${this.api}/`)
     return response.data
   }
 
   async addItem(item) {
-    const response = await axios.post(`${this.api}/api/pokemon/${item}`, {
+    const response = await axios.post(`${this.api}/`, {
       item,
     })
     return response.data
   }
 
   async deleteItem(item) {
-    const response = await axios.delete(`${this.api}/items/${item}`)
+    const response = await axios.delete(`${this.api}/}`, { item })
     return response.data
   }
-
-  async deleteItems() {
-    const response = await axios.delete(`${this.api}/items`)
-    return response.data
-  }
-
-  async getItem(item) {
-    const response = await axios.get(`${this.api}/items/${item}`)
-    return response.data
-  }
-
-  // async checkingDuplicate(item) {
-  //   const response = await axios.get(`${this.api}/items/${item}`)
-  //   return response.data
-  // }
 }
