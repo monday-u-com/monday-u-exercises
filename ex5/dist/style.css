@@ -1,6 +1,7 @@
 html {
   height: 100%;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -12,14 +13,12 @@ body {
   height: 100%;
   font-family: Georgia, serif;
   font-weight: lighter;
-  background-image: linear-gradient(
-    to top right,
-    white,
-    #d4dff3,
-    rgba(138, 144, 224, 0.76),
-    rgba(106, 117, 231, 0.76),
-    rgba(85, 97, 229, 0.76)
-  );
+  background-image: linear-gradient(to top right,
+      white,
+      #d4dff3,
+      rgba(138, 144, 224, 0.76),
+      rgba(106, 117, 231, 0.76),
+      rgba(85, 97, 229, 0.76));
 
   display: flex;
   flex-direction: column;
@@ -114,4 +113,26 @@ body {
 .list-item-delete-button:hover {
   background-color: #f0f0f5;
   transition: background-color 0.2s ease-in-out;
+}
+
+.NoTasksImg-visible {
+  display: block;
+  margin: auto;
+  width: 50%;
+}
+
+.noTasks-img-hidden {
+  display: none;
+  margin: auto;
+  width: 50%;
+}
+
+.pendingTasksCounter-visible {
+  display: block;
+  text-align: center;
+}
+
+.pendingTasksCounter-hidden {
+  display: none;
+  text-align: center;
 }

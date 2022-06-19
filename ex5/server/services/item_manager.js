@@ -27,7 +27,7 @@ class ItemManager {
 		if (!user) {
 			const itemv = Items.create({
 				id: uuidv4(),
-				item_id: 3,
+				item_id: uuidv4(),
 				ItemName: item,
 				status: false,
 			});

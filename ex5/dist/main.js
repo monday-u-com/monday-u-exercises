@@ -7,6 +7,9 @@ class Main {
 		const addItemButton = document.getElementById('list-item-submit');
 		addItemButton.addEventListener('click', this.handleItem);
 
+		const deleteAllBtn = document.getElementById('list-item-clear');
+		deleteAllBtn.addEventListener('click', this.handleDeleteAll);
+
 		await this.renderItems();
 	};
 
@@ -45,8 +48,42 @@ class Main {
 			listItem.appendChild(listItemDeleteButton);
 			list.appendChild(listItem);
 		});
+		this.updateCounter(items);
+		this.changeImageState();
+		this.updateTaskCounter();
 		this.clearForm();
 	};
+
+	handleDeleteAll = async () => {
+		const items = await this.itemClient.getItems();
+		items.forEach((item) => {
+			this.deleteItem(item.ItemName);
+		});
+	};
+
+	changeImageState() {
+		const img = document.querySelector('#imageOnNoTasks');
+		if (document.querySelectorAll('.list-item').length != 0) {
+			img.className = 'noTasks-img-hidden';
+		} else {
+			img.className = 'NoTasksImg-visible';
+		}
+	}
+
+	updateTaskCounter() {
+		const pendingTaskSection = document.querySelector(
+			'#pendingTasksCounter'
+		);
+		if (document.querySelectorAll('.list-item').length != 0) {
+			pendingTaskSection.className = 'pendingTasksCounter-visible';
+		} else {
+			pendingTaskSection.className = 'pendingTasksCounter-hidden';
+		}
+	}
+
+	updateCounter(tasks) {
+		document.querySelector('#counter').textContent = tasks.length;
+	}
 
 	clearForm() {
 		document.querySelector('#list-item-input').value = '';
