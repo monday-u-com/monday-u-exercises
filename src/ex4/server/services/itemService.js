@@ -1,9 +1,10 @@
 // The ItemManager should go here. Remember that you have to export it.
 const pokemonClient = require('../clients/pokemon_client')
-const file = require('../dataAccess/file');
+const { Item } = require('../db/models')
+const file = require('../db/file');
 
 async function getAll() {
-    return await file.readTodoFile();
+    return await Item.findAll();
 }
 
 async function addTodo(itemValue) {
