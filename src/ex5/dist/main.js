@@ -28,7 +28,7 @@ class Main {
     }
 
     this.loader.classList.remove("display");
-    await this.itemClient.createItem(this.input.value);
+    let returnedData = await this.itemClient.createItem(this.input.value);
     await this.renderItems().then((resolvedData) =>
       setTimeout(() => {
         this.loader.classList.add("display");
@@ -46,7 +46,7 @@ class Main {
     const itemId = item.itemId;
 
     this.loader.classList.remove("display");
-    this.itemClient.deleteItemById(itemId);
+    await this.itemClient.deleteItemById(itemId);
     await this.renderItems().then((resolvedData) =>
       setTimeout(() => {
         this.loader.classList.add("display");

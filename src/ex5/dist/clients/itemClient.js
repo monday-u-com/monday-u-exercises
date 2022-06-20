@@ -1,6 +1,5 @@
 // const { default: axios } = require("axios");
 
-
 const url = "http://localhost:8080";
 class ItemClient {
   constructor() {}
@@ -13,7 +12,6 @@ class ItemClient {
       description: `Items were not found`,
     };
     try {
-      
       const response = await fetch(urlFetchAllItems);
 
       if (!response.ok) {
@@ -54,8 +52,10 @@ class ItemClient {
       //   body: JSON.stringify({ item: input }),
       //   headers: { "Content-Type": "application/json" },
       // });
-      const response = await axios.post(urlCreateItem, { data: input })
-      return response
+     // console.log("inside create");
+      const response = await axios.post(urlCreateItem, { data: input });
+      //console.log("post response", response);
+      return response;
     } catch (e) {
       console.log("this is error creating item", e);
     }
