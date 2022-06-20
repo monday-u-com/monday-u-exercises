@@ -1,7 +1,4 @@
-
- 
-
- {
+{
   "development": {
     "username": "root",
     "password": "bgZONOT2602!",
@@ -23,4 +20,4 @@
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
-}  
+}

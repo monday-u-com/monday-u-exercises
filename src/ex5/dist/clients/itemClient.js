@@ -1,10 +1,8 @@
-// const { default: axios } = require("axios");
-
-const url = "http://localhost:8080";
+const URL = "http://localhost:8080";
 class ItemClient {
   constructor() {}
   async fetchAllItems() {
-    const urlFetchAllItems = `${url}/item/db_items`;
+    const urlFetchAllItems = `${URL}/item/db_items`;
 
     const errorResponse = {
       error: true,
@@ -31,7 +29,7 @@ class ItemClient {
   }
 
   async deleteItemById(itemId) {
-    const urlDeleteItem = `${url}/item/delete_item/${itemId}`;
+    const urlDeleteItem = `${URL}/item/delete_item/${itemId}`;
 
     try {
       await fetch(urlDeleteItem, {
@@ -44,17 +42,11 @@ class ItemClient {
   }
 
   async createItem(input) {
-    const urlCreateItem = url + `/item/create_item/`;
+    const urlCreateItem = URL + `/item/create_item/`;
 
     try {
-      // const response = await fetch(urlCreateItem, {
-      //   method: "POST",
-      //   body: JSON.stringify({ item: input }),
-      //   headers: { "Content-Type": "application/json" },
-      // });
-     // console.log("inside create");
       const response = await axios.post(urlCreateItem, { data: input });
-      //console.log("post response", response);
+
       return response;
     } catch (e) {
       console.log("this is error creating item", e);
