@@ -8,10 +8,13 @@ class File {
    getAllTasks = async () => await Task.findAll();
 
    async addTask(task) {
-      let allTasks = this.getAllTasks();
-      allTasks = [...allTasks, task];
-      this._writeToFile(TASKS_FILE_NAME, allTasks);
-      // await Task.create(task);
+      await Task.create({
+         text: task.text,
+         pokemonID: task.pokemonID,
+         pokemonName: task.pokemonName,
+         pokemonType: task.pokemonType,
+         imageURL: task.imageURL,
+      });
    }
 
    deleteTask(index) {
@@ -20,7 +23,11 @@ class File {
       this._writeToFile(TASKS_FILE_NAME, allTasks);
    }
 
-   clearTasks = () => this._writeToFile(TASKS_FILE_NAME, []);
+   clearTasks = async () =>
+      await Task.destroy({
+         where: {},
+         truncate: true,
+      });
 
    async getFilePokemonNames() {
       if (fs.existsSync(POKEMON_FILE_NAME)) {

@@ -44,6 +44,7 @@ async function renderTasks(toAnimate) {
    const tasks = await api.getAllTasks();
    let pendingTasks = 0;
    tasks.forEach((task) => {
+      console.log(task.text);
       const taskContainer = createTaskContainer();
       const newTask = createNewTask(taskContainer, task);
       if (task.imageURL) addPokemonImage(newTask, task.imageURL);

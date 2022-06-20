@@ -16,11 +16,11 @@ class TaskManager {
          const pokemonData = await Promise.all(
             pokemonIDS.map((id) => pokemonClient.getPokemon(id))
          );
-         pokemonData.forEach((pokemon, i) => {
-            this._pokemonTasksHandle(pokemon, pokemonIDS, i);
+         pokemonData.forEach(async (pokemon, i) => {
+            await this._pokemonTasksHandle(pokemon, pokemonIDS, i);
          });
       } else {
-         file.addTask(new Task(task));
+         await file.addTask(new Task(task));
       }
    }
 
@@ -41,7 +41,7 @@ class TaskManager {
       sortedTasks.forEach((task) => file.addTask(task));
    }
 
-   _pokemonTasksHandle(pokemon, pokemonIDS, i) {
+   async _pokemonTasksHandle(pokemon, pokemonIDS, i) {
       let task;
       if (pokemon) {
          let pokemonName = this._capitalize(pokemon.name);
@@ -50,16 +50,16 @@ class TaskManager {
          const imageURL = pokemon.sprites.front_default;
          task = new Task(taskToAdd, pokemonIDS[i], pokemonName, pokemonTypes, imageURL);
 
-         if (file.getAllTasks().includes(taskToAdd)) {
-            task.taskText(
-               `${pokemonName} already exists in your tasks. Please try another Pokemon.`
-            );
-            task.imageURL = [];
-         }
+         // if (file.getAllTasks().includes(taskToAdd)) {
+         //    task.taskText(
+         //       `${pokemonName} already exists in your tasks. Please try another Pokemon.`
+         //    );
+         //    task.imageURL = [];
+         // }
       } else {
          task = new Task(`Pokemon ID ${pokemonIDS[i]} does not exist`);
       }
-      file.addTask(task);
+      await file.addTask(task);
    }
 
    _capitalize(word) {
@@ -68,8 +68,8 @@ class TaskManager {
 }
 
 class Task {
-   constructor(taskText, pokemonID, pokemonName, pokemonType, imageURL) {
-      this.taskText = taskText;
+   constructor(text, pokemonID, pokemonName, pokemonType, imageURL) {
+      this.text = text;
       this.pokemonID = pokemonID;
       this.pokemonName = pokemonName;
       this.pokemonType = pokemonType;
