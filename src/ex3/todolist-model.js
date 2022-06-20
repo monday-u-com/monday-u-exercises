@@ -1,4 +1,4 @@
-import fs from 'fs';
+import {readData, writeData} from './data-acess.js'
 export default class TodoListModel {
     constructor() {
         this.todoList = []
@@ -6,7 +6,7 @@ export default class TodoListModel {
 
     loadDataFromFile(){
         try {
-            const data = fs.readFileSync('./todo.json', 'utf8');
+            const data = readData()
             if(data === null){
                 this.todoList = []
             }
@@ -29,11 +29,7 @@ export default class TodoListModel {
     }
 
     saveDataToLS(){ 
-        fs.writeFile("./todo.json", JSON.stringify(this.todoList), err => {
-            if(err) {
-                console.log(err)
-            }
-        })
+        writeData(this.todoList)
     }
 
     clearAllData(){

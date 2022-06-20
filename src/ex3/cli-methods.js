@@ -5,26 +5,38 @@ import Image from 'ascii-art-image'
 
 const main = new Main();
 
+const EMPTY_LIST = chalk.bold.bgGrey("empty list")
+const FULL_LIST = chalk.bold.green("full list:")
+const DONE = chalk.bold.green("done")
+const UNDONE = chalk.bold.red("undone")
+const NOT_VALID_NUMBER = chalk.bold.red("The index should be number")
+const NOT_VALID_INDEX = chalk.bold.red("invalid index")
+const EMPTY_TODO = chalk.bold.red("can't add empty todo")
+const NEW_TODO = chalk.bold.blue('added new todo/s')
+const CLEAR_ALL_TODOS = chalk.bold.redBright("clear all todos")
+const NO_CHANGE = chalk.bold.red("no change")
+const NOT_POKEMON = chalk.bold.red("that's is not a Pokemon")
+
 export function getFullCurrentList(data){
 
     if (data.length === 0) {
-      console.log(chalk.bold.bgGrey("empty list"))
+      console.log(EMPTY_LIST)
       return
     }
   
-    console.log(chalk.bold.green("full list:"))
+    console.log(FULL_LIST)
   
     data.forEach((todo, index) => {
         const indexText = chalk.bold.cyanBright(index)
         const titleText = chalk.bold.magenta(todo.title)
-        const doneUndoneText = todo.done ? chalk.bold.green("done") : chalk.bold.red("undone")
+        const doneUndoneText = todo.done ? DONE : UNDONE
         console.log(`${indexText}: ${titleText} is ${doneUndoneText}`)
     })
 }
 
-export function numberValidation(value){
+export function isValidNumber(value){
     if(isNaN(value)) {
-      console.log(chalk.bold.red("The index should be number"))
+      console.log(NOT_VALID_NUMBER)
       return false
     }
   
@@ -33,7 +45,7 @@ export function numberValidation(value){
 
 export function indexValidation(value){
     if(value === null){
-      console.log(chalk.bold.red("invalid index"))
+      console.log(NOT_VALID_INDEX)
       return false
     }
   
@@ -47,7 +59,7 @@ export function showFullUpdatedList() {
 
 export function addAndShowAddedTodo(todo) {
     if(todo.trim() === ""){ 
-        console.log(chalk.bold.red("can't add empty todo"))
+        console.log(EMPTY_TODO)
         return
     }
     const prevLength = main.itemManager.getTodoList().length
@@ -56,7 +68,7 @@ export function addAndShowAddedTodo(todo) {
         const currLength = main.itemManager.getTodoList().length
         const diff = currLength - prevLength
         const data = main.itemManager.getTodoList()
-        console.log(chalk.bold.blue('added new todo/s'))
+        console.log(NEW_TODO)
         for (let i = 0; i < diff; i++) {
           console.log(chalk.bold.green(data[data.length-i-1].title))
         }
@@ -81,7 +93,7 @@ export function deleteTodoFromList() {
     message: 'enter the index for todo that you want to delete', 
   })
   .then(answers => {
-    if(!numberValidation(answers.deleteTodo)) return
+    if(!isValidNumber(answers.deleteTodo)) return
 
     const deleteItem = main.deleteTodo(answers.deleteTodo)
 
@@ -102,12 +114,12 @@ export function clearAllTodosFromList(){
     })
     .then(answers => {
       if(answers.clearTodo === true){
-        console.log(chalk.bold.redBright("clear all todos"))
+        console.log(CLEAR_ALL_TODOS)
         main.clearAllTodos()
         showFullUpdatedList()
       }
       else{
-        console.log(chalk.bold.red("no change"));
+        console.log(NO_CHANGE);
         return
       }
     })
@@ -120,7 +132,7 @@ export function editTodoFromList(){
       message: 'enter the index for todo that you want to edit', 
     })
     .then(answers => {
-      if(!numberValidation(answers.editTodoIndex)) return
+      if(!isValidNumber(answers.editTodoIndex)) return
       
       const getIndexData = main.getDataInIndex(answers.editTodoIndex)
       
@@ -155,7 +167,7 @@ function editData(title, index) {
     })
     .then((edit) => {
       if(edit.editTodo === "") {
-        console.log(chalk.bold.red("no change"));
+        console.log(NO_CHANGE);
         return
       }
   
@@ -208,7 +220,7 @@ export function checkOrUncheckTodo() {
     message: 'enter the index for todo that you want to check or uncheck', 
   })
   .then(answers => {
-    if(!numberValidation(answers.checkUncheckTodoIndex)) return
+    if(!isValidNumber(answers.checkUncheckTodoIndex)) return
 
     selectCheckOrUncheck(answers.checkUncheckTodoIndex)
   })
@@ -275,7 +287,7 @@ export function displayPokemon() {
     message: 'enter the index for pokemon that you want to display'
   })
   .then(answers => {
-    if(!numberValidation(answers.pokemonIndex)) return
+    if(!isValidNumber(answers.pokemonIndex)) return
 
     const getIndexData = main.getDataInIndex(answers.pokemonIndex)
     if(!indexValidation(getIndexData)) return
@@ -284,7 +296,7 @@ export function displayPokemon() {
     const {index} = getIndexData
     
     if(!data[index].isPokemon) {
-      console.log(chalk.bold.red("that's is not a Pokemon"))
+      console.log(NOT_POKEMON)
       return
     }
 

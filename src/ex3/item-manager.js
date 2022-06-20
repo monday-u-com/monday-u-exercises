@@ -1,6 +1,10 @@
 import TodoListModel from "./todolist-model.js"
 import PokemonClient from "./pokemon-client.js"
 
+import {
+    handleAddSingleOrMultiPokemonsTodo,
+} from './pokemon-utils.js'
+
 const singleNumber = /^\d+$/
 const singleWord = /^[A-Za-z]+$/
 const multiNumbersSeparatedWithComma = /^\d+(,\d+)*$/
@@ -31,7 +35,7 @@ export default class ItemManager {
                 singleNumberPattern !== null || 
                     multiNumberPattern !== null || 
                         partOfNumbersSeprateWithComma !== null) {
-            this.handleAddSingleOrMultiPokemonsTodo(trimValue)
+            handleAddSingleOrMultiPokemonsTodo(this.model, this.pokemonClient, trimValue)
         }
         else{ //noraml todo
             const isPokemon = false
@@ -39,51 +43,6 @@ export default class ItemManager {
             this.addTodoParse(trimValue, isPokemon, imagePokemonPath)
             this.updateTodos()
         }
-    }
-
-    handleAddSingleOrMultiPokemonsTodo(enterValue){
-
-        if(enterValue.includes(",")){
-            this.handleAddMultiPokemonsTodo(enterValue)
-        }
-        else {
-            this.handleAddSinglePokemonTodo(enterValue)
-        }
-    }
-
-    handleAddMultiPokemonsTodo(enterValue){
-
-        const split = enterValue.split(",")
-        const pokemonArr = []
-
-        for(let i = 0; i < split.length; i++){
-            pokemonArr.push(this.pokemonClient.fetchMulti(ItemManager.trim(split[i])))
-        }
-
-        Promise.all(pokemonArr)
-            .then(response => {
-                response.forEach(res => {
-                    const types = this.pokemonClient.getTypes(res)
-                    const dataRetrieved = this.pokemonClient.returnPokemonData(res, types)
-                    const {value, isPokemon, imagePokemonPath} = dataRetrieved
-                    this.addTodoParse(value, isPokemon, imagePokemonPath)
-            })
-            this.updateTodos()
-        }).catch(error => {
-            console.log(error)
-            const isPokemon = false
-            const imagePokemonPath = null
-            const value = `failed to fetch pokemon with this input: ${enterValue}`
-            this.addTodoParse(value, isPokemon, imagePokemonPath)
-            this.updateTodos()
-        })
-    }
-
-    async handleAddSinglePokemonTodo(enterValue){
-        const dataRetrieved = await this.pokemonClient.fetchSingle(enterValue)
-        const {value, isPokemon, imagePokemonPath} = dataRetrieved
-        this.addTodoParse(value, isPokemon, imagePokemonPath)
-        this.updateTodos()
     }
 
     addTodoParse(value, isPokemon, imagePokemonPath){
