@@ -1,8 +1,4 @@
-const {
-  POKEMON_WITH_ID_NOT_FOUND,
-  NOT_A_POKEMON,
-  FAILED_TO_FETCH,
-} = require("./globalConsts/GlobalConstants.js");
+const { NOT_A_POKEMON } = require("./globalConsts/GlobalConstants.js");
 const fs = require("fs");
 const PokemonClient = require("../clients/pokemon_client.js");
 const path = require("path");
@@ -35,34 +31,32 @@ class ItemManager {
     ) {
       return await this.addCatchPokemonTask(taskInput);
     } else {
-      const isAdded = this.addToFile(taskInput, isCompleted);
+      const isAdded = this.addTaskToFile(taskInput, isCompleted);
       return isAdded;
     }
   }
 
-  async addCatchPokemonTask(input) {
-    //check if in cache first
-    let response = null;
+  getResponseFromCache(input) {
+    console.log(input);
     const cache = this.getCache();
-    const cacheItem = cache.find((item) => item.input === input);
-    if (cacheItem) {
-      response = cacheItem.response;
+    if (cache[input]) {
+      return cache[input];
+    }
+    return null;
+  }
+
+  async addCatchPokemonTask(input) {
+    let response = null;
+    if ((response = this.getResponseFromCache(input))) {
+      this.addResponsesToTasks(input, response, true);
+      return response;
     } else {
       response = await this.getPokemonsToAdd(input);
-      this.saveResponseToCache(input, response);
     }
     if (response === false) {
       return false;
-    } else if (
-      response.includes(POKEMON_WITH_ID_NOT_FOUND) ||
-      response.includes(FAILED_TO_FETCH)
-    ) {
-      this.addToFile(response, false);
-      return true;
     } else {
-      response.forEach((pokemon) => {
-        this.addToFile(pokemon, false);
-      });
+      this.addResponsesToTasks(input, response, false);
       return true;
     }
   }
@@ -74,7 +68,17 @@ class ItemManager {
     } else return response;
   }
 
-  addToFile(taskInput, isCompleted) {
+  addResponsesToTasks(input, response, isFromCache) {
+    if (!isFromCache) {
+      this.saveResponseToCache(input, response);
+    }
+
+    response.forEach((pokemon) => {
+      this.addTaskToFile(pokemon, false);
+    });
+  }
+
+  addTaskToFile(taskInput, isCompleted) {
     const isTaskExist = this.tasks.find((task) => task.content === taskInput);
     if (isTaskExist) {
       return false;
@@ -127,14 +131,11 @@ class ItemManager {
   }
 
   saveResponseToCache(input, response) {
+    console.log(input);
     const time = new Date().getTime();
-    const itemToSave = {
-      time: time,
-      input: input,
-      response: response,
-    };
     const cache = this.getCache();
-    cache.push(itemToSave);
+    cache[input] = response;
+    cache["time"] = time;
     fs.writeFileSync(
       path.join(__dirname, this.cacheFile),
       JSON.stringify(cache)

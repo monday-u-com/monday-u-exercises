@@ -62,7 +62,7 @@ class PokemonClient {
 
   createIDNotFoundResponse(input) {
     const resString = `Pokemon with id ${input} was not found`;
-    return resString;
+    return [resString];
   }
 
   isPokemonNamesOnly(input) {
@@ -82,7 +82,7 @@ class PokemonClient {
     const resString = `Failed to fetch pokemons with this input ${idsList.join(
       ", "
     )}`;
-    return resString;
+    return [resString];
   }
 }
 
