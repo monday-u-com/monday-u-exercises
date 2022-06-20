@@ -1,4 +1,5 @@
 # Exercise 3
+For run code on local machine:
 just run the command *node index* in the ex3 folder in terminal, after then will open visual cli
 
 for install my package type in your folder project terminal
