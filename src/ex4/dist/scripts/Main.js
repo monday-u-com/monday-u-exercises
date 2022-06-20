@@ -1,10 +1,11 @@
-import { ItemManager } from "../clients/ItemManager.js";
+import { ItemClient } from "../clients/ItemClient.js";
 import { Alert } from "./Alert.js";
+import { ItemClient } from "../clients/ItemClient";
 const EMPTY_INPUT_MSG = "Task input cannot be empty, please try again";
 
 class main {
   constructor(htmlElement) {
-    this.tasksManager = new ItemManager();
+    this.taskClient = new ItemClient();
     this.emprtyInputAlert = new Alert(htmlElement);
 
     // Action Elements //
@@ -24,7 +25,7 @@ class main {
 
     // Events init //
 
-    this.activateSortable(this.tasksManager);
+    this.activateSortable(this.taskClient);
     this.addFieldsEventListeners();
   }
 
@@ -80,7 +81,7 @@ class main {
     }
 
     if (isOk) {
-      const isTaskAdded = await this.tasksManager.addTask(
+      const isTaskAdded = await this.taskClient.addTask(
         this.taskInput.value,
         false
       );
@@ -101,12 +102,12 @@ class main {
   }
 
   async onRemoveAllTasksClick(e) {
-    this.tasksManager.removeAllTasks();
+    this.taskClient.removeAllTasks();
     await this.renderTasks();
   }
 
   async toggleEmptyMsg() {
-    const tasksLength = await this.tasksManager.getTasksLength();
+    const tasksLength = await this.taskClient.getTasksLength();
     if (tasksLength === 0) {
       this.emptyListMsg.classList.remove("hide");
     } else {
@@ -115,7 +116,7 @@ class main {
   }
 
   async toggleRemoveAllBtn(filteredTasks) {
-    const tasksLength = await this.tasksManager.getTasksLength();
+    const tasksLength = await this.taskClient.getTasksLength();
     const filteredTasksSize = filteredTasks.length;
     if (filteredTasks.length < tasksLength || filteredTasksSize === 0) {
       this.removeAllTasksButton.classList.add("hide");
@@ -140,14 +141,14 @@ class main {
     const taskItem = e.target.parentElement;
     taskItem.classList.toggle("task-completed");
     const taskId = taskItem.getAttribute("id");
-    this.tasksManager.toggleCompleted(parseInt(taskId));
+    this.taskClient.toggleCompleted(parseInt(taskId));
     await this.renderTasks();
   }
 
   async onRemoveBtnClick(e) {
     const taskItem = e.target.parentElement;
     const taskId = taskItem.getAttribute("id");
-    this.tasksManager.removeTask(parseInt(taskId));
+    this.taskClient.removeTask(parseInt(taskId));
     await this.renderTasks();
   }
 
@@ -175,7 +176,7 @@ class main {
   }
 
   async updateIDsAfterReSort() {
-    const tasks = await this.tasksManager.fetchTasks();
+    const tasks = await this.taskClient.fetchTasks();
     this.tasksList.children.forEach((task, index) =>
       task.setAttribute("id", tasks[index].id)
     );
@@ -281,7 +282,7 @@ class main {
 
   async renderTasks() {
     this.tasksList.innerHTML = "";
-    const tasks = await this.tasksManager.fetchTasks();
+    const tasks = await this.taskClient.fetchTasks();
     const completeFilter = this.filterCompleteTasks(tasks);
     const filteredTasks = this.filterSearchedTasks(completeFilter);
     const self = this;

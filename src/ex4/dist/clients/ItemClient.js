@@ -1,4 +1,4 @@
-export class ItemManager {
+export class ItemClient {
   constructor() {
     this.serverURL = "http://localhost:8080/tasks/";
   }
@@ -67,5 +67,5 @@ export class ItemManager {
     return false;
   }
 
-  async reSortTasks() {}
+  async reSortTasks() {} //handle to next submission
 }

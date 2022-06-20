@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
   if (isAdded) {
     res.status(200).json(req.body);
   } else {
-    res.status(400).json({ error: "Task already exists" });
+    res.status(409).json({ error: "Task already exists" });
   }
 });
 
@@ -32,7 +32,7 @@ router.put("/:id", async (req, res) => {
   if (isUpdated) {
     res.status(200).json(req.body);
   } else {
-    res.status(400).json({ error: "Task does not exist" });
+    res.status(404).json({ error: "Task does not exist" });
   }
 });
 

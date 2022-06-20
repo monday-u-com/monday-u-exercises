@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { FIVE_MIN } = require("./globalConsts/GlobalConstants.js");
 
 //if element in cache is older than 5 minutes, remove it
 function clearCache() {
@@ -8,7 +9,7 @@ function clearCache() {
   const cacheArray = JSON.parse(cache);
   const time = new Date().getTime();
   cacheArray.forEach((element) => {
-    if (time - element.time > 300000) {
+    if (time - element.time > FIVE_MIN) {
       cacheArray.splice(cacheArray.indexOf(element), 1);
     }
   });
