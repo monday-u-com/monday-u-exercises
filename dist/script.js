@@ -17,11 +17,13 @@ clearButton.onclick = async () => {
    await api.clearTasks();
    renderTasks(false);
 };
+
 sortDownButton.onclick = async () => {
    loader.classList.add(VISIBLE_CLASS);
    await api.sortTasks("down");
    renderTasks(false);
 };
+
 sortUpButton.onclick = async () => {
    loader.classList.add(VISIBLE_CLASS);
    await api.sortTasks("up");
@@ -91,7 +93,7 @@ function createTaskContainer() {
 
 function createNewTask(taskContainer, task) {
    const newTask = document.createElement("div");
-   newTask.textContent = task.taskText;
+   newTask.textContent = task.text;
    newTask.classList.add("task");
    taskContainer.append(newTask);
    newTask.onclick = () => alert(newTask.textContent);

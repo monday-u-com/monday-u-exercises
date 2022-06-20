@@ -2,7 +2,7 @@ const pokemonClient = require("../clients/pokemon-client.js");
 const file = require("./file-manager.js");
 
 class TaskManager {
-   getTasks = () => file.getAllTasks();
+   getTasks = async () => await file.getAllTasks();
 
    async add(task) {
       const allPokemonNames = await file.getFilePokemonNames();

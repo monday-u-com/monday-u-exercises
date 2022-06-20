@@ -1,33 +1,17 @@
 const fs = require("fs");
 const pokemonClient = require("../clients/pokemon-client.js");
+const { Task } = require("../db/models");
 const POKEMON_FILE_NAME = "./server/pokemon-names.json";
 const TASKS_FILE_NAME = "./server/tasks.json";
 
 class File {
-   getAllTasks() {
-      if (fs.existsSync(TASKS_FILE_NAME)) {
-         try {
-            const data = fs.readFileSync(TASKS_FILE_NAME);
-            const fileTasks = JSON.parse(data);
+   getAllTasks = async () => await Task.findAll();
 
-            return fileTasks;
-         } catch (error) {
-            error.statusCode = 500;
-            error.message = "Failed to read file";
-
-            throw error;
-         }
-      } else {
-         this._writeToFile(TASKS_FILE_NAME, []);
-
-         return [];
-      }
-   }
-
-   addTask(task) {
+   async addTask(task) {
       let allTasks = this.getAllTasks();
       allTasks = [...allTasks, task];
       this._writeToFile(TASKS_FILE_NAME, allTasks);
+      // await Task.create(task);
    }
 
    deleteTask(index) {
