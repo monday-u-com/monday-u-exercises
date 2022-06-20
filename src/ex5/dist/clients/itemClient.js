@@ -13,6 +13,7 @@ class ItemClient {
       description: `Items were not found`,
     };
     try {
+      
       const response = await fetch(urlFetchAllItems);
 
       if (!response.ok) {
@@ -54,6 +55,7 @@ class ItemClient {
       //   headers: { "Content-Type": "application/json" },
       // });
       const response = await axios.post(urlCreateItem, { data: input })
+      return response
     } catch (e) {
       console.log("this is error creating item", e);
     }

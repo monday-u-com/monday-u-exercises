@@ -3,7 +3,7 @@ const { v4: idKeyGen } = require("uuid");
 
 function handlePokemon(pokemonObject, pokemonDataFromClient){
 
-console.log(pokemonDataFromClient.data.sprites.front_default)
+
 pokemonObject.pokemonId = pokemonDataFromClient.data.id;
 pokemonObject.name = `Catch ${pokemonDataFromClient.data.name}`;
 pokemonObject.itemId = idKeyGen();

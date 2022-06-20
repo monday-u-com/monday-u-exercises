@@ -5,6 +5,7 @@ const cacheDir = "./server/data/cache";
 const cacheFilePath = "./server/data/cache/cache.json";
 const cacheFileName = "cache.json";
 const autoDeleteCacheService = require("./autoDeleteCacheService");
+const storage = require("./storageService")
 
 const { v4: ideKeyGen } = require("uuid");
 
@@ -53,6 +54,7 @@ function createCacheFile(cacheFilePath) {
 }
 
 async function getAllItems() {
+
   return await readItemFile();
 }
 
@@ -62,6 +64,8 @@ function isPokemonExist(data, pokemonName) {
 }
 
 async function getItemById(itemId) {
+  let itemFromDb = await storage.getItem(itemId)
+
   const data = await readItemFile();
   return data.find((item) => item.itemId === itemId);
 }
@@ -103,6 +107,10 @@ async function writeToCacheItemFile(content) {
   } catch (error) {
     console.error(`Failed to write to file ${error.message}`);
   }
+}
+
+async function getItems() {
+  return await storage.getItems()
 }
 
 module.exports = {

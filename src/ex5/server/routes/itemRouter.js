@@ -13,9 +13,8 @@ const itemRouter = express.Router();
 
 //itemRouter.get("/", getAllItems);
 //itemRouter.get("/", getAllItems);
-itemRouter.get('/db_items', async (_, res) => {
-  res.send(await storage.getItems());
-});
+itemRouter.get('/db_items', getAllItems);
+
 itemRouter.get("/:id", getItemById);
 
 
