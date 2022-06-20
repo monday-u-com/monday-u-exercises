@@ -27,6 +27,7 @@
     "fs": "^0.0.1-security",
     "gradient-string": "^2.0.1",
     "inquirer": "^8.2.4",
+    "mysql2": "^2.3.3",
     "node": "^17.7.2",
     "node-fetch": "^3.2.5"
   }
