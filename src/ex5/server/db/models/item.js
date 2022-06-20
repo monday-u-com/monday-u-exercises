@@ -18,8 +18,15 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     isPokemon: DataTypes.BOOLEAN,
     pokemonId: DataTypes.INTEGER,
-    pokemonData: DataTypes.STRING
-  }, {
+    pokemonData: DataTypes.STRING,
+    completed: DataTypes.BOOLEAN
+
+   
+  }, 
+   
+  
+  
+  {
     sequelize,
     modelName: 'Item',
     tableName: 'items',

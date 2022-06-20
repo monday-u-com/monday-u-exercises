@@ -65,7 +65,14 @@ class Main {
     items.forEach((item) => {
       const listItem = document.createElement("li");
       listItem.classList.add("list-item");
-      listItem.innerHTML = item.name;
+      
+      let checkBoxElement = this._createCheckBox(item)
+      
+      let divElement = document.createElement("DIV");
+      divElement.innerText = item.name;
+
+      listItem.appendChild(checkBoxElement);
+      listItem.appendChild(divElement)
 
       if (item.isPokemon) {
         const listItemPicture = this.getPokemonImage(item);
@@ -88,6 +95,25 @@ class Main {
     img.setAttribute("src", url);
     return img;
   }
+
+ _createCheckBox = (item) => {
+  let divElementWithCheckBox = document.createElement("DIV");
+  let checkBox = document.createElement("INPUT"); 
+      checkBox.setAttribute("type", "checkbox");
+      checkBox.addEventListener('change', function() {
+        if (this.checked) {
+          console.log("Checkbox is checked..");
+console
+        } else {
+          console.log("Checkbox is not checked..");
+        }
+      });//("change" , (_) => this.handleCheckedItem(checkBox))
+      divElementWithCheckBox.appendChild(checkBox)
+      
+      return divElementWithCheckBox
+
+ }
+ 
 
   _createDeleteButton = (item) => {
     const button = document.createElement("img");

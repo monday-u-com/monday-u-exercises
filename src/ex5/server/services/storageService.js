@@ -14,6 +14,7 @@ class StorageService {
       isPokemon: item.isPokemon,
       pokemonId: item.pokemonId,
       pokemonData: item.pokemonData,
+      completed:false
     });
   };
 

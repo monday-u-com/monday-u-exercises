@@ -10,6 +10,8 @@ async function createItem(req, res) {
   const dataToAddToDb = [];
   const currentDataFromDb = await storage.getItems();
 
+/// todo add validation function to check if there is body and data
+
   const pokemonOrTaskResults = await parserService.parseInputValue(
     req.body.data
   );
@@ -18,6 +20,8 @@ async function createItem(req, res) {
     result.itemId = idKeyGen();
     result.pokemonId = null;
     result.pokemonData = null;
+    result.status = false
+    
 
     dataToAddToDb.push(result);
   });
@@ -59,7 +63,7 @@ async function createItem(req, res) {
   if (errorsToData.length > 0) {
     errorsToData.forEach((error) => dataToAddToDb.push(error));
   }
-
+console.log(dataToAddToDb)
   await storage.createItemsBulk(dataToAddToDb);
 
   await res.status(200).json(dataToAddToDb);

@@ -8,6 +8,7 @@ pokemonObject.pokemonId = pokemonDataFromClient.data.id;
 pokemonObject.name = `Catch ${pokemonDataFromClient.data.name}`;
 pokemonObject.itemId = idKeyGen();
 pokemonObject.pokemonData = `${pokemonDataFromClient.data.sprites.front_default}`;
+pokemonObject.completed = false
 
 return pokemonObject
 }

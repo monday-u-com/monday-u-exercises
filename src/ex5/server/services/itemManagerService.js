@@ -5,7 +5,7 @@ const cacheDir = "./server/data/cache";
 const cacheFilePath = "./server/data/cache/cache.json";
 const cacheFileName = "cache.json";
 const autoDeleteCacheService = require("./autoDeleteCacheService");
-const storage = require("./storageService")
+const storage = require("./storageService");
 
 const { v4: ideKeyGen } = require("uuid");
 
@@ -13,9 +13,7 @@ async function checkIfPokemonIdInCache(pokemonId) {
   let cacheData = [];
   try {
     if (!fs.existsSync(cacheFilePath)) {
-      
-
-      cacheWriteAutoDelete(pokemonId, cacheData);
+      //cacheWriteAutoDelete(pokemonId, cacheData);
 
       return false;
     }
@@ -25,7 +23,7 @@ async function checkIfPokemonIdInCache(pokemonId) {
     const pokemonExist = cacheData.some((item) => item === pokemonId);
 
     if (!pokemonExist) {
-      cacheWriteAutoDelete(pokemonId, cacheData);
+      //cacheWriteAutoDelete(pokemonId, cacheData);
 
       return false;
     }
@@ -37,9 +35,9 @@ async function checkIfPokemonIdInCache(pokemonId) {
 }
 
 function cacheWriteAutoDelete(pokemonId, cacheData) {
-  cacheData.push(pokemonId);
+  //cacheData.push(pokemonId);
   //writeToCacheItemFile(cacheData);
-  autoDeleteCacheService.autoDeleteCache();
+  //autoDeleteCacheService.autoDeleteCache();
 }
 
 function createCacheFile(cacheFilePath) {
@@ -54,7 +52,6 @@ function createCacheFile(cacheFilePath) {
 }
 
 async function getAllItems() {
-
   return await readItemFile();
 }
 
@@ -64,7 +61,7 @@ function isPokemonExist(data, pokemonName) {
 }
 
 async function getItemById(itemId) {
-  let itemFromDb = await storage.getItem(itemId)
+  let itemFromDb = await storage.getItem(itemId);
 
   const data = await readItemFile();
   return data.find((item) => item.itemId === itemId);
@@ -110,7 +107,7 @@ async function writeToCacheItemFile(content) {
 }
 
 async function getItems() {
-  return await storage.getItems()
+  return await storage.getItems();
 }
 
 module.exports = {
