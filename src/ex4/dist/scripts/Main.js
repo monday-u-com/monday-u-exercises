@@ -1,6 +1,5 @@
 import { ItemClient } from "../clients/ItemClient.js";
 import { Alert } from "./Alert.js";
-import { ItemClient } from "../clients/ItemClient";
 const EMPTY_INPUT_MSG = "Task input cannot be empty, please try again";
 
 class main {
@@ -51,7 +50,6 @@ class main {
 
     this.taskInput.onkeyup = (e) => {
       if (e.key === "Enter") {
-        console.log(e);
         e.preventDefault();
         this.onAddTaskClick(e);
       }
@@ -65,14 +63,12 @@ class main {
   }
 
   async init() {
-    console.log("Main init");
     await this.renderTasks();
   }
 
   // Action Methods //
 
   async onAddTaskClick(e) {
-    console.log(e);
     const isOk = this.canProceed();
 
     const isAlertShown = this.emprtyInputAlert.isAlertShown();
@@ -301,5 +297,4 @@ const app = new main(document);
 
 document.addEventListener("DOMContentLoaded", async function () {
   await app.init();
-  console.log("DOMContentLoaded");
 });

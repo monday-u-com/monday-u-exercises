@@ -1,6 +1,6 @@
 export class ItemClient {
   constructor() {
-    this.serverURL = "http://localhost:8080/tasks/";
+    this.serverURL = "/tasks/";
   }
 
   async getTasksLength() {
