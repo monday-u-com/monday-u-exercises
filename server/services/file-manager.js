@@ -62,4 +62,4 @@ class File {
    }
 }
 
-module.exports = new File();
+module.exports = new FileManager();

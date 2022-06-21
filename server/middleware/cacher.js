@@ -5,22 +5,19 @@ setInterval(() => {
 }, 60000);
 
 module.exports = function cacher(req, res, next) {
-   if (
-      req.body.task
-         .replace(/\s/g, "")
-         .split(",")
-         .every((elem) => !isNaN(elem))
-   ) {
+   const potentialPokemonIDS = req.body.task.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
+
+   if (potentialPokemonIDS.every((elem) => !isNaN(elem))) {
+      const pokemonIDS = potentialPokemonIDS;
       let idsToPass = [];
-      const pokemonIDS = req.body.task.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
       pokemonIDS.forEach((id) => {
          if (!cachedIDs.includes(id)) {
             cachedIDs.push(id);
             idsToPass.push(id);
          }
       });
-      if (idsToPass.toString() === "") {
-         res.status(200).json(false).send();
+      if (idsToPass.length === 0) {
+         res.status(200).json({ success: false }).send();
       } else {
          req.body.task = idsToPass.toString();
 

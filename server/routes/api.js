@@ -10,7 +10,7 @@ router.get("/getAll", async (req, res) => {
 
 router.post("/add", cacher, async (req, res) => {
    await taskManager.add(req.body.task);
-   res.status(200).json(true);
+   res.status(200).json({ success: true });
 });
 
 router.delete("/del", (req, res) => {
