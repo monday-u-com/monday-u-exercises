@@ -17,7 +17,6 @@ class FileSystemManager {
             }
         } catch (err) {
             console.error(err);
-
         }
         try {
             if (!existsSync(join(this.TODO_DATA_PATH, this.TODO_FILE_NAME))) {
@@ -31,35 +30,53 @@ class FileSystemManager {
     addItemToFile(item) {
         const items = this.getAllItems();
         items.push(item);
-        this.saveToFile(items);
+        this.saveToTodoFile(items);
+        return item;
     }
 
     getAllItems() {
         return JSON.parse(readFileSync(join(this.TODO_DATA_PATH, this.TODO_FILE_NAME), 'utf8'));
     }
 
-
-    getItemFromFile(item) {
+    getItemFromFile(id) {
         const items = this.getAllItems();
-        return { items, item: items.find(el => el.item === item.item) };
+        return { items, item: items.find(el => el.id === id) };
     }
 
-    removeItemFromFile(item) {
-        const current = this.getItemFromFile(item);
+    getItemFromFileById(id) {
+        const items = this.getAllItems();
+        return items.find(el => el.id === id);
+    }
+
+    editItem(id, item) {
+        const current = this.getItemFromFile(id);
         if (!current.item) {
             return;
         }
-        current.items.splice(current.items.indexOf(current.item), 1);
-        this.saveToFile(current.items);
+        current.item.item = current.item.message = item;
+        this.saveToTodoFile(current.items);
+        return current.item;
     }
 
-    saveToFile(items){
+    removeItemFromFile(id) {
+        const current = this.getItemFromFile(id);
+        if (!current.item) {
+            return {};
+        }
+        current.items.splice(current.items.indexOf(current.item), 1);
+        this.saveToTodoFile(current.items);
+        return {deleted: 1};
+    }
+
+    saveToTodoFile(items) {
         writeFileSync(join(this.TODO_DATA_PATH, this.TODO_FILE_NAME), JSON.stringify(items), 'utf8');
     }
 
-    cleanFile() {
-        this.saveToFile([]);
+    cleanTodoFile() {
+        const deletedCount = this.getAllItems().length;
+        this.saveToTodoFile([]);
+        return {deleted: deletedCount};
     }
 }
 
-export default FileSystemManager
+export default FileSystemManager;

@@ -1,69 +1,38 @@
-# Exercise 3 - Node.js, CLI
+# Exercise 4 - Express.js
 
-Time for task #3!<br>
+You know what they say about #4: you'll remember it *for*ever (ha)
 
 ## In this section you will practice
 
-**Node.js** - Build your first node.js cli app <br> 
-**Npm** - Work with external libraries <br>
-**Files** - Read and write from the file system <br>
+**Express** - One of the most popular server frameworks for node.js
+**APIs** - We've already worked with an external API (the Pokemon one) - now we're going to build our own!
+**CRUD** - Create, Read, Update, Delete - the four fundamental operations of any API. We aren't updating yet, but the principles are the same
 
 ## What you are going to build
 
-We already have a beautiful todo app that will help us to catch all the pokemons. <br>
-Now let's create cli tool, so we can add, delete, and view todos like a real pro 👩‍💻 🧑‍💻 
+So far our whole app has been 100% local, and if you refreshed the page - that's it, all your todos were gone. No persistency. So sad.
 
-Use your code from the last exercise and refactor where needed.
+But that changes today! We're going to create a server that will handle all our todo items, _and_ our Pokemon fetching, and finally take our first step in becoming real #fullstack developers #hashtag
+
+You can use your existing project (copy+paste then refactor), or use the boilerplate we've set up for you in this `ex4` directory
 
 ### The requirements:
 
-- [v] Build node.js cli todo app
-- [v] Detailed help option
-- [v] Read/Write/Delete todos from a file
+- [v] Create your express backend (include separate `dist` and `server` folders)
+- [v] Your `server.js` file should have all the express boilerplate and host your `dist` directory to any client that requests it (hint: you'll need to `.use` the `express.static` method)
+- [v] Create an `api.js` file that acts as the 'controller' of your backend, handling all the routes (endpoints)
+- [v] Create separate endpoints for (1) fetching all the todo items, (2) creating a new one, and (3) deleting an existing one (hint: don't forget `bodyParser`)
+- [v] Move the pokemon fetching code to the backend - use `axios` instead of `fetch` for your requests
+- [v] On app load (i.e. when a user enters the page) it should fetch all the todo items and render them
 
-When you finish it should look like this:
+In terms of the front end, it will look the same as before:
+![](../assets/hw-2.gif)
 
-![](../assets/cli.gif)
+But now when you refresh the page **the data should still be there**
 
 ### Bonus
 
-- [ ] Publish your code as npm package and run it with npx
-- [v] Add colors to your cli tool
-- [v] Add Inquirer.js and make you cli tool interactive
-- [v] Display pokemon image (ascii art)
-
-
-
-
-## Run with npx
-
-Install the package globally:
-```
-npm install -g todo-app-commander
-```
-Run:
-```
-npx todo-app-commander
-```
-## Run with options
-Option | Description
---- | --- 
-  -V, --version            |Output the version number
-  -h, --help               |Display help for command
-  get [options]            |Displays the todo list
-  add <string>             |Write your todos or pokemons to the todo list
-  delete <number>          |Delete a single todo by index
-  delete-pokemon <string>  |Delete a single pokemon todo by pokemon ID or name
-  delete-not-found         |Delete all not found pokemons todos
-  delete-all [options]     |Delete all todos by group type
-  pending-tasks            |Show your pending tasks
-  interactive              |Use interactive menu
-  help [command]           |display help for command
-
-## Run Interactive
-```
-npx todo-app-commander interactive
-```
-
-
-
+- [v] Create a [middleware](https://expressjs.com/en/guide/using-middleware.html) that makes a log each time a user accesses any of the routes (you can just do a `console.log`)
+- [v] Handle server errors elegantly. Specifically, if anything goes wrong the user should see an error message (ideally, not an alert) with an explanation of what went wrong instead of crashing the page
+- [v] Add a loder/spinner to the page that indicates the client is waiting for an async operation (e.g. a call to the server) to finish
+- [v] Add simple caching to your server. If a user requests for the same pokemon ID three times in the same minute, for example, it should only make a request to the Pokemon API once. You can use a simple in-memory data structure for your cache

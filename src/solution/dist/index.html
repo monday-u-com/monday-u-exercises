@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Don't Forget Me</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/solid.css"
+        integrity="sha384-Tv5i09RULyHKMwX0E8wJUqSOaXlyu3SQxORObAI08iUwIalMmN5L6AvlPX2LMoSE" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css"
+        integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div id="spinner" class="spinner">
+        <div class="spinner-wrapper">
+            <span class="icon-add-todo"><i class="fas fa-pen"></i></span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h1>Don't Forget Me</h1>
+            <div class="todo-input">
+                <input id="todo-input" type="text" placeholder="Add your new todo" required>
+                <button id="todo-input-btn"><i class="fas fa-plus"></i></button>
+            </div>
+            <hr>
+            <div>
+                <select id="select-sort" class="select-sort">
+                    <option>A-Z</option>
+                    <option>Z-A</option>
+                </select>
+            </div>
+            <div id="edit-todo" class="edit-todo" style="display: none">
+                <input id="edit-todo-input" type="text" class="edit-todo-input"></input>
+                <button id="edit-todo-cancel-btn" class="edit-todo-btn edit-todo-cancel-btn "><i
+                        class="fas fa-times"></i></button>
+                <button id="edit-todo-approve-btn" class="edit-todo-btn edit-todo-approve-btn "><i
+                        class="fas fa-check"></i></button>
+            </div>
+            <ul id="todo-list" class="todo-list"></ul>
+            <div class="footer">
+                <span>You have <span class="pending-todos"></span> pending tasks</span>
+                <button id="footer-btn">Clear All</button>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script src="services/local-storage-manager.js"></script>
+<script src="clients/item-client.js"></script>
+<script src="main.js"></script>
+
+</html>
