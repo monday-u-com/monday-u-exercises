@@ -9,13 +9,10 @@ class Main {
         const clearAllBtn = document.querySelector(" #clearAllBtn ");
 
         addBtn.addEventListener("click", () => { this.handleItem(taskInput.value, taskInput, addBtn); })
-
         taskInput.addEventListener("keypress", (e) => {
             if (e.key === 'Enter' && taskInput.value) this.handleItem(taskInput.value, taskInput, addBtn)
         });
-
         taskInput.addEventListener('keyup', () => addBtn.disabled = !taskInput.value)
-
         clearAllBtn.addEventListener("click", () => { this.deleteAllItems() })
 
         await this.renderItems();
@@ -28,14 +25,18 @@ class Main {
         await this.renderItems();
     }
 
-    async deleteItem(item) {
-        await this.itemClient.deleteTodo(item)
+    async deleteItem(id) {
+        await this.itemClient.deleteTodo(id)
         await this.renderItems();
     }
 
     async deleteAllItems() {
         await this.itemClient.deleteAll();
         await this.renderItems();
+    }
+
+    async updateStatus(id, status) {
+        await this.itemClient.updateStatus(id, status);
     }
 
     async renderItems() {
@@ -66,19 +67,28 @@ class Main {
         }
     }
 
-    createDOMTask(taskValue) {
+    createDOMTask(item) {
         const li = document.createElement("li");
+        const checkBox = document.createElement("INPUT");
         const span = document.createElement("span");
         const i = document.createElement("i");
-        li.innerHTML = taskValue.value;
+        li.innerHTML = item.itemName;
+        checkBox.setAttribute("type", "checkbox");
+        checkBox.classList.add("checkbox");
+        checkBox.checked = item.status;
+        li.appendChild(checkBox);
         i.classList.add("fa", "fa-trash-o");
         span.appendChild(i);
         li.appendChild(span);
         span.onclick = (e) => {
             e.stopPropagation();
-            this.deleteItem(taskValue.value);
+            this.deleteItem(item.id);
         };
-        li.onclick = () => alert(taskValue.value);
+        checkBox.onclick = (e) => {
+            e.stopPropagation();
+            this.updateStatus(item.id, checkBox.checked);
+        }
+        li.onclick = () => alert(item.itemName);
         li.classList.add('new-li');
         return li;
     }

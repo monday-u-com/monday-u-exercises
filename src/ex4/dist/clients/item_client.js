@@ -20,9 +20,18 @@ class ItemClient {
         }
     }
 
-    async deleteTodo(value) {
+    async updateStatus(id, status) {
         try {
-            const { data } = await axios.delete(`${API_BASE}/${value}`);
+            const { data } = await axios.put(`${API_BASE}/${id}`, { status });
+            return data;
+        } catch (error) {
+            console.log('Error:', error)
+        }
+    }
+
+    async deleteTodo(id) {
+        try {
+            const { data } = await axios.delete(`${API_BASE}/${id}`);
             return data;
         } catch (error) {
             console.log('Error:', error)

@@ -1,7 +1,6 @@
 // The ItemManager should go here. Remember that you have to export it.
 const pokemonClient = require('../clients/pokemon_client')
 const { Item } = require('../db/models')
-const file = require('../db/file');
 
 async function getAll() {
     return await Item.findAll();
@@ -13,42 +12,49 @@ async function addTodo(itemValue) {
     } else if (isList(itemValue)) {
         await fetchAndAddManyPokemon(itemValue);
     } else {
-        await file.addTodo(itemValue);
+        await Item.create({ itemName: itemValue });
     }
 };
 
-async function deleteTodo(value) {
-    let todos = await getAll();
-    const index = todos.findIndex((todo) => todo.value === value);
-    const deletedTodo = todos[index]
-    todos.splice(index, 1);
-    await file.writeTodoFile(todos);
-    return deletedTodo
+async function deleteTodo(id) {
+    await Item.destroy({
+        where: { id }
+    });
 }
 
 async function deleteAll() {
-    let emptyArr = [];
-    await file.writeTodoFile(emptyArr);
+    await Item.destroy({
+        where: {},
+        truncate: true,
+        restartIdentity: true
+    });
+}
+
+async function updateStatus(id, status) {
+    await Item.update({ status }, {
+        where: { id }
+    });
 }
 
 async function fetchAndAddPokemon(itemValue) {
     try {
         const { name } = await pokemonClient.getPokemon(itemValue);
-        await file.addTodo(name);
+        await Item.create({ itemName: `Catch ${name}` });
     } catch (error) {
-        await file.addTodo(`Pokemon with ID ${itemValue} was not found`);
+        await Item.create({ itemName: `Pokemon with ID ${itemValue} was not found` });
     }
 };
 
 async function fetchAndAddManyPokemon(itemValue) {
     try {
         const pokemons = await pokemonClient.getManyPokemon(
-            itemValue.replaceAll(" ", "").split(",")
-        );
-        const pokemosName = pokemons.map((p) => p.name);
-        await file.addManyTodo(pokemosName);
+            itemValue.replaceAll(" ", "").split(","));
+
+        const pokemonItem = pokemons.map((pokemon) => { return { itemName: `Catch ${pokemon.name}` } });
+        await Item.bulkCreate(pokemonItem);
+
     } catch (error) {
-        await file.addTodo(`Failed to fetch pokemon with this input: ${itemValue}`);
+        await Item.create({ itemName: `Failed to fetch pokemon with this input: ${itemValue}` });
     }
 };
 
@@ -63,5 +69,6 @@ module.exports = {
     addTodo,
     getAll,
     deleteTodo,
-    deleteAll
+    deleteAll,
+    updateStatus
 };

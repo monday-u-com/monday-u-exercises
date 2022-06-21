@@ -14,7 +14,7 @@ async function getPokemon(id) {
 
 async function getManyPokemon(ids) {
     try {
-        const promises = ids.map((id) => axios.get(`${API_BASE}${id}`));
+        const promises = ids.map(async (id) => await axios.get(`${API_BASE}${id}`));
         const responses = await Promise.all(promises);
         const pokemons = responses.map((r) => r.data);
 
