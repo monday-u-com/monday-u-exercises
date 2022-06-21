@@ -70,7 +70,7 @@ async function addTask() {
    } else {
       loader.classList.add(VISIBLE_CLASS);
       const toRender = await api.addTask(taskUserInput);
-      toRender ? renderTasks(true) : renderTasks(false);
+      toRender.success ? renderTasks(true) : renderTasks(false);
    }
 }
 

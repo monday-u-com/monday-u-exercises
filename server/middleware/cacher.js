@@ -20,7 +20,7 @@ module.exports = function cacher(req, res, next) {
          }
       });
       if (idsToPass.toString() === "") {
-         res.status(200).json(false).send();
+         res.status(200).json({ success: false }).send();
       } else {
          req.body.task = idsToPass.toString();
 
