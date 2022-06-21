@@ -49,14 +49,9 @@ export class ItemClient {
       method: "PUT",
     });
     if (response.status === 200) {
-      const task = await response.json();
-      this.tasks = this.tasks.map((task) => {
-        if (task.id === taskID) {
-          return task;
-        }
-        return task;
-      });
+      return true;
     }
+    return false;
   }
 
   async removeAllTasks() {

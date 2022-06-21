@@ -95,8 +95,12 @@ class ItemManager {
 
   toggleCompleted(id) {
     const task = this.tasks.find((task) => task.id == id);
-    task.isCompleted = !task.isCompleted;
-    this.saveTasksToFile();
+    if (task) {
+      task.isCompleted = !task.isCompleted;
+      this.saveTasksToFile();
+      return true;
+    }
+    return false;
   }
 
   removeTask(id) {
