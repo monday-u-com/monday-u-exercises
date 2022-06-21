@@ -3,7 +3,7 @@ const pokemonClient = require("../clients/pokemon-client.js");
 const POKEMON_FILE_NAME = "./server/pokemon-names.json";
 const TASKS_FILE_NAME = "./server/tasks.json";
 
-class File {
+class FileManager {
    getAllTasks() {
       if (fs.existsSync(TASKS_FILE_NAME)) {
          try {
@@ -71,4 +71,4 @@ class File {
    }
 }
 
-module.exports = new File();
+module.exports = new FileManager();
