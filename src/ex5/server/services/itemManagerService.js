@@ -1,18 +1,16 @@
-
-const CACHE_TIME_DELTA = 20000
+const CACHE_TIME_DELTA = 20000;
 const fs = require("fs");
 const path = require("path");
 const itemFile = "./server/data/itemsList.json";
 const cacheDir = "./server/data/cache";
 const cacheFilePath = "./server/data/cache/cache.json";
 const cacheFileName = "cache.json";
-const autoDeleteCacheService = require("./autoDeleteCacheService");
 
 const { Item } = require("../db/models");
 
 const { v4: ideKeyGen } = require("uuid");
 
-async function checkIfPokemonIdInCacheAndWriteToCache(currentPokemonId) {
+async function checkIfPokemonIdInCacheAndOverwriteToCache(currentPokemonId) {
   let cacheData = [];
   try {
     const itemForCache = { id: currentPokemonId, timestamp: new Date() };
@@ -58,12 +56,6 @@ async function checkIfPokemonIdInCacheAndWriteToCache(currentPokemonId) {
   }
 }
 
-function cacheWriteAutoDelete(pokemonId, cacheData) {
-  //cacheData.push(pokemonId);
-  //writeToCacheItemFile(cacheData);
-  //autoDeleteCacheService.autoDeleteCache();
-}
-
 function createCacheFile(cacheFilePath) {
   try {
     fs.writeFileSync(cacheFilePath, JSON.stringify([]));
@@ -93,6 +85,17 @@ async function deleteItem(itemId) {
   await Item.destroy({ where: { itemId: itemId } });
 }
 
+async function deleteItemFromCache(pokemonId){
+  let dataFromCache = await readCacheFile()
+  
+   let remainedDataInCache = dataFromCache.filter(
+    item => Number(item.id) !== pokemonId
+  ); 
+ 
+ await writeToCacheItemFile(remainedDataInCache)
+
+}
+
 async function readCacheFile() {
   try {
     const data = await fs.readFileSync(cacheFilePath);
@@ -100,15 +103,6 @@ async function readCacheFile() {
     return JSON.parse(data.toString());
   } catch (error) {
     console.error(`Got an error trying to read the file: ${error.message}`);
-  }
-}
-
-async function writeToItemFile(content) {
-  try {
-    fs.writeFileSync(itemFile, JSON.stringify(content));
-    return "file written";
-  } catch (error) {
-    console.error(`Failed to write to file ${error.message}`);
   }
 }
 
@@ -129,14 +123,23 @@ async function createItemsBulk(itemsRow) {
   await Item.bulkCreate(itemsRow);
 }
 
+async function updateStatusInDb(itemId, newStatus) {
+  let status = newStatus;
+  Item.update({ status }, { where: { itemId: itemId } });
+  let item = getItemById(itemId);
+  return item;
+}
+
 module.exports = {
   getItemById,
   deleteItem,
-  readItemFile: readCacheFile,
-  writeToItemFile,
+  deleteItemFromCache,
+  readCacheFile,
+
   isPokemonExistInDb,
-  checkIfPokemonIdInCacheAndWriteToCache,
+  checkIfPokemonIdInCacheAndOverwriteToCache,
 
   getItems,
   createItemsBulk,
+  updateStatusInDb,
 };

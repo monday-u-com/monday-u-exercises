@@ -1,8 +1,10 @@
+
+
 const URL = "http://localhost:8080";
 class ItemClient {
   constructor() {}
   async fetchAllItems() {
-    const urlFetchAllItems = `${URL}/item/db_items`;
+    const urlFetchAllItems = `${URL}/item/`;
 
     const errorResponse = {
       error: true,
@@ -29,7 +31,7 @@ class ItemClient {
   }
 
   async deleteItemById(itemId) {
-    const urlDeleteItem = `${URL}/item/delete_item/${itemId}`;
+    const urlDeleteItem = `${URL}/item/delete_item/${itemId}/`;
 
     try {
       await fetch(urlDeleteItem, {
@@ -50,6 +52,18 @@ class ItemClient {
       return response;
     } catch (e) {
       console.log("this is error creating item", e);
+    }
+  }
+
+  async updateStatusInDb (itemId,newStatus) {
+    const urlUpdateItem = `${URL}/item/update_status/${itemId}/${newStatus}`;
+
+    try {
+      const response = await axios.put(urlUpdateItem, { itemId: itemId ,newStatus : newStatus }
+     
+      );
+    } catch (err) {
+      throw new Error("failed to update item");
     }
   }
 }

@@ -65,14 +65,14 @@ class Main {
     items.forEach((item) => {
       const listItem = document.createElement("li");
       listItem.classList.add("list-item");
-      
-      let checkBoxElement = this._createCheckBox(item)
-      
-      let divElement = document.createElement("DIV");
-      divElement.innerText = item.name;
+
+      let checkBoxElement = this._createCheckBox(item);
+
+      let divElementWithText = document.createElement("DIV");
+      divElementWithText.innerText = item.name;
 
       listItem.appendChild(checkBoxElement);
-      listItem.appendChild(divElement)
+      listItem.appendChild(divElementWithText);
 
       if (item.isPokemon) {
         const listItemPicture = this.getPokemonImage(item);
@@ -83,10 +83,19 @@ class Main {
 
       listItem.appendChild(listItemDeleteButton);
       listItem.setAttribute("id", item.itemId);
+      if (checkBoxElement.firstChild.checked) {
+        this.addCheckBoxStyle(listItem, item);
+      }
       list.appendChild(listItem);
     });
     return "render items finished";
   };
+  addCheckBoxStyle(listItem, item) {
+    listItem.childNodes[1].classList.add("decorate");
+    if (item.isPokemon) {
+      listItem.childNodes[2].classList.add("decorate");
+    }
+  }
 
   getPokemonImage(pokemonData) {
     const url = pokemonData.pokemonData;
@@ -96,25 +105,49 @@ class Main {
     return img;
   }
 
- _createCheckBox = (item) => {
-  let divElementWithCheckBox = document.createElement("DIV");
-  let checkBox = document.createElement("INPUT"); 
-      checkBox.setAttribute("type", "checkbox");
-      checkBox.addEventListener('change', function() {
-        if (this.checked) {
-          console.log("Checkbox is checked..");
-console
-        } else {
-          console.log("Checkbox is not checked..");
-        }
-      });//("change" , (_) => this.handleCheckedItem(checkBox))
-      divElementWithCheckBox.appendChild(checkBox)
-      
-      return divElementWithCheckBox
+  _createCheckBox = (item) => {
+    let divElementWithCheckBox = document.createElement("DIV");
+    let checkBox = document.createElement("INPUT");
 
- }
- 
+    checkBox.setAttribute("type", "checkbox");
+    checkBox.checked = item.status;
 
+    checkBox.addEventListener("change", (_) => this.handleCheckBox(item));
+
+    divElementWithCheckBox.appendChild(checkBox);
+
+    return divElementWithCheckBox;
+  };
+
+  handleCheckBox(item) {
+    let listItem = document.getElementById(item.itemId);
+    let itemCheckBox = listItem.firstChild.firstChild;
+
+    if (itemCheckBox.checked) {
+      this.addCompletedDecoration(item);
+      this.itemClient.updateStatusInDb(item.itemId, true);
+    } else {
+      this.removeCompletedDecoration(item);
+      this.itemClient.updateStatusInDb(item.itemId, false);
+    }
+  }
+
+  addCompletedDecoration(item) {
+    let listItem = document.getElementById(item.itemId);
+
+    listItem.childNodes[1].classList.add("decorate");
+    if (item.isPokemon) {
+      listItem.childNodes[2].classList.add("decorate");
+    }
+  }
+
+  removeCompletedDecoration(item) {
+    let listItem = document.getElementById(item.itemId);
+    listItem.childNodes[1].classList.remove("decorate");
+    if (item.isPokemon) {
+      listItem.childNodes[2].classList.remove("decorate");
+    }
+  }
   _createDeleteButton = (item) => {
     const button = document.createElement("img");
     button.src = "./images/delete_icon.svg";

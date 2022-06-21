@@ -1,48 +1,43 @@
-
 const { v4: idKeyGen } = require("uuid");
 
-function handlePokemon(pokemonObject, pokemonDataFromClient){
+function handlePokemon(pokemonObject, pokemonDataFromClient) {
+  pokemonObject.pokemonId = pokemonDataFromClient.data.id;
+  pokemonObject.name = `Catch ${pokemonDataFromClient.data.name}`;
+  pokemonObject.itemId = idKeyGen();
+  pokemonObject.pokemonData = `${pokemonDataFromClient.data.sprites.front_default}`;
+  pokemonObject.status = false;
 
-
-pokemonObject.pokemonId = pokemonDataFromClient.data.id;
-pokemonObject.name = `Catch ${pokemonDataFromClient.data.name}`;
-pokemonObject.itemId = idKeyGen();
-pokemonObject.pokemonData = `${pokemonDataFromClient.data.sprites.front_default}`;
-pokemonObject.status = false
-
-return pokemonObject
+  return pokemonObject;
 }
 
-function handlePokemonErrors(pokemonsFetchErrors){
+function handlePokemonErrors(pokemonsFetchErrors) {
+  const errorItems = [];
+  if (pokemonsFetchErrors.length === 1) {
+    const errorToString = `Pokemon with ID ${pokemonsFetchErrors[0]} was not found`;
+    const errorItem = {
+      name: errorToString,
+      itemId: idKeyGen(),
+      isPokemon: false,
+    };
+    errorItems.push(errorItem);
+  }
+  if (pokemonsFetchErrors.length > 1) {
+    const errorToString = `Failed to fetch pokemons with input :${pokemonsFetchErrors.join(
+      ","
+    )}`;
 
-    const errorItems = []
-    if (pokemonsFetchErrors.length === 1) {
-        const errorToString = `Pokemon with ID ${pokemonsFetchErrors[0]} was not found`;
-        const errorItem = {
-          name: errorToString,
-          itemId: idKeyGen(),
-          isPokemon: false,
-        };
-        errorItems.push(errorItem);
-      }
-      if (pokemonsFetchErrors.length > 1) {
-        const errorToString = `Failed to fetch pokemons with input :${pokemonsFetchErrors.join(
-          ","
-        )}`;
-    
-        const errorItem = {
-          name: errorToString,
-          itemId: idKeyGen(),
-          isPokemon: false,
-        };
-    
-        errorItems.push(errorItem);
-      }
-      return errorItems
+    const errorItem = {
+      name: errorToString,
+      itemId: idKeyGen(),
+      isPokemon: false,
+    };
 
+    errorItems.push(errorItem);
+  }
+  return errorItems;
 }
 
 module.exports = {
-    handlePokemon,
-    handlePokemonErrors,
-}
+  handlePokemon,
+  handlePokemonErrors,
+};

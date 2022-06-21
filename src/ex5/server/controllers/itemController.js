@@ -9,13 +9,6 @@ async function createItem(req, res) {
   const dataToAddToDb = [];
 
   const currentDataFromDb = await itemManagerService.getItems();
-  /*  let a = new Date()
-  console.log("I am writing this new date",a )
-  setTimeout(() => {
-    let b = new Date()
-    console.log("this is the second date", b) 
-    console.log("this is the time passed", b-a);
-  }, 200) */
 
   /// todo add validation function to check if there is body and data
 
@@ -35,39 +28,41 @@ async function createItem(req, res) {
   const pokemonsFetchErrors = [];
   for (let pokemon of pokemonOrTaskResults.pokemons) {
     try {
-      let pokemonExistInCache = await itemManagerService.checkIfPokemonIdInCacheAndWriteToCache(pokemon.name)
-    
-
-if(!pokemonExistInCache){
-      let pokemonDataFromClient = await pokemonClientService.fetchPokemon(
-        pokemon.name
-      );
-
-      if (!pokemonDataFromClient.error) {
-        const handledPokemon = pokemonHandleService.handlePokemon(
-          pokemon,
-          pokemonDataFromClient
+      let pokemonExistInCache =
+        await itemManagerService.checkIfPokemonIdInCacheAndOverwriteToCache(
+          pokemon.name
         );
 
-        const isPokemonExistInDb = itemManagerService.isPokemonExistInDb(
-          currentDataFromDb,
-          handledPokemon.name
+      if (!pokemonExistInCache) {
+        console.log("Pokemon is not in cache, fetching...");
+        let pokemonDataFromClient = await pokemonClientService.fetchPokemon(
+          pokemon.name
         );
 
-        if (!isPokemonExistInDb) {
-          dataToAddToDb.push(handledPokemon);
+        if (!pokemonDataFromClient.error) {
+          const handledPokemon = pokemonHandleService.handlePokemon(
+            pokemon,
+            pokemonDataFromClient
+          );
+
+          const isPokemonExistInDb = itemManagerService.isPokemonExistInDb(
+            currentDataFromDb,
+            handledPokemon.name
+          );
+
+          if (!isPokemonExistInDb) {
+            dataToAddToDb.push(handledPokemon);
+          }
+        } else {
+          pokemonsFetchErrors.push(pokemonDataFromClient.data);
         }
+        //cache else
+      } else {
+        console.log("Pokemon is in cache");
       }
-
-      if (pokemonDataFromClient.error) {
-        pokemonsFetchErrors.push(pokemonDataFromClient.data);
-      }
-    
-}
     } catch (e) {
       console.log(e);
     }
-  
   }
 
   const errorsToData =
@@ -123,9 +118,36 @@ async function deleteItem(req, res) {
   }
 
   let itemFromDB = await itemManagerService.getItemById(itemId);
-
+  await itemManagerService.deleteItemFromCache(itemFromDB.pokemonId);
   await itemManagerService.deleteItem(itemId);
   res.status(200).json(itemFromDB);
+}
+async function updateStatusInDb(req, res) {
+  //add validations
+  let itemId = req.body.itemId;
+  let newStatus = req.body.newStatus;
+
+  let validatedItemId = uuidValidate(itemId);
+  if (!validatedItemId) {
+    let error = Error();
+    error.statusCode = 400;
+    error.message = "Wrong parameters";
+    throw error;
+  }
+
+  if (newStatus > 1 || newStatus < 0) {
+    let error = Error();
+    error.statusCode = 400;
+    error.message = "Wrong parameters";
+    throw error;
+  }
+
+  let updatedItem = await itemManagerService.updateStatusInDb(
+    itemId,
+    newStatus
+  );
+
+  await res.status(200).json(updatedItem);
 }
 
 module.exports = {
@@ -133,4 +155,5 @@ module.exports = {
   getItems,
   getItemById,
   deleteItem,
+  updateStatusInDb,
 };
