@@ -7,7 +7,7 @@ import pokemonRouter from './server/routes/pokemon.js'
 
 dotenv.config();
 
-const APP_PORT = process.env.PORT ? parseInt(process.env.PORT) : 3001;
+const APP_PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 const app = express();
 
