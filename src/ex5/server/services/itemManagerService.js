@@ -1,3 +1,5 @@
+
+const CACHE_TIME_DELTA = 20000
 const fs = require("fs");
 const path = require("path");
 const itemFile = "./server/data/itemsList.json";
@@ -10,26 +12,47 @@ const { Item } = require("../db/models");
 
 const { v4: ideKeyGen } = require("uuid");
 
-async function checkIfPokemonIdInCache(pokemonId) {
+async function checkIfPokemonIdInCacheAndWriteToCache(currentPokemonId) {
   let cacheData = [];
   try {
+    const itemForCache = { id: currentPokemonId, timestamp: new Date() };
     if (!fs.existsSync(cacheFilePath)) {
-      //cacheWriteAutoDelete(pokemonId, cacheData);
+      createCacheFile(cacheFilePath);
+      cacheData.push(itemForCache);
+      writeToCacheItemFile(cacheData);
 
       return false;
     }
 
-    cacheData = JSON.parse(fs.readFileSync(cacheFilePath));
+    cacheData = JSON.parse(fs.readFileSync(cacheFilePath).toString());
 
-    const pokemonExist = cacheData.some((item) => item === pokemonId);
+    const pokemonExistInCache = cacheData.some(
+      (item) => item.id === currentPokemonId
+    );
 
-    if (!pokemonExist) {
-      //cacheWriteAutoDelete(pokemonId, cacheData);
-
+    if (!pokemonExistInCache) {
+      cacheData.push(itemForCache);
+      writeToCacheItemFile(cacheData);
       return false;
-    }
+    } else {
+      let pokemonIdInCache = cacheData.find(
+        (item) => item.id === currentPokemonId
+      );
+      let pokemonIdInCacheIndex = cacheData.findIndex(
+        (item) => item.id === currentPokemonId
+      );
 
-    return true;
+      let itemsTimeDelta =
+        itemForCache.timestamp - Date.parse(pokemonIdInCache.timestamp);
+
+      if (itemsTimeDelta > CACHE_TIME_DELTA) {
+        cacheData[pokemonIdInCacheIndex].timestamp = new Date();
+        writeToCacheItemFile(cacheData);
+        return false;
+      } else {
+        return true;
+      }
+    }
   } catch (err) {
     console.error("cannot load", err);
   }
@@ -52,7 +75,7 @@ function createCacheFile(cacheFilePath) {
   }
 }
 
-function isPokemonExist(data, pokemonName) {
+function isPokemonExistInDb(data, pokemonName) {
   const pokemonExist = data.some((item) => item.name === pokemonName);
 
   return pokemonExist;
@@ -61,8 +84,7 @@ function isPokemonExist(data, pokemonName) {
 async function getItemById(itemId) {
   let itemFromDb = await Item.findOne({ where: { itemId: itemId } });
 
-  const data = await readItemFile();
-  return data.find((item) => item.itemId === itemId);
+  return itemFromDb;
 }
 
 async function deleteItem(itemId) {
@@ -71,9 +93,9 @@ async function deleteItem(itemId) {
   await Item.destroy({ where: { itemId: itemId } });
 }
 
-async function readItemFile() {
+async function readCacheFile() {
   try {
-    const data = await fs.readFileSync(itemFile);
+    const data = await fs.readFileSync(cacheFilePath);
 
     return JSON.parse(data.toString());
   } catch (error) {
@@ -110,10 +132,10 @@ async function createItemsBulk(itemsRow) {
 module.exports = {
   getItemById,
   deleteItem,
-  readItemFile,
+  readItemFile: readCacheFile,
   writeToItemFile,
-  isPokemonExist,
-  checkIfPokemonIdInCache,
+  isPokemonExistInDb,
+  checkIfPokemonIdInCacheAndWriteToCache,
 
   getItems,
   createItemsBulk,

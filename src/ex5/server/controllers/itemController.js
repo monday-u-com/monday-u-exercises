@@ -5,11 +5,17 @@ const parserService = require("../services/parserService");
 const pokemonClientService = require("../clients/pokemonClientService");
 const pokemonHandleService = require("../services/handlePokemonService");
 
-
 async function createItem(req, res) {
   const dataToAddToDb = [];
 
   const currentDataFromDb = await itemManagerService.getItems();
+  /*  let a = new Date()
+  console.log("I am writing this new date",a )
+  setTimeout(() => {
+    let b = new Date()
+    console.log("this is the second date", b) 
+    console.log("this is the time passed", b-a);
+  }, 200) */
 
   /// todo add validation function to check if there is body and data
 
@@ -29,6 +35,10 @@ async function createItem(req, res) {
   const pokemonsFetchErrors = [];
   for (let pokemon of pokemonOrTaskResults.pokemons) {
     try {
+      let pokemonExistInCache = await itemManagerService.checkIfPokemonIdInCacheAndWriteToCache(pokemon.name)
+    
+
+if(!pokemonExistInCache){
       let pokemonDataFromClient = await pokemonClientService.fetchPokemon(
         pokemon.name
       );
@@ -39,12 +49,12 @@ async function createItem(req, res) {
           pokemonDataFromClient
         );
 
-        const isPokemonExist = itemManagerService.isPokemonExist(
+        const isPokemonExistInDb = itemManagerService.isPokemonExistInDb(
           currentDataFromDb,
           handledPokemon.name
         );
 
-        if (!isPokemonExist) {
+        if (!isPokemonExistInDb) {
           dataToAddToDb.push(handledPokemon);
         }
       }
@@ -52,9 +62,12 @@ async function createItem(req, res) {
       if (pokemonDataFromClient.error) {
         pokemonsFetchErrors.push(pokemonDataFromClient.data);
       }
+    
+}
     } catch (e) {
       console.log(e);
     }
+  
   }
 
   const errorsToData =
@@ -64,7 +77,7 @@ async function createItem(req, res) {
     errorsToData.forEach((error) => dataToAddToDb.push(error));
   }
 
-  await itemManagerService.createItemsBulk(dataToAddToDb); 
+  await itemManagerService.createItemsBulk(dataToAddToDb);
 
   await res.status(200).json(dataToAddToDb);
 }

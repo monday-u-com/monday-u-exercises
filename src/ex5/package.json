@@ -40,8 +40,7 @@
   },
   "homepage": "https://github.com/orimaro123/monday-u-exercises/tree/ex4#readme",
   "devDependencies": {
-    "connect-livereload": "^0.6.1",
-    "livereload": "^0.9.3",
+  
     "nodemon": "^2.0.16",
     "sequelize-cli": "^6.4.1"
   }
