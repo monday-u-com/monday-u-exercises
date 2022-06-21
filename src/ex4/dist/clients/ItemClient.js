@@ -4,10 +4,8 @@ export class ItemClient {
     this.tasks = [];
   }
 
-  async getTasksLength() {
-    const response = await fetch(this.serverURL + "length", { mode: "cors" });
-    const data = await response.json();
-    return data.length;
+  getTasksLength() {
+    return this.tasks.length;
   }
 
   async fetchTasks() {

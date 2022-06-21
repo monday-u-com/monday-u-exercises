@@ -9,11 +9,6 @@ router.get("/", (req, res) => {
   res.send(tasks);
 });
 
-router.get("/length", (req, res) => {
-  const tasksLength = itemManager.getTasksLength();
-  res.status(200).send({ length: tasksLength });
-});
-
 //add new task to tasks.json file
 router.post("/", async (req, res) => {
   const taskInput = req.body.content;
@@ -47,7 +42,5 @@ router.delete("/", (req, res) => {
   itemManager.removeAllTasks();
   res.status(200).json({ message: "All tasks removed" });
 });
-
-
 
 module.exports = router;
