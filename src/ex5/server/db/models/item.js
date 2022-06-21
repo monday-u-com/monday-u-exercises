@@ -19,19 +19,12 @@ module.exports = (sequelize, DataTypes) => {
     isPokemon: DataTypes.BOOLEAN,
     pokemonId: DataTypes.INTEGER,
     pokemonData: DataTypes.STRING,
-    completed: DataTypes.BOOLEAN
-
-   
-  }, 
-   
-  
-  
-  {
+    status: DataTypes.BOOLEAN
+  }, {
     sequelize,
     modelName: 'Item',
     tableName: 'items',
     timestamps: false
-  
   });
   Item.removeAttribute('id');
   return Item;

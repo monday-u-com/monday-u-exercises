@@ -1,22 +1,17 @@
 const express = require("express");
-const storage = require('../services/storageService');
-
 
 const {
   createItem,
-  getAllItems,
+  getItems,
   getItemById,
   deleteItem,
 } = require("../controllers/itemController");
 
 const itemRouter = express.Router();
 
-//itemRouter.get("/", getAllItems);
-//itemRouter.get("/", getAllItems);
-itemRouter.get('/db_items', getAllItems);
+itemRouter.get("/db_items", getItems);
 
 itemRouter.get("/:id", getItemById);
-
 
 itemRouter.post("/create_item", createItem);
 
