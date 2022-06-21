@@ -4,7 +4,7 @@ const { Task } = require("../db/models");
 const POKEMON_FILE_NAME = "./server/pokemon-names.json";
 const TASKS_FILE_NAME = "./server/tasks.json";
 
-class File {
+class FileManager {
    getAllTasks = async () => await Task.findAll();
 
    async addTask(task) {
