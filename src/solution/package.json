@@ -1,0 +1,50 @@
+{
+  "name": "todo-app-commander",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "bin": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "": "------------------ TODO ------------------",
+    "help": "node src/index.js --help",
+    "interactive": "node src/index.js interactive",
+    "": "------------------ ADD ------------------",
+    "add-text": "node src/index.js add lorem ipsum goto sleep",
+    "add-not-found": "node src/index.js add 1337",
+    "add-pokemon": "node src/index.js add 43",
+    "add-pokemon-duplicate": "node src/index.js add 42,121",
+    "": "------------------ GET ------------------",
+    "pending-tasks": "node src/index.js pending-tasks",
+    "show-pokemon-image": "node src/index.js show-pokemon-image Pikachu",
+    "get-all": "node src/index.js get",
+    "get-filter-text": "node src/index.js get -f text",
+    "get-filter-text-asc": "node src/index.js get -f text -s asc",
+    "get-filter-text-desc": "node src/index.js get -f text -s desc",
+    "get-filter-pokemon": "node src/index.js get -f pokemon",
+    "get-filter-pokemon-asc": "node src/index.js get -f pokemon -s asc",
+    "get-filter-pokemon-desc": "node src/index.js get -f pokemon -s desc",
+    "get-filter-notfound": "node src/index.js get -f not-found",
+    "get-filter-notfound-asc": "node src/index.js get -f not-found -s asc",
+    "get-filter-notfound-desc": "node src/index.js get -f not-found -s desc",
+    "": "------------------ DELETE ------------------",
+    "delete-text": "node src/index.js delete lorem ipsum goto sleep",
+    "delete-by-index": "node src/index.js delete 0",
+    "delete-pokemon-id": "node src/index.js delete-pokemon 42",
+    "delete-pokemon-name": "node src/index.js delete-pokemon Golbat",
+    "delete-all": "node src/index.js delete-all"
+  },
+  "dependencies": {
+    "ascii-art": "^2.8.5",
+    "chalk": "^5.0.1",
+    "commander": "^9.2.0",
+    "dotenv": "^16.0.1",
+    "inquirer": "^8.2.4",
+    "inquirer-autocomplete-prompt": "^2.0.0",
+    "node-fetch": "^3.2.4"
+  },
+  "devDependencies": {
+    "@types/ascii-art": "^1.4.0"
+  }
+}
