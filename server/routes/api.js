@@ -19,15 +19,15 @@ router.delete("/del", (req, res) => {
    res.status(200).json({ message: "Successfully cleared" });
 });
 
-router.delete("/del/:id", (req, res) => {
-   let id = Number.parseInt(req.params.id);
-   if (isNaN(id)) {
-      let error = Error();
-      error.statusCode = 400;
-      error.message = "Wrong parameters";
-      throw error;
-   }
-   taskManager.remove(id);
+router.delete("/del/:taskText", (req, res) => {
+   let taskText = req.params.taskText;
+   // if (isNaN(id)) {
+   //    let error = Error();
+   //    error.statusCode = 400;
+   //    error.message = "Wrong parameters";
+   //    throw error;
+   // }
+   taskManager.remove(taskText);
    res.status(200).json({ message: "Successfully deleted task" });
 });
 

@@ -24,7 +24,7 @@ class TaskManager {
       }
    }
 
-   remove = (i) => file.deleteTask(i);
+   remove = (taskText) => file.deleteTask(taskText);
 
    clear = () => file.clearTasks();
 

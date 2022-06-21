@@ -6,7 +6,8 @@ const POKEMON_FILE_NAME = "./server/pokemon-names.json";
 class DBManager {
    getAllTasks = async () => {
       await Task.sync();
-      return await Task.findAll();
+      const allTasks = await Task.findAll();
+      return allTasks;
    };
 
    async addTask(task) {
@@ -19,9 +20,10 @@ class DBManager {
       });
    }
 
-   async deleteTask(index) {
+   async deleteTask(taskText) {
       await Task.destroy({
-         where: { id: index },
+         where: { text: taskText },
+         limit: 1,
       });
    }
 

@@ -47,7 +47,7 @@ async function renderTasks(toAnimate) {
       const taskContainer = createTaskContainer();
       const newTask = createNewTask(taskContainer, task);
       if (task.imageURL) addPokemonImage(newTask, task.imageURL);
-      const deleteTask = createDeleteTaskButton(taskContainer);
+      const deleteTask = createDeleteTaskButton(taskContainer, newTask);
       addHoverReveal(taskContainer, deleteTask, newTask);
       lastTaskAdded = newTask;
       pendingTasks++;
@@ -101,7 +101,7 @@ function createNewTask(taskContainer, task) {
    return newTask;
 }
 
-function createDeleteTaskButton(taskContainer) {
+function createDeleteTaskButton(taskContainer, newTask) {
    const deleteTask = document.createElement("div");
    const i = document.createElement("i");
    i.classList.add("fa-solid", "fa-trash");
@@ -110,8 +110,8 @@ function createDeleteTaskButton(taskContainer) {
    taskContainer.append(deleteTask);
 
    deleteTask.onclick = async () => {
-      const index = Array.from(taskContainer.parentNode.children).indexOf(taskContainer);
-      await api.deleteTask(index);
+      const taskText = newTask.textContent;
+      await api.deleteTask(taskText);
       renderTasks(false);
    };
 

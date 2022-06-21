@@ -5,8 +5,8 @@ export default new (class ItemClient {
       return tasks;
    }
 
-   async deleteTask(i) {
-      await fetch(`/del/${i}`, { method: "DELETE" });
+   async deleteTask(taskText) {
+      await fetch(`/del/${taskText}`, { method: "DELETE" });
    }
 
    async addTask(task) {
