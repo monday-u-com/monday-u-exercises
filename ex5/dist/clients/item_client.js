@@ -6,7 +6,7 @@ class ItemClient {
 	};
 
 	postItem = async (item) => {
-		const d = await fetch('/item', {
+		await fetch('/item', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ item }),

@@ -48,10 +48,11 @@ class Main {
 		const list = document.getElementById('list');
 		list.innerHTML = '';
 		const items = await this.itemClient.getItems();
+		console.log(items);
 		items.forEach((item) => {
 			const listItem = document.createElement('li');
 			listItem.classList.add('list-item');
-			listItem.innerHTML = item.ItemName;
+			//istItem.innerHTML = item.ItemName;
 			const listItemStatusButton = this._createStatusButton(
 				item.ItemName
 			);
@@ -59,8 +60,14 @@ class Main {
 				item.ItemName
 			);
 			const editItemButton = this._createEditButton(item.ItemName);
-			listItem.appendChild(editItemButton);
+
 			listItem.appendChild(listItemStatusButton);
+			const span = document.createElement('span');
+			span.innerHTML = item.ItemName;
+			span.className = 'task-content';
+
+			listItem.appendChild(span);
+			listItem.appendChild(editItemButton);
 			listItem.appendChild(listItemDeleteButton);
 			list.appendChild(listItem);
 		});
@@ -68,7 +75,6 @@ class Main {
 		this.changeImageState();
 		this.updateTaskCounter();
 		this.clearForm();
-		console.log('rend');
 	};
 
 	handleDeleteAll = async () => {
