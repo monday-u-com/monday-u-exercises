@@ -2,10 +2,12 @@ const fs = require("fs");
 const pokemonClient = require("../clients/pokemon-client.js");
 const { Task } = require("../db/models");
 const POKEMON_FILE_NAME = "./server/pokemon-names.json";
-const TASKS_FILE_NAME = "./server/tasks.json";
 
-class FileManager {
-   getAllTasks = async () => await Task.findAll();
+class DBManager {
+   getAllTasks = async () => {
+      await Task.sync();
+      return await Task.findAll();
+   };
 
    async addTask(task) {
       await Task.create({
@@ -17,10 +19,10 @@ class FileManager {
       });
    }
 
-   deleteTask(index) {
-      const allTasks = this.getAllTasks();
-      allTasks.splice(index, 1);
-      this._writeToFile(TASKS_FILE_NAME, allTasks);
+   async deleteTask(index) {
+      await Task.destroy({
+         where: { id: index },
+      });
    }
 
    clearTasks = async () =>
@@ -62,4 +64,4 @@ class FileManager {
    }
 }
 
-module.exports = new FileManager();
+module.exports = new DBManager();

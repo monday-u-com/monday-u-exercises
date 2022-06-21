@@ -16,8 +16,8 @@ class TaskManager {
          const pokemonData = await Promise.all(
             pokemonIDS.map((id) => pokemonClient.getPokemon(id))
          );
-         pokemonData.forEach((pokemon, index) => {
-            this._pokemonTasksHandle(pokemon, pokemonIDS[index]);
+         pokemonData.forEach(async (pokemon, index) => {
+            await this._pokemonTasksHandle(pokemon, pokemonIDS[index]);
          });
       } else {
          await file.addTask(new Task(task));
@@ -41,7 +41,7 @@ class TaskManager {
       sortedTasks.forEach((task) => file.addTask(task));
    }
 
-   _pokemonTasksHandle(pokemon, pokemonID) {
+   async _pokemonTasksHandle(pokemon, pokemonID) {
       let task;
       if (pokemon) {
          let pokemonName = this._capitalize(pokemon.name);

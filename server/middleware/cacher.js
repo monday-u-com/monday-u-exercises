@@ -2,7 +2,7 @@
 let cachedIDs = [];
 setInterval(() => {
    cachedIDs = [];
-}, 60000);
+}, 6000);
 
 module.exports = function cacher(req, res, next) {
    const potentialPokemonIDS = req.body.task.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]

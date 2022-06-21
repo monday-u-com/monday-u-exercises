@@ -5,7 +5,8 @@ const cacher = require("../middleware/cacher");
 const router = express.Router();
 
 router.get("/getAll", async (req, res) => {
-   res.status(200).json(await taskManager.getTasks());
+   const allTasks = await taskManager.getTasks();
+   res.status(200).json(allTasks);
 });
 
 router.post("/add", cacher, async (req, res) => {
