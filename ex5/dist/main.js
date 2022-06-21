@@ -24,20 +24,36 @@ class Main {
 		await this.itemClient.deleteItem(item);
 		await this.renderItems();
 	};
+	popUp = async (item) => {
+		const { value: text } = await swal.fire({
+			input: 'textarea',
+			inputLabel: 'Edit your task',
+			inputPlaceholder: 'Enter your task here...',
+			inputAttributes: {
+				'aria-label': 'Type your message here',
+			},
+			showCancelButton: true,
+		});
+		//TODO: RENDER THE RIGHT STATE
+		if (text) {
+			await this.itemClient.editItem(item, text);
 
+			// await this.itemClient.deleteItem(item);
+			// await this.itemClient.postItem(text);
+		}
+	};
 	editItem = async (item) => {
 		let itemToEdit;
 		const list = document.querySelectorAll('.list-item');
-		//console.log(item);
+		console.log(item);
 		for (const listItem of list) {
 			if (listItem.textContent == item) {
 				itemToEdit = listItem;
+				await this.popUp(item);
 			}
 		}
 
-		itemToEdit.contentEditable = 'true';
-		await this.itemClient.editItem(item);
-		//await this.renderItems();
+		await this.renderItems();
 	};
 
 	updateStatus = async (item) => {
@@ -48,7 +64,6 @@ class Main {
 		const list = document.getElementById('list');
 		list.innerHTML = '';
 		const items = await this.itemClient.getItems();
-		console.log(items);
 		items.forEach((item) => {
 			const listItem = document.createElement('li');
 			listItem.classList.add('list-item');

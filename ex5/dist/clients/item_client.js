@@ -29,11 +29,11 @@ class ItemClient {
 		});
 	};
 
-	editItem = async (item) => {
+	editItem = async (item, newTask) => {
 		await fetch('/item', {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ item }),
+			body: JSON.stringify({ item, newTask }),
 		});
 	};
 }

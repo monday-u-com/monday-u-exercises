@@ -62,6 +62,11 @@ class ItemManager {
 		}
 	};
 
+	checkChange = async () => {
+		const span = (document.getElementsByClassName = 'task-content');
+		span.addEvent;
+	};
+
 	deleteItem = async (item) => {
 		await Items.destroy({
 			where: {
@@ -79,7 +84,7 @@ class ItemManager {
 		return currItem.update({ status: !currItem.status });
 	};
 
-	updateStatus = async (item, newContent) => {
+	editItem = async (item, newContent) => {
 		let currItem = await Items.findOne({
 			where: {
 				ItemName: item,

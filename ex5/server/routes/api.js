@@ -12,9 +12,18 @@ router.post('/item', async (req, res) => {
 });
 
 router.put('/item', async (req, res) => {
-	await itemManager.updateStatus(req.body.item);
+	if (Object.keys(req.body).length == 1) {
+		console.log(req.body);
+		await itemManager.updateStatus(req.body.item);
+	} else await itemManager.editItem(req.body.item, req.body.newTask);
+
 	res.end();
 });
+
+// router.put('/item', async (req, res) => {
+// 	await itemManager.editItem(req.body.item, req.body.newTask);
+// 	res.end();
+// });
 
 router.delete('/item', async (req, res) => {
 	await itemManager.deleteItem(req.body.item);
