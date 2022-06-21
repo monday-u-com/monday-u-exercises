@@ -30,7 +30,7 @@ class main {
 
   // Init Methods //
 
-  activateSortable(tasksManeger) {
+  activateSortable(taskClient) {
     new Sortable(this.dragArea, {
       animation: 350,
       draggable: ".task",
@@ -38,7 +38,7 @@ class main {
 
       onEnd: function (evt) {
         const tasksList = evt.item.parentElement.querySelectorAll(".task");
-        tasksManeger.reSortTasks(tasksList);
+        taskClient.reSortTasks(tasksList);
       },
     });
   }

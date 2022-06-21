@@ -1,6 +1,7 @@
 export class ItemClient {
   constructor() {
     this.serverURL = "/tasks/";
+    this.tasks = [];
   }
 
   async getTasksLength() {
@@ -12,6 +13,7 @@ export class ItemClient {
   async fetchTasks() {
     const response = await fetch(this.serverURL);
     const tasks = await response.json();
+    this.tasks = tasks;
     return tasks;
   }
 
@@ -67,5 +69,28 @@ export class ItemClient {
     return false;
   }
 
-  async reSortTasks() {} //handle to next submission
+  pushTaskFromReSort(id, taskContent, isCompleted) {
+    this.tasks.push({ id: id, content: taskContent, isCompleted: isCompleted });
+  }
+
+  async putResort(tasks) {
+    await fetch("/resort", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(tasks),
+    });
+  }
+
+  async reSortTasks(HTMLTaskList) {
+    this.tasks = [];
+    HTMLTaskList.forEach((taskDiv) => {
+      const taskContent = taskDiv.querySelector("p").textContent;
+      const isCompleted = taskDiv.classList.contains("task-completed");
+      const taskID = taskDiv.getAttribute("id");
+      this.pushTaskFromReSort(taskID, taskContent, isCompleted);
+    });
+    await this.putResort(this.tasks);
+  }
 }

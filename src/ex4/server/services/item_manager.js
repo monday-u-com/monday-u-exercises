@@ -37,7 +37,6 @@ class ItemManager {
   }
 
   getResponseFromCache(input) {
-    console.log(input);
     const cache = this.getCache();
     if (cache[input]) {
       return cache[input];
@@ -131,7 +130,6 @@ class ItemManager {
   }
 
   saveResponseToCache(input, response) {
-    console.log(input);
     const time = new Date().getTime();
     const cache = this.getCache();
     cache[input] = response;
@@ -152,19 +150,8 @@ class ItemManager {
     return JSON.parse(cache);
   }
 
-  pushTaskFromReSort(id, taskContent, isCompleted) {
-    this.tasks.push({ id: id, content: taskContent, completed: isCompleted });
-    this.saveTasksToFile();
-  }
-
-  reSortTasks(HTMLTaskList) {
-    this.tasks = [];
-    HTMLTaskList.forEach((taskDiv) => {
-      const taskContent = taskDiv.querySelector("p").textContent;
-      const isCompleted = taskDiv.classList.contains("task-completed");
-      const taskID = taskDiv.getAttribute("id");
-      this.pushTaskFromReSort(taskID, taskContent, isCompleted);
-    });
+  reSortTasks(newSortedTasks) {
+    this.tasks = newSortedTasks;
     this.saveTasksToFile();
   }
 }
