@@ -40,6 +40,7 @@ async function getItems() {
 }
 
 async function createItemsBulk(itemsRow) {
+  
   await Item.bulkCreate(itemsRow);
 }
 

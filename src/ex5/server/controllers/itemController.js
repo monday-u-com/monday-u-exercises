@@ -34,7 +34,12 @@ async function createItem(req, res) {
         pokemon.name
       );
 
-      if (!isPokemonExistInDb) {
+      const isPokemonExistInTransactionDataToDb = itemManagerService.isPokemonExistInDb(
+        dataToAddToDb,
+        pokemon.name
+      );
+
+      if (!isPokemonExistInDb && !isPokemonExistInTransactionDataToDb) {
         let pokemonDataFromClient = await pokemonClientService.fetchPokemon(
           pokemon.name
         );
@@ -44,6 +49,7 @@ async function createItem(req, res) {
             pokemon,
             pokemonDataFromClient
           );
+          
           dataToAddToDb.push(handledPokemon);
         } else {
           pokemonsFetchErrors.push(pokemonDataFromClient.data);

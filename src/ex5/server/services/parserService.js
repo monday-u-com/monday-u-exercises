@@ -44,6 +44,7 @@ function parseInputValue(inputValue) {
     if (!isInClosedList) {
       let result = { name: textItem, isPokemon: false };
       results.push(result);
+      
       dictionary.tasks.push(result);
     }
   }
