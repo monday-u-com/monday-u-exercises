@@ -35,7 +35,7 @@ body {
 .list-container {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 40%;
   height: 70%;
   background-color: white;
   border: 1px silver solid;
@@ -90,14 +90,16 @@ body {
 
 .list-item {
   padding: 8px;
+ width: 90%;
   cursor: pointer;
   display: flex;
   align-items: center;
+  border-color: #000000;
 }
 
- .decorate{
-text-decoration: line-through;
-opacity: 0.5;
+.decorate {
+  text-decoration: line-through;
+  opacity: 0.5;
 }
 
 .list-item:hover {
@@ -150,6 +152,17 @@ opacity: 0.5;
   animation: loader-inner 2s infinite ease-in;
   animation: none;
 }
+ .list-item-input {
+  border: none;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+}
+
+.checkBox {
+  margin-right: 5px;
+ 
+} */
 
 @keyframes loader {
   0% {

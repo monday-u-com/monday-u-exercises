@@ -54,6 +54,22 @@ class Main {
     );
   };
 
+  editItem = async (item) => {
+    const itemId = item.itemId;
+    const listItem = document.getElementById(itemId);
+    const parentDivTextElement = listItem.childNodes[0];
+    console.log(listItem);
+
+    console.log(parentDivTextElement);
+
+    console.log(listItem.childNodes[1]);
+    const divWithText = listItem.childNodes[1];
+
+    // let divElementWithEdit = document.createElement("DIV");
+    let inputElement = document.createElement("INPUT");
+    inputElement.setAttribute("type", "text");
+  };
+
   renderItems = async () => {
     let itemsData = await this.itemClient.fetchAllItems();
 
@@ -67,12 +83,19 @@ class Main {
       listItem.classList.add("list-item");
 
       let checkBoxElement = this._createCheckBox(item);
+      checkBoxElement.classList.add("checkBox");
 
-      let divElementWithText = document.createElement("DIV");
-      divElementWithText.innerText = item.name;
+      let divElementWithName = document.createElement("DIV");
+      divElementWithName.innerText = item.name;
+
+      let inputElement = document.createElement("INPUT");
+      inputElement.setAttribute("type", "text");
+      inputElement.readOnly = true;
+      inputElement.value = item.name;
+      inputElement.classList.add("list-item-input");
 
       listItem.appendChild(checkBoxElement);
-      listItem.appendChild(divElementWithText);
+      listItem.appendChild(inputElement);
 
       if (item.isPokemon) {
         const listItemPicture = this.getPokemonImage(item);
@@ -81,7 +104,10 @@ class Main {
 
       const listItemDeleteButton = this._createDeleteButton(item);
 
+      const listItemEditButton = this._createEditButton(item);
+
       listItem.appendChild(listItemDeleteButton);
+      listItem.appendChild(listItemEditButton);
       listItem.setAttribute("id", item.itemId);
       if (checkBoxElement.firstChild.checked) {
         this.addCheckBoxStyle(listItem, item);
@@ -127,18 +153,20 @@ class Main {
       this.addCompletedDecoration(item);
       this.itemClient.updateStatusInDb(item.itemId, true);
 
-      let timestampNow = new Date()
-       let timestampNowHours = timestampNow.getHours()
-      timestampNow.setHours(timestampNowHours +6) 
-     
-      let timestampNowToDb = timestampNow.toISOString().slice(0, 19).replace("T", " ")
- 
-      this.itemClient.updateDoneTimestamp(item.itemId, timestampNowToDb)
-     
+      let timestampNow = new Date();
+      let timestampNowHours = timestampNow.getHours();
+      timestampNow.setHours(timestampNowHours + 6);
+
+      let timestampNowToDb = timestampNow
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ");
+
+      this.itemClient.updateDoneTimestamp(item.itemId, timestampNowToDb);
     } else {
       this.removeCompletedDecoration(item);
       this.itemClient.updateStatusInDb(item.itemId, false);
-      this.itemClient.updateDoneTimestamp(item.itemId, null)
+      this.itemClient.updateDoneTimestamp(item.itemId, null);
     }
   }
 
@@ -164,6 +192,14 @@ class Main {
     button.classList.add("list-item-delete-button");
     button.innerHTML = item.itemId;
     button.addEventListener("click", (_) => this.deleteItem(item));
+    return button;
+  };
+  _createEditButton = (item) => {
+    const button = document.createElement("img");
+    button.src = "./images/edit_icon.svg";
+    button.classList.add("list-item-edit-button");
+    button.innerHTML = item.itemId;
+    button.addEventListener("click", (_) => this.editItem(item));
 
     return button;
   };
