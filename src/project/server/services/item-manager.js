@@ -141,7 +141,6 @@ module.exports = class ItemManager {
     async checkTodo(id) {
         const todo = await Todos.findOne({where:{id}})
         todo.status = true
-        console.log('check',todo.status);
         await todo.save()
 
         return todo
@@ -149,8 +148,7 @@ module.exports = class ItemManager {
 
     async uncheckTodo(id) {
         const todo = await Todos.findOne({where:{id}})
-        todo.status = false
-        console.log('ucheck',todo.status);
+        todo.status = false  
         await todo.save()
 
         return todo

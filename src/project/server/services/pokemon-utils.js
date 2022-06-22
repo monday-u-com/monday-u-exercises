@@ -50,7 +50,7 @@ async function addFailToLoadPokemonsTodo(enterValue, model) {
     const isPokemon = false
     const imagePokemonPath = null
     const value = `failed to fetch pokemon with this input: ${enterValue}`
-    addTodoParse(model, value, isPokemon, imagePokemonPath)
+    await addTodoParse(model, value, isPokemon, imagePokemonPath)
 }
 
 
@@ -59,10 +59,10 @@ async function handleAddSinglePokemonTodo(model, pokemonClient, enterValue){
     const dataRetrieved = await pokemonClient.fetchSingle(enterValue)
     if(dataRetrieved){
         const {value, isPokemon, imagePokemonPath} = dataRetrieved
-        addTodoParse(model, value, isPokemon, imagePokemonPath)
+        await addTodoParse(model, value, isPokemon, imagePokemonPath)
     }
     else {
-        addFailToLoadPokemonsTodo(enterValue, model)
+        await addFailToLoadPokemonsTodo(enterValue, model)
     }   
 }
 
