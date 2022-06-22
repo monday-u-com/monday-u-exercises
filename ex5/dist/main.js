@@ -28,7 +28,7 @@ class Main {
 		const { value: text } = await swal.fire({
 			input: 'textarea',
 			inputLabel: 'Edit your task',
-			inputPlaceholder: 'Enter your task here...',
+			inputValue: item,
 			inputAttributes: {
 				'aria-label': 'Type your message here',
 			},

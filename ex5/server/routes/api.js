@@ -13,7 +13,6 @@ router.post('/item', async (req, res) => {
 
 router.put('/item', async (req, res) => {
 	if (Object.keys(req.body).length == 1) {
-		console.log(req.body);
 		await itemManager.updateStatus(req.body.item);
 	} else await itemManager.editItem(req.body.item, req.body.newTask);
 

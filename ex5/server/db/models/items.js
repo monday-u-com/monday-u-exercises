@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 			item_id: DataTypes.STRING,
 			ItemName: DataTypes.STRING,
 			status: DataTypes.BOOLEAN,
+			taskDoneAt: DataTypes.DATE,
 		},
 		{
 			sequelize,

@@ -85,13 +85,15 @@ class ItemManager {
 				ItemName: item,
 			},
 		});
-		return currItem.update({ status: !currItem.status });
+		return currItem.update({
+			status: !currItem.status,
+			taskDoneAt: new Date(),
+		});
 	};
 
 	editItem = async (item, newContent) => {
 		let newVal;
 		if (this._isNumber(newContent)) {
-			console.log('is num');
 			const pokemon = await this.fetchPokemon(newContent);
 			newVal = `Catch ${pokemon.name}`;
 		} else newVal = newContent;
