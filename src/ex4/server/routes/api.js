@@ -7,7 +7,7 @@ const todoRouter = express.Router();
 todoRouter.get("/", getAll);
 todoRouter.post("/", addTask);
 todoRouter.delete("/:id", deleteTask);
-todoRouter.delete("/", deleteAllTasks);
+todoRouter.delete("/", deleteAllTasks); //can't choose right function with end-point delete_all
 
 //controller
 
@@ -20,9 +20,8 @@ async function deleteTask(req, res) {
     error.message = "Wrong parameters";
     throw error;
   }
-
   const task = await itemService.deleteTask(taskId);
-  res.status(200).json(task);
+  res.end();
 }
 
 async function getAll(req, res) {
@@ -34,12 +33,12 @@ async function getAll(req, res) {
 async function addTask(req, res) {
   const body = req.body;
   await itemService.addTask(body);
-  res.status(200).json(body);
+  res.end();
 }
 
 async function deleteAllTasks(req, res) {
   await itemService.deleteAllTasks();
-  res.status(200).json({});
+  res.end();
 }
 
 module.exports = todoRouter;

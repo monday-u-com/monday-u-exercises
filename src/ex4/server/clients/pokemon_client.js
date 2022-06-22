@@ -27,8 +27,8 @@ async function catchPokemons(ids) {
       );
     return res;
   } catch (error) {
-    console.error("catch pokemon failed", error.message);
-    return false;
+    console.error("Catch pokemon failed", error.message);
+    throw new Error("Fatch failed");
   }
 }
 

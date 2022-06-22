@@ -29,8 +29,7 @@ class Main {
   async addTask() {
     const newTaskField = document.querySelector(".add-task-field");
     const taskText = newTaskField.value;
-    const taskList = this._getTaskList();
-    const validInput = await this._isValidInput(taskText, taskList);
+    const validInput = await this._isValidInput(taskText);
 
     if (validInput) {
       await this.callFuncWithLoader(this.itemClient.addTask, taskText);
@@ -65,7 +64,8 @@ class Main {
     });
   }
 
-  async _isValidInput(taskText, taskList) {
+  async _isValidInput(taskText) {
+    const taskList = this._getTaskList();
     if (taskText.trim() == "") {
       //handling empty string or string of spaces
       alert("Enter new task!");

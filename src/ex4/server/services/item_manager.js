@@ -23,21 +23,22 @@ async function addTask(taskJson) {
 
 async function fetchPokemonsTasks(ids, data) {
   const tasks = [];
-  const pokemonsRawJson = await catchPokemons(ids.split(","));
-  if (pokemonsRawJson === false) {
+  try {
+    const pokemonsRawJson = await catchPokemons(ids.split(","));
+    pokemonsRawJson?.forEach((pokemonJson) => {
+      const pokemonName = pokemonJson.name;
+      const pokemonTask = "Catch: " + pokemonName;
+      if (data.indexOf(pokemonTask) === -1)
+        //task not exist
+        tasks.push(pokemonTask);
+      else {
+        console.log(`Task ${pokemonTask} already exist!`);
+      }
+    });
+  } catch {
     const msg = `Failed to fetch pokemon with this input: ${ids}`;
-    return [msg];
+    tasks.push(msg);
   }
-  pokemonsRawJson?.forEach((pokemonJson) => {
-    const pokemonName = pokemonJson.name;
-    const pokemonTask = "Catch: " + pokemonName;
-    if (data.indexOf(pokemonTask) === -1)
-      //task not exist
-      tasks.push(pokemonTask);
-    else {
-      console.log(`Task ${pokemonTask} already exist!`);
-    }
-  });
   return tasks;
 }
 
