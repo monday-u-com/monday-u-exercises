@@ -64,12 +64,15 @@ class Main {
 		const list = document.getElementById('list');
 		list.innerHTML = '';
 		const items = await this.itemClient.getItems();
+		console.log(items);
+
 		items.forEach((item) => {
 			const listItem = document.createElement('li');
 			listItem.classList.add('list-item');
 			//istItem.innerHTML = item.ItemName;
 			const listItemStatusButton = this._createStatusButton(
-				item.ItemName
+				item.ItemName,
+				item.status
 			);
 			const listItemDeleteButton = this._createDeleteButton(
 				item.ItemName
@@ -143,10 +146,11 @@ class Main {
 		return button;
 	};
 
-	_createStatusButton = (item) => {
+	_createStatusButton = (item, status) => {
 		const button = document.createElement('input');
 		button.type = 'checkbox';
 		button.classList.add('list-item-status-button');
+		button.checked = status;
 		button.addEventListener('click', (_) => this.updateStatus(item));
 
 		return button;

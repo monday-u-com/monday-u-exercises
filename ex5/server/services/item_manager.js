@@ -90,6 +90,7 @@ class ItemManager {
 				ItemName: item,
 			},
 		});
+
 		return currItem.update({ ItemName: newContent });
 	};
 
