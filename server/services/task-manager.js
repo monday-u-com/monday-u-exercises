@@ -6,20 +6,18 @@ class TaskManager {
 
    async add(task) {
       const allPokemonNames = await db.getFilePokemonNames();
-      if (
-         task
-            .replace(/\s/g, "")
-            .split(",")
-            .every((elem) => !isNaN(elem) || allPokemonNames.includes(elem))
-      ) {
-         let pokemonIDS = task.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
+      let pokemonIDS = task.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
+
+      if (pokemonIDS.every((elem) => !isNaN(elem) || allPokemonNames.includes(elem))) {
          const pokemonData = await Promise.all(
             pokemonIDS.map((id) => pokemonClient.getPokemon(id))
          );
+
          let tasks = [];
          pokemonData.forEach((pokemon) => {
             tasks.push(this._pokemonTasksHandle(pokemon));
          });
+
          await db.addTask(tasks);
       } else {
          await db.addTask([new Task(task)]);
@@ -45,19 +43,13 @@ class TaskManager {
          const pokemonTypes = this._capitalize(pokemonClient.getPokemonTypes(pokemon));
          const taskToAdd = `Catch ${pokemonName} of type ${pokemonTypes}`;
          const imageURL = pokemon.sprites.front_default;
-         task = new Task(taskToAdd, pokemon.id, pokemonName, pokemonTypes, imageURL);
 
-         // if (file.getAllTasks().includes(taskToAdd)) {
-         //    task.taskText(
-         //       `${pokemonName} already exists in your tasks. Please try another Pokemon.`
-         //    );
-         //    task.imageURL = [];
-         // }
+         task = new Task(taskToAdd, pokemon.id, pokemonName, pokemonTypes, imageURL);
       } else {
          task = new Task(`Pokemon ID ${pokemon.id} does not exist`);
       }
+
       return task;
-      // await db.addTask(task);
    }
 
    _capitalize(word) {
