@@ -1,10 +1,12 @@
-import {readData, writeData} from './data-acess.js'
+import {readData, writeData} from './data-acess.mjs'
+
 export default class TodoListModel {
     constructor() {
         this.todoList = []
     }
 
     loadDataFromFile(){
+        
         try {
             const data = readData()
             if(data === null){
@@ -28,7 +30,7 @@ export default class TodoListModel {
         this.todoList = copyArr
     }
 
-    saveDataToLS(){ 
+    saveDataToFile(){ 
         writeData(this.todoList)
     }
 
@@ -80,14 +82,6 @@ export default class TodoListModel {
         const filteredArr = copyArr.filter(todo => todo.done === value)
 
         return filteredArr
-    }
-
-    getDataInIndex(index){
-        return {title: this.todoList[index].title, index}
-    }
-
-    getDoneInIndex(index){
-        return this.todoList[index].done
     }
 
     editDataInIndex(value, index){
