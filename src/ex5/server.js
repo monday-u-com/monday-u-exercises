@@ -4,10 +4,29 @@ import itemRouter from './server/routes/api.js';
 import errorHandler from './server//middleware/error_handler.js';
 import {logger} from './server//middleware/logger.js'
 import cors from 'cors'
-const  port = 8080;
+import Sequelize from 'sequelize';
+const  port = 3000;
 const app = express();
+const models = require("./models");
 
+const sequelize = new Sequelize("tododb", "root", "password", {
+    host: 'localhost',
+    dialect:  'mysql' 
+  });
+  
+  async function test(){
+    try {
+      await sequelize.authenticate();
+      console.log('Connection has been established successfully.');
+    } catch (error) {
+      console.error('Unable to connect to the database:', error);
+    }
+  }
+  test()
 
+  app.get("/", (req, res) => {
+    res.json({ message: "Welcome to esparkinfo application." });
+  });
 
 app.use([logger,cors(),express.json()]);
 app.use(express.static( 'dist'));
