@@ -45,7 +45,7 @@ async function renderTasks(toAnimate, tasks) {
    }
    let pendingTasks = 0;
    tasks.forEach((task) => {
-      const taskContainer = createTaskContainer();
+      const taskContainer = createTaskContainer(task);
       const newTask = createNewTask(taskContainer, task);
       if (task.imageURL) addPokemonImage(newTask, task.imageURL);
       const deleteTask = createDeleteTaskButton(taskContainer, newTask);
@@ -84,8 +84,9 @@ function addPokemonImage(newTask, pokemonImagesURL) {
    newTask.append(pokemonImage);
 }
 
-function createTaskContainer() {
+function createTaskContainer(task) {
    const taskContainer = document.createElement("li");
+   taskContainer.dataset.id = task.id;
    taskContainer.classList.add(TASKS_CONTAINER_SELECTOR.slice(1));
    allTasksContainer.append(taskContainer);
 
@@ -102,7 +103,7 @@ function createNewTask(taskContainer, task) {
    return newTask;
 }
 
-function createDeleteTaskButton(taskContainer, newTask) {
+function createDeleteTaskButton(taskContainer) {
    const deleteTask = document.createElement("div");
    const i = document.createElement("i");
    i.classList.add("fa-solid", "fa-trash");
@@ -111,8 +112,7 @@ function createDeleteTaskButton(taskContainer, newTask) {
    taskContainer.append(deleteTask);
 
    deleteTask.onclick = async () => {
-      const taskText = newTask.textContent;
-      await api.deleteTask(taskText);
+      await api.deleteTask(taskContainer.dataset.id);
       renderTasks(false);
    };
 

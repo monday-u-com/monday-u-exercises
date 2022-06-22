@@ -26,7 +26,7 @@ class TaskManager {
       }
    }
 
-   remove = (taskText) => db.deleteTask(taskText);
+   remove = (id) => db.deleteTask(id);
 
    clear = () => db.clearTasks();
 

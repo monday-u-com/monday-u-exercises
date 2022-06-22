@@ -14,10 +14,9 @@ class DBManager {
       await Task.bulkCreate(task);
    }
 
-   async deleteTask(taskText) {
+   async deleteTask(id) {
       await Task.destroy({
-         where: { text: taskText },
-         limit: 1,
+         where: { id: id },
       });
    }
 
