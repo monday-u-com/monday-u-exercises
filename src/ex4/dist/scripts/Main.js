@@ -98,7 +98,7 @@ class main {
   }
 
   async onRemoveAllTasksClick(e) {
-    this.taskClient.removeAllTasks();
+    await this.taskClient.removeAllTasks();
     await this.renderTasks();
   }
 
@@ -137,14 +137,14 @@ class main {
     const taskItem = e.target.parentElement;
     taskItem.classList.toggle("task-completed");
     const taskId = taskItem.getAttribute("id");
-    this.taskClient.toggleCompleted(parseInt(taskId));
+    await this.taskClient.toggleCompleted(parseInt(taskId));
     await this.renderTasks();
   }
 
   async onRemoveBtnClick(e) {
     const taskItem = e.target.parentElement;
     const taskId = taskItem.getAttribute("id");
-    this.taskClient.removeTask(parseInt(taskId));
+    await this.taskClient.removeTask(parseInt(taskId));
     await this.renderTasks();
   }
 

@@ -9,11 +9,7 @@ class ItemManager {
     this.pokedex = PokemonClient;
     this.tasksFile = "../db/tasks.json";
     this.cacheFile = "../db/pokemonsCache.json";
-    try {
-      this.tasks = this.getTasks();
-    } catch (e) {
-      this.tasks = [];
-    }
+    this.tasks = [];
   }
 
   getTasksLength() {
@@ -79,82 +75,50 @@ class ItemManager {
   }
 
   async addTaskToFile(taskInput, isCompleted) {
-    const isTaskExist = this.tasks.find((task) => task.content === taskInput);
+    const isTaskExist = this.tasks.find((task) => task.itemName === taskInput);
     if (isTaskExist) {
       return false;
     } else {
       const task = {
-        id: this.tasks.length + 1,
-        content: taskInput,
-        isCompleted: isCompleted,
+        itemName: taskInput,
+        status: isCompleted,
       };
       this.tasks.push(task);
-      this.saveTasksToFile();
       await this.saveTaskToDB(task);
       return true;
     }
   }
 
-  toggleCompleted(id) {
-    const task = this.tasks.find((task) => task.id == id);
-    if (task) {
-      task.isCompleted = !task.isCompleted;
-      this.saveTasksToFile();
-      return true;
-    }
-    return false;
-  }
-
-  removeTask(id) {
+  async toggleCompleted(id) {
     const task = this.tasks.find((task) => {
       return task.id == id;
     });
     if (task) {
-      this.tasks.splice(this.tasks.indexOf(task), 1);
-      this.updateTaskIds();
-      this.saveTasksToFile();
-      return true;
-    } else return false;
-  }
-
-  updateTaskIds() {
-    this.tasks.forEach((task, index) => {
-      task.id = index + 1;
-    });
-  }
-
-  removeAllTasks() {
-    this.tasks = [];
-    this.saveTasksToFile();
-  }
-
-  saveTasksToFile() {
-    fs.writeFileSync(
-      path.join(__dirname, this.tasksFile),
-      JSON.stringify(this.tasks)
-    );
+      await Item.update({ status: !task.status }, { where: { id: task.id } });
+      task.status = !task.status;
+      return task;
+    }
   }
 
   async saveTaskToDB(task) {
     await Item.create(task);
   }
 
-  async RemoveFromDB(task) {
+  async RemoveTaskFromDB(taskID) {
+    this.tasks = this.tasks.filter((task) => task.id != taskID);
     await Item.destroy({
       where: {
-        itemName: task.content,
+        id: taskID,
       },
     });
   }
 
   async RemoveAllTasksFromDB() {
+    this.tasks = [];
     //remove all the tasks from Item table
     await Item.destroy({
-      where: {
-        id: {
-          [Op.gt]: -1,
-        },
-      },
+      where: {},
+      truncate: true,
     });
   }
 
@@ -175,6 +139,7 @@ class ItemManager {
     itemsFromDB.forEach((item) => {
       tasks.push(item.dataValues);
     });
+    this.tasks = tasks;
     return tasks;
   }
 
@@ -185,7 +150,6 @@ class ItemManager {
 
   reSortTasks(newSortedTasks) {
     this.tasks = newSortedTasks;
-    this.saveTasksToFile();
   }
 }
 

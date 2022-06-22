@@ -32,14 +32,14 @@ router.put("/:id", async (req, res) => {
 });
 
 //remove task from tasks.json file
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   const taskID = req.params.id;
-  itemManager.removeTask(taskID);
+  await itemManager.RemoveTaskFromDB(taskID);
   res.status(200).json({ message: "Task removed" });
 });
 
-router.delete("/", (req, res) => {
-  itemManager.removeAllTasks();
+router.delete("/", async (req, res) => {
+  await itemManager.RemoveAllTasksFromDB();
   res.status(200).json({ message: "All tasks removed" });
 });
 
