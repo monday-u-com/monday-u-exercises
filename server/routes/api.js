@@ -1,7 +1,6 @@
 const express = require("express");
 const taskManager = require("../services/task-manager.js");
 const fs = require("fs");
-const cacher = require("../middleware/cacher");
 const router = express.Router();
 
 router.get("/getAll", async (req, res) => {
@@ -9,7 +8,7 @@ router.get("/getAll", async (req, res) => {
    res.status(200).json(allTasks);
 });
 
-router.post("/add", cacher, async (req, res) => {
+router.post("/add", async (req, res) => {
    await taskManager.add(req.body.task);
    res.status(200).json({ success: true });
 });

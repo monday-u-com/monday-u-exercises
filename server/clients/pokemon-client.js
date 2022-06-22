@@ -3,11 +3,17 @@ const axios = require("axios").default;
 class PokemonClient {
    constructor() {
       this.API_URL = "https://pokeapi.co/api/v2/pokemon/";
+      this.cache = [];
    }
 
    async getPokemon(pokemonID) {
       try {
+         if (this.cache.some((e) => e.id === pokemonID)) {
+            return this.cache.filter((e) => e.id === pokemonID)[0].data;
+         }
+
          const response = await axios.get(this.API_URL + pokemonID);
+         this.cache.push({ id: pokemonID, data: response.data });
 
          return response.data;
       } catch (error) {
