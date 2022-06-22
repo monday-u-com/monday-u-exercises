@@ -1,34 +1,37 @@
-const axios = require("axios")
+// The Pokemon Client (using axios) goes here
+const axios = require("axios");
+const cache = require("memory-cache");
+const URL = `https://pokeapi.co/api/v2/pokemon/`;
+const TTL = 60000 * 10; //10 min
 
-class PokemonClient {
-    constructor() {
-        this.API_URL = 'https://pokeapi.co/api/v2/pokemon/'
-    }
-
-    async getPokemon(id) {
-        try {
-            const response = await axios.get(`${this.API_URL}${id}`)
-            const pokemon = response.data
-
-            return pokemon
-        } catch (error) {
-            console.error(error)
-            throw new Error("Failed to fetch pokemon")
-        }
-    }
-
-    async getManyPokemon(ids) {
-        try {
-            const promises = ids.map(id => axios.get(`${this.API_URL}${id}`))
-            const responses = await Promise.all(promises)
-
-            const pokemons = responses.map(r => r.data)
-            return pokemons
-        } catch (error) {
-            console.error(error)
-            throw new Error("Failed to fetch pokemon")
-        }
-    }
+async function catchPokemons(ids) {
+  try {
+    let res = [];
+    let promises = [];
+    ids.map((id) => {
+      const cached = cache.get(id);
+      if (!cached) promises.push(axios.get(URL + id));
+      else {
+        console.log("cache hit!");
+        res.push(cached);
+      }
+    });
+    if (promises.length > 0)
+      await axios.all([...promises]).then(
+        axios.spread((...data) => {
+          data.forEach((element) => {
+            cache.put(element.data.id.toString(), element.data, TTL);
+            res.push(element.data);
+          });
+        })
+      );
+    return res;
+  } catch (error) {
+    console.error("Catch pokemon failed", error.message);
+    throw new Error("Fatch failed");
+  }
 }
 
-module.exports = PokemonClient
+module.exports = {
+  catchPokemons,
+};

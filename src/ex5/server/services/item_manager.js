@@ -1,53 +1,87 @@
-const PokemonClient = require('../clients/pokemon_client')
+// The ItemManager should go here. Remember that you have to export it.
+const { catchPokemons } = require("../clients/pokemon_client");
 
-class ItemManager {
-    constructor() {
-        this.pokemonClient = new PokemonClient();
-        this.items = []; //TODO: remove, items should be stored to DB using Item sequelize model
-    }
+const fs = require("fs").promises;
+const TXT_FILE = "myTodoList.txt";
 
-    getItems = () => this.items
-
-    handleItem = async item => {
-        if (this._isNumber(item)) { return await this.fetchAndAddPokemon(item); }
-        if (this._isList(item)) { return await this.fetchAndAddManyPokemon(item); }
-
-        this.addItem(item)
-    }
-
-    addItem = item => {
-        this.items.push(item);
-    }
-
-    addPokemonItem = pokemon => {
-        this.addItem(`Catch ${pokemon.name}`);
-    }
-
-    fetchAndAddPokemon = async pokemonId => {
-        try {
-            const pokemon = await this.pokemonClient.getPokemon(pokemonId);
-            this.addPokemonItem(pokemon);
-        } catch (error) {
-            this.addItem(`Pokemon with ID ${pokemonId} was not found`);
-        }
-    }
-
-    fetchAndAddManyPokemon = async inputValue => {
-        try {
-            const pokemons = await this.pokemonClient.getManyPokemon(inputValue.replace("/ /g", "").split(","));
-            pokemons.forEach(this.addPokemonItem);
-        } catch (error) {
-            console.error(error)
-            this.addItem(`Failed to fetch pokemon with this input: ${inputValue}`)
-        }
-    }
-
-    deleteItem = item => {
-        this.items = this.items.filter(i => i !== item);
-    }
-
-    _isNumber = value => !isNaN(Number(value));
-    _isList = value => value.split(",").every(this._isNumber);
+async function getAll() {
+  return await _readTasksFile();
 }
 
-module.exports = new ItemManager()
+async function addTask(taskJson) {
+  const task = taskJson.task;
+  let data = await _readTasksFile();
+  if (!data) data = [];
+  if (!_isNumbers(task)) {
+    data.push(task);
+  } else {
+    const newTasks = await fetchPokemonsTasks(task, data);
+    data = [...data, ...newTasks];
+  }
+  await _writeToFile(data);
+}
+
+async function fetchPokemonsTasks(ids, data) {
+  const tasks = [];
+  try {
+    const pokemonsRawJson = await catchPokemons(ids.split(","));
+    pokemonsRawJson?.forEach((pokemonJson) => {
+      const pokemonName = pokemonJson.name;
+      const pokemonTask = "Catch: " + pokemonName;
+      if (data.indexOf(pokemonTask) === -1)
+        //task not exist
+        tasks.push(pokemonTask);
+      else {
+        console.log(`Task ${pokemonTask} already exist!`);
+      }
+    });
+  } catch {
+    const msg = `Failed to fetch pokemon with this input: ${ids}`;
+    tasks.push(msg);
+  }
+  return tasks;
+}
+
+function _isNumbers(input) {
+  const arr = input.split(",");
+  return arr.every((item) => {
+    return !isNaN(item);
+  });
+}
+
+async function deleteTask(id) {
+  let data = await getAll();
+  const deletedTask = data[id];
+  data.splice(id, 1);
+  await _writeToFile(data);
+  return deletedTask;
+}
+
+async function deleteAllTasks() {
+  await _writeToFile([]);
+}
+
+async function _writeToFile(taskList) {
+  try {
+    fs.writeFile(TXT_FILE, taskList.join("\n"));
+  } catch (err) {
+    console.error(`Error read the file: ${err.message}`);
+  }
+}
+
+async function _readTasksFile() {
+  try {
+    let data = await fs.readFile(TXT_FILE, "utf-8");
+    data = data.split("\n");
+    return data.length === 1 && data[0].length === 0 ? [] : [...data];
+  } catch (err) {
+    console.error(`Error read the file: ${err.message}`);
+  }
+}
+
+module.exports = {
+  getAll,
+  deleteTask,
+  addTask,
+  deleteAllTasks,
+};

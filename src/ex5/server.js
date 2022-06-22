@@ -1,21 +1,26 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const api = require('./server/routes/api');
+// Express boilerplate, hosting the `dist` file, connecting to the routes
+const express = require("express");
+const todoRouter = require("./server/routes/api");
+const logger = require("./server/middleware/logger_middleware");
+const errorHandler = require("./server/middleware/error_handler");
+const compression = require("compression");
+const PORT = 3000;
+const app = express();
 
-const main = async () => {
+app.use([express.json(), logger, compression()]);
 
-  const app = express();
+app.use("/", express.static("dist"));
 
-  app.use(express.static(path.join(__dirname, 'dist')));
+app.use("/todo", todoRouter);
 
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    health: "ok",
+  });
+});
 
-  app.use('/', api);
+app.use(errorHandler);
 
-  const port = process.env.PORT || '3042';
-  app.listen(port, function () { console.log('Running on ' + port); });
-};
-
-main();
+app.listen(PORT, () => {
+  console.log("Server started on port", PORT);
+});
