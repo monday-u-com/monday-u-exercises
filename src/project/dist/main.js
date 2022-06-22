@@ -89,7 +89,7 @@ export default class Main{
                         </span>
                     </div>
                     <div>
-                        <span class="action-btn edit" data-title="${todo.title}" id=${todo.id}>
+                        <span class="action-btn edit" data-title="${todo.itemName}" id=${todo.id}>
                             <i class="fas fa-edit"></i>
                         </span>
                     </div>
@@ -124,6 +124,7 @@ export default class Main{
         editItems.forEach((item) => {
             item.addEventListener("click", async() => {
                 const data = item.getAttribute("data-title")
+                
                 let value = prompt("change this todo to regular todo", data)
                 if(value === null){
                     return
@@ -178,7 +179,8 @@ export default class Main{
         this.loaderActiveDeActive(true)
         const editedData = await this.itemClient.editTodoIndex(value, index)
         this.loaderActiveDeActive(false)
-        alert(`data edited to ${editedData.title}`)
+        
+        alert(`data edited to ${editedData.itemName}`)
         this.showTodos()
     }
 

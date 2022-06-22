@@ -41,7 +41,6 @@ todoRouter.get('/', async(req, res) => {
     }
     
     const data = await itemManager.getTodoList()
-    console.log(data.length);
     res.status(200).json(data);
 })
 
@@ -105,7 +104,7 @@ todoRouter.put("/:id", async(req, res) => {
 
     const {todo} = req.body
     const id = req.params.id
-    const editTodo = itemManager.editDataInIndex(todo, id)
+    const editTodo = await itemManager.editDataInIndex(todo, id)
 
     if(editTodo === null){
         let error = new Error()

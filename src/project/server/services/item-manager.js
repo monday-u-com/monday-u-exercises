@@ -154,14 +154,11 @@ module.exports = class ItemManager {
         return todo
     }
 
-    editDataInIndex(value, id){
-        const index = this.model.todoList.findIndex(item => item.id === id)
-        if(index === -1){
-            return null;
-        }
-        
-        const todo = this.model.editDataInIndex(value, index)
-        this.updateTodos()
+    async editDataInIndex(value, id){
+        const todo = await Todos.findOne({where:{id}})
+        todo.itemName = value  
+        await todo.save()
+
         return todo
     }
 
