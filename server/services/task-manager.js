@@ -34,6 +34,10 @@ class TaskManager {
       return await db.sortTasks(direction);
    }
 
+   async checkMarkTask(checkMarkReq) {
+      await db.checkMarkTask(checkMarkReq.isChecked, checkMarkReq.taskID);
+   }
+
    _pokemonTasksHandle(pokemon, pokemonID) {
       let task;
       if (pokemon) {
@@ -62,12 +66,13 @@ class TaskManager {
 }
 
 class Task {
-   constructor(text, pokemonID, pokemonName, pokemonType, imageURL) {
+   constructor(text, pokemonID, pokemonName, pokemonType, imageURL, status = 0) {
       this.text = text;
       this.pokemonID = pokemonID;
       this.pokemonName = pokemonName;
       this.pokemonType = pokemonType;
       this.imageURL = imageURL;
+      this.status = status;
    }
 }
 

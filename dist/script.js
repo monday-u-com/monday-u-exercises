@@ -88,16 +88,18 @@ function createTaskContainer(task) {
    const taskContainer = document.createElement("li");
    taskContainer.dataset.id = task.id;
    taskContainer.classList.add(TASKS_CONTAINER_SELECTOR.slice(1));
-   taskContainer.append(createCheckbox());
+   taskContainer.append(createCheckbox(task));
    allTasksContainer.append(taskContainer);
 
    return taskContainer;
 }
 
-function createCheckbox() {
+function createCheckbox(task) {
    const input = document.createElement("input");
    input.type = "checkbox";
    input.classList.add("my-checkbox");
+   input.checked = task.status;
+   input.onclick = async () => await api.checkMarkTask(input.checked, task.id);
 
    return input;
 }

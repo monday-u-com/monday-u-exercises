@@ -36,6 +36,15 @@ class DBManager {
       });
    }
 
+   async checkMarkTask(isChecked, taskID) {
+      Task.findOne({ where: { id: taskID } }).then((task) => {
+         if (!task) {
+            throw new Error("No task found");
+         }
+         task.update({ status: isChecked });
+      });
+   }
+
    async getFilePokemonNames() {
       if (fs.existsSync(POKEMON_FILE_NAME)) {
          const allPokemonNames = JSON.parse(fs.readFileSync(POKEMON_FILE_NAME));

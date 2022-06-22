@@ -24,9 +24,17 @@ export default new (class ItemClient {
    }
 
    async sortTasks(way) {
-      // await fetch(`/sort/${way}`);
       const response = await fetch(`/sort/${way}`);
       const tasks = await response.json();
       return tasks;
+   }
+
+   async checkMarkTask(isChecked, taskID) {
+      const reqOptions = {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+         body: JSON.stringify({ isChecked: isChecked, taskID: taskID }),
+      };
+      await fetch("/checkmark", reqOptions);
    }
 })();
