@@ -4,23 +4,45 @@ const { Item } = require("../db/models");
 
 const { v4: ideKeyGen } = require("uuid");
 
-function isPokemonExistInDb(data, pokemonId) {
+async function isPokemonIdExistInDb(pokemonId) {
   checkIfPokemonIdNumberOrName = /\d/.test(pokemonId);
 
   let pokemonIdExist = null;
   if (checkIfPokemonIdNumberOrName) {
-    pokemonIdExist = data.some(
-      (itemInData) => itemInData.pokemonId === Number(pokemonId)
-    );
+    let pokemonIdCount = await Item.count({ where: { pokemonId: pokemonId } });
+
+    if (pokemonIdCount > 0) {
+      pokemonIdExist = true;
+    } else {
+      pokemonIdExist = false;
+    }
 
     return pokemonIdExist;
   } else {
     let stringToCompare = `Catch ${pokemonId}`;
+    let pokemonIdCount = await Item.count({ where: { name: stringToCompare } });
 
-    pokemonIdExist = data.map((item) => item.name).includes(stringToCompare);
-
+    if (pokemonIdCount > 0) {
+      pokemonIdExist = true;
+    } else {
+      pokemonIdExist = false;
+    }
     return pokemonIdExist;
   }
+}
+
+async function isPokemonExistInDataArray(dataToAddToDb, pokemonId) {
+  checkIfPokemonIdNumberOrName = /\d/.test(pokemonId);
+  let pokemonIdExist;
+  if (checkIfPokemonIdNumberOrName) {
+    pokemonIdExist = dataToAddToDb.some(
+      (item) => Number(item.pokemonId) === Number(pokemonId)
+    );
+  } else {
+    let stringToCompare = `Catch ${pokemonId}`;
+    pokemonIdExist = dataToAddToDb.some((item) => item.name === pokemonId);
+  }
+  return pokemonIdExist;
 }
 
 async function getItemById(itemId) {
@@ -40,7 +62,6 @@ async function getItems() {
 }
 
 async function createItemsBulk(itemsRow) {
-  
   await Item.bulkCreate(itemsRow);
 }
 
@@ -63,8 +84,8 @@ module.exports = {
   getItemById,
   deleteItem,
 
-  isPokemonExistInDb,
-
+  isPokemonIdExistInDb,
+  isPokemonExistInDataArray,
   getItems,
   createItemsBulk,
   updateStatusInDb,
