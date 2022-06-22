@@ -4,7 +4,7 @@ const { FIVE_MIN } = require("./globalConsts/GlobalConstants.js");
 
 //if element in cache is older than 5 minutes, remove it
 function clearCache() {
-  const cacheFile = "../DB/pokemonsCache.json";
+  const cacheFile = "../db/pokemonsCache.json";
   const cache = fs.readFileSync(path.join(__dirname, cacheFile));
   const cacheArray = JSON.parse(cache);
   const time = new Date().getTime();

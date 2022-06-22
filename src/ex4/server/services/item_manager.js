@@ -6,8 +6,8 @@ const path = require("path");
 class ItemManager {
   constructor() {
     this.pokedex = PokemonClient;
-    this.tasksFile = "../DB/tasks.json";
-    this.cacheFile = "../DB/pokemonsCache.json";
+    this.tasksFile = "../db/tasks.json";
+    this.cacheFile = "../db/pokemonsCache.json";
     try {
       this.tasks = this.getTasks();
     } catch (e) {
