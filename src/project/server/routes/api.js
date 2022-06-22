@@ -10,15 +10,15 @@ todoRouter.get('/', async(req, res) => {
     
     if(sort){
         if(sort === 'atoz'){
-            itemManager.orderDataAlphabetically()
+            await itemManager.orderDataAlphabetically()
         }else if (sort === 'ztoa'){
-            itemManager.orderDataAlphabeticallyReverse()
+            await itemManager.orderDataAlphabeticallyReverse()
         }
         else if (sort === 'dtou'){
-            itemManager.orderDoneToUnDone()
+            await itemManager.orderDoneToUnDone()
         }
         else if (sort === 'utod'){
-            itemManager.orderUnDoneToDone()
+            await itemManager.orderUnDoneToDone()
         }
        
         res.status(200).json({});
@@ -31,9 +31,9 @@ todoRouter.get('/', async(req, res) => {
         let filteteredData = [];
 
         if(filter === 'checked'){
-            filteteredData = data.filter(t => t.done === true);
+            filteteredData = data.filter(t => t.status === true);
         }else{
-            filteteredData = data.filter(t => t.done === false);
+            filteteredData = data.filter(t => t.status === false);
         }
         
         res.status(200).json(filteteredData);
@@ -69,7 +69,7 @@ todoRouter.delete("/:id", async(req, res) => {
     const id = req.params.id
 
     if(id === "delete-all"){ //some recogintion for delete all todos
-        itemManager.clearAllTodos()
+        await itemManager.clearAllTodos()
         res.status(200).json({});
         return
     }

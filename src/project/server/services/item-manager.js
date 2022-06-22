@@ -37,7 +37,7 @@ module.exports = class ItemManager {
         else{ //noraml todo
             const isPokemon = false
             const imagePokemonPath = null
-            this.addTodoParse(trimValue, isPokemon, imagePokemonPath)
+            await this.addTodoParse(trimValue, isPokemon, imagePokemonPath)
         }
     }
 
@@ -65,7 +65,6 @@ module.exports = class ItemManager {
                 response.forEach(async(res) => {
                     await this.addMultiplePokemonsTodo(res)
             })
-            this.updateTodos()
         }).catch(async (error) => {
             console.log(error)
             await this.addFailToLoadPokemonsTodo()
@@ -93,7 +92,7 @@ module.exports = class ItemManager {
             await this.addTodoParse(value, isPokemon, imagePokemonPath)
         }
         else {
-            this.addFailToLoadPokemonsTodo(enterValue)
+            await this.addFailToLoadPokemonsTodo(enterValue)
         }   
     }
 
@@ -102,7 +101,7 @@ module.exports = class ItemManager {
         const id = Math.floor((1 + Math.random()) * 0x10000)
             .toString(16)
             .substring(1)
-        //this.model.addData({title: value, done: false, isPokemon, imagePokemonPath, id})
+
         await Todos.create({itemId: id, itemName: value, status:false, isPokemon, imagePokemonPath})
     }
 
@@ -119,23 +118,23 @@ module.exports = class ItemManager {
         return removedTodo
     }
 
-    updateTodos(){
-        this.model.saveDataToFile()
+    async clearAllTodos() {
+        await Todos.destroy({
+            where: {},
+            truncate: true
+        })
     }
 
-    clearAllTodos() {
-        this.model.clearAllData()
-        this.updateTodos()
+    async orderDataAlphabetically() {
+        /* await Todos.findAll({
+            order:[
+                ['itemName', 'ASC']
+            ]
+        }) */
     }
 
-    orderDataAlphabetically() {
-        this.model.orderDataAlphabetically()
-        this.updateTodos()
-    }
-
-    orderDataAlphabeticallyReverse() {
-        this.model.orderDataAlphabeticallyReverse()
-        this.updateTodos()
+    async orderDataAlphabeticallyReverse() {
+        /* this.model.orderDataAlphabeticallyReverse() */
     }
 
     async checkTodo(id) {
@@ -162,22 +161,20 @@ module.exports = class ItemManager {
         return todo
     }
 
-    orderUnDoneToDone(){
-        this.model.orderUnDoneToDone()
-        this.updateTodos()
+    async orderUnDoneToDone(){
+        /* this.model.orderUnDoneToDone() */
     }
 
-    orderDoneToUnDone(){
-        this.model.orderDoneToUnDone()
-        this.updateTodos()
+    async orderDoneToUnDone(){
+        /* this.model.orderDoneToUnDone() */
     }
 
     getDoneTodos() {
-        return this.model.getDoneTodos()
+        /* return this.model.getDoneTodos() */
     }
 
     getUnDoneTodos(){
-        return this.model.getUnDoneTodos()
+        /* return this.model.getUnDoneTodos() */
     }
 
     todoListSize() {

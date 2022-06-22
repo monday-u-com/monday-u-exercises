@@ -191,8 +191,8 @@ export default class Main{
         this.showTodos()
     }
 
-    sortTodos(value) {
-        this.itemClient.getTodoList(`?sort=${value}`)
+    async sortTodos(value) {
+        await this.itemClient.getTodoList(`?sort=${value}`)
         this.showTodos()
     }
 
@@ -259,7 +259,7 @@ function onDOMReady() {
         main.clearAllTodos()
     }) 
     
-    orderSelect.addEventListener('change', (e) => {
+    orderSelect.addEventListener('change',  (e) => {
         main.sortTodos(e.target.value)
     })
 
