@@ -4,15 +4,15 @@ const express = require("express");
 const router = express.Router();
 
 //fech all tasks from tasks.json file
-router.get("/", (req, res) => {
-  const tasks = itemManager.getTasks();
+router.get("/", async (req, res) => {
+  const tasks = await itemManager.getTasks();
   res.send(tasks);
 });
 
 //add new task to tasks.json file
 router.post("/", async (req, res) => {
-  const taskInput = req.body.content;
-  const isCompleted = req.body.isCompleted;
+  const taskInput = req.body.itemName;
+  const isCompleted = req.body.status;
   const isAdded = await itemManager.addTask(taskInput, isCompleted);
   if (isAdded) {
     res.status(200).json(req.body);

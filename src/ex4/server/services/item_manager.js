@@ -136,14 +136,7 @@ class ItemManager {
   }
 
   async saveTaskToDB(task) {
-    const taskToAdd = {
-      id: task.id,
-      itemName: task.content,
-      status: task.isCompleted,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    await Item.create(taskToAdd);
+    await Item.create(task);
   }
 
   async RemoveFromDB(task) {
@@ -176,9 +169,13 @@ class ItemManager {
     );
   }
 
-  getTasks() {
-    const tasks = fs.readFileSync(path.join(__dirname, this.tasksFile));
-    return JSON.parse(tasks);
+  async getTasks() {
+    const itemsFromDB = await Item.findAll();
+    const tasks = [];
+    itemsFromDB.forEach((item) => {
+      tasks.push(item.dataValues);
+    });
+    return tasks;
   }
 
   getCache() {

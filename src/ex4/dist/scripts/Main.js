@@ -257,9 +257,9 @@ class main {
       case "all":
         return tasksToBeFiltered;
       case "completed":
-        return tasksToBeFiltered.filter((task) => task.isCompleted === true);
+        return tasksToBeFiltered.filter((task) => task.status === true);
       case "uncompleted":
-        return tasksToBeFiltered.filter((task) => task.isCompleted === false);
+        return tasksToBeFiltered.filter((task) => task.status === false);
       default:
         return tasksToBeFiltered;
     }
@@ -271,7 +271,7 @@ class main {
       return tasks;
     } else {
       return tasks.filter((task) => {
-        return task.content.toLowerCase().includes(searchInput.toLowerCase());
+        return task.itemName.toLowerCase().includes(searchInput.toLowerCase());
       });
     }
   }
@@ -285,7 +285,7 @@ class main {
     this.toggleEmptyMsg();
     this.toggleRemoveAllBtn(filteredTasks);
     filteredTasks.forEach(function (task) {
-      const taskDiv = self.createTaskDiv(task.content, task.isCompleted);
+      const taskDiv = self.createTaskDiv(task.itemName, task.status);
       taskDiv.setAttribute("id", task.id);
       self.tasksList.appendChild(taskDiv);
       self.addTaskDivEventListeners(taskDiv);

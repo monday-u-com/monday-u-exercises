@@ -22,8 +22,8 @@ export class ItemClient {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        content: taskInput,
-        isCompleted: isCompleted,
+        itemName: taskInput,
+        status: isCompleted,
       }),
     });
     if (response.status === 200) {
@@ -63,7 +63,7 @@ export class ItemClient {
   }
 
   pushTaskFromReSort(id, taskContent, isCompleted) {
-    this.tasks.push({ id: id, content: taskContent, isCompleted: isCompleted });
+    this.tasks.push({ id: id, itemName: taskContent, status: isCompleted });
   }
 
   async putResort(tasks) {
