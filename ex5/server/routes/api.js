@@ -20,11 +20,6 @@ router.put('/item', async (req, res) => {
 	res.end();
 });
 
-// router.put('/item', async (req, res) => {
-// 	await itemManager.editItem(req.body.item, req.body.newTask);
-// 	res.end();
-// });
-
 router.delete('/item', async (req, res) => {
 	await itemManager.deleteItem(req.body.item);
 	res.end();

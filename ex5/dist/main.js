@@ -34,18 +34,13 @@ class Main {
 			},
 			showCancelButton: true,
 		});
-		//TODO: RENDER THE RIGHT STATE
 		if (text) {
 			await this.itemClient.editItem(item, text);
-
-			// await this.itemClient.deleteItem(item);
-			// await this.itemClient.postItem(text);
 		}
 	};
 	editItem = async (item) => {
 		let itemToEdit;
 		const list = document.querySelectorAll('.list-item');
-		console.log(item);
 		for (const listItem of list) {
 			if (listItem.textContent == item) {
 				itemToEdit = listItem;
@@ -64,12 +59,10 @@ class Main {
 		const list = document.getElementById('list');
 		list.innerHTML = '';
 		const items = await this.itemClient.getItems();
-		console.log(items);
 
 		items.forEach((item) => {
 			const listItem = document.createElement('li');
 			listItem.classList.add('list-item');
-			//istItem.innerHTML = item.ItemName;
 			const listItemStatusButton = this._createStatusButton(
 				item.ItemName,
 				item.status

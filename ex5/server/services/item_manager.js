@@ -39,6 +39,10 @@ class ItemManager {
 		await this.addItem(`Catch ${pokemon.name}`);
 	};
 
+	fetchPokemon = async (pokemonId) => {
+		const pokemon = await this.pokemonClient.getPokemon(pokemonId);
+		return pokemon;
+	};
 	fetchAndAddPokemon = async (pokemonId) => {
 		try {
 			const pokemon = await this.pokemonClient.getPokemon(pokemonId);
@@ -85,13 +89,20 @@ class ItemManager {
 	};
 
 	editItem = async (item, newContent) => {
+		let newVal;
+		if (this._isNumber(newContent)) {
+			console.log('is num');
+			const pokemon = await this.fetchPokemon(newContent);
+			newVal = `Catch ${pokemon.name}`;
+		} else newVal = newContent;
+
 		let currItem = await Items.findOne({
 			where: {
 				ItemName: item,
 			},
 		});
 
-		return currItem.update({ ItemName: newContent });
+		return currItem.update({ ItemName: newVal });
 	};
 
 	_isNumber = (value) => !isNaN(Number(value));
