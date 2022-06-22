@@ -2,6 +2,7 @@ const { NOT_A_POKEMON } = require("./globalConsts/GlobalConstants.js");
 const fs = require("fs");
 const PokemonClient = require("../clients/pokemon_client.js");
 const path = require("path");
+const { Item } = require("../db/models");
 
 class ItemManager {
   constructor() {
@@ -31,7 +32,7 @@ class ItemManager {
     ) {
       return await this.addCatchPokemonTask(taskInput);
     } else {
-      const isAdded = this.addTaskToFile(taskInput, isCompleted);
+      const isAdded = await this.addTaskToFile(taskInput, isCompleted);
       return isAdded;
     }
   }
@@ -47,7 +48,7 @@ class ItemManager {
   async addCatchPokemonTask(input) {
     let response = null;
     if ((response = this.getResponseFromCache(input))) {
-      this.addResponsesToTasks(input, response, true);
+      await this.addResponsesToTasks(input, response, true);
       return response;
     } else {
       response = await this.getPokemonsToAdd(input);
@@ -55,7 +56,7 @@ class ItemManager {
     if (response === false) {
       return false;
     } else {
-      this.addResponsesToTasks(input, response, false);
+      await this.addResponsesToTasks(input, response, false);
       return true;
     }
   }
@@ -67,17 +68,17 @@ class ItemManager {
     } else return response;
   }
 
-  addResponsesToTasks(input, response, isFromCache) {
+  async addResponsesToTasks(input, response, isFromCache) {
     if (!isFromCache) {
       this.saveResponseToCache(input, response);
     }
 
-    response.forEach((pokemon) => {
-      this.addTaskToFile(pokemon, false);
+    response.forEach(async (pokemon) => {
+      await this.addTaskToFile(pokemon, false);
     });
   }
 
-  addTaskToFile(taskInput, isCompleted) {
+  async addTaskToFile(taskInput, isCompleted) {
     const isTaskExist = this.tasks.find((task) => task.content === taskInput);
     if (isTaskExist) {
       return false;
@@ -89,6 +90,7 @@ class ItemManager {
       };
       this.tasks.push(task);
       this.saveTasksToFile();
+      await this.saveTaskToDB(task);
       return true;
     }
   }
@@ -131,6 +133,36 @@ class ItemManager {
       path.join(__dirname, this.tasksFile),
       JSON.stringify(this.tasks)
     );
+  }
+
+  async saveTaskToDB(task) {
+    const taskToAdd = {
+      id: task.id,
+      itemName: task.content,
+      status: task.isCompleted,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    await Item.create(taskToAdd);
+  }
+
+  async RemoveFromDB(task) {
+    await Item.destroy({
+      where: {
+        itemName: task.content,
+      },
+    });
+  }
+
+  async RemoveAllTasksFromDB() {
+    //remove all the tasks from Item table
+    await Item.destroy({
+      where: {
+        id: {
+          [Op.gt]: -1,
+        },
+      },
+    });
   }
 
   saveResponseToCache(input, response) {
