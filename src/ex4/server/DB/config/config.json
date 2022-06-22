@@ -2,21 +2,21 @@
   "development": {
     "username": "root",
     "password": "password",
-    "database": "database_development",
+    "database": "todo_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": "password",
-    "database": "database_test",
+    "database": "todo_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
     "password": "password",
-    "database": "database_production",
+    "database": "todo_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
