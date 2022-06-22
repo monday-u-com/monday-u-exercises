@@ -26,15 +26,15 @@ async function createItem(req, res) {
   });
 
   const pokemonsFetchErrors = [];
+
   for (let pokemon of pokemonOrTaskResults.pokemons) {
     try {
-      let pokemonExistInCache =
-        await itemManagerService.checkIfPokemonIdInCacheAndOverwriteToCache(
-          pokemon.name
-        );
+      const isPokemonExistInDb = itemManagerService.isPokemonExistInDb(
+        currentDataFromDb,
+        pokemon.name
+      );
 
-      if (!pokemonExistInCache) {
-        console.log("Pokemon is not in cache, fetching...");
+      if (!isPokemonExistInDb) {
         let pokemonDataFromClient = await pokemonClientService.fetchPokemon(
           pokemon.name
         );
@@ -44,21 +44,10 @@ async function createItem(req, res) {
             pokemon,
             pokemonDataFromClient
           );
-
-          const isPokemonExistInDb = itemManagerService.isPokemonExistInDb(
-            currentDataFromDb,
-            handledPokemon.name
-          );
-
-          if (!isPokemonExistInDb) {
-            dataToAddToDb.push(handledPokemon);
-          }
+          dataToAddToDb.push(handledPokemon);
         } else {
           pokemonsFetchErrors.push(pokemonDataFromClient.data);
         }
-        //cache else
-      } else {
-        console.log("Pokemon is in cache");
       }
     } catch (e) {
       console.log(e);
