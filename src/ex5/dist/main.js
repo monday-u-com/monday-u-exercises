@@ -138,6 +138,7 @@ class Main {
     } else {
       this.removeCompletedDecoration(item);
       this.itemClient.updateStatusInDb(item.itemId, false);
+      this.itemClient.updateDoneTimestamp(item.itemId, null)
     }
   }
 
