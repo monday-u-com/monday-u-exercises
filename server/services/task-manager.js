@@ -16,11 +16,13 @@ class TaskManager {
          const pokemonData = await Promise.all(
             pokemonIDS.map((id) => pokemonClient.getPokemon(id))
          );
-         pokemonData.forEach(async (pokemon, index) => {
-            await this._pokemonTasksHandle(pokemon, pokemonIDS[index]);
+         let tasks = [];
+         pokemonData.forEach((pokemon, index) => {
+            tasks.push(this._pokemonTasksHandle(pokemon, pokemonIDS[index]));
          });
+         await db.addTask(tasks);
       } else {
-         await db.addTask(new Task(task));
+         await db.addTask([new Task(task)]);
       }
    }
 
@@ -41,7 +43,7 @@ class TaskManager {
       sortedTasks.forEach((task) => db.addTask(task));
    }
 
-   async _pokemonTasksHandle(pokemon, pokemonID) {
+   _pokemonTasksHandle(pokemon, pokemonID) {
       let task;
       if (pokemon) {
          let pokemonName = this._capitalize(pokemon.name);
@@ -59,7 +61,8 @@ class TaskManager {
       } else {
          task = new Task(`Pokemon ID ${pokemonID} does not exist`);
       }
-      await db.addTask(task);
+      return task;
+      // await db.addTask(task);
    }
 
    _capitalize(word) {

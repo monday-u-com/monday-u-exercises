@@ -11,13 +11,8 @@ class DBManager {
    };
 
    async addTask(task) {
-      await Task.create({
-         text: task.text,
-         pokemonID: task.pokemonID,
-         pokemonName: task.pokemonName,
-         pokemonType: task.pokemonType,
-         imageURL: task.imageURL,
-      });
+      console.log(task);
+      await Task.bulkCreate(task);
    }
 
    async deleteTask(taskText) {
