@@ -1,11 +1,11 @@
 const pokemonClient = require("../clients/pokemon-client.js");
-const file = require("./file-manager.js");
+const db = require("./db-manager.js");
 
 class TaskManager {
-   getTasks = async () => await file.getAllTasks();
+   getTasks = async () => await db.getAllTasks();
 
    async add(task) {
-      const allPokemonNames = await file.getFilePokemonNames();
+      const allPokemonNames = await db.getFilePokemonNames();
       if (
          task
             .replace(/\s/g, "")
@@ -20,13 +20,13 @@ class TaskManager {
             await this._pokemonTasksHandle(pokemon, pokemonIDS[index]);
          });
       } else {
-         await file.addTask(new Task(task));
+         await db.addTask(new Task(task));
       }
    }
 
-   remove = (taskText) => file.deleteTask(taskText);
+   remove = (taskText) => db.deleteTask(taskText);
 
-   clear = () => file.clearTasks();
+   clear = () => db.clearTasks();
 
    sort(direction) {
       let sortedTasks;
@@ -37,8 +37,8 @@ class TaskManager {
       if (direction === "down") {
          sortedTasks = sortedTasks.reverse();
       }
-      file.clearTasks();
-      sortedTasks.forEach((task) => file.addTask(task));
+      db.clearTasks();
+      sortedTasks.forEach((task) => db.addTask(task));
    }
 
    async _pokemonTasksHandle(pokemon, pokemonID) {
@@ -59,7 +59,7 @@ class TaskManager {
       } else {
          task = new Task(`Pokemon ID ${pokemonID} does not exist`);
       }
-      await file.addTask(task);
+      await db.addTask(task);
    }
 
    _capitalize(word) {
