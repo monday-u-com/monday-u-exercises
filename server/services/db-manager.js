@@ -11,7 +11,6 @@ class DBManager {
    };
 
    async addTask(task) {
-      console.log(task);
       await Task.bulkCreate(task);
    }
 
@@ -27,6 +26,16 @@ class DBManager {
          where: {},
          truncate: true,
       });
+
+   async sortTasks(direction) {
+      direction = direction === "down" ? "ASC" : "DESC";
+      return await Task.findAll({
+         order: [
+            ["text", direction],
+            ["id", "ASC"],
+         ],
+      });
+   }
 
    async getFilePokemonNames() {
       if (fs.existsSync(POKEMON_FILE_NAME)) {

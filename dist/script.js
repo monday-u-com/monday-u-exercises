@@ -20,14 +20,14 @@ clearButton.onclick = async () => {
 
 sortDownButton.onclick = async () => {
    loader.classList.add(VISIBLE_CLASS);
-   await api.sortTasks("down");
-   renderTasks(false);
+   const sortedTasks = await api.sortTasks("down");
+   renderTasks(false, sortedTasks);
 };
 
 sortUpButton.onclick = async () => {
    loader.classList.add(VISIBLE_CLASS);
-   await api.sortTasks("up");
-   renderTasks(false);
+   const sortedTasks = await api.sortTasks("up");
+   renderTasks(false, sortedTasks);
 };
 
 addTaskButton.onclick = () => addTask();
@@ -35,13 +35,14 @@ taskInput.onkeypress = (e) => {
    if (e.key === "Enter") addTask();
 };
 
-async function renderTasks(toAnimate) {
+async function renderTasks(toAnimate, tasks) {
    let lastTaskAdded;
    while (allTasksContainer.firstChild) {
       allTasksContainer.removeChild(allTasksContainer.lastChild);
    }
-
-   const tasks = await api.getAllTasks();
+   if (!tasks) {
+      tasks = await api.getAllTasks();
+   }
    let pendingTasks = 0;
    tasks.forEach((task) => {
       const taskContainer = createTaskContainer();

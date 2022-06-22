@@ -30,17 +30,8 @@ class TaskManager {
 
    clear = () => db.clearTasks();
 
-   sort(direction) {
-      let sortedTasks;
-      sortedTasks = this.getTasks().sort((a, b) => {
-         if (a.taskText < b.taskText) return 1;
-         return -1;
-      });
-      if (direction === "down") {
-         sortedTasks = sortedTasks.reverse();
-      }
-      db.clearTasks();
-      sortedTasks.forEach((task) => db.addTask(task));
+   async sort(direction) {
+      return await db.sortTasks(direction);
    }
 
    _pokemonTasksHandle(pokemon, pokemonID) {

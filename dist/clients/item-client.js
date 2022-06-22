@@ -24,6 +24,9 @@ export default new (class ItemClient {
    }
 
    async sortTasks(way) {
-      await fetch(`/sort/${way}`);
+      // await fetch(`/sort/${way}`);
+      const response = await fetch(`/sort/${way}`);
+      const tasks = await response.json();
+      return tasks;
    }
 })();

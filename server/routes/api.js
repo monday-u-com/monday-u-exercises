@@ -31,10 +31,10 @@ router.delete("/del/:taskText", (req, res) => {
    res.status(200).json({ message: "Successfully deleted task" });
 });
 
-router.get("/sort/:way", (req, res) => {
+router.get("/sort/:way", async (req, res) => {
    let way = req.params.way;
-   taskManager.sort(way);
-   res.status(200).json({ message: "Successfully sorted tasks" });
+   const sortedTasks = await taskManager.sort(way);
+   res.status(200).json(sortedTasks);
 });
 
 module.exports = router;
