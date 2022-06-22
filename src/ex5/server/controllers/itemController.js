@@ -107,7 +107,7 @@ async function deleteItem(req, res) {
   }
 
   let itemFromDB = await itemManagerService.getItemById(itemId);
-  await itemManagerService.deleteItemFromCache(itemFromDB.pokemonId);
+
   await itemManagerService.deleteItem(itemId);
   res.status(200).json(itemFromDB);
 }

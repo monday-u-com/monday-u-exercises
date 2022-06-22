@@ -1,10 +1,4 @@
 const CACHE_TIME_DELTA = 20000;
-const fs = require("fs");
-const path = require("path");
-const itemFile = "./server/data/itemsList.json";
-const cacheDir = "./server/data/cache";
-const cacheFilePath = "./server/data/cache/cache.json";
-const cacheFileName = "cache.json";
 
 const { Item } = require("../db/models");
 
