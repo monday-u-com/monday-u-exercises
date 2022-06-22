@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     isPokemon: DataTypes.BOOLEAN,
     pokemonId: DataTypes.INTEGER,
     pokemonData: DataTypes.STRING,
-    status: DataTypes.BOOLEAN
+    status: DataTypes.BOOLEAN,
+    doneAt: DataTypes.DATE,
   }, {
     sequelize,
     modelName: 'Item',

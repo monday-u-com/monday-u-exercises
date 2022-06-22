@@ -66,4 +66,16 @@ class ItemClient {
       throw new Error("failed to update item");
     }
   }
+
+  async updateDoneTimestamp (itemId,timestamp) {
+    const urlUpdateItem = `${URL}/item/update_done_timestamp/${itemId}/${timestamp}`;
+
+    try {
+      const response = await axios.put(urlUpdateItem, { itemId: itemId ,timestamp : timestamp }
+     
+      );
+    } catch (err) {
+      throw new Error("failed to update done timestamp");
+    }
+  }
 }

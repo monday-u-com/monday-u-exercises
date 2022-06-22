@@ -5,11 +5,22 @@ const { Item } = require("../db/models");
 const { v4: ideKeyGen } = require("uuid");
 
 function isPokemonExistInDb(data, pokemonId) {
-  const pokemonIdExist = data.some(
-    (item) => item.pokemonId === Number(pokemonId)
-  );
+  checkIfPokemonIdNumberOrName = /\d/.test(pokemonId);
 
-  return pokemonIdExist;
+  let pokemonIdExist = null;
+  if (checkIfPokemonIdNumberOrName) {
+    pokemonIdExist = data.some(
+      (itemInData) => itemInData.pokemonId === Number(pokemonId)
+    );
+
+    return pokemonIdExist;
+  } else {
+    let stringToCompare = `Catch ${pokemonId}`;
+
+    pokemonIdExist = data.map((item) => item.name).includes(stringToCompare);
+
+    return pokemonIdExist;
+  }
 }
 
 async function getItemById(itemId) {
@@ -39,6 +50,14 @@ async function updateStatusInDb(itemId, newStatus) {
   return item;
 }
 
+async function updateDoneTimestamp(itemId, timestamp) {
+  let doneAt = timestamp;
+
+  Item.update({ doneAt }, { where: { itemId: itemId } });
+  let item = getItemById(itemId);
+  return item;
+}
+
 module.exports = {
   getItemById,
   deleteItem,
@@ -48,4 +67,5 @@ module.exports = {
   getItems,
   createItemsBulk,
   updateStatusInDb,
+  updateDoneTimestamp,
 };

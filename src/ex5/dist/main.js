@@ -126,6 +126,15 @@ class Main {
     if (itemCheckBox.checked) {
       this.addCompletedDecoration(item);
       this.itemClient.updateStatusInDb(item.itemId, true);
+
+      let timestampNow = new Date()
+       let timestampNowHours = timestampNow.getHours()
+      timestampNow.setHours(timestampNowHours +6) 
+     
+      let timestampNowToDb = timestampNow.toISOString().slice(0, 19).replace("T", " ")
+ 
+      this.itemClient.updateDoneTimestamp(item.itemId, timestampNowToDb)
+     
     } else {
       this.removeCompletedDecoration(item);
       this.itemClient.updateStatusInDb(item.itemId, false);
