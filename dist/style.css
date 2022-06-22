@@ -41,7 +41,7 @@ body {
 .all-tasks-container {
    overflow: auto;
    height: 33rem;
-   width: 52rem;
+   width: 54rem;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -132,6 +132,7 @@ body {
 
 .task-container {
    display: flex;
+   align-items: center;
 }
 
 .task-container:hover {
@@ -205,6 +206,11 @@ body {
    100% {
       transform: rotate(360deg);
    }
+}
+
+.my-checkbox {
+   transform: scale(2);
+   margin-right: 1rem;
 }
 
 .fa-plus {

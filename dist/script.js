@@ -88,9 +88,18 @@ function createTaskContainer(task) {
    const taskContainer = document.createElement("li");
    taskContainer.dataset.id = task.id;
    taskContainer.classList.add(TASKS_CONTAINER_SELECTOR.slice(1));
+   taskContainer.append(createCheckbox());
    allTasksContainer.append(taskContainer);
 
    return taskContainer;
+}
+
+function createCheckbox() {
+   const input = document.createElement("input");
+   input.type = "checkbox";
+   input.classList.add("my-checkbox");
+
+   return input;
 }
 
 function createNewTask(taskContainer, task) {
