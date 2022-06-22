@@ -1,0 +1,7 @@
+dfdsf
+fsdfs
+asd
+Catch: bulbasaur
+Catch: scyther
+safaffs
+Failed to fetch pokemon with this input: 987654
