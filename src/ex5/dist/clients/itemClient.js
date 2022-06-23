@@ -78,4 +78,19 @@ class ItemClient {
       throw new Error("failed to update done timestamp");
     }
   }
+
+  async updateNameInDb (itemId,newName) {
+    const urlUpdateItem = `${URL}/item/update_name/${itemId}/${newName}`;
+   
+
+    try {
+      const response = await axios.put(urlUpdateItem, { itemId: itemId ,newName : newName }
+     
+      );
+    } catch (err) {
+      throw new Error("failed to update name");
+    }
+  
+  
+  }
 }

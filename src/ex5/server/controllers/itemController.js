@@ -163,6 +163,27 @@ async function updateDoneTimestamp(req, res) {
   await res.status(200).json(updatedItem);
 }
 
+async function updateName(req,res){
+
+  let itemId = req.body.itemId;
+  let newName = req.body.newName;
+
+  let validatedItemId = uuidValidate(itemId);
+  if (!validatedItemId) {
+    let error = Error();
+    error.statusCode = 400;
+    error.message = "Wrong parameters";
+    throw error;
+  }
+
+  let updatedItem = await itemManagerService.updateName(
+    itemId,
+    newName,
+  );
+  await res.status(200).json(updatedItem);
+
+}
+
 module.exports = {
   createItem,
   getItems,
@@ -170,4 +191,5 @@ module.exports = {
   deleteItem,
   updateStatusInDb,
   updateDoneTimestamp,
+  updateName,
 };

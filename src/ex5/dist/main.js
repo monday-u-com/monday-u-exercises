@@ -42,34 +42,6 @@ class Main {
     this.input.value = "";
   }
 
-  deleteItem = async (item) => {
-    const itemId = item.itemId;
-
-    this.loader.classList.remove("display");
-    await this.itemClient.deleteItemById(itemId);
-    await this.renderItems().then((resolvedData) =>
-      setTimeout(() => {
-        this.loader.classList.add("display");
-      }, 100)
-    );
-  };
-
-  editItem = async (item) => {
-    const itemId = item.itemId;
-    const listItem = document.getElementById(itemId);
-    const parentDivTextElement = listItem.childNodes[0];
-    console.log(listItem);
-
-    console.log(parentDivTextElement);
-
-    console.log(listItem.childNodes[1]);
-    const divWithText = listItem.childNodes[1];
-
-    // let divElementWithEdit = document.createElement("DIV");
-    let inputElement = document.createElement("INPUT");
-    inputElement.setAttribute("type", "text");
-  };
-
   renderItems = async () => {
     let itemsData = await this.itemClient.fetchAllItems();
 
@@ -188,20 +160,69 @@ class Main {
   }
   _createDeleteButton = (item) => {
     const button = document.createElement("img");
-    button.src = "./images/delete_icon.svg";
+    button.src = "./images/delete-icon.svg";
     button.classList.add("list-item-delete-button");
     button.innerHTML = item.itemId;
     button.addEventListener("click", (_) => this.deleteItem(item));
     return button;
   };
+
+  deleteItem = async (item) => {
+    const itemId = item.itemId;
+
+    this.loader.classList.remove("display");
+    await this.itemClient.deleteItemById(itemId);
+    await this.renderItems().then((resolvedData) =>
+      setTimeout(() => {
+        this.loader.classList.add("display");
+      }, 100)
+    );
+  };
   _createEditButton = (item) => {
     const button = document.createElement("img");
-    button.src = "./images/edit_icon.svg";
+    button.src = "./images/edit-icon.svg";
     button.classList.add("list-item-edit-button");
     button.innerHTML = item.itemId;
     button.addEventListener("click", (_) => this.editItem(item));
 
     return button;
+  };
+
+  editItem = async (item) => {
+    const itemId = item.itemId;
+    const listItem = document.getElementById(itemId);
+    const parentDivTextElement = listItem.childNodes[0];
+
+    const inputText = listItem.childNodes[1];
+    inputText.readOnly = false;
+    inputText.classList.remove("decorate");
+
+    inputText.classList.add("edit-mode");
+
+    const editButton = listItem.lastChild;
+
+    editButton.setAttribute("src", "./images/save-icon.svg");
+    editButton.classList.add("save");
+
+    await editButton.addEventListener("click", () =>
+     this.saveNewName(inputText, editButton, item)
+    );
+  };
+
+  saveNewName = async (inputText, editButton, item) => {
+    inputText.removeAttribute("placeholder");
+    inputText.readOnly = true;
+    inputText.classList.add("decorate");
+    editButton.setAttribute("src", "./images/edit-icon.svg");
+
+    inputText.classList.remove("edit-mode");
+
+    await this.itemClient.updateNameInDb(item.itemId, inputText.value);
+    await this.renderItems().then((resolvedData) =>
+      setTimeout(() => {
+        this.loader.classList.add("display");
+      }, 100)
+    );
   };
 }
 

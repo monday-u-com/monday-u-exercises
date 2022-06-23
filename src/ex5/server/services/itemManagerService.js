@@ -80,6 +80,17 @@ async function updateDoneTimestamp(itemId, timestamp) {
   return item;
 }
 
+
+async function updateName(itemId, newName) {
+  let name = newName;
+
+  await Item.update({ name }, { where: { itemId: itemId } });
+  let item = getItemById(itemId);
+  return item;
+}
+
+
+
 module.exports = {
   getItemById,
   deleteItem,
@@ -90,4 +101,5 @@ module.exports = {
   createItemsBulk,
   updateStatusInDb,
   updateDoneTimestamp,
+  updateName,
 };

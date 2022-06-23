@@ -90,7 +90,7 @@ body {
 
 .list-item {
   padding: 8px;
- width: 90%;
+  width: 90%;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -100,6 +100,10 @@ body {
 .decorate {
   text-decoration: line-through;
   opacity: 0.5;
+}
+
+.edit-mode {
+  color: gray;
 }
 
 .list-item:hover {
@@ -116,6 +120,8 @@ body {
   padding: 8px;
   cursor: pointer;
   border-radius: 8px;
+  width: 25px;
+
 }
 
 .list-item-delete-button:hover {
@@ -152,19 +158,30 @@ body {
   animation: loader-inner 2s infinite ease-in;
   animation: none;
 }
- .list-item-input {
+.list-item-input {
   border: none;
   background-color: transparent;
   resize: none;
   outline: none;
 }
 
+.save {
+  height: 25px;
+  margin-left: 5px;
+  width: 25px;
+}
+
+.list-item-edit-button {
+  width: 25px;
+  margin-left: 5px;
+  height: 25px;
+
+}
+
 .checkBox {
   margin-right: 5px;
- 
-} */
-
-@keyframes loader {
+}
+*/ @keyframes loader {
   0% {
     transform: rotate(0deg);
   }
