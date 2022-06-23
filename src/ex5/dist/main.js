@@ -44,6 +44,7 @@ class Main {
 
   renderItems = async () => {
     let itemsData = await this.itemClient.fetchAllItems();
+   
 
     const items = itemsData.data;
 
@@ -58,12 +59,12 @@ class Main {
       checkBoxElement.classList.add("checkBox");
 
       let divElementWithName = document.createElement("DIV");
-      divElementWithName.innerText = item.name;
+      divElementWithName.innerText = item.itemName;
 
       let inputElement = document.createElement("INPUT");
       inputElement.setAttribute("type", "text");
       inputElement.readOnly = true;
-      inputElement.value = item.name;
+      inputElement.value = item.itemName;
       inputElement.classList.add("list-item-input");
 
       listItem.appendChild(checkBoxElement);
@@ -183,7 +184,7 @@ class Main {
     button.src = "./images/edit-icon.svg";
     button.classList.add("list-item-edit-button");
     button.innerHTML = item.itemId;
-    button.addEventListener("click", (_) => this.editItem(item));
+    button.addEventListener("click", () => this.editItem(item));
 
     return button;
   };
@@ -212,7 +213,7 @@ class Main {
   saveNewName = async (inputText, editButton, item) => {
     inputText.removeAttribute("placeholder");
     inputText.readOnly = true;
-    inputText.classList.add("decorate");
+  
     editButton.setAttribute("src", "./images/edit-icon.svg");
 
     inputText.classList.remove("edit-mode");
@@ -221,6 +222,11 @@ class Main {
     await this.renderItems().then((resolvedData) =>
       setTimeout(() => {
         this.loader.classList.add("display");
+       
+        if(!item.status){
+          inputText.classList.remove("decorate");
+        }
+        
       }, 100)
     );
   };

@@ -2,7 +2,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("items", {
-      db_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -11,7 +11,7 @@ module.exports = {
       itemId: {
         type: Sequelize.STRING,
       },
-      name: {
+      itemName: {
         type: Sequelize.STRING,
       },
       isPokemon: {
@@ -30,8 +30,8 @@ module.exports = {
         updatedAt: true,
       },
       doneAt: {
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {

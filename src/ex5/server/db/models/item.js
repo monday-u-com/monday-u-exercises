@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Item.init({
     itemId: DataTypes.STRING,
-    name: DataTypes.STRING,
+    itemName: DataTypes.STRING,
     isPokemon: DataTypes.BOOLEAN,
     pokemonId: DataTypes.INTEGER,
     pokemonData: DataTypes.STRING,

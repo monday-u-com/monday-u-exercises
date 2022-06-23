@@ -22,7 +22,7 @@ function parseInputValue(inputValue) {
     if (checkIfTextItemIsNum) {
       //inputValue is a number
 
-      let result = { name: textItem, isPokemon: true };
+      let result = { itemName: textItem, isPokemon: true };
       results.push(result);
       dictionary.pokemons.push(result);
       continue;
@@ -34,7 +34,7 @@ function parseInputValue(inputValue) {
 
     wordsInTodo.forEach((element) => {
       if (closedListOfValues.includes(element)) {
-        let result = { name: textItem, isPokemon: true };
+        let result = { itemName: textItem, isPokemon: true };
         results.push(result);
         dictionary.pokemons.push(result);
         isInClosedList = true;
@@ -42,7 +42,7 @@ function parseInputValue(inputValue) {
     });
     //textItem is a task
     if (!isInClosedList) {
-      let result = { name: textItem, isPokemon: false };
+      let result = { itemName: textItem, isPokemon: false };
       results.push(result);
       
       dictionary.tasks.push(result);

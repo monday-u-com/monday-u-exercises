@@ -2,7 +2,7 @@ const { v4: idKeyGen } = require("uuid");
 
 function handlePokemon(pokemonObject, pokemonDataFromClient) {
   pokemonObject.pokemonId = pokemonDataFromClient.data.id;
-  pokemonObject.name = `Catch ${pokemonDataFromClient.data.name}`;
+  pokemonObject.itemName = `Catch ${pokemonDataFromClient.data.name}`;
   pokemonObject.itemId = idKeyGen();
   pokemonObject.pokemonData = `${pokemonDataFromClient.data.sprites.front_default}`;
   pokemonObject.status = false;
@@ -15,7 +15,7 @@ function handlePokemonErrors(pokemonsFetchErrors) {
   if (pokemonsFetchErrors.length === 1) {
     const errorToString = `Pokemon with ID ${pokemonsFetchErrors[0]} was not found`;
     const errorItem = {
-      name: errorToString,
+      itemName: errorToString,
       itemId: idKeyGen(),
       isPokemon: false,
     };
@@ -27,7 +27,7 @@ function handlePokemonErrors(pokemonsFetchErrors) {
     )}`;
 
     const errorItem = {
-      name: errorToString,
+      itemName: errorToString,
       itemId: idKeyGen(),
       isPokemon: false,
     };
