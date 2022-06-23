@@ -4,6 +4,7 @@ export default class Main{
     constructor(){
         this.itemClient = new ItemClient()
         this.todoList = []
+        this.query = '';
     }
 
     async showTodos() {
@@ -61,7 +62,7 @@ export default class Main{
 
     async getTotdoList() {
         this.loaderActiveDeActive(true)
-        this.todoList = await this.itemClient.getTodoList()
+        this.todoList = await this.itemClient.getTodoList(this.query)
     }
 
     createListItems(){
@@ -192,8 +193,13 @@ export default class Main{
     }
 
     async sortTodos(value) {
-        await this.itemClient.getTodoList(`?sort=${value}`)
-        this.showTodos()
+        if(value !== ''){
+            this.query = `?sort=${value}`;
+        }
+        else{
+            this.query = ''
+        }
+        this.showTodos();
     }
 
     async changeDoneStatus(index, status) {
@@ -202,10 +208,13 @@ export default class Main{
     }
 
     async fileterDoneUndoneTodos(value) {
-        this.loaderActiveDeActive(true)
-        this.todoList = await this.itemClient.getTodoList(`?filter=${value}`)
-        
-        this.createTodoListItems();
+        if(value !== ''){
+            this.query = `?filter=${value}`;
+        }
+        else{
+            this.query = ''
+        }
+        this.showTodos();
     }
 
     loaderActiveDeActive(value){

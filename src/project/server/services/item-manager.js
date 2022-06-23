@@ -124,16 +124,12 @@ module.exports = class ItemManager {
         })
     }
 
-    async orderDataAlphabetically() {
-        /* await Todos.findAll({
+    async orderData(field, orderAction) {
+        return await Todos.findAll({
             order:[
-                ['itemName', 'ASC']
+                [field, orderAction]
             ]
-        }) */
-    }
-
-    async orderDataAlphabeticallyReverse() {
-        /* this.model.orderDataAlphabeticallyReverse() */
+        })
     }
 
     async checkTodo(id) {
@@ -160,20 +156,10 @@ module.exports = class ItemManager {
         return todo
     }
 
-    async orderUnDoneToDone(){
-        /* this.model.orderUnDoneToDone() */
-    }
-
-    async orderDoneToUnDone(){
-        /* this.model.orderDoneToUnDone() */
-    }
-
-    getDoneTodos() {
-        /* return this.model.getDoneTodos() */
-    }
-
-    getUnDoneTodos(){
-        /* return this.model.getUnDoneTodos() */
+    async filterData(status){
+        return await Todos.findAll({
+            where:{status}
+        })
     }
 
     todoListSize() {

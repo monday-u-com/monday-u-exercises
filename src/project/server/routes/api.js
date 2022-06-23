@@ -8,40 +8,30 @@ const itemManager = new ItemManager();
 todoRouter.get('/', async(req, res) => {
     const {sort, filter} = req.query;
     
-    if(sort){
-        if(sort === 'atoz'){
-            await itemManager.orderDataAlphabetically()
-        }else if (sort === 'ztoa'){
-            await itemManager.orderDataAlphabeticallyReverse()
-        }
-        else if (sort === 'dtou'){
-            await itemManager.orderDoneToUnDone()
-        }
-        else if (sort === 'utod'){
-            await itemManager.orderUnDoneToDone()
-        }
-       
-        res.status(200).json({});
-        return
+    let sortedList = [];
+
+    const sortObj = {
+        atoz:{field: 'itemName', order:'ASC'},
+        ztoa:{field: 'itemName', order:'DESC'},
+        dtou:{field: 'status', order:'DESC'},
+        utod:{field: 'status', order:'ASC'},
     }
 
-    if(filter){
-
-        const data = itemManager.getTodoList()
-        let filteteredData = [];
+    if(sort){
+        sortedList = await itemManager.orderData(sortObj[sort].field, sortObj[sort].order)
+    }
+    else if(filter){
 
         if(filter === 'checked'){
-            filteteredData = data.filter(t => t.status === true);
+            sortedList = await itemManager.filterData(true)
         }else{
-            filteteredData = data.filter(t => t.status === false);
+            sortedList = await itemManager.filterData(false)
         }
-        
-        res.status(200).json(filteteredData);
-        return
     }
-    
-    const data = await itemManager.getTodoList()
-    res.status(200).json(data);
+    else{
+        sortedList = await itemManager.getTodoList()
+    }
+    res.status(200).json(sortedList);
 })
 
 todoRouter.post("/", async(req, res) => {
