@@ -1,6 +1,3 @@
-// Express boilerplate, hosting the `dist` file, connecting to the routes
-// make bluebird default Promise
-
 const express = require("express");
 const app = express();
 const tasks = require("./server/routes/tasksApi.js");
