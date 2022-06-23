@@ -9,7 +9,6 @@ const multiNumbersSeparatedWithComma = /^\d+(,\d+)*$/
 module.exports = class ItemManager {
     constructor(main){
         this.pokemonClient = new PokemonClient()
-        this.model = {}
         this.main = main;
     }
 
@@ -32,7 +31,7 @@ module.exports = class ItemManager {
                 singleNumberPattern !== null || 
                     multiNumberPattern !== null || 
                         partOfNumbersSeprateWithComma !== null) {
-            await handleAddSingleOrMultiPokemonsTodo(this.model, this.pokemonClient, trimValue)
+            await handleAddSingleOrMultiPokemonsTodo(this.pokemonClient, trimValue)
         }
         else{ //noraml todo
             const isPokemon = false

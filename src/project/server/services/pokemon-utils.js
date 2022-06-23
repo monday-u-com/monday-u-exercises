@@ -1,16 +1,16 @@
 const {Todos}  = require('../db/models')
 
-module.exports = async function handleAddSingleOrMultiPokemonsTodo(model,pokemonClient, enterValue){
+module.exports = async function handleAddSingleOrMultiPokemonsTodo(pokemonClient, enterValue){
 
     if(enterValue.includes(",")){
-        await handleAddMultiPokemonsTodo(model, pokemonClient, enterValue)
+        await handleAddMultiPokemonsTodo(pokemonClient, enterValue)
     }
     else {
-        await handleAddSinglePokemonTodo(model, pokemonClient, enterValue)
+        await handleAddSinglePokemonTodo(pokemonClient, enterValue)
     }
 }
 
-async function handleAddMultiPokemonsTodo(model, pokemonClient, enterValue){
+async function handleAddMultiPokemonsTodo(pokemonClient, enterValue){
 
     const split = enterValue.split(",")
     const pokemonArr = []
@@ -22,22 +22,22 @@ async function handleAddMultiPokemonsTodo(model, pokemonClient, enterValue){
     return Promise.all(pokemonArr)
         .then(async (response) => {
             for(let i = 0; i < response.length; i++){
-                await addMultiplePokemonsTodo(response[i], pokemonClient, model)
+                await addMultiplePokemonsTodo(response[i], pokemonClient)
             }
     }).catch(async(error) => {
         console.log(error)
-        await addFailToLoadPokemonsTodo(enterValue, model)
+        await addFailToLoadPokemonsTodo(enterValue)
     })
 }
 
-async function addMultiplePokemonsTodo(res , pokemonClient, model) {
+async function addMultiplePokemonsTodo(res , pokemonClient) {
     const types = pokemonClient.getTypes(res)
     const dataRetrieved = pokemonClient.returnPokemonData(res, types)
     const {value, isPokemon, imagePokemonPath} = dataRetrieved
-    await addTodoParse(model, value, isPokemon, imagePokemonPath)
+    await addTodoParse(value, isPokemon, imagePokemonPath)
 }
 
-async function addTodoParse(model, value, isPokemon, imagePokemonPath){
+async function addTodoParse(value, isPokemon, imagePokemonPath){
     //generate unique id
     const id = Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
@@ -46,23 +46,23 @@ async function addTodoParse(model, value, isPokemon, imagePokemonPath){
     await Todos.create({itemId: id, itemName: value, status:false, imagePokemonPath, isPokemon})
 }
 
-async function addFailToLoadPokemonsTodo(enterValue, model) {
+async function addFailToLoadPokemonsTodo(enterValue) {
     const isPokemon = false
     const imagePokemonPath = null
     const value = `failed to fetch pokemon with this input: ${enterValue}`
-    await addTodoParse(model, value, isPokemon, imagePokemonPath)
+    await addTodoParse(value, isPokemon, imagePokemonPath)
 }
 
 
-async function handleAddSinglePokemonTodo(model, pokemonClient, enterValue){
+async function handleAddSinglePokemonTodo(pokemonClient, enterValue){
     
     const dataRetrieved = await pokemonClient.fetchSingle(enterValue)
     if(dataRetrieved){
         const {value, isPokemon, imagePokemonPath} = dataRetrieved
-        await addTodoParse(model, value, isPokemon, imagePokemonPath)
+        await addTodoParse(value, isPokemon, imagePokemonPath)
     }
     else {
-        await addFailToLoadPokemonsTodo(enterValue, model)
+        await addFailToLoadPokemonsTodo(enterValue)
     }   
 }
 
