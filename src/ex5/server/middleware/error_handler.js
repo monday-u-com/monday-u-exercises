@@ -1,4 +1,4 @@
-export default function errorHandler(err, req, res, next) {
+function errorHandler(err, req, res, next) {
     console.log("Received error", err.message);
     if(res.headersSent){
         return next(err)
@@ -8,4 +8,7 @@ export default function errorHandler(err, req, res, next) {
         "status": status,
         "error": `${err.message || "Error While load-container the app"}`
     })
+}
+module.exports = {
+    errorHandler
 }

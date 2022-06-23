@@ -1,7 +1,8 @@
-import ItemManager from "../services/itemManager.js";
-import { validation } from "../utils/utils.js";
 
-export async function createItem(req, res, next) {
+
+const  ItemManager  = require( "../services/itemManager.js");
+const  validation    = require( "../utils/utils.js");
+async function createItem(req, res, next) {
   try {
     const item = req.body.item;
     const { isPokemon, elementsArr } = validation(item);
@@ -12,7 +13,7 @@ export async function createItem(req, res, next) {
   }
 }
 
-export async function deleteItem(req, res, next) {
+async function deleteItem(req, res, next) {
   try {
     const itemId = parseInt(req.params.id);
     await ItemManager.deleteItem(itemId);
@@ -21,7 +22,7 @@ export async function deleteItem(req, res, next) {
     next(err);
   }
 }
-export async function getAll(req, res, next) {
+async function getAll(req, res, next) {
   try {
     const items = await ItemManager.getAll();
     res.status(200).json(items);
@@ -29,8 +30,7 @@ export async function getAll(req, res, next) {
     next(err);
   }
 }
-
-export async function deleteAll(req, res, next) {
+async function deleteAll(req, res, next) {
     try {
       await ItemManager.deleteAll();
       res.status(200).json('All Items was deleted');
@@ -38,4 +38,24 @@ export async function deleteAll(req, res, next) {
       next(err);
     }
   }
+async function updateItemStatus(req, res, next)
+  {
+    try {
+      const itemId = req.params.id
+      const newStatus = req.body.status
+      console.log(itemId,newStatus)
+      await ItemManager.updateStatusInDb(itemId,newStatus);
+      res.status(200).json('status changed');
+    } catch (err) {
+      next(err);
+    }
+  }
 
+  module.exports = {
+    createItem,
+    deleteItem,
+    getAll,
+    deleteAll,
+    updateItemStatus
+    
+  }

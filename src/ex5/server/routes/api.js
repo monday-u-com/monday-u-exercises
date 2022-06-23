@@ -1,16 +1,18 @@
-import express from "express";
-const itemRouter = express.Router();
-import {
+const express  = require("express");
+const {
   createItem,
   deleteItem,
   getAll,
   deleteAll,
-} from "../controllers/itemsController.js";
+  updateItemStatus
+} = require( "../controllers/itemsController.js");
+const itemRouter = express.Router();
 
 itemRouter.post("/", createItem);
 itemRouter.get("/", getAll);
 itemRouter.delete("/", deleteAll);
 itemRouter.delete("/:id", deleteItem);
+itemRouter.put("/:id", updateItemStatus);
 
 
-export default itemRouter;
+module.exports =  itemRouter;

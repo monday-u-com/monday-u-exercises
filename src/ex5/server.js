@@ -1,15 +1,16 @@
 // Express boilerplate, hosting the `dist` file, connecting to the routes
-import express from 'express';
-import itemRouter from './server/routes/api.js';
-import errorHandler from './server//middleware/error_handler.js';
-import {logger} from './server//middleware/logger.js'
-import cors from 'cors'
-import Sequelize from 'sequelize';
+const express =  require('express');
+const itemRouter = require( './server/routes/api.js');
+const  {errorHandler} = require('./server/middleware/error_handler');
+const  {logger}  = require('./server/middleware/logger');
+const  cors = require('cors');
+const  bodyParser = require( 'body-parser');
+const Sequelize = require('sequelize');
 const  port = 3000;
 const app = express();
-const models = require("./models");
 
-const sequelize = new Sequelize("tododb", "root", "password", {
+
+const sequelize = new Sequelize("tododb", "root", "kokoriko1992", {
     host: 'localhost',
     dialect:  'mysql' 
   });
@@ -24,12 +25,12 @@ const sequelize = new Sequelize("tododb", "root", "password", {
   }
   test()
 
-  app.get("/", (req, res) => {
-    res.json({ message: "Welcome to esparkinfo application." });
-  });
-
-app.use([logger,cors(),express.json()]);
+ 
+app.use(logger)
+app.use([cors(),express.json()]);
 app.use(express.static( 'dist'));
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
 app.use('/item', itemRouter);
 app.use(errorHandler);
 process.on('unhandledRejection', (reason, promise) => {

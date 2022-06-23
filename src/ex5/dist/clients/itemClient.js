@@ -37,7 +37,21 @@ class ItemClinet {
       throw new Error("failed to delete item");
     }
   }
+  async updateStatus(itemId,newStatus) {
+    try {
+      const response = await fetch(`/item/${itemId}`, {
+        method: "put",
+        body: JSON.stringify({ status:newStatus }),
+        headers: { "Content-Type": "application/json" },
+      });
 
+      if (response.status == 200) {
+        return await response.json();
+      }
+    } catch (err) {
+    console.log(err)
+    }
+  }
 async deleteAll()
 {
     try {
