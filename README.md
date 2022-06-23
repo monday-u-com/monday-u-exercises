@@ -1,23 +1,23 @@
-# Welcome to monday-u!
+# Tasks List App
 
-Welcome to monday-u official github repository! We are very excited to have you here!  
-This is going to be so much fun! Here are a few general details:
+A simple web application for managing your day-to-day tasks (and your pokemon chase goals 😉 - explanation in Features section).
 
-![](https://i.ytimg.com/vi/6_zFLsW7z2E/maxresdefault.jpg)
+This app was built by me as part of MondayU academy, at the FullStack Bootcamp.
 
-## Exercises list
+### Features
+* Add new task
+* Mark task as completed / uncompleted
+* Reorder your tasks
+* Filter your tasks to show only the completed or uncompleted tasks.
+* Search for a task by inputting words that the task might contain.
+* Delete a single task
+* Delete all tasks
+* Add a pokemon catch task by inputting its name, or its id (As mapped in https://pokeapi.co/)
+* Add multiple pokemon catch tasks by inputting comma separate names or ids of wanted Pokemons.
 
-**Exercise 1** - [HTML, CSS, JS.](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex1)
-
-**Exercise 2** - [In depth JS, Async JS, MVC](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex2)
-
-**Exercise 3** - [Advance Node.js, CLI](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex3)
-
-**Exercise 4** - [Express.js](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex4)
-
-# Submitting your tasks
-Create a pull request in your forked repository and send to your mentor when it's ready.
-
-# Solutions
-
-Every friday a new exercise and the solution for previous one will be published
+### Technologies used:
+* HTML
+* CSS
+* JavaScript
+* ORM sequelize
+* MySQL server DB
