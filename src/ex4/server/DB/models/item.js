@@ -29,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.DATE,
       },
+      doneAt: {
+        allowNull: true,
+        type: DataTypes.DATE,
+      },
     },
     { sequelize, modelName: "Item" }
   );

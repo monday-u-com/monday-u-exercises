@@ -86,6 +86,7 @@ class ItemManager {
       const task = {
         itemName: taskInput,
         status: isCompleted,
+        doneAt: null,
       };
       this.tasks.push(task);
       return await this.saveTaskToDB(task);
@@ -96,8 +97,18 @@ class ItemManager {
     const task = this.tasks.find((task) => {
       return task.id == id;
     });
+
     if (task) {
-      await Item.update({ status: !task.status }, { where: { id: task.id } });
+      if (task.status)
+        await Item.update(
+          { status: !task.status, doneAt: null },
+          { where: { id: task.id } }
+        );
+      else
+        await Item.update(
+          { status: !task.status, doneAt: new Date() },
+          { where: { id: task.id } }
+        );
       task.status = !task.status;
       return task;
     }
