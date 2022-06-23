@@ -1,6 +1,4 @@
-const CACHE_TIME_DELTA = 20000;
-
-const { Item } = require("../db/models");
+const { Item, sequelize } = require("../db/models");
 
 const { v4: ideKeyGen } = require("uuid");
 
@@ -10,27 +8,24 @@ async function isPokemonIdExistInDb(pokemonId) {
   let pokemonIdExist = null;
   if (checkIfPokemonIdNumberOrName) {
     let pokemonIdCount = await Item.count({ where: { pokemonId: pokemonId } });
-
-    if (pokemonIdCount > 0) {
-      pokemonIdExist = true;
-    } else {
-      pokemonIdExist = false;
-    }
-
-    return pokemonIdExist;
+    return pokemonIdCount > 0;
   } else {
     let stringToCompare = `Catch ${pokemonId}`;
     let pokemonIdCount = await Item.count({ where: { name: stringToCompare } });
-
-    if (pokemonIdCount > 0) {
-      pokemonIdExist = true;
-    } else {
-      pokemonIdExist = false;
-    }
-    return pokemonIdExist;
+    return pokemonIdCount > 0;
   }
 }
 
+async function isTaskNameExistInDb(taskName) {
+  let taskNameCount = await Item.count({ where: { itemName: taskName } });
+
+  return taskNameCount > 0;
+}
+function isTaskExistInDataArray(dataToAddToDb, taskName) {
+  let taskNameExist = dataToAddToDb.some((item) => item.itemName === taskName);
+
+  return taskNameExist;
+}
 async function isPokemonExistInDataArray(dataToAddToDb, pokemonId) {
   checkIfPokemonIdNumberOrName = /\d/.test(pokemonId);
   let pokemonIdExist;
@@ -40,7 +35,7 @@ async function isPokemonExistInDataArray(dataToAddToDb, pokemonId) {
     );
   } else {
     let stringToCompare = `Catch ${pokemonId}`;
-    pokemonIdExist = dataToAddToDb.some((item) => item.name === pokemonId);
+    pokemonIdExist = dataToAddToDb.some((item) => item.itemName === pokemonId);
   }
   return pokemonIdExist;
 }
@@ -58,16 +53,23 @@ async function deleteItem(itemId) {
 }
 
 async function getItems() {
-  return await Item.findAll();
+  let items = await Item.findAll();
+
+  return items;
 }
 
 async function createItemsBulk(itemsRow) {
-  await Item.bulkCreate(itemsRow);
+  const t = sequelize.transaction();
+
+  try {
+    await Item.bulkCreate(itemsRow, { t });
+  } catch (error) {}
 }
 
 async function updateStatusInDb(itemId, newStatus) {
   let status = newStatus;
-  Item.update({ status }, { where: { itemId: itemId } });
+  const t = sequelize.transaction();
+  Item.update({ status }, { where: { itemId: itemId } }, { t });
   let item = getItemById(itemId);
   return item;
 }
@@ -80,16 +82,13 @@ async function updateDoneTimestamp(itemId, timestamp) {
   return item;
 }
 
-
 async function updateName(itemId, newName) {
-  let name = newName;
+  let itemName = newName;
 
-  await Item.update({ name }, { where: { itemId: itemId } });
+  await Item.update({ itemName }, { where: { itemId: itemId } });
   let item = getItemById(itemId);
   return item;
 }
-
-
 
 module.exports = {
   getItemById,
@@ -97,6 +96,8 @@ module.exports = {
 
   isPokemonIdExistInDb,
   isPokemonExistInDataArray,
+  isTaskExistInDataArray,
+  isTaskNameExistInDb,
   getItems,
   createItemsBulk,
   updateStatusInDb,
