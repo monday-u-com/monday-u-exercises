@@ -45,6 +45,18 @@ class ItemClient {
     }
   }
 
+  async updateTask(task) {
+    try {
+      const response = await fetch(ROUTE, {
+        method: "PUT",
+        headers: STANDARD_HEADERS,
+        body: JSON.stringify(task),
+      });
+    } catch (error) {
+      console.error("update task error:", error);
+    }
+  }
+
   async removeAllTasks() {
     try {
       const response = await fetch(ROUTE + "/delete_all", {

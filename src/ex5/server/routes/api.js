@@ -6,6 +6,7 @@ const todoRouter = express.Router();
 
 todoRouter.get("/", getAll);
 todoRouter.post("/", addTask);
+todoRouter.put("/", updateTask);
 todoRouter.delete("/", deleteTask);
 todoRouter.delete("/delete_all", deleteAllTasks); //can't choose right function with end-point delete_all
 
@@ -17,6 +18,12 @@ async function deleteTask(req, res) {
   res.end();
 }
 
+async function updateTask(req, res) {
+  const task = req.body;
+  await itemService.updateTask(task);
+  res.end();
+}
+
 async function getAll(req, res) {
   let data = await itemService.getAll();
   if (!data) data = [];
@@ -25,7 +32,7 @@ async function getAll(req, res) {
 
 async function addTask(req, res) {
   const body = req.body;
-await itemService.addTask(body);
+  await itemService.addTask(body);
   res.end();
 }
 

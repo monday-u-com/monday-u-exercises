@@ -77,23 +77,41 @@ class Main {
     return true;
   }
 
-  newTaskElement(text, status) {
+  newTaskElement(item) {
+    const text = item["ItemName"];
+    const status = item["status"];
     const div = document.createElement("div");
     div.classList.add("task");
 
     const input = document.createElement("input");
     input.setAttribute("type", "checkbox");
-    if (!status) input.checked = true;
+    if (status) input.checked = true;
     input.onclick = (e) => {
       e.stopPropagation();
-      console.log(e.target.checked);
+      this.callFuncWithLoader(this.itemClient.updateTask, {
+        ...item,
+        status: e.target.checked,
+      });
     };
     div.append(input);
 
     const h3 = document.createElement("h3");
     h3.classList.add("task-content");
+    h3.setAttribute("contenteditable", "true");
     h3.textContent = text;
     div.append(h3);
+    h3.onclick = (e) => {
+      e.stopPropagation();
+    };
+
+    h3.addEventListener("focusout", (e) => {
+      if (e.target.innerText.trim() !== text) {
+        this.callFuncWithLoader(this.itemClient.updateTask, {
+          ...item,
+          ItemName: e.target.innerText.trim(),
+        });
+      }
+    });
 
     const span = document.createElement("span");
     const delBtn = document.createElement("i");
@@ -153,7 +171,7 @@ class Main {
     const divList = [];
     if (objList.length > 0) {
       objList.forEach((item) => {
-        const divTask = this.newTaskElement(item["ItemName"], item["status"]);
+        const divTask = this.newTaskElement(item);
         divList.push(divTask);
       });
     } else {

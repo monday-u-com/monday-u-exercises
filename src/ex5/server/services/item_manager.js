@@ -1,5 +1,6 @@
 // The ItemManager should go here. Remember that you have to export it.
 const { catchPokemons } = require("../clients/pokemon_client");
+const { up } = require("../db/migrations/20220623014419-add_status_column");
 const { Item } = require("../db/models");
 const fs = require("fs").promises;
 const TXT_FILE = "myTodoList.txt";
@@ -29,7 +30,7 @@ async function addTask(taskJson) {
     }
     // await _writeToFile(data);
     for (const item of data) {
-      await Item.create({ ItemName: item, status: true });
+      await Item.create({ ItemName: item, status: false });
     }
   } catch (error) {
     console.error(error.message);
@@ -73,6 +74,18 @@ async function deleteTask(task) {
   }
 }
 
+async function updateTask(task) {
+  const updateTask = {
+    ItemName: task.ItemName,
+    status: task.status,
+  };
+  try {
+    await Item.update(updateTask, { where: { id: task.id } });
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 async function deleteAllTasks() {
   try {
     await Item.destroy({
@@ -107,4 +120,5 @@ module.exports = {
   deleteTask,
   addTask,
   deleteAllTasks,
+  updateTask,
 };

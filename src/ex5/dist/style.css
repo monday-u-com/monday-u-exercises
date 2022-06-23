@@ -101,6 +101,7 @@ input[type="checkbox"] {
     height: 100%;
     float: left;
     align-items: center;
+    cursor: text;
 }
 
 .task:hover {
