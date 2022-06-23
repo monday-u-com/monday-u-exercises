@@ -153,9 +153,8 @@ class ItemManager {
   }
 
   getCache() {
-    return {};
-    // const cache = fs.readFileSync(path.join(__dirname, this.cacheFile));
-    // return JSON.parse(cache);
+    const cache = fs.readFileSync(path.join(__dirname, this.cacheFile));
+    return JSON.parse(cache);
   }
 
   reSortTasks(newSortedTasks) {
