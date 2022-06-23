@@ -1,5 +1,5 @@
-function errorHandler(err, req, res, next) {
-    console.log("Received error", err.message);
+function handleError(err, req, res, next) {
+    console.log("Error was Happend ", err.message);
     if(res.headersSent){
         return next(err)
     }
@@ -10,5 +10,5 @@ function errorHandler(err, req, res, next) {
     })
 }
 module.exports = {
-    errorHandler
+    handleError
 }

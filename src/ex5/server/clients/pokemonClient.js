@@ -26,10 +26,9 @@ class PokemonClinet {
       throw new Error("failed to fetch pokemon list");
     }
     try {
-      const pokemonsarrayList = respones.data;
-
+      const arrayOfPokemons = respones.data;
       let res = null;
-      for (const obj of pokemonsarrayList.results) {
+      for (const obj of arrayOfPokemons.results) {
         if (obj.name === name.toLowerCase()) {
           const response = await axios.get(obj.url);
           const pokemonObj = response.data;

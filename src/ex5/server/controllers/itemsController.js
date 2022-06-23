@@ -8,8 +8,8 @@ async function createItem(req, res, next) {
     const { isPokemon, elementsArr } = validation(item);
     const data  = await ItemManager.addItem(isPokemon, elementsArr);
     res.status(201).json(data);
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 }
 
@@ -18,36 +18,35 @@ async function deleteItem(req, res, next) {
     const itemId = parseInt(req.params.id);
     await ItemManager.deleteItem(itemId);
     res.status(200).json(itemId);
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 }
 async function getAll(req, res, next) {
   try {
     const items = await ItemManager.getAll();
     res.status(200).json(items);
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 }
 async function deleteAll(req, res, next) {
     try {
       await ItemManager.deleteAll();
       res.status(200).json('All Items was deleted');
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   }
-async function updateItemStatus(req, res, next)
-  {
+async function updateItemStatus(req, res, next){
     try {
       const itemId = req.params.id
       const newStatus = req.body.status
       console.log(itemId,newStatus)
-      await ItemManager.updateStatusInDb(itemId,newStatus);
-      res.status(200).json('status changed');
-    } catch (err) {
-      next(err);
+      await ItemManager.statusUpdateDb(itemId,newStatus);
+      res.status(200).json('status was changed');
+    } catch (error) {
+      next(error);
     }
   }
 

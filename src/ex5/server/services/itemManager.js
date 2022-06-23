@@ -1,6 +1,5 @@
 const pokemonClinet = require("../clients/pokemonClient.js");
 const { Item } = require("../DB/models");
-const fs = require("fs").promises;
 class ItemManager {
   constructor() {
     this.itemsArray = [];
@@ -79,6 +78,7 @@ class ItemManager {
     }
     return newItems;
   }
+  // generate UUID number
   uuidGeneration() {
     let dt = new Date().getTime();
     const uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
@@ -150,7 +150,7 @@ class ItemManager {
       throw new Error(error);
     }
   }
-  async statusUpdateDn(itemId,newStatus){
+  async statusUpdateDb(itemId,newStatus){
     try{
       let status = newStatus
       await Item.update({status},{where: {itemId:itemId} })
