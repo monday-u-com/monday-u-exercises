@@ -83,10 +83,10 @@ todoRouter.put("/:id", async(req, res) => {
         const {status, index} = req.body
         
         if(status){
-            await itemManager.checkTodo(index)
+            await itemManager.checkUncheckTodo(index, true)
         }
         else{
-            await itemManager.uncheckTodo(index)
+            await itemManager.checkUncheckTodo(index, false)
         }
         res.status(200).json({})
         return 

@@ -132,17 +132,10 @@ module.exports = class ItemManager {
         })
     }
 
-    async checkTodo(id) {
+    async checkUncheckTodo(id, status) {
         const todo = await Todos.findOne({where:{id}})
-        todo.status = true
-        await todo.save()
-
-        return todo
-    }
-
-    async uncheckTodo(id) {
-        const todo = await Todos.findOne({where:{id}})
-        todo.status = false  
+        todo.status = status  
+        todo.done_timestamp = new Date().getTime();
         await todo.save()
 
         return todo
