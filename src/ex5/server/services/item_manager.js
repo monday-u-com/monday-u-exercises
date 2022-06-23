@@ -1,29 +1,45 @@
 // The ItemManager should go here. Remember that you have to export it.
 const { catchPokemons } = require("../clients/pokemon_client");
-
+const { Item } = require("../db/models");
 const fs = require("fs").promises;
 const TXT_FILE = "myTodoList.txt";
 
+// function _objToArr(propName, objects) {
+//   const data = objects?.map((item) => {
+//     return item[propName];
+//   });
+//   return data;
+// }
+
 async function getAll() {
-  return await _readTasksFile();
+  let taskList = await Item.findAll();
+  // taskList = _objToArr("ItemName", taskList);
+  return taskList;
 }
 
 async function addTask(taskJson) {
   const task = taskJson.task;
-  let data = await _readTasksFile();
-  if (!data) data = [];
-  if (!_isNumbers(task)) {
-    data.push(task);
-  } else {
-    const newTasks = await fetchPokemonsTasks(task, data);
-    data = [...data, ...newTasks];
+  let data = [];
+  try {
+    if (!_isNumbers(task)) {
+      data.push(task);
+    } else {
+      const newTasks = await fetchPokemonsTasks(task); //, await getAll());
+      data = [...newTasks];
+    }
+    // await _writeToFile(data);
+    for (const item of data) {
+      await Item.create({ ItemName: item, status: true });
+    }
+  } catch (error) {
+    console.error(error.message);
   }
-  await _writeToFile(data);
 }
 
 async function fetchPokemonsTasks(ids, data) {
   const tasks = [];
   try {
+    const data = await getAll();
     const pokemonsRawJson = await catchPokemons(ids.split(","));
     pokemonsRawJson?.forEach((pokemonJson) => {
       const pokemonName = pokemonJson.name;
@@ -49,23 +65,30 @@ function _isNumbers(input) {
   });
 }
 
-async function deleteTask(id) {
-  let data = await getAll();
-  const deletedTask = data[id];
-  data.splice(id, 1);
-  await _writeToFile(data);
-  return deletedTask;
+async function deleteTask(task) {
+  try {
+    await Item.destroy({ where: { ItemName: task } });
+  } catch (error) {
+    console.error(error.message);
+  }
 }
 
 async function deleteAllTasks() {
-  await _writeToFile([]);
+  try {
+    await Item.destroy({
+      where: {},
+      truncate: true,
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
 }
 
 async function _writeToFile(taskList) {
   try {
     fs.writeFile(TXT_FILE, taskList.join("\n"));
-  } catch (err) {
-    console.error(`Error read the file: ${err.message}`);
+  } catch (error) {
+    console.error(`Error read the file: ${error.message}`);
   }
 }
 
@@ -74,8 +97,8 @@ async function _readTasksFile() {
     let data = await fs.readFile(TXT_FILE, "utf-8");
     data = data.split("\n");
     return data.length === 1 && data[0].length === 0 ? [] : [...data];
-  } catch (err) {
-    console.error(`Error read the file: ${err.message}`);
+  } catch (error) {
+    console.error(`Error read the file: ${error.message}`);
   }
 }
 

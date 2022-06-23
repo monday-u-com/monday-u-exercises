@@ -77,13 +77,24 @@ class Main {
     return true;
   }
 
-  newTaskElement(text) {
+  newTaskElement(text, status) {
     const div = document.createElement("div");
     div.classList.add("task");
+
+    const input = document.createElement("input");
+    input.setAttribute("type", "checkbox");
+    if (!status) input.checked = true;
+    input.onclick = (e) => {
+      e.stopPropagation();
+      console.log(e.target.checked);
+    };
+    div.append(input);
+
     const h3 = document.createElement("h3");
     h3.classList.add("task-content");
     h3.textContent = text;
     div.append(h3);
+
     const span = document.createElement("span");
     const delBtn = document.createElement("i");
     delBtn.classList.add("fa-solid");
@@ -96,12 +107,12 @@ class Main {
 
     delBtn.onclick = async (e) => {
       e.stopPropagation();
-      const taskList = this._getTaskList();
+      // const taskList = this._getTaskList();
       const getDivParent = delBtn.closest("div");
       const getTextFromH3 =
         getDivParent.getElementsByTagName("h3")[0].textContent;
-      const index = taskList.indexOf(getTextFromH3);
-      await this.itemClient.removeTask(index);
+      // const index = taskList.indexOf(getTextFromH3);
+      await this.itemClient.removeTask(getTextFromH3);
       await this.renderTaskList();
     };
 
@@ -137,24 +148,24 @@ class Main {
   }
 
   async renderTaskList() {
-    const taskList = await this.callFuncWithLoader(this.itemClient.getAllTasks);
-    this._setTaskList(taskList);
+    const objList = await this.callFuncWithLoader(this.itemClient.getAllTasks);
     const tasks = document.querySelector(".tasks");
     const divList = [];
-    if (taskList.length > 0) {
-      taskList.forEach((task) => {
-        const divTask = this.newTaskElement(task);
+    if (objList.length > 0) {
+      objList.forEach((item) => {
+        const divTask = this.newTaskElement(item["ItemName"], item["status"]);
         divList.push(divTask);
       });
     } else {
       divList.push(this.ChillMsg());
     }
     tasks.replaceChildren();
+
     divList.forEach((divTask) => {
       tasks.append(divTask);
     });
 
-    this.updateFooter(taskList.length);
+    this.updateFooter(objList.length);
   }
 
   _setTaskList(list) {

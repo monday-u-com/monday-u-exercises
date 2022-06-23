@@ -33,11 +33,12 @@ class ItemClient {
     }
   }
 
-  async removeTask(taskId) {
+  async removeTask(task) {
     try {
-      const response = await fetch(`${ROUTE}/${taskId}`, {
+      const response = await fetch(ROUTE, {
         method: "DELETE",
         headers: STANDARD_HEADERS,
+        body: JSON.stringify({ task }),
       });
     } catch (error) {
       console.error("Remove task error:", error);
@@ -46,12 +47,12 @@ class ItemClient {
 
   async removeAllTasks() {
     try {
-      const response = await fetch(ROUTE, {
+      const response = await fetch(ROUTE + "/delete_all", {
         method: "DELETE",
         headers: STANDARD_HEADERS,
       });
     } catch (error) {
       console.error("Remove all tasks error:", error);
     }
-  } 
+  }
 }
