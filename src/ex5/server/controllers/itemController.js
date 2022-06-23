@@ -8,38 +8,54 @@ const pokemonHandleService = require("../services/handlePokemonService");
 async function createItem(req, res) {
   const dataToAddToDb = [];
 
-  const currentDataFromDb = await itemManagerService.getItems();
-
-  /// todo add validation function to check if there is body and data
-
   const pokemonOrTaskResults = await parserService.parseInputValue(
     req.body.data
   );
 
-  pokemonOrTaskResults.tasks.forEach((result) => {
+  if (!req.body || !req.body.data) {
+    let error = Error();
+    error.statusCode = 404;
+    error.message = "Not found";
+    throw error;
+  }
+
+  for (let result of pokemonOrTaskResults.tasks) {
     result.itemId = idKeyGen();
     result.pokemonId = null;
     result.pokemonData = null;
     result.status = false;
 
-    dataToAddToDb.push(result);
-  });
+    const isTaskExistInDataArray = itemManagerService.isTaskExistInDataArray(
+      dataToAddToDb,
+      result.itemName
+    );
+
+    const isTaskNameExistInDb = await itemManagerService.isTaskNameExistInDb(
+      result.itemName
+    );
+
+    if (!isTaskNameExistInDb && !isTaskExistInDataArray) {
+      dataToAddToDb.push(result);
+    }
+  }
 
   const pokemonsFetchErrors = [];
 
   for (let pokemon of pokemonOrTaskResults.pokemons) {
     try {
       const isPokemonExistInDb = await itemManagerService.isPokemonIdExistInDb(
-        
-        pokemon.name
+        pokemon.itemName
       );
 
       const isPokemonExistInTransactionDataToDb =
-        await itemManagerService.isPokemonExistInDataArray(dataToAddToDb, pokemon.name);
+        await itemManagerService.isPokemonExistInDataArray(
+          dataToAddToDb,
+          pokemon.itemName
+        );
 
       if (!isPokemonExistInDb && !isPokemonExistInTransactionDataToDb) {
         let pokemonDataFromClient = await pokemonClientService.fetchPokemon(
-          pokemon.name
+          pokemon.itemName
         );
 
         if (!pokemonDataFromClient.error) {
@@ -163,8 +179,7 @@ async function updateDoneTimestamp(req, res) {
   await res.status(200).json(updatedItem);
 }
 
-async function updateName(req,res){
-
+async function updateName(req, res) {
   let itemId = req.body.itemId;
   let newName = req.body.newName;
 
@@ -176,12 +191,8 @@ async function updateName(req,res){
     throw error;
   }
 
-  let updatedItem = await itemManagerService.updateName(
-    itemId,
-    newName,
-  );
+  let updatedItem = await itemManagerService.updateName(itemId, newName);
   await res.status(200).json(updatedItem);
-
 }
 
 module.exports = {
