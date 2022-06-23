@@ -70,7 +70,6 @@ class main {
 
   async onAddTaskClick(e) {
     const isOk = this.canProceed();
-
     const isAlertShown = this.emprtyInputAlert.isAlertShown();
     if (!isOk && !isAlertShown) {
       this.emprtyInputAlert.toggleAlert(EMPTY_INPUT_MSG);

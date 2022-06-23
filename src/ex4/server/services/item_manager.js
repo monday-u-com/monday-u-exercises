@@ -26,7 +26,9 @@ class ItemManager {
       this.isInputSetOfPokemonIDs(taskInput) ||
       this.pokedex.isPokemonNamesOnly(taskInput)
     ) {
-      return await this.addCatchPokemonTask(taskInput);
+      const res = await this.addCatchPokemonTask(taskInput);
+
+      return res;
     } else {
       const isAdded = await this.addTaskToFile(taskInput, isCompleted);
       return isAdded;
@@ -48,12 +50,13 @@ class ItemManager {
       return response;
     } else {
       response = await this.getPokemonsToAdd(input);
-    }
-    if (response === false) {
-      return false;
-    } else {
-      await this.addResponsesToTasks(input, response, false);
-      return true;
+      if (response === false) {
+        return false;
+      } else {
+        const res = await this.addResponsesToTasks(input, response, false);
+
+        return true;
+      }
     }
   }
 
@@ -69,9 +72,10 @@ class ItemManager {
       this.saveResponseToCache(input, response);
     }
 
-    response.forEach(async (pokemon) => {
+    for (const pokemon of response) {
       await this.addTaskToFile(pokemon, false);
-    });
+    }
+    return true;
   }
 
   async addTaskToFile(taskInput, isCompleted) {
@@ -84,8 +88,7 @@ class ItemManager {
         status: isCompleted,
       };
       this.tasks.push(task);
-      await this.saveTaskToDB(task);
-      return true;
+      return await this.saveTaskToDB(task);
     }
   }
 
@@ -101,7 +104,13 @@ class ItemManager {
   }
 
   async saveTaskToDB(task) {
-    await Item.create(task);
+    try {
+      await Item.create(task);
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+    return true;
   }
 
   async RemoveTaskFromDB(taskID) {
@@ -144,8 +153,9 @@ class ItemManager {
   }
 
   getCache() {
-    const cache = fs.readFileSync(path.join(__dirname, this.cacheFile));
-    return JSON.parse(cache);
+    return {};
+    // const cache = fs.readFileSync(path.join(__dirname, this.cacheFile));
+    // return JSON.parse(cache);
   }
 
   reSortTasks(newSortedTasks) {
