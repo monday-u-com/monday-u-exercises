@@ -1,7 +1,7 @@
-import {performance} from 'perf_hooks'
+const { performance } = require('perf_hooks');
 const now = () => new Date().toISOString().replace(/[TZ]/g, ' ').trimEnd()
 
-export default async function logger(req, res, next) {
+module.exports = async function logger(req, res, next) {
     const startTime = performance.now();
     const method = req.method.toUpperCase();
     const url = req.url;

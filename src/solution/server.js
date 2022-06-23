@@ -1,9 +1,9 @@
-import dotenv from 'dotenv'
-import express from 'express'
-import errorHandler from './server/middleware/error-handling.js'
-import logger from './server/middleware/logger.js'
-import todosRouter from './server/routes/api.js'
-import pokemonRouter from './server/routes/pokemon.js'
+const dotenv = require('dotenv');
+const express = require('express');
+const errorHandler = require('./server/middleware/error-handling');
+const logger = require('./server/middleware/logger');
+const todosRouter = require('./server/routes/api');
+const pokemonRouter = require('./server/routes/pokemon');
 
 dotenv.config();
 

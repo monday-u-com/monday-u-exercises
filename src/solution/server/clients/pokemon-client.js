@@ -1,5 +1,7 @@
-import axios from "axios";
-export default class PokemonClient {
+
+const axios = require("axios");
+
+class PokemonClient {
     constructor() {
         this._API_BASE = 'https://pokeapi.co/api/v2/pokemon';
         this._CACHE_TIMEOUT_MS = 1000 * 60;
@@ -18,7 +20,6 @@ export default class PokemonClient {
             this._saveToCache(pokemon, res)
             return res;
         } catch (error) {
-            console.error(error);
             return this._handleResponse(error);
         }
     }
@@ -46,4 +47,4 @@ export default class PokemonClient {
     }
 }
 
-
+module.exports = PokemonClient;

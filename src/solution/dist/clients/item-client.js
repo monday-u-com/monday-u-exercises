@@ -23,15 +23,6 @@ class ItemClient {
         }
     }
 
-    async getPendingTodos() {
-        try {
-            const response = await fetch(`${this._API_BASE}/pending-todos`);
-            return this._handleResponse(null, response);
-        } catch (error) {
-            return this._handleResponse(error);
-        }
-    }
-
     async addTodo(todo) {
         try {
             const response = await fetch(`${this._API_BASE}/todo`, {
@@ -46,18 +37,18 @@ class ItemClient {
     }
 
     async editTodo(id, todo) {
+        console.log(id);
         try {
             const response = await fetch(`${this._API_BASE}/todo/${id}`, {
                 method: "PUT",
                 headers: this._HEADERS,
-                body: JSON.stringify({ todo })
+                body: JSON.stringify({todo})
             });
             return this._handleResponse(null, response);
         } catch (error) {
             return this._handleResponse(error);
         }
     }
-
 
     async deleteTodo(id) {
         try {

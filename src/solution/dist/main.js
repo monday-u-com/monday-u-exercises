@@ -30,10 +30,8 @@ class Main {
     async render() {
         try {
             this._toggleSpinner(true);
-            await Promise.all([
-                this._showPendingTodos(),
-                this._showTodosList()
-            ]);
+            await this._showTodosList();
+            this._showPendingTodos();
         } catch (e) {
             console.error(e)
         }
@@ -75,7 +73,7 @@ class Main {
         this.addBtn.classList.remove('active');
         this.addBtn.disabled = false;
         this.todoInput.disabled = false;
-        (todos && todos.success) && setTimeout(() => this._checkForAddedDuplicatePokemon(todos.body), 0);
+        (todos && todos.success) && setTimeout(() => this._checkForDuplicateTodos(todos.body), 0);
     }
 
     _onSortChange() {
@@ -84,7 +82,7 @@ class Main {
     }
 
     async _onEditTodoApproveBtn() {
-        await this.itemClient.editTodo(this.currentTodoEdit.id, this.editTodoInput.value);
+        await this.itemClient.editTodo(this.currentTodoEdit.id, {type: this.currentTodoEdit.type, item: this.editTodoInput.value, checked: this.currentTodoEdit.checked});
         this.editTodoElement.style.display = 'none';
         this._toggleElementsForEditTodo();
         await this.render();
@@ -99,14 +97,18 @@ class Main {
         await this.render();
     }
 
-    _checkForAddedDuplicatePokemon(todos) {
-        const duplicatesPokemons = todos.filter(item => item.type == 'pokemonExists');
-        if (!duplicatesPokemons.length) {
+    _checkForDuplicateTodos(todos) {
+        const duplicates = todos.filter(item => (item.type == 'pokemonExists' || item.type=='todoExists'));
+        if (!duplicates.length) {
             return;
         }
-        let content = 'The following pokemons are already exist: \n';
-        duplicatesPokemons.forEach(({ pokemon }) => {
-            content += `id: ${pokemon.id}, name: ${pokemon.name} \n`;
+        let content = 'The following todos are already exist: \n';
+        duplicates.forEach((todo) => {
+            if(todo.type=='pokemonExists'){
+                content += `id: ${todo.pokemon.id}, name: ${todo.pokemon.name} \n`;
+            }else{
+                content += `${todo.item}\n`
+            }
         });
         this._toggleSpinner(false);
         alert(content);
@@ -120,11 +122,9 @@ class Main {
         this.spinnerElement.style.display = 'block';
     }
 
-
-    async _showPendingTodos() {
+    _showPendingTodos() {
         const pendingTodos = document.querySelector(".pending-todos");
-        const tmp = await this.itemClient.getPendingTodos();
-        pendingTodos.textContent = tmp.body.count;
+        pendingTodos.textContent = this.todoListData.length;
     }
 
     async _getTodoListData() {
@@ -135,7 +135,6 @@ class Main {
 
     async _showTodosList() {
         await this._getTodoListData();
-
         if (!this.todoListData.length) {
             this._showContent(this._handleEmptyTodoListContent());
             return;
@@ -156,7 +155,7 @@ class Main {
 
     _handleTodoListContent(element, index) {
         const checked = element.checked ? 'checked' : '';
-        const pic = element.type === 'pokemon' ? `<img class="pokemon-pic" src="${element.pokemon.sprites.front_default}" alt="">` : '&emsp;&emsp;';
+        const pic = element.type === 'pokemon' ? `<img class="pokemon-pic" src="${element.pokemon.image}" alt="">` : '&emsp;&emsp;';
         const editBtn = (element.type === 'text') ? `<span id="todo-edit-${element.id}" class="icon-edit"><i class="fas fa-pen" ></i></span>` : '';
         const todoListContent = `<li> 
         <input id="todo-checkbox-${element.id}" type="checkbox" name="todoCheckbox" ${checked}>
@@ -184,6 +183,7 @@ class Main {
             }
             document.getElementById(`todo-element-${element.id}`).addEventListener('click', () => this._showSelectedTodo(element));
             document.getElementById(`todo-delete-${element.id}`).addEventListener('click', () => this._deleteTodo(element));
+            document.getElementById(`todo-checkbox-${element.id}`).addEventListener('click', () => this._updateItemCheckbox(element));
         })
     }
 
@@ -197,9 +197,13 @@ class Main {
         this.currentTodoEdit = element;
         this._toggleElementsForEditTodo(true);
     }
+    
+    async _updateItemCheckbox(element){
+        await this.itemClient.editTodo(element.id, {type: element.type, item: element.item, checked: !element.checked, doneTimestamp: Date.now()});
+    }
 
     async _deleteTodo(element) {
-        await this.itemClient._deleteTodo(element.id);
+        await this.itemClient.deleteTodo(element.id);
         await this.render();
     }
 

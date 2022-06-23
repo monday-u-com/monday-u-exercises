@@ -1,8 +1,8 @@
-import { validationResult, checkSchema } from 'express-validator';
+const { validationResult, checkSchema } = require('express-validator');
 
 const allowedSortBy = ['A-Z', 'Z-A']
 
-export const validateIdSchema = {
+const validateIdSchema = {
     id: {
         isString: true,
         isLength: {
@@ -13,7 +13,7 @@ export const validateIdSchema = {
     }
 };
 
-export const todoSchema = {
+const todoSchema = {
     todo: {
         isString: true,
         errorMessage: 'Missing paramater todo',
@@ -21,7 +21,7 @@ export const todoSchema = {
     },
 };
 
-export const getTodosSchema = {
+const getTodosSchema = {
     sortBy: {
         isString: true,
         optional: true,
@@ -31,7 +31,7 @@ export const getTodosSchema = {
     },
 };
 
-export function validateSchema(schema) {
+function validateSchema(schema) {
     const validationMiddleware = checkSchema(schema);
     return async (req, res, next) => {
         await validationMiddleware.run(req);
@@ -44,4 +44,10 @@ export function validateSchema(schema) {
         error.statusCode = 400;
         next(error);
     };
+}
+module.exports = {
+    validateIdSchema,
+    todoSchema,
+    getTodosSchema,
+    validateSchema
 }
