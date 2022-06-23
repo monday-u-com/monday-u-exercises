@@ -49,12 +49,13 @@ h1 {
 	justify-content: space-between;
 	margin-bottom: 10px;
 	height: 30px;
-	max-width: 300px;
+	width: 260px;
 	border-radius: 8px;
 	padding-left: 1rem;
 	overflow: hidden;
 	font-size: 15px;
 	font-weight: 700;
+	float: right;
 }
 
 .task-element:hover {

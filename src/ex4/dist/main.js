@@ -1,86 +1,169 @@
-const newToDo_txt = document.getElementById("NewToDo_txt");
-const newToDo_btn = document.getElementById("NewToDo_btn");
+const newItemInput = document.getElementById("newItemInput");
+const newItemSubmitButton = document.getElementById("newItemSubmitButton");
 const tasksList = document.getElementById("taskList");
-const clearAll_btn = document.getElementById("clearAll");
+const clearAllButton = document.getElementById("clearAll");
 const emptyState = document.getElementById("emptyState");
-const amountTasks = document.getElementById("amountTasks");
-import { getAllTasks, addItem, deleteItem } from "./clients/item_client.js";
+const numberOfTasks = document.getElementById("numberOfTasks");
+import {
+	getAllTasks,
+	addItem,
+	deleteItem,
+	updateItem,
+	clearAll,
+} from "./clients/item_client.js";
 
-const createItems = (items = []) => {
-	if (items.length > 0) {
-		tasksList.innerHTML = "";
-		displayAmountTasks(items.length);
-		items.forEach((item, i) => {
-			const taskElement = document.createElement("div");
-			taskElement.id = i;
-			taskElement.innerText = item.value;
-			taskElement.classList.add("clickable", "task-element");
-			taskElement.addEventListener("click", () => {
-				alert(taskElement.innerText);
-			});
+const resetNewItemInput = () => {
+	newItemInput.value = "";
+	newItemInput.focus();
+};
 
-			const deleteTask = document.createElement("div");
-			deleteTask.classList.add("clickable", "delete-button");
+const addNewItem = async (itemName) => {
+	await addItem({ itemName });
+	await renderAllItems();
+	resetNewItemInput();
+};
 
-			const trashImg = document.createElement("img");
-			trashImg.src = "./images/trash.png";
-			trashImg.className = "tash-icon";
+function displayNumberOfTasks(taskCount) {
+	numberOfTasks.innerText = taskCount;
+}
 
-			deleteTask.addEventListener("click", async (e) => {
-				e.stopPropagation();
-				const items = await deleteItem(taskElement.id);
-				taskElement.remove();
-				displayAmountTasks();
-				createItems(items);
-			});
+newItemInput.addEventListener("keypress", (e) => {
+	if (e.keyCode === 13) {
+		e.preventDefault();
+		addNewItem(newItemInput.value);
+	}
+});
 
-			deleteTask.appendChild(trashImg);
-			taskElement.appendChild(deleteTask);
-			tasksList.appendChild(taskElement);
-		});
+newItemSubmitButton.addEventListener("click", async () =>
+	addNewItem(newItemInput.value)
+);
+
+clearAllButton.addEventListener("click", async () => {
+	await clearAll();
+	await renderAllItems();
+});
+
+const resetTaskList = () => {
+	tasksList.innerHTML = "";
+};
+
+const displayEmptyState = () => {
+	clearAllButton.style.display = "none";
+	emptyState.style.display = "block";
+};
+
+const hideEmptyState = () => {
+	clearAllButton.style.display = "block";
+	emptyState.style.display = "none";
+};
+
+const renderAllItems = async () => {
+	const items = await getAllTasks();
+	displayNumberOfTasks(items.length);
+	resetTaskList();
+	if (items.length === 0) {
+		displayEmptyState();
 	} else {
-		tasksList.innerHTML = "";
-		displayAmountTasks(items.length);
+		hideEmptyState();
+		items.forEach((item) => {
+			const itemElement = createItemElement(item);
+			tasksList.appendChild(itemElement);
+		});
 	}
 };
 
-newToDo_btn.addEventListener("click", async () => {
-	if (newToDo_txt.value) {
-		const newItem = { value: newToDo_txt.value };
-		const items = await addItem(newItem);
-		if (items.data) {
-			createItems(items.data);
-		}
-	} else {
-		alert("Write your task first");
-		return;
+const createTaskContainer = () => {
+	const taskContainer = document.createElement("div");
+	taskContainer.style.height = "40px";
+	return taskContainer;
+};
+
+const createEditTaskElement = (itemId, itemName) => {
+	const editTaskElement = document.createElement("input");
+	editTaskElement.value = itemName;
+
+	const saveButton = document.createElement("button");
+	saveButton.innerText = "save";
+	saveButton.addEventListener("click", async () => {
+		await updateItem({ itemName: editTaskElement.value }, itemId);
+		await renderAllItems();
+	});
+	return { editTaskElement, saveButton };
+};
+
+const createTaskElement = (itemId, itemName) => {
+	const taskElement = document.createElement("div");
+	taskElement.id = itemId;
+	taskElement.innerText = itemName;
+	taskElement.classList.add("clickable", "task-element");
+	taskElement.addEventListener("click", (e) => {
+		e.preventDefault();
+		const editElement = createEditTaskElement(itemId, itemName);
+		document
+			.getElementById(itemId)
+			.parentElement.appendChild(editElement.saveButton);
+		taskElement.replaceWith(editElement.editTaskElement);
+		editElement.editTaskElement.focus();
+	});
+	return taskElement;
+};
+
+const createDeleteElement = (itemId) => {
+	const deleteTask = document.createElement("div");
+	deleteTask.classList.add("clickable", "delete-button");
+
+	deleteTask.addEventListener("click", async (e) => {
+		e.stopPropagation();
+		await deleteItem(itemId);
+		displayNumberOfTasks();
+		await renderAllItems();
+	});
+	return deleteTask;
+};
+
+const createTrashImg = () => {
+	const trashImg = document.createElement("img");
+	trashImg.src = "./images/trash.png";
+	trashImg.className = "tash-icon";
+	return trashImg;
+};
+
+const createStatusElement = (itemId, itemStatus) => {
+	const status = document.createElement("input");
+	status.setAttribute("type", "checkbox");
+	if (itemStatus) {
+		status.checked = true;
 	}
-	newToDo_txt.value = "";
-	newToDo_txt.focus();
-});
+	status.addEventListener("click", async (e) => {
+		e.preventDefault();
+		await updateItem({ status: status.checked }, itemId);
+		await renderAllItems();
+	});
+	return status;
+};
 
-clearAll_btn.addEventListener("click", () => {
-	const noItemsArr = deleteItem("all");
-	createItems();
-});
-
-function isEmptyState(taskCount) {
-	if (taskCount === 0) {
-		clearAll_btn.style.display = "none";
-		emptyState.style.display = "block";
-		tasksList.appendChild(emptyState);
-	} else {
-		clearAll_btn.style.display = "block";
-	}
-}
-
-function displayAmountTasks(taskCount) {
-	isEmptyState(taskCount);
-	amountTasks.innerText = `${taskCount} Active tasks`;
-	tasksList.appendChild(amountTasks);
-}
+const appendElements = (
+	taskContainer,
+	taskElement,
+	deleteTask,
+	trashImg,
+	status
+) => {
+	deleteTask.appendChild(trashImg);
+	taskElement.appendChild(deleteTask);
+	taskContainer.appendChild(status);
+	taskContainer.appendChild(taskElement);
+};
+const createItemElement = (item) => {
+	const taskContainer = createTaskContainer();
+	const taskElement = createTaskElement(item.id, item.itemName);
+	const deleteTask = createDeleteElement(item.id);
+	const trashImg = createTrashImg();
+	const status = createStatusElement(item.id, item.status);
+	appendElements(taskContainer, taskElement, deleteTask, trashImg, status);
+	return taskContainer;
+};
 
 document.addEventListener("DOMContentLoaded", async () => {
-	const items = await getAllTasks();
-	createItems(items);
+	await renderAllItems();
 });

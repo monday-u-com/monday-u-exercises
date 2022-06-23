@@ -1,8 +1,7 @@
-import dotenv from "dotenv";
+const dotenv = require("dotenv");
 dotenv.config();
 
-export default {
+module.exports = {
 	port: process.env.port,
 	pokemonApi: process.env.pokemonApi,
-	jsonFilePath: process.env.jsonFilePath,
 };

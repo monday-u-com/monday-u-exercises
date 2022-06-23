@@ -1,38 +1,33 @@
 // The ItemManager should go here. Remember that you have to export it.
-import PokemonClient from "../clients/pokemon_client.js";
-import fs from "fs";
-import envModule from "../../envModule.js";
-const cleanFile = { data: [] };
+const PokemonClient = require("../clients/pokemon_client.js");
+const { item } = require("../db/models");
 class ItemManager {
 	constructor() {
 		this.pokemonClient = new PokemonClient();
 	}
+	getAllItems = async () => {
+		return await item.findAll();
+	};
 
-	getAllItems() {
-		let items = fs.readFileSync(envModule.jsonFilePath);
-		return JSON.parse(items);
-	}
-
-	async setAllItems(items) {
+	async setItem(itemToAdd) {
 		try {
-			fs.writeFileSync(envModule.jsonFilePath, JSON.stringify(items));
+			await item.create(itemToAdd);
+			return "created!";
 		} catch (err) {
+			console.error(err);
 			return err;
 		}
 	}
 
-	async addListItem(item) {
-		const items = this.getAllItems();
-		items.data = [...items.data, item];
-		await this.setAllItems(items);
-		return items;
+	async updateItem(itemToUpdate, itemId) {
+		return item.update(itemToUpdate, { where: { id: itemId } });
 	}
 
-	removeItem(itemIndex) {
-		const items = this.getAllItems();
-		items.data = [...items.data.filter((item, i) => i !== parseInt(itemIndex))];
-		this.setAllItems(items);
-		return items;
+	async removeItem(itemId) {
+		await item.destroy({
+			where: { id: itemId },
+		});
+		return await this.getAllItems();
 	}
 
 	async pokemonIdsHendeling(pokeID) {
@@ -40,38 +35,91 @@ class ItemManager {
 		return pokemon;
 	}
 
-	async pokemonFatching(pokemonIdsStr) {
-		const pokemonIdsArray = pokemonIdsStr.split(",");
+	async pokemonFatching(pokemonIdsArray) {
 		const pokemonPromises = [];
 
 		pokemonIdsArray.forEach((pokemonIdStr) => {
 			pokemonPromises.push(this.pokemonIdsHendeling(pokemonIdStr.trim()));
 		});
 		const pokemonsRsult = await Promise.all(pokemonPromises);
-		pokemonsRsult.forEach((pokemon) => {
-			const newItem = { value: pokemon };
-			this.addListItem(newItem);
-		});
-		return await this.getAllItems();
+		for (let i = 0; pokemonsRsult.length > i; i++) {
+			const currentPokedexIdAsInt = parseInt(pokemonIdsArray[i]);
+			const itemObg = this.createjsonToDB({
+				itemName: pokemonsRsult[i],
+				pokedexId: currentPokedexIdAsInt,
+			});
+			await this.setItem(itemObg);
+		}
+		return "created!";
 	}
 
-	clearItemsArray() {
-		this.setAllItems(cleanFile);
-		return cleanFile;
+	async clearAllItems() {
+		try {
+			return await item.destroy({ where: {} });
+		} catch (err) {
+			return err;
+		}
+	}
+
+	isPokemonItem(input) {
+		const patternForNumbers = /^\d+$/;
+		return (
+			patternForNumbers.test(input.itemName) || input.itemName.includes(",")
+		);
+	}
+
+	async isPokemonExist(input) {
+		const inputAsInt = parseInt(input);
+		const isPokemonExist = await item.findAll({
+			where: { pokedexId: inputAsInt },
+		});
+		return isPokemonExist.length > 0;
+	}
+
+	async isItaskExist(input) {
+		const isItaskExist = await item.findAll({
+			where: { itemName: input.itemName },
+		});
+		return isItaskExist.length > 0;
 	}
 
 	async validateInput(input) {
-		const patternForNumbers = /^\d+$/;
-		if (patternForNumbers.test(input.value) || input.value.includes(",")) {
+		if (this.isPokemonItem(input)) {
+			const inputToArray = input.itemName.split(",") || [input.itemName];
+			const itemsToFetch = [];
+			for (let i = 0; inputToArray.length > i; i++) {
+				if (!(await this.isPokemonExist(inputToArray[i]))) {
+					itemsToFetch.push(inputToArray[i]);
+					console.log(inputToArray);
+				}
+			}
+			return itemsToFetch;
+		} else {
+			return await this.isItaskExist(input);
+		}
+	}
+
+	async handlingInput(pokemonIdsArray) {
+		if (Array.isArray(pokemonIdsArray)) {
 			try {
-				return await this.pokemonFatching(input.value);
+				return await this.pokemonFatching(pokemonIdsArray);
 			} catch (err) {
 				return err;
 			}
 		} else {
-			return this.addListItem(input);
+			const itemObg = this.createjsonToDB(input);
+			return await this.setItem(itemObg);
 		}
+	}
+
+	createjsonToDB(obj) {
+		return {
+			itemName: obj.itemName,
+			status: obj.status || false,
+			pokedexId: obj.pokedexId || null,
+			done: Date.now(),
+		};
 	}
 }
 
-export default ItemManager;
+module.exports = ItemManager;

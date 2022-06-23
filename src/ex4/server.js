@@ -1,9 +1,9 @@
 // Express boilerplate, hosting the `dist` file, connecting to the routes
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import envModule from "./envModule.js";
-import todoRouter from "./server/routes/api.js";
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const envModule = require("./envModule.js");
+const todoRouter = require("./server/routes/api.js");
 const app = express();
 
 app.use(express.json());

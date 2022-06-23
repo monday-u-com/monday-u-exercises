@@ -1,17 +1,17 @@
 // Define your endpoints here (this is your "controller file")
-import { Router } from "express";
-import express from "express";
-import ItemManager from "../services/item_manager.js";
+const { Router } = require("express");
+const express = require("express");
+const ItemManager = require("../services/item_manager.js");
 const router = express.Router();
 const item_manager = new ItemManager();
 
 router.route("/").get(async (req, res) => {
 	try {
 		const allItems = await item_manager.getAllItems();
-		if (!allItems.data) {
-			throw new Error("something went wrong.");
+		if (!allItems) {
+			throw new Error("something went wrong on getAllItems function.");
 		}
-		res.status(200).send(allItems.data);
+		res.status(200).send(allItems);
 	} catch (err) {
 		res.status(500).send(err.message);
 	}
@@ -19,30 +19,52 @@ router.route("/").get(async (req, res) => {
 
 router.route("/add").post(async (req, res) => {
 	try {
-		const allItems = await item_manager.validateInput(req.body);
-		if (!allItems) {
-			throw new Error("something went wrong.");
+		const itemsToFetch = await item_manager.validateInput(req.body);
+		if (itemsToFetch) {
+			const creationMessage = await item_manager.handlingInput(itemsToFetch);
+			if (!creationMessage) {
+				throw new Error("something went wrong it's not created.");
+			}
+			res.status(201).send(creationMessage);
+			return;
 		}
-		res.status(201).json(allItems).send(allItems.data);
+		throw new Error("this item alredy exist.");
 	} catch (err) {
 		console.log(err);
 		res.status(406).send(err.message);
 	}
 });
 
-router.route("/delete/:index").delete(async (req, res) => {
+router.route("/update/:id").put(async (req, res) => {
 	try {
-		if (req.params.index === "all") {
-			const cleanFile = item_manager.clearItemsArray();
-			if (cleanFile.data.length > 0) {
-				throw new Error("filed try to clean the data.", cleanFile);
-			}
-			res.status(200).send(cleanFile.data);
-		}
-		const allItems = await item_manager.removeItem(parseInt(req.params.index));
-		res.status(200).send(allItems.data);
+		await item_manager.updateItem(req.body, req.params.id);
+		res.status(201).send("updated!");
 	} catch (err) {
 		res.status(406).send(err.message);
 	}
 });
-export default router;
+
+router.route("/delete/:id").delete(async (req, res) => {
+	try {
+		const allItems = await item_manager.removeItem(parseInt(req.params.id));
+		if (!allItems) {
+			throw new Error(`filed try to clean the item ${req.params.id}.`);
+		}
+		res.status(200).send(allItems);
+	} catch (err) {
+		res.status(406).send(err.message);
+	}
+});
+
+router.route("/clear").delete(async (req, res) => {
+	try {
+		const numOfDestringItems = await item_manager.clearAllItems();
+		if (!numOfDestringItems) {
+			throw new Error("filed try to clean the data.");
+		}
+		res.status(200).send(`"${numOfDestringItems}"`);
+	} catch (err) {
+		return err;
+	}
+});
+module.exports = router;

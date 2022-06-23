@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+	<head>
 		<title>Sunday.com</title>
 		<link rel="stylesheet" href="style.css" />
 	</head>
@@ -8,15 +8,24 @@
 		<div class="container">
 			<h1>Sunday.com</h1>
 			<div class="new-task-container">
-				<input type="text" id="NewToDo_txt" class="task-input" placeholder="Write your task here" />
-				<img id="NewToDo_btn" class="clickable pluse-icon" src="./images/plus.png"></img>
+				<input
+					type="text"
+					id="newItemInput"
+					class="task-input"
+					placeholder="Write your task here"
+				/>
+				<img
+					id="newItemSubmitButton"
+					class="clickable pluse-icon"
+					src="./images/plus.png"
+				/>
 			</div>
-			<div id="taskList">
-                <span id="amountTasks" class="amount-tasks"></span>
-                <span id="emptyState">What is your next task?</span>
-            </div>
+			<span class="amount-tasks">number of tasks:</span>
+			<span id="numberOfTasks" class="amount-tasks"></span>
+			<span id="emptyState">What is your next task?</span>
+			<div id="taskList"></div>
 			<button id="clearAll" class="clear-all">Clear all</button>
 		</div>
 	</body>
 	<script src="main.js" type="module"></script>
-    </html>
+</html>

@@ -3,7 +3,6 @@
 	"version": "1.0.0",
 	"description": "You know what they say about #4: you'll remember it *for*ever (ha)",
 	"main": "server.js",
-	"type": "module",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "nodemon server.js"
@@ -17,7 +16,9 @@
 		"dotenv": "^16.0.1",
 		"express": "^4.18.1",
 		"fs": "^0.0.1-security",
-		"nodemon": "^2.0.16"
+		"mysql2": "^2.3.3",
+		"nodemon": "^2.0.16",
+		"sequelize": "^5.21.0"
 	},
 	"proxy": "http://localhost:2000"
 }
