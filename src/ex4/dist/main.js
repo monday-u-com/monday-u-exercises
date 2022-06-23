@@ -48,27 +48,28 @@ class Main {
         list.innerHTML = "";
         document.getElementById("list-item-input").value = '';
         const items = await this.itemClient.getItems()
-
         items.forEach(item => {
-            this.createItem(item.itemName)
+            this.createItem({ name: item.itemName, status: item.status })
         })
     }
 
     createItem = async (item) => {
         const listItem = document.createElement("li");
         listItem.classList.add('list-item');
-        const listItemCheckBox = this._createCheckBox(item)
+        const listItemCheckBox = this._createCheckBox(item.status)
+        listItemCheckBox.onclick = () => this.itemClient.statusChanged({ item: item.name, status: listItemCheckBox.checked })
         listItem.appendChild(listItemCheckBox)
-        listItem.appendChild(document.createTextNode(item))
+        listItem.appendChild(document.createTextNode(item.name))
 
-        const listItemDeleteButton = this._createDeleteButton(item);
+        const listItemDeleteButton = this._createDeleteButton(item.name);
         listItem.appendChild(listItemDeleteButton);
         this.list.appendChild(listItem);
     }
 
-    _createCheckBox = item => {
+    _createCheckBox = status => {
         const checkBox = document.createElement("input")
         checkBox.type = 'checkbox'
+        checkBox.checked = status;
         checkBox.style.marginRight = '10px'
         return checkBox
     }

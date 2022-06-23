@@ -22,19 +22,31 @@ class ItemManager {
         }
     }
 
+    async changeItemStatus(req, res) {
+        try {
+            items(this.sequelize).update(
+                { status: req.body.status },
+                { where: { itemName: req.body.item } }
+            )
+            res.status(200)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async postItem(req, res) {
         try {
             let newItem = req.body.item
             if (isListOfPokemons(newItem)) {
                 let listOfPokemons = newItem.split(',');
                 listOfPokemons = await getAllPokemons(listOfPokemons)
-                listOfPokemons.forEach(async item => {
-                    await items(this.sequelize).create({ itemName: item })
-                })
+                for (let i = 0; i < listOfPokemons.length; i++) {
+                    await items(this.sequelize).create({ itemName: listOfPokemons[i] })
+                }
             }
             else if (isPokemon(newItem)) {
                 const pokemon = await getPokemon(newItem)
-                if (pokemon === undefined) {
+                if (pokemon === undefined || pokemon === 0) {
                     res.status(404).json(items)
                 }
                 const pokemonExists = await pokemonExistsInTodoList(pokemon?.data?.name)
@@ -44,14 +56,15 @@ class ItemManager {
             } else {
                 await items(this.sequelize).create({ itemName: newItem })
             }
+            res.status(200).json({})
         } catch (error) {
             console.log(error)
             return []
         }
-        res.status(200)
     }
 
     async deleteItem(req, res) {
+        console.log("Deleted")
         try {
             await items(this.sequelize).destroy({
                 where: {

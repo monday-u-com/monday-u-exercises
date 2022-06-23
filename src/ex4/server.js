@@ -7,8 +7,8 @@ const app = express()
 app.use(express.json())
 app.use(logger)
 
-app.use('/dist', express.static("dist"))
-app.use('/', router)
+app.use('/', express.static("dist"))
+app.use('/todo', router)
 
 app.listen('3030', () => {
     console.log("App is running :)")

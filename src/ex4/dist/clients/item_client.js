@@ -1,16 +1,21 @@
 class ItemClient {
 
     constructor() {
-        this.url = 'http://localhost:3030/';
+        this.url = 'http://localhost:3030/todo';
     }
 
     async getItems() {
         try {
-            const items = await (await fetch(this.url)).json()
-            return items
+            const res = await fetch(this.url)
+            if (res.status) {
+                const items = await res.json()
+                return items
+            } else {
+                alert('Something went wrong :(')
+                return
+            }
         } catch (e) {
             console.log(e)
-            return []
         }
     }
 
@@ -26,10 +31,12 @@ class ItemClient {
         }
 
         try {
-            const items = await (await fetch(this.url, options)).json()
+            const res = await fetch(this.url, options)
+            if (!res.status) {
+                alert("Something went wrong :(")
+            }
         } catch (e) {
             console.log(e)
-            return `There has been an error => ${e}`
         }
     }
 
@@ -40,12 +47,36 @@ class ItemClient {
         }
 
         try {
-            await fetch(this.url + `${item}`, options)
+            const res = await fetch(this.url + `/${item}`, options)
+            if (!res.status) {
+                alert('Something went wrong :(')
+            }
         } catch (e) {
             console.log(e)
-            return e
         }
     }
+
+    async statusChanged(item) {
+
+        const options = {
+            method: "PUT",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(item)
+        }
+
+        try {
+            const res = await fetch(this.url + `/status/${item}`, options)
+            if (!res.status) {
+                alert('Something went wrong :(')
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
 }
 
 export default ItemClient

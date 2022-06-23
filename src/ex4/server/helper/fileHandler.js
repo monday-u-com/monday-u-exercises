@@ -1,4 +1,3 @@
-import { writeFile } from 'fs';
 import fs from 'fs-extra'
 
 export async function readFile(filePath) {
@@ -11,12 +10,21 @@ export async function readFile(filePath) {
     }
 }
 
-export async function writeToFile(filePath, fileToWrite){
-    try{
+export async function writeToFile(filePath, fileToWrite) {
+    try {
         await fs.writeFile(filePath, JSON.stringify(fileToWrite))
     }
-    catch(e){
+    catch (e) {
         console.log(e)
         return e
+    }
+}
+
+export async function updateFile(filePath, fileToWrite) {
+    try {
+        await fs.appendFile(filePath, fileToWrite + ` //`)
+    }
+    catch (e) {
+        console.log(e)
     }
 }

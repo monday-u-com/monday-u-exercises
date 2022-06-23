@@ -23,7 +23,8 @@ module.exports = (sequelize) => {
       autoIncrement: true,
       allowNull: false
     },
-    itemName: DataTypes.STRING
+    itemName: DataTypes.STRING,
+    status: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'items',

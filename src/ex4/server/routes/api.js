@@ -15,4 +15,8 @@ router.delete('/:id', (req, res) => {
     return itemManager.deleteItem(req, res)
 })
 
+router.put('/status/:id', (req, res) => {
+    return itemManager.changeItemStatus(req, res)
+})
+
 export default router
