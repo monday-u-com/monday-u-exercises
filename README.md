@@ -4,9 +4,9 @@ This is my task for Exercise 5 of Monday-U Full Stack course. Task requirements 
 
 -  Please try the app right here: https://weekend-todo.netlify.app/
 
-## Demo:
+## Screenshot:
 
-https://user-images.githubusercontent.com/99750449/174444998-2a6cfa98-ba87-47a0-b7ab-6b22a52c7a6a.mov
+![app screenshot](./dist/readme-assets/Screenshot.png)
 
 ## Task requirements:
 
@@ -23,8 +23,8 @@ https://user-images.githubusercontent.com/99750449/174444998-2a6cfa98-ba87-47a0-
 
 ### Bonus
 
--  [ ] Add "Done" timestamp
--  [ ] Add index to the Items table (which columns compose the index?)
+-  [x] Add "Done" timestamp
+-  [x] Add index to the Items table (which columns compose the index?)
 -  [ ] Add server validation - create a new item only if not exists (Use transaction)
 -  [ ] Add edit capabilities to an item.
 
