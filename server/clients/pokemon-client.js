@@ -8,6 +8,7 @@ class PokemonClient {
 
    async getPokemon(pokemonID) {
       try {
+         // Cache holds previous fetched pokemons data. If id does not exist in cache then fetch from api
          if (this.cache.some((e) => e.id === pokemonID)) {
             return this.cache.filter((e) => e.id === pokemonID)[0].data;
          }
