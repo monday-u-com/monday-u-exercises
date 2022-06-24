@@ -1,6 +1,6 @@
 // The ItemManager should go here. Remember that you have to export it.
 const PokemonClient = require("../clients/pokemon_client.js");
-const { item } = require("../db/models");
+const { item, sequelize } = require("../db/models");
 class ItemManager {
 	constructor() {
 		this.pokemonClient = new PokemonClient();
@@ -80,7 +80,7 @@ class ItemManager {
 		const isItaskExist = await item.findAll({
 			where: { itemName: input.itemName },
 		});
-		return isItaskExist.length > 0;
+		return isItaskExist.length === 0;
 	}
 
 	async validateInput(input) {
@@ -94,14 +94,16 @@ class ItemManager {
 			}
 			return itemsToFetch;
 		} else {
-			return await this.isItaskExist(input);
+			if (await this.isItaskExist(input)) {
+				return input;
+			}
 		}
 	}
 
-	async handlingInput(pokemonIdsArray) {
-		if (Array.isArray(pokemonIdsArray)) {
+	async handlingInput(input) {
+		if (Array.isArray(input)) {
 			try {
-				return await this.pokemonFatching(pokemonIdsArray);
+				return await this.pokemonFatching(input);
 			} catch (err) {
 				return err;
 			}

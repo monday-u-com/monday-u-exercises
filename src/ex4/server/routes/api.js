@@ -20,7 +20,10 @@ router.route("/").get(async (req, res) => {
 router.route("/add").post(async (req, res) => {
 	try {
 		const itemsToFetch = await item_manager.validateInput(req.body);
-		if (itemsToFetch.length > 0) {
+		if (
+			(itemsToFetch && itemsToFetch.length != 0 && !itemsToFetch.length) ||
+			itemsToFetch.length > 0
+		) {
 			const creationMessage = await item_manager.handlingInput(itemsToFetch);
 			if (!creationMessage) {
 				throw new Error("something went wrong it's not created.");
@@ -30,7 +33,6 @@ router.route("/add").post(async (req, res) => {
 		}
 		throw new Error("this item alredy exist.");
 	} catch (err) {
-		console.log(err);
 		res.status(400).send(err);
 	}
 });
