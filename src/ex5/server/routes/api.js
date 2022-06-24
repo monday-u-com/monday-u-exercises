@@ -1,19 +1,18 @@
-const express = require('express');
-const router = express.Router();
-const itemManager = require('../services/item_manager');
 
-router.get('/items', (_, res) => {
-    res.send(itemManager.getItems())
-})
+import express from "express";
+import {
+    createTodo,
+    getAll,
+    deleteTodo,
+    deleteAllTodo,
+} from "../controllers/todoController.js"; 
 
-router.post('/item', async (req, res) => {
-    await itemManager.handleItem(req.body.item)
-    res.end()
-})
+const todoRouter = express.Router();
 
-router.delete('/item', (req, res) => {
-    itemManager.deleteItem(req.body.item)
-    res.end()
-})
+todoRouter.get('/getAll', getAll);
+todoRouter.post('/',createTodo);
+todoRouter.delete('/:id', deleteTodo);
+todoRouter.delete('/', deleteAllTodo);
 
-module.exports = router
+export default todoRouter;
+

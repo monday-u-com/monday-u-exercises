@@ -1,57 +1,89 @@
 class Main {
     constructor() {
-        this.itemClient = new ItemClient()
+        this.ItemClient = new itemClient();
+        this.todoList= [];
     }
 
-    init = async () => {
-        const addItemButton = document.getElementById("list-item-submit");
-        addItemButton.addEventListener("click", this.handleItem);
+    init () {
+        this.listToDo = document.querySelector("#listToDo");
+        this.buttonClearAll = document.querySelector("#buttonClearAll");
+        this.buttonAdd = document.querySelector("#buttonAdd");
+        this.removeSVG = '<i class="fa fa-trash"></i>';
+        this.lengthTodoList = document.querySelector(".lengthTodoList");
+        this.lengthTodoList.textContent =0 ;
+        this.buttonAdd.addEventListener('click', ()=>{this.addTodo()});
+        this.buttonClearAll.addEventListener('click',()=>{this.deleteListToDo()});
+        document.addEventListener('keydown',(event)=>{this.addEnter(event)});  
+    }
+ 
+    async renderTodoList () {
+        this.todoList= await this.ItemClient.getTodo();
+        this.listToDo.innerHTML="";
+        this.todoList.forEach(async (todo) => {
+         const todoItem = await this.createListTodoDiv(todo);
+            this.listToDo.appendChild(todoItem);
+        });
+        this.lengthTodoList.textContent = this.todoList.length;
+        this.setIsActiveClearButton();
+    };
 
-        await this.renderItems();
+    async deleteListToDo(){
+        if (confirm("Are you sure??")){
+            await this.ItemClient.deleteAllTodo();
+            await this.renderTodoList();
+        }
+    }
+    
+    setIsActiveClearButton(){
+        this.buttonClearAll.classList.toggle('active', this.todoList.length > 0);
     }
 
-    handleItem = async () => {
-        const input = document.getElementById("list-item-input");
-        const inputValue = input.value;
-
-        await this.itemClient.postItem(inputValue)
-        await this.renderItems()
+    onItemClick(inputValue){
+        alert(inputValue);
     }
 
-    deleteItem = async item => {
-        await this.itemClient.deleteItem(item);
-        await this.renderItems();
+    async createListTodoDiv(todo){
+        let div = document.createElement('div');
+        div.classList.add('todo');
+        let item = document.createElement('span');
+        item.innerText=todo.text;
+        item.addEventListener('click', () => this.onItemClick(todo.text));
+        let remove = document.createElement('button');
+        remove.classList.add('delete');
+        remove.innerHTML = this.removeSVG
+        remove.id=todo.id;
+        remove.addEventListener('click', async () => {
+            await this.ItemClient.deleteTodo(remove.id);
+            await this.renderTodoList();
+        });
+        div.appendChild(remove);
+        div.appendChild(item);
+        return div;
+    } 
+
+    async addTodo(){
+        const todoInput=document.querySelector('#newToDo input').value;
+        if(todoInput.length == 0) {
+            alert("Please Enter new todo");
+        }else {
+            const todoInputArr=todoInput
+            .split(',')
+            .map(todo => todo.trim())
+            .filter(Boolean)
+            await this.ItemClient.addTodo(todoInputArr);
+            await this.renderTodoList();
+            document.getElementById('newToInput').value = "";
+        }
     }
 
-    renderItems = async () => {
-        const list = document.getElementById("list");
-        list.innerHTML = "";
-
-        const items = await this.itemClient.getItems()
-
-        items.forEach(item => {
-            const listItem = document.createElement("li");
-            listItem.classList.add('list-item');
-            listItem.innerHTML = item;
-
-            const listItemDeleteButton = this._createDeleteButton(item);
-            listItem.appendChild(listItemDeleteButton);
-            list.appendChild(listItem);
-        })
-    }
-
-    _createDeleteButton = item => {
-        const button = document.createElement("img");
-        button.src = "./images/delete_icon.svg";
-        button.classList.add('list-item-delete-button');
-        button.addEventListener("click", _ => this.deleteItem(item));
-
-        return button
+    async addEnter(event){
+        if (event.code === 'Enter') await this.addTodo();
     }
 }
 
-const main = new Main();
-
-document.addEventListener("DOMContentLoaded", function () {
-    main.init();
+document.addEventListener("DOMContentLoaded", async ()=> {
+    main.init(); 
+    await main.renderTodoList();
 });
+
+const main = new Main();

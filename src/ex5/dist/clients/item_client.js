@@ -1,24 +1,36 @@
-class ItemClient {
-    getItems = async () => {
-        const response = await fetch('/items')
-        const todos = await response.json()
 
-        return todos
+class itemClient {
+    
+    constructor(){
+        this.todoList = [];
     }
 
-    postItem = async item => {
-        await fetch('/item', {
+    async getTodo() {
+       const response = await fetch("/getAll");
+       return await response.json();
+    }
+
+    async addTodo(todoList) {
+        const response=await fetch("/",{
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ item })
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(todoList)
         })
-    }
+       return await response.json();
+     }
 
-    deleteItem = async item => {
-        await fetch('/item', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ item })
+     async deleteTodo(id) {
+        const response=await fetch("/"+id,{
+            method: 'DELETE'
         })
-    }
-}
+       return await response.json();
+     }
+
+     async deleteAllTodo() {
+        const response=await fetch("/",{
+            method: 'DELETE'
+        })
+       return await response.json();
+     }
+ }
+

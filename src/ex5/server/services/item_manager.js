@@ -1,53 +1,64 @@
-const PokemonClient = require('../clients/pokemon_client')
 
-class ItemManager {
+import PokemonClient from "../clients/pokemon_client.js";
+const pokemon = new PokemonClient();
+
+export default class ItemManager {
     constructor() {
-        this.pokemonClient = new PokemonClient();
-        this.items = []; //TODO: remove, items should be stored to DB using Item sequelize model
+        this.todoList = [];
     }
-
-    getItems = () => this.items
-
-    handleItem = async item => {
-        if (this._isNumber(item)) { return await this.fetchAndAddPokemon(item); }
-        if (this._isList(item)) { return await this.fetchAndAddManyPokemon(item); }
-
-        this.addItem(item)
-    }
-
-    addItem = item => {
-        this.items.push(item);
-    }
-
-    addPokemonItem = pokemon => {
-        this.addItem(`Catch ${pokemon.name}`);
-    }
-
-    fetchAndAddPokemon = async pokemonId => {
-        try {
-            const pokemon = await this.pokemonClient.getPokemon(pokemonId);
-            this.addPokemonItem(pokemon);
-        } catch (error) {
-            this.addItem(`Pokemon with ID ${pokemonId} was not found`);
+    
+    async addItem(todo){
+        if (isNaN(todo)){
+            return {text:todo ,number:0};
+        }else{
+            const response = await (pokemon.getPokemonNameById(todo));
+            return {text:response,number:1};
         }
     }
 
-    fetchAndAddManyPokemon = async inputValue => {
-        try {
-            const pokemons = await this.pokemonClient.getManyPokemon(inputValue.replace("/ /g", "").split(","));
-            pokemons.forEach(this.addPokemonItem);
-        } catch (error) {
-            console.error(error)
-            this.addItem(`Failed to fetch pokemon with this input: ${inputValue}`)
+    async addArrayItem(todoArray,lengthData){
+        const arr=[];
+        const arr2=[];
+        let str='';
+
+        await Promise.all(todoArray.map(async todo => {
+            const pokemon = await this.addItem(todo);
+            if (pokemon.text.length>0){
+                arr.push(pokemon);
+            }
+        }))
+
+        arr.forEach((item)=>{
+            if(item.number){
+                arr2.push({id:lengthData,text:item.text});
+                lengthData++
+            }else{
+                if (str.length>0){
+                    str=str+','+item.text
+                }else{
+                    str=item.text
+                }
+            }
+        })
+
+        if (str.length>0){
+            arr2.push({id:lengthData,text:str});
+            lengthData++
         }
+
+        return arr2
     }
 
-    deleteItem = item => {
-        this.items = this.items.filter(i => i !== item);
+    deleteListTodo(){
+        this.todoList=[];
     }
 
-    _isNumber = value => !isNaN(Number(value));
-    _isList = value => value.split(",").every(this._isNumber);
+    deleteIdListTodo(id){
+        this.todoList=this.todoList.filter((item) => item.id!=id);
+    }
+
+    deleteNameListTodo(name){
+        this.todoList=this.todoList.filter((item) => item.name!=name);
+    }
 }
 
-module.exports = new ItemManager()
