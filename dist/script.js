@@ -19,16 +19,18 @@ clearButton.onclick = async () => {
 };
 
 sortDownButton.onclick = async () => {
-   loader.classList.add(VISIBLE_CLASS);
-   const sortedTasks = await api.sortTasks("down");
-   renderTasks(false, sortedTasks);
+   sortTasks("down");
 };
 
 sortUpButton.onclick = async () => {
-   loader.classList.add(VISIBLE_CLASS);
-   const sortedTasks = await api.sortTasks("up");
-   renderTasks(false, sortedTasks);
+   sortTasks("up");
 };
+
+async function sortTasks(direction) {
+   loader.classList.add(VISIBLE_CLASS);
+   const sortedTasks = await api.sortTasks(direction);
+   renderTasks(false, sortedTasks);
+}
 
 addTaskButton.onclick = () => addTask();
 taskInput.onkeypress = (e) => {
