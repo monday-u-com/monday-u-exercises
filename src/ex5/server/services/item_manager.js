@@ -2,35 +2,28 @@
 const { catchPokemons } = require("../clients/pokemon_client");
 const { up } = require("../db/migrations/20220623014419-add_status_column");
 const { Item } = require("../db/models");
-const fs = require("fs").promises;
-const TXT_FILE = "myTodoList.txt";
-
-// function _objToArr(propName, objects) {
-//   const data = objects?.map((item) => {
-//     return item[propName];
-//   });
-//   return data;
-// }
 
 async function getAll() {
   let taskList = await Item.findAll();
-  // taskList = _objToArr("ItemName", taskList);
   return taskList;
 }
 
 async function addTask(taskJson) {
-  const task = taskJson.task;
-  let data = [];
+  const { task } = taskJson;
+  let tasks = [];
+  const data = await getAll();
+  const contentList = data.map((item) => item.ItemName);
   try {
     if (!_isNumbers(task)) {
-      data.push(task);
+      tasks.push(task);
     } else {
-      const newTasks = await fetchPokemonsTasks(task); //, await getAll());
-      data = [...newTasks];
+      const newTasks = await fetchPokemonsTasks(task);
+      tasks = [...newTasks];
     }
-    // await _writeToFile(data);
-    for (const item of data) {
-      await Item.create({ ItemName: item, status: false });
+    for (const item of tasks) {
+      if (!contentList.includes(item)) {
+        await Item.create({ ItemName: item, status: false });
+      }
     }
   } catch (error) {
     console.error(error.message);
@@ -45,12 +38,7 @@ async function fetchPokemonsTasks(ids, data) {
     pokemonsRawJson?.forEach((pokemonJson) => {
       const pokemonName = pokemonJson.name;
       const pokemonTask = "Catch: " + pokemonName;
-      if (data.indexOf(pokemonTask) === -1)
-        //task not exist
-        tasks.push(pokemonTask);
-      else {
-        console.log(`Task ${pokemonTask} already exist!`);
-      }
+      tasks.push(pokemonTask);
     });
   } catch {
     const msg = `Failed to fetch pokemon with this input: ${ids}`;
@@ -94,24 +82,6 @@ async function deleteAllTasks() {
     });
   } catch (error) {
     console.error(error.message);
-  }
-}
-
-async function _writeToFile(taskList) {
-  try {
-    fs.writeFile(TXT_FILE, taskList.join("\n"));
-  } catch (error) {
-    console.error(`Error read the file: ${error.message}`);
-  }
-}
-
-async function _readTasksFile() {
-  try {
-    let data = await fs.readFile(TXT_FILE, "utf-8");
-    data = data.split("\n");
-    return data.length === 1 && data[0].length === 0 ? [] : [...data];
-  } catch (error) {
-    console.error(`Error read the file: ${error.message}`);
   }
 }
 

@@ -40,10 +40,11 @@ input[type="checkbox"] {
     display: flex;
 }
 
-.add-task-btn{
+.add-task-btn {
     border: none;
     background: none;
 }
+
 .add-task input {
     padding: 0 0 0 3px;
     margin: 0 5px 0 0;
@@ -137,7 +138,7 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-.clear-all-btn[disabled]{
+.clear-all-btn[disabled] {
     cursor: default;
 }
 
@@ -148,20 +149,32 @@ input[type="checkbox"] {
     position: absolute;
     z-index: 1;
     margin: 0 0 0 -20px;
-    border: 10px solid #fdcd3b; /* Light grey */
-    border-top: 10px solid #ffed4b; /* Blue */
+    border: 10px solid #fdcd3b;
+    /* Light grey */
+    border-top: 10px solid #ffed4b;
+    /* Blue */
     border-radius: 50%;
     width: 30px;
     height: 30px;
     animation: spin 1.5s ease infinite, fadeIn 1s;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+}
 
-  @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

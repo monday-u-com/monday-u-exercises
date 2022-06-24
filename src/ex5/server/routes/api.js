@@ -8,7 +8,7 @@ todoRouter.get("/", getAll);
 todoRouter.post("/", addTask);
 todoRouter.put("/", updateTask);
 todoRouter.delete("/", deleteTask);
-todoRouter.delete("/delete_all", deleteAllTasks); //can't choose right function with end-point delete_all
+todoRouter.delete("/delete_all", deleteAllTasks);
 
 //controller
 

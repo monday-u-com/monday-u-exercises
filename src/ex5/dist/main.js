@@ -86,9 +86,9 @@ class Main {
     const input = document.createElement("input");
     input.setAttribute("type", "checkbox");
     if (status) input.checked = true;
-    input.onclick = (e) => {
+    input.onclick = async (e) => {
       e.stopPropagation();
-      this.callFuncWithLoader(this.itemClient.updateTask, {
+      await this.callFuncWithLoader(this.itemClient.updateTask, {
         ...item,
         status: e.target.checked,
       });
@@ -104,9 +104,9 @@ class Main {
       e.stopPropagation();
     };
 
-    h3.addEventListener("focusout", (e) => {
+    h3.addEventListener("focusout", async (e) => {
       if (e.target.innerText.trim() !== text) {
-        this.callFuncWithLoader(this.itemClient.updateTask, {
+        await this.callFuncWithLoader(this.itemClient.updateTask, {
           ...item,
           ItemName: e.target.innerText.trim(),
         });
@@ -125,11 +125,9 @@ class Main {
 
     delBtn.onclick = async (e) => {
       e.stopPropagation();
-      // const taskList = this._getTaskList();
       const getDivParent = delBtn.closest("div");
       const getTextFromH3 =
         getDivParent.getElementsByTagName("h3")[0].textContent;
-      // const index = taskList.indexOf(getTextFromH3);
       await this.itemClient.removeTask(getTextFromH3);
       await this.renderTaskList();
     };
