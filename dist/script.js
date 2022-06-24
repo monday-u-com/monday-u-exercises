@@ -126,7 +126,8 @@ function createDeleteTaskButton(taskContainer) {
 
    deleteTask.onclick = async () => {
       await api.deleteTask(taskContainer.dataset.id);
-      renderTasks(false);
+      pendingTasksCounter.textContent--;
+      taskContainer.remove();
    };
 
    return deleteTask;
