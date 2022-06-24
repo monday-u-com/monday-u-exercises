@@ -1,34 +1,20 @@
-const axios = require("axios")
 
-class PokemonClient {
+import axios from "axios";
+export default class PokemonClient {
     constructor() {
-        this.API_URL = 'https://pokeapi.co/api/v2/pokemon/'
+        this.API_BASE = 'https://pokeapi.co/api/v2';
     }
 
-    async getPokemon(id) {
+    async getPokemonNameById(id) {
         try {
-            const response = await axios.get(`${this.API_URL}${id}`)
-            const pokemon = response.data
-
-            return pokemon
-        } catch (error) {
-            console.error(error)
-            throw new Error("Failed to fetch pokemon")
-        }
-    }
-
-    async getManyPokemon(ids) {
-        try {
-            const promises = ids.map(id => axios.get(`${this.API_URL}${id}`))
-            const responses = await Promise.all(promises)
-
-            const pokemons = responses.map(r => r.data)
-            return pokemons
-        } catch (error) {
-            console.error(error)
-            throw new Error("Failed to fetch pokemon")
-        }
+            const response = await axios.get(`${this.API_BASE}/pokemon-form/${id}/`)
+            const result =  response.data;
+            return `Catch ${result.pokemon.name}`;
+        } catch(err){
+            if(err.response.status === 404){
+                return `Pokemon with ID ${id} was not found`;
+            }
+        } 
     }
 }
 
-module.exports = PokemonClient
