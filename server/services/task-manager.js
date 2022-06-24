@@ -28,9 +28,7 @@ class TaskManager {
 
    clear = () => db.clearTasks();
 
-   async sort(direction) {
-      return await db.sortTasks(direction);
-   }
+   sort = async (direction) => await db.sortTasks(direction);
 
    async checkMarkTask(checkMarkReq) {
       await db.checkMarkTask(checkMarkReq.isChecked, checkMarkReq.taskID);

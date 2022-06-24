@@ -4,10 +4,7 @@ const { Task } = require("../db/models");
 const POKEMON_FILE_NAME = "./server/pokemon-names.json";
 
 class DBManager {
-   getAllTasks = async () => {
-      const allTasks = await Task.findAll();
-      return allTasks;
-   };
+   getAllTasks = async () => await Task.findAll();
 
    async addTask(task) {
       await Task.bulkCreate(task);
@@ -28,6 +25,7 @@ class DBManager {
 
    async sortTasks(direction) {
       direction = direction === "down" ? "ASC" : "DESC";
+
       return await Task.findAll({
          order: [
             ["text", direction],
