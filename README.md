@@ -1,6 +1,6 @@
-# Monday Exercises - Exercise 4
+# Monday Exercises - Exercise 5
 
-This is my task for Exercise 4 of Monday-U Full Stack course. Task requirements are detailed below.
+This is my task for Exercise 5 of Monday-U Full Stack course. Task requirements are detailed below.
 
 -  Please try the app right here: https://weekend-todo.netlify.app/
 
@@ -12,19 +12,21 @@ https://user-images.githubusercontent.com/99750449/174444998-2a6cfa98-ba87-47a0-
 
 ### The requirements:
 
--  [x] Create your express backend (include separate `dist` and `server` folders)
--  [x] Your `server.js` file should have all the express boilerplate and host your `dist` directory to any client that requests it (hint: you'll need to `.use` the `express.static` method)
--  [x] Create an `api.js` file that acts as the 'controller' of your backend, handling all the routes (endpoints)
--  [x] Create separate endpoints for (1) fetching all the todo items, (2) creating a new one, and (3) deleting an existing one (hint: don't forget `bodyParser`)
--  [x] Move the pokemon fetching code to the backend - use `axios` instead of `fetch` for your requests
--  [x] On app load (i.e. when a user enters the page) it should fetch all the todo items and render them
+-  [x] Install Sequelize and mysql driver. [Sequelize- Getting Started](https://sequelize.org/docs/v6/getting-started/)
+-  [x] Install Sequelize CLI. [Installing the CLI](https://sequelize.org/docs/v6/other-topics/migrations/)
+-  [x] Initialize Sequelize using `npx sequelize-cli init` inside 'src/server/db' folder
+-  [x] Create Items table using [Sequelize migration](https://sequelize.org/docs/v6/other-topics/migrations/#creating-the-first-model-and-migration) - a new table with id and ItemName fields
+-  [x] Modify `item_manager.js`: remove items array and modify all item operations to use Item model
+-  [x] Create and run a separate migration for adding a `status` column (BOOLEAN) to Items table in your DB
+-  [x] Add checkbox to each item in UI to indicate its status (Done vs not)
+-  [x] Modify client and server code to support persistence of the new Item status
 
 ### Bonus
 
--  [x] Create a [middleware](https://expressjs.com/en/guide/using-middleware.html) that makes a log each time a user accesses any of the routes (you can just do a `console.log`)
--  [x] Handle server errors elegantly. Specifically, if anything goes wrong the user should see an error message (ideally, not an alert) with an explanation of what went wrong instead of crashing the page
--  [x] Add a loder/spinner to the page that indicates the client is waiting for an async operation (e.g. a call to the server) to finish
--  [x] Add simple caching to your server. If a user requests for the same pokemon ID three times in the same minute, for example, it should only make a request to the Pokemon API once. You can use a simple in-memory data structure for your cache
+-  [ ] Add "Done" timestamp
+-  [ ] Add index to the Items table (which columns compose the index?)
+-  [ ] Add server validation - create a new item only if not exists (Use transaction)
+-  [ ] Add edit capabilities to an item.
 
 ## CLI(exc 3)
 
