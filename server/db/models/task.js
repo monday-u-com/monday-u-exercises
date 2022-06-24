@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       {
          sequelize,
          modelName: "Task",
+         indexes: [{ unique: true, fields: ["id"] }],
       }
    );
    return Task;
