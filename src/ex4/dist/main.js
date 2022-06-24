@@ -18,7 +18,10 @@ const resetNewItemInput = () => {
 };
 
 const addNewItem = async (itemName) => {
-	await addItem({ itemName });
+	const resStatus = await addItem({ itemName });
+	if (resStatus === 400) {
+		alert("this item alredy exist.");
+	}
 	await renderAllItems();
 	resetNewItemInput();
 };

@@ -90,7 +90,6 @@ class ItemManager {
 			for (let i = 0; inputToArray.length > i; i++) {
 				if (!(await this.isPokemonExist(inputToArray[i]))) {
 					itemsToFetch.push(inputToArray[i]);
-					console.log(inputToArray);
 				}
 			}
 			return itemsToFetch;

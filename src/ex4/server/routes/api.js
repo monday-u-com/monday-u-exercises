@@ -20,7 +20,7 @@ router.route("/").get(async (req, res) => {
 router.route("/add").post(async (req, res) => {
 	try {
 		const itemsToFetch = await item_manager.validateInput(req.body);
-		if (itemsToFetch) {
+		if (itemsToFetch.length > 0) {
 			const creationMessage = await item_manager.handlingInput(itemsToFetch);
 			if (!creationMessage) {
 				throw new Error("something went wrong it's not created.");
@@ -31,7 +31,7 @@ router.route("/add").post(async (req, res) => {
 		throw new Error("this item alredy exist.");
 	} catch (err) {
 		console.log(err);
-		res.status(406).send(err.message);
+		res.status(400).send(err);
 	}
 });
 
@@ -40,7 +40,7 @@ router.route("/update/:id").put(async (req, res) => {
 		await item_manager.updateItem(req.body, req.params.id);
 		res.status(201).send("updated!");
 	} catch (err) {
-		res.status(406).send(err.message);
+		res.status(400).send(err.message);
 	}
 });
 
@@ -52,7 +52,7 @@ router.route("/delete/:id").delete(async (req, res) => {
 		}
 		res.status(200).send(allItems);
 	} catch (err) {
-		res.status(406).send(err.message);
+		res.status(400).send(err.message);
 	}
 });
 
@@ -64,7 +64,7 @@ router.route("/clear").delete(async (req, res) => {
 		}
 		res.status(200).send(`"${numOfDestringItems}"`);
 	} catch (err) {
-		return err;
+		res.status(400).send(err.message);
 	}
 });
 module.exports = router;

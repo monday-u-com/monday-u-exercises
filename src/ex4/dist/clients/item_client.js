@@ -12,19 +12,15 @@ const getAllTasks = async () => {
 };
 
 const addItem = async (item) => {
-	try {
-		const res = await fetch("/tasks/add", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(item),
-		});
-		if (res.ok) {
-			return;
-		} else {
-			throw new Error("not created");
-		}
-	} catch (err) {
-		return err;
+	const res = await fetch("/tasks/add", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(item),
+	});
+	if (res.ok) {
+		return res.status;
+	} else {
+		return res.status;
 	}
 };
 
