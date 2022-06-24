@@ -36,7 +36,10 @@ export async function addTodo(todo,options){
     .split(',')
     .map(todo => todo.trim())
     .filter(Boolean))
-    .then(()=> { WriteFileTodo(); console.log(chalk[options.color](`New todo added successfully`));});
+    .then(()=> { 
+      WriteFileTodo();
+      console.log(chalk[options.color](`New todo added successfully`));
+    });
 }
 
 export async function getTodo(options){

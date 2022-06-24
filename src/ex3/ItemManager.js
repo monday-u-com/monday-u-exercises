@@ -16,7 +16,7 @@ export class ItemManager {
         const arr=[]
         await Promise.all(todoArray.map(async todo => {
             const pokemon = await this.addItem(todo);
-            if (pokemon.text.length>0){
+            if (pokemon.text.length){
                 arr.push(pokemon);
             }
         }))
@@ -48,5 +48,4 @@ export class ItemManager {
         this.todoList=this.todoList.filter((item) => item!=name);
     }
 }
-const itemManager = new ItemManager();
 
