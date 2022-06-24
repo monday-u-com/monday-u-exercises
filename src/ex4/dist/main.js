@@ -1,5 +1,4 @@
 class Main {
-
     constructor() {
         this.ItemClient = new itemClient();
         this.todoList= [];
@@ -88,4 +87,3 @@ document.addEventListener("DOMContentLoaded", async ()=> {
 });
 
 const main = new Main();
-

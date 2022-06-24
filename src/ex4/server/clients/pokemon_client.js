@@ -1,3 +1,4 @@
+
 import axios from "axios";
 export default class PokemonClient {
     constructor() {
@@ -16,3 +17,4 @@ export default class PokemonClient {
         } 
     }
 }
+

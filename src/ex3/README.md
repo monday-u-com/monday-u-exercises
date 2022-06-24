@@ -1,10 +1,8 @@
 # Exercise 3 - Node.js, CLI
 
-Time for task #3!<br>
+**To run the program use ```node inquirer.js``` or ```node index.js```**
 
-**To run the program use node inquirer.js or node index.js**
 
-=================================================================
 
 ## In this section you will practice
 

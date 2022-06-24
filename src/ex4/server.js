@@ -1,3 +1,4 @@
+
 import express from "express";
 import todoRouter from "./server/routes/api.js";
 import compression from "compression";
@@ -22,3 +23,4 @@ process.on("uncaughtException", (error) => {
 server.listen(port, () => {
    console.log("Server started on port", port);
 });
+
