@@ -59,7 +59,7 @@ async function getItems() {
 }
 
 async function createItemsBulk(itemsRow) {
-  const t = sequelize.transaction();
+  const t = await sequelize.transaction();
 
   try {
     await Item.bulkCreate(itemsRow, { t });
@@ -68,8 +68,8 @@ async function createItemsBulk(itemsRow) {
 
 async function updateStatusInDb(itemId, newStatus) {
   let status = newStatus;
-  const t = sequelize.transaction();
-  Item.update({ status }, { where: { itemId: itemId } }, { t });
+ 
+  Item.update({ status }, { where: { itemId: itemId } });
   let item = getItemById(itemId);
   return item;
 }

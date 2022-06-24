@@ -35,7 +35,7 @@ body {
 .list-container {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 50%;
   height: 70%;
   background-color: white;
   border: 1px silver solid;
@@ -163,6 +163,7 @@ body {
   background-color: transparent;
   resize: none;
   outline: none;
+  width: 600px;
 }
 
 .save {
@@ -181,7 +182,7 @@ body {
 .checkBox {
   margin-right: 5px;
 }
-*/ @keyframes loader {
+ @keyframes loader {
   0% {
     transform: rotate(0deg);
   }

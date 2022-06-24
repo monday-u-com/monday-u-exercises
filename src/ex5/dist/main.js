@@ -44,7 +44,6 @@ class Main {
 
   renderItems = async () => {
     let itemsData = await this.itemClient.fetchAllItems();
-   
 
     const items = itemsData.data;
 
@@ -118,9 +117,10 @@ class Main {
     return divElementWithCheckBox;
   };
 
-  handleCheckBox(item) {
+  async handleCheckBox(item) {
     let listItem = document.getElementById(item.itemId);
     let itemCheckBox = listItem.firstChild.firstChild;
+    let inputText = listItem.childNodes[1];
 
     if (itemCheckBox.checked) {
       this.addCompletedDecoration(item);
@@ -134,8 +134,12 @@ class Main {
         .toISOString()
         .slice(0, 19)
         .replace("T", " ");
+    
+      timestampNow = timestampNow.toDateString();
+      inputText.value += ", " + timestampNow;
 
-      this.itemClient.updateDoneTimestamp(item.itemId, timestampNowToDb);
+      await this.itemClient.updateDoneTimestamp(item.itemId, timestampNowToDb);
+      await this.itemClient.updateNameInDb(item.itemId, inputText.value);
     } else {
       this.removeCompletedDecoration(item);
       this.itemClient.updateStatusInDb(item.itemId, false);
@@ -206,14 +210,14 @@ class Main {
     editButton.classList.add("save");
 
     await editButton.addEventListener("click", () =>
-     this.saveNewName(inputText, editButton, item)
+      this.saveNewName(inputText, editButton, item)
     );
   };
 
   saveNewName = async (inputText, editButton, item) => {
     inputText.removeAttribute("placeholder");
     inputText.readOnly = true;
-  
+
     editButton.setAttribute("src", "./images/edit-icon.svg");
 
     inputText.classList.remove("edit-mode");
@@ -222,11 +226,10 @@ class Main {
     await this.renderItems().then((resolvedData) =>
       setTimeout(() => {
         this.loader.classList.add("display");
-       
-        if(!item.status){
+
+        if (!item.status) {
           inputText.classList.remove("decorate");
         }
-        
       }, 100)
     );
   };
