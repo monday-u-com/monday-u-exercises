@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
          pokemonType: DataTypes.STRING,
          imageURL: { type: DataTypes.STRING, validate: { isUrl: true } },
          status: DataTypes.BOOLEAN,
+         done: DataTypes.DATE,
       },
       {
          sequelize,

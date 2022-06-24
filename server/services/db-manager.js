@@ -42,6 +42,7 @@ class DBManager {
             throw new Error("No task found");
          }
          task.update({ status: isChecked });
+         task.update({ done: isChecked ? Date.now() : null });
       });
    }
 
