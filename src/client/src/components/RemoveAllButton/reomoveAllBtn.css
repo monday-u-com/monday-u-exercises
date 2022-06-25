@@ -1,0 +1,27 @@
+.remove-all
+{
+    display: flex;
+    justify-content: center;
+}
+
+
+.remove-all-btn
+{
+    margin-top: 5rem;
+    padding: 0.3rem;
+    font-size: 1rem;
+    bottom: 1.5rem;   
+    background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.5rem;
+    transition: 0.5s;
+}
+
+.remove-all-btn:hover
+{
+    color: black;
+    background-image: linear-gradient(0deg,#97D9E1  0%, #D9AFD9 100%);
+
+}

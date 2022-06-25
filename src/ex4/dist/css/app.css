@@ -182,13 +182,14 @@ select
 
 .search i {
     position: absolute;
-    margin-top: 0.25rem;
+    margin-top: 0.375em;
 }
  
 
 .search-icon {
     padding: 10px;
     min-width: 1.5rem;
+    margin-left: 1rem;
 }
  
 #search-input {
