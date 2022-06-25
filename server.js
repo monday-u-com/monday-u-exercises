@@ -8,7 +8,7 @@ const port = 8080;
 const server = express();
 
 server.use([logger, compression(), express.json()]);
-server.use(express.static("dist"));
+// server.use(express.static("dist"));
 
 server.use("/", router);
 
