@@ -1,20 +1,26 @@
 {
-  "name": "ex4",
+  "name": "ex5",
   "version": "1.0.0",
-  "description": "You know what they say about #4: you'll remember it *for*ever (ha)",
+  "description": "This is the solution for the fifth exercise",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "start:dev": "nodemon server.js"
+    "dev:start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.27.2",
+    "axios": "^0.26.1",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
-    "express": "^4.18.1",
-    "nodemon": "^2.0.16"
+    "express": "^4.17.3",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.16",
+    "sequelize": "^6.21.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.4.1"
   }
 }

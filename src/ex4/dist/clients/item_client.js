@@ -1,11 +1,9 @@
-// Create an ItemClient class here. This is what makes requests to your express server (your own custom API!)
-
 export class ItemClient {
   constructor() {
     this.URL = 'http://localhost:8080/tasks';
   }
 
-  async getTasks() {
+  async getItems() {
     try {
       const response = await fetch(`${this.URL}/getAll`);
       if (!response.ok) {
@@ -19,11 +17,11 @@ export class ItemClient {
     }
   }
 
-  async addTasks(tasks) {
+  async addItems(items) {
     try {
-      const response = await fetch(`${this.URL}/addTask`, {
+      const response = await fetch(`${this.URL}/addItem`, {
         method: 'POST',
-        body: JSON.stringify(tasks),
+        body: JSON.stringify(items),
         headers: { 'Content-Type': 'application/json' },
       });
 
@@ -31,17 +29,16 @@ export class ItemClient {
         console.log('Could not add tasks');
         return;
       }
+      return response;
     } catch (err) {
       console.log('some error occured:', err.message);
     }
   }
 
-  async removeItem(item) {
+  async removeItem(id) {
     try {
-      const response = await fetch(`${this.URL}/deleteTask`, {
+      const response = await fetch(`${this.URL}/deleteItem/${id}`, {
         method: 'DELETE',
-        body: JSON.stringify({ text: item }),
-        headers: { 'Content-Type': 'application/json' },
       });
 
       if (!response.ok) {
@@ -63,6 +60,37 @@ export class ItemClient {
         console.log('Could not delete tasks');
         return;
       }
+    } catch (err) {
+      console.log('some error occured:', err.message);
+    }
+  }
+
+  async changeState(id) {
+    try {
+      const response = await fetch(`${this.URL}/changeState/${id}`);
+
+      if (!response.ok) {
+        console.log('Could not change status');
+        return;
+      }
+    } catch (err) {
+      console.log('some error occured:', err.message);
+    }
+  }
+
+  async editItem(id, text) {
+    try {
+      const response = await fetch(`${this.URL}/editItem/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ ItemName: text }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        console.log('Could not edit task');
+        return;
+      }
+      return response;
     } catch (err) {
       console.log('some error occured:', err.message);
     }

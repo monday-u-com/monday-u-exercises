@@ -23,7 +23,7 @@ module.exports = class PokemonClient {
     try {
       const singleResponse = await axios.get(`${this.API_URL}${id}/`);
       const data = singleResponse.data;
-      return { id: data.id, task: `Catch ${data.name}` };
+      return data;
     } catch (err) {
       console.log(err.message);
       if (isNaN(id)) {

@@ -1,89 +1,60 @@
-const fs = require('fs').promises;
-const tasksFile = 'tasks_file.json';
 const pokemonApi = require('../clients/pokemon_client');
+const { Op } = require('sequelize');
+const { Item } = require('../../db/models');
+const { v4: uuidv4 } = require('uuid');
 const pokemonClient = new pokemonApi();
-const cache = new Map();
 
-async function addTasksOrPokemons(tasks) {
-  let data = await readTasksFile();
-  if (!data) {
-    data = [];
+class ItemManager {
+  constructor() {
+    this.pokemonClient = new pokemonApi();
   }
 
-  const cachedTasks = tasks.filter((task) => !isNaN(task) && cache.has(task)); // find cached tasks (only numbers)
+  getAll = async () => await Item.findAll({ order: [['createdAt', 'DESC']] });
 
-  const result = await pokemonClient.fetchPokemons(
-    tasks.filter((item) => !cache.has(item))
-  ); // fetch only new requests
+  deleteAll = async () =>
+    await Item.destroy({
+      truncate: true,
+    });
 
-  const modifiedResult = result.map((item) => {
-    if (typeof item === 'object') {
-      return { text: item.task };
-    }
-    return { text: item };
-  });
+  deleteItem = async (id) =>
+    await Item.destroy({
+      where: {
+        Id: id,
+      },
+    });
 
-  const modifiedCache = cachedTasks.map((task) => {
-    return { text: cache.get(task) };
-  });
+  changeState = async (id) => {
+    const item = await Item.findOne({ where: { Id: id } });
+    const newStatus = !item.status;
+    await Item.update({ status: newStatus }, { where: { Id: id } });
+  };
 
-  data.push(...modifiedResult, ...modifiedCache);
-  await writeToTasksFile(data);
+  editItem = async (id, text) => {
+    await Item.update({ pokemonId: null, ...text }, { where: { Id: id } });
+  };
+  addTasksOrPokemons = async (tasks) => {
+    const pokemonsRegisterd = await Item.findAll({
+      where: { pokemonId: { [Op.ne]: null } },
+    });
+    const pokemonsIds = pokemonsRegisterd.map((item) => '' + item.pokemonId);
+    const tasksFiltered = tasks.filter((task) => !pokemonsIds.includes(task));
 
-  updateCache(
-    tasks,
-    result.filter((res) => typeof res === 'object')
-  ); //add new pokemon requests to the cache
+    const result = await pokemonClient.fetchPokemons(tasksFiltered); // fetch only new pokemons
+    const array = result.map((item) => {
+      if (typeof item === 'object') {
+        return {
+          id: uuidv4(),
+          ItemName: `Catch ${item.name}`,
+          status: false,
+          pokemonId: item.id,
+        };
+      } else {
+        return { id: uuidv4(), ItemName: item, status: false, pokemonId: null };
+      }
+    });
+
+    return await Item.bulkCreate(array);
+  };
 }
 
-async function deleteTask(task) {
-  const fileData = await getAll(); // reading file data
-  const taskIndex = fileData.findIndex((value) => value.text === task.text);
-  if (taskIndex === -1) {
-    return;
-  }
-  fileData.splice(taskIndex, 1);
-  await writeToTasksFile(fileData);
-  return task;
-}
-
-async function deleteAll() {
-  await writeToTasksFile([]);
-}
-
-async function getAll() {
-  return await readTasksFile();
-}
-
-async function readTasksFile() {
-  try {
-    const data = await fs.readFile(tasksFile);
-    return JSON.parse(data.toString());
-  } catch (error) {
-    console.error(`Got an error trying to read the file: ${error.message}`);
-  }
-}
-
-async function writeToTasksFile(content) {
-  try {
-    await fs.writeFile(tasksFile, JSON.stringify(content));
-  } catch (error) {
-    console.error(`Failed to write to file ${error.message}`);
-  }
-}
-
-function updateCache(keys, values) {
-  keys.forEach((key) => {
-    if (!isNaN(key) && !cache.has(key)) {
-      const value = values.find((val) => parseInt(key) === val.id);
-      cache.set(key, value.task);
-    }
-  });
-}
-
-module.exports = {
-  addTasksOrPokemons,
-  deleteAll,
-  deleteTask,
-  getAll,
-};
+module.exports = new ItemManager();
