@@ -4,7 +4,7 @@ import SortButtons from "./SortButtons";
 import Tasks from "./Tasks";
 import Loader from "./Loader";
 import PendingTasks from "./PendingTasks";
-import ClearButton from "./ClearButton";
+import Button from "./Button";
 import Titles from "./Titles";
 
 function Card() {
@@ -18,7 +18,7 @@ function Card() {
             <Loader />
             <div className="footer-container">
                <PendingTasks />
-               <ClearButton />
+               <Button innerText={"Clear All"} className={"clear-all"} />
             </div>
          </div>
       </div>
