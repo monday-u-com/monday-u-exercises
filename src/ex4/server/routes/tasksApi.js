@@ -13,17 +13,28 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const taskInput = req.body.itemName;
   const isCompleted = req.body.status;
-  const isAdded = await itemManager.addTask(taskInput, isCompleted);
-  if (isAdded) {
-    res.status(200).json(req.body);
+  const response = await itemManager.addTask(taskInput, isCompleted);
+  if (response) {
+    res.status(200).json(response);
   } else {
     res.status(409).json({ error: "Task already exists" });
   }
 });
 
+// router.put("/:id", async (req, res) => {
+//   const taskID = req.params.id;
+//   const isUpdated = await itemManager.toggleCompleted(taskID);
+//   if (isUpdated) {
+//     res.status(200).json(req.body);
+//   } else {
+//     res.status(404).json({ error: "Task does not exist" });
+//   }
+// });
+
 router.put("/:id", async (req, res) => {
-  const taskID = req.params.id;
-  const isUpdated = await itemManager.toggleCompleted(taskID);
+  const id = req.params.id;
+  const updatedContent = req.body;
+  const isUpdated = await itemManager.updateTask(id, updatedContent);
   if (isUpdated) {
     res.status(200).json(req.body);
   } else {

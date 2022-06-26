@@ -3,6 +3,7 @@ const fs = require("fs");
 const PokemonClient = require("../clients/pokemon_client.js");
 const path = require("path");
 const { Item } = require("../db/models");
+const { log } = require("console");
 
 class ItemManager {
   constructor() {
@@ -30,8 +31,8 @@ class ItemManager {
 
       return res;
     } else {
-      const isAdded = await this.addTaskToFile(taskInput, isCompleted);
-      return isAdded;
+      const res = await this.addTaskToFile(taskInput, isCompleted);
+      return res;
     }
   }
 
@@ -46,16 +47,16 @@ class ItemManager {
   async addCatchPokemonTask(input) {
     let response = null;
     if ((response = this.getResponseFromCache(input))) {
-      await this.addResponsesToTasks(input, response, true);
-      return response;
+      const res = await this.addResponsesToTasks(input, response, true);
+      return res;
     } else {
       response = await this.getPokemonsToAdd(input);
       if (response === false) {
         return false;
       } else {
         const res = await this.addResponsesToTasks(input, response, false);
-
-        return true;
+        console.log(res);
+        return res;
       }
     }
   }
@@ -68,14 +69,16 @@ class ItemManager {
   }
 
   async addResponsesToTasks(input, response, isFromCache) {
+    const res = [];
     if (!isFromCache) {
       this.saveResponseToCache(input, response);
     }
 
     for (const pokemon of response) {
-      await this.addTaskToFile(pokemon, false);
+      const item = await this.addTaskToFile(pokemon, false);
+      res.push(item);
     }
-    return true;
+    return res;
   }
 
   async addTaskToFile(taskInput, isCompleted) {
@@ -93,35 +96,48 @@ class ItemManager {
     }
   }
 
-  async toggleCompleted(id) {
-    const task = this.tasks.find((task) => {
-      return task.id == id;
-    });
-
+  async updateTask(taskID, taskToUpdate) {
+    const task = this.tasks.find((task) => task.id == taskID);
     if (task) {
-      if (task.status)
+      if (task.status === false && taskToUpdate.status === true) {
         await Item.update(
-          { status: !task.status, doneAt: null },
-          { where: { id: task.id } }
+          {
+            itemName: taskToUpdate.itemName,
+            status: taskToUpdate.status,
+            doneAt: new Date(),
+          },
+          { where: { id: taskID } }
         );
-      else
+      } else if (task.status === true && taskToUpdate.status === false) {
         await Item.update(
-          { status: !task.status, doneAt: new Date() },
-          { where: { id: task.id } }
+          {
+            itemName: taskToUpdate.itemName,
+            status: taskToUpdate.status,
+            doneAt: null,
+          },
+          { where: { id: taskID } }
         );
-      task.status = !task.status;
+      } else {
+        await Item.update(
+          { itemName: taskToUpdate.itemName, status: taskToUpdate.status },
+          { where: { id: taskID } }
+        );
+      }
+      task.itemName = taskToUpdate.itemName;
+      task.status = taskToUpdate.status;
       return task;
     }
   }
 
   async saveTaskToDB(task) {
+    let item;
     try {
-      await Item.create(task);
+      item = await Item.create(task);
     } catch (err) {
       console.log(err);
       return false;
     }
-    return true;
+    return item.dataValues;
   }
 
   async RemoveTaskFromDB(taskID) {

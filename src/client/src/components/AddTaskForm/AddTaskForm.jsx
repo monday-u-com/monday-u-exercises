@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import ItemClient from "../../services/taskService";
 import "./addTaskForm.css";
 
 const AddTaskForm = ({ tasks, setTasks, editTask, setEditTask }) => {
   const [input, setInput] = useState("");
 
+  const taskService = new ItemClient();
   let iconClassName;
 
   useEffect(() => {
@@ -22,30 +24,45 @@ const AddTaskForm = ({ tasks, setTasks, editTask, setEditTask }) => {
       iconClassName = "fa fa-plus";
     }
   };
-  const updateTask = (input, itemName, status) => {
-    const newTask = {
-      itemName: input,
-      status: status,
-    };
-    setTasks(
-      tasks.map((task) => {
-        if (task.itemName === itemName) {
-          return newTask;
-        }
-        return task;
-      })
-    );
-    setEditTask(null);
+
+  const updateTask = async (input, id, itemName, status) => {
+    const taskToEdit = tasks.find((task) => task.id === id);
+    taskToEdit.itemName = input;
+    taskToEdit.status = status;
+    const isEdited = await taskService.updateTask(taskToEdit);
+    if (isEdited) {
+      setTasks(
+        tasks.map((task) => {
+          if (task.id === id) {
+            return taskToEdit;
+          }
+          return task;
+        })
+      );
+      setEditTask(null);
+    } else {
+      alert("Error updating task");
+    }
   };
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = async (e) => {
     e.preventDefault();
     if (editTask) {
-      updateTask(input, editTask.itemName, editTask.status);
+      updateTask(input, editTask.id, editTask.itemName, editTask.status);
     } else {
       if (input.trim()) {
-        setTasks([...tasks, { itemName: input, status: false }]);
-        setInput("");
+        const res = await taskService.addTask(input, false);
+        console.log(res);
+        if (res) {
+          if (Array.isArray(res)) {
+            setTasks([...tasks, ...res]);
+          } else {
+            setTasks([...tasks, res]);
+          }
+          setInput("");
+        } else {
+          alert("Error adding task");
+        }
       }
     }
   };

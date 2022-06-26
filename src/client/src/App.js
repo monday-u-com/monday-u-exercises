@@ -5,7 +5,7 @@ import TasksList from "./components/TasksList/TasksList.jsx";
 import EmptyListNote from "./components/EmptyListNote/EmptyListNote.jsx";
 import ActionBar from "./components/ActionBar/ActionBar.jsx";
 import RemoveAllBtn from "./components/RemoveAllButton/RemoveAllBtn.jsx";
-import { ItemClient } from "./api/taskClient.js";
+import ItemClient from "./services/taskService.js";
 import "./App.css";
 
 const App = () => {
@@ -15,10 +15,17 @@ const App = () => {
   const [statusFilter, setStatusFilter] = useState("all");
   const [presentedTasksNum, setPresentedTasksNum] = useState(0);
 
+  const taskService = new ItemClient();
 
+  useEffect(() => {
+    taskService.fetchTasks().then((tasks) => {
+      setTasks(tasks);
+    });
+  }, []);
 
   const handleRemoveAll = () => {
     setTasks([]);
+    taskService.removeAllTasks();
   };
 
   const showRemoveAllBtn = () => {

@@ -7,7 +7,6 @@ const cors = require("cors");
 const clearCache = require("./server/services/clearCache.js");
 const cron = require("node-cron");
 const path = require("path");
-  
 
 app.use(express.json());
 app.use(cors());

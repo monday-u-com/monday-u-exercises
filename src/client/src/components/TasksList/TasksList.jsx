@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import TaskButtons from "../TaskButtons/TaskButtons";
+import ItemClient from "../../services/taskService";
 import "./taskList.css";
 
 const TasksList = ({
@@ -12,6 +13,7 @@ const TasksList = ({
   setPresentedTasksNum,
 }) => {
   const [filteredTasks, setFilteredTasks] = useState([]);
+  const taskService = new ItemClient();
 
   useEffect(() => {
     const searchFilteredTasks = tasks.filter((task) => {
@@ -40,24 +42,24 @@ const TasksList = ({
     setPresentedTasksNum(statusFilteredTasks.length);
   }, [tasks, searchInput, statusFilter]);
 
-  const handleDelete = (task) => {
-    setTasks(tasks.filter((t) => t.itemName !== task.itemName));
+  const handleDelete = async (task) => {
+    setTasks(tasks.filter((t) => t.id !== task.id));
+    await taskService.removeTask(task.id);
   };
 
-  const handleComplete = (task) => {
-    setTasks(
-      tasks.map((t) => {
-        if (t.itemName === task.itemName) {
-          t.status = !t.status;
-        }
-        return t;
-      })
-    );
+  const handleComplete = async (task) => {
+    const taskToUpdate = tasks.find((t) => t.id === task.id);
+    taskToUpdate.status = !taskToUpdate.status;
+    const isToggled = await taskService.updateTask(taskToUpdate);
+    if (isToggled) {
+      setTasks([...tasks]);
+    }
   };
 
   return (
     <div>
       {filteredTasks.map((task, index) => (
+        // for some reason putting key={task.id} is not warking
         <li className="list-item" key={index}>
           <div className="grip-lines">
             <i className="fa-solid fa-grip-lines" />
@@ -82,6 +84,10 @@ const TasksList = ({
 TasksList.propTypes = {
   tasks: PropTypes.array.isRequired,
   setTasks: PropTypes.func.isRequired,
+  setEditTask: PropTypes.func.isRequired,
+  searchInput: PropTypes.string.isRequired,
+  statusFilter: PropTypes.string.isRequired,
+  setPresentedTasksNum: PropTypes.func.isRequired,
 };
 
 export default TasksList;
