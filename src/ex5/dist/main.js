@@ -130,14 +130,13 @@ class Main {
     const checkBox = this.addCheckBox(taskListElem);
     taskListElem.append(checkBox);
     taskListElem.appendChild(inputText);
-    
     if (value.isPokemon) {
-      inputText.innerText = `Cool you got ${value.itemName}`;
+      inputText.innerText = `Cool you got ${value.item}`;
       const img = this.getPokemonImage(value);
 
       taskListElem.appendChild(img);
     } else {
-      inputText.innerText = value.itemName;
+      inputText.innerText = value.item;
     }
     taskListElem.setAttribute("id", `${value.itemId}`);
     taskListElem.classList = "new-item";

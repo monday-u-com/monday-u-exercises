@@ -43,7 +43,6 @@ async function updateItemStatus(req, res, next){
     try {
       const itemId = req.params.id
       const newStatus = req.body.status
-      console.log(itemId,newStatus)
       await ItemManager.statusUpdateDb(itemId,newStatus);
       res.status(200).json('status was changed');
     } catch (err) {
