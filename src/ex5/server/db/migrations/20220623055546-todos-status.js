@@ -4,7 +4,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     
     await queryInterface.addColumn(
-      'Items', // table name
+      'items', // table name
       'status', // new field name
       {
         type: Sequelize.BOOLEAN,
@@ -17,6 +17,6 @@ module.exports = {
 
 async down(queryInterface, Sequelize) {
   // logic for reverting the changes
-    await queryInterface.removeColumn('Items', 'status')
+    await queryInterface.removeColumn('items', 'status')
 },
 };

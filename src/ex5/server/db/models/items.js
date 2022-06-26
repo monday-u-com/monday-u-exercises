@@ -18,10 +18,15 @@ module.exports = (sequelize, DataTypes) => {
     item: DataTypes.STRING,
     imageUrl: DataTypes.STRING,
     isPokemon: DataTypes.BOOLEAN,
-    pokemonId: DataTypes.INTEGER
+    pokemonId: DataTypes.INTEGER,
+    status: DataTypes.BOOLEAN,
+    
   }, {
     sequelize,
     modelName: 'items',
+    tableName:'items',
+    timestamps: false
   });
+  items.removeAttribute("id");
   return items;
 };

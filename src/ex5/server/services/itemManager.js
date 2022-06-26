@@ -1,31 +1,32 @@
 const pokemonClinet = require("../clients/pokemonClient.js");
-const { Item } = require("../DB/models");
+const { items } = require("../db/models");
+
 class ItemManager {
   constructor() {
     this.itemsArray = [];
-    this.jsonFile = "tasks_json.json";
+    this.taskToDbPath = "../server/db/taskToDb.json";
   }
 
   async getAll() {
     try{
-      this.itemsArray = await Item.findAll({raw:true});
+      this.itemsArray = await items.findAll({raw : true});
       return this.itemsArray;
-    }catch(error){
-      throw new Error(error)
+    }catch(err){
+      throw new Error(err)
     }
   }
 
   async deleteAll() {
     try{
     this.itemsArray = [];
-    await Item.destroy({
+    await items.destroy({
       where :{},
       truncate : true,
     });
   }
-    catch(error){
+    catch(err){
     console.log('Error While delete an Item');
-    throw new Error(error) 
+    throw new Error(err) 
     
   }
 }
@@ -33,25 +34,27 @@ class ItemManager {
    try{
     const pokemonIsExist = await this.exsitInDb(pokemon.id);
     if (!pokemonIsExist){
-      const todo = this.initPokemonTask(
+      const task = this.pokemonInit(
+        true,
         pokemon.name,
         pokemon.sprites.front_default,
         pokemon.id
       );
-    this.itemsArray.push(todo);
-    await Item.bulkCreate([todo]);
-    return [todo];
+    this.itemsArray.push(task);
+    await items.bulkCreate([task]);
+    return [task];
    }
    return itemToRender;
   }
-  catch(error){
-  throw new Error(error);
+  catch(err){
+  throw new Error(err);
   }
   }
 
-  async getPokemonById(filteredArr,newItems) {
+  async getPokemonById(filteredArr,itemToRender) {
     try {
       const pokemons = await pokemonClinet.fetchPokemon(filteredArr);
+
       pokemons.forEach((pokemon) => {
         const task = this.pokemonInit(
           true,
@@ -60,23 +63,23 @@ class ItemManager {
           pokemon.id
         );
         this.itemsArray.push(task);
-        this.newItems.push(task);
+        itemToRender.push(task);
       });
-      await Item.bulkCreate(newItems)
+      await items.bulkCreate(itemToRender);
     } catch (e) {
       let pokemonId = "";
-      filteredArr.forEach((todo) => {
-        pokemonId += todo + " ";
+      filteredArr.forEach((task) => {
+        pokemonId += task + " ";
       });
-      const todo = this.pokemonInit(
+      const task = this.pokemonInit(
         false,
-        `Cannot Find Pokemon with : ${pokemonId} ID`
+        `pokemon with id: ${pokemonId} was not found`
       );
-      this.itemsArray.push(todo);
-      this.newItems.push(todo);
-      await Item.bulkCreate(newItems)
+      this.itemsArray.push(task);
+      itemToRender.push(task);
+      await items.bulkCreate(itemToRender);
     }
-    return newItems;
+    return itemToRender;
   }
   // generate UUID number
   uuidGeneration() {
@@ -93,22 +96,21 @@ class ItemManager {
   }
 
   async addItem(isPokemon, inputArray) {
-    this.newItems = [];
-    this.readFile();
+    const itemToRender =[];
     if (!isPokemon) {
       const isPokemon = await pokemonClinet.checkByPokemonName(inputArray[0]);
-      if (isPokemon) return this.checkByPokemonName(isPokemon,newItems);
+      if (isPokemon) return this.checkByPokemonName(isPokemon,itemToRender);
     }
     if (isPokemon) {
       const filteredArr = this.itemToAdd(inputArray);
-      if (filteredArr.length === 0) return this.newItems;
-      return this.getPokemonById(filteredArr,newItems);
+      if (filteredArr.length === 0) return itemToRender;
+      return this.getPokemonById(filteredArr,itemToRender);
     } else {
-      const todo = this.pokemonInit(false, inputArray[0]);
-      this.itemsArray.push(todo);
-      this.newItems.push(todo);
-      await Item.bulkCreate(newItems)
-      return newItems;
+      const task = this.pokemonInit(false, inputArray[0]);
+      this.itemsArray.push(task);
+      itemToRender.push(task);
+      await items.bulkCreate(itemToRender)
+      return itemToRender;
     }
   }
 
@@ -117,8 +119,9 @@ class ItemManager {
     const task = {
       itemId: itemId,
       itemName: item,
-      isPokemon: isPokemon,
+      item: item,
       imageUrl: imageUrl,
+      isPokemon: isPokemon,
       pokemonId: pokemonId,
       status:false
     };
@@ -127,8 +130,8 @@ class ItemManager {
 
   async deleteItem(itemId) {
     try {
-      await Item.destroy({ where: { itemId: itemId } });
-    } catch (error) {
+      await items.destroy({ where: { itemId: itemId } });
+    } catch (err) {
       throw `There is no task with id: ${itemId} `;
     }
   }
@@ -140,24 +143,26 @@ class ItemManager {
   }
   async exsitInDb(pokemonId) {
     try {
-      const pokemonItemDb= await Item.findOne({
-        where: { pokemonId: pokemonId },
+      const pokemonItemDb = await items.findOne({
+        where: { pokemonId : pokemonId },
         raw: true,
       });
       if (pokemonItemDb!==null&& pokemonItemDb.pokemonId === pokemonId) return true;
       else return false;
     } catch (err) {
-      throw new Error(error);
+      throw new Error(err);
     }
   }
   async statusUpdateDb(itemId,newStatus){
     try{
       let status = newStatus
-      await Item.update({status},{where: {itemId:itemId} })
+      await items.update({status},{ where: { itemId: itemId } })
     }
-    catch(error){
-    }
-    throw new Error(error)
+    catch(err)
+  {
+throw new Error(err)
   }
 }
+}
+
 module.exports = new ItemManager();

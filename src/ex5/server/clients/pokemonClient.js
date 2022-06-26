@@ -2,9 +2,9 @@ const axios =  require("axios");
 
 class PokemonClinet {
   constructor() {}
-  async fetchPokemon(array) {
+  async fetchPokemon(arr) {
     try {
-      const respones = array.map((id) =>
+      const respones = arr.map((id) =>
         axios
           .get(`https://pokeapi.co/api/v2/pokemon/${id}`)
           .then((response) => response.data)
@@ -12,7 +12,7 @@ class PokemonClinet {
 
       return Promise.all(respones);
     } catch (err) {
-      throw new Error("There is no Pokemon with this ID...");
+      throw new Error("failed to fetch pokemon by id");
     }
   }
 
@@ -26,9 +26,10 @@ class PokemonClinet {
       throw new Error("failed to fetch pokemon list");
     }
     try {
-      const arrayOfPokemons = respones.data;
+      const pokemonsArrList = respones.data;
+
       let res = null;
-      for (const obj of arrayOfPokemons.results) {
+      for (const obj of pokemonsArrList.results) {
         if (obj.name === name.toLowerCase()) {
           const response = await axios.get(obj.url);
           const pokemonObj = response.data;
@@ -37,8 +38,9 @@ class PokemonClinet {
       }
       return res;
     } catch (err) {
-      throw new Error("There is no Pokemon with this Name...");
+      throw new Error("failed to fetch pokemon by his name");
     }
   }
 }
+
 module.exports = new PokemonClinet();

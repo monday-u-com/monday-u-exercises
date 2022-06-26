@@ -1,18 +1,25 @@
-class ItemClinet {
+class ItemClient {
   constructor() {}
 
   async createItem(item) {
-    const response = await fetch("/item", {
-      method: "post",
-      body: JSON.stringify({ item }),
-      headers: { "Content-Type": "application/json" },
-    });
-    if (response.status == 201) {
-      return await response.json();
+    try {
+      const response = await fetch("/item", {
+        method: "POST",
+        body: JSON.stringify({ item }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.status == 201) {
+        return await response.json();
+      }
+    } catch (err) {
+      throw new Error("faild to create item");
     }
   }
 
-  async fetchItems() {
+
+async fetchItems() {
+  try {
     const response = await fetch("/item", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -25,7 +32,10 @@ class ItemClinet {
     const data = await response.json();
 
     return data;
+  } catch (err) {
+    throw new Error("failed while fetching items");
   }
+}
 
   async deleteItem(itemId) {
     try {
@@ -37,10 +47,10 @@ class ItemClinet {
       throw new Error("failed to delete item");
     }
   }
-  async updateStatus(itemId,newStatus) {
+  async statusChange(itemId,newStatus) {
     try {
       const response = await fetch(`/item/${itemId}`, {
-        method: "put",
+        method: "PUT",
         body: JSON.stringify({ status:newStatus }),
         headers: { "Content-Type": "application/json" },
       });
@@ -52,6 +62,7 @@ class ItemClinet {
     console.log(err)
     }
   }
+
 async deleteAll()
 {
     try {
@@ -65,10 +76,3 @@ async deleteAll()
    }
 
 }
-
-
-
-
-
-
-export default new ItemClinet();

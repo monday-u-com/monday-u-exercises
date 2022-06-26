@@ -6,7 +6,7 @@ const  {logger}  = require('./server/middleware/logger');
 const  cors = require('cors');
 const  bodyParser = require( 'body-parser');
 const Sequelize = require('sequelize');
-const  port = 3000;
+const  port = 8000;
 const app = express();
 
 
@@ -32,7 +32,6 @@ app.use(logger)
 app.use([cors(),express.json()]);
 app.use(express.static( 'dist'));
 app.use(bodyParser.urlencoded({extended:false}))
-
 app.use('/item', itemRouter);
 app.use(handleError);
 process.on('unhandledRejection', (reason, promise) => {

@@ -1,5 +1,6 @@
 function handleError(err, req, res, next) {
     console.log("Error was Happend ", err.message);
+
     if(res.headersSent){
         return next(err)
     }

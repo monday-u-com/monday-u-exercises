@@ -1,10 +1,10 @@
-import itemClient from "./clients/itemClient.js";
 
 class Main {
   constructor() {
+    this.itemClient = new ItemClient();
     this.input = document.getElementById("taskInput");
     this.addButton = document.getElementById("addButton");
-    this.todoListH1Elem = document.querySelector("h1");
+    this.titleH1Elem = document.querySelector("h1");
     this.sortBtn = document.getElementById("sortBtn");
     this.clearAllBtn = document.getElementById("clearAllBtn");
     this.taskElement = document.getElementById("tasks");
@@ -12,39 +12,47 @@ class Main {
     this.loader = document.querySelector("#load-container");
   }
   async init() {
-    const itemsArr = await itemClient.fetchItems();
-
-    if (itemsArr.length != 0) {
-      this.addItem(itemsArr);
-    }
+    await this.getAllItems();
     this.whenPressEnter();
-    this.sortBtn.addEventListener("click", () => this.sortTaskByName());
-    this.clearAllBtn.addEventListener("click", () => this.deleteAllTasks());
-    this.addButton.addEventListener("click", async () => {
+    this.sortBtn.addEventListener("click", ()=> this.sortTaskByName());
+    this.clearAllBtn.addEventListener("click", ()=> this.deleteAllItems());
+    this.addButton.addEventListener("click",async() => {
       if (!this.input.value.trim()) {
-        const invalidMsg = "Cannot insert Empty Input";
-        this.addAlert(invalidMsg);
+        const msgAlert = "Invalid input : Cannot insert Empty Input"
+        this.addAlert(msgAlert);
         return;
       }
 
       try {
         this.loader.classList.add("display");
-        const itemsArr = await itemClient.createItem(this.input.value);
+        const itemsArray = await this.itemClient.createItem(this.input.value);
         this.loader.classList.remove("display");
         this.input.value =""
-        this.addItem(itemsArr);
+        this.addItem(itemsArray);
       } catch (err) {
         this.addItem([err], false);
       }
      
     });
   }
+  async getAllItems(){
+    try{
+      const itemsArray = await this.itemClient.fetchItems();
+      if(itemsArray.length != 0){
+        this.addItem(itemsArray);
+      }
+    }
+    catch(error)
+    {
+      throw error;
+    }
+  }
 
- async  deleteAllTasks() {
-   await  itemClient.deleteAll();
+
+ async  deleteAllItems() {
+   await  this.itemClient.deleteAll();
     this.taskElement.classList.toggle("removed-item");
     setTimeout(() => {
-    
       this.taskElement.innerHTML = ""; 
       this.taskElement.classList.remove("removed-item");
       this.countTasks();
@@ -52,21 +60,21 @@ class Main {
    
   }
 
-  addAlert(invalidMsg, miilis) {
-    this.addErorrAlert(invalidMsg, miilis);
+  addAlert(msgAlert, ms) {
+    this.ErrorAlert(msgAlert, ms);
   }
 
-  addErorrAlert(invalidMsg, miilis = 4000) {
+  ErrorAlert(msgAlert, ms = 3000) {
     const div = document.createElement("div");
     const i = document.createElement("i");
     div.classList = "error-msg";
     div.appendChild(i);
-    this.todoListH1Elem.appendChild(div);
-    div.innerText = invalidMsg;
+    this.titleH1Elem.appendChild(div);
+    div.innerText = msgAlert;
     setTimeout(() => {
       div.remove();
       i.remove();
-    }, miilis);
+    }, ms);
   }
 
   whenPressEnter() {
@@ -110,20 +118,26 @@ class Main {
   addItem(renderNewTask) {
     for (const value of renderNewTask) {
       this.renderItem(value);
+      
     }
     this.countTasks();
   }
+
   renderItem(value) {
     const taskListElem = document.createElement("li");
     const inputText = document.createElement("span");
     inputText.classList = "tasks_spans";
+    const checkBox = this.addCheckBox(taskListElem);
+    taskListElem.append(checkBox);
     taskListElem.appendChild(inputText);
+    
     if (value.isPokemon) {
-      inputText.innerText = `Cool you got ${value.item}`;
+      inputText.innerText = `Cool you got ${value.itemName}`;
       const img = this.getPokemonImage(value);
+
       taskListElem.appendChild(img);
     } else {
-      inputText.innerText = value.item;
+      inputText.innerText = value.itemName;
     }
     taskListElem.setAttribute("id", `${value.itemId}`);
     taskListElem.classList = "new-item";
@@ -132,6 +146,23 @@ class Main {
     this.clickOnItem(taskListElem, inputText);
   }
 
+  addCheckBox(taskListElem) {
+    const checkBox = document.createElement('input');
+    checkBox.type = "checkbox";
+    checkBox.value = 1;
+    this.onClickCheckBox(checkBox,taskListElem);
+    return checkBox
+  }
+
+  onClickCheckBox(checkBox,taskListElem){
+    checkBox.addEventListener('change', async(event) =>{
+      if(event.target.checked){
+        await this.itemClient.statusChange(taskListElem.id, true)
+      }else{
+        await this.itemClient.statusChange(taskListElem.id, false)
+      }
+    });
+  }
   getPokemonImage(pokemonObj) {
     const url = pokemonObj.imageUrl;
     const img = document.createElement("img");
@@ -139,24 +170,27 @@ class Main {
     return img;
   }
 
-  async createDeleteBtn(taskListElem, deleteButton) {
+
+  async onClickWhenDeleted(taskListElem, deleteButton) {
     deleteButton.addEventListener("click", async () => {
       taskListElem.classList.toggle("removed-item");
       const itemId = taskListElem.id;
-       await itemClient.deleteItem(itemId);
+       await this.itemClient.deleteItem(itemId);
       setTimeout(() => {
         taskListElem.remove();
         this.countTasks();
-      }, 400);
+      }, 500);
     });
     return;
   }
 
+  
+
   clickOnItem(taskListElem, inputText) {
     taskListElem.addEventListener(
       "click",
-      (e) => {
-        if (e.target !== taskListElem) return;
+      (event) => {
+        if (event.target !== taskListElem) return;
         alert(inputText.innerText);
         taskListElem.classList.toggle("checked");
       },
@@ -169,14 +203,14 @@ class Main {
     deleteButton.className = "delete";
     deleteButton.innerHTML = "🗑️";
     taskListElem.appendChild(deleteButton);
-    this.createDeleteBtn(taskListElem, deleteButton);
+    this.onClickWhenDeleted(taskListElem, deleteButton);
   }
 
 }
 const main = new Main();
-
 document.addEventListener("DOMContentLoaded", function () {
-  // you should create an `init` method in your class
-  // the method should add the event listener to your "add" button
   main.init();
 });
+
+
+
