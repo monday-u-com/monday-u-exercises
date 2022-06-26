@@ -17,6 +17,8 @@ This is going to be so much fun! Here are a few general details:
 
 **Exercise 5** - [Sequelize ORM](https://github.com/monday-u-com/monday-u-exercises/tree/master/src/ex5)
 
+**Exercise 6** - [React](https://github.com/monday-u-com/monday-u-exercises/tree/master/src/ex6)
+
 # Submitting your tasks
 Create a pull request in your forked repository and send to your mentor when it's ready.
 
