@@ -4,7 +4,6 @@
     <title>Listy</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-
   <body>
     <div class="app-container">
       <div class="list-container">
@@ -17,11 +16,14 @@
           />
           <button type="button" id="list-item-submit">+</button>
         </div>
+        <div class="loader-container"><div id="loader"></div></div>
         <ul id="list"></ul>
+        <div class="delete-all">
+          <button type="button" id="delete-all-button">Delete All</button>
+        </div>
       </div>
     </div>
   </body>
-
-  <script src="./clients/item_client.js"></script>
-  <script src="main.js"></script>
+  <script type="module" src="./clients/item_client.js"></script>
+  <script type="module" src="main.js"></script>
 </html>
