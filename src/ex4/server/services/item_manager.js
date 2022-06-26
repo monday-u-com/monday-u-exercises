@@ -27,7 +27,7 @@ class ItemManager {
 		await item.destroy({
 			where: { id: itemId },
 		});
-		return await this.getAllItems();
+		return;
 	}
 
 	async pokemonIdsHendeling(pokeID) {
