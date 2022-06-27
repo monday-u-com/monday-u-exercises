@@ -6,12 +6,16 @@ import Loader from "./Loader";
 import PendingTasks from "./PendingTasks";
 import Button from "./Button";
 import Titles from "./Titles";
+import { useState } from "react";
 
 function Card() {
+   const [tasks, setTasks] = useState([]);
+   const [inputText, setInputText] = useState("");
+
    return (
       <div className="card">
          <Titles />
-         <AddBar />
+         <AddBar inputText={inputText} setInputText={setInputText} />
          <SortButtons />
          <div className="tasks-and-clear-container">
             <Tasks />
