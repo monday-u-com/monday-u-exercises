@@ -1,0 +1,14 @@
+.card-container {
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    filter: drop-shadow(5px 5px 20px rgba(0, 0, 0, 0.2));
+    flex-direction: column;
+}
+
+.card-heading {
+    font-size: 30px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.7);
+}
