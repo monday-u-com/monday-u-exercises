@@ -19,9 +19,9 @@ function AddBar({ inputText, setInputText }) {
       document.addEventListener("keypress", handleKeyPress);
 
       return () => {
-         window.removeEventListener("keypress", handleKeyPress);
+         document.removeEventListener("keypress", handleKeyPress);
       };
-   }, []);
+   }, [inputText]);
 
    return (
       <div className="container">
