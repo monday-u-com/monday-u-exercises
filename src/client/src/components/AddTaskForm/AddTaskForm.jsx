@@ -52,7 +52,6 @@ const AddTaskForm = ({ tasks, setTasks, editTask, setEditTask }) => {
     } else {
       if (input.trim()) {
         const res = await taskService.addTask(input, false);
-        console.log(res);
         if (res) {
           if (Array.isArray(res)) {
             setTasks([...tasks, ...res]);
