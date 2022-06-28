@@ -60,7 +60,7 @@ const TasksList = ({
     <div>
       {filteredTasks.map((task, index) => (
         // for some reason putting key={task.id} is not warking
-        <li className="list-item" key={index}>
+        <li className="task-list-item" key={index}>
           <div className="grip-lines">
             <i className="fa-solid fa-grip-lines" />
           </div>

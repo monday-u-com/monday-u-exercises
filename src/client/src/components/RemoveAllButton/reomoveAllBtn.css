@@ -11,17 +11,24 @@
     padding: 0.3rem;
     font-size: 1rem;
     bottom: 1.5rem;   
-    background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
-    color: #fff;
+    color: #666;
     cursor: pointer;
     border: none;
     border-radius: 0.5rem;
     transition: 0.5s;
+    background: rgba(139, 163, 236, 0.14);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.8px);
+    -webkit-backdrop-filter: blur(8.8px);
+    border: 1px solid rgba(139, 163, 236, 0.04);
 }
 
 .remove-all-btn:hover
 {
     color: black;
-    background-image: linear-gradient(0deg,#97D9E1  0%, #D9AFD9 100%);
+    background: rgba(139, 163, 236, 0.28);
+    border: 1px solid rgba(139, 163, 236, 0.04);
+    transition: ease-in-out 0.3s;
 
 }

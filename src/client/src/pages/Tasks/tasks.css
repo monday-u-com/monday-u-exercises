@@ -1,5 +1,4 @@
 .container{
-    background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -9,14 +8,20 @@
   }
   
   .app-wrapper{
-    background-color: #fff;
     min-height: 80vh;
     min-width: 30vw;
     padding: 30px;
     box-sizing: border-box;
     border-radius: 10px;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.5);
     margin-bottom: 10px;
+
+        /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.53);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10.1px);
+    -webkit-backdrop-filter: blur(10.1px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   
   input
@@ -31,6 +36,6 @@
   input:focus
   {
       outline: none;
-      border-bottom: #D9AFD9 solid 3px;
+      border-bottom: rgba(139, 163, 236) solid 2px;
       box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1) ;
   }

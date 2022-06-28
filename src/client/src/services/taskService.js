@@ -39,16 +39,6 @@ class ItemClient {
     return false;
   }
 
-  //   async toggleCompleted(taskID) {
-  //     const response = await fetch(this.serverURL + taskID, {
-  //       method: "PUT",
-  //     });
-  //     if (response.status === 200) {
-  //       return true;
-  //     }
-  //     return false;
-  //   }
-
   async updateTask(taskToUpdate) {
     const response = await fetch(this.serverURL + taskToUpdate.id, {
       method: "PUT",

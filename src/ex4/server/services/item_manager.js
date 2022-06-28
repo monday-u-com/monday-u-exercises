@@ -28,7 +28,6 @@ class ItemManager {
       this.pokedex.isPokemonNamesOnly(taskInput)
     ) {
       const res = await this.addCatchPokemonTask(taskInput);
-
       return res;
     } else {
       const res = await this.addTaskToFile(taskInput, isCompleted);
@@ -55,7 +54,6 @@ class ItemManager {
         return false;
       } else {
         const res = await this.addResponsesToTasks(input, response, false);
-        console.log(res);
         return res;
       }
     }
@@ -91,7 +89,6 @@ class ItemManager {
         status: isCompleted,
         doneAt: null,
       };
-      this.tasks.push(task);
       return await this.saveTaskToDB(task);
     }
   }
@@ -100,6 +97,7 @@ class ItemManager {
     const task = this.tasks.find((task) => task.id == taskID);
     if (task) {
       if (task.status === false && taskToUpdate.status === true) {
+        task.doneAt = new Date();
         await Item.update(
           {
             itemName: taskToUpdate.itemName,
@@ -109,6 +107,7 @@ class ItemManager {
           { where: { id: taskID } }
         );
       } else if (task.status === true && taskToUpdate.status === false) {
+        task.doneAt = null;
         await Item.update(
           {
             itemName: taskToUpdate.itemName,
@@ -137,6 +136,7 @@ class ItemManager {
       console.log(err);
       return false;
     }
+    this.tasks.push(item.dataValues);
     return item.dataValues;
   }
 
@@ -189,4 +189,6 @@ class ItemManager {
   }
 }
 
-module.exports = new ItemManager();
+const itemManager = new ItemManager();
+itemManager.getTasks();
+module.exports = itemManager;

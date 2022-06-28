@@ -21,15 +21,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// router.put("/:id", async (req, res) => {
-//   const taskID = req.params.id;
-//   const isUpdated = await itemManager.toggleCompleted(taskID);
-//   if (isUpdated) {
-//     res.status(200).json(req.body);
-//   } else {
-//     res.status(404).json({ error: "Task does not exist" });
-//   }
-// });
 
 router.put("/:id", async (req, res) => {
   const id = req.params.id;

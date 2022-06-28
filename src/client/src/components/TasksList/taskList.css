@@ -1,9 +1,8 @@
 
   
-  .list-item
+  .task-list-item
   {
     margin: 0.5rem;
-    background: #eee;
     color: black;
     font-size: 1.2rem;
     display: flex;
@@ -17,6 +16,10 @@
     animation: fade-in 0.7s ease-out;
     min-width: 30%;
     margin-top: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(19.2px);
+    -webkit-backdrop-filter: blur(19.2px);
   }
   
   .task-item
@@ -36,12 +39,11 @@
     color: #ccc;
   }
 
-  .list-item:hover
+  .task-list-item:hover
 {
-    background: #f4f4f4f4;
+    background: #ffffff;
     cursor: pointer;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
 }
   
   .grip-lines
