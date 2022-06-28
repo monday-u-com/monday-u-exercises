@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/434f764404.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <section class="main-section">
+      <div class="app-container" id="app-container">
+        <h1 class="header">ToDo App</h1>
+        <h2>Let's work on some Todos</h2>
+        <span id="newtask" class="newTask">
+          <input id="taskInput" type="text" placeholder="Enter your Tasks" />
+          <button id="addButton" class="add">🔥
+          </button>
+          <div id="load-container"></div>
+          <button id="sortBtn">Alphabetical Sort</button>
+          <ul id="tasks"></ul>
+          <footer>
+            <span id="count" class="count"></span>
+            <button id="clearAllBtn">Clear 🆑</button>
+          </footer>
+        </span>
+      </div>
+    </section>
+    <footer class="footer">Kupers 2022</footer>
+  </body>
+  <script src="./clients/itemClient.js"></script>
+  <script  src="main.js"></script>
+</html>
