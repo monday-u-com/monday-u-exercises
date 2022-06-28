@@ -16,7 +16,6 @@ export async function writeToFile(filePath, fileToWrite) {
     }
     catch (e) {
         console.log(e)
-        return e
     }
 }
 
