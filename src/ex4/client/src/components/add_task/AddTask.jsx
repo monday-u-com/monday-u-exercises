@@ -8,12 +8,16 @@ function AddTask({ flag, setFlag }) {
 
     const addItem = async () => {
         const client = new ItemClient()
-        const response = await client.postItem(item)
-        if (response.status !== 200) {
-            alert("Something went wrong")
+        if (item !== "") {
+            const response = await client.postItem(item)
+            if (response.status !== 200) {
+                alert("Something went wrong")
+            }
+            setItem("")
+            setFlag(!flag)
+        } else {
+            alert("Please enter a valid task")
         }
-        setItem("")
-        setFlag(!flag)
     }
 
     return (
