@@ -3,7 +3,7 @@ import ItemClient from '../../api/itemClient'
 import Task from '../task/Task'
 import './TaskList.css'
 
-function TaskList() {
+function TaskList({ itemAdded }) {
 
   const [items, setItems] = useState([])
 
@@ -14,7 +14,7 @@ function TaskList() {
       setItems(newItems)
     }
     getItemsFromServer()
-  }, [])
+  }, [itemAdded])
 
   return (
     <div className={"task-list-container"}>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './AddTask.css'
 import ItemClient from '../../api/itemClient'
 
-function AddTask({ children }) {
+function AddTask({ flag, setFlag }) {
 
     const [item, setItem] = useState('')
 
@@ -13,6 +13,7 @@ function AddTask({ children }) {
             alert("Something went wrong")
         }
         setItem("")
+        setFlag(!flag)
     }
 
     return (
