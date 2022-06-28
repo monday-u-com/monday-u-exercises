@@ -46,9 +46,7 @@ class ItemClient {
 
         try {
             const res = await fetch(this.url + `/${item}`, options)
-            if (!res.status) {
-                alert('Something went wrong :(')
-            }
+            return res
         } catch (e) {
             console.log(e)
         }

@@ -12,7 +12,7 @@ function Home() {
         <div className={"home-container"}>
             <Card width={"30%"} height={"60%"} heading={"Todo App"}>
                 <AddTask flag={itemsFlag} setFlag={setItemsFlag}></AddTask>
-                <TaskList itemAdded={itemsFlag}></TaskList>
+                <TaskList flag={itemsFlag} setFlag={setItemsFlag} itemAdded={itemsFlag}></TaskList>
             </Card>
         </div>
     )

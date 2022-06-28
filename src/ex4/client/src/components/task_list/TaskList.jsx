@@ -3,7 +3,7 @@ import ItemClient from '../../api/itemClient'
 import Task from '../task/Task'
 import './TaskList.css'
 
-function TaskList({ itemAdded }) {
+function TaskList({ itemAdded, flag, setFlag }) {
 
   const [items, setItems] = useState([])
 
@@ -22,7 +22,7 @@ function TaskList({ itemAdded }) {
         {items.map((item, index) => {
           return (
             <div key={index}>
-              <Task name={item.itemName}></Task>
+              <Task flag={flag} setFlag={setFlag} name={item.itemName}></Task>
               <hr ></hr>
             </div>
           )
