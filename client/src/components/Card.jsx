@@ -21,7 +21,7 @@ function Card() {
             <Tasks tasks={tasks} setTasks={setTasks} />
             <Loader />
             <div className="footer-container">
-               <PendingTasks />
+               <PendingTasks tasks={tasks} />
                <Button innerText={"Clear All"} className={"clear-all"} />
             </div>
          </div>

@@ -1,9 +1,9 @@
 import "../App.css";
 
-function PendingTasks() {
+function PendingTasks({ tasks }) {
    return (
       <p className="pending-tasks">
-         You have <span id="tasks-counter">0</span> pending tasks
+         You have <span id="tasks-counter">{tasks.length}</span> pending tasks
       </p>
    );
 }
