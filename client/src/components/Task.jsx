@@ -1,9 +1,10 @@
 import "../App.css";
+import Button from "./Button";
 import Checkbox from "./Checkbox";
 
 function Task({ task }) {
    const addPokemonImage = () => {
-      return <img src={task.imageURL} className="pokemon-image" alt="pokemon image" />;
+      return <img src={task.imageURL} className="pokemon-image" alt="pokemon" />;
    };
 
    return (
@@ -13,6 +14,7 @@ function Task({ task }) {
             {task.text}
             {task.imageURL ? addPokemonImage() : ""}
          </div>
+         <Button innerText={<i className="fa-solid fa-trash"></i>} className={"delete"} />
       </li>
    );
 }

@@ -125,11 +125,6 @@ body {
    border-radius: 3px;
 }
 
-.task-container:hover > .task {
-   cursor: pointer;
-   background-color: rgb(0, 200, 255);
-}
-
 .task-container {
    display: flex;
    align-items: center;
@@ -138,6 +133,15 @@ body {
 .task-container:hover {
    transition: transform 150ms;
    transform: scale(1.05);
+}
+
+.task-container:hover > .task {
+   cursor: pointer;
+   background-color: rgb(0, 200, 255);
+}
+
+.task-container:hover > .delete {
+   visibility: visible;
 }
 
 .delete {
@@ -150,6 +154,7 @@ body {
    justify-content: center;
    margin-top: 0.3rem;
    visibility: hidden;
+   border: none;
 }
 
 .delete:hover {
