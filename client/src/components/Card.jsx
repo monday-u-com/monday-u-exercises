@@ -18,7 +18,7 @@ function Card() {
          <AddBar inputText={inputText} setInputText={setInputText} />
          <SortButtons />
          <div className="tasks-and-clear-container">
-            <Tasks />
+            <Tasks tasks={tasks} setTasks={setTasks} />
             <Loader />
             <div className="footer-container">
                <PendingTasks />

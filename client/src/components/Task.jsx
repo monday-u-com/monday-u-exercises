@@ -3,7 +3,7 @@ import Checkbox from "./Checkbox";
 
 function Task({ task }) {
    const addPokemonImage = () => {
-      return <img src="task.imageURL" className="pokemon-image" />;
+      return <img src="task.imageURL" className="pokemon-image" alt="pokemon image" />;
    };
 
    return (
