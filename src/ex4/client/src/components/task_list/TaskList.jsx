@@ -17,16 +17,18 @@ function TaskList() {
   }, [])
 
   return (
-    <ul className={"task-list-container"}>
-      {items.map((item, index) => {
-        return (
-          <div key={index}>
-            <Task name={item.itemName}></Task>
-            <hr ></hr>
-          </div>
-        )
-      })}
-    </ul >
+    <div className={"task-list-container"}>
+      <ul className={"task-list-ul"}>
+        {items.map((item, index) => {
+          return (
+            <div key={index}>
+              <Task name={item.itemName}></Task>
+              <hr ></hr>
+            </div>
+          )
+        })}
+      </ul >
+    </div>
   )
 }
 
