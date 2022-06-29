@@ -20,7 +20,7 @@ function Home() {
                     setLoading={setLoading}
                     flag={itemsFlag}
                     setFlag={setItemsFlag}
-                    itemAdded={itemsFlag}>
+                >
                 </TaskList>
             </Card>
         </div>

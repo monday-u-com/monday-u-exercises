@@ -10,6 +10,7 @@
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.16",
     "parcel-bundler": "^1.12.5",
+    "prop-types": "^15.8.1",
     "react-icons": "^4.4.0",
     "sequelize": "^6.21.0",
     "sequelize-cli": "^6.4.1",

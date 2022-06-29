@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styles from './Task.module.css'
 import Trash from '../../icons/Trash'
 import ItemClient from '../../api/itemClient'
-
-
+import PropTypes from 'prop-types';
 
 function Task({ item, flag, setFlag, loading, setLoading }) {
 
@@ -50,6 +49,18 @@ function Task({ item, flag, setFlag, loading, setLoading }) {
             </div>
         </div>
     )
+}
+
+Task.propTypes = {
+    flag: PropTypes.bool,
+    setFlag: PropTypes.func,
+    loading: PropTypes.bool,
+    setLoading: PropTypes.func,
+    item: PropTypes.object
+}
+
+Task.defaultProps = {
+    item: {}
 }
 
 export default Task

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import ItemClient from '../../api/itemClient'
 import Task from '../task/Task'
 import styles from './TaskList.module.css'
+import PropTypes from 'prop-types';
 
-function TaskList({ itemAdded, flag, setFlag, loading, setLoading }) {
+function TaskList({ flag, setFlag, loading, setLoading }) {
 
   const [items, setItems] = useState([])
 
@@ -14,7 +15,7 @@ function TaskList({ itemAdded, flag, setFlag, loading, setLoading }) {
       setItems(newItems)
     }
     getItemsFromServer()
-  }, [itemAdded])
+  }, [flag])
 
   return (
     <div className={styles.task_list_container}>
@@ -30,6 +31,13 @@ function TaskList({ itemAdded, flag, setFlag, loading, setLoading }) {
       </ul >
     </div>
   )
+}
+
+TaskList.propTypes = {
+  flag: PropTypes.bool,
+  setFlag: PropTypes.func,
+  loading: PropTypes.bool,
+  setLoading: PropTypes.func,
 }
 
 export default TaskList

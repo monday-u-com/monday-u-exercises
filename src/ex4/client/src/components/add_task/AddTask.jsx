@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ItemClient from '../../api/itemClient'
 import styles from './AddTask.module.css'
+import PropTypes from 'prop-types';
 
 function AddTask({ flag, setFlag, loading, setLoading }) {
 
@@ -30,6 +31,13 @@ function AddTask({ flag, setFlag, loading, setLoading }) {
             <button className={styles.add_task_button} onClick={() => addItem()}>+</button>
         </div >
     )
+}
+
+AddTask.propTypes = {
+    flag: PropTypes.bool,
+    setFlag: PropTypes.func,
+    loading: PropTypes.bool,
+    setLoading: PropTypes.func
 }
 
 export default AddTask
