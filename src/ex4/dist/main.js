@@ -18,9 +18,10 @@ const resetNewItemInput = () => {
 };
 
 const addNewItem = async (itemName) => {
-	const resStatus = await addItem({ itemName });
-	if (resStatus === 400) {
-		alert("this item alredy exist.");
+	const isResOk = await addItem({ itemName });
+
+	if (!isResOk) {
+		alert("something went wrong.");
 	}
 	await renderAllItems();
 	resetNewItemInput();
@@ -42,7 +43,10 @@ newItemSubmitButton.addEventListener("click", async () =>
 );
 
 clearAllButton.addEventListener("click", async () => {
-	await clearAll();
+	const isReOk = await clearAll();
+	if (!isReOk) {
+		alert("something went wrong.");
+	}
 	await renderAllItems();
 });
 
@@ -88,7 +92,13 @@ const createEditTaskElement = (itemId, itemName) => {
 	const saveButton = document.createElement("button");
 	saveButton.innerText = "save";
 	saveButton.addEventListener("click", async () => {
-		await updateItem({ itemName: editTaskElement.value }, itemId);
+		const isReOk = await updateItem(
+			{ itemName: editTaskElement.value },
+			itemId
+		);
+		if (!isReOk) {
+			alert("something went wrong.");
+		}
 		await renderAllItems();
 	});
 	return { editTaskElement, saveButton };
@@ -139,7 +149,20 @@ const createStatusElement = (itemId, itemStatus) => {
 	}
 	status.addEventListener("click", async (e) => {
 		e.preventDefault();
-		await updateItem({ status: status.checked }, itemId);
+		if (e.target.value) {
+			const isReOk = await updateItem(
+				{ status: status.checked, doneAt: Date.now() },
+				itemId
+			);
+			if (!isReOk) {
+				alert("something went wrong.");
+			}
+		} else {
+			const isReOk = await updateItem({ status: status.checked }, itemId);
+			if (!isReOk) {
+				alert("something went wrong.");
+			}
+		}
 		await renderAllItems();
 	});
 	return status;

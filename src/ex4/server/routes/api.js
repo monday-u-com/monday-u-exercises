@@ -64,7 +64,7 @@ router.route("/clear").delete(async (req, res) => {
 		if (!numOfDestringItems) {
 			throw new Error("filed try to clean the data.");
 		}
-		res.status(200).send(`"${numOfDestringItems}"`);
+		res.sendStatus(200);
 	} catch (err) {
 		res.status(400).send(err.message);
 	}

@@ -114,12 +114,12 @@ class ItemManager {
 	}
 
 	createjsonToDB(obj) {
-		return {
+		const x = {
 			itemName: obj.itemName,
 			status: obj.status || false,
 			pokedexId: obj.pokedexId || null,
-			done: Date.now(),
 		};
+		return x;
 	}
 }
 
