@@ -1,11 +1,12 @@
 const pokemonClient = require("../clients/pokemon-client.js");
 const db = require("./db-manager.js");
+const fileManager = require("./file-manager.js");
 
 class TaskManager {
    getTasks = async () => await db.getAllTasks();
 
    async add(task) {
-      const allPokemonNames = await db.getFilePokemonNames();
+      const allPokemonNames = await fileManager.getFilePokemonNames();
       let pokemonIDS = task.replace(/\s/g, "").split(","); // "1, 2, 3" => [1,2,3]
 
       if (pokemonIDS.every((elem) => !isNaN(elem) || allPokemonNames.includes(elem))) {
