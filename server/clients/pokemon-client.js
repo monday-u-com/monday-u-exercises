@@ -3,18 +3,16 @@ const axios = require("axios").default;
 class PokemonClient {
    constructor() {
       this.API_URL = "https://pokeapi.co/api/v2/pokemon/";
-      this.cache = [];
+      this.cache = new Map();
    }
 
    async getPokemon(pokemonID) {
       try {
-         // Cache holds previous fetched pokemons data. If id does not exist in cache then fetch from api
-         if (this.cache.some((e) => e.id === pokemonID)) {
-            return this.cache.filter((e) => e.id === pokemonID)[0].data;
-         }
+         const data = this.cache.get(pokemonID);
+         if (data) return data;
 
          const response = await axios.get(this.API_URL + pokemonID);
-         this.cache.push({ id: pokemonID, data: response.data });
+         this.cache.set(pokemonID, response.data);
 
          return response.data;
       } catch (error) {
