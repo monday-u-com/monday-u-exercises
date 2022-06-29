@@ -8,11 +8,14 @@ function AddBar({ inputText, setInputText, setTasks }) {
       await api.addTask(inputText);
       const allTasks = await api.getAllTasks();
       setTasks(allTasks);
-   }, [inputText]);
+   }, [inputText, setTasks]);
 
-   const handleKeyPress = (e) => {
-      if (e.key === "Enter") buttonHandler();
-   };
+   const handleKeyPress = useCallback(
+      (e) => {
+         if (e.key === "Enter") buttonHandler();
+      },
+      [buttonHandler]
+   );
 
    const inputTextHandler = (e) => {
       setInputText(e.target.value);
@@ -24,7 +27,7 @@ function AddBar({ inputText, setInputText, setTasks }) {
       return () => {
          document.removeEventListener("keypress", handleKeyPress);
       };
-   }, [inputText]);
+   }, [inputText, handleKeyPress]);
 
    return (
       <div className="container">
