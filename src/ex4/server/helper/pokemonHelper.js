@@ -6,7 +6,7 @@ export function isPokemon(item) {
 }
 
 export function isListOfPokemons(item) {
-    if (item.includes(",") && JSON.stringify(item.split(",")) === JSON.stringify(item.split(",").filter(item => !isNaN(item)))) {
+    if (item.includes(",") && item.split(",").every(item => !isNaN(item))) {
         return true
     }
     return false
@@ -14,6 +14,8 @@ export function isListOfPokemons(item) {
 
 export async function pokemonExistsInTodoList(pokemon) {
     const list = await readFile("./server/data/data.json")
-    if (list.includes(`Catch ${pokemon}`)) return true
+    if (list.includes(`Catch ${pokemon}`)) {
+        return true
+    }
     return false
 }

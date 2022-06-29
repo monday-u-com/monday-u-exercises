@@ -29,9 +29,8 @@ class Main {
 
     deleteItem = async item => {
         let loading = document.getElementById('spinner')
-        let index = this.findIndexOfItem(item)
         loading.style.visibility = 'visible'
-        await this.itemClient.deleteItem(index)
+        await this.itemClient.deleteItem(item)
         loading.style.visibility = 'hidden'
         this.renderItems()
     }
@@ -48,22 +47,31 @@ class Main {
     renderItems = async () => {
         list.innerHTML = "";
         document.getElementById("list-item-input").value = '';
-
         const items = await this.itemClient.getItems()
-
         items.forEach(item => {
-            this.createItem(item)
+            this.createItem({ name: item.itemName, status: item.status })
         })
     }
 
     createItem = async (item) => {
         const listItem = document.createElement("li");
         listItem.classList.add('list-item');
-        listItem.innerHTML = item;
+        const listItemCheckBox = this._createCheckBox(item.status)
+        listItemCheckBox.onclick = () => this.itemClient.statusChanged({ item: item.name, status: listItemCheckBox.checked })
+        listItem.appendChild(listItemCheckBox)
+        listItem.appendChild(document.createTextNode(item.name))
 
-        const listItemDeleteButton = this._createDeleteButton(item);
+        const listItemDeleteButton = this._createDeleteButton(item.name);
         listItem.appendChild(listItemDeleteButton);
         this.list.appendChild(listItem);
+    }
+
+    _createCheckBox = status => {
+        const checkBox = document.createElement("input")
+        checkBox.type = 'checkbox'
+        checkBox.checked = status;
+        checkBox.style.marginRight = '10px'
+        return checkBox
     }
 
     _createDeleteButton = item => {
