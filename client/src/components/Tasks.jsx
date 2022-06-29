@@ -11,7 +11,9 @@ function Tasks({ tasks, setTasks }) {
       })();
    }, [setTasks]);
 
-   const tasksList = [...tasks].map((task) => <Task task={task} key={task.id} />);
+   const tasksList = [...tasks].map((task) => (
+      <Task task={task} key={task.id} setTasks={setTasks} />
+   ));
 
    return <ul className="all-tasks-container">{tasksList}</ul>;
 }
