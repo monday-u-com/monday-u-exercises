@@ -5,10 +5,16 @@ import api from "../clients/item-client.js";
 
 function AddBar({ inputText, setInputText, setTasks }) {
    const addButtonHandler = useCallback(async () => {
-      await api.addTask(inputText);
-      const allTasks = await api.getAllTasks();
-      setTasks(allTasks);
-      document.querySelector("input").value = "";
+      const input = document.querySelector("input");
+      if (input.value.trim().length === 0) {
+         alert("Please fill in a task");
+         input.value = "";
+      } else {
+         await api.addTask(inputText);
+         const allTasks = await api.getAllTasks();
+         setTasks(allTasks);
+         input.value = "";
+      }
    }, [inputText, setTasks]);
 
    const handleKeyPress = useCallback(
