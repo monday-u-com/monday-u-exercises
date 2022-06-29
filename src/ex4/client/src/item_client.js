@@ -18,60 +18,38 @@ const addItem = async (item) => {
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(item),
 	});
-	return {
-		status: res.status,
-		items: await res.json(),
-	};
+	return res.ok;
 };
 
-const updateItem = async (itemId, item) => {
-	try {
-		const res = await fetch(`/tasks/update/${itemId}`, {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ item }),
-		});
-		return {
-			status: res.status,
-			items: await res.json(),
-		};
-	} catch (err) {
-		return err;
-	}
+const updateItem = async (itemToUpdate, itemId) => {
+	const res = await fetch(`/tasks/update/${itemId}`, {
+		method: "PUT",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(itemToUpdate),
+	});
+	return res.ok;
 };
 
 const deleteItem = async (itemId) => {
-	try {
-		const res = await fetch(`/tasks/delete/${itemId}`, {
-			method: "DELETE",
-			headers: {
-				"Content-type": "application/json",
-			},
-		});
-		return {
-			status: res.status,
-			items: await res.json(),
-		};
-	} catch (err) {
-		return err;
-	}
+	const res = await fetch(`/tasks/delete/${itemId}`, {
+		method: "DELETE",
+		headers: {
+			"Content-type": "application/json",
+		},
+	});
+	debugger;
+	return res.ok;
 };
 
-const clearAll = async () => {
-	try {
-		const res = await fetch(`/tasks/clear`, {
-			method: "DELETE",
-			headers: {
-				"Content-type": "application/json",
-			},
-		});
-		return {
-			status: res.status,
-			items: await res.json(),
-		};
-	} catch (err) {
-		return err;
-	}
+const clearAll = async (itemId) => {
+	const res = await fetch(`/tasks/clear`, {
+		method: "DELETE",
+		headers: {
+			"Content-type": "application/json",
+		},
+	});
+	debugger;
+	return res.ok;
 };
 
 module.exports = {

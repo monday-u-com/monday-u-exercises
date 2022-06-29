@@ -24,8 +24,8 @@ router.route("/add").post(async (req, res) => {
 			(itemsToFetch && itemsToFetch.length != 0 && !itemsToFetch.length) ||
 			itemsToFetch.length > 0
 		) {
-			const allItems = await item_manager.handlingInput(itemsToFetch);
-			if (allItems.length === 0) {
+			const creationMessage = await item_manager.handleInput(itemsToFetch);
+			if (!creationMessage) {
 				throw new Error("something went wrong it's not created.");
 			}
 			res.status(201).send(await item_manager.getAllItems());
@@ -33,31 +33,30 @@ router.route("/add").post(async (req, res) => {
 		}
 		throw new Error("this item alredy exist.");
 	} catch (err) {
-		res.status(400).send(err);
+		res.status(500).send(err);
 	}
 });
 
 router.route("/update/:id").put(async (req, res) => {
 	try {
-		const allItems = await item_manager.updateItem(
-			req.params.id,
-			req.body.item
-		);
-		res.status(201).send(allItems);
+		await item_manager.updateItem(req.body, req.params.id);
+		res.status(204);
 	} catch (err) {
-		res.status(400).send(err.message);
+		res.status(500).send(err.message);
 	}
 });
 
 router.route("/delete/:id").delete(async (req, res) => {
 	try {
-		const allItems = await item_manager.removeItem(parseInt(req.params.id));
-		if (allItems.length === 0) {
+		const allItemsafterDeleted = await item_manager.removeItem(
+			parseInt(req.params.id)
+		);
+		if (!allItems) {
 			throw new Error(`filed try to clean the item ${req.params.id}.`);
 		}
-		res.status(200).send(allItems);
+		res.status(200).send(allItemsafterDeleted);
 	} catch (err) {
-		res.status(400).send(err.message);
+		res.status(500).send(err.message);
 	}
 });
 
@@ -67,9 +66,9 @@ router.route("/clear").delete(async (req, res) => {
 		if (!numOfDestroyingItems) {
 			throw new Error("filed try to clean the data.");
 		}
-		res.status(200).send(numOfDestroyingItems);
+		res.sendStatus(204);
 	} catch (err) {
-		res.status(400).send(err.message);
+		res.status(500).send(err.message);
 	}
 });
 module.exports = router;
