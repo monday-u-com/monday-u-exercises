@@ -32,6 +32,10 @@
     font-size: 2rem;
     flex-grow: 1;
   }
+
+.nav-logo i {
+  margin-left: 15px;
+}
   
   .nav-menu {
     display: flex;
@@ -41,12 +45,13 @@
   }
   
   .nav-links {
-    color: #fff;
+    color: #666;
     text-decoration: none;
     padding: 0.5rem 1rem;
     height: 100%;
     border-bottom: 3px solid transparent;
   }
+
   .fa-code {
     margin-left: 1rem;
   }
@@ -91,14 +96,22 @@
       opacity: 1;
       transition: all 0.5s ease;
     }
+    
+    .nav-links{
+
+      font-weight: 700;
+
+    }
+
   
     .nav-menu.active {
-      background: #1f5156;
+      background: rgba(255, 255, 255, 0.53);
       left: 0px;
       opacity: 1;
       transition: all 0.5s ease;
       z-index: 1;
     }
+
     .nav-item .active {
       color: #ffdd40;
       border: none;

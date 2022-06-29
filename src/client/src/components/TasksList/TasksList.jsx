@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import TaskButtons from "../TaskButtons/TaskButtons";
+import TaskItem from "../TaskItem/TaskItem";
 import ItemClient from "../../services/taskService";
 import "./taskList.css";
 
@@ -60,20 +60,12 @@ const TasksList = ({
     <div>
       {filteredTasks.map((task, index) => (
         // for some reason putting key={task.id} is not warking
-        <li className="task-list-item" key={index}>
-          <div className="grip-lines">
-            <i className="fa-solid fa-grip-lines" />
-          </div>
-          <input
-            type="text"
-            value={task.itemName}
-            className={task.status ? "task-item completed" : "task-item"}
-            onChange={(e) => e.preventDefault()}
-          />
-          <TaskButtons
-            handleComplete={() => handleComplete(task)}
-            handleDelete={() => handleDelete(task)}
-            handleEdit={() => setEditTask(task)}
+        <li className="tasks-list" key={index}>
+          <TaskItem
+            task={task}
+            setEditTask={setEditTask}
+            handleComplete={handleComplete}
+            handleDelete={handleDelete}
           />
         </li>
       ))}

@@ -1,0 +1,41 @@
+.statistics
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.statistics-item
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 30px;
+}
+
+.statistics-item-title
+{
+    font-size: 1.2em;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+}
+
+.statistics-item-title i
+{
+    font-size: 1.2em;
+    margin-right: 0.5em;
+}
+
+.statistics-item-value
+{
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}

@@ -5,6 +5,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-bottom: 1.5rem;
 }
 
 .task-input
@@ -33,18 +34,18 @@
     cursor: pointer;
     color : #666;
 
-    background: rgba(139, 163, 236, 0.14);
+    background: rgba(214,224,255,1, 0.14);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.8px);
     -webkit-backdrop-filter: blur(8.8px);
-    border: 1px solid rgba(139, 163, 236, 0.04);
+    border: 1px solid rgba(214,224,255,1, 0.04);
   }
 
   .button-add:hover{
     color: black;
-    background: rgba(139, 163, 236, 0.28);
-    border: 1px solid rgba(139, 163, 236, 0.04);
+    background: rgba(214,224,255,1, 0.28);
+    border: 1px solid rgba(214,224,255,1, 0.04);
     transition: ease-in-out 0.3s;
   }
 

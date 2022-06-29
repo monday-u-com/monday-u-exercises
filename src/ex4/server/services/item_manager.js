@@ -173,6 +173,7 @@ class ItemManager {
     const itemsFromDB = await Item.findAll();
     const tasks = [];
     itemsFromDB.forEach((item) => {
+      console.log("DEBUG ======>", item.dataValues);
       tasks.push(item.dataValues);
     });
     this.tasks = tasks;

@@ -9,20 +9,15 @@ import ActionBar from "../../components/ActionBar/ActionBar.jsx";
 import RemoveAllBtn from "../../components/RemoveAllButton/RemoveAllBtn.jsx";
 import "./tasks.css";
 
-const Tasks = () => {
-  const [tasks, setTasks] = useState([]);
+const Tasks = ({tasks, setTasks, taskService}) => {
+
   const [editTask, setEditTask] = useState(null);
   const [searchInput, setSearchInput] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [presentedTasksNum, setPresentedTasksNum] = useState(0);
 
-  const taskService = new ItemClient();
 
-  useEffect(() => {
-    taskService.fetchTasks().then((tasks) => {
-      setTasks(tasks);
-    });
-  }, []);
+
 
   const handleRemoveAll = () => {
     setTasks([]);
@@ -39,7 +34,7 @@ const Tasks = () => {
     <div className="container">
       <div className="app-wrapper">
         <div>
-          <Header />
+          <Header headline="Tasks List" />
         </div>
         <ActionBar
           searchInput={searchInput}

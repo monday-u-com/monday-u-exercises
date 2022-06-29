@@ -12,7 +12,7 @@ function Navbar() {
       <div className="nav-container">
         <NavLink to="/" className="nav-logo">
           Dynamo
-          <i className="fas fa-code"></i>
+          <i className="fa-solid fa-chart-simple"></i>
         </NavLink>
 
         <ul className={click ? "nav-menu active" : "nav-menu"}>
@@ -29,17 +29,6 @@ function Navbar() {
           </li>
           <li className="nav-item">
             <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                "nav-links" + (isActive ? " activated" : "")
-              }
-              onClick={handleClick}
-            >
-              About
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink
               to="/statistics"
               className={({ isActive }) =>
                 "nav-links" + (isActive ? " activated" : "")
@@ -47,6 +36,17 @@ function Navbar() {
               onClick={handleClick}
             >
               Statistics
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                "nav-links" + (isActive ? " activated" : "")
+              }
+              onClick={handleClick}
+            >
+              About
             </NavLink>
           </li>
         </ul>

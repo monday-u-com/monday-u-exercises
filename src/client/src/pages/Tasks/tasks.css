@@ -35,7 +35,6 @@
   
   input:focus
   {
-      outline: none;
-      border-bottom: rgba(139, 163, 236) solid 2px;
-      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1) ;
+      border-bottom: rgba(214,224,255,1) solid 3px;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
   }
