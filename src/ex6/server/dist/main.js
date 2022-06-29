@@ -35,7 +35,6 @@ class Main {
 
         const items = await this.itemClient.getItems()
 
-        debugger;
         items.forEach(item => {
             const listItem = document.createElement("li");
             listItem.classList.add('list-item');
