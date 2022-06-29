@@ -1,14 +1,13 @@
 import "../App.css";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import api from "../clients/item-client.js";
 
 function Task({ task, setTasks }) {
-   const addPokemonImage = () => {
-      // Add usememo!!!
+   const addPokemonImage = useMemo(() => {
       return <img src={task.imageURL} className="pokemon-image" alt="pokemon" />;
-   };
+   }, [task.imageURL]);
 
    const deleteButtonHandler = useCallback(async () => {
       await api.deleteTask(task.id);
@@ -21,7 +20,7 @@ function Task({ task, setTasks }) {
          <Checkbox />
          <div className="task">
             {task.text}
-            {task.imageURL ? addPokemonImage() : ""}
+            {task.imageURL ? addPokemonImage : ""}
          </div>
          <Button
             buttonHandler={deleteButtonHandler}
