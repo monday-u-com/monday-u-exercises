@@ -3,7 +3,7 @@ import ItemClient from '../../api/itemClient'
 import styles from './AddTask.module.css'
 import PropTypes from 'prop-types';
 
-function AddTask({ flag, setFlag, loading, setLoading }) {
+function AddTask({ flag, setFlag, setLoading }) {
 
     const [item, setItem] = useState('')
 
@@ -36,7 +36,6 @@ function AddTask({ flag, setFlag, loading, setLoading }) {
 AddTask.propTypes = {
     flag: PropTypes.bool,
     setFlag: PropTypes.func,
-    loading: PropTypes.bool,
     setLoading: PropTypes.func
 }
 

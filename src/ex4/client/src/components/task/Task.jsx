@@ -4,7 +4,7 @@ import Trash from '../../icons/Trash'
 import ItemClient from '../../api/itemClient'
 import PropTypes from 'prop-types';
 
-function Task({ item, flag, setFlag, loading, setLoading }) {
+function Task({ item, setFlag, setLoading }) {
 
     const [checked, setChecked] = useState(item.status)
 
@@ -17,7 +17,7 @@ function Task({ item, flag, setFlag, loading, setLoading }) {
             alert("Something went wrong")
             return
         }
-        setFlag(!flag)
+        setFlag(prev => !prev)
         setLoading(false)
     }
 
@@ -30,7 +30,7 @@ function Task({ item, flag, setFlag, loading, setLoading }) {
             alert("Something went wrong")
             return
         }
-        setFlag(!flag)
+        setFlag(prev => !prev)
         setChecked(prev => !prev)
         setLoading(false)
     }
@@ -52,9 +52,7 @@ function Task({ item, flag, setFlag, loading, setLoading }) {
 }
 
 Task.propTypes = {
-    flag: PropTypes.bool,
     setFlag: PropTypes.func,
-    loading: PropTypes.bool,
     setLoading: PropTypes.func,
     item: PropTypes.object
 }

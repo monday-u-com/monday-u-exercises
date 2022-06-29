@@ -4,14 +4,16 @@ import Task from '../task/Task'
 import styles from './TaskList.module.css'
 import PropTypes from 'prop-types';
 
-function TaskList({ flag, setFlag, loading, setLoading }) {
+function TaskList({ flag, setFlag, setLoading }) {
 
   const [items, setItems] = useState([])
 
   useEffect(() => {
     const getItemsFromServer = async () => {
+      setLoading(true)
       const client = new ItemClient()
       const newItems = await client.getItems()
+      setLoading(false)
       setItems(newItems)
     }
     getItemsFromServer()
@@ -23,7 +25,7 @@ function TaskList({ flag, setFlag, loading, setLoading }) {
         {items.map((item, index) => {
           return (
             <div key={index}>
-              <Task loading={loading} setLoading={setLoading} flag={flag} setFlag={setFlag} item={item}></Task>
+              <Task setLoading={setLoading} setFlag={setFlag} item={item}></Task>
               <hr ></hr>
             </div>
           )
@@ -36,7 +38,6 @@ function TaskList({ flag, setFlag, loading, setLoading }) {
 TaskList.propTypes = {
   flag: PropTypes.bool,
   setFlag: PropTypes.func,
-  loading: PropTypes.bool,
   setLoading: PropTypes.func,
 }
 

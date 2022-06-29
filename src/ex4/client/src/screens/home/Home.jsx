@@ -14,9 +14,8 @@ function Home() {
         <div className={styles.home_container}>
             {loading && <Loader />}
             <Card width={"30%"} height={"60%"} heading={"Todo App"}>
-                <AddTask loading={loading} setLoading={setLoading} flag={itemsFlag} setFlag={setItemsFlag}></AddTask>
+                <AddTask setLoading={setLoading} flag={itemsFlag} setFlag={setItemsFlag}></AddTask>
                 <TaskList
-                    loading={loading}
                     setLoading={setLoading}
                     flag={itemsFlag}
                     setFlag={setItemsFlag}
