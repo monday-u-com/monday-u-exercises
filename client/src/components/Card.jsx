@@ -22,7 +22,7 @@ function Card() {
       <div className="card">
          <Titles />
          <AddBar inputText={inputText} setInputText={setInputText} setTasks={setTasks} />
-         <SortButtons />
+         <SortButtons tasks={tasks} />
          <div className="tasks-and-clear-container">
             <Tasks tasks={tasks} setTasks={setTasks} />
             <Loader />

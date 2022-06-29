@@ -1,9 +1,9 @@
 import "../App.css";
 import Button from "./Button";
 
-function SortButtons() {
+function SortButtons({ tasks }) {
    return (
-      <div className="container sort-btns-container">
+      <div className={`container sort-btns-container ${tasks.length >= 1 ? "visible" : ""}`}>
          <Button
             innerText={<i className="fa-solid fa-arrow-down-a-z"></i>}
             className={"name-sort-down"}
