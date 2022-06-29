@@ -5,16 +5,15 @@ import { useCallback, useMemo } from "react";
 import api from "../clients/item-client.js";
 import { motion } from "framer-motion";
 
-function Task({ task, setTasks }) {
+function Task({ task, setTasks, tasks }) {
    const addPokemonImage = useMemo(() => {
       return <img src={task.imageURL} className="pokemon-image" alt="pokemon" />;
    }, [task.imageURL]);
 
    const deleteButtonHandler = useCallback(async () => {
       await api.deleteTask(task.id);
-      const allTasks = await api.getAllTasks();
-      setTasks(allTasks);
-   }, [setTasks, task.id]);
+      setTasks(tasks.filter((item) => item.id !== task.id));
+   }, [setTasks, task.id, tasks]);
 
    return (
       <motion.li

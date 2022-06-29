@@ -12,7 +12,10 @@ function Tasks({ tasks, setTasks }) {
    }, [setTasks]);
 
    const tasksList = useMemo(
-      () => [...tasks].map((task) => <Task task={task} key={task.id} setTasks={setTasks} />),
+      () =>
+         [...tasks].map((task) => (
+            <Task task={task} key={task.id} setTasks={setTasks} tasks={tasks} />
+         )),
       [tasks, setTasks]
    );
 
