@@ -1,6 +1,0 @@
-{
-  "type": "module",
-  "dependencies": {
-    "spin": "^0.0.1"
-  }
-}

@@ -9,7 +9,6 @@ app.use(express.json())
 app.use(logger)
 app.use(cors())
 
-app.use('/', express.static("dist"))
 app.use('/todo', router)
 
 app.listen('3030', () => {
