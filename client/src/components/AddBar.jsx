@@ -1,11 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import "../App.css";
 import Button from "./Button";
+import api from "../clients/item-client.js";
 
-function AddBar({ inputText, setInputText }) {
-   const buttonHandler = () => {
-      console.log(inputText);
-   };
+function AddBar({ inputText, setInputText, setTasks }) {
+   const buttonHandler = useCallback(async () => {
+      await api.addTask(inputText);
+      const allTasks = await api.getAllTasks();
+      setTasks(allTasks);
+   }, [inputText]);
 
    const handleKeyPress = (e) => {
       if (e.key === "Enter") buttonHandler();

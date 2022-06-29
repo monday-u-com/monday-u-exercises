@@ -15,7 +15,7 @@ function Card() {
    return (
       <div className="card">
          <Titles />
-         <AddBar inputText={inputText} setInputText={setInputText} />
+         <AddBar inputText={inputText} setInputText={setInputText} setTasks={setTasks} />
          <SortButtons />
          <div className="tasks-and-clear-container">
             <Tasks tasks={tasks} setTasks={setTasks} />
