@@ -17,7 +17,7 @@ function Task({ task, setTasks }) {
 
    return (
       <li data-id={task.id} className="task-container">
-         <Checkbox />
+         <Checkbox task={task} setTasks={setTasks} />
          <div className="task">
             {task.text}
             {task.imageURL ? addPokemonImage : ""}
