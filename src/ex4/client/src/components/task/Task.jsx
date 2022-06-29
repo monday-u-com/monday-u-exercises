@@ -5,30 +5,35 @@ import ItemClient from '../../api/itemClient'
 
 
 
-function Task({ item, flag, setFlag }) {
+function Task({ item, flag, setFlag, loading, setLoading }) {
 
     const [checked, setChecked] = useState(item.status)
 
     const deleteItem = async (name) => {
+        setLoading(true)
         const client = new ItemClient()
         const result = await client.deleteItem(name)
-        console.log(result)
         if (result.status !== 200) {
+            setLoading(false)
             alert("Something went wrong")
             return
         }
         setFlag(!flag)
+        setLoading(false)
     }
 
     const changeStatus = async (item) => {
+        setLoading(true)
         const client = new ItemClient()
         const result = await client.statusChanged(item)
         if (result.status !== 200) {
+            setLoading(false)
             alert("Something went wrong")
             return
         }
         setFlag(!flag)
         setChecked(prev => !prev)
+        setLoading(false)
     }
 
     return (

@@ -2,19 +2,23 @@ import React, { useState } from 'react'
 import ItemClient from '../../api/itemClient'
 import './AddTask.css'
 
-function AddTask({ flag, setFlag }) {
+function AddTask({ flag, setFlag, loading, setLoading }) {
 
     const [item, setItem] = useState('')
 
     const addItem = async () => {
+        setLoading(true)
         const client = new ItemClient()
         if (item !== "") {
             const response = await client.postItem(item)
             if (response.status !== 200) {
+                setLoading(false)
                 alert("Something went wrong")
+                return
             }
             setItem("")
             setFlag(!flag)
+            setLoading(false)
         } else {
             alert("Please enter a valid task")
         }
