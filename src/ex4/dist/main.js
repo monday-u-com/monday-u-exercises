@@ -88,7 +88,7 @@ const createEditTaskElement = (itemId, itemName) => {
 	const saveButton = document.createElement("button");
 	saveButton.innerText = "save";
 	saveButton.addEventListener("click", async () => {
-		await updateItem({ itemName: editTaskElement.value }, itemId);
+		await updateItem(itemId, { itemName: editTaskElement.value });
 		await renderAllItems();
 	});
 	return { editTaskElement, saveButton };
@@ -139,7 +139,7 @@ const createStatusElement = (itemId, itemStatus) => {
 	}
 	status.addEventListener("click", async (e) => {
 		e.preventDefault();
-		await updateItem({ status: status.checked }, itemId);
+		await updateItem(itemId, { status: status.checked });
 		await renderAllItems();
 	});
 	return status;

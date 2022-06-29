@@ -1,11 +1,12 @@
 // Create an ItemClient class here. This is what makes requests to your express server (your own custom API!)
 
-const getAllTasks = async () => {
+const getAllItems = async () => {
 	try {
 		const res = await fetch("/tasks");
-		if (res.ok) {
-			return res.json();
-		}
+		return {
+			status: res.status,
+			items: await res.json(),
+		};
 	} catch (err) {
 		return err;
 	}
@@ -17,25 +18,23 @@ const addItem = async (item) => {
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(item),
 	});
-	if (res.ok) {
-		return res.status;
-	} else {
-		return res.status;
-	}
+	return {
+		status: res.status,
+		items: await res.json(),
+	};
 };
 
-const updateItem = async (itemToUpdate, itemId) => {
+const updateItem = async (itemId, item) => {
 	try {
 		const res = await fetch(`/tasks/update/${itemId}`, {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(itemToUpdate),
+			body: JSON.stringify({ item }),
 		});
-		if (res.ok) {
-			return;
-		} else {
-			throw new Error("not updated");
-		}
+		return {
+			status: res.status,
+			items: await res.json(),
+		};
 	} catch (err) {
 		return err;
 	}
@@ -49,16 +48,16 @@ const deleteItem = async (itemId) => {
 				"Content-type": "application/json",
 			},
 		});
-		if (res.ok) {
-			return res.json();
-		}
-		throw new Error("No items were deleted Something went wrong");
+		return {
+			status: res.status,
+			items: await res.json(),
+		};
 	} catch (err) {
 		return err;
 	}
 };
 
-const clearAll = async (itemId) => {
+const clearAll = async () => {
 	try {
 		const res = await fetch(`/tasks/clear`, {
 			method: "DELETE",
@@ -66,13 +65,19 @@ const clearAll = async (itemId) => {
 				"Content-type": "application/json",
 			},
 		});
-		if (res.ok) {
-			return res.json();
-		}
-		throw new Error("No items were deleted Something went wrong");
+		return {
+			status: res.status,
+			items: await res.json(),
+		};
 	} catch (err) {
 		return err;
 	}
 };
 
-export { getAllTasks, addItem, deleteItem, updateItem, clearAll };
+module.exports = {
+	getAllItems,
+	addItem,
+	deleteItem,
+	updateItem,
+	clearAll,
+};

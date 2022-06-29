@@ -19,15 +19,16 @@ class ItemManager {
 		}
 	}
 
-	async updateItem(itemToUpdate, itemId) {
-		return item.update(itemToUpdate, { where: { id: itemId } });
+	async updateItem(itemId, itemData) {
+		await item.update(itemData, { where: { id: itemId } });
+		return await this.getAllItems();
 	}
 
 	async removeItem(itemId) {
 		await item.destroy({
 			where: { id: itemId },
 		});
-		return;
+		return await this.getAllItems();
 	}
 
 	async pokemonIdsHendeling(pokeID) {
@@ -50,7 +51,7 @@ class ItemManager {
 			});
 			await this.setItem(itemObg);
 		}
-		return "created!";
+		return await this.getAllItems();
 	}
 
 	async clearAllItems() {
