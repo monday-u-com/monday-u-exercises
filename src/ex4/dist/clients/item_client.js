@@ -30,20 +30,14 @@ const updateItem = async (itemToUpdate, itemId) => {
 };
 
 const deleteItem = async (itemId) => {
-	try {
-		const res = await fetch(`/tasks/delete/${itemId}`, {
-			method: "DELETE",
-			headers: {
-				"Content-type": "application/json",
-			},
-		});
-		if (res.ok) {
-			return res.json();
-		}
-		throw new Error("No items were deleted Something went wrong");
-	} catch (err) {
-		return err;
-	}
+	const res = await fetch(`/tasks/delete/${itemId}`, {
+		method: "DELETE",
+		headers: {
+			"Content-type": "application/json",
+		},
+	});
+	debugger;
+	return res.ok;
 };
 
 const clearAll = async (itemId) => {
@@ -53,6 +47,7 @@ const clearAll = async (itemId) => {
 			"Content-type": "application/json",
 		},
 	});
+	debugger;
 	return res.ok;
 };
 

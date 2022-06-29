@@ -127,7 +127,10 @@ const createDeleteElement = (itemId) => {
 
 	deleteTask.addEventListener("click", async (e) => {
 		e.stopPropagation();
-		await deleteItem(itemId);
+		const isResOk = await deleteItem(itemId);
+		if (!isResOk) {
+			alert("something went wrong.");
+		}
 		displayNumberOfTasks();
 		await renderAllItems();
 	});

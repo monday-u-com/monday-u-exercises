@@ -27,19 +27,19 @@ class ItemManager {
 		await item.destroy({
 			where: { id: itemId },
 		});
-		return;
+		return this.getAllItems();
 	}
 
-	async pokemonIdsHendeling(pokeID) {
+	async pokemonIdsHandle(pokeID) {
 		const pokemon = await this.pokemonClient.getPokemon(pokeID);
 		return pokemon;
 	}
 
-	async pokemonFatching(pokemonIdsArray) {
+	async pokemonFatch(pokemonIdsArray) {
 		const pokemonPromises = [];
 
 		pokemonIdsArray.forEach((pokemonIdStr) => {
-			pokemonPromises.push(this.pokemonIdsHendeling(pokemonIdStr.trim()));
+			pokemonPromises.push(this.pokemonIdsHandle(pokemonIdStr.trim()));
 		});
 		const pokemonsRsult = await Promise.all(pokemonPromises);
 		for (let i = 0; pokemonsRsult.length > i; i++) {
@@ -76,11 +76,11 @@ class ItemManager {
 		return isPokemonExist.length > 0;
 	}
 
-	async isItaskExist(input) {
-		const isItaskExist = await item.findAll({
+	async isItemExist(input) {
+		const isItemExist = await item.findAll({
 			where: { itemName: input.itemName },
 		});
-		return isItaskExist.length === 0;
+		return isItemExist.length === 0;
 	}
 
 	async validateInput(input) {
@@ -94,16 +94,16 @@ class ItemManager {
 			}
 			return itemsToFetch;
 		} else {
-			if (await this.isItaskExist(input)) {
+			if (await this.isItemExist(input)) {
 				return input;
 			}
 		}
 	}
 
-	async handlingInput(input) {
+	async handleInput(input) {
 		if (Array.isArray(input)) {
 			try {
-				return await this.pokemonFatching(input);
+				return await this.pokemonFatch(input);
 			} catch (err) {
 				return err;
 			}
@@ -113,13 +113,12 @@ class ItemManager {
 		}
 	}
 
-	createjsonToDB(obj) {
-		const x = {
-			itemName: obj.itemName,
-			status: obj.status || false,
-			pokedexId: obj.pokedexId || null,
+	createjsonToDB(semiItem) {
+		return {
+			itemName: semiItem.itemName,
+			status: semiItem.status || false,
+			pokedexId: semiItem.pokedexId || null,
 		};
-		return x;
 	}
 }
 
