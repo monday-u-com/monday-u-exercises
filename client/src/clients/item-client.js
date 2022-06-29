@@ -36,6 +36,6 @@ export default new (class ItemClient {
          headers: { "Content-Type": "application/json" },
          body: JSON.stringify({ isChecked: isChecked, taskID: taskID }),
       };
-      await fetch("/checkmark", reqOptions);
+      return (await fetch("/checkmark", reqOptions)).json();
    }
 })();

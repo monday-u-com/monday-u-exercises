@@ -1,18 +1,12 @@
 import "../App.css";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import api from "../clients/item-client.js";
 
 function Checkbox({ task, setTasks }) {
-   const checkboxHandler = useCallback(
-      async (e) => {
-         console.log(task);
-         console.log(task.status);
-         await api.checkMarkTask(e.target.checked, task.id);
-         const allTasks = await api.getAllTasks();
-         setTasks(allTasks);
-      },
-      [task, setTasks]
-   );
+   const checkboxHandler = useCallback(async () => {
+      const allTasks = await api.checkMarkTask(!task.status, task.id);
+      setTasks(allTasks);
+   }, [task, setTasks]);
 
    return (
       <input

@@ -37,8 +37,8 @@ router.get("/sort/:kind", async (req, res) => {
 });
 
 router.post("/checkmark", async (req, res) => {
-   await taskManager.checkMarkTask(req.body);
-   res.status(200).json({ success: true });
+   const allTasks = await taskManager.checkMarkTask(req.body);
+   res.status(200).json(allTasks);
 });
 
 module.exports = router;

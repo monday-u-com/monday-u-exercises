@@ -32,13 +32,15 @@ class DBManager {
    }
 
    async checkMarkTask(isChecked, taskID) {
-      Task.findOne({ where: { id: taskID } }).then((task) => {
+      await Task.findOne({ where: { id: taskID } }).then(async (task) => {
          if (!task) {
             throw new Error("No task found");
          }
-         task.update({ status: isChecked });
-         task.update({ done: isChecked ? Date.now() : null });
+         await task.update({ status: isChecked });
+         await task.update({ done: isChecked ? Date.now() : null });
       });
+
+      return await this.getAllTasks();
    }
 }
 

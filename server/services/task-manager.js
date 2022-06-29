@@ -32,7 +32,7 @@ class TaskManager {
    sort = async (direction) => await db.sortTasks(direction);
 
    async checkMarkTask(checkMarkReq) {
-      await db.checkMarkTask(checkMarkReq.isChecked, checkMarkReq.taskID);
+      return await db.checkMarkTask(checkMarkReq.isChecked, checkMarkReq.taskID);
    }
 
    _pokemonTasksHandle(pokemon, pokemonID) {
