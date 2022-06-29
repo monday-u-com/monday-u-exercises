@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ItemClient from '../../api/itemClient'
-import './AddTask.css'
+import styles from './AddTask.module.css'
 
 function AddTask({ flag, setFlag, loading, setLoading }) {
 
@@ -25,9 +25,9 @@ function AddTask({ flag, setFlag, loading, setLoading }) {
     }
 
     return (
-        <div className={'add-task-container'}>
-            <input value={item} className={'add-task-input'} onChange={(e) => setItem(e.currentTarget.value)}></input>
-            <button className={'add-task-button'} onClick={() => addItem()}>+</button>
+        <div className={styles.add_task_container}>
+            <input value={item} className={styles.add_task_input} onChange={(e) => setItem(e.currentTarget.value)}></input>
+            <button className={styles.add_task_button} onClick={() => addItem()}>+</button>
         </div >
     )
 }

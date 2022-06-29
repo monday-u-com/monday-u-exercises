@@ -1,10 +1,10 @@
-.task-list-container {
+.task_list_container {
     width: 100%;
     height: 60%;
     padding: 10px
 }
 
-.task-list-ul {
+.task_list_ul {
     padding: 20px;
     width: 100%;
     height: 100%;

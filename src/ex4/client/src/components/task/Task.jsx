@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './Task.css'
+import styles from './Task.module.css'
 import Trash from '../../icons/Trash'
 import ItemClient from '../../api/itemClient'
 
@@ -37,15 +37,15 @@ function Task({ item, flag, setFlag, loading, setLoading }) {
     }
 
     return (
-        <div className={"task-container"}>
+        <div className={styles.task_container}>
             <input
                 onChange={(e) => changeStatus({ item: item.itemName, status: e.target.checked })}
                 type='checkbox'
-                className={"task-checkbox"}
+                className={styles.task_checkbox}
                 checked={checked}>
             </input>
-            <span className={"task-task-name"}>{item.itemName}</span>
-            <div className={"task-trash-icon"} onClick={() => deleteItem(item.itemName)}>
+            <span className={styles.task_task_name}>{item.itemName}</span>
+            <div className={styles.task_trash_icon} onClick={() => deleteItem(item.itemName)}>
                 <Trash />
             </div>
         </div>

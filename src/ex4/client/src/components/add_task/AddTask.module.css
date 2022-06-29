@@ -1,11 +1,11 @@
-.add-task-container {
+.add_task_container {
     display: flex;
     justify-content: center;
     width: 100%;
     gap: 10px
 }
 
-.add-task-input {
+.add_task_input {
     height: 40px;
     width: 70%;
     font-size: 20px;
@@ -14,7 +14,7 @@
     padding: 10px
 }
 
-.add-task-button {
+.add_task_button {
     width: 40px;
     font-weight: bold;
     font-size: 25px;

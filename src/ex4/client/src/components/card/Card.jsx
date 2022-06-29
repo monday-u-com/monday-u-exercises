@@ -1,11 +1,11 @@
 import React from 'react';
-import './Card.css';
+import styles from './Card.module.css';
 
 function Card({ width, height, heading, children }) {
   return (
-    <div className={"card-container"} style={{ width: width, height: height }} >
+    <div className={styles.card_container} style={{ width: width, height: height }} >
       {heading &&
-        <p className={"card-heading"}>{heading}</p>
+        <p className={styles.card_heading}>{heading}</p>
       }
       {children}
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ItemClient from '../../api/itemClient'
 import Task from '../task/Task'
-import './TaskList.css'
+import styles from './TaskList.module.css'
 
 function TaskList({ itemAdded, flag, setFlag, loading, setLoading }) {
 
@@ -17,8 +17,8 @@ function TaskList({ itemAdded, flag, setFlag, loading, setLoading }) {
   }, [itemAdded])
 
   return (
-    <div className={"task-list-container"}>
-      <ul className={"task-list-ul"}>
+    <div className={styles.task_list_container}>
+      <ul className={styles.task_list_ul}>
         {items.map((item, index) => {
           return (
             <div key={index}>
