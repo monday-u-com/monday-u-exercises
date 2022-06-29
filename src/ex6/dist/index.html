@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/7a715c599c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="background">
+      <div class="main">
+        <h1>To-Do List</h1>
+        <div class="add-task">
+          <input
+            type="text"
+            name="new-task"
+            value=""
+            placeholder="Add your new todo"
+            class="add-task-field"
+          />
+          <button class="add-task-btn">
+            <i class="fa-solid fa-square-plus fa-3x"></i>
+          </button>
+        </div>
+        <div class="tasks"></div>
+        <div class="footer">
+          <span class="footer-text"></span>
+          <button class="clear-all-btn">Clear All</button>
+        </div>
+      </div>
+    </div>
+    <!-- <script src="script.js"></script> -->
+    <script src="./clients/item_client.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
