@@ -46,6 +46,7 @@ class ItemClient {
 
         try {
             const res = await fetch(this.url + `/${item}`, options)
+            console.log(res)
             return res
         } catch (e) {
             console.log(e)
@@ -53,7 +54,6 @@ class ItemClient {
     }
 
     async statusChanged(item) {
-
         const options = {
             method: "PUT",
             headers: {
@@ -64,10 +64,8 @@ class ItemClient {
         }
 
         try {
-            const res = await fetch(this.url + `/status/${item}`, options)
-            if (!res.status) {
-                alert('Something went wrong :(')
-            }
+            const res = await fetch(this.url + `/status/${item.item}`, options)
+            return res
         } catch (e) {
             console.log(e)
         }

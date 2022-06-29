@@ -22,7 +22,7 @@ function TaskList({ itemAdded, flag, setFlag }) {
         {items.map((item, index) => {
           return (
             <div key={index}>
-              <Task flag={flag} setFlag={setFlag} name={item.itemName}></Task>
+              <Task flag={flag} setFlag={setFlag} item={item}></Task>
               <hr ></hr>
             </div>
           )
