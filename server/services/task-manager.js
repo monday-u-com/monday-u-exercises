@@ -15,8 +15,8 @@ class TaskManager {
          );
 
          let tasks = [];
-         pokemonData.forEach((pokemon) => {
-            tasks.push(this._pokemonTasksHandle(pokemon));
+         pokemonData.forEach((pokemon, index) => {
+            tasks.push(this._pokemonTasksHandle(pokemon, pokemonIDS[index]));
          });
 
          await db.addTask(tasks);
@@ -35,7 +35,7 @@ class TaskManager {
       await db.checkMarkTask(checkMarkReq.isChecked, checkMarkReq.taskID);
    }
 
-   _pokemonTasksHandle(pokemon) {
+   _pokemonTasksHandle(pokemon, pokemonID) {
       let task;
       if (pokemon) {
          let pokemonName = this._capitalize(pokemon.name);
@@ -45,7 +45,7 @@ class TaskManager {
 
          task = new Task(taskToAdd, pokemon.id, pokemonName, pokemonTypes, imageURL);
       } else {
-         task = new Task(`Pokemon ID ${pokemon.id} does not exist`);
+         task = new Task(`Pokemon ID ${pokemonID} does not exist`);
       }
 
       return task;
