@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import "../App.css";
 import api from "../clients/item-client.js";
 import Task from "./Task";
@@ -11,9 +11,10 @@ function Tasks({ tasks, setTasks }) {
       })();
    }, [setTasks]);
 
-   const tasksList = [...tasks].map((task) => (
-      <Task task={task} key={task.id} setTasks={setTasks} />
-   ));
+   const tasksList = useMemo(
+      () => [...tasks].map((task) => <Task task={task} key={task.id} setTasks={setTasks} />),
+      [tasks, setTasks]
+   );
 
    return <ul className="all-tasks-container">{tasksList}</ul>;
 }
