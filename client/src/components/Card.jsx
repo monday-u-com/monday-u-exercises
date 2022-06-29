@@ -6,11 +6,17 @@ import Loader from "./Loader";
 import PendingTasks from "./PendingTasks";
 import Button from "./Button";
 import Titles from "./Titles";
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import api from "../clients/item-client.js";
 
 function Card() {
    const [tasks, setTasks] = useState([]);
    const [inputText, setInputText] = useState("");
+
+   const clearButtonHandler = useCallback(async () => {
+      await api.clearTasks();
+      setTasks([]);
+   }, []);
 
    return (
       <div className="card">
@@ -22,7 +28,11 @@ function Card() {
             <Loader />
             <div className="footer-container">
                <PendingTasks tasks={tasks} />
-               <Button innerText={"Clear All"} className={"clear-all"} />
+               <Button
+                  buttonHandler={clearButtonHandler}
+                  innerText={"Clear All"}
+                  className={"clear-all"}
+               />
             </div>
          </div>
       </div>
