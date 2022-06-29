@@ -4,17 +4,18 @@ import Button from "./Button";
 import api from "../clients/item-client.js";
 
 function AddBar({ inputText, setInputText, setTasks }) {
-   const buttonHandler = useCallback(async () => {
+   const addButtonHandler = useCallback(async () => {
       await api.addTask(inputText);
       const allTasks = await api.getAllTasks();
       setTasks(allTasks);
+      document.querySelector("input").value = "";
    }, [inputText, setTasks]);
 
    const handleKeyPress = useCallback(
       (e) => {
-         if (e.key === "Enter") buttonHandler();
+         if (e.key === "Enter") addButtonHandler();
       },
-      [buttonHandler]
+      [addButtonHandler]
    );
 
    const inputTextHandler = (e) => {
@@ -39,7 +40,7 @@ function AddBar({ inputText, setInputText, setTasks }) {
             placeholder="Add your new to-do"
          />
          <Button
-            buttonHandler={buttonHandler}
+            buttonHandler={addButtonHandler}
             innerText={<i className="fa-solid fa-plus"></i>}
             className={"add-task"}
          />
