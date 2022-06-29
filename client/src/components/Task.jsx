@@ -3,6 +3,7 @@ import Button from "./Button";
 import Checkbox from "./Checkbox";
 import { useCallback, useMemo } from "react";
 import api from "../clients/item-client.js";
+import { motion } from "framer-motion";
 
 function Task({ task, setTasks }) {
    const addPokemonImage = useMemo(() => {
@@ -16,7 +17,12 @@ function Task({ task, setTasks }) {
    }, [setTasks, task.id]);
 
    return (
-      <li data-id={task.id} className="task-container">
+      <motion.li
+         data-id={task.id}
+         className="task-container"
+         initial={{ x: -130, opacity: 0.3, scale: 0.6 }}
+         animate={{ x: 0, opacity: 1, scale: 1 }}
+      >
          <Checkbox task={task} setTasks={setTasks} />
          <div className="task">
             {task.text}
@@ -27,7 +33,7 @@ function Task({ task, setTasks }) {
             innerText={<i className="fa-solid fa-trash"></i>}
             className={"delete"}
          />
-      </li>
+      </motion.li>
    );
 }
 
