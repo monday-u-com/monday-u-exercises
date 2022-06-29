@@ -2,11 +2,16 @@ import "../App.css";
 import { useCallback } from "react";
 import api from "../clients/item-client.js";
 
-function Checkbox({ task, setTasks }) {
+function Checkbox({ task, tasks, setTasks }) {
    const checkboxHandler = useCallback(async () => {
-      const allTasks = await api.checkMarkTask(!task.status, task.id);
-      setTasks(allTasks);
-   }, [task, setTasks]);
+      await api.checkMarkTask(!task.status, task.id);
+
+      let items = [...tasks];
+      const index = items.findIndex((el) => el.id === task.id);
+      items[index].status = !task.status;
+
+      setTasks(items);
+   }, [task, setTasks, tasks]);
 
    return (
       <input

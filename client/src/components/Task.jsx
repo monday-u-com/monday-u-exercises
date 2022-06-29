@@ -22,7 +22,7 @@ function Task({ task, setTasks, tasks }) {
          initial={{ x: -130, opacity: 0.3, scale: 0.6 }}
          animate={{ x: 0, opacity: 1, scale: 1 }}
       >
-         <Checkbox task={task} setTasks={setTasks} />
+         <Checkbox task={task} tasks={tasks} setTasks={setTasks} />
          <div className="task">
             {task.text}
             {task.imageURL ? addPokemonImage : ""}
