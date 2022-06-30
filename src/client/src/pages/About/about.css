@@ -1,0 +1,26 @@
+.container
+{
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.about-wrap
+{
+    width: 600px;
+    width: 500px;
+}
+
+.about-data
+{
+    margin-top: 15px;
+}
+
+.profile-pic
+{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin: 0 auto;
+}

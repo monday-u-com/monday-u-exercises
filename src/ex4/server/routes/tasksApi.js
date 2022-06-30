@@ -15,7 +15,6 @@ router.post("/", async (req, res) => {
   const isCompleted = req.body.status;
   const position = req.body.position;
   const response = await itemManager.addTask(taskInput, isCompleted, position);
-  console.log(response);
   if (response) {
     res.status(200).json(response);
   } else {

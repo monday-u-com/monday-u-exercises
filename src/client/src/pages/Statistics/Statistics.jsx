@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import Header from "../../components/Header/Header";
+import DataRow from "../../components/DataRow/DataRow";
 import "./statistics.css";
 
 const Statistics = ({ tasks }) => {
@@ -36,34 +37,26 @@ const Statistics = ({ tasks }) => {
           <Header headline="Statistics" />
         </div>
         <div className="statistics">
-          <div className="statistics-item">
-            <div className="statistics-item-title">
-              <i className="fa-solid fa-list-check"></i>
-              Total tasks
-            </div>
-            <div className="statistics-item-value">{totalTasks}</div>
-          </div>
-          <div className="statistics-item">
-            <div className="statistics-item-title">
-              <i className="fa-solid fa-circle-check"></i>
-              Completed Tasks
-            </div>
-            <div className="statistics-item-value">{completedTasks}</div>
-          </div>
-          <div className="statistics-item">
-            <div className="statistics-item-title">
-              <i className="fa-solid fa-bars-progress"></i>
-              Uncompleted Tasks
-            </div>
-            <div className="statistics-item-value">{uncompletedTasks}</div>
-          </div>
-          <div className="statistics-item">
-            <div className="statistics-item-title">
-              <i className="fa-solid fa-clock"></i>
-              Average Task Completion Time
-            </div>
-            <div className="statistics-item-value">{avgTimeToCompleteMemo}</div>
-          </div>
+          <DataRow
+            icon="fas fa-tasks"
+            header="Total tasks"
+            content={totalTasks}
+          />
+          <DataRow
+            icon="fas fa-check"
+            header="Completed tasks"
+            content={completedTasks}
+          />
+          <DataRow
+            icon="fas fa-times"
+            header="Uncompleted tasks"
+            content={uncompletedTasks}
+          />
+          <DataRow
+            icon="fas fa-clock"
+            header="Average time to complete"
+            content={avgTimeToCompleteMemo}
+          />
         </div>
       </div>
     </div>

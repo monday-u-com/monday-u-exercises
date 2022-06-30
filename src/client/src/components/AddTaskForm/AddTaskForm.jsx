@@ -68,7 +68,6 @@ const AddTaskForm = ({
         const position = tasks.length;
         const res = await taskService.addTask(input, false, position);
         if (res.status === 200) {
-          console.log(res.response);
           if (Array.isArray(res.response)) {
             setTasks([...tasks, ...res.response]);
           } else {

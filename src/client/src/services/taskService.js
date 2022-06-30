@@ -24,11 +24,9 @@ class ItemClient {
     });
 
     if (response.status === 200) {
-      console.log("===============good===========");
       const res = await response.json();
       return { response: res, status: 200 };
     }
-    console.log("===========bad=======");
     return { error: "Task already exists", status: 409 };
   }
 
