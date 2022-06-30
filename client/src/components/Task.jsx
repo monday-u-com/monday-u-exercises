@@ -12,8 +12,12 @@ function Task({ task, setTasks, tasks }) {
    }, [task.imageURL]);
 
    const deleteButtonHandler = useCallback(async () => {
-      await api.deleteTask(task.id);
-      setTasks(tasks.filter((item) => item.id !== task.id));
+      try {
+         await api.deleteTask(task.id);
+         setTasks(tasks.filter((item) => item.id !== task.id));
+      } catch (error) {
+         console.error(error);
+      }
    }, [setTasks, task.id, tasks]);
 
    return (

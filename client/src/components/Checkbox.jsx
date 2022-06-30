@@ -5,7 +5,11 @@ import PropTypes from "prop-types";
 
 function Checkbox({ task, tasks, setTasks }) {
    const checkboxHandler = useCallback(async () => {
-      await api.checkMarkTask(!task.status, task.id);
+      try {
+         await api.checkMarkTask(!task.status, task.id);
+      } catch (error) {
+         console.error(error);
+      }
 
       let items = [...tasks];
       const index = items.findIndex((el) => el.id === task.id);

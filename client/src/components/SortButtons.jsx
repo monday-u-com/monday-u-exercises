@@ -7,8 +7,12 @@ import PropTypes from "prop-types";
 function SortButtons({ tasks, setTasks }) {
    const sortButtonHandler = useCallback(
       async (direction) => {
-         const sortedTasks = await api.sortTasks(direction);
-         setTasks(sortedTasks);
+         try {
+            const sortedTasks = await api.sortTasks(direction);
+            sortedTasks ? setTasks(sortedTasks) : console.error("Server error");
+         } catch (error) {
+            console.error(error);
+         }
       },
       [setTasks]
    );

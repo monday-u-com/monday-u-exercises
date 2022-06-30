@@ -8,8 +8,12 @@ function Tasks({ tasks, setTasks, setIsLoading }) {
    useEffect(() => {
       (async () => {
          setIsLoading(true);
-         let allTasks = await api.getAllTasks();
-         setTasks(allTasks);
+         try {
+            const allTasks = await api.getAllTasks();
+            allTasks ? setTasks(allTasks) : console.error("Server error");
+         } catch (error) {
+            console.error(error);
+         }
          setIsLoading(false);
       })();
    }, [setTasks, setIsLoading]);

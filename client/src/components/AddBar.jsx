@@ -12,9 +12,13 @@ function AddBar({ inputText, setInputText, setTasks, setIsLoading }) {
          alert("Please fill in a task");
          input.value = "";
       } else {
-         await api.addTask(inputText);
-         const allTasks = await api.getAllTasks();
-         setTasks(allTasks);
+         try {
+            await api.addTask(inputText);
+            const allTasks = await api.getAllTasks();
+            allTasks ? setTasks(allTasks) : console.error("Server error");
+         } catch (error) {
+            console.error(error);
+         }
          input.value = "";
       }
       setIsLoading(false);

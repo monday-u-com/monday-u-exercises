@@ -15,8 +15,12 @@ function Card() {
    const [isLoading, setIsLoading] = useState(true);
 
    const clearButtonHandler = useCallback(async () => {
-      await api.clearTasks();
-      setTasks([]);
+      try {
+         await api.clearTasks();
+         setTasks([]);
+      } catch (error) {
+         console.error(error);
+      }
    }, []);
 
    return (
