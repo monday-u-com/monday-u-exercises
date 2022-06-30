@@ -6,7 +6,7 @@ This is my task for Exercise 5 of Monday-U Full Stack course. Task requirements 
 
 ## Screenshot:
 
-![app screenshot](./dist/readme-assets/Screenshot.png)
+![app screenshot](./client/readme-assets/Screenshot.png)
 
 ## Task requirements:
 
