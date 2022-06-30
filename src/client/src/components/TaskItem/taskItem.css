@@ -25,6 +25,11 @@
     transition: ease-in-out 0.3s;
 }
 
+.task-item:hover p
+{
+  opacity: 0.1;
+}
+
 .completed
 {
   text-decoration: line-through;

@@ -73,7 +73,6 @@ const AddTaskForm = ({
           } else {
             setTasks([...tasks, res.response]);
           }
-          setInput("");
         } else {
           if (res.status === 409) {
             setErrorMessage("Task already exists");
@@ -82,6 +81,7 @@ const AddTaskForm = ({
         }
       }
     }
+    setInput("");
   };
 
   return (

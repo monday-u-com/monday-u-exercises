@@ -34,8 +34,7 @@ const App = () => {
         <Navbar />
         <div className="container">
           <Routes>
-            <Route path="/" element={<Tasks />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/about" element={<About />} exact />
             <Route
               path="/tasks"
               element={
@@ -46,8 +45,20 @@ const App = () => {
                 />
               }
             />
-            <Route path="/statistics" element={<Statistics tasks={tasks} />} />
-            <Route path="*" element={<Tasks />} />
+            <Route
+              path="/statistics"
+              element={<Statistics tasks={tasks} exact />}
+            />
+            <Route
+              path="*"
+              element={
+                <Tasks
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  taskService={taskService}
+                />
+              }
+            />
           </Routes>
         </div>
       </div>
