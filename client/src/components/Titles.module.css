@@ -1,0 +1,12 @@
+.app-title {
+   font-size: 4rem;
+   padding: 1rem;
+   margin-top: 2rem;
+}
+
+.info {
+   font-size: 1.7rem;
+   width: 50rem;
+   margin-bottom: 2rem;
+   text-align: center;
+}

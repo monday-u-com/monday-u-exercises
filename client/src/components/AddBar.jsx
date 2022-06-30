@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from "react";
-import "../App.css";
 import Button from "./Button";
 import api from "../clients/item-client.js";
+import addBarCSS from "./AddBar.module.css";
 
 function AddBar({ inputText, setInputText, setTasks, setIsLoading }) {
    const addButtonHandler = useCallback(async () => {
@@ -39,18 +39,18 @@ function AddBar({ inputText, setInputText, setTasks, setIsLoading }) {
    }, [inputText, handleKeyPress]);
 
    return (
-      <div className="container">
+      <div className={addBarCSS.container}>
          <input
             onChange={inputTextHandler}
             type="text"
-            id="task-text"
+            id={addBarCSS["task-text"]}
             name="task-text"
             placeholder="Add your new to-do"
          />
          <Button
             buttonHandler={addButtonHandler}
-            innerText={<i className="fa-solid fa-plus"></i>}
-            className={"add-task"}
+            innerText={<i className={`${addBarCSS["fa-plus"]} fa-plus fa-solid`}></i>}
+            className={addBarCSS["add-task"]}
          />
       </div>
    );

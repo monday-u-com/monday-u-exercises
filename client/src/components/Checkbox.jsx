@@ -1,4 +1,4 @@
-import "../App.css";
+import checkboxCSS from "./Checkbox.module.css";
 import { useCallback } from "react";
 import api from "../clients/item-client.js";
 
@@ -16,7 +16,7 @@ function Checkbox({ task, tasks, setTasks }) {
    return (
       <input
          type="checkbox"
-         className="my-checkbox"
+         className={checkboxCSS["my-checkbox"]}
          checked={task.status}
          onChange={checkboxHandler}
       />

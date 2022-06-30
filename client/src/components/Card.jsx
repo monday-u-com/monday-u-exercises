@@ -1,4 +1,4 @@
-import "../App.css";
+import cardCSS from "./Card.module.css";
 import AddBar from "./AddBar";
 import SortButtons from "./SortButtons";
 import Tasks from "./Tasks";
@@ -20,7 +20,7 @@ function Card() {
    }, []);
 
    return (
-      <div className="card">
+      <div className={cardCSS.card}>
          <Titles />
          <AddBar
             inputText={inputText}
@@ -29,15 +29,15 @@ function Card() {
             setIsLoading={setIsLoading}
          />
          <SortButtons tasks={tasks} setTasks={setTasks} />
-         <div className="tasks-and-clear-container">
+         <div className={cardCSS["tasks-and-clear-container"]}>
             <Tasks tasks={tasks} setTasks={setTasks} setIsLoading={setIsLoading} />
             {isLoading === true ? <Loader /> : ""}
-            <div className="footer-container">
+            <div className={cardCSS["footer-container"]}>
                <PendingTasks tasks={tasks} />
                <Button
                   buttonHandler={clearButtonHandler}
                   innerText={"Clear All"}
-                  className={"clear-all"}
+                  className={cardCSS["clear-all"]}
                />
             </div>
          </div>

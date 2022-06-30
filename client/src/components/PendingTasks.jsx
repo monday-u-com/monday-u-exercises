@@ -1,9 +1,9 @@
-import "../App.css";
+import pendingTasksCSS from "./PendingTasks.module.css";
 
 function PendingTasks({ tasks }) {
    return (
-      <p className="pending-tasks">
-         You have <span id="tasks-counter">{tasks.length}</span> pending tasks
+      <p className={pendingTasksCSS["pending-tasks"]}>
+         You have <span id={pendingTasksCSS["tasks-counter"]}>{tasks.length}</span> pending tasks
       </p>
    );
 }

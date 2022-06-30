@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import "../App.css";
+import tasksCSS from "./Tasks.module.css";
 import api from "../clients/item-client.js";
 import Task from "./Task";
 
@@ -21,7 +21,7 @@ function Tasks({ tasks, setTasks, setIsLoading }) {
       [tasks, setTasks]
    );
 
-   return <ul className="all-tasks-container">{tasksList}</ul>;
+   return <ul className={tasksCSS["all-tasks-container"]}>{tasksList}</ul>;
 }
 
 export default Tasks;

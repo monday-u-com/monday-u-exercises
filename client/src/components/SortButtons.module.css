@@ -1,0 +1,34 @@
+.container {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   margin-bottom: 1.2rem;
+}
+
+.sort-btns-container {
+   visibility: hidden;
+}
+
+.name-sort-up,
+.name-sort-down {
+   border: none;
+   background-color: rgb(253, 154, 41);
+   border-radius: 3px;
+   font-size: 2.1rem;
+   padding: 0.7rem 2.5rem 0.7rem 2.5rem;
+}
+
+.name-sort-up:hover,
+.name-sort-down:hover {
+   cursor: pointer;
+   background-color: rgb(255, 191, 0);
+}
+
+.fa-arrow-down-a-z,
+.fa-arrow-up-a-z {
+   font-size: 2.2rem;
+}
+
+.visible {
+   visibility: visible;
+}

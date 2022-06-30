@@ -1,4 +1,4 @@
-import "../App.css";
+import taskCSS from "./Task.module.css";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
 import { useCallback, useMemo } from "react";
@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 function Task({ task, setTasks, tasks }) {
    const addPokemonImage = useMemo(() => {
-      return <img src={task.imageURL} className="pokemon-image" alt="pokemon" />;
+      return <img src={task.imageURL} className={taskCSS["pokemon-image"]} alt="pokemon" />;
    }, [task.imageURL]);
 
    const deleteButtonHandler = useCallback(async () => {
@@ -18,19 +18,19 @@ function Task({ task, setTasks, tasks }) {
    return (
       <motion.li
          data-id={task.id}
-         className="task-container"
+         className={taskCSS["task-container"]}
          initial={{ x: -130, opacity: 0.3, scale: 0.6 }}
          animate={{ x: 0, opacity: 1, scale: 1 }}
       >
          <Checkbox task={task} tasks={tasks} setTasks={setTasks} />
-         <div className="task">
+         <div className={taskCSS.task}>
             {task.text}
             {task.imageURL ? addPokemonImage : ""}
          </div>
          <Button
             buttonHandler={deleteButtonHandler}
-            innerText={<i className="fa-solid fa-trash"></i>}
-            className={"delete"}
+            innerText={<i className={`${taskCSS["fa-trash"]} fa-trash fa-solid`}></i>}
+            className={taskCSS.delete}
          />
       </motion.li>
    );
