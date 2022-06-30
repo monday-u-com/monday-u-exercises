@@ -1,16 +1,20 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import Button from "./Button";
 import api from "../clients/item-client.js";
 import addBarCSS from "./AddBar.module.css";
 import PropTypes from "prop-types";
+import { TextField } from "monday-ui-react-core";
+import "monday-ui-react-core/dist/main.css";
 
 function AddBar({ inputText, setInputText, setTasks, setIsLoading }) {
+   const textInput = useRef();
+
    const addButtonHandler = useCallback(async () => {
       setIsLoading(true);
-      const input = document.querySelector("input");
-      if (input.value.trim().length === 0) {
+
+      if (inputText.trim().length === 0) {
          alert("Please fill in a task");
-         input.value = "";
+         setInputText("");
       } else {
          try {
             await api.addTask(inputText);
@@ -19,10 +23,10 @@ function AddBar({ inputText, setInputText, setTasks, setIsLoading }) {
          } catch (error) {
             console.error(error);
          }
-         input.value = "";
+         setInputText("");
       }
       setIsLoading(false);
-   }, [inputText, setTasks, setIsLoading]);
+   }, [inputText, setTasks, setIsLoading, setInputText]);
 
    const handleKeyPress = useCallback(
       (e) => {
@@ -31,8 +35,8 @@ function AddBar({ inputText, setInputText, setTasks, setIsLoading }) {
       [addButtonHandler]
    );
 
-   const inputTextHandler = (e) => {
-      setInputText(e.target.value);
+   const inputTextHandler = (text) => {
+      setInputText(text);
    };
 
    useEffect(() => {
@@ -45,12 +49,13 @@ function AddBar({ inputText, setInputText, setTasks, setIsLoading }) {
 
    return (
       <div className={addBarCSS.container}>
-         <input
-            onChange={inputTextHandler}
-            type="text"
-            id={addBarCSS["task-text"]}
-            name="task-text"
+         <TextField
             placeholder="Add your new to-do"
+            size={TextField.sizes.MEDIUM}
+            onChange={inputTextHandler}
+            ref={textInput}
+            value={inputText}
+            id={addBarCSS["task-text"]}
          />
          <Button
             buttonHandler={addButtonHandler}
