@@ -27,7 +27,12 @@ class ItemManager {
       this.pokedex.isPokemonNamesOnly(taskInput)
     ) {
       const res = await this.addCatchPokemonTask(taskInput, position);
-      return res;
+      console.log("DEBUG", res);
+      if (Array.isArray(res)) {
+        if (res.length === 0) {
+          return false;
+        } else return res;
+      }
     } else {
       const res = await this.addTaskToFile(taskInput, isCompleted, position);
       return res;
@@ -83,7 +88,9 @@ class ItemManager {
 
     for (const pokemon of response) {
       const item = await this.addTaskToFile(pokemon, false, position);
-      res.push(item);
+      if (item) {
+        res.push(item);
+      }
     }
     return res;
   }

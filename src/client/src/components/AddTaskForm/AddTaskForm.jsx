@@ -4,7 +4,14 @@ import ItemClient from "../../services/taskService";
 
 import "./addTaskForm.css";
 
-const AddTaskForm = ({ tasks, setTasks, editTask, setEditTask }) => {
+const AddTaskForm = ({
+  tasks,
+  setTasks,
+  editTask,
+  setEditTask,
+  setErrorMessage,
+  setIsErrorShown,
+}) => {
   const [input, setInput] = useState("");
 
   const taskService = new ItemClient();
@@ -48,21 +55,31 @@ const AddTaskForm = ({ tasks, setTasks, editTask, setEditTask }) => {
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
+    setIsErrorShown(false);
+    if (input.length === 0) {
+      setErrorMessage("Cannot add an empy task");
+      setIsErrorShown(true);
+      return;
+    }
     if (editTask) {
       updateTask(input, editTask.id, editTask.itemName, editTask.status);
     } else {
       if (input.trim()) {
         const position = tasks.length;
         const res = await taskService.addTask(input, false, position);
-        if (res) {
-          if (Array.isArray(res)) {
-            setTasks([...tasks, ...res]);
+        if (res.status === 200) {
+          console.log(res.response);
+          if (Array.isArray(res.response)) {
+            setTasks([...tasks, ...res.response]);
           } else {
-            setTasks([...tasks, res]);
+            setTasks([...tasks, res.response]);
           }
           setInput("");
         } else {
-          alert("Error adding task");
+          if (res.status === 409) {
+            setErrorMessage("Task already exists");
+            setIsErrorShown(true);
+          }
         }
       }
     }

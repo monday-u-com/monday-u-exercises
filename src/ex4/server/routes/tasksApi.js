@@ -15,6 +15,7 @@ router.post("/", async (req, res) => {
   const isCompleted = req.body.status;
   const position = req.body.position;
   const response = await itemManager.addTask(taskInput, isCompleted, position);
+  console.log(response);
   if (response) {
     res.status(200).json(response);
   } else {
@@ -23,7 +24,6 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/resort", (req, res) => {
-  console.log("=============here===============");
   const sorted = itemManager.reSortTasks(req.body);
   if (sorted) {
     res.status(200).json({ message: "Tasks was resorted" });

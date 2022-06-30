@@ -5,6 +5,7 @@ import TasksList from "../../components/TasksList/TasksList.jsx";
 import EmptyListNote from "../../components/EmptyListNote/EmptyListNote.jsx";
 import ActionBar from "../../components/ActionBar/ActionBar.jsx";
 import RemoveAllBtn from "../../components/RemoveAllButton/RemoveAllBtn.jsx";
+import { Toast } from "monday-ui-react-core";
 import "./tasks.css";
 
 const Tasks = ({ tasks, setTasks, taskService }) => {
@@ -12,6 +13,12 @@ const Tasks = ({ tasks, setTasks, taskService }) => {
   const [searchInput, setSearchInput] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [presentedTasksNum, setPresentedTasksNum] = useState(0);
+  const [isErrorShown, setIsErrorShown] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleCloseError = () => {
+    setIsErrorShown(false);
+  };
 
   const handleRemoveAll = () => {
     setTasks([]);
@@ -27,9 +34,22 @@ const Tasks = ({ tasks, setTasks, taskService }) => {
   return (
     <div className="container">
       <div className="app-wrapper">
+        {isErrorShown && (
+          <Toast
+            className="monday-storybook-toast_wrapper"
+            open
+            onClose={handleCloseError}
+            type={Toast.types.NEGATIVE}
+            autoHideDuration={5000}
+          >
+            {errorMessage}
+          </Toast>
+        )}
+
         <div>
           <Header headline="Tasks List" />
         </div>
+
         <ActionBar
           searchInput={searchInput}
           setSearchInput={setSearchInput}
@@ -42,6 +62,8 @@ const Tasks = ({ tasks, setTasks, taskService }) => {
             setTasks={setTasks}
             editTask={editTask}
             setEditTask={setEditTask}
+            setErrorMessage={setErrorMessage}
+            setIsErrorShown={setIsErrorShown}
           />
         </div>
         {/* if taskslist empty show empty message */}
