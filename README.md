@@ -1,8 +1,8 @@
-# Monday Exercises - Exercise 5
+# Monday Exercises - Exercise 6 - React
 
-This is my task for Exercise 5 of Monday-U Full Stack course. Task requirements are detailed below.
+This is my task for Exercise 6 of Monday-U Full Stack course. Task requirements are detailed below.
 
--  Please try the app right here: https://weekend-todo.netlify.app/
+-  Please try the app (older version) right here: https://weekend-todo.netlify.app/
 
 ## Screenshot:
 
@@ -12,21 +12,22 @@ This is my task for Exercise 5 of Monday-U Full Stack course. Task requirements 
 
 ### The requirements:
 
--  [x] Install Sequelize and mysql driver. [Sequelize- Getting Started](https://sequelize.org/docs/v6/getting-started/)
--  [x] Install Sequelize CLI. [Installing the CLI](https://sequelize.org/docs/v6/other-topics/migrations/)
--  [x] Initialize Sequelize using `npx sequelize-cli init` inside 'src/server/db' folder
--  [x] Create Items table using [Sequelize migration](https://sequelize.org/docs/v6/other-topics/migrations/#creating-the-first-model-and-migration) - a new table with id and ItemName fields
--  [x] Modify `item_manager.js`: remove items array and modify all item operations to use Item model
--  [x] Create and run a separate migration for adding a `status` column (BOOLEAN) to Items table in your DB
--  [x] Add checkbox to each item in UI to indicate its status (Done vs not)
--  [x] Modify client and server code to support persistence of the new Item status
+-  [x] Remove `app.use(express.static(path.join(__dirname, 'dist')))` from your `server.js` file
+-  [x] Delete `src/server/dist` **ONLY** when your new client is up and running
+-  [x] Initialize your React project in the `src` folder using [create-react-app](https://create-react-app.dev/docs/getting-started/) with the name `client`
+-  [x] Decompose your Todo App into components (controlled and uncontrolled)
+-  [x] Re-Implement the Todo App using hooks
+-  [x] Use [**propTypes** & **defaultProps**](https://reactjs.org/docs/typechecking-with-proptypes.html) to add type-checking to your components
 
 ### Bonus
 
--  [x] Add "Done" timestamp
--  [x] Add index to the Items table (which columns compose the index?)
--  [ ] Add server validation - create a new item only if not exists (Use transaction)
--  [ ] Add edit capabilities to an item.
+-  [ ] Add error handling for communication issues with your backend (Empty state / Loader / Something else)
+-  [ ] Use components from the [Vibe Design System](https://github.com/mondaycom/monday-ui-react-core) (monday.com's component library)
+-  [ ] Use [React Router](https://reactrouter.com/docs/en/v6) to add basic routing capabilities to your app
+   -  [ ] Add Tabs / Navigation bar to help route between pages [Tabs example](https://style.monday.com/?path=/docs/navigation-tabs-tab--overview)
+   -  Page suggestions
+      -  [ ] Task completion statistics page - # of open tasks, total number of tasks, average tim to finish a task, etc.
+      -  [ ] About page - with some fun facts and profile picture
 
 ## CLI(exc 3)
 
