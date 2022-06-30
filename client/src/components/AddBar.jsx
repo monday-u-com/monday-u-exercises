@@ -3,8 +3,9 @@ import "../App.css";
 import Button from "./Button";
 import api from "../clients/item-client.js";
 
-function AddBar({ inputText, setInputText, setTasks }) {
+function AddBar({ inputText, setInputText, setTasks, setIsLoading }) {
    const addButtonHandler = useCallback(async () => {
+      setIsLoading(true);
       const input = document.querySelector("input");
       if (input.value.trim().length === 0) {
          alert("Please fill in a task");
@@ -15,7 +16,8 @@ function AddBar({ inputText, setInputText, setTasks }) {
          setTasks(allTasks);
          input.value = "";
       }
-   }, [inputText, setTasks]);
+      setIsLoading(false);
+   }, [inputText, setTasks, setIsLoading]);
 
    const handleKeyPress = useCallback(
       (e) => {

@@ -12,6 +12,7 @@ import api from "../clients/item-client.js";
 function Card() {
    const [tasks, setTasks] = useState([]);
    const [inputText, setInputText] = useState("");
+   const [isLoading, setIsLoading] = useState(true);
 
    const clearButtonHandler = useCallback(async () => {
       await api.clearTasks();
@@ -21,11 +22,16 @@ function Card() {
    return (
       <div className="card">
          <Titles />
-         <AddBar inputText={inputText} setInputText={setInputText} setTasks={setTasks} />
+         <AddBar
+            inputText={inputText}
+            setInputText={setInputText}
+            setTasks={setTasks}
+            setIsLoading={setIsLoading}
+         />
          <SortButtons tasks={tasks} setTasks={setTasks} />
          <div className="tasks-and-clear-container">
-            <Tasks tasks={tasks} setTasks={setTasks} />
-            <Loader />
+            <Tasks tasks={tasks} setTasks={setTasks} setIsLoading={setIsLoading} />
+            {isLoading === true ? <Loader /> : ""}
             <div className="footer-container">
                <PendingTasks tasks={tasks} />
                <Button

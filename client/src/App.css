@@ -194,14 +194,13 @@ body {
    position: absolute;
    z-index: 10;
    top: 6rem;
-   right: 20.5rem;
+   right: 23.5rem;
    border: 16px solid #f3f3f3; /* Light grey */
    border-top: 16px solid #3498db; /* Blue */
    border-radius: 50%;
    width: 110px;
    height: 110px;
    animation: spin 1s linear infinite;
-   visibility: hidden;
 }
 
 @keyframes spin {

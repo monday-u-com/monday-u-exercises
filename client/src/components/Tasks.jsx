@@ -3,13 +3,15 @@ import "../App.css";
 import api from "../clients/item-client.js";
 import Task from "./Task";
 
-function Tasks({ tasks, setTasks }) {
+function Tasks({ tasks, setTasks, setIsLoading }) {
    useEffect(() => {
       (async () => {
+         setIsLoading(true);
          let allTasks = await api.getAllTasks();
          setTasks(allTasks);
+         setIsLoading(false);
       })();
-   }, [setTasks]);
+   }, [setTasks, setIsLoading]);
 
    const tasksList = useMemo(
       () =>
