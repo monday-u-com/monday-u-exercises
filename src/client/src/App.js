@@ -12,9 +12,19 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
   const taskService = new ItemClient();
 
+  const compare = (a, b) => {
+    if (a.position < b.position) {
+      return -1;
+    }
+    if (a.position > b.position) {
+      return 1;
+    }
+    return 0;
+  };
+
   useEffect(() => {
     taskService.fetchTasks().then((tasks) => {
-      setTasks(tasks);
+      setTasks(tasks.sort(compare));
     });
   }, []);
 
@@ -24,6 +34,7 @@ const App = () => {
         <Navbar />
         <div className="container">
           <Routes>
+            <Route path="/" element={<Tasks />} />
             <Route path="/about" element={<About />} />
             <Route
               path="/tasks"
@@ -36,7 +47,6 @@ const App = () => {
               }
             />
             <Route path="/statistics" element={<Statistics tasks={tasks} />} />
-            <Route path="/" element={<Tasks />} />
             <Route path="*" element={<Tasks />} />
           </Routes>
         </div>

@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const tasks = require("./server/routes/tasksApi.js");
-const resort = require("./server/routes/resort.js");
 const logger = require("./server/middleware/logger.js");
 const cors = require("cors");
 const clearCache = require("./server/services/clearCache.js");
@@ -11,7 +10,6 @@ app.use(express.json());
 app.use(cors());
 app.use(logger);
 app.use("/tasks", tasks);
-app.use("/resort", resort);
 
 const port = process.env.PORT || "3042";
 

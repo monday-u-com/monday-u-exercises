@@ -3,7 +3,6 @@ const fs = require("fs");
 const PokemonClient = require("../clients/pokemon_client.js");
 const path = require("path");
 const { Item } = require("../db/models");
-const { log } = require("console");
 
 class ItemManager {
   constructor() {
@@ -22,15 +21,15 @@ class ItemManager {
     return regex.test(input);
   }
 
-  async addTask(taskInput, isCompleted) {
+  async addTask(taskInput, isCompleted, position) {
     if (
       this.isInputSetOfPokemonIDs(taskInput) ||
       this.pokedex.isPokemonNamesOnly(taskInput)
     ) {
-      const res = await this.addCatchPokemonTask(taskInput);
+      const res = await this.addCatchPokemonTask(taskInput, position);
       return res;
     } else {
-      const res = await this.addTaskToFile(taskInput, isCompleted);
+      const res = await this.addTaskToFile(taskInput, isCompleted, position);
       return res;
     }
   }
@@ -43,17 +42,27 @@ class ItemManager {
     return null;
   }
 
-  async addCatchPokemonTask(input) {
+  async addCatchPokemonTask(input, position) {
     let response = null;
     if ((response = this.getResponseFromCache(input))) {
-      const res = await this.addResponsesToTasks(input, response, true);
+      const res = await this.addResponsesToTasks(
+        input,
+        response,
+        true,
+        position
+      );
       return res;
     } else {
       response = await this.getPokemonsToAdd(input);
       if (response === false) {
         return false;
       } else {
-        const res = await this.addResponsesToTasks(input, response, false);
+        const res = await this.addResponsesToTasks(
+          input,
+          response,
+          false,
+          position
+        );
         return res;
       }
     }
@@ -66,20 +75,20 @@ class ItemManager {
     } else return response;
   }
 
-  async addResponsesToTasks(input, response, isFromCache) {
+  async addResponsesToTasks(input, response, isFromCache, position) {
     const res = [];
     if (!isFromCache) {
       this.saveResponseToCache(input, response);
     }
 
     for (const pokemon of response) {
-      const item = await this.addTaskToFile(pokemon, false);
+      const item = await this.addTaskToFile(pokemon, false, position);
       res.push(item);
     }
     return res;
   }
 
-  async addTaskToFile(taskInput, isCompleted) {
+  async addTaskToFile(taskInput, isCompleted, position) {
     const isTaskExist = this.tasks.find((task) => task.itemName === taskInput);
     if (isTaskExist) {
       return false;
@@ -88,6 +97,7 @@ class ItemManager {
         itemName: taskInput,
         status: isCompleted,
         doneAt: null,
+        position: position,
       };
       return await this.saveTaskToDB(task);
     }
@@ -173,7 +183,6 @@ class ItemManager {
     const itemsFromDB = await Item.findAll();
     const tasks = [];
     itemsFromDB.forEach((item) => {
-      console.log("DEBUG ======>", item.dataValues);
       tasks.push(item.dataValues);
     });
     this.tasks = tasks;
@@ -185,8 +194,17 @@ class ItemManager {
     return JSON.parse(cache);
   }
 
-  reSortTasks(newSortedTasks) {
-    this.tasks = newSortedTasks;
+  async reSortTasks(newSortedTasks) {
+    try {
+      for (let i = 0; i < newSortedTasks.length; i++) {
+        const task = newSortedTasks[i];
+        await Item.update({ position: i }, { where: { id: task.id } });
+      }
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
   }
 }
 

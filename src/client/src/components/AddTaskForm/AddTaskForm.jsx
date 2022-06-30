@@ -4,7 +4,6 @@ import ItemClient from "../../services/taskService";
 
 import "./addTaskForm.css";
 
-
 const AddTaskForm = ({ tasks, setTasks, editTask, setEditTask }) => {
   const [input, setInput] = useState("");
 
@@ -53,7 +52,8 @@ const AddTaskForm = ({ tasks, setTasks, editTask, setEditTask }) => {
       updateTask(input, editTask.id, editTask.itemName, editTask.status);
     } else {
       if (input.trim()) {
-        const res = await taskService.addTask(input, false);
+        const position = tasks.length;
+        const res = await taskService.addTask(input, false, position);
         if (res) {
           if (Array.isArray(res)) {
             setTasks([...tasks, ...res]);

@@ -38,28 +38,28 @@ const Statistics = ({ tasks }) => {
         <div className="statistics">
           <div className="statistics-item">
             <div className="statistics-item-title">
-              <i class="fa-solid fa-list-check"></i>
+              <i className="fa-solid fa-list-check"></i>
               Total tasks
             </div>
             <div className="statistics-item-value">{totalTasks}</div>
           </div>
           <div className="statistics-item">
             <div className="statistics-item-title">
-              <i class="fa-solid fa-circle-check"></i>
+              <i className="fa-solid fa-circle-check"></i>
               Completed Tasks
             </div>
             <div className="statistics-item-value">{completedTasks}</div>
           </div>
           <div className="statistics-item">
             <div className="statistics-item-title">
-              <i class="fa-solid fa-bars-progress"></i>
+              <i className="fa-solid fa-bars-progress"></i>
               Uncompleted Tasks
             </div>
             <div className="statistics-item-value">{uncompletedTasks}</div>
           </div>
           <div className="statistics-item">
             <div className="statistics-item-title">
-              <i class="fa-solid fa-clock"></i>
+              <i className="fa-solid fa-clock"></i>
               Average Task Completion Time
             </div>
             <div className="statistics-item-value">{avgTimeToCompleteMemo}</div>

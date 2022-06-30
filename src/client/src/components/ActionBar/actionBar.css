@@ -7,11 +7,16 @@
 }
 
 
-.dropdown-stories-styles_spacing
+.selectDrop
 {
     z-index: 100;
     width: 8rem;
 
+}
+
+.selectDrop .control .ValueContainer .placeholder
+{
+    color: blue
 }
 
 

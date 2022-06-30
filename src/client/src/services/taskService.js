@@ -10,7 +10,7 @@ class ItemClient {
     return tasks;
   }
 
-  async addTask(taskInput, isCompleted) {
+  async addTask(taskInput, isCompleted, position) {
     const response = await fetch(this.serverURL, {
       method: "POST",
       headers: {
@@ -19,6 +19,7 @@ class ItemClient {
       body: JSON.stringify({
         itemName: taskInput,
         status: isCompleted,
+        position: position,
       }),
     });
 
@@ -66,34 +67,20 @@ class ItemClient {
     return false;
   }
 
-  /*
-  pushTaskFromReSort(id, taskContent, isCompleted) {
-    this.tasks.push({ id: id, itemName: taskContent, status: isCompleted });
-  }
-
-  
-
-  async putResort(tasks) {
-    await fetch("/resort", {
+  async updateTaskOrder(tasks) {
+    const response = await fetch(this.serverURL + "resort", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(tasks),
     });
+    if (response.status === 200) {
+      return true;
+    }
+    return false;
   }
-
-  async reSortTasks(HTMLTaskList) {
-    this.tasks = [];
-    HTMLTaskList.forEach((taskDiv) => {
-      const taskContent = taskDiv.querySelector("p").textContent;
-      const isCompleted = taskDiv.classList.contains("task-completed");
-      const taskID = taskDiv.getAttribute("id");
-      this.pushTaskFromReSort(taskID, taskContent, isCompleted);
-    });
-    await this.putResort(this.tasks);
-  }
-    */
 }
+
 
 export default ItemClient;

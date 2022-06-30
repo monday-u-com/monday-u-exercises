@@ -33,6 +33,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.DATE,
       },
+      position: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        defaultValue: -1,
+      },
     },
     { sequelize, modelName: "Item" }
   );

@@ -4,7 +4,7 @@ import React from "react";
 const StatusFilter = ({ filter, setFilter }) => {
   return (
     <Dropdown
-      className="dropdown-stories-styles_spacing"
+      className="selectDrop"
       onOptionSelect={(e) => setFilter(e.value)}
       options={[
         {

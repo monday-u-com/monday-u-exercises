@@ -13,7 +13,8 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const taskInput = req.body.itemName;
   const isCompleted = req.body.status;
-  const response = await itemManager.addTask(taskInput, isCompleted);
+  const position = req.body.position;
+  const response = await itemManager.addTask(taskInput, isCompleted, position);
   if (response) {
     res.status(200).json(response);
   } else {
@@ -21,6 +22,15 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.put("/resort", (req, res) => {
+  console.log("=============here===============");
+  const sorted = itemManager.reSortTasks(req.body);
+  if (sorted) {
+    res.status(200).json({ message: "Tasks was resorted" });
+  } else {
+    res.status(500).json({ error: "Error" });
+  }
+});
 
 router.put("/:id", async (req, res) => {
   const id = req.params.id;

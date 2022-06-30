@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import TaskItem from "../TaskItem/TaskItem";
 import ItemClient from "../../services/taskService";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import "./taskList.css";
 
 const TasksList = ({
@@ -56,19 +57,52 @@ const TasksList = ({
     }
   };
 
+  const handleOnDragEnd = async (result) => {
+    const items = [...tasks];
+    const [removed] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, removed);
+    setTasks(items);
+    await taskService.updateTaskOrder(items);
+  };
+
   return (
     <div>
-      {filteredTasks.map((task, index) => (
-        // for some reason putting key={task.id} is not warking
-        <li className="tasks-list" key={index}>
-          <TaskItem
-            task={task}
-            setEditTask={setEditTask}
-            handleComplete={handleComplete}
-            handleDelete={handleDelete}
-          />
-        </li>
-      ))}
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="tasks">
+          {(provided) => (
+            <ul
+              className="tasks"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {filteredTasks.map((task, index) => (
+                <Draggable
+                  key={task.id.toString()}
+                  draggableId={task.id.toString()}
+                  index={index}
+                >
+                  {(provided) => (
+                    <li
+                      className="tasks-list"
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      ref={provided.innerRef}
+                    >
+                      <TaskItem
+                        task={task}
+                        setEditTask={setEditTask}
+                        handleComplete={handleComplete}
+                        handleDelete={handleDelete}
+                      />
+                    </li>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </ul>
+          )}
+        </Droppable>
+      </DragDropContext>
     </div>
   );
 };
