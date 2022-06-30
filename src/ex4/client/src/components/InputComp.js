@@ -1,4 +1,5 @@
 import "../App.css";
+import "../style/InputComp.css";
 import React, { useCallback, useRef, useState } from "react";
 import ButtonComp from "./ButtonComp";
 import plusImg from "../images/plus.png";
@@ -34,11 +35,11 @@ function InputComp({ addItem }) {
 				ref={inputElement}
 			></input>
 			<ButtonComp
-				className={"clickable pluse-iconElement"}
+				className={"clickable pluse-icon-element"}
 				imgSrc={plusImg}
 				imgClassName={"pluse-icon"}
 				alt={"add an item to the items list"}
-				callback={() => addItemHandeler()}
+				onClick={() => addItemHandeler()}
 			/>
 		</div>
 	);

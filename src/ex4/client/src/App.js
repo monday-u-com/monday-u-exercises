@@ -1,5 +1,6 @@
 import "./App.css";
 import { useEffect, useState, useCallback } from "react";
+import ReactLoading from "react-loading";
 import InputComp from "./components/InputComp";
 import ItemsComp from "./components/ItemsComp";
 import ButtonComp from "./components/ButtonComp";
@@ -9,71 +10,117 @@ import itemClient from "./item_client";
 
 function App() {
 	const [allItems, setAllItems] = useState([]);
+	const [isEmptyState, setIsEmptyState] = useState(true);
+	const [isloading, setIsLoading] = useState(false);
 
 	const addItem = useCallback(async (value) => {
-		const result = await itemClient.addItem({ itemName: value });
-		if (result.status !== 201) {
+		setIsLoading(true);
+		const res = await itemClient.addItem({ itemName: value });
+		setIsLoading(false);
+		setIsEmptyState(false);
+		if (!res.isResOk) {
 			alert("this item alredy exist.");
 		} else {
-			setAllItems(result.items);
+			setAllItems(res.items);
 		}
 	}, []);
 
-	const updateItem = useCallback(async (itemId, item) => {
-		debugger;
-		const result = await itemClient.updateItem(itemId, item);
-		if (result.status !== 201) {
+	const updateItem = useCallback(async (item, itemId) => {
+		const res = await itemClient.updateItem(item, itemId);
+		if (!res.isResOk) {
 			alert("Update failed");
 		}
-		setAllItems(result.items);
+		setAllItems(res.items);
 	}, []);
 
 	const deleteItem = useCallback(async (itemId) => {
-		const result = await itemClient.deleteItem(itemId);
-		if (result.status !== 200) {
+		const res = await itemClient.deleteItem(itemId);
+		if (!res.isResOk) {
 			alert("Deletion failed");
 		}
-		setAllItems(result.items);
+		setAllItems(res.items);
+		setIsEmptyState(res.items.length === 0);
 	}, []);
 
 	const clearAllItems = useCallback(async () => {
-		const result = await itemClient.clearAll();
-		if (result.status !== 200 && result.items > 0) {
+		const isResOk = await itemClient.clearAll();
+		if (!isResOk) {
 			alert("there is nothing to delete");
 		}
+		setIsEmptyState(true);
 		setAllItems([]);
 	}, []);
 
 	useEffect(() => {
 		const getAllItems = async () => {
-			const result = await itemClient.getAllItems();
-			if (result.status !== 200 && result.items.length > 0) {
-				alert("Something went wrong please try to refresh the page");
+			const res = await itemClient.getAllItems();
+			if (res.isResOk) {
+				setAllItems(res.items);
+				setIsEmptyState(res.items.length === 0);
 			} else {
-				setAllItems(result.items);
+				alert("Something went wrong please try to refresh the page");
 			}
 		};
 		getAllItems();
 	}, []);
 
-	return (
-		<div className="container">
-			<h1>Sunday.com</h1>
-			<InputComp addItem={addItem} />
-			<NumOfItemsComp numOfItems={allItems.length} />
-			<ItemsComp
-				allItems={allItems}
-				deleteItem={deleteItem}
-				updateItem={updateItem}
+	const staticComps = () => {
+		return (
+			<div className="margin-bottom-element">
+				<h1>Sunday.com</h1>
+				<InputComp addItem={addItem} />
+				<NumOfItemsComp numOfItems={allItems.length} />
+			</div>
+		);
+	};
+
+	const emptyState = () => {
+		return <span>What is your next task?</span>;
+	};
+
+	const renderListOfItems = () => {
+		return (
+			<div>
+				<ItemsComp
+					allItems={allItems}
+					deleteItem={deleteItem}
+					updateItem={updateItem}
+				/>
+				<ButtonComp
+					imgSrc={clearIcon}
+					imgClassName={"clear-all"}
+					alt={"clear All data"}
+					onClick={clearAllItems}
+				/>
+			</div>
+		);
+	};
+
+	const loader = () => {
+		return (
+			<ReactLoading
+				type="bubbles"
+				color="rgb(190, 59, 230)"
+				height={"20%"}
+				width={"20%"}
 			/>
-			<ButtonComp
-				imgSrc={clearIcon}
-				imgClassName={"clear-all"}
-				alt={"clear All data"}
-				callback={clearAllItems}
-			/>
-		</div>
-	);
+		);
+	};
+
+	const bulidPage = () => {
+		return (
+			<div className="container">
+				{staticComps()}
+				{isloading
+					? loader()
+					: isEmptyState
+					? emptyState()
+					: renderListOfItems()}
+			</div>
+		);
+	};
+
+	return bulidPage();
 }
 
 export default App;

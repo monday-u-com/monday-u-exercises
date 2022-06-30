@@ -19,8 +19,12 @@ class ItemManager {
 		}
 	}
 
-	async updateItem(itemId, itemData) {
-		await item.update(itemData, { where: { id: itemId } });
+	async updateItem(itemData, itemId) {
+		const itemToUpdate = itemData;
+		if (itemData.status) {
+			itemData.doneAt = Date.now();
+		}
+		await item.update(itemToUpdate, { where: { id: itemId } });
 		return await this.getAllItems();
 	}
 
@@ -56,7 +60,8 @@ class ItemManager {
 
 	async clearAllItems() {
 		try {
-			return await item.destroy({ where: {} });
+			const numOfDestroyedItems = await item.destroy({ where: {} });
+			return numOfDestroyedItems > 0;
 		} catch (err) {
 			return err;
 		}

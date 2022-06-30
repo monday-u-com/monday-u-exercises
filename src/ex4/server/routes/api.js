@@ -39,8 +39,8 @@ router.route("/add").post(async (req, res) => {
 
 router.route("/update/:id").put(async (req, res) => {
 	try {
-		await item_manager.updateItem(req.body, req.params.id);
-		res.status(204);
+		const allItems = await item_manager.updateItem(req.body, req.params.id);
+		res.status(200).send(allItems);
 	} catch (err) {
 		res.status(500).send(err.message);
 	}
@@ -48,13 +48,11 @@ router.route("/update/:id").put(async (req, res) => {
 
 router.route("/delete/:id").delete(async (req, res) => {
 	try {
-		const allItemsafterDeleted = await item_manager.removeItem(
-			parseInt(req.params.id)
-		);
+		const allItems = await item_manager.removeItem(parseInt(req.params.id));
 		if (!allItems) {
 			throw new Error(`filed try to clean the item ${req.params.id}.`);
 		}
-		res.status(200).send(allItemsafterDeleted);
+		res.status(200).send(allItems);
 	} catch (err) {
 		res.status(500).send(err.message);
 	}

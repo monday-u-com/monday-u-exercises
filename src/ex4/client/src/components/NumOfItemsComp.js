@@ -1,7 +1,10 @@
-import "../App.css";
+import "../style/NumOfItemsComp.css";
 
 function NumOfItemsComp({ numOfItems }) {
-	return <span className="amount-tasks">number of tasks: {numOfItems}</span>;
+	const numOfItemsElement = () => {
+		return <span className="amount-tasks">number of tasks: {numOfItems}</span>;
+	};
+	return numOfItemsElement();
 }
 
 export default NumOfItemsComp;
