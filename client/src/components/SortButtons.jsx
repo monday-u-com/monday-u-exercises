@@ -2,6 +2,7 @@ import sortButtonsCSS from "./SortButtons.module.css";
 import Button from "./Button";
 import { useCallback } from "react";
 import api from "../clients/item-client.js";
+import PropTypes from "prop-types";
 
 function SortButtons({ tasks, setTasks }) {
    const sortButtonHandler = useCallback(
@@ -37,5 +38,10 @@ function SortButtons({ tasks, setTasks }) {
       </div>
    );
 }
+
+SortButtons.propTypes = {
+   tasks: PropTypes.array,
+   setTasks: PropTypes.func,
+};
 
 export default SortButtons;

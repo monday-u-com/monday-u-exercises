@@ -1,6 +1,7 @@
 import checkboxCSS from "./Checkbox.module.css";
 import { useCallback } from "react";
 import api from "../clients/item-client.js";
+import PropTypes from "prop-types";
 
 function Checkbox({ task, tasks, setTasks }) {
    const checkboxHandler = useCallback(async () => {
@@ -22,5 +23,11 @@ function Checkbox({ task, tasks, setTasks }) {
       />
    );
 }
+
+Checkbox.propTypes = {
+   task: PropTypes.object,
+   tasks: PropTypes.array,
+   setTasks: PropTypes.func,
+};
 
 export default Checkbox;

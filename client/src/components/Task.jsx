@@ -4,6 +4,7 @@ import Checkbox from "./Checkbox";
 import { useCallback, useMemo } from "react";
 import api from "../clients/item-client.js";
 import { motion } from "framer-motion";
+import PropTypes from "prop-types";
 
 function Task({ task, setTasks, tasks }) {
    const addPokemonImage = useMemo(() => {
@@ -35,5 +36,11 @@ function Task({ task, setTasks, tasks }) {
       </motion.li>
    );
 }
+
+Task.propTypes = {
+   task: PropTypes.object,
+   tasks: PropTypes.array,
+   setTasks: PropTypes.func,
+};
 
 export default Task;

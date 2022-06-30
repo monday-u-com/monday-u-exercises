@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import tasksCSS from "./Tasks.module.css";
 import api from "../clients/item-client.js";
 import Task from "./Task";
+import PropTypes from "prop-types";
 
 function Tasks({ tasks, setTasks, setIsLoading }) {
    useEffect(() => {
@@ -23,5 +24,11 @@ function Tasks({ tasks, setTasks, setIsLoading }) {
 
    return <ul className={tasksCSS["all-tasks-container"]}>{tasksList}</ul>;
 }
+
+Tasks.propTypes = {
+   tasks: PropTypes.array,
+   setTasks: PropTypes.func,
+   setIsLoading: PropTypes.func,
+};
 
 export default Tasks;

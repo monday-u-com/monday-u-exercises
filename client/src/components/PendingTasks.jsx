@@ -1,4 +1,5 @@
 import pendingTasksCSS from "./PendingTasks.module.css";
+import PropTypes from "prop-types";
 
 function PendingTasks({ tasks }) {
    return (
@@ -7,5 +8,9 @@ function PendingTasks({ tasks }) {
       </p>
    );
 }
+
+PendingTasks.propTypes = {
+   tasks: PropTypes.array,
+};
 
 export default PendingTasks;

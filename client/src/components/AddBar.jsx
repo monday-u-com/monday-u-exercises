@@ -2,6 +2,7 @@ import { useEffect, useCallback } from "react";
 import Button from "./Button";
 import api from "../clients/item-client.js";
 import addBarCSS from "./AddBar.module.css";
+import PropTypes from "prop-types";
 
 function AddBar({ inputText, setInputText, setTasks, setIsLoading }) {
    const addButtonHandler = useCallback(async () => {
@@ -55,5 +56,12 @@ function AddBar({ inputText, setInputText, setTasks, setIsLoading }) {
       </div>
    );
 }
+
+AddBar.propTypes = {
+   inputText: PropTypes.string,
+   setInputText: PropTypes.func,
+   setTasks: PropTypes.func,
+   setIsLoading: PropTypes.func,
+};
 
 export default AddBar;
