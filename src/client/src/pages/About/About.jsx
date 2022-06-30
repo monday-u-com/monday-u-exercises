@@ -1,9 +1,15 @@
 import React from "react";
+import Header from "../../components/Header/Header";
 
 const About = () => {
   return (
-    <div>
-      <h1>About</h1>
+    <div className="container">
+      <div className="app-wrapper">
+        <div>
+          <Header headline="About" />
+          
+        </div>
+      </div>
     </div>
   );
 };

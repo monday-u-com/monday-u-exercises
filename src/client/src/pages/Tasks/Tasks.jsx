@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-
-import ItemClient from "../../services/taskService.js";
+import React, { useState } from "react";
 import Header from "../../components/Header/Header.jsx";
 import AddTaskForm from "../../components/AddTaskForm/AddTaskForm.jsx";
 import TasksList from "../../components/TasksList/TasksList.jsx";
@@ -9,15 +7,11 @@ import ActionBar from "../../components/ActionBar/ActionBar.jsx";
 import RemoveAllBtn from "../../components/RemoveAllButton/RemoveAllBtn.jsx";
 import "./tasks.css";
 
-const Tasks = ({tasks, setTasks, taskService}) => {
-
+const Tasks = ({ tasks, setTasks, taskService }) => {
   const [editTask, setEditTask] = useState(null);
   const [searchInput, setSearchInput] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [presentedTasksNum, setPresentedTasksNum] = useState(0);
-
-
-
 
   const handleRemoveAll = () => {
     setTasks([]);
