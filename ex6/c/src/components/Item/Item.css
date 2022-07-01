@@ -1,0 +1,15 @@
+.list-item {
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.list-item:hover {
+    color: blueviolet;
+    transition: color 0.2s ease-in-out;
+}
+
+.list-item:not(:last-of-type) {
+    border-bottom: 1px #bbb5b5 solid;
+}

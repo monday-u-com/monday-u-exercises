@@ -1,0 +1,30 @@
+.app-container {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  font-family: Georgia, serif;
+  font-weight: lighter;
+  background-color: darkslategray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.app-name {
+  padding-left: 32px;
+  font-weight: lighter;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 50%;
+  background-color: white;
+  border: 1px silver solid;
+  border-radius: 8px;
+  -webkit-box-shadow: 12px 12px 38px -13px #000000;
+  box-shadow: 12px 12px 38px -13px #000000;
+}
