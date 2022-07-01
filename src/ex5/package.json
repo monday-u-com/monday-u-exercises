@@ -1,0 +1,17 @@
+{
+  "name": "ex5",
+  "version": "1.0.0",
+  "description": "This is the solution for the fifth exercise",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "body-parser": "^1.20.0",
+    "express": "^4.17.3"
+  }
+}
