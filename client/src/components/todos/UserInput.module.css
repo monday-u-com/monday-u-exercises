@@ -1,0 +1,19 @@
+.listControls {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listItemInput {
+  width: 85%;
+  height: 30px;
+  font-size: 16px;
+}
+
+.addButton:hover {
+  background-color: #3c3cff;
+  transition: background-color 0.2s ease-in-out;
+}

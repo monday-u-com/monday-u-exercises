@@ -1,0 +1,31 @@
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 50%;
+  background-color: white;
+  border: 1px silver solid;
+  border-radius: 8px;
+  -webkit-box-shadow: 12px 12px 38px -13px #000000;
+  box-shadow: 12px 12px 38px -13px #000000;
+}
+
+.appTitle {
+  padding: 28px 0px;
+  margin-left: 5%;
+  font-weight: lighter;
+  font-size: 30px;
+  width: max-content;
+}
+
+.buttomBarContainer {
+  margin-top: 18px;
+  margin-left: 25px;
+  height: 30px;
+  width: 90%;
+  margin-bottom: 5px;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  margin-bottom: 10px;
+}

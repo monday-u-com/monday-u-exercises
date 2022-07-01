@@ -1,0 +1,11 @@
+.listItemIcon {
+  height: 20px;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.listItemIcon:hover {
+  background-color: #f0f0f5;
+  transition: background-color 0.2s ease-in-out;
+}

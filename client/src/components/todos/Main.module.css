@@ -1,0 +1,19 @@
+.appBackground {
+  width: 100%;
+  height: 100vh;
+  font-family: Georgia, serif;
+  font-weight: lighter;
+  background-image: linear-gradient(
+    to top right,
+    white,
+    #d4dff3,
+    rgba(138, 144, 224, 0.76),
+    rgba(106, 117, 231, 0.76),
+    rgba(85, 97, 229, 0.76)
+  );
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
