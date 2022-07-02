@@ -1,8 +1,8 @@
-  const URL = "http://localhost:8080";
-  
+/* eslint-disable eqeqeq */
+    const URL = "http://localhost:8080"
     export async function createItem(item) {
       try {
-        const response = await fetch("/item", {
+        const response = await fetch(`${URL}/item`, {
           method: "POST",
           body: JSON.stringify({ item }),
           headers: { "Content-Type": "application/json" },
@@ -12,14 +12,14 @@
           return await response.json();
         }
       } catch (err) {
-        throw new Error("faild to create item");
+        throw new Error("Proccess : Create Item Was Faild");
       }
     }
   
   
     export async function fetchItems() {
     try {
-      const response = await fetch("/item", {
+      const response = await fetch(`${URL}/item`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -38,7 +38,7 @@
   
   export async function deleteItem(itemId) {
       try {
-         await fetch(`/item/${itemId}`, {
+         await fetch(`${URL}/item/${itemId}`, {
           method: "delete",
           headers: { "Content-Type": "application/json" },
         });
@@ -48,7 +48,7 @@
     }
     export async function statusChange(itemId,newStatus) {
       try {
-        const response = await fetch(`/item/${itemId}`, {
+        const response = await fetch(`${URL}/item/${itemId}`, {
           method: "PUT",
           body: JSON.stringify({ status:newStatus }),
           headers: { "Content-Type": "application/json" },

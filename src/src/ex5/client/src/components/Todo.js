@@ -6,14 +6,14 @@ import {TiEdit} from "react-icons/ti"
 function Todo({todos,completeTodo, removeTodo , updateTodo}) {
     const [edit,setEdit] = useState({
         id:null,
-        value : ""
+        item : "",
     });
 
-    const submitUpdate = value =>{
-        updateTodo(edit.id,value)
+    const submitUpdate = item =>{
+        updateTodo(edit.id,item)
         setEdit({
             id:null,
-            value:""
+            item:""
         });
     };
     if(edit.id){
@@ -22,12 +22,12 @@ function Todo({todos,completeTodo, removeTodo , updateTodo}) {
 
     return todos.map((todo,index)=>(
     <div className={todo.isComplete ? 'todo-row complete': 'todo-row'} key={index}>
-    <div key={todo.id} onClik={()=> completeTodo(todo.id)}>
+    <div key={todo.id} onClick={()=> completeTodo(todo.id)}>
     {todo.item}
     </div>
     <div className="icons">
         <RiCloseCircleLine onClick={()=> removeTodo(todo.id)} className="delete-icon"/>
-        <TiEdit onClick={()=> setEdit({id: todo.id,value:todo.input})}/>
+        <TiEdit onClick={()=> setEdit({id: todo.id,item:todo.input})}/>
     
     </div>
 
