@@ -10,15 +10,16 @@ import backArrow from "../images/backArrow.png";
 
 function ItemComp({ item, deleteItem, updateItem }) {
 	const [isEditElement, setIsEditElement] = useState(false);
-	const [itemName, setItemName] = useState(item.itemName);
+	// const [itemName, setItemName] = useState(item.itemName);
+	const [newItem, setNewItem] = useState(item);
 
 	const editInputAndButton = () => {
 		return (
 			<div>
 				<input
 					className="clickable, task-small-input"
-					onChange={(e) => setItemName(e.target.value)}
-					value={itemName}
+					onChange={(e) => setNewItem({ ...item, itemName: e.target.value })}
+					value={newItem.itemName}
 				/>
 				<ButtonComp
 					className={"clickable pluse-icon-element"}
@@ -34,7 +35,8 @@ function ItemComp({ item, deleteItem, updateItem }) {
 					imgSrc={plusImg}
 					onClick={async () => {
 						setIsEditElement(false);
-						await updateItem({ itemName: itemName }, item.id);
+						// setNewItem({ ...item, itemName: itemName });
+						await updateItem(newItem, item.id);
 					}}
 					imgClassName={"pluse-icon"}
 				/>
@@ -48,7 +50,7 @@ function ItemComp({ item, deleteItem, updateItem }) {
 				className="clickable task-element"
 				onClick={() => setIsEditElement(true)}
 			>
-				{itemName}
+				{item.itemName}
 				<ButtonComp
 					className={"clickable delete-button"}
 					imgSrc={trashImg}
@@ -65,7 +67,8 @@ function ItemComp({ item, deleteItem, updateItem }) {
 				className="checkbox"
 				onChange={async (e) => {
 					e.stopPropagation();
-					await updateItem({ status: !item.status }, item.id);
+					setNewItem({ ...item, status: !item.status });
+					await updateItem(newItem, item.id);
 				}}
 				checked={item.status}
 			/>
