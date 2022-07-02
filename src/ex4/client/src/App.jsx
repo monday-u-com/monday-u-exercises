@@ -19,15 +19,17 @@ function App() {
 	const [isEmptyState, setIsEmptyState] = useState(true);
 	const [isloading, setIsLoading] = useState(false);
 	const [toast, setToast] = useState(false);
+	const [timeOutId, setTimeOutId] = useState(NaN);
 
 	const handleToastOpen = useCallback(() => {
 		let timeOut;
-		clearTimeout(timeOut);
+		clearTimeout(timeOutId);
 		setToast(true);
 		timeOut = setTimeout(() => {
 			setToast(false);
 		}, 5000);
-	}, []);
+		setTimeOutId(timeOut);
+	}, [timeOutId]);
 
 	const addItem = useCallback(
 		async (value) => {
@@ -122,8 +124,7 @@ function App() {
 			await updateItem(lastPerformance.item, lastPerformance.item.id);
 		}
 		setToast(false);
-		handleToastOpen();
-	}, [lastPerformance, deleteItem, addItem, updateItem, handleToastOpen]);
+	}, [lastPerformance, deleteItem, addItem, updateItem]);
 
 	const toastActions = useMemo(
 		() => [
@@ -145,7 +146,7 @@ function App() {
 				<Toast
 					open={toast}
 					type={Toast.types.POSITIVE}
-					closeable={true}
+					closeable={false}
 					actions={toastActions}
 					onClick={() => handleToastButton()}
 				>
