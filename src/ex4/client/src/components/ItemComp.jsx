@@ -10,7 +10,6 @@ import backArrow from "../images/backArrow.png";
 
 function ItemComp({ item, deleteItem, updateItem }) {
 	const [isEditElement, setIsEditElement] = useState(false);
-	// const [itemName, setItemName] = useState(item.itemName);
 	const [newItem, setNewItem] = useState(item);
 
 	const editInputAndButton = () => {
@@ -35,7 +34,6 @@ function ItemComp({ item, deleteItem, updateItem }) {
 					imgSrc={plusImg}
 					onClick={async () => {
 						setIsEditElement(false);
-						// setNewItem({ ...item, itemName: itemName });
 						await updateItem(newItem, item.id);
 					}}
 					imgClassName={"pluse-icon"}
@@ -67,8 +65,7 @@ function ItemComp({ item, deleteItem, updateItem }) {
 				className="checkbox"
 				onChange={async (e) => {
 					e.stopPropagation();
-					setNewItem({ ...item, status: !item.status });
-					await updateItem(newItem, item.id);
+					await updateItem({ ...item, status: !item.status }, item.id);
 				}}
 				checked={item.status}
 			/>

@@ -21,8 +21,14 @@ class ItemManager {
 
 	async updateItem(itemData, itemId) {
 		const itemToUpdate = itemData;
-		if (itemData.status && !itemData.doneAt) {
-			itemData.doneAt = Date.now();
+		if (
+			itemToUpdate.status &&
+			(itemToUpdate.doneAt === "1970-01-01 00:00:00" ||
+				itemToUpdate.doneAt === null)
+		) {
+			itemToUpdate.doneAt = Date.now();
+		} else {
+			itemToUpdate.doneAt = 0;
 		}
 		await item.update(itemToUpdate, { where: { id: itemId } });
 		return await this.getAllItems();
