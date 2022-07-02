@@ -1,7 +1,7 @@
 import "./App.css";
-import Card from "./components/Card";
+import HomeCard from "./components/HomeCard";
 import Navbar from "./components/Navbar";
-import About from "./About";
+import AboutCard from "./components/AboutCard";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -10,8 +10,8 @@ function App() {
          <Navbar />
          <div className="card-container">
             <Routes>
-               <Route path="/" element={<Card />} />
-               <Route path="/about" element={<About />} />
+               <Route path="/" element={<HomeCard />} />
+               <Route path="/about" element={<AboutCard />} />
             </Routes>
          </div>
       </>

@@ -1,4 +1,4 @@
-import cardCSS from "./Card.module.css";
+import homeCardCSS from "./HomeCard.module.css";
 import AddBar from "./AddBar";
 import SortButtons from "./SortButtons";
 import Tasks from "./Tasks";
@@ -9,7 +9,7 @@ import Titles from "./Titles";
 import { useState, useCallback } from "react";
 import api from "../clients/item-client.js";
 
-function Card() {
+function HomeCard() {
    const [tasks, setTasks] = useState([]);
    const [inputText, setInputText] = useState("");
    const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +24,7 @@ function Card() {
    }, []);
 
    return (
-      <div className={cardCSS.card}>
+      <div className={homeCardCSS.card}>
          <Titles />
          <AddBar
             inputText={inputText}
@@ -33,15 +33,15 @@ function Card() {
             setIsLoading={setIsLoading}
          />
          <SortButtons tasks={tasks} setTasks={setTasks} />
-         <div className={cardCSS["tasks-and-clear-container"]}>
+         <div className={homeCardCSS["tasks-and-clear-container"]}>
             <Tasks tasks={tasks} setTasks={setTasks} setIsLoading={setIsLoading} />
             {isLoading === true ? <Loader /> : ""}
-            <div className={cardCSS["footer-container"]}>
+            <div className={homeCardCSS["footer-container"]}>
                <PendingTasks tasks={tasks} />
                <Button
                   buttonHandler={clearButtonHandler}
                   innerText={"Clear All"}
-                  className={cardCSS["clear-all"]}
+                  className={homeCardCSS["clear-all"]}
                />
             </div>
          </div>
@@ -49,4 +49,4 @@ function Card() {
    );
 }
 
-export default Card;
+export default HomeCard;

@@ -1,0 +1,35 @@
+.card {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background-color: aliceblue;
+   width: 59rem;
+   min-width: 45rem;
+   height: 69rem;
+   border-radius: 8px;
+}
+
+.title {
+   font-size: 4rem;
+   padding: 1rem;
+   margin-top: 2rem;
+}
+
+.info {
+   font-size: 1.7rem;
+   width: 50rem;
+   margin-bottom: 2rem;
+   text-align: left;
+}
+
+.profile {
+   width: 30rem;
+   height: auto;
+   border: 1px solid black;
+   border-radius: 6px;
+}
+
+.name {
+   font-size: 3rem;
+   margin-top: 1rem;
+}

@@ -23,11 +23,11 @@ This is my task for Exercise 6 of Monday-U Full Stack course. Task requirements 
 
 -  [x] Add error handling for communication issues with your backend (Empty state / Loader / Something else)- **Added errors around api requests and added a loader.**
 -  [x] Use components from the [Vibe Design System](https://github.com/mondaycom/monday-ui-react-core) (monday.com's component library) - **Added the text field component.**
--  [ ] Use [React Router](https://reactrouter.com/docs/en/v6) to add basic routing capabilities to your app
-   -  [ ] Add Tabs / Navigation bar to help route between pages [Tabs example](https://style.monday.com/?path=/docs/navigation-tabs-tab--overview)
+-  [x] Use [React Router](https://reactrouter.com/docs/en/v6) to add basic routing capabilities to your app
+   -  [x] Add Tabs / Navigation bar to help route between pages [Tabs example](https://style.monday.com/?path=/docs/navigation-tabs-tab--overview)
    -  Page suggestions
       -  [ ] Task completion statistics page - # of open tasks, total number of tasks, average tim to finish a task, etc.
-      -  [ ] About page - with some fun facts and profile picture
+      -  [x] About page - with some fun facts and profile picture
 
 ## CLI(exc 3)
 
