@@ -30,8 +30,8 @@ function Task({ item, setFlag, setLoading }) {
             alert("Something went wrong")
             return
         }
-        setFlag(prev => !prev)
         setChecked(prev => !prev)
+        setFlag(prev => !prev)
         setLoading(false)
     }
 
