@@ -1,7 +1,7 @@
 import homeCardCSS from "./HomeCard.module.css";
 import AddBar from "./AddBar";
 import SortButtons from "./SortButtons";
-import Tasks from "./Tasks";
+import TaskList from "./TaskList";
 import Loader from "./Loader";
 import PendingTasks from "./PendingTasks";
 import Button from "./Button";
@@ -34,7 +34,7 @@ function HomeCard() {
          />
          <SortButtons tasks={tasks} setTasks={setTasks} />
          <div className={homeCardCSS["tasks-and-clear-container"]}>
-            <Tasks tasks={tasks} setTasks={setTasks} setIsLoading={setIsLoading} />
+            <TaskList tasks={tasks} setTasks={setTasks} setIsLoading={setIsLoading} />
             {isLoading === true ? <Loader /> : ""}
             <div className={homeCardCSS["footer-container"]}>
                <PendingTasks tasks={tasks} />
