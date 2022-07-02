@@ -1,24 +1,70 @@
+// Create an ItemClient class here. This is what makes requests to your express server (your own custom API!)
+const HOST = "http://localhost";
+const SERVER_PORT = 3000;
+const ROUTE = "/todo";
+const PATH = `${HOST}:${SERVER_PORT}/${ROUTE}`;
+const STANDARD_HEADERS = {
+  Accept: "application/json",
+  "Content-Type": "application/json",
+};
+
 class ItemClient {
-    getItems = async () => {
-        const response = await fetch('/items')
-        const todos = await response.json()
+  constructor() {}
 
-        return todos
+  async getAllTasks() {
+    try {
+      const response = await fetch(ROUTE);
+      const tasks = await response.json();
+      return tasks;
+    } catch (error) {
+      console.error("Get all tasks error:", error);
     }
+  }
 
-    postItem = async item => {
-        await fetch('/item', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ item })
-        })
+  async addTask(task) {
+    try {
+      const response = await fetch(ROUTE, {
+        method: "POST",
+        headers: STANDARD_HEADERS,
+        body: JSON.stringify({ task }),
+      });
+    } catch {
+      console.error("Add task error:", error);
     }
+  }
 
-    deleteItem = async item => {
-        await fetch('/item', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ item })
-        })
+  async removeTask(task) {
+    try {
+      const response = await fetch(ROUTE, {
+        method: "DELETE",
+        headers: STANDARD_HEADERS,
+        body: JSON.stringify({ task }),
+      });
+    } catch (error) {
+      console.error("Remove task error:", error);
     }
+  }
+
+  async updateTask(task) {
+    try {
+      const response = await fetch(ROUTE, {
+        method: "PUT",
+        headers: STANDARD_HEADERS,
+        body: JSON.stringify(task),
+      });
+    } catch (error) {
+      console.error("update task error:", error);
+    }
+  }
+
+  async removeAllTasks() {
+    try {
+      const response = await fetch(ROUTE + "/delete_all", {
+        method: "DELETE",
+        headers: STANDARD_HEADERS,
+      });
+    } catch (error) {
+      console.error("Remove all tasks error:", error);
+    }
+  }
 }
