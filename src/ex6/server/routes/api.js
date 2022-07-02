@@ -32,6 +32,7 @@ async function getAll(req, res) {
 
 async function addTask(req, res) {
   const body = req.body;
+  console.log(body);
   await itemService.addTask(body);
   res.end();
 }

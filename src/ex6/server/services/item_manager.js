@@ -1,6 +1,5 @@
 // The ItemManager should go here. Remember that you have to export it.
 const { catchPokemons } = require("../clients/pokemon_client");
-const { up } = require("../db/migrations/20220623014419-add_status_column");
 const { Item } = require("../db/models");
 
 async function getAll() {
@@ -12,7 +11,7 @@ async function addTask(taskJson) {
   const { task } = taskJson;
   let tasks = [];
   const data = await getAll();
-  const contentList = data.map((item) => item.ItemName);
+  const contentList = data.map((item) => item.itemName);
   try {
     if (!_isNumbers(task)) {
       tasks.push(task);
@@ -22,7 +21,7 @@ async function addTask(taskJson) {
     }
     for (const item of tasks) {
       if (!contentList.includes(item)) {
-        await Item.create({ ItemName: item, status: false });
+        await Item.create({ itemName: item, status: false });
       }
     }
   } catch (error) {
@@ -56,7 +55,7 @@ function _isNumbers(input) {
 
 async function deleteTask(task) {
   try {
-    await Item.destroy({ where: { ItemName: task } });
+    await Item.destroy({ where: { itemName: task } });
   } catch (error) {
     console.error(error.message);
   }
@@ -64,7 +63,7 @@ async function deleteTask(task) {
 
 async function updateTask(task) {
   const updateTask = {
-    ItemName: task.ItemName,
+    itemName: task.itemName,
     status: task.status,
   };
   try {

@@ -1,9 +1,10 @@
-import './App.css';
+import styles from "./App.module.css";
+import TodoMainPage from "./Components/TodoMainPage/TodoMainPage";
 
 function App() {
   return (
-    <div className="App">
-      app.js
+    <div className={styles.App}>
+      <TodoMainPage />
     </div>
   );
 }
