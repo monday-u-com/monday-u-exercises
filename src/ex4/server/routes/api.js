@@ -4,14 +4,16 @@ const {
     createTodo,
     getAll,
     deleteTodo,
-    deleteAll
+    deleteAll,
+    updateTodoStatus
 } = require("../controllers/todoController");
 
 const todoRouter = express.Router();
 
 todoRouter.get('/', getAll);
 todoRouter.post('/', createTodo);
-todoRouter.delete('/:value', deleteTodo)
+todoRouter.put('/:id', updateTodoStatus);
+todoRouter.delete('/:id', deleteTodo)
 todoRouter.delete('/', deleteAll)
 
 module.exports = todoRouter;
