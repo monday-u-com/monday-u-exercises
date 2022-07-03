@@ -1,10 +1,10 @@
 import './App.css';
-import TodoList from "./components/TodoList";
+import AppContainer from './components/AppContainer/AppContainer'
 import TodoApp from './components/TodoApp';
 function App() {
   return (
     <div className="App">
-      <TodoApp/>
+      <AppContainer/>
     </div>
   );
 }

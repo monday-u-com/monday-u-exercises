@@ -1,18 +1,38 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
+const TodoList = ({item, deleteItem , statusUpdate ,editTodoDb}) =>{
+    const newItemPokemon = item.isPokemon === 0 ? false:true;
+    const [todoName, setTodoName] = useState( newItemPokemon ? `Cool You cought ${item.item}` : item.item );
+    const [clickEdit , setClickEdit] = useState(true);
+    
 
-const TodoList = ({item, deleteItem , statusUpdate}) =>{
-    const [isPokemon , setIsPokemon] =useState(item.isPokemon);
-    const newItem = isPokemon ? `Cool You cought ${item.newItem}` : item.newItem;
 
 
-    const handleCheckBox = (event) =>{
-        if(event.target.checked) {
-            statusUpdate(item.itemId,true);
+    const handleCheckBox = async (event) =>{
+        try{
+           if(event.target.checked){
+                await statusUpdate(item.itemId, true);
         }else{
-            statusUpdate(item.itemId,false);
+            await statusUpdate(item.itemId,false);
         }
-
+        }catch(error){
+            throw new Error("Failure while update the checkbox status")
+        }
     };
+
+    const handleClickOnEditBtn = ()=>{
+        setClickEdit(false);
+    };
+
+    const handleSaveBtnClick = async () =>{
+        try{
+            setClickEdit(true);
+            const newTodo = todoName.replace("`Cool You cought" , "");
+            await editTodoDb(item.itemId, newTodo);  
+        }catch(error){
+            throw new Error("Failure while edit Todo inside DB");  
+        }
+    }
     return(
         <div>
             <li id={item.itemId}>
