@@ -1,117 +1,163 @@
-html {
-  height: 100%;
+* {
+    font-family: Alef, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
 }
+
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(to top, rgb(47, 255, 102) 0%, rgb(0, 200, 255) 100%);
 }
 
-.app-container {
-  width: 100%;
-  height: 100%;
-  font-family: Georgia, serif;
-  font-weight: lighter;
-  background-image: linear-gradient(
-    to top right,
-    white,
-    #d4dff3,
-    rgba(138, 144, 224, 0.76),
-    rgba(106, 117, 231, 0.76),
-    rgba(85, 97, 229, 0.76)
-  );
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+h1 {
+    font-size: 35px;
 }
 
-.app-name {
-  padding-left: 32px;
-  font-weight: lighter;
+
+.container {
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 700px;
+    padding: 25px;
 }
 
-.list-container {
-  display: flex;
-  flex-direction: column;
-  width: 30%;
-  height: 50%;
-  background-color: white;
-  border: 1px silver solid;
-  border-radius: 8px;
-  -webkit-box-shadow: 12px 12px 38px -13px #000000;
-  box-shadow: 12px 12px 38px -13px #000000;
+.btn[disabled] {
+    opacity: 0.3;
+    box-shadow: none;
+    border: none;
 }
 
-.list-controls {
-  padding: 0px 32px;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
+.btn[disabled]:hover {
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
-.list-controls #list-item-input {
-  width: 85%;
-  height: 30px;
-  font-size: 16px;
-  padding-left: 8px;
+.btn {
+    height: 100%;
+    text-align: center;
+    color: white;
+    border: none;
+    margin-left: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: rgb(30, 75, 254);
 }
 
-.list-controls #list-item-submit {
-  color: white;
-  background-color: #6c6cff;
-  border-style: solid;
-  border-color: transparent;
-  border-radius: 4px;
-  height: 35px;
-  width: 35px;
-  font-size: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-left: auto;
+.btn:hover {
+    background-color: rgb(0, 51, 255);
+    box-shadow: 0.5px 0.5px 10px 0.5px grey;
 }
 
-.list-controls #list-item-submit:hover {
-  background-color: #3c3cff;
-  transition: background-color 0.2s ease-in-out;
+
+.placeHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: greenyellow;
+    font-size: 100px;
+    opacity: 0.3;
+    padding: 60px;
+    border: 1px solid rgb(99, 99, 99);
+    border-radius: 8px;
 }
 
-#list {
-  list-style-type: none;
-  padding: 0px 30px;
-  height: 310px;
-  overflow-y: scroll;
+.hidden {
+    display: none;
 }
 
-.list-item {
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
+.placeHolder p {
+    margin-top: 5px;
+    color: black;
 }
 
-.list-item:hover {
-  color: blueviolet;
-  transition: color 0.2s ease-in-out;
+#addBtn {
+    width: 60px;
+    font-size: 30px;
 }
 
-.list-item:not(:last-of-type) {
-  border-bottom: 1px #bbb5b5 solid;
+#add-task {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
 }
 
-.list-item-delete-button {
-  margin-left: auto;
-  padding: 8px;
-  cursor: pointer;
-  border-radius: 8px;
+#add-task input {
+    width: 90%;
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding-left: 15px;
+    outline: none;
 }
 
-.list-item-delete-button:hover {
-  background-color: #f0f0f5;
-  transition: background-color 0.2s ease-in-out;
+
+#taskList {
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+
+#taskList li {
+    list-style: none;
+    line-height: 45px;
+    margin-bottom: 8px;
+    background-color: rgb(237, 237, 237);
+    border-radius: 8px;
+    padding-left: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+#taskList li span {
+    position: absolute;
+    right: -45px;
+    background-color: red;
+    color: white;
+    width: 40px;
+    text-align: center;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#taskList li:hover span {
+    right: 0;
+}
+
+#info {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+    align-items: center;
+}
+
+#clearAllBtn,
+#sortAllBtn {
+    padding: 10px;
+}
+
+@keyframes append-animate {
+    from {
+        transform: translateX(-100%);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+/* animate new box */
+.new-li {
+    animation: append-animate .4s linear;
 }
