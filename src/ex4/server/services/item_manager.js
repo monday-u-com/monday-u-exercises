@@ -1,6 +1,6 @@
 const pokemonApi = require('../clients/pokemon_client');
 const { Op } = require('sequelize');
-const { Item } = require('../../db/models');
+const { item } = require('../../db/models');
 const { v4: uuidv4 } = require('uuid');
 const pokemonClient = new pokemonApi();
 
@@ -9,31 +9,29 @@ class ItemManager {
     this.pokemonClient = new pokemonApi();
   }
 
-  getAll = async () => await Item.findAll({ order: [['createdAt', 'DESC']] });
+  getAll = async (field) => await item.findAll({ order: [[field, 'ASC']] });
 
   deleteAll = async () =>
-    await Item.destroy({
+    await item.destroy({
       truncate: true,
     });
 
   deleteItem = async (id) =>
-    await Item.destroy({
+    await item.destroy({
       where: {
-        Id: id,
+        id: id,
       },
     });
 
-  changeState = async (id) => {
-    const item = await Item.findOne({ where: { Id: id } });
-    const newStatus = !item.status;
-    await Item.update({ status: newStatus }, { where: { Id: id } });
+  changeStatus = async (id, status) => {
+    await item.update({ status: status }, { where: { id: id } });
   };
 
   editItem = async (id, text) => {
-    await Item.update({ pokemonId: null, ...text }, { where: { Id: id } });
+    await item.update({ pokemonId: null, ...text }, { where: { id: id } });
   };
   addTasksOrPokemons = async (tasks) => {
-    const pokemonsRegisterd = await Item.findAll({
+    const pokemonsRegisterd = await item.findAll({
       where: { pokemonId: { [Op.ne]: null } },
     });
     const pokemonsIds = pokemonsRegisterd.map((item) => '' + item.pokemonId);
@@ -44,16 +42,16 @@ class ItemManager {
       if (typeof item === 'object') {
         return {
           id: uuidv4(),
-          ItemName: `Catch ${item.name}`,
+          name: `Catch ${item.name}`,
           status: false,
           pokemonId: item.id,
         };
       } else {
-        return { id: uuidv4(), ItemName: item, status: false, pokemonId: null };
+        return { id: uuidv4(), name: item, status: false, pokemonId: null };
       }
     });
 
-    return await Item.bulkCreate(array);
+    return await item.bulkCreate(array);
   };
 }
 

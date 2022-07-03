@@ -1,16 +1,13 @@
-// Express boilerplate, hosting the `dist` file, connecting to the routes
-
 const express = require('express');
 const cors = require('Cors');
 const bodyParser = require('body-parser');
 const tasksRouter = require('./server/routes/api');
-//const logger = require('./server/middleware/logger');
-//const errorHandler = require('./server/middleware/error-handaling');
+const logger = require('./server/middleware/logger');
+const errorHandler = require('./server/middleware/error-handaling');
 const port = process.env.PORT || 8080;
 const app = express();
 
-app.use([cors(), bodyParser.json()]);
-app.use('/static', express.static('public'));
+app.use([logger, cors(), bodyParser.json()]);
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -21,7 +18,7 @@ app.use((req, res, next) => {
 
 app.use('/tasks', tasksRouter);
 
-//app.use(errorHandler);
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`server is connected on port ${port}`);

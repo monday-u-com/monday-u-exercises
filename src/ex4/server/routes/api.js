@@ -3,8 +3,8 @@ const tasksService = require('../services/item_manager');
 
 const tasksRouter = express.Router();
 
-tasksRouter.get('/getAll', async (req, res, next) => {
-  const tasks = await tasksService.getAll();
+tasksRouter.get('/getAll/:field', async (req, res, next) => {
+  const tasks = await tasksService.getAll(req.params.field);
 
   if (!tasks) {
     const error = new Error("couldn't get tasks");
@@ -36,8 +36,8 @@ tasksRouter.delete('/deleteAll', async (req, res, next) => {
   res.status(200).json(req.body);
 });
 
-tasksRouter.get('/changeState/:id', async (req, res, next) => {
-  await tasksService.changeState(req.params.id);
+tasksRouter.patch('/changeStatus/:id', async (req, res, next) => {
+  await tasksService.changeStatus(req.params.id, req.body.status);
   res.status(200).json(req.params.id);
 });
 
