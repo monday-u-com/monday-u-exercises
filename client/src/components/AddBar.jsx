@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { TextField } from "monday-ui-react-core";
 import "monday-ui-react-core/dist/main.css";
 import PropTypes from "prop-types";
@@ -6,7 +6,8 @@ import Button from "./Button";
 import addBarCSS from "./AddBar.module.css";
 import api from "../clients/item-client.js";
 
-function AddBar({ inputText, setInputText, setTasks, setIsLoading }) {
+function AddBar({ setTasks, setIsLoading }) {
+   const [inputText, setInputText] = useState("");
    const addButtonHandler = useCallback(async () => {
       setIsLoading(true);
 
