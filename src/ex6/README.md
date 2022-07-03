@@ -1,51 +1,38 @@
-# Exercise 6 - React
+# Exercise 4 - Express.js
 
-Let's get Reactive 🥳
+You know what they say about #4: you'll remember it *for*ever (ha)
 
 ## In this section you will practice
 
-**Initializing React project** - Use [create-react-app](https://github.com/facebook/create-react-app) to set up a basic React application
-
-**React components** - Creating and using controlled and uncontrolled components
-
-**State and Props** - Handling and passing data in and between different components
-
-**CSS** - Connecting CSS to components using CSS Modules
-
-**Hooks** - Using `useState`, `useCallback`, `useMemo` && `useEffect` to handle the component's state and lifecycle
-
-**Data fetching** - Data fetching from a component, handling communication issues and empty/loading state
+**Express** - One of the most popular server frameworks for node.js
+**APIs** - We've already worked with an external API (the Pokemon one) - now we're going to build our own!
+**CRUD** - Create, Read, Update, Delete - the four fundamental operations of any API. We aren't updating yet, but the principles are the same
 
 ## What you are going to build
 
-In the last exercise, you have made your application's data persistent using a DB.
+So far our whole app has been 100% local, and if you refreshed the page - that's it, all your todos were gone. No persistency. So sad.
 
-Now you are going to give the client side a makeover using React.
+But that changes today! We're going to create a server that will handle all our todo items, _and_ our Pokemon fetching, and finally take our first step in becoming real #fullstack developers #hashtag
 
-This will make your project:
-* **Easier to maintain** - Having a component for each "UI part" of our client
-* **Hooked to the DOM** - By using JSX you can directly manipulate DOM
-* **Increased performance** - React works with a Virtual DOM to improve the performance of your project
-* **"Common"** - React is wildly used in the community and has tons of info about different use-cases you may encounter while developing
+You can use your existing project (copy+paste then refactor), or use the boilerplate we've set up for you in this `ex4` directory
 
 ### The requirements:
-- [ ] Remove `app.use(express.static(path.join(__dirname, 'dist')))` from your `server.js` file
-- [ ] Delete `src/server/dist` **ONLY** when your new client is up and running 
-- [ ] Initialize your React project in the `src` folder using [create-react-app](https://create-react-app.dev/docs/getting-started/) with the name `client`
-- [ ] Decompose your Todo App into components (controlled and uncontrolled)
-- [ ] Re-Implement the Todo App using hooks
-- [ ] Use [**propTypes** & **defaultProps**](https://reactjs.org/docs/typechecking-with-proptypes.html) to add type-checking to your components
 
-#### Your todo app is now:
-- Very easy to maintain and scale
-- Can use a vast amount of packages for almost every use-case
-- More performant out of the box
+- [ ] Create your express backend (include separate `dist` and `server` folders)
+- [ ] Your `server.js` file should have all the express boilerplate and host your `dist` directory to any client that requests it (hint: you'll need to `.use` the `express.static` method)
+- [ ] Create an `api.js` file that acts as the 'controller' of your backend, handling all the routes (endpoints)
+- [ ] Create separate endpoints for (1) fetching all the todo items, (2) creating a new one, and (3) deleting an existing one (hint: don't forget `bodyParser`)
+- [ ] Move the pokemon fetching code to the backend - use `axios` instead of `fetch` for your requests
+- [ ] On app load (i.e. when a user enters the page) it should fetch all the todo items and render them
+
+In terms of the front end, it will look the same as before:
+![](../assets/hw-2.gif)
+
+But now when you refresh the page **the data should still be there**
 
 ### Bonus
-- [ ] Add error handling for communication issues with your backend (Empty state / Loader / Something else)
-- [ ] Use components from the [Vibe Design System](https://github.com/mondaycom/monday-ui-react-core) (monday.com's component library)
-- [ ] Use [React Router](https://reactrouter.com/docs/en/v6) to add basic routing capabilities to your app
-  - [ ] Add Tabs / Navigation bar to help route between pages [Tabs example](https://style.monday.com/?path=/docs/navigation-tabs-tab--overview)
-  - Page suggestions
-    - [ ] Task completion statistics page - # of open tasks, total number of tasks, average tim to finish a task, etc.
-    - [ ] About page - with some fun facts and profile picture
+
+- [ ] Create a [middleware](https://expressjs.com/en/guide/using-middleware.html) that makes a log each time a user accesses any of the routes (you can just do a `console.log`)
+- [ ] Handle server errors elegantly. Specifically, if anything goes wrong the user should see an error message (ideally, not an alert) with an explanation of what went wrong instead of crashing the page
+- [ ] Add a loder/spinner to the page that indicates the client is waiting for an async operation (e.g. a call to the server) to finish
+- [ ] Add simple caching to your server. If a user requests for the same pokemon ID three times in the same minute, for example, it should only make a request to the Pokemon API once. You can use a simple in-memory data structure for your cache
