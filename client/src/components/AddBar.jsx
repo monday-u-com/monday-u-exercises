@@ -52,7 +52,7 @@ function AddBar({ setTasks, setIsLoading }) {
             id={addBarCSS["task-text"]}
          />
          <Button
-            buttonHandler={addButtonHandler}
+            onClick={addButtonHandler}
             innerText={<i className={`${addBarCSS["fa-plus"]} fa-plus fa-solid`}></i>}
             className={addBarCSS["add-task"]}
          />

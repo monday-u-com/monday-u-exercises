@@ -33,7 +33,7 @@ function HomeCard() {
             <div className={homeCardCSS["footer-container"]}>
                <PendingTasks tasks={tasks} />
                <Button
-                  buttonHandler={clearButtonHandler}
+                  onClick={clearButtonHandler}
                   innerText={"Clear All"}
                   className={homeCardCSS["clear-all"]}
                />

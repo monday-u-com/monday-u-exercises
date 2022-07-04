@@ -27,7 +27,7 @@ function SortButtons({ tasks, setTasks }) {
          })}
       >
          <Button
-            buttonHandler={() => sortButtonHandler("down")}
+            onClick={() => sortButtonHandler("down")}
             innerText={
                <i
                   className={`${sortButtonsCSS["fa-arrow-down-a-z"]} fa-arrow-down-a-z fa-solid`}
@@ -36,7 +36,7 @@ function SortButtons({ tasks, setTasks }) {
             className={sortButtonsCSS["name-sort-down"]}
          />
          <Button
-            buttonHandler={() => sortButtonHandler("up")}
+            onClick={() => sortButtonHandler("up")}
             innerText={
                <i className={`${sortButtonsCSS["fa-arrow-up-a-z"]} fa-arrow-up-a-z fa-solid`}></i>
             }
