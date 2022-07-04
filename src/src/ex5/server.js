@@ -1,12 +1,13 @@
 // Express boilerplate, hosting the `dist` file, connecting to the routes
 const express =  require('express');
+const path  = require('path')
 const itemRouter = require( './server/routes/api.js');
-const  {handleError} = require('./server/middleware/error_handler');
+const  {errorHandler} = require('./server/middleware/error_handler');
 const  {logger}  = require('./server/middleware/logger');
 const  cors = require('cors');
 const  bodyParser = require( 'body-parser');
 const Sequelize = require('sequelize');
-const  port = 8080;
+const  port = 8081;
 const app = express();
 
 
@@ -30,10 +31,10 @@ app.use(bodyParser.json())
 app.use(logger)
 
 app.use([cors(),express.json()]);
-// app.use(express.static( 'dist'));
 app.use(bodyParser.urlencoded({extended:false}))
+app.use(express.static(path.resolve(__dirname, '/client/build')));
 app.use('/item', itemRouter);
-app.use(handleError);
+app.use(errorHandler);
 process.on('unhandledRejection', (reason, promise) => {
     console.log("Unhandled Rejection", reason.message);
     throw reason

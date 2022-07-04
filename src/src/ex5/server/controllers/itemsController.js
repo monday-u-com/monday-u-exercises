@@ -49,12 +49,24 @@ async function updateItemStatus(req, res, next){
       next(err);
     }
   }
+  async function editTodoName(req, res, next)
+  {
+    try {
+      const itemId = req.params.id
+      const newTaskName = req.body.task
+      await ItemManager.editTodoNameInDb(itemId,newTaskName);
+      res.status(200).json('name changed');
+    } catch (err) {
+      next(err);
+    }
+  }
 
   module.exports = {
     createItem,
     deleteItem,
     getAll,
     deleteAll,
-    updateItemStatus
+    updateItemStatus,
+    editTodoName
     
   }

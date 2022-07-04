@@ -1,15 +1,30 @@
 import TodoList from "../TodoList/TodoList.jsx";
-import "./Todo.module.css";
+import "./Todo.css";
+import PropTypes from "prop-types";
+const Todo = ({ items, deleteItemFromDb, updateStatusDb, editTaskNameDb }) => {
+  return (
+    <div className="">
+      <ul className="todos">
+        {items.map((item, index) => {
+          return (
+            <TodoList
+              item={item}
+              deleteItemFromDb={deleteItemFromDb}
+              updateStatusDb={updateStatusDb}
+              key={index}
+              editTaskNameDb={editTaskNameDb}
+            />
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
+Todo.prototype = {
+  items: PropTypes.array,
+  deleteItemFromDb: PropTypes.func,
+  updateStatusDb: PropTypes.func,
+  editTaskNameDb: PropTypes.func,
+};
 
-const Todo =({items, deleteItem , statusUpdate}) =>{
-    return (
-        <div className="list-container">
-            {items.map((item,index)=>{
-                return(
-                    <TodoList item={item} deleteItem={deleteItem} statusUpdate={statusUpdate} key={index}/>
-                );
-            })}
-        </div>
-    )
-}
 export default Todo;

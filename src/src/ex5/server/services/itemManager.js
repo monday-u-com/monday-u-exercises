@@ -163,6 +163,15 @@ class ItemManager {
 throw new Error(err)
   }
 }
+async editTodoNameInDb(itemId, newTaskName) {
+  try {
+    const item = newTaskName;
+    await items.update({ item }, { where: { itemId: itemId } });
+  } catch (err) {
+    throw new Error(err);
+    }
+  }
 }
+
 
 module.exports = new ItemManager();

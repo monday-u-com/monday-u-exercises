@@ -4,7 +4,8 @@ const {
   getAll,
   deleteItem,
   deleteAll,
-  updateItemStatus
+  updateItemStatus,
+  editTodoName
 } = require( "../controllers/itemsController.js");
 const itemRouter = express.Router();
 
@@ -16,7 +17,9 @@ itemRouter.delete("/", deleteAll);
 
 itemRouter.delete("/:id", deleteItem);
 
-itemRouter.put("/:id", updateItemStatus);
+itemRouter.put("/:id", editTodoName);
+
+itemRouter.put("/updateItemStatus/:id", updateItemStatus);
 
 
 module.exports =  itemRouter;
