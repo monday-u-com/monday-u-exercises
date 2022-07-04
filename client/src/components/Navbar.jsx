@@ -1,4 +1,5 @@
 import navbarCSS from "./Navbar.module.css";
+import classNames from "classnames";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 
 function Navbar() {
@@ -20,7 +21,7 @@ function CustomLink({ to, children }) {
    const isActive = useMatch({ path: resolvedPath.pathname, end: true });
 
    return (
-      <li className={`${isActive ? navbarCSS.active : ""}`}>
+      <li className={classNames({ [navbarCSS.active]: isActive })}>
          <Link to={to}>{children}</Link>
       </li>
    );

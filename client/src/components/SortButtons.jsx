@@ -1,4 +1,5 @@
 import sortButtonsCSS from "./SortButtons.module.css";
+import classNames from "classnames";
 import Button from "./Button";
 import { useCallback } from "react";
 import api from "../clients/item-client.js";
@@ -19,9 +20,11 @@ function SortButtons({ tasks, setTasks }) {
 
    return (
       <div
-         className={`${sortButtonsCSS.container} ${sortButtonsCSS["sort-btns-container"]} ${
-            tasks.length >= 1 ? sortButtonsCSS.visible : ""
-         }`}
+         className={classNames({
+            [sortButtonsCSS.container]: true,
+            [sortButtonsCSS["sort-btns-container"]]: true,
+            [sortButtonsCSS.visible]: tasks.length >= 1,
+         })}
       >
          <Button
             buttonHandler={() => sortButtonHandler("down")}
