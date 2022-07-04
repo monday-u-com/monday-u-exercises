@@ -45,7 +45,6 @@ This will make your project:
 - [ ] Handle loading
 - [ ] Add search
 - [ ] Add the ability to hide items that were marked as done or to show only them
-- [ ] Add a logger middleware to your application
 
 #### Your todo app is now:
 - Very easy to maintain and scale
@@ -56,3 +55,4 @@ This will make your project:
 - [ ] \* Debounce search
 - [ ] \* Implement an option to restore the last item that was deleted
 - [ ] ** Make your application accessible, i.e. keyboard navigation (ctrl+Enter create new, tab navigation)
+- [ ] Add redux logger middleware to your application
