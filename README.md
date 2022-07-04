@@ -4,9 +4,10 @@ This is my task for Exercise 6 of Monday-U Full Stack course. Task requirements 
 
 -  Please try the app (older version) right here: https://weekend-todo.netlify.app/
 
-## Screenshot:
+## Demo video:
 
-![app screenshot](./client/readme-assets/Screenshot.png)
+[![app screenshot](./client/readme-assets/Screenshot.png)
+](https://user-images.githubusercontent.com/99750449/177214950-eb606e49-2896-474b-8a9e-1054cd89a98e.mp4)
 
 ## Task requirements:
 
