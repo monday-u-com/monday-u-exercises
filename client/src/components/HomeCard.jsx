@@ -29,7 +29,7 @@ function HomeCard() {
          <SortButtons tasks={tasks} setTasks={setTasks} />
          <div className={homeCardCSS["tasks-and-clear-container"]}>
             <TaskList tasks={tasks} setTasks={setTasks} setIsLoading={setIsLoading} />
-            {isLoading === true ? <Loader /> : ""}
+            {isLoading && <Loader />}
             <div className={homeCardCSS["footer-container"]}>
                <PendingTasks tasks={tasks} />
                <Button
