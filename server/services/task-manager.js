@@ -19,9 +19,9 @@ class TaskManager {
             tasks.push(this._pokemonTasksHandle(pokemon, pokemonIDS[index]));
          });
 
-         await db.addTask(tasks);
+         return await db.addTask(tasks);
       } else {
-         await db.addTask([new Task(task)]);
+         return await db.addTask([new Task(task)]);
       }
    }
 

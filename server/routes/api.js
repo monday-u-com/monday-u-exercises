@@ -9,8 +9,8 @@ router.get("/getAll", async (req, res) => {
 });
 
 router.post("/add", async (req, res) => {
-   await taskManager.add(req.body.task);
-   res.status(200).json({ success: true });
+   const taskAdded = await taskManager.add(req.body.task);
+   res.status(200).json(taskAdded);
 });
 
 router.delete("/del", (req, res) => {

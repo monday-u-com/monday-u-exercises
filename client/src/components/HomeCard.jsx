@@ -27,7 +27,7 @@ function HomeCard() {
          <AddBarConnector setTasks={setTasks} />
          <SortButtons tasks={tasks} setTasks={setTasks} />
          <div className={homeCardCSS["tasks-and-clear-container"]}>
-            <TaskListConnector tasks={tasks} setTasks={setTasks} />
+            <TaskListConnector />
             <LoaderConnector />
             <div className={homeCardCSS["footer-container"]}>
                <PendingTasks tasks={tasks} />

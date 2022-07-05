@@ -4,8 +4,10 @@ class DBManager {
    getAllTasks = async () => await Task.findAll();
 
    async addTask(task) {
-      await Task.bulkCreate(task);
+      const response = await Task.bulkCreate(task);
       await Task.sync();
+
+      return response;
    }
 
    async deleteTask(id) {

@@ -6,7 +6,7 @@ import Button from "../Button";
 import addBarCSS from "./AddBar.module.css";
 import api from "../../clients/item-client.js";
 
-function AddBar({ setTasks, loaderShowAction, loaderHideAction }) {
+function AddBar({ setTasks, loaderShowAction, loaderHideAction, addTaskAction }) {
    const [inputText, setInputText] = useState("");
 
    const addButtonHandler = useCallback(async () => {
@@ -17,7 +17,7 @@ function AddBar({ setTasks, loaderShowAction, loaderHideAction }) {
          setInputText("");
       } else {
          try {
-            await api.addTask(inputText);
+            await addTaskAction(inputText);
             const allTasks = await api.getAllTasks();
             allTasks ? setTasks(allTasks) : console.error("Server error");
          } catch (error) {
