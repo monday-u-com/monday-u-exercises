@@ -4,6 +4,7 @@
   "description": "You know what they say about #4: you'll remember it *for*ever (ha)",
   "main": "server.js",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.3",
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
@@ -12,6 +13,7 @@
     "fs.promises.exists": "^1.1.3",
     "mysql2": "^2.3.3",
     "node-fetch": "^3.2.6",
+    "react-redux": "^8.0.2",
     "rimraf": "^3.0.2",
     "sequelize": "^6.21.0",
     "uuid": "^8.3.2"
