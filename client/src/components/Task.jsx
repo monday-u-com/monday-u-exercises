@@ -34,7 +34,7 @@ function Task({ task, setTasks, tasks }) {
             {task.imageURL ? addPokemonImage : ""}
          </div>
          <Button
-            buttonHandler={deleteButtonHandler}
+            onClick={deleteButtonHandler}
             innerText={<i className={`${taskCSS["fa-trash"]} fa-trash fa-solid`}></i>}
             className={taskCSS.delete}
          />
