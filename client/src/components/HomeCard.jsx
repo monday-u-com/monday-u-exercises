@@ -1,8 +1,8 @@
 import homeCardCSS from "./HomeCard.module.css";
-import AddBar from "./AddBar";
+import AddBarConnector from "./AddBar/AddBarConnector";
 import SortButtons from "./SortButtons";
-import TaskList from "./TaskList";
-import Loader from "./Loader";
+import TaskListConnector from "./TaskList/TaskListConnector";
+import LoaderConnector from "./Loader/LoaderConnector";
 import PendingTasks from "./PendingTasks";
 import Button from "./Button";
 import Titles from "./Titles";
@@ -11,7 +11,6 @@ import api from "../clients/item-client.js";
 
 function HomeCard() {
    const [tasks, setTasks] = useState([]);
-   const [isLoading, setIsLoading] = useState(true);
 
    const clearButtonHandler = useCallback(async () => {
       try {
@@ -25,11 +24,11 @@ function HomeCard() {
    return (
       <div className={homeCardCSS.card}>
          <Titles />
-         <AddBar setTasks={setTasks} setIsLoading={setIsLoading} />
+         <AddBarConnector setTasks={setTasks} />
          <SortButtons tasks={tasks} setTasks={setTasks} />
          <div className={homeCardCSS["tasks-and-clear-container"]}>
-            <TaskList tasks={tasks} setTasks={setTasks} setIsLoading={setIsLoading} />
-            {isLoading && <Loader />}
+            <TaskListConnector tasks={tasks} setTasks={setTasks} />
+            <LoaderConnector />
             <div className={homeCardCSS["footer-container"]}>
                <PendingTasks tasks={tasks} />
                <Button
