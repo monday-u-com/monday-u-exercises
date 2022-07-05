@@ -3,11 +3,6 @@
    align-items: center;
 }
 
-.task-container:hover {
-   transition: transform 150ms;
-   transform: scale(1.05);
-}
-
 .task-container:hover > .task {
    cursor: pointer;
    background-color: rgb(0, 200, 255);

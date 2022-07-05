@@ -24,6 +24,7 @@ function Task({ task, setTasks, tasks }) {
       <motion.li
          data-id={task.id}
          className={taskCSS["task-container"]}
+         whileHover={{ scale: 1.05, transition: { duration: 0.15 } }}
          initial={{ x: -130, opacity: 0.3, scale: 0.6 }}
          animate={{ x: 0, opacity: 1, scale: 1 }}
       >
@@ -33,7 +34,7 @@ function Task({ task, setTasks, tasks }) {
             {task.imageURL ? addPokemonImage : ""}
          </div>
          <Button
-            buttonHandler={deleteButtonHandler}
+            onClick={deleteButtonHandler}
             innerText={<i className={`${taskCSS["fa-trash"]} fa-trash fa-solid`}></i>}
             className={taskCSS.delete}
          />
