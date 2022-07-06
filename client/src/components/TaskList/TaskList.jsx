@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 function TaskList({
    tasks,
+   searchInputText,
    loaderShowAction,
    loaderHideAction,
    getAPITasksAction,
@@ -24,10 +25,15 @@ function TaskList({
       })();
    }, [loaderShowAction, loaderHideAction, getAPITasksAction, setTasksAction]);
 
-   const tasksList = useMemo(
-      () => tasks.map((task) => <TaskConnector task={task} key={task.id} />),
-      [tasks]
-   );
+   const tasksList = useMemo(() => {
+      let tasksToDisplay = tasks;
+      if (searchInputText) {
+         tasksToDisplay = tasks.filter((task) => {
+            return task.text.toLowerCase().includes(searchInputText);
+         });
+      }
+      return tasksToDisplay.map((task) => <TaskConnector task={task} key={task.id} />);
+   }, [tasks, searchInputText]);
 
    return <ul className={taskListCSS["all-tasks-container"]}>{tasksList}</ul>;
 }

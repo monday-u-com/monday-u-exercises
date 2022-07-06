@@ -2,6 +2,7 @@ import actionTypes from "../actions/constants";
 
 const initialState = {
    tasks: [],
+   searchInput: "",
 };
 
 const itemsEntitiesReducer = (state = initialState, action) => {
@@ -43,6 +44,9 @@ const itemsEntitiesReducer = (state = initialState, action) => {
       case actionTypes.CHECKMARK_TASK_REJECTED:
          console.error("Checkmark task rejected from server");
          return { tasks: state.tasks };
+
+      case actionTypes.SET_SEARCH_INPUT:
+         return { tasks: state.tasks, searchInput: action.payload };
 
       default:
          return state;

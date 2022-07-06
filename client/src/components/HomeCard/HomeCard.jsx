@@ -4,9 +4,9 @@ import TaskListConnector from "../TaskList/TaskListConnector";
 import LoaderConnector from "../Loader/LoaderConnector";
 import PendingTasksConnector from "../PendingTasks/PendingTasksConnector";
 import SortButtonsConnector from "../SortButtons/SortButtonsConnector";
+import SearchConnector from "../Search/SearchConnector";
 import Button from "../Button";
 import Titles from "../Titles";
-import Search from "../Search/Search";
 import { useCallback } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -32,7 +32,7 @@ function HomeCard({ tasks, clearTasksAction }) {
             })}
          >
             <SortButtonsConnector />
-            <Search />
+            <SearchConnector />
          </div>
          <div className={homeCardCSS["tasks-and-clear-container"]}>
             <TaskListConnector />
