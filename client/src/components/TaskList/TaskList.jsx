@@ -32,6 +32,7 @@ function TaskList({
             return task.text.toLowerCase().includes(searchInputText);
          });
       }
+
       return tasksToDisplay.map((task) => <TaskConnector task={task} key={task.id} />);
    }, [tasks, searchInputText]);
 
