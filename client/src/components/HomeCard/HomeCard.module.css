@@ -17,6 +17,12 @@
    justify-content: space-between;
 }
 
+.sort-search-container {
+   display: flex;
+   gap: 2rem;
+   align-items: center;
+}
+
 .footer-container {
    display: flex;
    align-items: center;
@@ -35,4 +41,19 @@
 .clear-all:hover {
    cursor: pointer;
    background-color: rgb(255, 191, 0);
+}
+
+.container {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   margin-bottom: 1.2rem;
+}
+
+.sort-btns-container {
+   visibility: hidden;
+}
+
+.visible {
+   visibility: visible;
 }

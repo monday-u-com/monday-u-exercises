@@ -1,14 +1,3 @@
-.container {
-   display: flex;
-   align-items: center;
-   gap: 1rem;
-   margin-bottom: 1.2rem;
-}
-
-.sort-btns-container {
-   visibility: hidden;
-}
-
 .name-sort-up,
 .name-sort-down {
    border: none;
@@ -27,8 +16,4 @@
 .fa-arrow-down-a-z,
 .fa-arrow-up-a-z {
    font-size: 2.2rem;
-}
-
-.visible {
-   visibility: visible;
 }

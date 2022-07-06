@@ -6,10 +6,12 @@ import PendingTasksConnector from "../PendingTasks/PendingTasksConnector";
 import SortButtonsConnector from "../SortButtons/SortButtonsConnector";
 import Button from "../Button";
 import Titles from "../Titles";
+import Search from "../Search/Search";
 import { useCallback } from "react";
+import classNames from "classnames";
 import PropTypes from "prop-types";
 
-function HomeCard({ clearTasksAction }) {
+function HomeCard({ tasks, clearTasksAction }) {
    const clearButtonHandler = useCallback(async () => {
       try {
          await clearTasksAction();
@@ -22,7 +24,16 @@ function HomeCard({ clearTasksAction }) {
       <div className={homeCardCSS.card}>
          <Titles />
          <AddBarConnector />
-         <SortButtonsConnector />
+         <div
+            className={classNames({
+               [homeCardCSS.container]: true,
+               [homeCardCSS["sort-btns-container"]]: true,
+               [homeCardCSS.visible]: tasks.length >= 1,
+            })}
+         >
+            <SortButtonsConnector />
+            <Search />
+         </div>
          <div className={homeCardCSS["tasks-and-clear-container"]}>
             <TaskListConnector />
             <LoaderConnector />

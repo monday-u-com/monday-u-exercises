@@ -1,5 +1,4 @@
 import sortButtonsCSS from "./SortButtons.module.css";
-import classNames from "classnames";
 import Button from "../Button";
 import { useCallback } from "react";
 import PropTypes from "prop-types";
@@ -17,13 +16,7 @@ function SortButtons({ tasks, sortTasksAction }) {
    );
 
    return (
-      <div
-         className={classNames({
-            [sortButtonsCSS.container]: true,
-            [sortButtonsCSS["sort-btns-container"]]: true,
-            [sortButtonsCSS.visible]: tasks.length >= 1,
-         })}
-      >
+      <>
          <Button
             onClick={() => sortButtonHandler("down")}
             innerText={
@@ -40,7 +33,7 @@ function SortButtons({ tasks, sortTasksAction }) {
             }
             className={sortButtonsCSS["name-sort-up"]}
          />
-      </div>
+      </>
    );
 }
 
