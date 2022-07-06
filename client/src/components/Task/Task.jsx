@@ -1,6 +1,6 @@
 import taskCSS from "./Task.module.css";
 import Button from "../Button";
-import Checkbox from "../Checkbox";
+import CheckboxConnector from "../Checkbox/CheckboxConnector";
 import { useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
@@ -26,7 +26,7 @@ function Task({ task, deleteTaskAction }) {
          initial={{ x: -130, opacity: 0.3, scale: 0.6 }}
          animate={{ x: 0, opacity: 1, scale: 1 }}
       >
-         <Checkbox task={task} />
+         <CheckboxConnector task={task} />
          <div className={taskCSS.task}>
             {task.text}
             {task.imageURL ? addPokemonImage : ""}

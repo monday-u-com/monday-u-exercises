@@ -18,6 +18,12 @@ const itemsEntitiesReducer = (state = initialState, action) => {
          const newTasks = [...state.tasks].filter((item) => item.id !== action.meta.arg);
 
          return { tasks: newTasks };
+      case actionTypes.CHECKMARK_TASK_FULFILLED:
+         let items = [...state.tasks];
+         const index = items.findIndex((el) => el.id === action.meta.arg.id);
+         items[index].status = !items[index].status;
+
+         return { tasks: items };
       default:
          return state;
    }

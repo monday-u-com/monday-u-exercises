@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import Task from "./Task";
-import { deleteTaskAction } from "../../actions/api-actions";
+import Checkbox from "./Checkbox";
+import { checkMarkTaskAction } from "../../actions/api-actions";
 import { getAllTasks } from "../../selectors/items-entities-selectors";
 
 const mapStateToProps = (state, ownProps) => {
@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-   return bindActionCreators({ deleteTaskAction }, dispatch);
+   return bindActionCreators({ checkMarkTaskAction }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Task);
+export default connect(mapStateToProps, mapDispatchToProps)(Checkbox);

@@ -25,7 +25,7 @@ function TaskList({
    }, []);
 
    const tasksList = useMemo(
-      () => tasks.map((task) => <TaskConnector task={task} key={task.id} tasks={tasks} />),
+      () => tasks.map((task) => <TaskConnector task={task} key={task.id} />),
       [tasks]
    );
 
