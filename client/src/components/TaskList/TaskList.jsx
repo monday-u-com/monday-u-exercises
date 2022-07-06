@@ -22,7 +22,7 @@ function TaskList({
          }
          loaderHideAction();
       })();
-   }, []);
+   }, [loaderShowAction, loaderHideAction, getAPITasksAction, setTasksAction]);
 
    const tasksList = useMemo(
       () => tasks.map((task) => <TaskConnector task={task} key={task.id} />),
