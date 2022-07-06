@@ -14,6 +14,10 @@ const itemsEntitiesReducer = (state = initialState, action) => {
          return { tasks: [] };
       case actionTypes.SORT_TASKS_FULFILLED:
          return { tasks: action.payload };
+      case actionTypes.DELETE_TASK_FULFILLED:
+         const newTasks = [...state.tasks].filter((item) => item.id !== action.meta.arg);
+
+         return { tasks: newTasks };
       default:
          return state;
    }

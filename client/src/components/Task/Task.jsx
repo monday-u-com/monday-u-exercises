@@ -1,24 +1,22 @@
 import taskCSS from "./Task.module.css";
-import Button from "./Button";
-import Checkbox from "./Checkbox";
+import Button from "../Button";
+import Checkbox from "../Checkbox";
 import { useCallback, useMemo } from "react";
-import api from "../clients/item-client.js";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 
-function Task({ task, setTasks, tasks }) {
+function Task({ task, deleteTaskAction }) {
    const addPokemonImage = useMemo(() => {
       return <img src={task.imageURL} className={taskCSS["pokemon-image"]} alt="pokemon" />;
    }, [task.imageURL]);
 
    const deleteButtonHandler = useCallback(async () => {
       try {
-         await api.deleteTask(task.id);
-         setTasks(tasks.filter((item) => item.id !== task.id));
+         await deleteTaskAction(task.id);
       } catch (error) {
          console.error(error);
       }
-   }, [setTasks, task.id, tasks]);
+   }, [task.id, deleteTaskAction]);
 
    return (
       <motion.li
@@ -28,7 +26,7 @@ function Task({ task, setTasks, tasks }) {
          initial={{ x: -130, opacity: 0.3, scale: 0.6 }}
          animate={{ x: 0, opacity: 1, scale: 1 }}
       >
-         <Checkbox task={task} tasks={tasks} setTasks={setTasks} />
+         <Checkbox task={task} />
          <div className={taskCSS.task}>
             {task.text}
             {task.imageURL ? addPokemonImage : ""}
@@ -44,8 +42,7 @@ function Task({ task, setTasks, tasks }) {
 
 Task.propTypes = {
    task: PropTypes.object,
-   tasks: PropTypes.array,
-   setTasks: PropTypes.func,
+   deleteTaskAction: PropTypes.func,
 };
 
 export default Task;

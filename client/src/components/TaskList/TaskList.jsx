@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import taskListCSS from "./TaskList.module.css";
-import Task from "../Task";
+import TaskConnector from "../Task/TaskConnector";
 import PropTypes from "prop-types";
 
 function TaskList({
@@ -25,7 +25,7 @@ function TaskList({
    }, []);
 
    const tasksList = useMemo(
-      () => tasks.map((task) => <Task task={task} key={task.id} tasks={tasks} />),
+      () => tasks.map((task) => <TaskConnector task={task} key={task.id} tasks={tasks} />),
       [tasks]
    );
 
