@@ -1,0 +1,24 @@
+{
+  "name": "ex4",
+  "version": "1.0.0",
+  "description": "You know what they say about #4: you'll remember it *for*ever (ha)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
+    "fs": "^0.0.1-security",
+    "mysql2": "^2.3.3",
+    "node-fetch": "^3.2.6",
+    "sequelize": "^6.21.0",
+    "sequelize-cli": "^6.4.1",
+    "uuidv4": "^6.2.13"
+  }
+}
