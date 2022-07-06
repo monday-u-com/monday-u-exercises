@@ -5,13 +5,16 @@ import { useCallback } from "react";
 import PropTypes from "prop-types";
 
 function SortButtons({ tasks, sortTasksAction }) {
-   const sortButtonHandler = useCallback(async (direction) => {
-      try {
-         await sortTasksAction(direction);
-      } catch (error) {
-         console.error(error);
-      }
-   }, []);
+   const sortButtonHandler = useCallback(
+      async (direction) => {
+         try {
+            await sortTasksAction(direction);
+         } catch (error) {
+            console.error(error);
+         }
+      },
+      [sortTasksAction]
+   );
 
    return (
       <div
