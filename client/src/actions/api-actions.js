@@ -28,3 +28,9 @@ export const addTaskAction = createAsyncThunk(actionTypes.ADD_TASK, async (task)
 export const clearTasksAction = createAsyncThunk(actionTypes.CLEAR_TASKS, async () => {
    await api.clearTasks();
 });
+
+export const sortTasksAction = createAsyncThunk(actionTypes.SORT_TASKS, async (kind) => {
+   const response = await api.sortTasks(kind);
+
+   return response;
+});

@@ -1,22 +1,17 @@
 import sortButtonsCSS from "./SortButtons.module.css";
 import classNames from "classnames";
-import Button from "./Button";
+import Button from "../Button";
 import { useCallback } from "react";
-import api from "../clients/item-client.js";
 import PropTypes from "prop-types";
 
-function SortButtons({ tasks, setTasks }) {
-   const sortButtonHandler = useCallback(
-      async (direction) => {
-         try {
-            const sortedTasks = await api.sortTasks(direction);
-            sortedTasks ? setTasks(sortedTasks) : console.error("Server error");
-         } catch (error) {
-            console.error(error);
-         }
-      },
-      [setTasks]
-   );
+function SortButtons({ tasks, sortTasksAction }) {
+   const sortButtonHandler = useCallback(async (direction) => {
+      try {
+         await sortTasksAction(direction);
+      } catch (error) {
+         console.error(error);
+      }
+   }, []);
 
    return (
       <div
@@ -48,7 +43,7 @@ function SortButtons({ tasks, setTasks }) {
 
 SortButtons.propTypes = {
    tasks: PropTypes.array,
-   setTasks: PropTypes.func,
+   sortTasksAction: PropTypes.func,
 };
 
 export default SortButtons;

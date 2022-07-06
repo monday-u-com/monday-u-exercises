@@ -10,6 +10,8 @@ const ACTIONS = {
    ADD_TASK_FULFILLED: "ADD_TASK/fulfilled",
    CLEAR_TASKS: "CLEAR_TASKS",
    CLEAR_TASKS_FULFILLED: "CLEAR_TASKS/fulfilled",
+   SORT_TASKS: "SORT_TASKS",
+   SORT_TASKS_FULFILLED: "SORT_TASKS/fulfilled",
 };
 
 export default ACTIONS;
