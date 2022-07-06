@@ -48,6 +48,7 @@ function AddBar({ loaderShowAction, loaderHideAction, addTaskAction }) {
             onChange={(text) => setInputText(text)}
             value={inputText}
             id={addBarCSS["task-text"]}
+            autoFocus={true}
          />
          <Button
             onClick={addButtonHandler}
