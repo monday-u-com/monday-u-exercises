@@ -41,6 +41,7 @@ function TaskList({
 
 TaskList.propTypes = {
    tasks: PropTypes.array,
+   searchInputText: PropTypes.string,
    loaderShowAction: PropTypes.func,
    loaderHideAction: PropTypes.func,
    getAPITasksAction: PropTypes.func,
