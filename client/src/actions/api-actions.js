@@ -24,3 +24,7 @@ export const addTaskAction = createAsyncThunk(actionTypes.ADD_TASK, async (task)
 
    return response;
 });
+
+export const clearTasksAction = createAsyncThunk(actionTypes.CLEAR_TASKS, async () => {
+   await api.clearTasks();
+});

@@ -4,9 +4,8 @@ import "monday-ui-react-core/dist/main.css";
 import PropTypes from "prop-types";
 import Button from "../Button";
 import addBarCSS from "./AddBar.module.css";
-import api from "../../clients/item-client.js";
 
-function AddBar({ setTasks, loaderShowAction, loaderHideAction, addTaskAction }) {
+function AddBar({ loaderShowAction, loaderHideAction, addTaskAction }) {
    const [inputText, setInputText] = useState("");
 
    const addButtonHandler = useCallback(async () => {
@@ -18,15 +17,13 @@ function AddBar({ setTasks, loaderShowAction, loaderHideAction, addTaskAction })
       } else {
          try {
             await addTaskAction(inputText);
-            const allTasks = await api.getAllTasks();
-            allTasks ? setTasks(allTasks) : console.error("Server error");
          } catch (error) {
             console.error(error);
          }
          setInputText("");
       }
       loaderHideAction();
-   }, [inputText, setTasks, setInputText, loaderShowAction, loaderHideAction]);
+   }, [inputText, setInputText, loaderShowAction, loaderHideAction, addTaskAction]);
 
    const handleKeyPress = useCallback(
       (e) => {
@@ -62,9 +59,9 @@ function AddBar({ setTasks, loaderShowAction, loaderHideAction, addTaskAction })
 }
 
 AddBar.propTypes = {
-   inputText: PropTypes.string,
-   setInputText: PropTypes.func,
-   setTasks: PropTypes.func,
+   loaderShowAction: PropTypes.func,
+   loaderHideAction: PropTypes.func,
+   addTaskAction: PropTypes.func,
 };
 
 export default AddBar;

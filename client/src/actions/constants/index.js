@@ -8,6 +8,8 @@ const ACTIONS = {
    SET_TASKS: "SET_TASKS",
    ADD_TASK: "ADD_TASK",
    ADD_TASK_FULFILLED: "ADD_TASK/fulfilled",
+   CLEAR_TASKS: "CLEAR_TASKS",
+   CLEAR_TASKS_FULFILLED: "CLEAR_TASKS/fulfilled",
 };
 
 export default ACTIONS;

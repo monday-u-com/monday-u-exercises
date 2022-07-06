@@ -1,5 +1,5 @@
 import "./App.css";
-import HomeCard from "./components/HomeCard";
+import HomeCardConnector from "./components/HomeCard/HomeCardConnector";
 import Navbar from "./components/Navbar";
 import AboutCard from "./components/AboutCard";
 import { Route, Routes } from "react-router-dom";
@@ -10,7 +10,7 @@ function App() {
          <Navbar />
          <div className="card-container">
             <Routes>
-               <Route path="/" element={<HomeCard />} />
+               <Route path="/" element={<HomeCardConnector />} />
                <Route path="/about" element={<AboutCard />} />
             </Routes>
          </div>

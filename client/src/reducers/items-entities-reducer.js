@@ -10,6 +10,8 @@ const itemsEntitiesReducer = (state = initialState, action) => {
          return { tasks: action.payload };
       case actionTypes.ADD_TASK_FULFILLED:
          return { tasks: [...state.tasks, ...action.payload] };
+      case actionTypes.CLEAR_TASKS_FULFILLED:
+         return { tasks: [] };
       default:
          return state;
    }
