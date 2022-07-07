@@ -4,7 +4,7 @@ export const getInputText = (state) => getItemsViewState(state).searchInput;
 const getDropDownFilter = (state) => getItemsViewState(state).dropdownFilter;
 
 export const getTasksToDisplay = (state) => {
-   let tasksToDisplay = state.itemsEntities.tasks;
+   let tasksToDisplay = state.itemsEntities.present.tasks;
 
    tasksToDisplay = filterBySearch(state, tasksToDisplay);
    tasksToDisplay = filterByDropdown(state, tasksToDisplay);

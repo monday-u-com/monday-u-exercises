@@ -1,4 +1,5 @@
 import actionTypes from "../actions/constants";
+import undoable from "redux-undo";
 
 const initialState = {
    tasks: [],
@@ -16,7 +17,7 @@ const itemsEntitiesReducer = (state = initialState, action) => {
          return { tasks: state.tasks };
 
       case actionTypes.CLEAR_TASKS_FULFILLED:
-         return { tasks: [], searchInput: state.searchInput };
+         return { tasks: [] };
       case actionTypes.CLEAR_TASKS_REJECTED:
          console.error("Clear tasks rejected from server");
          return { tasks: state.tasks };
@@ -49,4 +50,6 @@ const itemsEntitiesReducer = (state = initialState, action) => {
    }
 };
 
-export default itemsEntitiesReducer;
+const undoableItemsEntities = undoable(itemsEntitiesReducer);
+
+export default undoableItemsEntities;
