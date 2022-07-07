@@ -26,7 +26,7 @@ function Search({ setSearchInputAction }) {
          placeholder="Search"
          size={TextField.sizes.SMALL}
          onChange={debouncedResults}
-         nameClass={searchCSS.search}
+         className={searchCSS.search}
       />
    );
 }
