@@ -1,9 +1,8 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getAllTasks } from "../../selectors/items-entities-selectors";
-import { setSearchInputAction } from "../../actions/search-actions";
-
-import Search from "./DropdownFilter";
+import { setDropdownFilterAction } from "../../actions/filter-actions";
+import DropdownFilter from "./DropdownFilter";
 
 const mapStateToProps = (state, ownProps) => {
    const tasks = getAllTasks(state);
@@ -11,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-   return bindActionCreators({ setSearchInputAction }, dispatch);
+   return bindActionCreators({ setDropdownFilterAction }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(DropdownFilter);

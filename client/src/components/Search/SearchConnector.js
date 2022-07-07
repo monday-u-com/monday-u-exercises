@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getAllTasks } from "../../selectors/items-entities-selectors";
-import { setSearchInputAction } from "../../actions/search-actions";
+import { setSearchInputAction } from "../../actions/filter-actions";
 
 import Search from "./Search";
 

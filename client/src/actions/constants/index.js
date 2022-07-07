@@ -27,8 +27,9 @@ const ACTIONS = {
    CHECKMARK_TASK_FULFILLED: "CHECKMARK_TASK/fulfilled",
    CHECKMARK_TASK_REJECTED: "CHECKMARK_TASK/rejected",
 
-   // Search action types
+   // Filter action types
    SET_SEARCH_INPUT: "SET_SEARCH_INPUT",
+   SET_DROPDOWN_FILTER: "SET_DROPDOWN_FILTER",
 };
 
 export default ACTIONS;

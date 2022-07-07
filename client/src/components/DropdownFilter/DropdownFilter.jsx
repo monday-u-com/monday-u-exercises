@@ -1,30 +1,15 @@
 import dropdownCSS from "./DropdownFilter.module.css";
 
-// import { useCallback, useEffect, useMemo } from "react";
-
-function DropdownFilter() {
-   // const handleChange = useCallback(
-   //    (e) => {
-   //       setSearchInputAction(e.toString().toLowerCase());
-   //    },
-   //    [setSearchInputAction]
-   // );
-
-   // const debouncedResults = useMemo(() => {
-   //    return debounce(handleChange, 400);
-   // }, [handleChange]);
-
-   // useEffect(() => {
-   //    return () => {
-   //       debouncedResults.cancel();
-   //    };
-   // });
+function DropdownFilter({ setDropdownFilterAction }) {
+   const handleChange = (event) => {
+      setDropdownFilterAction(event.target.value);
+   };
 
    return (
-      <select className={dropdownCSS.dropdown}>
-         <option value="fruit">Show All</option>
-         <option value="vegetable">Show Done</option>
-         <option value="meat">Show Undone</option>
+      <select className={dropdownCSS.dropdown} onChange={handleChange}>
+         <option value="all">Show All</option>
+         <option value="done">Show Done</option>
+         <option value="undone">Show Undone</option>
       </select>
    );
 }
