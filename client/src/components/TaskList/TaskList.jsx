@@ -4,8 +4,7 @@ import TaskConnector from "../Task/TaskConnector";
 import PropTypes from "prop-types";
 
 function TaskList({
-   tasks,
-   searchInputText,
+   tasksToDisplay,
    loaderShowAction,
    loaderHideAction,
    getAPITasksAction,
@@ -26,22 +25,14 @@ function TaskList({
    }, [loaderShowAction, loaderHideAction, getAPITasksAction, setTasksAction]);
 
    const tasksList = useMemo(() => {
-      let tasksToDisplay = tasks;
-      if (searchInputText) {
-         tasksToDisplay = tasks.filter((task) => {
-            return task.text.toLowerCase().includes(searchInputText);
-         });
-      }
-
       return tasksToDisplay.map((task) => <TaskConnector task={task} key={task.id} />);
-   }, [tasks, searchInputText]);
+   }, [tasksToDisplay]);
 
    return <ul className={taskListCSS["all-tasks-container"]}>{tasksList}</ul>;
 }
 
 TaskList.propTypes = {
-   tasks: PropTypes.array,
-   searchInputText: PropTypes.string,
+   tasksToDisplay: PropTypes.array,
    loaderShowAction: PropTypes.func,
    loaderHideAction: PropTypes.func,
    getAPITasksAction: PropTypes.func,

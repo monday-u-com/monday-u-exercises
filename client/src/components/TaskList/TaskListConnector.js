@@ -1,15 +1,14 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getAllTasks, getInputText } from "../../selectors/items-entities-selectors";
+import { getTasksToDisplay } from "../../selectors/items-view-selectors";
 import { loaderShowAction, loaderHideAction } from "../../actions/loader-actions";
 import TaskList from "./TaskList";
 import { getAPITasksAction, setTasksAction } from "../../actions/api-actions";
 
 const mapStateToProps = (state, ownProps) => {
-   const tasks = getAllTasks(state);
-   const searchInputText = getInputText(state);
+   const tasksToDisplay = getTasksToDisplay(state);
 
-   return { tasks, searchInputText };
+   return { tasksToDisplay };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
