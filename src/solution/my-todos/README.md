@@ -1,51 +1,64 @@
-# Exercise 6 - React
-
-Let's get Reactive 🥳
+# Exercise 7 - Redux
 
 ## In this section you will practice
 
-**Initializing React project** - Use [create-react-app](https://github.com/facebook/create-react-app) to set up a basic React application
+**Setup Redux with your React project** - Use the provided files to configure redux with your application.
 
-**React components** - Creating and using controlled and uncontrolled components
+* Add the following packages into your package.json file:
+    * `"@reduxjs/toolkit": "^1.8.1"`
+    * `"react-redux": "^8.0.1"`
+* Copy the following files and directories into your application:
+    * `client/src/store.js`
+    * `client/src/actions`
+    * `client/src/reducers`
+    * `client/src/selectors`
+* Wrap your `App` component with `Provider` and pass it the store:
 
-**State and Props** - Handling and passing data in and between different components
+  `<Provider store={store}><App /></Provider>`
 
-**CSS** - Connecting CSS to components using CSS Modules
+  (See `client/src/index.js` file for example)
+* You may need to update your server so it returns to the client the item that was added.
 
-**Hooks** - Using `useState`, `useCallback`, `useMemo` && `useEffect` to handle the component's state and lifecycle
+**Store** - Initialize state and use dispatch to trigger actions
 
-**Data fetching** - Data fetching from a component, handling communication issues and empty/loading state
+**Reducer** - Catch actions and return new state when it's needed
+
+**Selector** - Extract relevant data from the store
+
+**Connector** - Pass data from the store to the component
 
 ## What you are going to build
 
-In the last exercise, you have made your application's data persistent using a DB.
+In the last exercise, you have changed your application to use React. Each of your components has its own local state.
 
-Now you are going to give the client side a makeover using React.
+Now you are going to use Redux to pass state between different components.
 
 This will make your project:
-* **Easier to maintain** - Having a component for each "UI part" of our client
-* **Hooked to the DOM** - By using JSX you can directly manipulate DOM
-* **Increased performance** - React works with a Virtual DOM to improve the performance of your project
-* **"Common"** - React is wildly used in the community and has tons of info about different use-cases you may encounter while developing
+
+* **State management** - Having a global state for your application
+* **Easier to pass state between components** - Make it easier to pass different state's properties between multiple
+  components in a different hierarchy
+* **"Common"** - Redux is wildly used in the community and has tons of info about different use-cases you may encounter
+  while developing
 
 ### The requirements:
-- [v] Remove `app.use(express.static(path.join(__dirname, 'dist')))` from your `server.js` file
-- [v] Delete `src/server/dist` **ONLY** when your new client is up and running 
-- [v] Initialize your React project in the `src` folder using [create-react-app](https://create-react-app.dev/docs/getting-started/) with the name `client`
-- [v] Decompose your Todo App into components (controlled and uncontrolled)
-- [v] Re-Implement the Todo App using hooks
-- [v] Use [**propTypes** & **defaultProps**](https://reactjs.org/docs/typechecking-with-proptypes.html) to add type-checking to your components
+
+- [v] Use redux actions for communicating with the server (fetching items, adding a new item, etc.)
+- [v] Move the items from local component's state into the store
+- [v] Handle failure of requests from the server
+- [v] Handle loading
+- [v] Add search
+- [v] Add the ability to hide items that were marked as done or to show only them
+- [v] Add a logger middleware to your application
 
 #### Your todo app is now:
+
 - Very easy to maintain and scale
 - Can use a vast amount of packages for almost every use-case
 - More performant out of the box
 
 ### Bonus
-- [ ] Add error handling for communication issues with your backend (Empty state / Loader / Something else)
-- [ ] Use components from the [Vibe Design System](https://github.com/mondaycom/monday-ui-react-core) (monday.com's component library)
-- [ ] Use [React Router](https://reactrouter.com/docs/en/v6) to add basic routing capabilities to your app
-  - [ ] Add Tabs / Navigation bar to help route between pages [Tabs example](https://style.monday.com/?path=/docs/navigation-tabs-tab--overview)
-  - Page suggestions
-    - [ ] Task completion statistics page - # of open tasks, total number of tasks, average tim to finish a task, etc.
-    - [ ] About page - with some fun facts and profile picture
+
+- [v]0 \* Debounce search
+- [ ] \* Implement an option to restore the last item that was deleted
+- [ ] ** Make your application accessible, i.e. keyboard navigation (ctrl+Enter create new, tab navigation)

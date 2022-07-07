@@ -1,4 +1,4 @@
-const { performance } = require('perf_hooks');
+const {performance} = require('perf_hooks');
 const now = () => new Date().toISOString().replace(/[TZ]/g, ' ').trimEnd()
 
 module.exports = async function logger(req, res, next) {

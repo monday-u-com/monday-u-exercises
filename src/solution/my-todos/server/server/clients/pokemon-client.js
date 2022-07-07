@@ -1,4 +1,3 @@
-
 const axios = require("axios");
 
 class PokemonClient {
@@ -25,7 +24,7 @@ class PokemonClient {
     }
 
     _handleResponse(error, response, pokemon) {
-        const res = { success: true };
+        const res = {success: true};
         if (error) {
             res.error = error.toString();
             res.success = false;

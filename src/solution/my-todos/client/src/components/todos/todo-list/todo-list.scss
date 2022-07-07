@@ -1,0 +1,21 @@
+.todo-list {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-top: 15px;
+}
+
+.hover-zoom:hover {
+  transition: transform 0.2s;
+  transform: scale(1.4);
+}
+
+.empty-todo-list {
+  color: #fa976f;
+  text-align: center;
+}
+
+.empty-todo-list .icon {
+  font-size: 100px;
+  margin: 15px;
+  color: #f9c368;
+}

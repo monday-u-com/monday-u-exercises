@@ -1,34 +1,32 @@
+import {objectToQuerystring} from "../utils/url-utils";
+
 export default class ItemClient {
     constructor() {
         this._API_BASE = 'http://localhost:3001/api';
-        this._HEADERS = { Accept: 'application/json', 'Content-Type': 'application/json' };
+        this._HEADERS = {Accept: 'application/json', 'Content-Type': 'application/json'};
     }
 
-    async getAllTodos(sortBy) {
-        const queryString = sortBy ? `?sortBy=${sortBy}` : '';
+    async getAllTodos(filters) {
+        if (filters.status.length == 1) {
+            filters.status = filters.status[0].value;
+        } else {
+            delete filters.status;
+        }
+        const queryString = objectToQuerystring(filters);
         try {
             const response = await fetch(`${this._API_BASE}/todos${queryString}`);
-            return this._handleResponse(null, response);
+            return this._handleSuccess(response);
         } catch (error) {
-            return this._handleResponse(error);
-        }
-    }
-
-    async getTodo(todoId) {
-        try {
-            const response = await fetch(`${this._API_BASE}/todo/${todoId}`);
-            return this._handleResponse(null, response);
-        } catch (error) {
-            return this._handleResponse(error);
+            return this._handleFailure(error);
         }
     }
 
     async getPendingTodos() {
         try {
             const response = await fetch(`${this._API_BASE}/pending-todos`);
-            return this._handleResponse(null, response);
+            return this._handleSuccess(response);
         } catch (error) {
-            return this._handleResponse(error);
+            return this._handleFailure(error);
         }
     }
 
@@ -37,11 +35,11 @@ export default class ItemClient {
             const response = await fetch(`${this._API_BASE}/todo`, {
                 method: "POST",
                 headers: this._HEADERS,
-                body: JSON.stringify({ todo })
+                body: JSON.stringify({todo})
             });
-            return this._handleResponse(null, response);
+            return this._handleSuccess(response);
         } catch (error) {
-            return this._handleResponse(error);
+            return this._handleFailure(error);
         }
     }
 
@@ -52,9 +50,9 @@ export default class ItemClient {
                 headers: this._HEADERS,
                 body: JSON.stringify({todo})
             });
-            return this._handleResponse(null, response);
+            return this._handleSuccess(response);
         } catch (error) {
-            return this._handleResponse(error);
+            return this._handleFailure(error);
         }
     }
 
@@ -64,9 +62,9 @@ export default class ItemClient {
                 method: "DELETE",
                 headers: this._HEADERS
             });
-            return this._handleResponse(null, response);
+            return this._handleSuccess(response);
         } catch (error) {
-            return this._handleResponse(error);
+            return this._handleFailure(error);
         }
     }
 
@@ -76,22 +74,26 @@ export default class ItemClient {
                 method: "DELETE",
                 headers: this._HEADERS
             });
-            return this._handleResponse(null, response);
+            return this._handleSuccess(response);
         } catch (error) {
-            return this._handleResponse(error);
+            return this._handleFailure(error);
         }
     }
 
-    async _handleResponse(error, response) {
-        const res = { success: true };
-        if (error) {
-            res.error = error.toString();
-            res.success = false;
-            return res;
-        }
-        res.status = response.status;
+    async _handleSuccess(response) {
+        const res = {
+            success: true,
+            status: response.status
+        };
         res.body = await response.json();
         return res;
     }
+
+    async _handleFailure(error) {
+        const res = {success: false}
+        res.error = error.toString();
+        return res;
+    }
+
 }
 

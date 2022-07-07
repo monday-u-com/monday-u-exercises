@@ -1,4 +1,3 @@
-
 function capitalizeText(text) {
     return text
         .split(' ')

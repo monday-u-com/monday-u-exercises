@@ -1,19 +1,19 @@
 const express = require('express');
-const { getTodosSchema, todoSchema, validateSchema, validateIdSchema } = require('../validators/api-validators.js');
+const {getTodosSchema, todoSchema, validateSchema, validateIdSchema} = require('../validators/api-validators.js');
 const router = express.Router();
 const itemManager = require('../services/item-manager');
 
 router.get('/todos', validateSchema(getTodosSchema), (req, res, next) => {
     errWrapper(async () => {
-        const { sortBy } = req.query
-        const data = await itemManager.getAllItems(sortBy);
+        const {sort, search, status} = req.query
+        const data = await itemManager.getAllItems(sort, search, status);
         res.status(200).json(data);
     }, next);
 });
 
 router.get('/todo/:id', validateSchema(validateIdSchema), (req, res, next) => {
     errWrapper(async () => {
-        const { id } = req.params
+        const {id} = req.params
         const data = await itemManager.getItem(id);
         res.status(200).json(data);
     }, next);
@@ -21,7 +21,7 @@ router.get('/todo/:id', validateSchema(validateIdSchema), (req, res, next) => {
 
 router.post('/todo', validateSchema(todoSchema), (req, res, next) => {
     errWrapper(async () => {
-        const { todo } = req.body
+        const {todo} = req.body
         const data = await itemManager.addItem(todo);
         res.status(200).json(data);
     }, next);
@@ -29,8 +29,8 @@ router.post('/todo', validateSchema(todoSchema), (req, res, next) => {
 
 router.put('/todo/:id', validateSchema(validateIdSchema), (req, res, next) => {
     errWrapper(async () => {
-        const { id } = req.params
-        const { todo } = req.body
+        const {id} = req.params
+        const {todo} = req.body
         const data = await itemManager.editItem(id, todo);
         if (!data) {
             return res.status(400).json({
@@ -46,7 +46,7 @@ router.put('/todo/:id', validateSchema(validateIdSchema), (req, res, next) => {
 
 router.delete('/todo/:id', validateSchema(validateIdSchema), (req, res, next) => {
     errWrapper(async () => {
-        const { id } = req.params
+        const {id} = req.params
         const data = await itemManager.removeItem(id);
         res.status(200).json(data);
     }, next);

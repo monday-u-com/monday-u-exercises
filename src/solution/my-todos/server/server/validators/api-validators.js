@@ -1,10 +1,11 @@
-const { validationResult, checkSchema } = require('express-validator');
+const {validationResult, checkSchema} = require('express-validator');
 
 const allowedSortBy = ['ASC', 'DESC']
+const allowedStatus = ['done', 'pending']
 
 const validateIdSchema = {
     id: {
-        isInteger: true,
+        isInt: true,
         in: ['params']
     }
 };
@@ -12,19 +13,34 @@ const validateIdSchema = {
 const todoSchema = {
     todo: {
         isString: true,
-        errorMessage: 'Missing paramater todo',
+        errorMessage: 'Missing paramater todo-page',
         in: ['body']
     },
 };
 
 const getTodosSchema = {
-    sortBy: {
+    sort: {
         isString: true,
         optional: true,
-        isIn: { options: [allowedSortBy] },
-        errorMessage: `Bad paramater sortBy, expected one of ${allowedSortBy.join(',')}`,
+        isIn: {options: [allowedSortBy]},
+        errorMessage: `Bad parameter sort, expected one of ${allowedSortBy.join(',')}`,
         in: ['query']
     },
+
+    search: {
+        isString: true,
+        optional: true,
+        in: ['query']
+    },
+
+    status: {
+        isString: true,
+        optional: true,
+        isIn: {options: [allowedStatus]},
+        errorMessage: `Bad parameter status, expected one of ${allowedStatus.join(',')}`,
+        in: ['query']
+    },
+
 };
 
 function validateSchema(schema) {
@@ -41,6 +57,7 @@ function validateSchema(schema) {
         next(error);
     };
 }
+
 module.exports = {
     validateIdSchema,
     todoSchema,

@@ -1,6 +1,6 @@
 const PokemonClient = require("../clients/pokemon-client");
-const { generateUniqueID, capitalizeText } = require("../../utils/string-utils");
-const { Item } = require("../db/models");
+const {generateUniqueID, capitalizeText} = require("../../utils/string-utils");
+const {Item} = require("../db/models");
 const Op = require('Sequelize').Op;
 
 class ItemManager {
@@ -17,55 +17,72 @@ class ItemManager {
         return Promise.all(items.map(item => this._handleItem(item)));
     }
 
-    async editItem(id, item) {
-        const updateObject = {
-            name: item.item,
-            status: item.checked,
-            done_timestamp: item.done_timestamp ? item.done_timestamp : null
+    async editItem(id, updateParams) {
+        const updateObject = {}
+
+        console.log(updateParams.item)
+
+        const currentItem = (await this.getItem(id)).dataValues
+
+        if ('item' in updateParams) {
+            updateObject.name = updateParams.item
+            if (currentItem.type == 'text') {
+                updateObject.message = updateParams.item
+            }
         }
 
-        if (item.type == 'text') {
-            this._handleTodoMessage(item)
-            updateObject.message = item.message
+        if ('checked' in updateParams) {
+            updateObject.status = updateParams.checked
+        }
+
+        if ('done_timestamp' in updateParams) {
+            updateObject.done_timestamp = updateParams.done_timestamp ? updateParams.done_timestamp : null
         }
 
         await Item.update(updateObject, {
-            where: { id: id }
+            where: {id: id}
         })
 
         const updateItem = await this.getItem(id);
-        return updateItem.dataValues;
+        return this._prepareItem(updateItem.dataValues);
     }
 
     getItem(item) {
         return Item.findByPk(item);
     }
 
-    async getAllItems(sortOrder) {
-        const items = await Item.findAll({
-            order: [
-                ['message', sortOrder? sortOrder: 'ASC']
-            ]
-        });
+    async getAllItems(sortOrder, search, status) {
+        const options = {}
+        if (sortOrder) {
+            options.order = [['message', sortOrder ? sortOrder : 'ASC']]
+        }
+        if (search) {
+            options.where = {[Op.and]: [{message: {[Op.like]: `%${search}%`}}]}
+        }
+        if (status) {
+            options.where = options.where || {[Op.and]: []}
+            options.where[Op.and].push({status: status == 'done'})
+        }
+        const items = await Item.findAll(options);
         return items.map(item => this._prepareItem(item.dataValues));
     }
 
     async getPendingTodos() {
         const count = await Item.count(
-            { where: { status: false } }
+            {where: {status: false}}
         );
-        return { count };
+        return {count};
     }
 
     async removeItem(id) {
         if (id) {
-            return await Item.destroy({ where: { id: id }, });
+            return await Item.destroy({where: {id: id},});
         }
-        return await Item.destroy({ where: {}, truncate: true });
+        return await Item.destroy({where: {}, truncate: true});
     }
 
     async _handleItem(item) {
-        const res = { item };
+        const res = {item};
         const isExist = await this._isTodoExist(item)
         if (isExist) {
             return isExist;
@@ -74,8 +91,7 @@ class ItemManager {
         if (pokemon.success) {
             res.type = 'pokemon';
             res.pokemon = pokemon.body;
-        }
-        else if (pokemon.error && !isNaN(item) && !item.toString().includes('.')) {
+        } else if (pokemon.error && !isNaN(item) && !item.toString().includes('.')) {
             res.type = 'pokemonNotFound';
         } else {
             res.type = 'text';
@@ -85,7 +101,7 @@ class ItemManager {
         return newItem;
     }
 
-    async _insertItem({ item, pokemon, type, message }) {
+    async _insertItem({item, pokemon, type, message}) {
         const id = generateUniqueID();
         const updateObject = {
             'name': item,
@@ -122,7 +138,7 @@ class ItemManager {
                 break;
             }
             case 'pokemon': {
-                const { pokemon } = todo;
+                const {pokemon} = todo;
                 todo.message = `Catch #${pokemon.id} ${capitalizeText(pokemon.name)} the ${pokemon.types.map(p => capitalizeText(p.type.name)).join('/')} type pokemon`;
                 break;
             }
@@ -136,12 +152,12 @@ class ItemManager {
     async _isTodoExist(item) {
         const itemFound = (await Item.findOne({
             where:
-            {
-                [Op.or]:
-                    [{ name: { [Op.eq]: item } },
-                    { pokemon_id: { [Op.eq]: item } },
-                    { pokemon_name: { [Op.eq]: item } }]
-            }
+                {
+                    [Op.or]:
+                        [{name: {[Op.eq]: item}},
+                            {pokemon_id: {[Op.eq]: item}},
+                            {pokemon_name: {[Op.eq]: item}}]
+                }
         }))
             ?.dataValues;
         let res = {};
@@ -154,8 +170,7 @@ class ItemManager {
                     type: itemFound.pokemon_type,
                     image: itemFound.pokemon_image
                 };
-            }
-            else if (itemFound.type == 'text') {
+            } else if (itemFound.type == 'text') {
                 res.type = 'todoExists';
                 res.item = item;
             }
@@ -165,7 +180,7 @@ class ItemManager {
 
     async _isPokemonExist(pokemon) {
         return !isNaN(pokemon) ?
-            (await Item.findOne({ where: { [Op.or]: [{ pokemon_id: { [Op.eq]: pokemon } }, { pokemon_name: { [Op.eq]: pokemon } }] } })) :
+            (await Item.findOne({where: {[Op.or]: [{pokemon_id: {[Op.eq]: pokemon}}, {pokemon_name: {[Op.eq]: pokemon}}]}})) :
             false;
     }
 
