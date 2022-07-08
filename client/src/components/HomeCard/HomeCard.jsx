@@ -12,7 +12,7 @@ import { useCallback } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-function HomeCard({ tasks, clearTasksAction, onUndo, canUndo, setTasksAction, addTaskAction }) {
+function HomeCard({ tasks, clearTasksAction }) {
    const clearButtonHandler = useCallback(async () => {
       try {
          await clearTasksAction();
@@ -20,10 +20,6 @@ function HomeCard({ tasks, clearTasksAction, onUndo, canUndo, setTasksAction, ad
          console.error(error);
       }
    }, [clearTasksAction]);
-
-   const onUndoHandle = useCallback(async () => {
-      onUndo();
-   }, [onUndo]);
 
    return (
       <div className={homeCardCSS.card}>
@@ -45,19 +41,11 @@ function HomeCard({ tasks, clearTasksAction, onUndo, canUndo, setTasksAction, ad
             <LoaderConnector />
             <div className={homeCardCSS["footer-container"]}>
                <PendingTasksConnector />
-               <div className={homeCardCSS["clear-undo-btns-container"]}>
-                  <Button
-                     onClick={clearButtonHandler}
-                     innerText={"Clear All"}
-                     className={homeCardCSS["clear-all"]}
-                  />
-                  <Button
-                     onClick={onUndoHandle}
-                     innerText={"Undo"}
-                     className={homeCardCSS["undo"]}
-                     disabled={!canUndo}
-                  />
-               </div>
+               <Button
+                  onClick={clearButtonHandler}
+                  innerText={"Clear All"}
+                  className={homeCardCSS["clear-all"]}
+               />
             </div>
          </div>
       </div>

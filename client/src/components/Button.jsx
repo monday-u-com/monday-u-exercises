@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 
-function Button({ onClick, className, innerText, disabled }) {
+function Button({ onClick, className, innerText }) {
    return (
-      <button onClick={onClick} className={className} disabled={disabled}>
+      <button onClick={onClick} className={className}>
          {innerText}
       </button>
    );

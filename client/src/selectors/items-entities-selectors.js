@@ -1,2 +1,2 @@
-const getItemsEntities = (state) => state.itemsEntities.present;
+const getItemsEntities = (state) => state.itemsEntities;
 export const getAllTasks = (state) => getItemsEntities(state).tasks;

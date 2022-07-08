@@ -35,7 +35,7 @@
    background-color: rgb(253, 154, 41);
    border-radius: 3px;
    font-size: 2.1rem;
-   padding: 0.7rem 2rem 0.7rem 2rem;
+   padding: 0.7rem 2.5rem 0.7rem 2.5rem;
 }
 
 .clear-all:hover {
@@ -48,29 +48,6 @@
    align-items: center;
    gap: 1rem;
    margin-bottom: 1.2rem;
-}
-
-.clear-undo-btns-container {
-   display: flex;
-   gap: 0.5rem;
-}
-
-.undo {
-   border: none;
-   background-color: rgb(246, 74, 59);
-   border-radius: 3px;
-   font-size: 1.3rem;
-   padding: 0.7rem;
-}
-
-.undo:hover {
-   cursor: pointer;
-   background-color: rgb(255, 8, 0);
-}
-
-.undo:disabled {
-   cursor: not-allowed;
-   background-color: rgb(241, 149, 146);
 }
 
 .sort-btns-container {
