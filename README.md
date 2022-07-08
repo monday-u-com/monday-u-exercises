@@ -6,6 +6,10 @@ This is my task for Exercise 7 of Monday-U Full Stack course. Task requirements 
 
 ## Demo video:
 
+
+https://user-images.githubusercontent.com/99750449/178054260-7cbc307e-ba85-439d-a32d-63e80349e146.mp4
+
+
 ## Task requirements:
 
 ### The requirements:
