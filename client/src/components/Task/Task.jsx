@@ -4,6 +4,8 @@ import CheckboxConnector from "../Checkbox/CheckboxConnector";
 import { useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
+import toastOptions from "../../clients/toast-options";
 
 function Task({ task, deleteTaskAction }) {
    const addPokemonImage = useMemo(() => {
@@ -13,6 +15,7 @@ function Task({ task, deleteTaskAction }) {
    const deleteButtonHandler = useCallback(async () => {
       try {
          await deleteTaskAction(task.id);
+         toast.error("Task deleted.", toastOptions);
       } catch (error) {
          console.error(error);
       }

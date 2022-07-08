@@ -4,6 +4,8 @@ import "monday-ui-react-core/dist/main.css";
 import PropTypes from "prop-types";
 import Button from "../Button";
 import addBarCSS from "./AddBar.module.css";
+import { toast } from "react-toastify";
+import toastOptions from "../../clients/toast-options";
 
 function AddBar({ loaderShowAction, loaderHideAction, addTaskAction }) {
    const [inputText, setInputText] = useState("");
@@ -17,6 +19,7 @@ function AddBar({ loaderShowAction, loaderHideAction, addTaskAction }) {
       } else {
          try {
             await addTaskAction(inputText);
+            toast.success("Task added successfully", toastOptions);
          } catch (error) {
             console.error(error);
          }

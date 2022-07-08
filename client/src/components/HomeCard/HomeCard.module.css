@@ -50,6 +50,10 @@
    margin-bottom: 1.2rem;
 }
 
+.toast {
+   font-size: 7rem;
+}
+
 .sort-btns-container {
    visibility: hidden;
 }

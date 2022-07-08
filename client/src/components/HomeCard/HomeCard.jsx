@@ -11,11 +11,15 @@ import Titles from "../Titles";
 import { useCallback } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import toastOptions from "../../clients/toast-options";
 
 function HomeCard({ tasks, clearTasksAction }) {
    const clearButtonHandler = useCallback(async () => {
       try {
          await clearTasksAction();
+         toast.error("All tasks cleared.", toastOptions);
       } catch (error) {
          console.error(error);
       }
@@ -23,6 +27,18 @@ function HomeCard({ tasks, clearTasksAction }) {
 
    return (
       <div className={homeCardCSS.card}>
+         <ToastContainer
+            position="top-center"
+            className={homeCardCSS.toast}
+            autoClose={6000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+         />
          <Titles />
          <AddBarConnector />
          <div
