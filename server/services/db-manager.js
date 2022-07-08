@@ -1,7 +1,12 @@
 const { Task } = require("../db/models");
 
 class DBManager {
-   getAllTasks = async () => await Task.findAll();
+   getAllTasks = async () =>
+      await Task.findAll({
+         where: {
+            deleted: null,
+         },
+      });
 
    async addTask(task) {
       const response = await Task.bulkCreate(task);
@@ -11,21 +16,33 @@ class DBManager {
    }
 
    async deleteTask(id) {
-      await Task.destroy({
-         where: { id: id },
+      await Task.findOne({ where: { id: id } }).then(async (task) => {
+         if (!task) {
+            throw new Error("No task found");
+         }
+         await task.update({ deleted: Date.now() });
       });
    }
 
-   clearTasks = async () =>
-      await Task.destroy({
-         where: {},
-         truncate: true,
+   clearTasks = async () => {
+      await Task.findAll({
+         where: {
+            deleted: null,
+         },
+      }).then((tasks) => {
+         tasks.forEach(async (task) => {
+            await task.update({ deleted: Date.now() });
+         });
       });
+   };
 
    async sortTasks(direction) {
       direction = direction === "down" ? "ASC" : "DESC";
 
       return await Task.findAll({
+         where: {
+            deleted: null,
+         },
          order: [
             ["text", direction],
             ["id", "ASC"],
@@ -43,6 +60,12 @@ class DBManager {
       });
 
       return await this.getAllTasks();
+   }
+
+   async undoDelete() {
+      await Task.findOne({ order: [["deleted", "DESC"]] }).then(async (task) => {
+         await task.update({ deleted: null });
+      });
    }
 }
 

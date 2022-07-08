@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import toastOptions from "../../clients/toast-options";
 
-function Task({ task, deleteTaskAction }) {
+function Task({ task, deleteTaskAction, undoDeleteTaskAction, getAPITasksAction, setTasksAction }) {
    const addPokemonImage = useMemo(() => {
       return <img src={task.imageURL} className={taskCSS["pokemon-image"]} alt="pokemon" />;
    }, [task.imageURL]);
@@ -15,11 +15,29 @@ function Task({ task, deleteTaskAction }) {
    const deleteButtonHandler = useCallback(async () => {
       try {
          await deleteTaskAction(task.id);
-         toast.error("Task deleted.", toastOptions);
+         toast.error(<Undo />, toastOptions);
       } catch (error) {
          console.error(error);
       }
    }, [task.id, deleteTaskAction]);
+
+   const Undo = () => {
+      const handleClick = async () => {
+         await undoDeleteTaskAction();
+         const response = await getAPITasksAction();
+         const allTasks = response.payload;
+         allTasks ? setTasksAction(allTasks) : console.error("Server error");
+      };
+
+      return (
+         <div className={taskCSS["deleted-message"]}>
+            Row Deleted{" "}
+            <button onClick={handleClick} className={taskCSS["undo-btn"]}>
+               Undo
+            </button>
+         </div>
+      );
+   };
 
    return (
       <motion.li
@@ -46,6 +64,7 @@ function Task({ task, deleteTaskAction }) {
 Task.propTypes = {
    task: PropTypes.object,
    deleteTaskAction: PropTypes.func,
+   undoDeleteTaskAction: PropTypes.func,
 };
 
 export default Task;

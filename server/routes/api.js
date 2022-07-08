@@ -1,6 +1,7 @@
 const express = require("express");
 const taskManager = require("../services/task-manager.js");
 const fs = require("fs");
+const { route } = require("express/lib/router/index.js");
 const router = express.Router();
 
 router.get("/getAll", async (req, res) => {
@@ -28,6 +29,11 @@ router.delete("/del/:id", (req, res) => {
    }
    taskManager.remove(id);
    res.status(200).json({ message: "Successfully deleted task" });
+});
+
+router.post("/del/undo", (req, res) => {
+   taskManager.undoDelete();
+   res.status(200).json({ message: "Successfully restored last deleted task" });
 });
 
 router.get("/sort/:kind", async (req, res) => {

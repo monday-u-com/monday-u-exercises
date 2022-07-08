@@ -31,6 +31,8 @@ class TaskManager {
 
    sort = async (direction) => await db.sortTasks(direction);
 
+   undoDelete = async () => await db.undoDelete();
+
    async checkMarkTask(checkMarkReq) {
       return await db.checkMarkTask(checkMarkReq.isChecked, checkMarkReq.taskID);
    }

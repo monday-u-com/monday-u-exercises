@@ -39,6 +39,10 @@ export const deleteTaskAction = createAsyncThunk(actionTypes.DELETE_TASK, async 
    await api.deleteTask(id);
 });
 
+export const undoDeleteTaskAction = createAsyncThunk(actionTypes.UNDO_DELETE, async () => {
+   await api.undoDelete();
+});
+
 export const checkMarkTaskAction = createAsyncThunk(actionTypes.CHECKMARK_TASK, async (task) => {
    await api.checkMarkTask(!task.status, task.id);
 });

@@ -9,6 +9,10 @@ export default new (class ItemClient {
       await fetch(`/del/${id}`, { method: "DELETE" });
    }
 
+   async undoDelete() {
+      await fetch("/del/undo", { method: "POST" });
+   }
+
    async addTask(task) {
       const reqOptions = {
          method: "POST",

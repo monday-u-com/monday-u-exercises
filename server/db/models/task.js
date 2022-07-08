@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
          imageURL: { type: DataTypes.STRING, validate: { isUrl: true } },
          status: DataTypes.BOOLEAN,
          done: DataTypes.DATE,
+         deleted: DataTypes.DATE,
       },
       {
          sequelize,

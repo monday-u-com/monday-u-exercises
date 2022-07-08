@@ -43,6 +43,25 @@
    background-color: rgb(221, 0, 0);
 }
 
+.deleted-message {
+   font-size: 1.7rem;
+}
+
+.undo-btn {
+   cursor: pointer;
+   border: none;
+   color: white;
+   background-color: rgb(217, 70, 70);
+   border-radius: 3px;
+   font-size: 1.7rem;
+   padding: 0.3rem 0.6rem;
+   margin-left: 5rem;
+}
+
+.undo-btn:hover {
+   background-color: rgb(51, 235, 78);
+}
+
 .fa-trash {
    font-size: 1.6rem;
 }

@@ -34,6 +34,10 @@ const itemsEntitiesReducer = (state = initialState, action) => {
          console.error("Delete task rejected from server");
          return { tasks: state.tasks };
 
+      case actionTypes.UNDO_DELETE_REJECTED:
+         console.error("Undo delete task rejected from server");
+         return { tasks: state.tasks };
+
       case actionTypes.CHECKMARK_TASK_FULFILLED:
          let items = [...state.tasks];
          const index = items.findIndex((el) => el.id === action.meta.arg.id);
