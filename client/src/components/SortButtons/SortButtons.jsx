@@ -3,7 +3,7 @@ import Button from "../Button";
 import { useCallback } from "react";
 import PropTypes from "prop-types";
 
-function SortButtons({ tasks, sortTasksAction }) {
+function SortButtons({ sortTasksAction }) {
    const sortButtonHandler = useCallback(
       async (direction) => {
          try {
@@ -38,7 +38,6 @@ function SortButtons({ tasks, sortTasksAction }) {
 }
 
 SortButtons.propTypes = {
-   tasks: PropTypes.array,
    sortTasksAction: PropTypes.func,
 };
 

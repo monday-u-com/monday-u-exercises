@@ -1,4 +1,5 @@
 import dropdownCSS from "./DropdownFilter.module.css";
+import PropTypes from "prop-types";
 
 function DropdownFilter({ setDropdownFilterAction }) {
    const handleChange = (event) => {
@@ -13,5 +14,9 @@ function DropdownFilter({ setDropdownFilterAction }) {
       </select>
    );
 }
+
+DropdownFilter.propTypes = {
+   setDropdownFilterAction: PropTypes.func,
+};
 
 export default DropdownFilter;

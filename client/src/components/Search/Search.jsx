@@ -2,6 +2,7 @@ import searchCSS from "./Search.module.css";
 import { TextField } from "monday-ui-react-core";
 import debounce from "lodash.debounce";
 import { useCallback, useEffect, useMemo } from "react";
+import PropTypes from "prop-types";
 
 function Search({ setSearchInputAction }) {
    const handleChange = useCallback(
@@ -30,5 +31,9 @@ function Search({ setSearchInputAction }) {
       />
    );
 }
+
+Search.propTypes = {
+   setSearchInputAction: PropTypes.func,
+};
 
 export default Search;

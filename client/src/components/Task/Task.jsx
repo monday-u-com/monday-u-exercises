@@ -31,7 +31,7 @@ function Task({ task, deleteTaskAction, undoDeleteTaskAction, getAPITasksAction,
 
       return (
          <div className={taskCSS["deleted-message"]}>
-            Row Deleted{" "}
+            Row Deleted
             <button onClick={handleClick} className={taskCSS["undo-btn"]}>
                Undo
             </button>
@@ -65,6 +65,8 @@ Task.propTypes = {
    task: PropTypes.object,
    deleteTaskAction: PropTypes.func,
    undoDeleteTaskAction: PropTypes.func,
+   getAPITasksAction: PropTypes.func,
+   setTasksAction: PropTypes.func,
 };
 
 export default Task;

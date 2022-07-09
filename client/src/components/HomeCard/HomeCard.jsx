@@ -69,6 +69,7 @@ function HomeCard({ tasks, clearTasksAction }) {
 }
 
 HomeCard.propTypes = {
+   tasks: PropTypes.array,
    clearTasksAction: PropTypes.func,
 };
 

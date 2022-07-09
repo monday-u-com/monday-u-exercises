@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { getAllTasks } from "../../selectors/items-entities-selectors";
 import PendingTasks from "./PendingTasks";
 
@@ -8,8 +7,4 @@ const mapStateToProps = (state, ownProps) => {
    return { tasks };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-   return bindActionCreators({}, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PendingTasks);
+export default connect(mapStateToProps, null)(PendingTasks);
