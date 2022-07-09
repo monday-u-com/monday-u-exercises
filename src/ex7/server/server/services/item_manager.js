@@ -23,28 +23,27 @@ class ItemManager {
     if (this._isNumber(item)) { return await this.fetchAndAddPokemon(item); }
     if (this._isList(item)) { return await this.fetchAndAddManyPokemon(item); }
 
-    return await this.addItem(item);
+    await this.addItem(item);
   };
 
   updateItem = async item => {
     await Item.update({ status: item.status }, { where: { id: item.id } });
   };
 
-  addItem = async itemName => {
-    const item = await Item.create({ itemName });
-    return item;
+  addItem = async item => {
+    await Item.create({ itemName: item });
   };
 
   addPokemonItem = async pokemon => {
-    return await this.addItem(`Catch ${pokemon.name}`);
+    await this.addItem(`Catch ${pokemon.name}`);
   };
 
   fetchAndAddPokemon = async pokemonId => {
     try {
       const pokemon = await this.pokemonClient.getPokemon(pokemonId);
-      return await this.addPokemonItem(pokemon);
+      await this.addPokemonItem(pokemon);
     } catch (error) {
-      return await this.addItem(`Pokemon with ID ${pokemonId} was not found`);
+      await this.addItem(`Pokemon with ID ${pokemonId} was not found`);
     }
   };
 
