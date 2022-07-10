@@ -10,7 +10,6 @@
   flex-direction: column;
   justify-content: space-around;
   border-radius: 4px;
-
 }
 .top_app {
   display: flex;
@@ -48,3 +47,15 @@
   margin: 10px;
 }
 
+.filters_task_div {
+  display: flex;
+  align-items: center;
+}
+
+.search_tasks_marked {
+  margin: 0 10px;
+}
+
+.delete_all_button {
+  background-color: #fdcd3b;
+}

@@ -1,10 +1,11 @@
-import styles from "./App.module.css";
+import styles from "./App.module.scss";
 import TodoMainPage from "./Components/TodoMainPage/TodoMainPage";
+import TodoMainPageConnector from "./Components/TodoMainPage/TodoMainPage-connector";
 
 function App() {
   return (
     <div className={styles.App}>
-      <TodoMainPage />
+      <TodoMainPageConnector />
     </div>
   );
 }

@@ -10,6 +10,7 @@ async function getAll() {
 async function addTask(taskJson) {
   const { task } = taskJson;
   let tasks = [];
+  let result = [];
   const data = await getAll();
   const contentList = data.map((item) => item.itemName);
   try {
@@ -19,13 +20,19 @@ async function addTask(taskJson) {
       const newTasks = await fetchPokemonsTasks(task);
       tasks = [...newTasks];
     }
-    for (const item of tasks) {
+    for (let item of tasks) {
       if (!contentList.includes(item)) {
-        await Item.create({ itemName: item, status: false });
+        item = { itemName: item, status: false };
+        const create = await Item.create(item);
+        result.push(create.dataValues);
+      } else {
+        throw new Error("Task already exist!");
       }
     }
+    return { status: true, data: result };
   } catch (error) {
     console.error(error.message);
+    return { status: false, data: error.message };
   }
 }
 
@@ -55,9 +62,11 @@ function _isNumbers(input) {
 
 async function deleteTask(task) {
   try {
-    await Item.destroy({ where: { itemName: task } });
+    await Item.destroy({ where: { id: task.id } });
+    return { status: true };
   } catch (error) {
     console.error(error.message);
+    return { status: false, data: error.message };
   }
 }
 
@@ -68,8 +77,10 @@ async function updateTask(task) {
   };
   try {
     await Item.update(updateTask, { where: { id: task.id } });
+    return { status: true };
   } catch (error) {
     console.error(error.message);
+    return { status: false, data: error.message };
   }
 }
 

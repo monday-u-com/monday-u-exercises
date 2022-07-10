@@ -7,3 +7,5 @@ export const store = configureStore({
   middleware: [thunkMiddleware],
   preloadedState: {}
 });
+
+store.subscribe(() => console.log(store.getState()))

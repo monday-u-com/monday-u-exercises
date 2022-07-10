@@ -14,7 +14,7 @@ export async function getAllTasks() {
     const tasks = await response.json();
     return tasks;
   } catch (error) {
-    console.error("Get all tasks error:", error);
+    console.error("Get all tasks error:", error.message);
   }
 }
 
@@ -25,8 +25,10 @@ export async function addTask(task) {
       headers: STANDARD_HEADERS,
       body: JSON.stringify({ task }),
     });
+    const tasks = await response.json();
+    return tasks;
   } catch (error) {
-    console.error("Add task error:", error);
+    console.error("Add task error:", error.message);
   }
 }
 
@@ -35,8 +37,10 @@ export async function removeTask(task) {
     const response = await fetch(ROUTE, {
       method: "DELETE",
       headers: STANDARD_HEADERS,
-      body: JSON.stringify({ task }),
+      body: JSON.stringify(task),
     });
+    const tasks = await response.json();
+    return tasks;
   } catch (error) {
     console.error("Remove task error:", error);
   }
@@ -49,6 +53,8 @@ export async function updateTask(task) {
       headers: STANDARD_HEADERS,
       body: JSON.stringify(task),
     });
+    const tasks = await response.json();
+    return tasks;
   } catch (error) {
     console.error("update task error:", error);
   }

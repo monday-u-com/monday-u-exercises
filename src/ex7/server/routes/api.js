@@ -13,28 +13,23 @@ todoRouter.delete("/delete_all", deleteAllTasks);
 //controller
 
 async function deleteTask(req, res) {
-  const task = req.body.task;
-  await itemService.deleteTask(task);
-  res.end();
-}
-
-async function updateTask(req, res) {
-  const task = req.body;
-  await itemService.updateTask(task);
-  res.end();
-}
-
-async function getAll(req, res) {
-  let data = await itemService.getAll();
-  if (!data) data = [];
+  const data = await itemService.deleteTask(req.body);
   res.status(200).json(data);
 }
 
+async function updateTask(req, res) {
+  const data = await itemService.updateTask(req.body);
+  res.status(200).json(data);
+}
+
+async function getAll(req, res) {
+  const data = (await itemService.getAll()) || [];
+  res.status(202).json(data);
+}
+
 async function addTask(req, res) {
-  const body = req.body;
-  console.log(body);
-  await itemService.addTask(body);
-  res.end();
+  const data = await itemService.addTask(req.body);
+  res.status(200).json(data);
 }
 
 async function deleteAllTasks(req, res) {
