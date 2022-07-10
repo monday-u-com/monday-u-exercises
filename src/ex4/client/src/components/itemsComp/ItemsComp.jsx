@@ -1,3 +1,4 @@
+import { isInteger } from "lodash";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useCallback } from "react";
@@ -13,9 +14,14 @@ function ItemsComp({
 	const [filteredItems, setFilteredItems] = useState(items);
 
 	useEffect(() => {
-		if (searchText) {
+		if (searchText && !isInteger(parseInt(searchText))) {
 			const filteredItems = items.filter((item) =>
 				item.itemName.includes(searchText)
+			);
+			setFilteredItems(filteredItems);
+		} else if (isInteger(parseInt(searchText))) {
+			const filteredItems = items.filter(
+				(item) => item.pokedexId === parseInt(searchText)
 			);
 			setFilteredItems(filteredItems);
 		} else {

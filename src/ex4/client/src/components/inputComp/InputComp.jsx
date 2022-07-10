@@ -16,8 +16,9 @@ function InputComp({
 	const addItemHandeler = useCallback(async () => {
 		dispatchIsLoading(true);
 		await dispatchAddItems(inputValue);
+		dispatchSearchText(null);
 		dispatchIsLoading(false);
-	}, [dispatchAddItems, inputValue, dispatchIsLoading]);
+	}, [dispatchAddItems, inputValue, dispatchIsLoading, dispatchSearchText]);
 
 	const eventListenerForEnter = useCallback(
 		(e) => {
