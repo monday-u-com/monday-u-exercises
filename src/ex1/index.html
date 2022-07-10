@@ -1,14 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>Exercise 1</title>
+    <title>Yuval Bader TDL</title>
     <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+    <div class="app-container">
+        <h1>Todo App</h1>
+        <div class="add-new-container">
+            <input type="text" class="add-new-input" placeholder="Write your new Todo"> </input>
+            <button type="submit" class="add-new-button">
+                <ion-icon name="add-circle-outline"></ion-icon>
+            </button>
+        </div>
+        <div class="todo-list-container">
+            <ul class="todo-list">
+            </ul>
+            <Text class="pending-tasks"> </Text>
 
-<h1>Todo list</h1>
-
-
+        </div>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 <script src="script.js"></script>
+
 </html>
