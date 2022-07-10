@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./AppContainer.css";
 import Todo from "../Todo/Todo";
 import TodoControls from "../TodoControls/TodoControls";
+import { useSelector, useDispatch } from 'react-redux';
 import Footer from "../Footer/Footer";
 import {
   fetchItems,
@@ -15,7 +16,10 @@ import {
 function AppContainer() {
   const [items, setItems] = useState([]);
   const [numOfTasks, setNumOfTasks] = useState(0);
-
+  // 
+  const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todos);
+  // 
   const renderNewItems = async (item) => {
     try {
       const newItems = await createItem(item);

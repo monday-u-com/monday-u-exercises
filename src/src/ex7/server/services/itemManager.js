@@ -35,7 +35,7 @@ class ItemManager {
     const pokemonIsExist = await this.exsitInDb(pokemon.id);
     if (!pokemonIsExist){
       const task = this.pokemonInit(
-        true,
+        1,
         pokemon.name,
         pokemon.sprites.front_default,
         pokemon.id
@@ -57,7 +57,7 @@ class ItemManager {
 
       pokemons.forEach((pokemon) => {
         const task = this.pokemonInit(
-          true,
+          1,
           pokemon.name,
           pokemon.sprites.front_default,
           pokemon.id
@@ -72,7 +72,7 @@ class ItemManager {
         pokemonId += task + " ";
       });
       const task = this.pokemonInit(
-        false,
+        0,
         `pokemon with id: ${pokemonId} was not found`
       );
       this.itemsArray.push(task);
@@ -130,6 +130,10 @@ class ItemManager {
 
   async deleteItem(itemId) {
     try {
+      const indexId = this.itemsArray.findIndex((item)=>{
+        item.itemId === itemId;
+      });
+      this.itemsArray.splice(indexId,1);
       await items.destroy({ where: { itemId: itemId } });
     } catch (err) {
       throw `There is no task with id: ${itemId} `;

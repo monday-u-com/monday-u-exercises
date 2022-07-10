@@ -11,7 +11,7 @@ const Todo = ({ items, deleteItemFromDb, updateStatusDb, editTaskNameDb }) => {
               item={item}
               deleteItemFromDb={deleteItemFromDb}
               updateStatusDb={updateStatusDb}
-              key={index}
+              key={item.itemId}
               editTaskNameDb={editTaskNameDb}
             />
           );
