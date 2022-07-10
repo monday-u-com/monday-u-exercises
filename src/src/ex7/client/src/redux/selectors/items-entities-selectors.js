@@ -1,3 +1,3 @@
 const getItemsEntities = state => state.itemsEntities;
 
-export const getItemsList = (state) => getItemsEntities(state).itemsList;
+export const getItems = (state) => getItemsEntities(state).items;

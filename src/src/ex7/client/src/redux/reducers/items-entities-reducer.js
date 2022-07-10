@@ -2,25 +2,32 @@ import actionTypes from "../actions/constants";
 
 const initialState = {
   items: [],
-  itemsCount : 0,
 };
 
 const itemsEntitiesReducer = (state = initialState, action) => {
   switch (action.type) {
+    
     case actionTypes.ADD_ITEMS:
-      state.push(action.payload);
-      return [...state];
+      return {...state, items:[...state.items, ...action.payload]};
 
     case actionTypes.DELETE_ITEM:
       return {...state , items: state.items.filter(item => item.itemId !== action.payload),};
     
-    case actionTypes.DELETE_ALL:
-      return {items:[]};
+    // case actionTypes.DELETE_ALL:
+    //   return {items:[]};
 
-    case actionTypes.EDIT_ITEM:
+    case actionTypes.EDIT_ITEM_NAME:
       return {...state ,
-        items:state.items.map(item => item.itemId === action.itemdId)};
-    
+        items: state.items.map((item) => item.itemId ===  action.itemId ? { ...item, item: action.payload }
+        : item
+    ),
+  };
+  case actionTypes.CHECKBOX_UPDATE:
+    return {
+      ...state, items: state.items.map((item)=>
+      item.itemId === action.itemId ? {...item,status: action.payload} : itemsEntitiesReducer
+      ),
+    }
     
 
     
