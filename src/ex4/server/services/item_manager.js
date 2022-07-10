@@ -10,13 +10,8 @@ class ItemManager {
 	};
 
 	async setItem(itemToAdd) {
-		try {
-			await item.create(itemToAdd);
-			return "created!";
-		} catch (err) {
-			console.error(err);
-			return err;
-		}
+		const itemAdded = await item.create(itemToAdd);
+		return itemAdded;
 	}
 
 	async updateItem(itemData, itemId) {
@@ -27,18 +22,23 @@ class ItemManager {
 				itemToUpdate.doneAt === null)
 		) {
 			itemToUpdate.doneAt = Date.now();
-		} else {
+		} else if (
+			!itemToUpdate.status &&
+			itemToUpdate.doneAt !== "1970-01-01 00:00:00"
+		) {
 			itemToUpdate.doneAt = 0;
 		}
-		await item.update(itemToUpdate, { where: { id: itemId } });
-		return await this.getAllItems();
+		await item.update(itemToUpdate, {
+			where: { id: itemId },
+		});
+		return itemToUpdate;
 	}
 
 	async removeItem(itemId) {
-		await item.destroy({
+		const numOfDestroyedItems = await item.destroy({
 			where: { id: itemId },
 		});
-		return await this.getAllItems();
+		return numOfDestroyedItems;
 	}
 
 	async pokemonIdsHandle(pokeID) {
@@ -48,6 +48,7 @@ class ItemManager {
 
 	async pokemonFatch(pokemonIdsArray) {
 		const pokemonPromises = [];
+		const addedItems = [];
 
 		pokemonIdsArray.forEach((pokemonIdStr) => {
 			pokemonPromises.push(this.pokemonIdsHandle(pokemonIdStr.trim()));
@@ -59,9 +60,10 @@ class ItemManager {
 				itemName: pokemonsRsult[i],
 				pokedexId: currentPokedexIdAsInt,
 			});
-			await this.setItem(itemObg);
+			// const itemAdded = await this.setItem(itemObg);
+			addedItems.push(await this.setItem(itemObg));
 		}
-		return await this.getAllItems();
+		return addedItems;
 	}
 
 	async clearAllItems() {
@@ -121,7 +123,10 @@ class ItemManager {
 			}
 		} else {
 			const itemObg = this.createjsonToDB(input);
-			return await this.setItem(itemObg);
+			const newItem = await this.setItem(itemObg);
+			const newItemArr = [];
+			newItemArr.push(newItem);
+			return newItemArr;
 		}
 	}
 

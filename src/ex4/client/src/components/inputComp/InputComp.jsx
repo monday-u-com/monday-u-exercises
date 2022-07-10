@@ -1,23 +1,22 @@
-import "../App.css";
-import "../style/InputComp.css";
+import "../../App.css";
+import "./InputComp.css";
 import React, { useCallback, useRef, useState } from "react";
-import ButtonComp from "./ButtonComp";
-import plusImg from "../images/plus.png";
-import {} from "../item_client";
+import ButtonComp from "../buttonComp/ButtonComp";
+import plusImg from "../../images/plus.png";
 
-function InputComp({ addItem }) {
+function InputComp({ dispatchAddItems, dispatchIsLoading }) {
 	const [inputValue, setInputValue] = useState("");
 	const inputElement = useRef();
 
-	const addItemHandeler = useCallback(() => {
-		addItem(inputValue);
-		inputElement.current.value = "";
-		inputElement.current.focus();
-	}, [addItem, inputValue, inputElement]);
+	const addItemHandeler = useCallback(async () => {
+		dispatchIsLoading(true);
+		await dispatchAddItems(inputValue);
+		dispatchIsLoading(false);
+	}, [dispatchAddItems, inputValue, dispatchIsLoading]);
 
 	const eventListenerForEnter = useCallback(
 		(e) => {
-			if (inputValue && e.keyCode === 13) {
+			if (inputValue && inputValue !== "" && e.keyCode === 13) {
 				addItemHandeler();
 			}
 		},

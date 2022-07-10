@@ -24,11 +24,11 @@ router.route("/add").post(async (req, res) => {
 			(itemsToFetch && itemsToFetch.length != 0 && !itemsToFetch.length) ||
 			itemsToFetch.length > 0
 		) {
-			const creationMessage = await item_manager.handleInput(itemsToFetch);
-			if (!creationMessage) {
+			const itemAdded = await item_manager.handleInput(itemsToFetch);
+			if (!itemAdded) {
 				throw new Error("something went wrong it's not created.");
 			}
-			res.status(201).send(await item_manager.getAllItems());
+			res.status(201).send(itemAdded);
 			return;
 		}
 		throw new Error("this item alredy exist.");
@@ -39,8 +39,8 @@ router.route("/add").post(async (req, res) => {
 
 router.route("/update/:id").put(async (req, res) => {
 	try {
-		const allItems = await item_manager.updateItem(req.body, req.params.id);
-		res.status(200).send(allItems);
+		const itemUpdated = await item_manager.updateItem(req.body, req.params.id);
+		res.status(200).send(itemUpdated);
 	} catch (err) {
 		res.status(500).send(err.message);
 	}
@@ -48,11 +48,13 @@ router.route("/update/:id").put(async (req, res) => {
 
 router.route("/delete/:id").delete(async (req, res) => {
 	try {
-		const allItems = await item_manager.removeItem(parseInt(req.params.id));
-		if (!allItems) {
+		const numOfDestroyedItems = await item_manager.removeItem(
+			parseInt(req.params.id)
+		);
+		if (numOfDestroyedItems !== 1) {
 			throw new Error(`filed try to clean the item ${req.params.id}.`);
 		}
-		res.status(200).send(allItems);
+		res.status(200).json(numOfDestroyedItems);
 	} catch (err) {
 		res.status(500).send(err.message);
 	}

@@ -1,6 +1,7 @@
-import "../App.css";
+import { useMemo } from "react";
+import "../../App.css";
 function ButtonComp({ imgSrc, className, imgClassName, alt, onClick }) {
-	const bulidButton = () => {
+	const bulidButton = useMemo(() => {
 		return (
 			<div
 				className={className}
@@ -12,9 +13,9 @@ function ButtonComp({ imgSrc, className, imgClassName, alt, onClick }) {
 				<img className={imgClassName} src={imgSrc} alt={alt} />
 			</div>
 		);
-	};
+	}, [alt, className, imgClassName, imgSrc, onClick]);
 
-	return bulidButton();
+	return bulidButton;
 }
 
 export default ButtonComp;

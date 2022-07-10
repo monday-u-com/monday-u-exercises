@@ -30,7 +30,7 @@ const updateItem = async (itemToUpdate, itemId) => {
 	});
 	return {
 		isResOk: res.ok,
-		items: await res.json(),
+		item: await res.json(),
 	};
 };
 
@@ -41,10 +41,7 @@ const deleteItem = async (itemId) => {
 			"Content-type": "application/json",
 		},
 	});
-	return {
-		isResOk: res.ok,
-		items: await res.json(),
-	};
+	return { isResOk: res.ok, numOfDestroyedItems: await res.json() };
 };
 
 const clearAll = async (itemId) => {
