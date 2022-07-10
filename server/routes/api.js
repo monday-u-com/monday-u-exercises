@@ -31,8 +31,8 @@ router.delete("/del/:id", (req, res) => {
    res.status(200).json({ message: "Successfully deleted task" });
 });
 
-router.post("/del/undo", (req, res) => {
-   taskManager.undoDelete();
+router.post("/del/undo", async (req, res) => {
+   await taskManager.undoDelete();
    res.status(200).json({ message: "Successfully restored last deleted task" });
 });
 
