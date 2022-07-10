@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Listy</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-
-  <body>
-    <div class="app-container">
-      <div class="list-container">
-        <h1 class="app-name">Todo App</h1>
-        <div class="list-controls">
-          <input
-            type="text"
-            id="list-item-input"
-            placeholder="Add your new todo"
-          />
-          <button type="button" id="list-item-submit">+</button>
-        </div>
-        <ul id="list"></ul>
-      </div>
-    </div>
-  </body>
-
-  <script src="./clients/item_client.js"></script>
-  <script src="main.js"></script>
+	<head>
+		<title>Sunday.com</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>Sunday.com</h1>
+			<div class="new-task-container">
+				<input
+					type="text"
+					id="newItemInput"
+					class="task-input"
+					placeholder="Write your task here"
+				/>
+				<img
+					id="newItemSubmitButton"
+					class="clickable pluse-icon"
+					src="./images/plus.png"
+				/>
+			</div>
+			<span class="amount-tasks">number of tasks:</span>
+			<span id="numberOfTasks" class="amount-tasks"></span>
+			<span id="emptyState">What is your next task?</span>
+			<div id="taskList"></div>
+			<button id="clearAll" class="clear-all">Clear all</button>
+		</div>
+	</body>
+	<script src="main.js" type="module"></script>
 </html>
