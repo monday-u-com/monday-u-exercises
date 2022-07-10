@@ -1,18 +1,16 @@
-import TodoList from "../TodoList/TodoList.jsx";
+import TodoListConnector from "../TodoList/TodoListConnector.jsx";
 import "./Todo.css";
 import PropTypes from "prop-types";
-const Todo = ({ items, deleteItemFromDb, updateStatusDb, editTaskNameDb }) => {
+const Todo = ({ items}) => {
   return (
     <div className="">
       <ul className="todos">
         {items.map((item, index) => {
           return (
-            <TodoList
+            <TodoListConnector
               item={item}
-              deleteItemFromDb={deleteItemFromDb}
-              updateStatusDb={updateStatusDb}
               key={item.itemId}
-              editTaskNameDb={editTaskNameDb}
+             
             />
           );
         })}

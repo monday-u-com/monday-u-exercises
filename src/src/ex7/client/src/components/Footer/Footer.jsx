@@ -1,20 +1,22 @@
 
 import "./Footer.css"
 import PropTypes from 'prop-types';
-const Footer = ({numOfTasks,clearAllFromDb})=>{
-
+const Footer = ({numOfTasks,clearAllItemsAction})=>{
+    const hadaleClearAll = async () =>{
+        await clearAllItemsAction();
+    }
    
 
     return (
         <footer>
            {numOfTasks>0 && <p  className="count"> You Have: {numOfTasks} Panding Tasks </p>}
-            <button onClick={clearAllFromDb} className="clearAllBtn">Clear 🆑</button>
+            <button onClick={hadaleClearAll} className="clearAllBtn">Clear 🆑</button>
           </footer>
     )
 }
 Footer.propTypes={
     numOfTasks:PropTypes.number,
-    clearAllFromDb:PropTypes.func
+    clearAllItemsAction:PropTypes.func
 
 }
 

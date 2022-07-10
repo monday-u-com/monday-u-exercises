@@ -3,11 +3,28 @@ import { toast } from "react-toastify";
 import {
     fetchItems,
     createItem,
+    deleteAllItems,
     updateStatus,
     editTaskName,
     deleteItem,
   } from "../../itemClient";
 
+  export const getItemsAction = () => {
+    return async (dispatch) => {
+      const items = await fetchItems();
+      dispatch(addItems(items))
+    };
+  };
+      
+  const updateSearchInput = (searchInput) => ({
+    type: actionsTypes.UPDATE_SEARCH_INPUT,
+    payload: searchInput,
+  });
+  export const updateSearchInputAction = (searchInput) => {
+    return async (dispatch) => {
+      dispatch(updateSearchInput(searchInput));
+    };
+  };
 
   const addItems = (newItems) => ({
     type : actionsTypes.ADD_ITEMS,
@@ -34,7 +51,16 @@ export const deleteItemAction = (itemId) =>{
   };
 };
 
+const clearAllItems = () => ({
+  type: actionsTypes.CLEAR_ALL_ITEMS,
+});
 
+export const clearAllItemsAction = () => {
+  return async (dispatch) => {
+     await deleteAllItems();
+    dispatch(clearAllItems());
+  };
+};
   
 const editItem = (itemId,newName) =>({
     type: actionsTypes.EDIT_ITEM,

@@ -3,21 +3,9 @@ const url = "http://localhost:8081";
 const headers = { "Content-Type": "application/json" ,'accept': 'application/json' };
 
 export async function createItem(item) {
-  // instead of calling this method
-  // create action that handle this
-  // dispatch('createItemLoading')
-  // dispatch('createIteFailed')
-  // dispatch('createItemSuccess',response.json())
-  // dispatch('createIteFailed')
-  // reduce ->switch(action.type)  return {...state, pokemonsFailed: true, isPokemonLoading:false}
-  // reducer -> switch(action.type) { return {...state, pokemons: data.payload, isPokemonLoading:false}}
+ 
   try {
-    // dispatch(createItemLoading)
-    // pokemonsReducer = queryselectorstate=>state.poke;
-    // {isPokemonLoading, pokemons} = pokemonsReducer;
-    // isPokemonLoading ? <spinner></spinner> :
-    // isPokemonFailed ? <h1>Failed get pokemons</h1> :
-    // pokmeons.forEach(p => <h1>p.name</h1>)
+  
     const response = await fetch(`${url}/item`, {
       method: "post",
       body: JSON.stringify({ item }),

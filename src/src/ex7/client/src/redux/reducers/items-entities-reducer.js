@@ -13,8 +13,11 @@ const itemsEntitiesReducer = (state = initialState, action) => {
     case actionTypes.DELETE_ITEM:
       return {...state , items: state.items.filter(item => item.itemId !== action.payload),};
     
-    // case actionTypes.DELETE_ALL:
-    //   return {items:[]};
+    case actionTypes.CLEAR_ALL_ITEMS:
+        return {
+          ...state,
+          items: [],
+        };
 
     case actionTypes.EDIT_ITEM_NAME:
       return {...state ,
@@ -25,11 +28,15 @@ const itemsEntitiesReducer = (state = initialState, action) => {
   case actionTypes.CHECKBOX_UPDATE:
     return {
       ...state, items: state.items.map((item)=>
-      item.itemId === action.itemId ? {...item,status: action.payload} : itemsEntitiesReducer
+      item.itemId === action.itemId ? {...item, status: action.payload} : item
       ),
     }
     
-
+    case actionTypes.UPDATE_SEARCH_INPUT:
+      return {
+        ...state,
+        searchInput: action.payload
+      };
     
     default:
       return state;

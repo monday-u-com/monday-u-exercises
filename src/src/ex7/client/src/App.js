@@ -1,10 +1,10 @@
 import './App.css';
-import AppContainer from './components/AppContainer/AppContainer'
+import AppContainerConnector from './components/AppContainer/AppContainerConnector'
 
 function App() {
   return (
     <div className="App">
-      <AppContainer/>
+      <AppContainerConnector/>
     </div>
   );
 }

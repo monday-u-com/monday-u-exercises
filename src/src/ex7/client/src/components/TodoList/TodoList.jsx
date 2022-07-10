@@ -3,9 +3,9 @@ import "./TodoList.css";
 import PropTypes from "prop-types";
 const TodoList = ({
   item,
-  deleteItemFromDb,
-  updateStatusDb,
-  editTaskNameDb,
+  deleteItemAction,
+  editItemNameAction,
+  updateCheckBoxAction,
 }) => {
   const isPokemon = item.isPokemon === 0 ? false : true;
   const [taskName, setTaskName] = useState(isPokemon ? `Cool You cought ${item.item}` :item.item );
@@ -14,14 +14,18 @@ const TodoList = ({
   const handleCheckboxChange = async (e) => {
     try {
       if (e.target.checked) {
-        await updateStatusDb(item.itemId, true);
+        await updateCheckBoxAction(item.itemId, true);
       } else {
-        await updateStatusDb(item.itemId, false);
+        await updateCheckBoxAction(item.itemId, false);
       }
     } catch (err) {
       throw new Error("failed to update status with checkbox");
     }
   };
+
+  const handleClickDelete = async () =>{
+    await deleteItemAction(item.itemId)
+  }
 
   const handleEditButtonClick = () => {
     setEditClicked(false);
@@ -30,7 +34,7 @@ const TodoList = ({
     try {
       setEditClicked(true);
       const newTaskName = taskName.replace("Cool You cought ", "");
-      await editTaskNameDb(item.itemId, newTaskName);
+      await editItemNameAction(item.itemId, newTaskName);
     } catch (err) {
       throw new Error("failed to edit task in db");
     }
@@ -65,9 +69,7 @@ const TodoList = ({
           
             <button
               className="deleteButton"
-              onClick={() => {
-                deleteItemFromDb(item.itemId);
-              }}
+              onClick={handleClickDelete}
               fontSize="inherit"
             >🗑️</button>
       
