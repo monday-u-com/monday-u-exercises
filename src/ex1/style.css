@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Dosis&family=Raleway&family=Zen+Loop&display=swap');
+
+body{
+    height: 100vh;
+    background-image: linear-gradient(to left top, rgba(251,219,246,255), rgba(254,229,215,255));
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 30px;
+    margin-top: 30px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(232, 150, 150);
+    border-radius: 10px;
+    background-color: white;
+    padding-bottom: 80px;
+    font-family: 'Raleway', sans-serif;
+    box-shadow: 0 0.4rem 1.4rem 0 rgb(232, 150, 150);
+}
+
+header{
+    font-weight: bold;
+    font-size: 40px;
+    color: rgb(246, 194, 194);
+    font-style: italic;
+    font-family: 'Dancing Script', sans-serif;
+}
+
+.new-task-container{
+    width: 60%;
+}
+
+form{
+    padding: 15px;
+    display: flex;
+    width: 100%;
+}
+
+#new-task{
+    font-family: 'Raleway', sans-serif;
+    color: rgb(232, 150, 150);
+    font-weight: bold;
+    padding: 10px;
+    font-size: 23px;
+    text-transform: capitalize;
+    flex-grow: 1;
+    border-radius: 5px;
+    outline-color: rgb(215, 215, 215);
+    outline-style: double;
+    border: none;
+}
+
+#new-task::placeholder{
+    text-align: center;
+    color: lightgrey;
+}
+
+#new-task:focus{
+    border-color:rgb(232, 150, 150);
+    border: none;
+    outline: none;
+    border-width: 3px;
+    border-style: dashed;
+    border-radius: 5px;
+}
+
+#submitButton{
+   width: 50px;
+   font-size: 30px;
+   height: 50px;
+   margin-left: 10px;
+   background-color: rgb(232, 150, 150);
+   padding: 10px;
+   border-radius: 5px;
+   border: none;
+   color: white;
+}
+
+#submitButton:hover{
+    background-color: rgb(210, 210, 210);
+    cursor: pointer;
+}
+
+#deleteButton{
+    width: 50px;
+    font-size: 23px;
+    border: none;
+    background-color: rgba(255, 0, 0, 0.721);
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#deleteButton:hover{
+    background-color: rgb(210, 210, 210);
+    cursor: pointer;
+}
+
+.tasks-container{
+    margin-left: 20px;
+}
+
+.task-item{
+    flex-grow: 1;
+}
+
+ul{
+    padding-left: 0px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+li{
+    display: flex;
+    align-items: center;
+    width: 95%;
+    border-bottom: 1px solid lightgrey;
+    font-size: 15px;
+    color: grey;
+    box-shadow: 2px 1px 5px 5px rgba(195, 195, 195, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 30px;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+li:hover{
+    cursor: pointer;
+    box-shadow: 0 12px 22px 0 rgba(232, 150, 150, 0.302);
+    background: whitesmoke;
+}
+
+i{
+    pointer-events: none;
+}
+
+img{
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+h2{
+    color: grey;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+.btn-holder{
+    justify-content: flex-end;
+    display: flex;
+}
+
+.clear-all{
+    padding: 10px;
+    font-size: 20px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    color: grey;
+    cursor: pointer;
+    border: 2px solid lightgrey;
+    background-color: white;
+    border-style: outset;
+    border-radius: 5px;
+}
+
+.clear-all:hover{
+    color: red;
+    background-color: whitesmoke;
+}
+
+
+.task-list-item{
+    transition: all 0.3s ease-out;
+}
+
+.task-delete-animation{
+    transform: translateX(-30rem) rotateX(180deg);
+    opacity: 0;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    margin-right: 10px;
+    color: grey;
+    width: 25px;
+    height: 25px;
+    border: 2px solid grey;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+input[type=checkbox]:checked{
+    cursor: pointer;
+    border: none;
+    width: 27px;
+    height: 27px;
+    background-color: lightgreen;
+    transition: 200ms transform ease-in-out;
+    transform: scale(1.2);
+    transform-origin: bottom left;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}

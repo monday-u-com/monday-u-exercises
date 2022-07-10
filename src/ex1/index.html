@@ -1,14 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Exercise 1</title>
+    <title>Just Do It</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/1e5f8eb5bd.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-<h1>Todo list</h1>
-
-
+    <div class="container">
+        <header>
+            <h1>Just Do It</h1>
+        </header>
+        <div class="new-task-container">
+            <form>
+                <input id="new-task" type="text" placeholder="Add your new todo" required>
+                <button id="submitButton" type="submit"><i class="fas fa-plus-square"></i></button>
+            </form>
+            <div class="tasks-container">
+                <ul></ul>
+                <img id="list-gif" src="list_gif.gif" alt="list" style="display: flex;" height="200px" width="200px">
+                <h2 id="completed-tasks" style="display: none;">You have completed 0 / 0 tasks</h2>  
+            </div>
+            <div class="btn-holder">
+                <button class="clear-all" id="clear-all" >Clear All</button>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="script.js"></script>
 </html>
