@@ -1,0 +1,35 @@
+.app-container {
+  height: 100vh;
+  width: auto;
+  font-family: Georgia, serif;
+  font-weight: lighter;
+  background-image: linear-gradient(
+    to top right,
+    white,
+    #d4dff3,
+    rgba(138, 144, 224, 0.76),
+    rgba(106, 117, 231, 0.76),
+    rgba(85, 97, 229, 0.76)
+  );
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-name {
+  font-weight: lighter;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 50%;
+  background-color: white;
+  border: 1px silver solid;
+  border-radius: 8px;
+  -webkit-box-shadow: 12px 12px 38px -13px #000000;
+  box-shadow: 12px 12px 38px -13px #000000;
+}
