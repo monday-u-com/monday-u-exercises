@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "./TodoControls.css";
+import PropTypes from "prop-types";
 import { Button } from "monday-ui-react-core";
 import "monday-ui-react-core/dist/main.css";
-import PropTypes from "prop-types";
 
-const TodoControls = ({ showLoaderAction, hideLoaderAction, addItemsAction, showLoader, }) => {
+
+const TodoControls = ({ showLoaderAction, hideLoaderAction, addItemsAction, showLoader }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputValue = (e) => {

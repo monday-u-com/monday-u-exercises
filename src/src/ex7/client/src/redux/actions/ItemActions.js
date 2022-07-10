@@ -1,5 +1,5 @@
 import actionsTypes from "./constants";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import {
     fetchItems,
     createItem,
@@ -12,7 +12,7 @@ import {
   export const getItemsAction = () => {
     return async (dispatch) => {
       const items = await fetchItems();
-      dispatch(addItems(items))
+      dispatch(addItems(items));
     };
   };
       
@@ -20,6 +20,7 @@ import {
     type: actionsTypes.UPDATE_SEARCH_INPUT,
     payload: searchInput,
   });
+
   export const updateSearchInputAction = (searchInput) => {
     return async (dispatch) => {
       dispatch(updateSearchInput(searchInput));
@@ -89,9 +90,8 @@ export const updateCheckBoxAction = (itemId ,checked) => {
     return async (dispatch) => {
         await updateStatus(itemId,checked);
         dispatch(updateItemStatus(itemId,checked));
-        toast(`update item successfully`);
+        // toast(`update item successfully`);
       };
     };
  
-
 

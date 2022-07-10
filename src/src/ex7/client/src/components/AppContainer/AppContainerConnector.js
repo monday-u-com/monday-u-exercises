@@ -1,5 +1,5 @@
 import AppContainer from "./AppContainer";
-import { getItemsAction } from "../../redux/actions/itemActions";
+import { getItemsAction } from "../../redux/actions/ItemActions";
 import { getItems } from "../../redux/selectors/items-entities-selectors";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";

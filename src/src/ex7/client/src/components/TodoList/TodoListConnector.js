@@ -1,7 +1,7 @@
 import TodoList from "./TodoList";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import{deleteItemAction,editItemNameAction,updateCheckBoxAction} from '../../redux/actions/itemActions'
+import{deleteItemAction,editItemNameAction,updateCheckBoxAction} from '../../redux/actions/ItemActions'
 
 const mapStateToProps = (state , ownProps) => {
 
