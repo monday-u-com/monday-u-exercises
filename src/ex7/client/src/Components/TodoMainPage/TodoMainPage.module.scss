@@ -49,13 +49,15 @@
 
 .filters_task_div {
   display: flex;
+  gap: 20px;
   align-items: center;
-}
-
-.search_tasks_marked {
-  margin: 0 10px;
+  justify-content: center;
 }
 
 .delete_all_button {
   background-color: #fdcd3b;
+}
+
+.search_filter_wrapper{
+  width: auto;
 }

@@ -73,7 +73,7 @@ const TodoMainPage = ({
   const onRestore = () => {
     if (hasRemovedTask)
       restoreTaskAction(removedTasks[removedTasks.length - 1]);
-    else{
+    else {
       alert("No tasks to restore!");
     }
   };
@@ -108,12 +108,15 @@ const TodoMainPage = ({
           />
         </div>
         <div className={styles.filters_task_div}>
-          <Search
-            className={styles.search_tasks}
-            placeholder="search"
-            size={Search.sizes.SMALL}
-            onChange={onSearchChange}
-          />
+          <div className={styles.search_filter_wrapper}>
+            <Search
+              className={styles.search_tasks}
+              wrapperClassName={styles.search_filter_wrapper}
+              placeholder="search"
+              size={Search.sizes.SMALL}
+              onChange={onSearchChange}
+            />
+          </div>
           <Checkbox
             className={styles.search_tasks_marked}
             ariaLabel=""
@@ -140,8 +143,8 @@ const TodoMainPage = ({
         </p>
         <Button
           onClick={onClearAll}
-          className ={styles.delete_all_button}
-          color = {null}
+          className={styles.delete_all_button}
+          color={null}
           rightIcon={Delete}
         >
           Clear All

@@ -13,7 +13,7 @@ const app = express();
 app.use([express.json(), logger, compression()]);
 // app.use(corsHeader);
 
-// app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.use(express.static(path.resolve(__dirname, "./client/build")));
 
 app.use("/todo", todoRouter);
 
