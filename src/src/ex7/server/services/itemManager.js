@@ -159,7 +159,7 @@ class ItemManager {
   }
   async statusUpdateDb(itemId,newStatus){
     try{
-      let status = newStatus
+      const status = newStatus
       await items.update({status},{ where: { itemId: itemId } })
     }
     catch(err)
