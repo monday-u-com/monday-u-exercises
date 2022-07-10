@@ -1,0 +1,42 @@
+.item-container {
+	height: 40px;
+	align-items: baseline;
+	display: inline-flex;
+}
+
+.task-element {
+	background-color: rgba(223, 223, 223, 0.508);
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	height: 30px;
+	width: 260px;
+	border-radius: 8px;
+	padding-left: 1rem;
+	overflow: hidden;
+	font-size: 15px;
+	font-weight: 700;
+	float: right;
+	align-items: center;
+}
+
+.task-element:hover {
+	overflow-y: hidden;
+	overflow-x: hidden;
+	height: max-content;
+}
+
+.delete-button {
+	background-color: rgba(205, 89, 89, 0.841);
+	display: none;
+	animation-name: elemet-size;
+	animation-duration: 0.2s;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+.task-element:hover > .delete-button {
+	display: block;
+	height: 30px;
+	border-bottom-right-radius: "initial";
+}
