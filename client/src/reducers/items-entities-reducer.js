@@ -16,7 +16,7 @@ const itemsEntitiesReducer = (state = initialState, action) => {
          return { tasks: state.tasks };
 
       case actionTypes.CLEAR_TASKS_FULFILLED:
-         return { tasks: [], searchInput: state.searchInput };
+         return { tasks: [] };
       case actionTypes.CLEAR_TASKS_REJECTED:
          console.error("Clear tasks rejected from server");
          return { tasks: state.tasks };
@@ -28,7 +28,7 @@ const itemsEntitiesReducer = (state = initialState, action) => {
          return { tasks: state.tasks };
 
       case actionTypes.DELETE_TASK_FULFILLED:
-         const newTasks = [...state.tasks].filter((item) => item.id !== action.meta.arg);
+         const newTasks = [...state.tasks].filter((item) => item.id !== action.payload);
          return { tasks: newTasks };
       case actionTypes.DELETE_TASK_REJECTED:
          console.error("Delete task rejected from server");
@@ -40,7 +40,7 @@ const itemsEntitiesReducer = (state = initialState, action) => {
 
       case actionTypes.CHECKMARK_TASK_FULFILLED:
          let items = [...state.tasks];
-         const index = items.findIndex((el) => el.id === action.meta.arg.id);
+         const index = items.findIndex((el) => el.id === action.payload);
          items[index].status = !items[index].status;
 
          return { tasks: items };
