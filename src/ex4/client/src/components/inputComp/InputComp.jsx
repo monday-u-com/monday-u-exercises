@@ -3,9 +3,14 @@ import "./InputComp.css";
 import React, { useCallback, useRef, useState } from "react";
 import ButtonComp from "../buttonComp/ButtonComp";
 import plusImg from "../../images/plus.png";
+import { useEffect } from "react";
 
-function InputComp({ dispatchAddItems, dispatchIsLoading }) {
-	const [inputValue, setInputValue] = useState("");
+function InputComp({
+	dispatchAddItems,
+	dispatchIsLoading,
+	dispatchSearchText,
+}) {
+	const [inputValue, setInputValue] = useState(null);
 	const inputElement = useRef();
 
 	const addItemHandeler = useCallback(async () => {
@@ -23,13 +28,19 @@ function InputComp({ dispatchAddItems, dispatchIsLoading }) {
 		[inputValue, addItemHandeler]
 	);
 
+	useEffect(() => {
+		dispatchSearchText(inputValue);
+	}, [inputValue, dispatchSearchText]);
+
 	return (
 		<div className="new-task-container">
 			<input
 				type="text"
 				className="task-input"
 				placeholder="Write your task here"
-				onChange={(e) => setInputValue(e.target.value)}
+				onChange={(e) => {
+					setInputValue(e.target.value);
+				}}
 				onKeyDown={(e) => eventListenerForEnter(e)}
 				ref={inputElement}
 			></input>

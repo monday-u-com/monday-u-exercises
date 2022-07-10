@@ -1,12 +1,31 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import { useCallback } from "react";
 import "../../App.css";
 import ItemComp from "../itemComp/ItemComp";
 
-function ItemsComp({ items, dispatchDeleteItem, dispachUpdateItem }) {
+function ItemsComp({
+	items = [],
+	dispatchDeleteItem,
+	dispachUpdateItem,
+	searchText,
+}) {
+	const [filteredItems, setFilteredItems] = useState(items);
+
+	useEffect(() => {
+		if (searchText) {
+			const filteredItems = items.filter((item) =>
+				item.itemName.includes(searchText)
+			);
+			setFilteredItems(filteredItems);
+		} else {
+			setFilteredItems(items);
+		}
+	}, [items, searchText]);
 	const renderItems = useCallback(() => {
 		return (
 			<div>
-				{items.map((item) => {
+				{filteredItems.map((item) => {
 					return (
 						<ItemComp
 							key={item.id}
@@ -23,7 +42,7 @@ function ItemsComp({ items, dispatchDeleteItem, dispachUpdateItem }) {
 				})}
 			</div>
 		);
-	}, [dispachUpdateItem, dispatchDeleteItem, items]);
+	}, [dispachUpdateItem, dispatchDeleteItem, filteredItems]);
 
 	return renderItems();
 }

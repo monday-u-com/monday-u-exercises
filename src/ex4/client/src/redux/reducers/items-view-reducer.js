@@ -3,6 +3,7 @@ import actionTypes from "../actions/constants";
 const initialState = {
 	isLoading: true,
 	openToast: false,
+	searchText: null,
 };
 
 const itemsViewReducer = (state = initialState, action) => {
@@ -12,6 +13,10 @@ const itemsViewReducer = (state = initialState, action) => {
 
 		case actionTypes.OPEN_TOAST:
 			return { ...state, openToast: action.payload };
+
+		case actionTypes.SEARCH:
+			const x = { ...state, searchText: action.payload };
+			return x;
 		default:
 			return state;
 	}

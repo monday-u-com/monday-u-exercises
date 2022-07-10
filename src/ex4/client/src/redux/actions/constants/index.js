@@ -5,6 +5,7 @@ const ACTIONS = {
 	DELETE_iTEM: "DELETE_iTEM",
 	IS_LOADING: "IS_LOADING",
 	OPEN_TOAST: "OPEN_TOAST",
+	SEARCH: "SEARCH",
 };
 
 export default ACTIONS;

@@ -19,3 +19,13 @@ export const dispatchOpenToast = (isToastOpen) => {
 		dispatch(OpenToast(isToastOpen));
 	};
 };
+
+const setSearchText = (searchText) => {
+	return { type: actionTypes.SEARCH, payload: searchText };
+};
+
+export const dispatchSearchText = (searchText) => {
+	return (dispatch) => {
+		dispatch(setSearchText(searchText));
+	};
+};
