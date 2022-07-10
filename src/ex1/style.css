@@ -1,0 +1,95 @@
+.container {
+    padding: 15px;
+    border-radius: 7px;
+    max-width: 50%;
+    margin: auto;
+    background-color: aliceblue;
+    width: 500px;
+}
+.pendingTasksCounter-visible{
+    display: block;
+    text-align: center;
+}
+
+.pendingTasksCounter-hidden{
+    display: none;
+    text-align: center;
+}
+
+body {
+    background-color: darkslategray;
+}
+
+h1 {
+    text-align: center;
+    margin-left: auto;
+    padding: auto;
+}
+
+.NoTasksImg-visible {
+    display: block;
+    margin: auto;
+    width: 50%;
+}
+
+.noTasks-img-hidden {
+    display: none;
+    margin: auto;
+    width: 50%;
+}
+
+.list-item-delete-button {
+    background-color: azure;
+    cursor: pointer;
+    float: right;
+    height: auto;
+    width: auto;
+}
+
+
+.list-item-taskDone-checkbox-pressed{
+    text-decoration: line-through;
+    padding: 7px;
+    border: 1px solid black;
+}
+
+.list-item-taskDone-checkbox-pressed:hover{
+    cursor: pointer;
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(255, 228, 196, 1) 0%, rgba(0, 212, 255, 1) 100%);
+}
+
+
+.taskDone-checkbox-not-pressed {
+    background-color: azure;
+    float: right;
+    height: auto;
+    width: auto;
+}
+
+.taskDone-checkbox-pressed {
+    text-decoration: line-through;
+    padding: 7px;
+    border: 1px solid black;
+}
+
+.container-addTask {
+    text-align: center;
+    margin-bottom: 11px;
+}
+
+.list {
+    background-color: #d8bfd8;
+    width: 50%;
+    margin: auto;
+    text-align: ceter;
+}
+
+.list-item {
+    padding: 7px;
+    border: 1px solid black;
+}
+
+.list-item:hover  {
+    cursor: pointer;
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(255, 228, 196, 1) 0%, rgba(0, 212, 255, 1) 100%);
+}
