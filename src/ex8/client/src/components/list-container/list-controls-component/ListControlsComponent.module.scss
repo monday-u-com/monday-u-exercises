@@ -1,0 +1,8 @@
+.container {
+    background-color: var(--color-snow_white);
+    display: flex;
+    align-items: center;
+    border-top-right-radius: var(--spacing-small);
+    border-top-left-radius: var(--spacing-small);
+    gap: var(--spacing-small);
+}
