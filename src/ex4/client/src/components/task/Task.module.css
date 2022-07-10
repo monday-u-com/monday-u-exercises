@@ -1,0 +1,20 @@
+.task_container {
+    display: flex;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.task_trash_icon {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+
+.task_checkbox {
+    margin-right: 10px;
+}
+
+.task_task_name {
+    font-weight: 300;
+    font-size: 20px;
+}

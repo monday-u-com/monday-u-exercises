@@ -7,7 +7,7 @@ class ItemClient {
     async getItems() {
         try {
             const res = await fetch(this.url)
-            if (res.status) {
+            if (res.status === 200) {
                 const items = await res.json()
                 return items
             } else {
@@ -20,7 +20,6 @@ class ItemClient {
     }
 
     async postItem(itemText) {
-
         const options = {
             method: "POST",
             headers: {
@@ -29,35 +28,27 @@ class ItemClient {
             },
             body: JSON.stringify({ item: itemText })
         }
-
         try {
             const res = await fetch(this.url, options)
-            if (!res.status) {
-                alert("Something went wrong :(")
-            }
+            return res
         } catch (e) {
             console.log(e)
         }
     }
 
     async deleteItem(item) {
-
         const options = {
             method: "DELETE",
         }
-
         try {
             const res = await fetch(this.url + `/${item}`, options)
-            if (!res.status) {
-                alert('Something went wrong :(')
-            }
+            return res
         } catch (e) {
             console.log(e)
         }
     }
 
     async statusChanged(item) {
-
         const options = {
             method: "PUT",
             headers: {
@@ -66,17 +57,13 @@ class ItemClient {
             },
             body: JSON.stringify(item)
         }
-
         try {
-            const res = await fetch(this.url + `/status/${item}`, options)
-            if (!res.status) {
-                alert('Something went wrong :(')
-            }
+            const res = await fetch(this.url + `/status/${item.item}`, options)
+            return res
         } catch (e) {
             console.log(e)
         }
     }
-
 }
 
 export default ItemClient

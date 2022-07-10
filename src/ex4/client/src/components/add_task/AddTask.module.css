@@ -1,0 +1,26 @@
+.add_task_container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 10px
+}
+
+.add_task_input {
+    height: 40px;
+    width: 70%;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 10px
+}
+
+.add_task_button {
+    width: 40px;
+    font-weight: bold;
+    font-size: 25px;
+    color: #87CEEB;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}

@@ -16,7 +16,9 @@ router.delete('/:id', (req, res) => {
 })
 
 router.put('/status/:id', (req, res) => {
-    return itemManager.changeItemStatus(req, res)
+    const response = itemManager.changeItemStatus(req, res)
+    console.log(response)
+    return response
 })
 
 export default router
