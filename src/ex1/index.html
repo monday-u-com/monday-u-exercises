@@ -1,14 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Exercise 1</title>
-    <link rel="stylesheet" href="style.css" />
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <title>Todo List App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Task List 2021</title>
+
+	<link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    
+      
+      <!-- As a heading -->
+      <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">TODO APP</span>
+        <p id="current_date"></p>
+      </nav>
+    
 
-<h1>Todo list</h1>
+    <div class="wrapper">
+	<header>
+		<!-- <h1>ToDoS App</h1> -->
+        <h1 class="todo-title" data-heading="Slide">Midnight-TODOs</h1>
+        
+		<form id="new-task-form">
+      <div class="card" tabindex="0">
+        <span class="card__infoicon">
+          <i class="fa fa-info"></i>
+        </span>
+        <h1 class="card__title">Todo List Info</h1>
+        <p class="card__description">Add, Edit, and Delete your todos, Easy and Simple to Use </p>
+        
+        <p class="card__credits">Created by Kuper <a class="card__reference" href="https://github.com/Kuper-S">Todo App</a> </p>
+      </div>
+
+      
+
+			<input 
+				type="text" 
+				name="new-task-input" 
+				id="new-task-input" 
+				placeholder="What do you have planned?" />
+			<input 
+				type="submit"
+				id="new-task-submit" 
+				value="Add ToDos" />
+		</form>
+        <div class="select">
+            <select name="todos" class="filter-todo">
+              <option value="all" id="all">All</option>
+              <option value="completed" id="completed">Completed</option>
+              <option value="uncompleted" id="uncompleted">Uncompleted</option>
+            </select>
+          </div>
+	</header>
+    
+	<main>
+		<section class="task-list">
+			<h2>Tasks</h2>
+
+			<div id="tasks">  
+
+			</div>
+
+		</section>
+        
+        </form>
+	</main>
+</div>
 
 
+	<script src="app.js"></script>
 </body>
-<script src="script.js"></script>
 </html>
