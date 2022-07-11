@@ -4,17 +4,24 @@ import { ReactComponent as Edit } from '../../images/edit_icon.svg';
 import 'monday-ui-react-core/dist/main.css';
 import { useRef, useState } from 'react';
 import { PropTypes } from 'prop-types';
+import { useDispatch } from 'react-redux';
+import {
+  editItemText,
+  changeItemStatus,
+  deleteItem,
+} from '../../reducers/items-entities-reducer';
 
-const Item = ({ text, onDelete, onEdit, onChangeStatus, id, status }) => {
+const Item = ({ text, id, status }) => {
+  const dispatch = useDispatch();
   const label = useRef('');
   const [checked, setChecked] = useState(status);
 
-  const deleteHandler = () => {
-    onDelete(id);
+  const deleteHandler = async () => {
+    dispatch(deleteItem(id));
   };
 
   const changeStatusHandler = () => {
-    onChangeStatus(id, !checked);
+    dispatch(changeItemStatus(id, !checked));
     setChecked(!checked);
   };
 
@@ -22,15 +29,15 @@ const Item = ({ text, onDelete, onEdit, onChangeStatus, id, status }) => {
     const itemLabel = label.current;
     if (event.key === 'Enter') {
       itemLabel.contentEditable = 'false';
-      if (itemLabel.prevText !== itemLabel.innerText) {
-        onEdit(id, itemLabel.innerText);
+      if (itemLabel.prevtext !== itemLabel.innerText) {
+        dispatch(editItemText(id, itemLabel.innerText));
       }
     }
   };
 
   const toggleEditMode = () => {
     const itemLabel = label.current;
-    itemLabel.prevText = itemLabel.innerText;
+    itemLabel.prevtext = itemLabel.innerText;
     const currentState = itemLabel.contentEditable;
     itemLabel.contentEditable = currentState === 'true' ? 'false' : 'true';
   };
@@ -49,7 +56,7 @@ const Item = ({ text, onDelete, onEdit, onChangeStatus, id, status }) => {
             checked={checked}
             onChange={changeStatusHandler}
           ></input>
-          <label ref={label} prevText={text} onKeyPress={editItemHandler}>
+          <label ref={label} prevtext={text} onKeyPress={editItemHandler}>
             {text}
           </label>
         </div>

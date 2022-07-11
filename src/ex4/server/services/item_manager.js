@@ -31,11 +31,14 @@ class ItemManager {
     await item.update({ pokemonId: null, ...text }, { where: { id: id } });
   };
   addTasksOrPokemons = async (tasks) => {
+    const uniqueTasks = [...new Set(tasks)]; // remove duplicates
     const pokemonsRegisterd = await item.findAll({
       where: { pokemonId: { [Op.ne]: null } },
     });
     const pokemonsIds = pokemonsRegisterd.map((item) => '' + item.pokemonId);
-    const tasksFiltered = tasks.filter((task) => !pokemonsIds.includes(task));
+    const tasksFiltered = uniqueTasks.filter(
+      (task) => !pokemonsIds.includes(task)
+    );
 
     const result = await pokemonClient.fetchPokemons(tasksFiltered); // fetch only new pokemons
     const array = result.map((item) => {

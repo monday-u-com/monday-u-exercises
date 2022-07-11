@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "W8VrtueBe7",
-    "password": "J866q90Bm6",
-    "database": "W8VrtueBe7",
-    "host": "remotemysql.com",
+    "username": "freedb_roni111",
+    "password": "RN#?4gBcBpPWuMe",
+    "database": "freedb_project1",
+    "host": "sql.freedb.tech",
     "dialect": "mysql"
   },
   "test": {

@@ -12,7 +12,7 @@ const ItemInput = ({ onAdd }) => {
   };
 
   return (
-    <Flex>
+    <Flex style={{ margin: '5px 0' }}>
       <TextField
         ref={inputRef}
         iconName={Add}

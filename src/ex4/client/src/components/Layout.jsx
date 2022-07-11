@@ -6,13 +6,15 @@ function Layout({ children }) {
   const navigator = useNavigate();
 
   return (
-    <Card>
-      <section>
-        <Tab onClick={() => navigator('/')}>Tasks</Tab>
-        <Tab onClick={() => navigator('/stats')}>Statistics</Tab>
-      </section>
-      <section>{children}</section>
-    </Card>
+    <div className="app">
+      <Card>
+        <section>
+          <Tab onClick={() => navigator('/')}>Tasks</Tab>
+          <Tab onClick={() => navigator('/stats')}>Statistics</Tab>
+        </section>
+        <section>{children}</section>
+      </Card>
+    </div>
   );
 }
 
