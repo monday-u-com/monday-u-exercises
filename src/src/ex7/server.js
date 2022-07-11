@@ -25,12 +25,11 @@ const sequelize = new Sequelize("tododb", "root", "kokoriko1992", {
   }
   test()
 
-app.use(bodyParser.json())
-
 app.use(logger)
-
 app.use([cors(),express.json()]);
+app.use(errorHandler)
 app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
 app.use(express.static(path.resolve(__dirname, '/client/build')));
 app.use('/item', itemRouter);
 app.use(errorHandler);

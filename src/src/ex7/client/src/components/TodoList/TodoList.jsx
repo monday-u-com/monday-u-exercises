@@ -56,7 +56,7 @@ const TodoList = ({
           />
           {item.isPokemon!==0 && (
             <a>
-              <img src={item.imageUrl} />
+              <img src={item.imageUrl} alt="pokemonImg"/>
             </a>
           )}
         </div>

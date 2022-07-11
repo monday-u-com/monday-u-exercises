@@ -1,6 +1,5 @@
-
 const url = "http://localhost:8081";
-const headers = { "Content-Type": "application/json" ,'accept': 'application/json' };
+const headers = { "Content-Type": "application/json" }
 export async function createItem(item) {
   try {
     const response = await fetch(`${url}/item`, {
