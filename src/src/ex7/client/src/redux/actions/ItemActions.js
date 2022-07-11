@@ -27,6 +27,8 @@ import {
     };
   };
 
+
+
   const addItems = (newItems) => ({
     type : actionsTypes.ADD_ITEMS,
     payload: newItems,
@@ -64,7 +66,7 @@ export const clearAllItemsAction = () => {
 };
   
 const editItem = (itemId,newName) =>({
-    type: actionsTypes.EDIT_ITEM,
+    type: actionsTypes.EDIT_ITEM_NAME,
     itemId,
     payload: newName,
 });
@@ -90,8 +92,17 @@ export const updateCheckBoxAction = (itemId ,checked) => {
     return async (dispatch) => {
         await updateStatus(itemId,checked);
         dispatch(updateItemStatus(itemId,checked));
-        // toast(`update item successfully`);
+        
       };
     };
  
-
+    const updateSelectInput = (selectInput) => ({
+      type: actionsTypes.UPDATE_SELECT_INPUT,
+      payload: selectInput,
+    });
+    
+    export const updateSelectInputAction = (selectInput) => {
+      return async (dispatch) => {
+        dispatch(updateSelectInput(selectInput));
+      };
+    };

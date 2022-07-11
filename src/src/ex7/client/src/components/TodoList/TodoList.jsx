@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./TodoList.css";
+import { Checkbox } from "monday-ui-react-core";
 import PropTypes from "prop-types";
 const TodoList = ({
   item,
@@ -7,19 +8,14 @@ const TodoList = ({
   editItemNameAction,
   updateCheckBoxAction,
 }) => {
-  const isPokemon = item.isPokemon === 0 ? false : true;
-  const [taskName, setTaskName] = useState(isPokemon ? `Cool You cought ${item.item}` :item.item );
+  const [taskName, setTaskName] = useState(item.itemName);
   const [isEditClicked, setEditClicked] = useState(true);
 
   const handleCheckboxChange = async (e) => {
     try {
-      if (e.target.checked) {
-        await updateCheckBoxAction(item.itemId, true);
-      } else {
-        await updateCheckBoxAction(item.itemId, false);
-      }
+      await updateCheckBoxAction(item.itemId, e.target.checked);
     } catch (err) {
-      throw new Error("failed to update status with checkbox");
+      throw new Error("Error While Update checkbox");
     }
   };
 
@@ -36,7 +32,7 @@ const TodoList = ({
       const newTaskName = taskName.replace("Cool You cought ", "");
       await editItemNameAction(item.itemId, newTaskName);
     } catch (err) {
-      throw new Error("failed to edit task in db");
+      throw new Error("Error while edit Todo on DB");
     }
   };
   const handleInputChange = (e) => {
@@ -47,8 +43,7 @@ const TodoList = ({
     <div>
       <li id={item.itemId} className="new-item">
         <div className="items">
-          <input
-            type="checkbox"
+        <Checkbox
             defaultChecked={item.status}
             onChange={handleCheckboxChange}
           />
@@ -59,9 +54,9 @@ const TodoList = ({
             value={taskName}
             onChange={handleInputChange}
           />
-          {isPokemon && (
-            <a href="Pokemon">
-              <img src={item.imageUrl} alt="Pokemon"/>
+          {item.isPokemon!==0 && (
+            <a>
+              <img src={item.imageUrl} />
             </a>
           )}
         </div>

@@ -1,7 +1,9 @@
 import actionTypes from "../actions/constants";
 
 const initialState = {
+  searchInput:'',
   items: [],
+  tasksStatus:true,
 };
 
 const itemsEntitiesReducer = (state = initialState, action) => {
@@ -11,8 +13,12 @@ const itemsEntitiesReducer = (state = initialState, action) => {
       return {...state, items:[...state.items, ...action.payload]};
 
     case actionTypes.DELETE_ITEM:
-      return {...state , items: state.items.filter(item => item.itemId !== action.payload),};
-    
+      return {
+        ...state,
+        items: [
+          ...state.items.filter((item) => item.itemId !== action.payload),
+        ],
+      };
     case actionTypes.CLEAR_ALL_ITEMS:
         return {
           ...state,
@@ -37,7 +43,12 @@ const itemsEntitiesReducer = (state = initialState, action) => {
         ...state,
         searchInput: action.payload
       };
-    
+      
+      case actionTypes.UPDATE_SELECT_INPUT:
+      return {
+        ...state,
+        tasksStatus:action.payload
+      };
     default:
       return state;
   }

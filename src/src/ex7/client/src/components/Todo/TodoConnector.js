@@ -4,15 +4,21 @@ import { bindActionCreators } from "redux";
 import { getItems,getSearchInput} from "../../redux/selectors/items-entities-selectors";
 
 const mapStateToProps = (state, ownProps) => {
-    const items = getItems(state)
-    const searchInputValue = getSearchInput(state)
-    return {items, searchInputValue };
-  };
+  const items = getItems(state)
+  const searchInputValue = getSearchInput(state)
 
-const mapDispatchToProps = (dispatch , ownProps) =>{
-    return bindActionCreators({
 
+  return {items,searchInputValue };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return bindActionCreators(
+    {
+     
     },
-    dispatch);
-}
-export default connect(mapDispatchToProps,mapStateToProps)(Todo);
+    dispatch
+  );
+  }  
+
+
+  export default connect(mapStateToProps, mapDispatchToProps)(Todo);

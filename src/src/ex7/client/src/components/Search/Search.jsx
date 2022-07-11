@@ -1,20 +1,26 @@
-import TodoListConnector from "../TodoList/TodoListConnector";
+
 import PropTypes from "prop-types";
-
-const Search = ({items, updateSearchInputAction,searchInputValue }) =>{
-    const handleInput = (e) =>{
-        updateSearchInputAction(e.target.value.trim());
-    }
-    return (
+import { Search } from "monday-ui-react-core";
+import "monday-ui-react-core/dist/main.css";
+const SearchBox = ({updateSearchInputAction,searchInputValue }) =>{
+    const handleInputValue = (value) => {
+        updateSearchInputAction(value.trim());
+      };
+      return (
         <div>
-        <input type="text" placeholder="Search Todos Here" onChange={handleInput} value={searchInputValue}></input>
-
+          <br/>
+          <Search
+            placeholder="type to search todo"
+            onChange={handleInputValue}
+            value={searchInputValue}
+            wrapperClassName="monday-storybook-search_size"
+          ></Search>
         </div>
-    );
-};
-
-Search.propTypes = {
-    items: PropTypes.array,
-  };
-  
-  export default Search;
+      );
+    };
+    SearchBox.prototype = {
+      updateSearchInputAction: PropTypes.func,
+      searchInputValue: PropTypes.string,
+    };
+    
+    export default SearchBox;

@@ -10,11 +10,12 @@ const mapStateToProps = (state,ownProps) =>{
 };
 
 const mapDispatchToProps = (dispatch, ownProps) =>{
-    return bindActionCreators({
-        getItemsAction,
-    },
-    dispatch
-    );
-};
+    return bindActionCreators(
+        {
+          getItemsAction,
+        },
+        dispatch
+      );
+    };
 
 export default connect(mapStateToProps,mapDispatchToProps)(AppContainer);
