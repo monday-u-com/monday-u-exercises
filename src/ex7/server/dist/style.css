@@ -1,0 +1,128 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.app-container {
+    width: 100%;
+    height: 100%;
+    font-family: Georgia, serif;
+    font-weight: lighter;
+    background-image: linear-gradient(
+            to top right,
+            white,
+            #d4dff3,
+            rgba(138, 144, 224, 0.76),
+            rgba(106, 117, 231, 0.76),
+            rgba(85, 97, 229, 0.76)
+    );
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-name {
+    padding-left: 32px;
+    font-weight: lighter;
+}
+
+.list-container {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 50%;
+    background-color: white;
+    border: 1px silver solid;
+    border-radius: 8px;
+    -webkit-box-shadow: 12px 12px 38px -13px #000000;
+    box-shadow: 12px 12px 38px -13px #000000;
+}
+
+.list-controls {
+    padding: 0px 32px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.list-controls #list-item-input {
+    width: 85%;
+    height: 30px;
+    font-size: 16px;
+    padding-left: 8px;
+}
+
+.list-controls #list-item-submit {
+    color: white;
+    background-color: #6c6cff;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 4px;
+    height: 35px;
+    width: 35px;
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.list-controls #list-item-submit:hover {
+    background-color: #3c3cff;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#list {
+    list-style-type: none;
+    padding: 0px 30px;
+    height: 310px;
+    overflow-y: scroll;
+}
+
+.list-item {
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.list-item:hover {
+    color: blueviolet;
+    transition: color 0.2s ease-in-out;
+}
+
+.list-item:not(:last-of-type) {
+    border-bottom: 1px #bbb5b5 solid;
+}
+
+.list-item-delete-button {
+    margin-left: auto;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.list-item-text {
+    padding-left: 10px;
+}
+
+.list-item-checkbox {
+    accent-color: #6c6cff;
+    height: 18px;
+    width: 18px;
+}
+
+.list-item-delete-button:hover {
+    background-color: #f0f0f5;
+    transition: background-color 0.2s ease-in-out;
+}
