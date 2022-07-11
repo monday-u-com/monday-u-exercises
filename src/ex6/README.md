@@ -1,53 +1,52 @@
-# Exercise 5 - Sequelize ORM
+# Exercise 6 - React
 
-It is not persisted until you persist it!
+Let's get Reactive 🥳
 
 ## In this section you will practice
 
-**Initializing Sequelize ORM** - Connect NodeJS application to your mysql DB using Sequelize ORM 
+**Initializing React project** - Use [create-react-app](https://github.com/facebook/create-react-app) to set up a basic React application
 
-**Sequelize models** - Use Sequelize models to execute queries on your DB
+**React components** - Creating and using controlled and uncontrolled components
 
-**Migrations and seeds** - Manage DB changes using Sequelize migrations
+**State and Props** - Handling and passing data in and between different components
+
+**CSS** - Connecting CSS to components using CSS Modules
+
+**Hooks** - Using `useState`, `useCallback`, `useMemo` && `useEffect` to handle the component's state and lifecycle
+
+**Data fetching** - Data fetching from a component, handling communication issues and empty/loading state
 
 ## What you are going to build
 
-In the last exercise, you've added an ExpressJS server to your todo app, which allowed you to reload your todos from server. 
+In the last exercise, you have made your application's data persistent using a DB.
 
-But what happens when you restart your server?! you guessed right, all todos disappeared :( 
+Now you are going to give the client side a makeover using React.
 
-In this exercise we will add a DB to our application that will hold all items' data. This will provide us a real persistent storage that would keep our data even if our server is down. 
-
-You can use your ex4 solution or use the boilerplate in this folder. 
-
-### Prerequisites:
-Following pre-requisites were covered in our last workshop. 
-- Download and install [docker](https://docs.docker.com/get-docker/)
-- Open console and pull latest mysql image: ```docker pull mysql/mysql-server ```
-- Run mysql container and initialize it with the proper user, password, db name and permissions: ```docker run -p 3306:3306 --name tododb -e MYSQL_ROOT_PASSWORD=password -e MYSQL_ROOT_HOST=% -e MYSQL_DATABASE=todo_db -d mysql/mysql-server```
-- Validate container is up: ```docker ps``` 
+This will make your project:
+* **Easier to maintain** - Having a component for each "UI part" of our client
+* **Hooked to the DOM** - By using JSX you can directly manipulate DOM
+* **Increased performance** - React works with a Virtual DOM to improve the performance of your project
+* **"Common"** - React is wildly used in the community and has tons of info about different use-cases you may encounter while developing
 
 ### The requirements:
+- [ ] Remove `app.use(express.static(path.join(__dirname, 'dist')))` from your `server.js` file
+- [ ] Delete `src/server/dist` **ONLY** when your new client is up and running 
+- [ ] Initialize your React project in the `src` folder using [create-react-app](https://create-react-app.dev/docs/getting-started/) with the name `client`
+- [ ] Decompose your Todo App into components (controlled and uncontrolled)
+- [ ] Re-Implement the Todo App using hooks
+- [ ] Use [**propTypes** & **defaultProps**](https://reactjs.org/docs/typechecking-with-proptypes.html) to add type-checking to your components
 
-- [ ] Install Sequelize and mysql driver. [Sequelize- Getting Started](https://sequelize.org/docs/v6/getting-started/)
-- [ ] Install Sequelize CLI. [Installing the CLI](https://sequelize.org/docs/v6/other-topics/migrations/)
-- [ ] Initialize Sequelize using `npx sequelize-cli init` inside 'src/server/db' folder 
-- [ ] Create Items table using [Sequelize migration](https://sequelize.org/docs/v6/other-topics/migrations/#creating-the-first-model-and-migration) - a new table with id and ItemName fields
-- [ ] Modify `item_manager.js`: remove items array and modify all item operations to use Item model
-- [ ] Create and run a separate migration for adding a `status` column (BOOLEAN) to Items table in your DB
-- [ ] Add checkbox to each item in UI to indicate its status (Done vs not)
-- [ ] Modify client and server code to support persistence of the new Item status 
-
-Your todo app should have now an additional checkbox that marks the status of the item. Every change to the checkbox should be stored in our Items table under the status column (true or false)
-
-Now, even if your server is down - all your items are stored. Once the server is up again - you should be able to see all items.
-
-Here is an example how it can look on the client side:
-![](../assets/hw-5.gif)
+#### Your todo app is now:
+- Very easy to maintain and scale
+- Can use a vast amount of packages for almost every use-case
+- More performant out of the box
 
 ### Bonus
+- [ ] Add error handling for communication issues with your backend (Empty state / Loader / Something else)
+- [ ] Use components from the [Vibe Design System](https://github.com/mondaycom/monday-ui-react-core) (monday.com's component library)
+- [ ] Use [React Router](https://reactrouter.com/docs/en/v6) to add basic routing capabilities to your app
+  - [ ] Add Tabs / Navigation bar to help route between pages [Tabs example](https://style.monday.com/?path=/docs/navigation-tabs-tab--overview)
+  - Page suggestions
+    - [ ] Task completion statistics page - # of open tasks, total number of tasks, average tim to finish a task, etc.
+    - [ ] About page - with some fun facts and profile picture
 
-- [ ] Add "Done" timestamp
-- [ ] Add index to the Items table (which columns compose the index?) 
-- [ ] Add server validation - create a new item only if not exists (Use transaction)
-- [ ] Add edit capabilities to an item. 
