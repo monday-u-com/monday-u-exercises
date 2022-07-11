@@ -5,13 +5,15 @@ import DoneTodos from "./DoneTodos";
 import { getSearchInput,getDoneItems } from "../../redux/selectors/items-entities-selectors";
 
 
-const mapStateToProps = (state,ownProps) =>{
+const mapStateToProps = (state, ownProps) => {
+    
     const searchInputValue = getSearchInput(state);
-    const doneItems = getDoneItems(state);
-    return {searchInputValue,doneItems};
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
+   
+    const doneItems = getDoneItems(state)
+    return {searchInputValue,doneItems };
+  };
+  
+  const mapDispatchToProps = (dispatch, ownProps) => {
     return bindActionCreators(
       {
         

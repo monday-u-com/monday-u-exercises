@@ -3,7 +3,7 @@ const headers = { "Content-Type": "application/json" }
 export async function createItem(item) {
   try {
     const response = await fetch(`${url}/item`, {
-      method: "post",
+      method: "POST",
       body: JSON.stringify({ item }),
       headers: headers,
     });
@@ -26,7 +26,7 @@ export async function fetchItems() {
     }
 
     const data = await response.json();
-
+    console.log(data);
     return data;
   } catch (err) {
     throw new Error("failed to fetch items");

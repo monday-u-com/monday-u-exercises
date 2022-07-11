@@ -8,7 +8,7 @@ const TodoList = ({
   editItemNameAction,
   updateCheckBoxAction,
 }) => {
-  const [taskName, setTaskName] = useState(item.itemName);
+  const [taskName, setTaskName] = useState(item.item);
   const [isEditClicked, setEditClicked] = useState(true);
 
   const handleCheckboxChange = async (e) => {
@@ -26,6 +26,7 @@ const TodoList = ({
   const handleEditButtonClick = () => {
     setEditClicked(false);
   };
+
   const handleSaveButtonClick = async () => {
     try {
       setEditClicked(true);
@@ -81,9 +82,9 @@ const TodoList = ({
 };
 
 TodoList.prototype = {
-  item: PropTypes.object,
-  deleteItemFromDb: PropTypes.func,
-  updateStatusDb: PropTypes.func,
-  editTaskNameDb: PropTypes.func,
+    item: PropTypes.object,
+  deleteItemAction: PropTypes.func,
+  editItemNameAction: PropTypes.func,
+  updateCheckBoxAction: PropTypes.func,
 };
 export default TodoList;

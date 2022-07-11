@@ -1,12 +1,14 @@
 import AppContainer from "./AppContainer";
 import { getItemsAction } from "../../redux/actions/ItemActions";
-import { getItems } from "../../redux/selectors/items-entities-selectors";
+import { getItems ,getTasksStatusState } from "../../redux/selectors/items-entities-selectors";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 const mapStateToProps = (state,ownProps) =>{
     const numOfTasks = getItems(state).length
-    return {numOfTasks}
+    const tasksStatusState = getTasksStatusState(state)
+  
+    return {numOfTasks,tasksStatusState}
 };
 
 const mapDispatchToProps = (dispatch, ownProps) =>{

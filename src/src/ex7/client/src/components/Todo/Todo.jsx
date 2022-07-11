@@ -3,10 +3,11 @@ import "./Todo.css";
 import PropTypes from "prop-types";
 const Todo = ({ items, searchInputValue}) => {
   return (
-    <div className="">
+    <div>
       <ul className="todos">
-      {items
-          .filter((item) => item.itemName.includes(searchInputValue))
+        
+        {items
+          .filter((item) => item.item.includes(searchInputValue))
           .map((item) => {
             return <TodoListConnector item={item} key={item.itemId} />;
           })}
