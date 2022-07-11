@@ -6,10 +6,10 @@ const showLoader = () => ({
 });
 
 export const showLoaderAction = () => {
-    return (dispatch) => {
-      dispatch(showLoader());
-    };
+  return (dispatch) => {
+    dispatch(showLoader());
   };
+};
 
 const hideLoader = () => ({
   type: actionTypes.HIDE_LOADER,

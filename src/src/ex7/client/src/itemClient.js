@@ -1,5 +1,5 @@
 
-const url = "http://localhost:8082";
+const url = "http://localhost:8080";
 const headers = { "Content-Type": "application/json" ,'accept': 'application/json' };
 
 export async function createItem(item) {
@@ -11,13 +11,12 @@ export async function createItem(item) {
       body: JSON.stringify({ item }),
       headers: headers,
     });
-  // dispatch('createItemSuccess',response.json())
+  
 
     if (response.status === 201) {
       return await response.json();
     }
   } catch (err) {
-    // dispatch('createIteFailed')
     throw new Error("faild to create item");
   }
 }

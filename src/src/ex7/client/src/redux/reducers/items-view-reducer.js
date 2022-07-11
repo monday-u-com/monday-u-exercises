@@ -1,4 +1,4 @@
-import actionTypes from "../actions/constants";
+import actionsTypes from "../actions/constants";
 
 const initialState = {
   showLoader: false,
@@ -6,14 +6,14 @@ const initialState = {
 
 const itemsViewReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.DISPLAY_LOADER: {
+    case actionsTypes.DISPLAY_LOADER: {
       return {
         ...state,
         showLoader: true,
       };
     }
 
-    case actionTypes.HIDE_LOADER: {
+    case actionsTypes.HIDE_LOADER: {
       return {
         ...state,
         showLoader: false,

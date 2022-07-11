@@ -6,7 +6,7 @@ const  {logger}  = require('./server/middleware/logger');
 const  cors = require('cors');
 const  bodyParser = require( 'body-parser');
 const Sequelize = require('sequelize');
-const  port = 8082;
+const  port = 8081;
 const app = express();
 
 

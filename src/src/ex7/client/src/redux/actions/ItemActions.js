@@ -5,7 +5,7 @@ import {
     createItem,
     deleteAllItems,
     updateStatus,
-    editTodoName,
+    editTaskName,
     deleteItem,
   } from "../../itemClient";
 
@@ -71,7 +71,7 @@ const editItem = (itemId,newName) =>({
 
 export const editItemNameAction = (itemId,newName) =>{
   return async (dispatch) =>{
-    await editTodoName(itemId,newName);
+    await editTaskName(itemId,newName);
     dispatch(editItem(itemId,newName))
   }
 }
