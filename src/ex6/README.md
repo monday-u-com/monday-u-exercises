@@ -49,3 +49,4 @@ This will make your project:
   - Page suggestions
     - [ ] Task completion statistics page - # of open tasks, total number of tasks, average tim to finish a task, etc.
     - [ ] About page - with some fun facts and profile picture
+

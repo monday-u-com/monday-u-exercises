@@ -1,0 +1,30 @@
+.task {
+  background-color: whitesmoke;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 5px;
+  padding: 0 1em;
+  cursor: pointer;
+  transition: all 0.2s linear 0s;
+}
+
+.task:hover {
+  box-shadow: 0 4px 4px rgba(33, 33, 33, .2);
+}
+
+.task:hover .delete{
+  display: inline;
+}
+
+.item_name {
+  width: 90%;
+  display: flex;
+  margin: 1em;
+}
+
+.delete{
+  color: red;
+  display: none;
+}

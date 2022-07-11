@@ -17,9 +17,10 @@ Use your code from the last exercise and refactor where needed.
 
 ### The requirements:
 
-- [ ] Build node.js cli todo app
-- [ ] Detailed help option
-- [ ] Read/Write/Delete todos from a file
+- [x] Build node.js cli todo app
+- [x] Detailed help option
+- [x] Read/Write/Delete todos from a file
+
 
 When you finish it should look like this:
 
@@ -30,5 +31,6 @@ When you finish it should look like this:
 - [ ] Publish your code as npm package and run it with npx
 - [ ] Add colors to your cli tool
 - [ ] Add Inquirer.js and make you cli tool interactive
-- [ ] Display pokemon image (ascii art)
+- [x] Display pokemon image (ascii art)
+
 
