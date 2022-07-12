@@ -18,12 +18,6 @@ export const clearTasksAction = createAsyncThunk(actionTypes.CLEAR_TASKS, async 
    await api.clearTasks();
 });
 
-export const sortTasksAction = createAsyncThunk(actionTypes.SORT_TASKS, async (kind) => {
-   const response = await api.sortTasks(kind);
-
-   return response;
-});
-
 export const deleteTaskAction = createAsyncThunk(actionTypes.DELETE_TASK, async (id) => {
    await api.deleteTask(id);
 

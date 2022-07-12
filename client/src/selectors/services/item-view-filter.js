@@ -22,3 +22,19 @@ export const filterByDropdown = (state, tasksToDisplay, getDropDownFilter) => {
    }
    return tasksToDisplay;
 };
+
+export const sortByDirection = (state, tasksToDisplay, getSortDirection) => {
+   const direction = getSortDirection(state);
+
+   if (direction === "down") {
+      tasksToDisplay.sort((a, b) => {
+         return a.text.toLowerCase() > b.text.toLowerCase() ? 1 : -1;
+      });
+   } else if (direction === "up") {
+      tasksToDisplay.sort((a, b) => {
+         return a.text.toLowerCase() < b.text.toLowerCase() ? 1 : -1;
+      });
+   }
+
+   return [...tasksToDisplay];
+};

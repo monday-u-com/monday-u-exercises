@@ -28,12 +28,6 @@ export default new (class ItemClient {
       await fetch("/del", { method: "DELETE" });
    }
 
-   async sortTasks(kind) {
-      const response = await fetch(`/sort/${kind}`);
-
-      return await response.json();
-   }
-
    async checkMarkTask(isChecked, taskID) {
       const reqOptions = {
          method: "POST",

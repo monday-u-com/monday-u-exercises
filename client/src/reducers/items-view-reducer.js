@@ -4,6 +4,7 @@ const initialState = {
    loaderShow: true,
    searchInput: "",
    dropdownFilter: "all",
+   sortDirection: "",
 };
 
 const itemsViewReducer = (state = initialState, action) => {
@@ -27,6 +28,8 @@ const itemsViewReducer = (state = initialState, action) => {
          };
       case actionTypes.SET_DROPDOWN_FILTER:
          return { ...state, dropdownFilter: action.payload };
+      case actionTypes.SET_SORT_DIRECTION:
+         return { ...state, sortDirection: action.payload };
       default:
          return state;
    }

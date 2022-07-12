@@ -24,12 +24,6 @@ const itemsEntitiesReducer = (state = initialState, action) => {
          console.error("Clear tasks rejected from server");
          return { tasks: state.tasks };
 
-      case actionTypes.SORT_TASKS_FULFILLED:
-         return { tasks: action.payload };
-      case actionTypes.SORT_TASKS_REJECTED:
-         console.error("Sort tasks rejected from server");
-         return { tasks: state.tasks };
-
       case actionTypes.DELETE_TASK_FULFILLED:
          const newTasks = [...state.tasks].filter((item) => item.id !== action.payload);
          return { tasks: newTasks };
