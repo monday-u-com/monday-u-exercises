@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<ForwardRef(MotionComponent)
+  animate={
+    Object {
+      "opacity": 1,
+      "scale": 1,
+      "x": 0,
+    }
+  }
+  className="task-container"
+  data-id={3}
+  initial={
+    Object {
+      "opacity": 0.3,
+      "scale": 0.6,
+      "x": -130,
+    }
+  }
+  whileHover={
+    Object {
+      "scale": 1.05,
+      "transition": Object {
+        "duration": 0.15,
+      },
+    }
+  }
+>
+  <Memo(Connect(Checkbox))
+    task={
+      Object {
+        "id": 3,
+        "imageURL": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+        "status": true,
+        "text": "Catch Bulbasaur of type Grass,poison",
+      }
+    }
+  />
+  <div
+    className="task"
+  >
+    Catch Bulbasaur of type Grass,poison
+    <img
+      alt="pokemon"
+      className="pokemon-image"
+      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+    />
+  </div>
+  <Button
+    className="delete"
+    innerText={
+      <i
+        className="fa-trash fa-trash fa-solid"
+      />
+    }
+    onClick={[Function]}
+  />
+</ForwardRef(MotionComponent)>
+`;
+
+exports[`renders correctly 2`] = `
+<ForwardRef(MotionComponent)
+  animate={
+    Object {
+      "opacity": 1,
+      "scale": 1,
+      "x": 0,
+    }
+  }
+  className="task-container"
+  data-id={3}
+  initial={
+    Object {
+      "opacity": 0.3,
+      "scale": 0.6,
+      "x": -130,
+    }
+  }
+  whileHover={
+    Object {
+      "scale": 1.05,
+      "transition": Object {
+        "duration": 0.15,
+      },
+    }
+  }
+>
+  <Memo(Connect(Checkbox))
+    task={
+      Object {
+        "id": 3,
+        "text": "Hello",
+      }
+    }
+  />
+  <div
+    className="task"
+  >
+    Hello
+    
+  </div>
+  <Button
+    className="delete"
+    innerText={
+      <i
+        className="fa-trash fa-trash fa-solid"
+      />
+    }
+    onClick={[Function]}
+  />
+</ForwardRef(MotionComponent)>
+`;
