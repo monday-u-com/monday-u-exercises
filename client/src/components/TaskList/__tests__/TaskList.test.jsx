@@ -35,4 +35,14 @@ describe("TaskList", () => {
       expect(task2).toBeInTheDocument();
       expect(trueCheckbox.checked).toEqual(true);
    });
+
+   test("should call getAPITasksAction function", () => {
+      const getAPITasksAction = jest.fn(() => tasks);
+      render(
+         <Provider store={store}>
+            <TaskList tasksToDisplay={tasks} getAPITasksAction={getAPITasksAction} />
+         </Provider>
+      );
+      expect(getAPITasksAction).toHaveBeenCalled();
+   });
 });
