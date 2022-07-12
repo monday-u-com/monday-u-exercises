@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="card"
+>
+  <h1
+    className="title"
+  >
+    About
+  </h1>
+  <p
+    className="info"
+  >
+    This is an exercise, developed as part of the Monday-U Full Stack course.
+  </p>
+  <img
+    alt="profile"
+    className="profile"
+    src="profilepic.jpeg"
+  />
+  <h2
+    className="name"
+  >
+    Lior Tal
+  </h2>
+</div>
+`;
