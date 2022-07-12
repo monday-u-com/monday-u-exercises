@@ -25,8 +25,6 @@ function TaskList({ tasksToDisplay, getAPITasksAction, setTasksAction }) {
 
 TaskList.propTypes = {
    tasksToDisplay: PropTypes.array,
-   loaderShowAction: PropTypes.func,
-   loaderHideAction: PropTypes.func,
    getAPITasksAction: PropTypes.func,
    setTasksAction: PropTypes.func,
 };

@@ -60,8 +60,6 @@ function AddBar({ addTaskAction }) {
 }
 
 AddBar.propTypes = {
-   loaderShowAction: PropTypes.func,
-   loaderHideAction: PropTypes.func,
    addTaskAction: PropTypes.func,
 };
 
