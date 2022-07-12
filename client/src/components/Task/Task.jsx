@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import toastOptions from "../../clients/toast-options";
 
-function Task({ task, deleteTaskAction, undoDeleteTaskAction, getAPITasksAction, setTasksAction }) {
+function Task({ task, deleteTaskAction, undoDeleteTaskAction, getAPITasksAction }) {
    const addPokemonImage = useMemo(() => {
       return <img src={task.imageURL} className={taskCSS["pokemon-image"]} alt="pokemon" />;
    }, [task.imageURL]);
@@ -24,9 +24,7 @@ function Task({ task, deleteTaskAction, undoDeleteTaskAction, getAPITasksAction,
    const Undo = () => {
       const handleClick = async () => {
          await undoDeleteTaskAction();
-         const response = await getAPITasksAction();
-         const allTasks = response.payload;
-         allTasks ? setTasksAction(allTasks) : console.error("Server error");
+         getAPITasksAction();
       };
 
       return (
@@ -66,7 +64,6 @@ Task.propTypes = {
    deleteTaskAction: PropTypes.func,
    undoDeleteTaskAction: PropTypes.func,
    getAPITasksAction: PropTypes.func,
-   setTasksAction: PropTypes.func,
 };
 
 export default Task;
