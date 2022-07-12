@@ -39,7 +39,7 @@ async function deleteAll(req, res, next) {
       next(err);
     }
   }
-async function updateItemStatus(req, res, next){
+async function updatestatus(req, res, next){
     try {
       const itemId = req.params.id
       const newStatus = req.body.status
@@ -49,12 +49,12 @@ async function updateItemStatus(req, res, next){
       next(err);
     }
   }
-  async function editTodoName(req, res, next)
+  async function editTaskName(req, res, next)
   {
     try {
       const itemId = req.params.id
       const newTaskName = req.body.task
-      await ItemManager.editTodoNameInDb(itemId,newTaskName);
+      await ItemManager.editTaskNameInDb(itemId,newTaskName);
       res.status(200).json('name changed');
     } catch (err) {
       next(err);
@@ -66,7 +66,7 @@ async function updateItemStatus(req, res, next){
     deleteItem,
     getAll,
     deleteAll,
-    updateItemStatus,
-    editTodoName
+    updatestatus,
+    editTaskName
     
   }

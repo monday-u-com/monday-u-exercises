@@ -1,43 +1,37 @@
-import { useEffect} from "react";
+import { useEffect } from "react";
 import "./AppContainer.css";
+import ListConnector from "../List/ListConnector";
+import ListControlsConnector from "../ListControls/ListControlsConnector";
+import ListFooterConnector from "../ListFooter/ListFooterConnector";
 import PropTypes from "prop-types";
-import SearchConnector from "../Search/SearchConnector.js";
-import TodoConnector from "../Todo/TodoConnector";
+import SearchBoxConnector from "../SearchBox/SearchBoxConnector.js";
 import SelectBoxConnector from "../SelectBox/SelectBoxConnector";
-import TodoControlsConnector from "../TodoControls/TodoControlsConnector";
-import FooterConnector from "../Footer/FooterConnector";
-import DoneTodosConnector from "../DoneTodos/DoneTodosConnector";
+import DoneTasksConnector from "../DoneTasks/DoneTasksConnector";
 
-
-const AppContainer = ({ numOfTasks, getItemsAction, tasksStatusState }) => {
-  
-
+const AppContainer = ({ numOfItems, getItemsAction, tasksStatusState }) => {
   useEffect(() => {
     getItemsAction();
   }, [getItemsAction]);
 
   return (
-    
     <section className="wrapper">
       <div className="todoApp" id="todoApp">
-        <h1 className="">TOdoS</h1>
+        <h1 className="">TodoS</h1>
 
         <div>
-          <TodoControlsConnector/>
-          {numOfTasks > 0 && <SearchConnector />}
-          {tasksStatusState ? <TodoConnector /> : <DoneTodosConnector />}
-          {numOfTasks > 0 && <SelectBoxConnector />}
-          {numOfTasks > 0 && <FooterConnector />}
-  
+          <ListControlsConnector />
+          {numOfItems > 0 && <SearchBoxConnector />}
+          {tasksStatusState ? <ListConnector /> : <DoneTasksConnector />}
+          {numOfItems > 0 && <SelectBoxConnector />}
+          {numOfItems > 0 && <ListFooterConnector />}
         </div>
       </div>
     </section>
   );
-}
-
+};
 AppContainer.propTypes = {
-  numOfTasks:PropTypes.number,
-  getItemsAction:PropTypes.func,
+  numOfItems: PropTypes.number,
+  getItemsAction: PropTypes.func,
   tasksStatusState: PropTypes.bool,
 };
 

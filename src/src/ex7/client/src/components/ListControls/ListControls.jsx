@@ -1,11 +1,15 @@
 import { useState } from "react";
-import "./TodoControls.css";
-import PropTypes from "prop-types";
+import "./ListControls.css";
 import { Button } from "monday-ui-react-core";
 import "monday-ui-react-core/dist/main.css";
+import PropTypes from "prop-types";
 
-
-const TodoControls = ({ showLoaderAction, hideLoaderAction, addItemsAction, showLoader }) => {
+const ListControls = ({
+  showLoaderAction,
+  hideLoaderAction,
+  addItemsAction,
+  showLoader,
+}) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputValue = (e) => {
@@ -19,15 +23,18 @@ const TodoControls = ({ showLoaderAction, hideLoaderAction, addItemsAction, show
         showLoaderAction();
 
         await addItemsAction(inputValue);
-        hideLoaderAction();
+        hideLoaderAction()
         setInputValue("");
       }
     } catch (err) {
-      throw new Error("Error while Enter Key Pressed");
+      throw new Error("Error render :  while Key Pressed Enter press");
     }
   };
   const handlePressClick = async () => {
     try {
+      if(inputValue === ""){
+        alert("Invalid Entering empty input ")
+      }
       showLoaderAction();
       await addItemsAction(inputValue);
       hideLoaderAction();
@@ -43,7 +50,7 @@ const TodoControls = ({ showLoaderAction, hideLoaderAction, addItemsAction, show
         <input
           type="text"
           className="taskInput"
-          placeholder="Enetr New Todo..."
+          placeholder="Add your new todo"
           onKeyPress={handleEnterPress}
           onChange={handleInputValue}
           value={inputValue}
@@ -61,11 +68,11 @@ const TodoControls = ({ showLoaderAction, hideLoaderAction, addItemsAction, show
   );
 };
 
-TodoControls.propTypes = {
+ListControls.propTypes = {
   showLoaderAction:PropTypes.func,
   hideLoaderAction:PropTypes.func,
   addItemsAction:PropTypes.func,
-  showLoader:PropTypes.bool
+  showLoader:PropTypes.bool,
 };
 
-export default TodoControls;
+export default ListControls;

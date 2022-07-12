@@ -78,7 +78,7 @@ export const editItemNameAction = (itemId, newName) => {
   };
 };
 
-const updateItemStatus = (itemId, checked) => ({
+const updatestatus = (itemId, checked) => ({
   type: actionTypes.UPDATE_CHECKBOX,
   itemId: itemId,
   payload: checked,
@@ -87,7 +87,7 @@ const updateItemStatus = (itemId, checked) => ({
 export const updateCheckBoxAction = (itemId, checked) => {
   return async (dispatch) => {
     await updateStatus(itemId, checked);
-    dispatch(updateItemStatus(itemId, checked));
+    dispatch(updatestatus(itemId, checked));
   };
 };
 

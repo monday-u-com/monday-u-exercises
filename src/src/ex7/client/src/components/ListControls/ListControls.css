@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
 
+
+
 .list-controls{
   display: flex
 }
@@ -31,9 +33,20 @@
 
   }
   #add-button:hover {
-    width: 300px;
+    width: 150px;
     transform:rotate();
     background-color: #00e760;
+  }
+  #add-button ::after{
+    width: 15%;
+    height: 55px;
+    padding: 14px 0px;
+    cursor: pointer;
+    background-color: #ee9300;
+    color: #fff;
+    outline: none;
+    font-size: 30px;
+    transition: width 0.5s
   }
   .addButton:active .task {
     transition: 2s ease;

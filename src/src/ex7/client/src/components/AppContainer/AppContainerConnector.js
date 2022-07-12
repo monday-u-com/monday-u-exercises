@@ -1,14 +1,13 @@
-import AppContainer from "./AppContainer";
-import { getItemsAction } from "../../redux/actions/ItemActions";
-import { getItems ,getTasksStatusState } from "../../redux/selectors/itemsEntitiesSelectors";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import AppContainer from "./AppContainer";
+import { getItemsAction } from "../../redux/actions/ItemActions";
+import { getItems,getTasksStatusState } from "../../redux/selectors/itemsEntitiesSelectors";
 
 const mapStateToProps = (state, ownProps) => {
-  const numOfTasks = getItems(state).length
+    const numOfItems = getItems(state).length
     const tasksStatusState = getTasksStatusState(state)
-  
-    return {numOfTasks,tasksStatusState}
+  return {numOfItems,tasksStatusState};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

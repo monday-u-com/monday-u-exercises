@@ -1,8 +1,7 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
-import DoneTodos from "./DoneTodos";
-import { getSearchInput,getDoneItems } from "../../redux/selectors/itemsEntitiesSelectors";
+import DoneTasks from "./DoneTasks";
+import {getSearchInput, getDoneItems } from "../../redux/selectors/itemsEntitiesSelectors";
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -23,4 +22,6 @@ const mapStateToProps = (state, ownProps) => {
     );
     }  
 
-    export default connect(mapStateToProps, mapDispatchToProps)(DoneTodos);
+
+    export default connect(mapStateToProps, mapDispatchToProps)(DoneTasks);
+

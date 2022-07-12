@@ -1,22 +1,25 @@
 import React from "react";
+import "./SelectBox.css"
 import PropTypes from "prop-types";
-const SelectBox = ({updateSelectInputAction}) =>{
-    const handleSelcetClick = (e) =>{
-        if(e.target.value === "All")  updateSelectInputAction(true);
-        else updateSelectInputAction(false);
-      };
-      return (
-        <select name="totdos" id="todos" onChange={handleSelcetClick}>
-          <option defaultValue value="All">
-            All
-          </option>
-          <option value="Done">Done</option>
-        </select>
-      );
-    };
+const SelectBox = ({ updateSelectInputAction }) => {
+  const handleSelcetClick = (e) => {
+    if (e.target.value === "All") updateSelectInputAction(true);
+    else updateSelectInputAction(false);
+  };
+  return (
     
-    export default SelectBox;
+    <select  name="todos" id="todos" onChange={handleSelcetClick}>
+      <option defaultValue value="All">
+        All Todos
+      </option>
+      <option value="Done">Completed</option>
+    </select>
     
-    SelectBox.prototype = {
-      updateSelectInputAction: PropTypes.func,
-    };
+  );
+};
+
+export default SelectBox;
+
+SelectBox.prototype = {
+  updateSelectInputAction: PropTypes.func,
+};

@@ -167,7 +167,7 @@ class ItemManager {
 throw new Error(err)
   }
 }
-async editTodoNameInDb(itemId, newTaskName) {
+async editTaskNameInDb(itemId, newTaskName) {
   try {
     const item = newTaskName;
     await items.update({ item }, { where: { itemId: itemId } });

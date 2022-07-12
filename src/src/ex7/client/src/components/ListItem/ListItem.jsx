@@ -1,53 +1,56 @@
 import { useState } from "react";
-import "./TodoList.css";
+import "./ListItem.css";
+
 import { Checkbox } from "monday-ui-react-core";
+import "monday-ui-react-core/dist/main.css";
 import PropTypes from "prop-types";
-const TodoList = ({
+const ListItem = ({
   item,
   deleteItemAction,
   editItemNameAction,
   updateCheckBoxAction,
 }) => {
-  const [taskName, setTaskName] = useState(item.item);
+  const [taskName, setTaskName] = useState(item.itemName);
   const [isEditClicked, setEditClicked] = useState(true);
 
   const handleCheckboxChange = async (e) => {
     try {
       await updateCheckBoxAction(item.itemId, e.target.checked);
     } catch (err) {
-      throw new Error("Error While Update checkbox");
+      throw new Error("failed to update status with checkbox");
     }
   };
-
-  const handleClickDelete = async () =>{
-    await deleteItemAction(item.itemId)
-  }
 
   const handleEditButtonClick = () => {
     setEditClicked(false);
   };
-
   const handleSaveButtonClick = async () => {
     try {
       setEditClicked(true);
-      const newTaskName = taskName.replace("Cool You cought ", "");
+      const newTaskName = taskName.replace("catch", "");
       await editItemNameAction(item.itemId, newTaskName);
     } catch (err) {
-      throw new Error("Error while edit Todo on DB");
+      throw new Error("failed to edit task in db");
     }
   };
   const handleInputChange = (e) => {
     setTaskName(e.target.value);
   };
 
+  const handleDeleteClick = async () => {
+    await deleteItemAction(item.itemId);
+  };
+
   return (
     <div>
       <li id={item.itemId} className="new-item">
         <div className="items">
-        <Checkbox
+          <Checkbox
+          
             defaultChecked={item.status}
             onChange={handleCheckboxChange}
           />
+
           <input
             className="inputText"
             type="text"
@@ -57,34 +60,34 @@ const TodoList = ({
           />
           {item.isPokemon!==0 && (
             <a>
-              <img src={item.imageUrl} alt="pokemonImg"/>
+              <img src={item.imageUrl} />
             </a>
           )}
         </div>
         <div>
           
-            <button
-              className="deleteButton"
-              onClick={handleClickDelete}
-              fontSize="inherit"
-            >🗑️</button>
-      
-          {isEditClicked && (
-            <button onClick={handleEditButtonClick} className="editButton" >✏️</button>
-          )}
-          {!isEditClicked && (
-            <button onClick={handleSaveButtonClick} className="saveIcon">💾</button>
-          )}
-        </div>
+          <button
+            className="deleteButton"
+            onClick={handleDeleteClick}
+            fontSize="inherit"
+          >🗑️</button>
+    
+        {isEditClicked && (
+          <button onClick={handleEditButtonClick} className="editButton" >✏️</button>
+        )}
+        {!isEditClicked && (
+          <button onClick={handleSaveButtonClick} className="saveIcon">💾</button>
+        )}
+      </div>
       </li>
     </div>
   );
 };
 
-TodoList.prototype = {
-    item: PropTypes.object,
+ListItem.prototype = {
+  item: PropTypes.object,
   deleteItemAction: PropTypes.func,
   editItemNameAction: PropTypes.func,
   updateCheckBoxAction: PropTypes.func,
 };
-export default TodoList;
+export default ListItem;

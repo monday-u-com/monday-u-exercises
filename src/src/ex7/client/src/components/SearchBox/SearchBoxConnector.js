@@ -1,9 +1,10 @@
-import SearchBox from "./Search";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import {
+  getSearchInput,
+} from "../../redux/selectors/itemsEntitiesSelectors";
 import { updateSearchInputAction } from "../../redux/actions/ItemActions";
-import { getSearchInput } from "../../redux/selectors/itemsEntitiesSelectors";
-
+import SearchBox from "./SearchBox";
 const mapStateToProps = (state, ownProps) => {
   const searchInputValue = getSearchInput(state);
   return { searchInputValue };
@@ -17,4 +18,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   );
 };
 
-  export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
+
+
