@@ -17,6 +17,7 @@ const AppContainer = ({ numOfTasks, getItemsAction, tasksStatusState }) => {
   }, [getItemsAction]);
 
   return (
+    
     <section className="wrapper">
       <div className="todoApp" id="todoApp">
         <h1 className="">TOdoS</h1>
