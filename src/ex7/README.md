@@ -1,4 +1,4 @@
-# Exercise 7 - Redux
+# Exercise 8 - Redux
 
 ## In this section you will practice
 
