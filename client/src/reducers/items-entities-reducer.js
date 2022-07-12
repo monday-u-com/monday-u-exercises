@@ -6,8 +6,11 @@ const initialState = {
 
 const itemsEntitiesReducer = (state = initialState, action) => {
    switch (action.type) {
-      case actionTypes.SET_TASKS:
+      case actionTypes.GET_TASKS_FULFILLED:
          return { tasks: action.payload };
+      case actionTypes.GET_TASKS_REJECTED:
+         console.error("Add task rejected from server");
+         return { tasks: state.tasks };
 
       case actionTypes.ADD_TASK_FULFILLED:
          return { tasks: [...state.tasks, ...action.payload] };
@@ -19,12 +22,6 @@ const itemsEntitiesReducer = (state = initialState, action) => {
          return { tasks: [] };
       case actionTypes.CLEAR_TASKS_REJECTED:
          console.error("Clear tasks rejected from server");
-         return { tasks: state.tasks };
-
-      case actionTypes.SORT_TASKS_FULFILLED:
-         return { tasks: action.payload };
-      case actionTypes.SORT_TASKS_REJECTED:
-         console.error("Sort tasks rejected from server");
          return { tasks: state.tasks };
 
       case actionTypes.DELETE_TASK_FULFILLED:

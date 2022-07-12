@@ -36,20 +36,6 @@ class DBManager {
       });
    };
 
-   async sortTasks(direction) {
-      direction = direction === "down" ? "ASC" : "DESC";
-
-      return await Task.findAll({
-         where: {
-            deleted: null,
-         },
-         order: [
-            ["text", direction],
-            ["id", "ASC"],
-         ],
-      });
-   }
-
    async checkMarkTask(isChecked, taskID) {
       await Task.findOne({ where: { id: taskID } }).then(async (task) => {
          if (!task) {

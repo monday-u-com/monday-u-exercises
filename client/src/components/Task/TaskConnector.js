@@ -5,7 +5,6 @@ import {
    deleteTaskAction,
    undoDeleteTaskAction,
    getAPITasksAction,
-   setTasksAction,
 } from "../../actions/api-actions";
 import { getAllTasks } from "../../selectors/items-entities-selectors";
 
@@ -16,7 +15,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
    return bindActionCreators(
-      { deleteTaskAction, undoDeleteTaskAction, getAPITasksAction, setTasksAction },
+      { deleteTaskAction, undoDeleteTaskAction, getAPITasksAction },
       dispatch
    );
 };

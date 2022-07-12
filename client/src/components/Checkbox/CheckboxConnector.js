@@ -2,10 +2,10 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Checkbox from "./Checkbox";
 import { checkMarkTaskAction } from "../../actions/api-actions";
-import { getAllTasks } from "../../selectors/items-entities-selectors";
+import { getTasksToDisplay } from "../../selectors/items-view-selectors";
 
 const mapStateToProps = (state, ownProps) => {
-   const tasks = getAllTasks(state);
+   const tasks = getTasksToDisplay(state);
    return { tasks };
 };
 
