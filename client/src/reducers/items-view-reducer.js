@@ -8,30 +8,25 @@ const initialState = {
 
 const itemsViewReducer = (state = initialState, action) => {
    switch (action.type) {
-      case actionTypes.SHOW_LOADER:
+      case actionTypes.ADD_TASK_PENDING || actionTypes.GET_TASKS_PENDING:
+         return { ...state, loaderShow: true };
+      case actionTypes.ADD_TASK_FULFILLED || actionTypes.ADD_TASK_REJECTED:
          return {
-            loaderShow: true,
-            searchInput: state.searchInput,
-            dropdownFilter: state.dropdownFilter,
-         };
-      case actionTypes.HIDE_LOADER:
-         return {
+            ...state,
             loaderShow: false,
-            searchInput: state.searchInput,
-            dropdownFilter: state.dropdownFilter,
+         };
+      case actionTypes.GET_TASKS_FULFILLED || actionTypes.GET_TASKS_REJECTED:
+         return {
+            ...state,
+            loaderShow: false,
          };
       case actionTypes.SET_SEARCH_INPUT:
          return {
-            loaderShow: state.loaderShow,
+            ...state,
             searchInput: action.payload,
-            dropdownFilter: state.dropdownFilter,
          };
       case actionTypes.SET_DROPDOWN_FILTER:
-         return {
-            loaderShow: state.loaderShow,
-            searchInput: state.searchInput,
-            dropdownFilter: action.payload,
-         };
+         return { ...state, dropdownFilter: action.payload };
       default:
          return state;
    }

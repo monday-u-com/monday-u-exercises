@@ -3,16 +3,9 @@ import taskListCSS from "./TaskList.module.css";
 import TaskConnector from "../Task/TaskConnector";
 import PropTypes from "prop-types";
 
-function TaskList({
-   tasksToDisplay,
-   loaderShowAction,
-   loaderHideAction,
-   getAPITasksAction,
-   setTasksAction,
-}) {
+function TaskList({ tasksToDisplay, getAPITasksAction, setTasksAction }) {
    useEffect(() => {
       (async () => {
-         loaderShowAction();
          try {
             const response = await getAPITasksAction();
             const allTasks = response.payload;
@@ -20,9 +13,8 @@ function TaskList({
          } catch (error) {
             console.error(error);
          }
-         loaderHideAction();
       })();
-   }, [loaderShowAction, loaderHideAction, getAPITasksAction, setTasksAction]);
+   }, [getAPITasksAction, setTasksAction]);
 
    const tasksList = useMemo(() => {
       return tasksToDisplay.map((task) => <TaskConnector task={task} key={task.id} />);

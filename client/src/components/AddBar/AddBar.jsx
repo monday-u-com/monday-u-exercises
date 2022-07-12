@@ -7,12 +7,10 @@ import addBarCSS from "./AddBar.module.css";
 import { toast } from "react-toastify";
 import toastOptions from "../../clients/toast-options";
 
-function AddBar({ loaderShowAction, loaderHideAction, addTaskAction }) {
+function AddBar({ addTaskAction }) {
    const [inputText, setInputText] = useState("");
 
    const addButtonHandler = useCallback(async () => {
-      loaderShowAction();
-
       if (inputText.trim().length === 0) {
          alert("Please fill in a task");
          setInputText("");
@@ -25,8 +23,7 @@ function AddBar({ loaderShowAction, loaderHideAction, addTaskAction }) {
          }
          setInputText("");
       }
-      loaderHideAction();
-   }, [inputText, setInputText, loaderShowAction, loaderHideAction, addTaskAction]);
+   }, [inputText, setInputText, addTaskAction]);
 
    const handleKeyPress = useCallback(
       (e) => {

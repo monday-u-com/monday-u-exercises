@@ -1,13 +1,13 @@
 const ACTIONS = {
-   // Loader action types
-   SHOW_LOADER: "SHOW_LOADER",
-   HIDE_LOADER: "HIDE_LOADER",
-
    // API action types
    GET_TASKS: "GET_TASKS",
+   GET_TASKS_PENDING: "GET_TASKS/pending",
+   GET_TASKS_FULFILLED: "GET_TASKS/fulfilled",
+   GET_TASKS_REJECTED: "GET_TASKS/rejected",
    SET_TASKS: "SET_TASKS",
 
    ADD_TASK: "ADD_TASK",
+   ADD_TASK_PENDING: "ADD_TASK/pending",
    ADD_TASK_FULFILLED: "ADD_TASK/fulfilled",
    ADD_TASK_REJECTED: "ADD_TASK/rejected",
 
