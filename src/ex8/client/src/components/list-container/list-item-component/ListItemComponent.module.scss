@@ -1,0 +1,41 @@
+.container {
+  padding: var(--spacing-small);
+  height: 68px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+
+  &:hover {
+    color: var(--color-purple);
+    transition: color 0.2s ease-in-out;
+  }
+
+  &:not(:last-of-type) {
+    border-bottom: 1px var(--color-ui_grey) solid;
+  }
+
+  .deleteButton {
+    height: 24px;
+    width: 24px;
+    padding: var(--spacing-xs);
+
+    svg {
+      height: 100%;
+    }
+  }
+
+  .text {
+    flex-grow: 1;
+    padding-left: var(--spacing-small);
+    user-select: none;
+  }
+
+  .checkbox {
+    accent-color: var(--color-indigo);
+    height: 18px;
+    width: 18px;
+  }
+}
