@@ -17,6 +17,7 @@ function Checkbox({ task, checkMarkTaskAction }) {
          className={checkboxCSS["my-checkbox"]}
          checked={task.status}
          onChange={checkboxHandler}
+         data-testid={task.id}
       />
    );
 }
