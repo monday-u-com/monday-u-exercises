@@ -9,7 +9,7 @@ import FooterConnector from "../Footer/FooterConnector";
 import DoneTodosConnector from "../DoneTodos/DoneTodosConnector";
 
 
-const AppContainer = ({ numOfTasks, getItemsAction , tasksStatusState }) => {
+const AppContainer = ({ numOfTasks, getItemsAction, tasksStatusState }) => {
   
 
   useEffect(() => {

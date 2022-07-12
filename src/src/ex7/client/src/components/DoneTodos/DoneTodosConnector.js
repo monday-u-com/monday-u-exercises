@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import DoneTodos from "./DoneTodos";
-import { getSearchInput,getDoneItems } from "../../redux/selectors/items-entities-selectors";
+import { getSearchInput,getDoneItems } from "../../redux/selectors/itemsEntitiesSelectors";
 
 
 const mapStateToProps = (state, ownProps) => {

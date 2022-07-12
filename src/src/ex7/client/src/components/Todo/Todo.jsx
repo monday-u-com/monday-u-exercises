@@ -1,10 +1,10 @@
-import TodoListConnector from "../TodoList/TodoListConnector";
+import TodoListConnector from "../TodoList/TodoListConnector.js";
 import "./Todo.css";
 import PropTypes from "prop-types";
 const Todo = ({ items, searchInputValue}) => {
   return (
     <div>
-      <ul className="todos">
+      <ul className="tasks">
         
         {items
           .filter((item) => item.item.includes(searchInputValue))
@@ -15,6 +15,7 @@ const Todo = ({ items, searchInputValue}) => {
     </div>
   );
 };
+console.log((typeof items))
 Todo.prototype = {
   items: PropTypes.array,
   searchInputValue: PropTypes.string,

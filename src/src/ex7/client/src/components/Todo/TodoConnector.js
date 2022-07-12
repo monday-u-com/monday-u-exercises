@@ -1,7 +1,7 @@
 import Todo from "./Todo";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getItems,getSearchInput} from "../../redux/selectors/items-entities-selectors";
+import { getItems,getSearchInput} from "../../redux/selectors/itemsEntitiesSelectors";
 
 const mapStateToProps = (state, ownProps) => {
   const items = getItems(state)

@@ -2,7 +2,7 @@ import SearchBox from "./Search";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { updateSearchInputAction } from "../../redux/actions/ItemActions";
-import { getSearchInput } from "../../redux/selectors/items-entities-selectors";
+import { getSearchInput } from "../../redux/selectors/itemsEntitiesSelectors";
 
 const mapStateToProps = (state, ownProps) => {
   const searchInputValue = getSearchInput(state);

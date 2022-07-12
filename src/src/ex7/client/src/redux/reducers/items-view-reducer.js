@@ -6,7 +6,7 @@ const initialState = {
 
 const itemsViewReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionsTypes.DISPLAY_LOADER: {
+    case actionsTypes.SHOW_LOADER: {
       return {
         ...state,
         showLoader: true,

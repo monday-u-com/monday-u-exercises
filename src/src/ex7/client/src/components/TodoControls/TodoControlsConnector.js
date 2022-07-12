@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import { showLoaderAction, hideLoaderAction } from "../../redux/actions/ViewsActions";
 import { addItemsAction } from "../../redux/actions/ItemActions";
 import { getShowLoader } from "../../redux/selectors/items-view-selectors";
-import { getItems } from "../../redux/selectors/items-entities-selectors";
+import { getItems } from "../../redux/selectors/itemsEntitiesSelectors";
 
 const mapStateToProps = (state , ownProps) => {
     const showLoader = getShowLoader(state);

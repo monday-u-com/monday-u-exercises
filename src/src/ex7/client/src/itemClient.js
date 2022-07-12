@@ -1,9 +1,10 @@
 const url = "http://localhost:8081";
-const headers = { "Content-Type": "application/json" }
+const headers = { "Content-Type": "application/json" };
+
 export async function createItem(item) {
   try {
     const response = await fetch(`${url}/item`, {
-      method: "POST",
+      method: "post",
       body: JSON.stringify({ item }),
       headers: headers,
     });
@@ -16,7 +17,6 @@ export async function createItem(item) {
   }
 }
 
-
 export async function fetchItems() {
   try {
     const response = await fetch(`${url}/item`);
@@ -26,12 +26,12 @@ export async function fetchItems() {
     }
 
     const data = await response.json();
-    console.log(data);
+
     return data;
   } catch (err) {
     throw new Error("failed to fetch items");
-  }}
-
+  }
+}
 
 export async function deleteItem(itemId) {
   try {
@@ -85,4 +85,5 @@ export async function editTaskName(itemId, newTaskName) {
     throw new Error(err);
   }
 }
+
 

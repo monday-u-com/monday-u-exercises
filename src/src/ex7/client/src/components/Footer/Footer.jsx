@@ -2,7 +2,7 @@
 import "./Footer.css"
 import PropTypes from 'prop-types';
 const Footer = ({numOfTasks,clearAllItemsAction})=>{
-    const hadaleClearAll = async () =>{
+    const handleClearAll = async () =>{
         await clearAllItemsAction();
     }
    
@@ -10,7 +10,7 @@ const Footer = ({numOfTasks,clearAllItemsAction})=>{
     return (
         <footer>
             <p className="count"> You Have: {numOfTasks}  Panding Tasks </p>
-            <button onClick={hadaleClearAll} className="clearAllBtn">
+            <button onClick={handleClearAll} className="clearAllBtn">
                 Clear 🆑
             </button>
             </footer>
@@ -23,4 +23,4 @@ Footer.propTypes={
 }
 
 
-export default Footer
+export default Footer;
