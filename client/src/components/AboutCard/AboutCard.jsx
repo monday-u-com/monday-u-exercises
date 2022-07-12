@@ -1,5 +1,5 @@
 import aboutCardCSS from "./AboutCard.module.css";
-import profilePic from "../assets/profilepic.jpeg";
+import profilePic from "../../assets/profilepic.jpeg";
 
 function AboutCard() {
    return (
