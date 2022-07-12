@@ -3,18 +3,16 @@ import taskListCSS from "./TaskList.module.css";
 import TaskConnector from "../Task/TaskConnector";
 import PropTypes from "prop-types";
 
-function TaskList({ tasksToDisplay, getAPITasksAction, setTasksAction }) {
+function TaskList({ tasksToDisplay, getAPITasksAction }) {
    useEffect(() => {
       (async () => {
          try {
-            const response = await getAPITasksAction();
-            const allTasks = response.payload;
-            allTasks ? setTasksAction(allTasks) : console.error("Server error");
+            await getAPITasksAction();
          } catch (error) {
             console.error(error);
          }
       })();
-   }, [getAPITasksAction, setTasksAction]);
+   }, [getAPITasksAction]);
 
    const tasksList = useMemo(() => {
       return tasksToDisplay.map((task) => <TaskConnector task={task} key={task.id} />);
@@ -26,7 +24,6 @@ function TaskList({ tasksToDisplay, getAPITasksAction, setTasksAction }) {
 TaskList.propTypes = {
    tasksToDisplay: PropTypes.array,
    getAPITasksAction: PropTypes.func,
-   setTasksAction: PropTypes.func,
 };
 
 export default TaskList;

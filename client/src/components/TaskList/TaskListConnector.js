@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getTasksToDisplay } from "../../selectors/items-view-selectors";
 import TaskList from "./TaskList";
-import { getAPITasksAction, setTasksAction } from "../../actions/api-actions";
+import { getAPITasksAction } from "../../actions/api-actions";
 
 const mapStateToProps = (state, ownProps) => {
    const tasksToDisplay = getTasksToDisplay(state);
@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-   return bindActionCreators({ getAPITasksAction, setTasksAction }, dispatch);
+   return bindActionCreators({ getAPITasksAction }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskList);

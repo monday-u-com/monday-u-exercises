@@ -6,6 +6,12 @@ const initialState = {
 
 const itemsEntitiesReducer = (state = initialState, action) => {
    switch (action.type) {
+      case actionTypes.GET_TASKS_FULFILLED:
+         return { tasks: action.payload };
+      case actionTypes.GET_TASKS_REJECTED:
+         console.error("Add task rejected from server");
+         return { tasks: state.tasks };
+
       case actionTypes.SET_TASKS:
          return { tasks: action.payload };
 
