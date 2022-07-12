@@ -1,38 +1,16 @@
+import { getAllTasks } from "./items-entities-selectors";
+import { filterBySearch, filterByDropdown } from "./services/item-view-filter";
+
 const getItemsViewState = (state) => state.itemsView;
 export const getLoaderValue = (state) => getItemsViewState(state).loaderShow;
 export const getInputText = (state) => getItemsViewState(state).searchInput;
 const getDropDownFilter = (state) => getItemsViewState(state).dropdownFilter;
 
 export const getTasksToDisplay = (state) => {
-   let tasksToDisplay = state.itemsEntities.tasks;
+   let tasksToDisplay = getAllTasks(state);
 
-   tasksToDisplay = filterBySearch(state, tasksToDisplay);
-   tasksToDisplay = filterByDropdown(state, tasksToDisplay);
+   tasksToDisplay = filterBySearch(state, tasksToDisplay, getInputText);
+   tasksToDisplay = filterByDropdown(state, tasksToDisplay, getDropDownFilter);
 
-   return tasksToDisplay;
-};
-
-const filterBySearch = (state, tasksToDisplay) => {
-   const searchInputText = getInputText(state);
-
-   if (searchInputText) {
-      return tasksToDisplay.filter((task) => {
-         return task.text.toLowerCase().includes(searchInputText);
-      });
-   }
-   return tasksToDisplay;
-};
-
-const filterByDropdown = (state, tasksToDisplay) => {
-   const dropdownFilterValue = getDropDownFilter(state);
-   if (dropdownFilterValue === "done") {
-      tasksToDisplay = tasksToDisplay.filter((task) => {
-         return task.status === true;
-      });
-   } else if (dropdownFilterValue === "undone") {
-      tasksToDisplay = tasksToDisplay.filter((task) => {
-         return task.status === false;
-      });
-   }
    return tasksToDisplay;
 };
