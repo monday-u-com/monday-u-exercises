@@ -1,6 +1,6 @@
 # Monday Exercises - Exercise 8 - Testing
 
-This is my task for Exercise 7 of Monday-U Full Stack course. Task requirements are detailed below.
+This is my task for Exercise 8 of Monday-U Full Stack course. Task requirements are detailed below.
 
 -  Please try the app (older version) right here: https://weekend-todo.netlify.app/
 
