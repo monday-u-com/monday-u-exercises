@@ -1,0 +1,39 @@
+{
+  "name": "monday-u-exercises1",
+  "version": "1.0.0",
+  "description": "Welcome to monday-u official github repository! We are very excited to have you here!  \r This is going to be so much fun! Here are a few general details:",
+  "main": "server.js",
+  
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kuper-S/monday-u-exercises1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kuper-S/monday-u-exercises1/issues"
+  },
+  "homepage": "https://github.com/Kuper-S/monday-u-exercises1#readme",
+  "dependencies": {
+    "asciify-image": "^0.1.5",
+    "chalk": "^5.0.1",
+    "chalk-animation": "^2.0.2",
+    "commander": "^9.3.0",
+    "fs": "^0.0.1-security",
+    "gradient-string": "^2.0.1",
+    "inquirer": "^8.2.4",
+    "mysql2": "^2.3.3",
+    "node": "^17.7.2",
+    "node-fetch": "^3.2.5",
+    "sequelize": "^6.21.0",
+    "uuid": "^8.3.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0"
+  }
+}
