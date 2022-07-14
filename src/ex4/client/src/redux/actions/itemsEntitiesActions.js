@@ -1,8 +1,8 @@
-import itemClient from "../../item_client";
+import item_client from "../../item_client";
 import actionTypes from "../actions/constants/index";
 
 const setAllItems = async () => {
-	const res = await itemClient.getAllItems();
+	const res = await item_client.getAllItems();
 	if (res.isResOk) {
 		return { type: actionTypes.LOAD_ITEMS, payload: res.items };
 	}
@@ -15,7 +15,7 @@ export const setAllItemsAction = () => {
 };
 
 const addItems = async (value) => {
-	const res = await itemClient.addItem({ itemName: value });
+	const res = await item_client.addItem({ itemName: value });
 	if (res.isResOk) {
 		return { type: actionTypes.ADD_ITEM, payload: res.items };
 	}
@@ -28,7 +28,7 @@ export const dispatchAddItems = (value) => {
 };
 
 const updateItem = async (itemToUpdate) => {
-	const res = await itemClient.updateItem(itemToUpdate, itemToUpdate.id);
+	const res = await item_client.updateItem(itemToUpdate, itemToUpdate.id);
 	if (res.isResOk) {
 		return {
 			type: actionTypes.UPDATE_ITEM,
@@ -44,7 +44,7 @@ export const dispachUpdateItem = (itemToUpdate) => {
 };
 
 const deleteItem = async (itemId, strToRecreate) => {
-	const res = await itemClient.deleteItem(itemId);
+	const res = await item_client.deleteItem(itemId);
 	if (res.isResOk) {
 		return {
 			type: actionTypes.DELETE_iTEM,
@@ -60,7 +60,7 @@ export const dispatchDeleteItem = (itemId, strToRecreate) => {
 };
 
 const clearAll = async () => {
-	const isResOk = await itemClient.clearAll();
+	const isResOk = await item_client.clearAll();
 	if (isResOk) {
 		return { type: actionTypes.LOAD_ITEMS, payload: [] };
 	}

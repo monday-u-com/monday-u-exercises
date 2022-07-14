@@ -54,10 +54,12 @@ const clearAll = async (itemId) => {
 	return res.ok;
 };
 
-module.exports = {
+const itemClient = {
 	getAllItems,
 	addItem,
 	deleteItem,
 	updateItem,
 	clearAll,
 };
+
+export default itemClient;
