@@ -41,7 +41,7 @@ export const clearAllItemsAction = () => {
   };
 };
 
-const addItems = (newItems) => ({
+export const addItems = (newItems) => ({
   type: actionTypes.ADD_ITEMS,
   payload: newItems,
 });

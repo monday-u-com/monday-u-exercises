@@ -36,7 +36,7 @@ class ItemManager {
     if (!pokemonIsExist){
       const task = this.pokemonInit(
         1,
-        pokemon.name,
+        `WoW! you just Cought ${pokemon.name}`,
         pokemon.sprites.front_default,
         pokemon.id
       );
@@ -58,7 +58,7 @@ class ItemManager {
       pokemons.forEach((pokemon) => {
         const task = this.pokemonInit(
           1,
-          pokemon.name,
+          `WoW! you just Cought ${pokemon.name}`,
           pokemon.sprites.front_default,
           pokemon.id
         );
@@ -136,7 +136,7 @@ class ItemManager {
       this.itemsArray.splice(indexId,1);
       await items.destroy({ where: { itemId: itemId } });
     } catch (err) {
-      throw `There is no task with id: ${itemId} `;
+      throw `There is no todo with id: ${itemId} `;
     }
   }
   itemToAdd(arr) {
