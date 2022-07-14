@@ -1,0 +1,80 @@
+* {
+	margin: 0;
+}
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: linear-gradient(135deg, rgb(119, 75, 238), rgb(190, 59, 230));
+	font-family: system-ui;
+}
+
+h1 {
+	margin-bottom: 10px;
+	font-weight: 700;
+	color: rgb(190, 59, 230);
+}
+
+.container {
+	position: relative;
+	border: 1px solid rgba(142, 158, 174, 0.701);
+	border-radius: 8px;
+	padding: 1rem;
+	background-color: aliceblue;
+	width: 300px;
+	display: inline-grid;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+.clear-all {
+	/* display: none; */
+	float: right;
+	height: 35px;
+	width: 35px;
+}
+
+.tash-icon {
+	padding: 5px;
+	width: 20px;
+	height: 20px;
+	animation-name: img-size;
+	animation-duration: 0.2s;
+}
+
+.pluse-icon {
+	width: 20px;
+	height: 20px;
+}
+
+.pluse-icon-element {
+	padding: 5px;
+	margin-right: 5px;
+	background-color: rgba(127, 255, 212, 0.597);
+	border-radius: 25%;
+	float: right;
+	display: flex;
+}
+
+.margin-bottom-element {
+	margin-bottom: 15px;
+}
+
+@keyframes elemet-size {
+	from {
+		width: 17px;
+	}
+	to {
+		width: 30px;
+	}
+}
+@keyframes img-size {
+	from {
+		width: 14px;
+	}
+	to {
+		width: 20px;
+	}
+}
