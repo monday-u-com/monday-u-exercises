@@ -6,7 +6,7 @@ import "../../App.css";
 import ItemComp from "../itemComp/ItemComp";
 
 function ItemsComp({
-	items = [],
+	items,
 	dispatchDeleteItem,
 	dispachUpdateItem,
 	searchText,
@@ -28,6 +28,7 @@ function ItemsComp({
 			setFilteredItems(items);
 		}
 	}, [items, searchText]);
+
 	const renderItems = useCallback(() => {
 		return (
 			<div>

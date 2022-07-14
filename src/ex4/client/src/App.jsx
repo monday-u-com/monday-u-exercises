@@ -1,7 +1,6 @@
 import "./App.css";
-// import TodoListComp from "./components/todoListComp/todoListComp";
 import TodoListCompConnector from "./components/todoListComp/TodoListCompConnector";
-function App({ showToastAction, showToast }) {
+function App() {
 	return <TodoListCompConnector />;
 }
 

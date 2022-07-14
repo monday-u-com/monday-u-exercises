@@ -9,7 +9,7 @@ import plusImg from "../../images/plus.png";
 import backArrow from "../../images/backArrow.png";
 import { useMemo } from "react";
 
-function ItemComp({ item, deleteItem, updateItem, dispachUpdateItem }) {
+function ItemComp({ item, deleteItem, dispachUpdateItem }) {
 	const [isEditElement, setIsEditElement] = useState(false);
 	const [newItem, setNewItem] = useState(item);
 
