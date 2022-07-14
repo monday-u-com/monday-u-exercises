@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import '@testing-library/jest-dom'
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store";
@@ -12,6 +13,6 @@ test("renders learn react link", () => {
       </Provider>
     </BrowserRouter>
   );
-  const linkElement = screen.getByText(/Todo App/i);
+  const linkElement = screen.getByText(/TodoS/i);
   expect(linkElement).toBeInTheDocument();
 });
