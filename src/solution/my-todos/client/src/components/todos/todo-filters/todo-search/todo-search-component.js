@@ -3,7 +3,7 @@ import "./TodoSearch.scss";
 
 let _timeout;
 
-const TodoSearch = ({setTodoSearchAction, todoSearchValue}) => {
+const TodoSearch = ({setTodoSearchAction}) => {
     const [search, setSearch] = useState('');
 
     const onSearchInputChange = useCallback(e => {

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly TodoItem  1`] = `
+<div
+  className="footer"
+>
+  <span>
+    You have 
+    <span
+      className="pending-todos"
+    >
+      5
+    </span>
+     pending tasks
+  </span>
+  <button
+    className="active"
+    id="footer-btn"
+    onClick={[Function]}
+  >
+    Clear All
+  </button>
+</div>
+`;

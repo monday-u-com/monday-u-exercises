@@ -10,7 +10,7 @@ const todoInputReducer = (state = initialState, action) => {
             return {value: state.value};
 
         case actionTypes.ADD_TODO: {
-            return {value: action.value};
+            return {value: state.value};
         }
 
         default:

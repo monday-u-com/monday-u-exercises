@@ -17,13 +17,15 @@
     "react-redux": "^8.0.1",
     "react-scripts": "5.0.1",
     "react-select": "^5.4.0",
+    "react-router-dom": "^6.3.0",
+    "react-test-renderer": "^18.2.0",
     "sass": "^1.52.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject"
   },
   "devDependencies": {

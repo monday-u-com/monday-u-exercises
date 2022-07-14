@@ -13,6 +13,7 @@ const todoSortByReducer = (state = initialState, action) => {
         case actionTypes.SORT_VALUE: {
             const current = todosSortByOptions.find(({value}) => value == action.sort);
             console.log('current sort:', current);
+            console.log({sort: action.sort, label: current.label, obj: current})
             return {sort: action.sort, label: current.label, obj: current};
         }
 
