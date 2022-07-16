@@ -5,10 +5,12 @@ describe("Add Todo Action", () => {
 
   it("Should add a new todo", () => {
     // TODO: fill this test
-    cy.get('.taskInput').first().click().type("AutomationBro");
+    const testItem = "Be a good Man"
+    cy.get('.taskInput').first().click().type(`${testItem}`);
     cy.get(".monday-style-button").first().click()
   });
 
+  // e2e Delete All Items
   it("Shuold Delete All Todos", ()=>{
     cy.wait(5000)
     cy.get('.clearAllBtn').click();

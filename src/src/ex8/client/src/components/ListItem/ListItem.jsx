@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./ListItem.css";
-
 import { Checkbox } from "monday-ui-react-core";
 import "monday-ui-react-core/dist/main.css";
 import PropTypes from "prop-types";
@@ -52,6 +51,7 @@ const ListItem = ({
           />
 
           <input
+            data-testid={`item-${item.itemId}`}
             className="inputText"
             type="text"
             readOnly={isEditClicked}
