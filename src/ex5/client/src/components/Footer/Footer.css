@@ -1,0 +1,35 @@
+
+@keyframes body-animation {
+    from {background-color: #ffc3a0}
+    to {background-color: #ffafbd}
+  }
+  
+  @keyframes count-animation {
+    from {color:#e97c00}
+    to {color: #f7ca02}
+  }
+  
+  .count{
+    font-weight: bold;
+    animation-name: count-animation;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-duration: 4s;
+    position: fixed;
+  }
+  .clearAllBtn {
+      background-color: #f04b10;
+      color: #fff;
+      border: none;
+      outline: none;
+      padding: 10px;
+      margin: 10px 0;
+      float: right;
+      border-radius: 2px;
+      cursor: pointer;
+     
+    }
+    
+  .clearAllBtn:hover{
+    background-color: #ff7f51;
+  }
