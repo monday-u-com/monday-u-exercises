@@ -7,6 +7,8 @@ const logger = require("./server/middleware/logger");
 const port = 8080;
 const server = express();
 
+require("dotenv").config();
+
 server.use([logger, compression(), express.json()]);
 
 server.use("/", router);
