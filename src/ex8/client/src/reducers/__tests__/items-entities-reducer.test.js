@@ -1,25 +1,8 @@
-import { itemsEntitiesReducer } from "../items-entities-reducer"
-
-test("should handle FETCH_ITEMS_SUCCESS", () => {
-  const action = {
-    type: "FETCH_ITEMS_SUCCESS",
-    items: [
-      { id: 1, name: "Item 1" },
-      { id: 2, name: "Item 2" },
-    ],
-  }
-
-  const result = itemsEntitiesReducer(undefined, action)
-
-  expect(result).toEqual({
-    1: { id: 1, name: "Item 1" },
-    2: { id: 2, name: "Item 2" },
-  })
-})
+import itemsEntitiesReducer from "../items-entities-reducer"
 
 test("should handle ADD_ITEM_SUCCESS", () => {
   const action = {
-    type: "ADD_ITEM_SUCCESS",
+    type: "add_item_success",
     item: { id: 3, name: "Item 3" },
   }
 
@@ -32,7 +15,7 @@ test("should handle ADD_ITEM_SUCCESS", () => {
 
 test("should handle REMOVE_ITEM_SUCCESS", () => {
   const action = {
-    type: "REMOVE_ITEM_SUCCESS",
+    type: "remove_item_success",
     item: { id: 1, name: "Item 1" },
   }
 
@@ -46,5 +29,25 @@ test("should handle REMOVE_ITEM_SUCCESS", () => {
 
   expect(result).toEqual({
     2: { id: 2, name: "Item 2" },
+  })
+})
+
+test("should handle TOGGLE_ITEM_SUCCESS", () => {
+  const action = {
+    type: "toggle_item_success",
+    itemId: 1,
+  }
+
+  const result = itemsEntitiesReducer(
+    {
+      1: { id: 1, name: "Item 1", status: false },
+      2: { id: 2, name: "Item 2", status: true },
+    },
+    action
+  )
+
+  expect(result).toEqual({
+    1: { id: 1, name: "Item 1", status: true },
+    2: { id: 2, name: "Item 2", status: true },
   })
 })
