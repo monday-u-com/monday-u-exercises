@@ -1,6 +1,7 @@
 import actionTypes from "../actions/constants";
 
-const initialState = {
+export const initialState = {
+  isLoading: false,
   todoList: [],
   removedTasks: [],
 };
@@ -32,12 +33,14 @@ const itemsEntitiesReducer = (state = initialState, action) => {
         return item.itemName;
       });
       if (!ifExist.includes(task.itemName)) {
+        //check if the task already exist in removedTasks
         newRemovedTasks = [...state.removedTasks, { itemName: task.itemName }];
         if (newRemovedTasks.length > 10) newRemovedTasks.shift();
       } else {
         newRemovedTasks = [...state.removedTasks];
       }
       return {
+        ...state,
         removedTasks: newRemovedTasks,
         todoList: newtodoList,
       };
@@ -58,8 +61,16 @@ const itemsEntitiesReducer = (state = initialState, action) => {
       let newRemovedTasks = [...state.removedTasks];
       newRemovedTasks.pop();
       return {
+        ...state,
         removedTasks: newRemovedTasks,
         todoList: [...state.todoList, ...task],
+      };
+    }
+    case actionTypes.SET_LOADER: {
+      const { toggle } = action;
+      return {
+        ...state,
+        isLoading: toggle,
       };
     }
     default:

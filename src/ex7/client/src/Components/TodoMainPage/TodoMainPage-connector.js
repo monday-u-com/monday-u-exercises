@@ -11,18 +11,29 @@ import {
   setSearchInputAction,
   setMarkedAction,
 } from "../../actions/view-actions";
-import { getRemovedTasks, getTodoList } from "../../selectors/items-entities-selectors";
+import {
+  getHasRemovedTasks,
+  getTodoListLength,
+  getIsLoading,
+} from "../../selectors/items-entities-selectors";
 import {
   getSearchInput,
   getMarked,
 } from "../../selectors/items-view-selectors";
 
 const mapStateToProps = (state) => {
-  const todoList = getTodoList(state);
+  const todoListLength = getTodoListLength(state);
   const searchInput = getSearchInput(state);
-  const marked = getMarked(state);
-  const removedTasks = getRemovedTasks(state);
-  return { todoList, searchInput, marked,removedTasks };
+  const markeFilter = getMarked(state);
+  const hasRemovedTasks = getHasRemovedTasks(state);
+  const isLoading = getIsLoading(state);
+  return {
+    todoListLength,
+    searchInput,
+    markeFilter,
+    hasRemovedTasks,
+    isLoading,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
