@@ -39,7 +39,11 @@ async function deleteAll(req, res, next) {
       next(err);
     }
   }
+<<<<<<< HEAD
 async function updatestatus(req, res, next){
+=======
+async function updateItemStatus(req, res, next){
+>>>>>>> ex5
     try {
       const itemId = req.params.id
       const newStatus = req.body.status
@@ -49,6 +53,7 @@ async function updatestatus(req, res, next){
       next(err);
     }
   }
+<<<<<<< HEAD
   async function editTaskName(req, res, next)
   {
     try {
@@ -60,13 +65,19 @@ async function updatestatus(req, res, next){
       next(err);
     }
   }
+=======
+>>>>>>> ex5
 
   module.exports = {
     createItem,
     deleteItem,
     getAll,
     deleteAll,
+<<<<<<< HEAD
     updatestatus,
     editTaskName
+=======
+    updateItemStatus
+>>>>>>> ex5
     
   }

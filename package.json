@@ -19,8 +19,12 @@
   },
   "homepage": "https://github.com/Kuper-S/monday-u-exercises1#readme",
   "dependencies": {
+<<<<<<< HEAD
     "asciify-image": "^0.1.8",
     "axios": "^0.27.2",
+=======
+    "asciify-image": "^0.1.5",
+>>>>>>> ex5
     "chalk": "^5.0.1",
     "chalk-animation": "^2.0.2",
     "commander": "^9.3.0",
@@ -30,6 +34,7 @@
     "fs": "^0.0.1-security",
     "gradient-string": "^2.0.1",
     "inquirer": "^8.2.4",
+    "mysql2": "^2.3.3",
     "node": "^17.7.2",
     "node-fetch": "^3.2.5"
   },

@@ -35,7 +35,11 @@ class ItemManager {
     const pokemonIsExist = await this.exsitInDb(pokemon.id);
     if (!pokemonIsExist){
       const task = this.pokemonInit(
+<<<<<<< HEAD
         1,
+=======
+        true,
+>>>>>>> ex5
         pokemon.name,
         pokemon.sprites.front_default,
         pokemon.id
@@ -57,7 +61,11 @@ class ItemManager {
 
       pokemons.forEach((pokemon) => {
         const task = this.pokemonInit(
+<<<<<<< HEAD
           1,
+=======
+          true,
+>>>>>>> ex5
           pokemon.name,
           pokemon.sprites.front_default,
           pokemon.id
@@ -72,7 +80,11 @@ class ItemManager {
         pokemonId += task + " ";
       });
       const task = this.pokemonInit(
+<<<<<<< HEAD
         0,
+=======
+        false,
+>>>>>>> ex5
         `pokemon with id: ${pokemonId} was not found`
       );
       this.itemsArray.push(task);
@@ -130,10 +142,13 @@ class ItemManager {
 
   async deleteItem(itemId) {
     try {
+<<<<<<< HEAD
       const indexId = this.itemsArray.findIndex((item)=>{
         item.itemId === itemId;
       });
       this.itemsArray.splice(indexId,1);
+=======
+>>>>>>> ex5
       await items.destroy({ where: { itemId: itemId } });
     } catch (err) {
       throw `There is no task with id: ${itemId} `;
@@ -159,7 +174,11 @@ class ItemManager {
   }
   async statusUpdateDb(itemId,newStatus){
     try{
+<<<<<<< HEAD
       const status = newStatus
+=======
+      let status = newStatus
+>>>>>>> ex5
       await items.update({status},{ where: { itemId: itemId } })
     }
     catch(err)
@@ -167,6 +186,7 @@ class ItemManager {
 throw new Error(err)
   }
 }
+<<<<<<< HEAD
 async editTaskNameInDb(itemId, newTaskName) {
   try {
     const item = newTaskName;
@@ -178,4 +198,8 @@ async editTaskNameInDb(itemId, newTaskName) {
 }
 
 
+=======
+}
+
+>>>>>>> ex5
 module.exports = new ItemManager();
