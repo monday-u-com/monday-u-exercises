@@ -34,7 +34,7 @@ const itemsEntitiesReducer = (state = initialState, action) => {
       return { ...state, items: items };
     }
     case actionTypes.DELETE_ALL: {
-      return { ...state, items: [] };
+      return { ...state, items: [], status: 'idle' };
     }
     case actionTypes.CHECK: {
       const { id, newStatus } = action.payload;
@@ -42,7 +42,7 @@ const itemsEntitiesReducer = (state = initialState, action) => {
       const itemToCheck = state.items.findIndex((item) => item.id === id);
       const clonedItem = { ...items[itemToCheck], status: newStatus };
       items[itemToCheck] = clonedItem;
-      return { ...state, items: items };
+      return { ...state, items: items, status: 'idle' };
     }
     case actionTypes.EDIT_TEXT: {
       const { id, newText } = action.payload;
@@ -50,7 +50,7 @@ const itemsEntitiesReducer = (state = initialState, action) => {
       const itemToEdit = items.findIndex((item) => item.id === id);
       const clonedItem = { ...items[itemToEdit], name: newText };
       items[itemToEdit] = clonedItem;
-      return { ...state, items: items };
+      return { ...state, items: items, status: 'idle' };
     }
     case actionTypes.SEARCH: {
       const { text } = action.payload;
@@ -65,62 +65,6 @@ const itemsEntitiesReducer = (state = initialState, action) => {
     default:
       return state;
   }
-};
-
-export function fetchItems(field) {
-  return async (dispatch) => {
-    dispatch({ type: 'SET_STATUS', payload: { status: 'loading' } });
-    const response = await getItems(field);
-    dispatch({ type: 'FETCH', payload: { items: response } });
-    dispatch({ type: 'SET_STATUS', payload: { status: 'idle' } });
-  };
-}
-
-export function addNewItems(items) {
-  return async (dispatch) => {
-    dispatch({ type: 'SET_STATUS', payload: { status: 'loading' } });
-    const response = await addItems(items);
-    response.forEach((newItem) => {
-      dispatch({ type: 'ADD', payload: { item: newItem } });
-    });
-    dispatch({ type: 'SET_STATUS', payload: { status: 'idle' } });
-  };
-}
-
-export function editItemText(id, newText) {
-  return async (dispatch) => {
-    await editItem(id, newText);
-    dispatch({ type: 'EDIT_TEXT', payload: { id, newText } });
-  };
-}
-
-export function changeItemStatus(id, newStatus) {
-  return async (dispatch) => {
-    await changeStatus(id, newStatus);
-    dispatch({ type: 'CHECK', payload: { id, newStatus } });
-  };
-}
-
-export function deleteItem(id) {
-  return async (dispatch) => {
-    await removeItem(id);
-    dispatch({ type: 'DELETE', payload: { id } });
-  };
-}
-
-export function deleteAll() {
-  return async (dispatch) => {
-    dispatch({ type: 'SET_STATUS', payload: { status: 'loading' } });
-    await removeAll();
-    dispatch({ type: 'DELETE_ALL' });
-    dispatch({ type: 'SET_STATUS', payload: { status: 'idle' } });
-  };
-}
-
-export const searchAction = (text) => {
-  return (dispatch) => {
-    dispatch({ type: 'SEARCH', payload: { text } });
-  };
 };
 
 export default itemsEntitiesReducer;

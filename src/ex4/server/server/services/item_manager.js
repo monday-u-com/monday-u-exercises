@@ -1,6 +1,6 @@
 const pokemonApi = require('../clients/pokemon_client');
 const { Op } = require('sequelize');
-const { item } = require('../../db/models');
+const { item } = require('../db/models');
 const { v4: uuidv4 } = require('uuid');
 const pokemonClient = new pokemonApi();
 

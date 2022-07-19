@@ -1,11 +1,11 @@
 import TodoContainer from './components/todo-container/TodoContainer';
 import StatisticsContainer from './components/statistics-container/StatisticsContainer';
 import { Route, Routes } from 'react-router-dom';
-import Layout from './components/Layout';
+import Layout from './components/Layout/Layout';
 import { useDispatch } from 'react-redux';
 import './App.css';
 import { useEffect } from 'react';
-import { fetchItems } from './reducers/items-entities-reducer';
+import { fetchItems } from './actions/fetch-items-actions';
 
 function App() {
   const dispatch = useDispatch();

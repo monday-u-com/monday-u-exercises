@@ -1,5 +1,5 @@
 import { Flex, TextField } from 'monday-ui-react-core';
-import { ReactComponent as Add } from '../images/add_icon.svg';
+import { AddSmall } from 'monday-ui-react-core/dist/allIcons';
 import { useRef } from 'react';
 import 'monday-ui-react-core/dist/main.css';
 import { PropTypes } from 'prop-types';
@@ -15,7 +15,7 @@ const ItemInput = ({ onAdd }) => {
     <Flex style={{ margin: '5px 0' }}>
       <TextField
         ref={inputRef}
-        iconName={Add}
+        iconName={AddSmall}
         labelIconName="Add task"
         placeholder="Add task..."
         clearOnIconClick={true}

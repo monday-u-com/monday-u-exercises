@@ -1,17 +1,17 @@
 import { Flex, TextField } from 'monday-ui-react-core';
-import { ReactComponent as Search } from '../../images/search_icon.svg';
+import { Search } from 'monday-ui-react-core/dist/allIcons';
 import { useRef } from 'react';
 import 'monday-ui-react-core/dist/main.css';
 import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { searchAction } from '../../reducers/items-entities-reducer';
+import { search } from '../../actions/search-items-actions';
 
 const SearchBar = () => {
   const dispatch = useDispatch();
   const inputRef = useRef('');
 
   const searchItemHandler = () => {
-    dispatch(searchAction(inputRef.current.value));
+    dispatch(search(inputRef.current.value));
   };
 
   return (

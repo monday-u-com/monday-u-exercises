@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly the StatisticsContainer 1`] = `
+<div
+  className="components-Flex-Flex-module__container--ZDN6j components-Flex-Flex-module__directionColumn--VHI6B components-Flex-Flex-module__justifySpaceBetween--lQ3bb components-Flex-Flex-module__alignCenter--oWj46 todo-container"
+  style={
+    Object {
+      "gap": "0px",
+    }
+  }
+>
+  <div
+    className="todo-list-container"
+  >
+    <h1>
+      Statistics
+    </h1>
+    <div>
+      <h3>
+        Completed: 
+      </h3>
+      <h3>
+        0
+      </h3>
+      <h3>
+        Overall:
+      </h3>
+      <h3>
+         
+        0
+      </h3>
+      <h3>
+        Catched pokemons:
+      </h3>
+      <h3>
+        0
+      </h3>
+    </div>
+  </div>
+</div>
+`;

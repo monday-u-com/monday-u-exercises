@@ -1,15 +1,13 @@
 import { ListItem, IconButton, Flex } from 'monday-ui-react-core';
-import { ReactComponent as Delete } from '../../images/delete_icon.svg';
-import { ReactComponent as Edit } from '../../images/edit_icon.svg';
+import { Edit } from 'monday-ui-react-core/dist/allIcons';
+import { Delete } from 'monday-ui-react-core/dist/allIcons';
 import 'monday-ui-react-core/dist/main.css';
 import { useRef, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
-import {
-  editItemText,
-  changeItemStatus,
-  deleteItem,
-} from '../../reducers/items-entities-reducer';
+import { editItemText } from '../../actions/edit-item-actions';
+import { changeItemStatus } from '../../actions/toggle-item-actions';
+import { deleteItem } from '../../actions/remove-item-actions';
 
 const Item = ({ text, id, status }) => {
   const dispatch = useDispatch();

@@ -1,9 +1,7 @@
 import { MenuButton, MenuItem, Menu } from 'monday-ui-react-core';
-import {
-  showAllAction,
-  showDoneAction,
-  showUndoneAction,
-} from '../../reducers/items-view-reducer';
+import { showAllAction } from '../../actions/show-all-actions';
+import { showDoneAction } from '../../actions/show-done-actions';
+import { showUndoneAction } from '../../actions/show-undone-actions';
 import { useDispatch } from 'react-redux';
 const ViewMenu = () => {
   const dispatch = useDispatch();

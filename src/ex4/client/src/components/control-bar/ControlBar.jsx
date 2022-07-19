@@ -1,10 +1,10 @@
 import { Flex, Button, SplitButton, ListItem } from 'monday-ui-react-core';
 import { PropTypes } from 'prop-types';
 import 'monday-ui-react-core/dist/main.css';
-import { fetchItems } from '../../reducers/items-entities-reducer';
+import { fetchItems } from '../../actions/fetch-items-actions';
 import { useDispatch } from 'react-redux';
 
-const ControlBar = ({ onDeleteAll, onSort }) => {
+const ControlBar = ({ onDeleteAll }) => {
   const dispatch = useDispatch();
 
   const sortHandler = (field) => {
@@ -29,17 +29,19 @@ const ControlBar = ({ onDeleteAll, onSort }) => {
         size={Button.sizes.SMALL}
         kind={SplitButton.kinds.SECONDARY}
         secondaryDialogPosition={SplitButton.secondaryPositions.BOTTOM_MIDDLE}
-        secondaryDialogContent={[
-          <ListItem key="name-sort" onClick={() => sortHandler('name')}>
-            By Name
-          </ListItem>,
-          <ListItem key="date-sort" onClick={() => sortHandler('createdAt')}>
-            By Date
-          </ListItem>,
-          <ListItem key="status-sort" onClick={() => sortHandler('status')}>
-            By Progress
-          </ListItem>,
-        ]}
+        secondaryDialogContent={
+          <div>
+            <ListItem key="name-sort" onClick={() => sortHandler('name')}>
+              By Name
+            </ListItem>
+            <ListItem key="date-sort" onClick={() => sortHandler('createdAt')}>
+              By Date
+            </ListItem>
+            <ListItem key="status-sort" onClick={() => sortHandler('status')}>
+              By Progress
+            </ListItem>
+          </div>
+        }
       >
         SORT
       </SplitButton>

@@ -1,5 +1,5 @@
 import { Tab } from 'monday-ui-react-core';
-import Card from './ui/Card';
+import Card from '../ui/Card';
 import { useNavigate } from 'react-router-dom';
 
 function Layout({ children }) {

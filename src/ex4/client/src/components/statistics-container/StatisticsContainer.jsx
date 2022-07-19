@@ -1,8 +1,5 @@
 import { Flex } from 'monday-ui-react-core';
 import 'monday-ui-react-core/dist/main.css';
-import { useState, useEffect } from 'react';
-import { getItems } from '../../Services/item_client';
-import LoadingSpinner from '../ui/LoadingSpinner';
 import { useSelector } from 'react-redux';
 
 const StatisticsContainer = () => {

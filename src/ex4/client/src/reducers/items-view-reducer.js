@@ -17,20 +17,4 @@ const itemsViewReducer = (state = initialState, action) => {
   }
 };
 
-export const showDoneAction = () => {
-  return (dispatch) => {
-    dispatch({ type: 'SHOW_DONE' });
-  };
-};
-
-export const showUndoneAction = () => {
-  return (dispatch) => {
-    dispatch({ type: 'SHOW_UNDONE' });
-  };
-};
-export const showAllAction = () => {
-  return (dispatch) => {
-    dispatch({ type: 'SHOW_ALL' });
-  };
-};
 export default itemsViewReducer;

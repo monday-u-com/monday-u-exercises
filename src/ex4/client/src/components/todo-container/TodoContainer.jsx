@@ -1,11 +1,11 @@
 import { Flex } from 'monday-ui-react-core';
-import ItemInput from '../ItemInput';
-import ItemsList from '../items/ItemsList';
+import ItemInput from '../item-input/ItemInput';
+import ItemsList from '../items-list/ItemsList';
 import ControlBar from '../control-bar/ControlBar';
 import 'monday-ui-react-core/dist/main.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { addNewItems, deleteAll } from '../../reducers/items-entities-reducer';
-
+import { deleteAll } from '../../actions/deleteAll-items-actions';
+import { addNewItems } from '../../actions/add-item-actions';
 import LoadingSpinner from '../ui/LoadingSpinner';
 import SearchBar from '../search/SearchBar';
 
@@ -22,9 +22,6 @@ const TodoContainer = () => {
     dispatch(deleteAll());
   };
 
-  const sortList = async (field) => {
-    //const sortedList = await getItems(field);
-  };
   return (
     <Flex
       className="todo-container"
@@ -38,7 +35,7 @@ const TodoContainer = () => {
         {isLoading === 'loading' && <LoadingSpinner />}
         {isLoading === 'idle' && <ItemsList />}
       </div>
-      <ControlBar onDeleteAll={removeAll} onSort={sortList}></ControlBar>
+      <ControlBar onDeleteAll={removeAll}></ControlBar>
     </Flex>
   );
 };

@@ -1,5 +1,5 @@
 import { List, Flex } from 'monday-ui-react-core';
-import Item from './Item';
+import Item from '../item/Item';
 import ListPlaceHolder from '../ui/ListPlaceHolder';
 import 'monday-ui-react-core/dist/main.css';
 import { PropTypes } from 'prop-types';

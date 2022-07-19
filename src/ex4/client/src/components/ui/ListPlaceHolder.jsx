@@ -1,10 +1,10 @@
-import { ReactComponent as Hand } from '../../images/hand_icon.svg';
+import { MoveArrowUp } from 'monday-ui-react-core/dist/allIcons';
 import { Icon } from 'monday-ui-react-core';
 
 const ListPlaceHolder = () => {
   return (
     <div className="empty-list">
-      <Icon icon={Hand} />
+      <Icon icon={MoveArrowUp} />
       <h3>Add a new task!</h3>
     </div>
   );
