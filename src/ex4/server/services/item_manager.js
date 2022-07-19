@@ -71,7 +71,7 @@ class ItemManager {
 			const numOfDestroyedItems = await item.destroy({ where: {} });
 			return numOfDestroyedItems > 0;
 		} catch (err) {
-			return err;
+			console.error(err);
 		}
 	}
 

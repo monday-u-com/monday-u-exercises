@@ -1,37 +1,26 @@
 import "../../App.css";
 import "./InputComp.css";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef } from "react";
 import ButtonComp from "../buttonComp/ButtonComp";
 import plusImg from "../../images/plus.png";
-import { useEffect } from "react";
 
-function InputComp({
-	dispatchAddItems,
-	dispatchIsLoading,
-	dispatchSearchText,
-}) {
-	const [inputValue, setInputValue] = useState(null);
+function InputComp({ addItemsAction, dispatchSearchText, searchText }) {
 	const inputElement = useRef();
 
-	const addItemHandeler = useCallback(async () => {
-		dispatchIsLoading(true);
-		await dispatchAddItems(inputValue);
-		dispatchSearchText(null);
-		dispatchIsLoading(false);
-	}, [dispatchAddItems, inputValue, dispatchIsLoading, dispatchSearchText]);
+	const addItemHandeler = useCallback(() => {
+		addItemsAction(searchText);
+		dispatchSearchText("");
+		inputElement.current.value = searchText;
+	}, [addItemsAction, dispatchSearchText, searchText]);
 
 	const eventListenerForEnter = useCallback(
 		(e) => {
-			if (inputValue && inputValue !== "" && e.keyCode === 13) {
+			if (searchText && searchText !== "" && e.keyCode === 13) {
 				addItemHandeler();
 			}
 		},
-		[inputValue, addItemHandeler]
+		[searchText, addItemHandeler]
 	);
-
-	useEffect(() => {
-		dispatchSearchText(inputValue);
-	}, [inputValue, dispatchSearchText]);
 
 	return (
 		<div className="new-task-container">
@@ -40,10 +29,11 @@ function InputComp({
 				className="task-input"
 				placeholder="Write your task here"
 				onChange={(e) => {
-					setInputValue(e.target.value);
+					dispatchSearchText(e.target.value);
 				}}
 				onKeyDown={(e) => eventListenerForEnter(e)}
 				ref={inputElement}
+				value={searchText}
 			></input>
 			<ButtonComp
 				className={"clickable pluse-icon-element"}

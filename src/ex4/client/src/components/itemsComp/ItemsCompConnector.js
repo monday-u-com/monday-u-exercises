@@ -4,8 +4,8 @@ import { getItems } from "../../redux/selectors/items-entities-selectors";
 import { getSearchText } from "../../redux/selectors/items-view-selectors";
 import ItemsComp from "./ItemsComp";
 import {
-	dispatchDeleteItem,
-	dispachUpdateItem,
+	deleteItemAction,
+	updateItemAction,
 } from "../../redux/actions/itemsEntitiesActions";
 
 const mapStateToProps = (state, ownProps) => {
@@ -15,10 +15,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return bindActionCreators(
-		{ dispatchDeleteItem, dispachUpdateItem },
-		dispatch
-	);
+	return bindActionCreators({ deleteItemAction, updateItemAction }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsComp);

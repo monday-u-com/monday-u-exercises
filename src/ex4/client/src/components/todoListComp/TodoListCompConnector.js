@@ -3,7 +3,7 @@ import { bindActionCreators } from "redux";
 import TodoListComp from "./TodoListComp";
 import {
 	setAllItemsAction,
-	dispatchClearAll,
+	clearAllAction,
 	dispatchUndoLastAction,
 } from "../../redux/actions/itemsEntitiesActions";
 import {
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return bindActionCreators(
 		{
 			setAllItemsAction,
-			dispatchClearAll,
+			clearAllAction,
 			dispatchIsLoading,
 			dispatchUndoLastAction,
 			dispatchOpenToast,

@@ -1,16 +1,9 @@
 import { isInteger } from "lodash";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useCallback } from "react";
+import { useEffect, useState } from "react";
 import "../../App.css";
 import ItemComp from "../itemComp/ItemComp";
 
-function ItemsComp({
-	items,
-	dispatchDeleteItem,
-	dispachUpdateItem,
-	searchText,
-}) {
+function ItemsComp({ items, deleteItemAction, updateItemAction, searchText }) {
 	const [filteredItems, setFilteredItems] = useState(items);
 
 	useEffect(() => {
@@ -29,29 +22,20 @@ function ItemsComp({
 		}
 	}, [items, searchText]);
 
-	const renderItems = useCallback(() => {
-		return (
-			<div>
-				{filteredItems.map((item) => {
-					return (
-						<ItemComp
-							key={item.id}
-							item={item}
-							deleteItem={async () => {
-								await dispatchDeleteItem(
-									item.id,
-									item.pokedexId ? item.pokedexId.toString() : item.itemName
-								);
-							}}
-							dispachUpdateItem={dispachUpdateItem}
-						/>
-					);
-				})}
-			</div>
-		);
-	}, [dispachUpdateItem, dispatchDeleteItem, filteredItems]);
-
-	return renderItems();
+	return (
+		<div>
+			{filteredItems.map((item) => {
+				return (
+					<ItemComp
+						key={item.id}
+						item={item}
+						deleteItemAction={deleteItemAction}
+						updateItemAction={updateItemAction}
+					/>
+				);
+			})}
+		</div>
+	);
 }
 
 export default ItemsComp;

@@ -13,7 +13,7 @@ function TodoListComp({
 	isLoading,
 	lastAction,
 	setAllItemsAction,
-	dispatchClearAll,
+	clearAllAction,
 	dispatchIsLoading,
 	dispatchUndoLastAction,
 }) {
@@ -28,15 +28,15 @@ function TodoListComp({
 	}, [lastAction]);
 
 	useEffect(() => {
-		const getAllItems = async () => {
-			await setAllItemsAction();
+		const getAllItems = () => {
+			setAllItemsAction();
 			dispatchIsLoading(false);
 		};
 		getAllItems();
 	}, [setAllItemsAction, items.length, dispatchIsLoading]);
 
-	const handleToastButton = useCallback(async () => {
-		await dispatchUndoLastAction(lastAction);
+	const handleToastButton = useCallback(() => {
+		dispatchUndoLastAction(lastAction);
 	}, [dispatchUndoLastAction, lastAction]);
 
 	const toastActions = useMemo(
@@ -50,8 +50,8 @@ function TodoListComp({
 		[handleToastButton]
 	);
 
-	const staticComps = useCallback(() => {
-		return (
+	return (
+		<div className="container">
 			<div className="margin-bottom-element">
 				<h1>Sunday.com</h1>
 				<InputCompConnector />
@@ -62,67 +62,36 @@ function TodoListComp({
 						type={Toast.types.POSITIVE}
 						closeable={false}
 						actions={toastActions}
-						onClick={async () => {
-							await handleToastButton();
+						onClick={() => {
+							handleToastButton();
 						}}
 					>
 						{lastAction.actionMessage}
 					</Toast>
 				)}
 			</div>
-		);
-	}, [handleToastButton, lastAction, toast, toastActions]);
-
-	const emptyState = useCallback(() => {
-		return <span>What is your next task?</span>;
-	}, []);
-
-	const renderListOfItems = useCallback(() => {
-		return (
-			<div>
-				<ItemsCompConnector />
-				<ButtonComp
-					imgSrc={clearIcon}
-					imgClassName={"clear-all"}
-					alt={"clear All data"}
-					onClick={dispatchClearAll}
+			{isLoading ? (
+				<ReactLoading
+					type="bubbles"
+					color="rgb(190, 59, 230)"
+					height={"20%"}
+					width={"20%"}
 				/>
-			</div>
-		);
-	}, [dispatchClearAll]);
-
-	const loader = useCallback(() => {
-		return (
-			<ReactLoading
-				type="bubbles"
-				color="rgb(190, 59, 230)"
-				height={"20%"}
-				width={"20%"}
-			/>
-		);
-	}, []);
-
-	const bulidPage = useMemo(() => {
-		return (
-			<div className="container">
-				{staticComps()}
-				{isLoading
-					? loader()
-					: items.length === 0
-					? emptyState()
-					: renderListOfItems()}
-			</div>
-		);
-	}, [
-		emptyState,
-		isLoading,
-		items.length,
-		loader,
-		renderListOfItems,
-		staticComps,
-	]);
-
-	return bulidPage;
+			) : items.length === 0 ? (
+				<span>What is your next task?</span>
+			) : (
+				<div>
+					<ItemsCompConnector />
+					<ButtonComp
+						imgSrc={clearIcon}
+						imgClassName={"clear-all"}
+						alt={"clear All data"}
+						onClick={clearAllAction}
+					/>
+				</div>
+			)}
+		</div>
+	);
 }
 
 export default TodoListComp;

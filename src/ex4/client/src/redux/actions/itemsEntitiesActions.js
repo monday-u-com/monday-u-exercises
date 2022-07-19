@@ -1,7 +1,9 @@
 import item_client from "../../item_client";
 import actionTypes from "../actions/constants/index";
+import { dispatchIsLoading } from "./itemsViewActions";
 
 const setAllItems = async () => {
+	dispatchIsLoading(true);
 	const res = await item_client.getAllItems();
 	if (res.isResOk) {
 		return { type: actionTypes.LOAD_ITEMS, payload: res.items };
@@ -15,13 +17,14 @@ export const setAllItemsAction = () => {
 };
 
 const addItems = async (value) => {
+	dispatchIsLoading(true);
 	const res = await item_client.addItem({ itemName: value });
 	if (res.isResOk) {
 		return { type: actionTypes.ADD_ITEM, payload: res.items };
 	}
 };
 
-export const dispatchAddItems = (value) => {
+export const addItemsAction = (value) => {
 	return async (dispatch) => {
 		dispatch(await addItems(value));
 	};
@@ -37,7 +40,7 @@ const updateItem = async (itemToUpdate) => {
 	}
 };
 
-export const dispachUpdateItem = (itemToUpdate) => {
+export const updateItemAction = (itemToUpdate) => {
 	return async (dispatch) => {
 		dispatch(await updateItem(itemToUpdate));
 	};
@@ -53,7 +56,7 @@ const deleteItem = async (itemId, strToRecreate) => {
 	}
 };
 
-export const dispatchDeleteItem = (itemId, strToRecreate) => {
+export const deleteItemAction = (itemId, strToRecreate) => {
 	return async (dispatch) => {
 		dispatch(await deleteItem(itemId, strToRecreate));
 	};
@@ -66,7 +69,7 @@ const clearAll = async () => {
 	}
 };
 
-export const dispatchClearAll = () => {
+export const clearAllAction = () => {
 	return async (dispatch) => {
 		dispatch(await clearAll());
 	};

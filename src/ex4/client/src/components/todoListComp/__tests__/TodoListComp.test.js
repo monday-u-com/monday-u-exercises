@@ -20,10 +20,10 @@ const items = [
 	},
 ];
 const MockFetchAll = jest.fn(() => items);
+
 describe("ListContainer", () => {
 	test("should render both items (one done and one not)", () => {
 		const FetchAll = new MockFetchAll();
-		console.log(FetchAll);
 		render(
 			<Provider store={store}>
 				<TodoListCompConnector items={items} setAllItemsAction={FetchAll} />

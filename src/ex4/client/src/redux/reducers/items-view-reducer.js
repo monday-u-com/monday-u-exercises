@@ -3,7 +3,7 @@ import actionTypes from "../actions/constants";
 const initialState = {
 	isLoading: true,
 	openToast: false,
-	searchText: null,
+	searchText: "",
 };
 
 const itemsViewReducer = (state = initialState, action) => {
