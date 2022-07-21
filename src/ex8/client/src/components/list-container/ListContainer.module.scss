@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--spacing-small);
+
+  .list {
+    height: 200px;
+    width: 100%;
+    overflow-y: scroll;
+  }
+}
