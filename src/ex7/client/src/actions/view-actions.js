@@ -21,16 +21,3 @@ export const setMarkedAction = (value) =>{
     dispatch(set_marked(value));
   }
 }
-
-// export const setSearchInputAction = (text) => {
-//   return (dispatch) => {
-//     updateTask(task)
-//       .then((response) => {
-//         if (response.status) dispatch(update_task(task));
-//         else alert(response.data);
-//       })
-//       .catch((error) => {
-//         console.error(error.message);
-//       });
-//   };
-// };

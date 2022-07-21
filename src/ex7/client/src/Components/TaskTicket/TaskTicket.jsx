@@ -6,45 +6,39 @@ import propTypes from "prop-types";
 
 import styles from "./TaskTicket.module.scss";
 
-const TaskTicket = memo(
-  ({ task, deleteTaskAction, updateTaskAction }) => {
-    const onDelete = useCallback(
-      (e) => {
-        deleteTaskAction(task);
-      },
-      [deleteTaskAction, task]
-    );
+const TaskTicket = memo(({ task, deleteTaskAction, updateTaskAction }) => {
+  const onDelete = useCallback(
+    (e) => {
+      deleteTaskAction(task);
+    },
+    [deleteTaskAction, task]
+  );
 
-    const taskAlert = useCallback(() => {
-      alert(task.itemName);
-    });
+  const taskAlert = useCallback(() => {
+    alert(task.itemName);
+  });
 
-    const onToggle = useCallback((e) => {
-      const updated = { ...task, status: e.target.checked };
-      updateTaskAction(updated);
-    });
+  const onToggle = useCallback((e) => {
+    const updated = { ...task, status: e.target.checked };
+    updateTaskAction(updated);
+  });
 
-    return (
-      <div className={styles.task}>
-        <input
-          type="checkbox"
-          onChange={onToggle}
-         checked={task.status}
-        />
-        <h3 className={styles.item_name} onClick={taskAlert}>
-          {task.itemName}
-        </h3>
-        <Icon
-          className={styles.delete}
-          icon={Delete}
-          iconSize={24}
-          onClick={onDelete}
-          ignoreFocusStyle
-        />
-      </div>
-    );
-  }
-);
+  return (
+    <div className={styles.task}>
+      <input type="checkbox" onChange={onToggle} checked={task.status} />
+      <h3 className={styles.item_name} onClick={taskAlert}>
+        {task.itemName}
+      </h3>
+      <Icon
+        className={styles.delete}
+        icon={Delete}
+        iconSize={24}
+        onClick={onDelete}
+        ignoreFocusStyle
+      />
+    </div>
+  );
+});
 
 TaskTicket.propTypes = {
   task: propTypes.object.isRequired,

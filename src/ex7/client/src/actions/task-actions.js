@@ -1,98 +1,135 @@
 import {
-  addTask,
-  getAllTasks,
+  addTask as addTaskClient,
+  getAllTasks as getAllTasksClient,
   removeAllTasks,
   removeTask,
-  updateTask,
+  updateTask as updateTaskClient,
 } from "../api/item_client";
+import { getLastRemovedTasks } from "../selectors/items-entities-selectors";
+import { store } from "../store";
+
 import actionTypes from "./constants";
 
-const add_task = (task) => ({
+const addTask = (task) => ({
   type: actionTypes.ADD_TASK,
   task,
 });
 
-const get_all_tasks = (result) => ({
+const getAllTasks = (result) => ({
   type: actionTypes.GET_ALL_TASKS,
   result,
 });
 
-const delete_all = () => ({
+const deleteAll = () => ({
   type: actionTypes.DELETE_ALL,
 });
 
-const delete_task = (task) => ({
+const deleteTask = (task) => ({
   type: actionTypes.DELETE_TASK,
   task,
 });
 
-const update_task = (task) => ({
+const updateTask = (task) => ({
   type: actionTypes.UPDATE_TASK,
   task,
 });
 
-const restore_task = (task) =>({
+const restoreTask = (task) => ({
   type: actionTypes.RESTORE_TASK,
   task,
-})
+});
+
+const toggleLoader = (toggle) => ({
+  type: actionTypes.SET_LOADER,
+  toggle,
+});
 
 export const addTaskAction = (task) => {
   return (dispatch) => {
-    addTask(task).then((response) => {
-      if (response.status) dispatch(add_task(response.data));
-      else alert(response.data);
-    });
+    dispatch(toggleLoader(true));
+    addTaskClient(task)
+      .then((response) => {
+        if (response.status) dispatch(addTask(response.data));
+        else alert(response.data);
+      })
+      .finally(() => {
+        dispatch(toggleLoader(false));
+      });
   };
 };
 
-
 export const getAllTasksAction = () => {
   return (dispatch) => {
-    getAllTasks().then((response) => {
-      dispatch(get_all_tasks(response));
-    });
+    dispatch(toggleLoader(true));
+    getAllTasksClient()
+      .then((response) => {
+        dispatch(getAllTasks(response));
+      })
+      .finally(() => {
+        dispatch(toggleLoader(false));
+      });
   };
 };
 
 export const deleteAllAction = () => {
   return (dispatch) => {
-    removeAllTasks().then(() => {
-      dispatch(delete_all());
-    });
+    dispatch(toggleLoader(true));
+    removeAllTasks()
+      .then(() => {
+        dispatch(deleteAll());
+      })
+      .finally(() => {
+        dispatch(toggleLoader(false));
+      });
   };
 };
 
 export const deleteTaskAction = (task) => {
   return (dispatch) => {
+    dispatch(toggleLoader(true));
     removeTask(task)
       .then((response) => {
-        if (response.status) dispatch(delete_task(task));
+        if (response.status) dispatch(deleteTask(task));
         else alert(response.data);
       })
       .catch((error) => {
         console.error(error.message);
+      })
+      .finally(() => {
+        dispatch(toggleLoader(false));
       });
   };
 };
 
 export const updateTaskAction = (task) => {
   return (dispatch) => {
-    updateTask(task)
+    dispatch(toggleLoader(true));
+    updateTaskClient(task)
       .then((response) => {
-        if (response.status) dispatch(update_task(task));
+        if (response.status) dispatch(updateTask(task));
         else alert(response.data);
       })
       .catch((error) => {
         console.error(error.message);
+      })
+      .finally(() => {
+        dispatch(toggleLoader(false));
       });
   };
 };
 
-export const restoreTaskAction = (task) =>{
+export const restoreTaskAction = () => {
+  const state = store.getState();
+  const lastTask = getLastRemovedTasks(state);
   return (dispatch) => {
-    addTask(task.itemName).then((response) => {
-      if (response.status) dispatch(restore_task(response.data));
-      else alert(response.data);
-    });
+    dispatch(toggleLoader(true));
+    addTaskClient(lastTask.itemName)
+      .then((response) => {
+        if (response.status) dispatch(restoreTask(response.data));
+        else alert(response.data);
+      })
+      .finally(() => {
+        dispatch(toggleLoader(false));
+      });
   };
-}
+};

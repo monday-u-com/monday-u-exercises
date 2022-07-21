@@ -6,26 +6,24 @@ import TasksContainerConnector from "../TasksContainer/TasksContainer-connector"
 import Loading from "../Loading/Loading";
 
 const TodoMainPage = ({
-  todoList,
+  todoListLength,
   addTaskAction,
-  marked,
-  removedTasks,
+  markeFilter,
+  hasRemovedTasks,
   getAllTasksAction,
   deleteAllAction,
   setSearchInputAction,
   setMarkedAction,
   restoreTaskAction,
+  isLoading,
 }) => {
   const [input, setInput] = useState("");
   const inputRef = useRef();
-  const [isLoading, setIsLoading] = useState(true);
 
-  const hasTasks = todoList?.length !== 0;
-  const hasRemovedTask = removedTasks.length !== 0;
+  const hasTasks = todoListLength !== 0;
 
   useEffect(() => {
     getAllTasksAction();
-    setIsLoading(false);
   }, []);
 
   const onInputChange = useCallback((e) => {
@@ -33,14 +31,11 @@ const TodoMainPage = ({
   }, []);
 
   const onAddClick = useCallback(() => {
-    setIsLoading(true);
     if (!isValidInput(input)) {
-      setIsLoading(false);
       return;
     }
     addTaskAction(input);
     setInput("");
-    setIsLoading(false);
   }, [addTaskAction, input]);
 
   const isValidInput = (text) => {
@@ -54,9 +49,7 @@ const TodoMainPage = ({
   };
 
   const onClearAll = useCallback(() => {
-    setIsLoading(true);
     deleteAllAction();
-    setIsLoading(false);
   }, []);
 
   const onSearchChange = useCallback((value) => {
@@ -71,8 +64,9 @@ const TodoMainPage = ({
     setMarkedAction({ unmarked: e.target.checked });
   };
   const onRestore = () => {
-    if (hasRemovedTask)
-      restoreTaskAction(removedTasks[removedTasks.length - 1]);
+    if (hasRemovedTasks)
+      // restoreTaskAction(removedTasks[removedTasks.length - 1]);
+      restoreTaskAction();
     else {
       alert("No tasks to restore!");
     }
@@ -104,7 +98,7 @@ const TodoMainPage = ({
             iconLabel="restore"
             iconSize={24}
             ignoreFocusStyle
-            clickable={hasRemovedTask}
+            clickable={hasRemovedTasks}
           />
         </div>
         <div className={styles.filters_task_div}>
@@ -120,14 +114,14 @@ const TodoMainPage = ({
           <Checkbox
             className={styles.search_tasks_marked}
             ariaLabel=""
-            checked={marked.marked}
+            checked={markeFilter.marked}
             label="Only marked"
             onChange={onOnlyMarkedChange}
           />
           <Checkbox
             className={styles.search_tasks_unmarked}
             ariaLabel=""
-            checked={marked.unmarked}
+            checked={markeFilter.unmarked}
             label="Only unmarked"
             onChange={onOnlyUnmarkedChange}
           />
@@ -138,7 +132,7 @@ const TodoMainPage = ({
       <div className={styles.bottom_app}>
         <p className={styles.footer}>
           {hasTasks
-            ? `You have ${todoList.length} tasks`
+            ? `You have ${todoListLength} tasks`
             : "WooHoo!! You have no tasks pending!"}
         </p>
         <Button
