@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders with 1 task 1`] = `
+<div
+  className="task_container"
+/>
+`;
+
+exports[`renders with multiple tasks 1`] = `
+<div
+  className="task_container"
+/>
+`;
+
+exports[`renders with no tasks 1`] = `
+<div
+  className="task_container"
+/>
+`;
+
+exports[`renders with no tasks and filterMarked is true 1`] = `
+<div
+  className="task_container"
+/>
+`;
+
+exports[`renders with no tasks and filterUnmarked is true 1`] = `
+<div
+  className="task_container"
+/>
+`;
