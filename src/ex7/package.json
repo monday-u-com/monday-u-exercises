@@ -8,6 +8,10 @@
     "start": "node server.js",
     "start:dev": "nodemon server.js",
     "build": "cd client && npm install && npm run build"
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
   },
   "author": "",
   "license": "ISC",

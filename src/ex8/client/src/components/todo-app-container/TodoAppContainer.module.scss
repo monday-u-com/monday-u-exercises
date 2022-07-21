@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 60%;
+  background-color: var(--color-snow_white);
+  border: 1px var(--color-winter) solid;
+  border-radius: 8px;
+  box-shadow: 12px 12px 38px -13px var(--color-black);
+  padding: 16px 32px;
+  gap: var(--spacing-small);
+  box-sizing: border-box;
+  overflow: hidden;
+
+  .name {
+    margin: 0;
+    padding: var(--spacing-small) 0;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .tabsList {
+    padding-bottom: var(--spacing-small);
+
+    > ul {
+      padding: 0;
+
+      & > li > a {
+        padding: 0;
+      }
+    }
+  }
+}
