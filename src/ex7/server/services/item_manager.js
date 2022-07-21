@@ -10,6 +10,10 @@ async function getAll() {
 async function addTask(taskJson) {
   const { task } = taskJson;
   let tasks = [];
+<<<<<<< HEAD
+  let result = [];
+=======
+>>>>>>> main
   const data = await getAll();
   const contentList = data.map((item) => item.itemName);
   try {
@@ -19,6 +23,21 @@ async function addTask(taskJson) {
       const newTasks = await fetchPokemonsTasks(task);
       tasks = [...newTasks];
     }
+<<<<<<< HEAD
+    for (let item of tasks) {
+      if (!contentList.includes(item)) {
+        item = { itemName: item, status: false };
+        const create = await Item.create(item);
+        result.push(create.dataValues);
+      } else {
+        throw new Error("Task already exist!");
+      }
+    }
+    return { status: true, data: result };
+  } catch (error) {
+    console.error(error.message);
+    return { status: false, data: error.message };
+=======
     for (const item of tasks) {
       if (!contentList.includes(item)) {
         await Item.create({ itemName: item, status: false });
@@ -26,6 +45,7 @@ async function addTask(taskJson) {
     }
   } catch (error) {
     console.error(error.message);
+>>>>>>> main
   }
 }
 
@@ -55,9 +75,17 @@ function _isNumbers(input) {
 
 async function deleteTask(task) {
   try {
+<<<<<<< HEAD
+    await Item.destroy({ where: { id: task.id } });
+    return { status: true };
+  } catch (error) {
+    console.error(error.message);
+    return { status: false, data: error.message };
+=======
     await Item.destroy({ where: { itemName: task } });
   } catch (error) {
     console.error(error.message);
+>>>>>>> main
   }
 }
 
@@ -68,8 +96,15 @@ async function updateTask(task) {
   };
   try {
     await Item.update(updateTask, { where: { id: task.id } });
+<<<<<<< HEAD
+    return { status: true };
   } catch (error) {
     console.error(error.message);
+    return { status: false, data: error.message };
+=======
+  } catch (error) {
+    console.error(error.message);
+>>>>>>> main
   }
 }
 
