@@ -1,31 +1,90 @@
-# Welcome to monday-u!
+# Monday Exercises - Exercise 8 - Testing
 
-Welcome to monday-u official github repository! We are very excited to have you here!  
-This is going to be so much fun! Here are a few general details:
+This is my task for Exercise 8 of Monday-U Full Stack course. Task requirements are detailed below.
 
-![](https://i.ytimg.com/vi/6_zFLsW7z2E/maxresdefault.jpg)
+-  Please try the app (older version) right here: https://weekend-todo.netlify.app/
 
-## Exercises list
+## Demo video:
 
-**Exercise 1** - [HTML, CSS, JS.](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex1)
+https://user-images.githubusercontent.com/99750449/178054260-7cbc307e-ba85-439d-a32d-63e80349e146.mp4
 
-**Exercise 2** - [In depth JS, Async JS, MVC](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex2)
+## Task requirements:
 
-**Exercise 3** - [Advance Node.js, CLI](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex3)
+-  [x] Unit tests - test `itemsEntitiesReducer` - add 3 unit tests
+       you should create a new `__tests__` folder under the reducers folder and a new test file for it
 
-**Exercise 4** - [Express.js](https://github.com/monday-u-com/monday-u-exercises/tree/main/src/ex4)
+   ```
+   client/src/reducers/__tests__/items-entities-reducer.test.js
+   ```
 
-**Exercise 5** - [Sequelize ORM](https://github.com/monday-u-com/monday-u-exercises/tree/master/src/ex5)
+   you can use this link for some help https://redux.js.org/usage/writing-tests#reducers
 
-**Exercise 6** - [React](https://github.com/monday-u-com/monday-u-exercises/tree/master/src/ex6)
+-  [x] Snapshot tests - 2 components
 
-**Exercise 7** - [Redux](https://github.com/monday-u-com/monday-u-exercises/tree/master/src/ex7)
+       ListItemComponent
+       AboutComponent
 
-**Exercise 8** - [Tests](https://github.com/monday-u-com/monday-u-exercises/tree/master/src/ex8)
+   you should create 2 new test files next to the original components in a designated folder called `__tests__`
 
-# Submitting your tasks
-Create a pull request in your forked repository and send to your mentor when it's ready.
+   ```
+   client/src/components/list-container/list-item-component/__tests__/ListItemComponent.test.jsx
+   client/src/components/about-component/__tests__/AboutComponent.test.jsx
+   ```
 
-# Solutions
+-  [x] Integration tests - send 2 items to the
 
-Every friday a new exercise and the solution for previous one will be published
+       ListContainer
+
+   you should create a new test file next to the original components in a designated folder called `__tests__`
+
+   ```
+   client/src/components/list-container/__tests__/ListContainer.test.jsx
+   ```
+
+   copy this template to it:
+
+   ```javascript
+   import { render, screen } from "@testing-library/react";
+   import ListContainer from "../ListContainer";
+   import { Provider } from "react-redux";
+   import { store } from "../../../store";
+   const items = [
+      {
+         id: 56,
+         name: "Take dog out for a walk",
+         status: false,
+      },
+      {
+         id: 32,
+         name: "Do the dishes",
+         status: true,
+      },
+   ];
+   describe("ListContainer", () => {
+      test("should render both items (one done and one not)", () => {
+         render(
+            <Provider store={store}>
+               <ListContainer items={items} fetchItems={jest.fn(() => items)} />
+            </Provider>
+         );
+         // TODO: test that both items are rendered at the list
+      });
+   });
+   ```
+
+   What does the template do?
+   it renders the ListContainer with a redux store (becuase ListContainer renders some more components that rely on the store to exist)
+
+   we also send the fetchItems function this component as a mocked function that gets us the same items (becuase we dont have a real server or action that does it)
+
+-  [x] Create a new test that mocks `fetchItems` and make sure it has been called (do it under the same test file as the ListContainer tests)
+
+### Bonus
+
+-  [x] Coverage - get to 50% coverage for `items-entities-reducer.js` file
+-  [x] Add snapshot tests with more props variations
+-  [x] Add an E2E test to the project using cypress
+
+## CLI(exc 3)
+
+[Readme](./cli-ex3/README.md)

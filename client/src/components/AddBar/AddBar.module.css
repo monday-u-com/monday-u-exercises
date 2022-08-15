@@ -1,0 +1,31 @@
+.container {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   margin-bottom: 1.2rem;
+}
+
+.add-task {
+   border: none;
+   background-color: rgb(253, 154, 41);
+   border-radius: 3px;
+   width: 3.5rem;
+   height: 3.5rem;
+   padding: 1.5rem;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.add-task:hover {
+   cursor: pointer;
+   background-color: rgb(255, 191, 0);
+}
+
+#task-text {
+   font-size: 2rem;
+}
+
+.fa-plus {
+   font-size: 2.3rem;
+}

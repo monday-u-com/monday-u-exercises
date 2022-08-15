@@ -1,0 +1,71 @@
+.task-container {
+   display: flex;
+   align-items: center;
+}
+
+.task-container:hover > .task {
+   cursor: pointer;
+   background-color: rgb(0, 200, 255);
+}
+
+.task-container:hover > .delete {
+   visibility: visible;
+}
+
+.task {
+   width: 43rem;
+   height: 3.5rem;
+   background-color: rgb(139, 218, 255);
+   font-size: 2rem;
+   padding: 1rem;
+   margin: 0.3rem;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   border-radius: 3px;
+}
+
+.delete {
+   background-color: red;
+   width: 3.5rem;
+   height: 3.5rem;
+   border-radius: 3px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-top: 0.3rem;
+   visibility: hidden;
+   border: none;
+}
+
+.delete:hover {
+   cursor: pointer;
+   background-color: rgb(221, 0, 0);
+}
+
+.deleted-message {
+   font-size: 1.7rem;
+}
+
+.undo-btn {
+   cursor: pointer;
+   border: none;
+   color: white;
+   background-color: rgb(217, 70, 70);
+   border-radius: 3px;
+   font-size: 1.7rem;
+   padding: 0.3rem 0.6rem;
+   margin-left: 5rem;
+}
+
+.undo-btn:hover {
+   background-color: rgb(51, 235, 78);
+}
+
+.fa-trash {
+   font-size: 1.6rem;
+}
+
+.pokemon-image {
+   width: 4.5rem;
+}

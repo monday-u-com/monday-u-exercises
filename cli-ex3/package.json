@@ -1,0 +1,22 @@
+{
+  "name": "weekend-to-do",
+  "version": "1.0.1",
+  "description": "This is my task for Exercise 3 of Monday-U Full Stack course.",
+  "main": "index.js",
+  "bin": "./index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Lior Tal",
+  "license": "ISC",
+  "dependencies": {
+    "asciify-image": "^0.1.8",
+    "chalk": "^5.0.1",
+    "chalklet": "^1.0.0",
+    "commander": "^9.3.0",
+    "inquirer": "^8.2.4",
+    "isomorphic-fetch": "^3.0.0"
+  }
+}
